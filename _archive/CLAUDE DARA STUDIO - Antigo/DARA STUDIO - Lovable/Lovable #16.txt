@@ -1,0 +1,15 @@
+Evolução recomendada 
+Depois podemos adicionar:
+
+drag and drop
+arrastar projeto entre colunas
+
+alertas automáticos
+⚠ deadline em 2 dias
+⚠ cliente atrasado
+
+prioridade visual
+cores:
+verde → ok
+amarelo → atenção
+vermelho → atraso

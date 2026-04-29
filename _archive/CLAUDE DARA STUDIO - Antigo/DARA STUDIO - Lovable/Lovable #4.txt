@@ -1,0 +1,15 @@
+
+------
+Renomear EMPRESAS para CLIENTES e vincular com a "area do cliente", quero automação de tudo.
+
+
+
+
+------
+Crie uma aba de "estimates", muitas vezes os clientes chegam até mim só para fazer orçamento, então preciso dessa aba para deixar automatizado essa questão de estimate BR/USA
+
+
+
+------
+Dentro da aba de cada projeto, preciso inserir informações como, PDF dos arquivos para o cliente acessar, invoices, estimates, contratos, todo o tipo de documentação tambem automatizado, junto com a aba de "area do cliente" para ele ter acessoao que eu disponibilizo para ele. Quando eu anexar o arquivo, eu preciso de um botão dizendo para enviar uma mensagem ao cliente via email/whats dizendo que tem documento novo no site, mas antes, preciso de uma aba para programar esse acesso, exemplo:
+inseri o pdf final do projeto - insiro o dia e a hora para envio ao cliente - e programo o acesso remoto a esse arquivo no mesmo dia que enviou ao cliente [no caso seria tudo programado por mim antes de ele acessar] mas quero o mais automatizado possivel.

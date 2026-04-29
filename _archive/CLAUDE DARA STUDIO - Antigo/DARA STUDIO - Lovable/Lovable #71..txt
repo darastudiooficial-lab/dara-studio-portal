@@ -1,0 +1,75 @@
+Create a new section in the system called:
+
+ESTIMATES
+
+This section is for preliminary budgets and price simulations before a project is officially created.
+
+Estimates should allow quick pricing calculations and later be converted into projects.
+
+Each estimate should include the following fields:
+
+Client Information
+- Company Name
+- Contact Person
+
+Project Market
+- Brazil
+- United States
+
+Project Type
+
+For Brazil:
+- Arquitetura
+- Interiores
+- Reforma
+- Construção
+
+For United States:
+- Architecture
+- Interior Design
+- Deck / Exterior
+- Addition / Renovation
+
+Area
+
+If Brazil is selected:
+- Area unit must be square meters (m²)
+
+If United States is selected:
+- Area unit must be square feet (ft²)
+
+Pricing Logic
+
+The system must automatically assign a price per area depending on the project type and market.
+
+Brazil pricing example:
+- Arquitetura → R$80 per m²
+- Interiores → R$120 per m²
+- Reforma → R$90 per m²
+
+USA pricing example:
+- Architecture → $1.40 per ft²
+- Interior Design → $2.00 per ft²
+- Deck / Exterior → $1.10 per ft²
+- Addition / Renovation → $1.60 per ft²
+
+Automatic Calculation
+
+Total Estimate = Area × Rate per Area
+
+Example:
+Brazil → 150 m² × R$80 = R$12,000  
+USA → 2,000 ft² × $1.40 = $2,800
+
+Add a button:
+
+Convert Estimate to Project
+
+When clicked, the system should automatically create a new project using the estimate data:
+- client
+- address
+- project type
+- area
+- calculated value
+
+This will help transform approved estimates into active projects.

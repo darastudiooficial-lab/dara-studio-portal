@@ -1,0 +1,266 @@
+Project Complexity AI Layer
+Para o SaaS de Design + Drafting Partner
+
+Essa camada analisa automaticamente:
+
+tipo de projeto
+
+programa arquitetônico
+
+tamanho da construção
+
+número de pavimentos
+
+features especiais
+
+E gera um Complexity Score.
+
+Esse score ajusta o estimate.
+
+1️⃣ Estrutura do Complexity Score
+
+Pontuação total:
+
+0 – 100 points
+
+
+Classificação:
+
+0–30  → Simple Project
+31–60 → Standard Project
+61–80 → Complex Project
+81–100 → High Complexity
+
+
+Multiplicadores aplicados:
+
+Simple → 0.90
+Standard → 1.00
+Complex → 1.15
+High Complexity → 1.30
+
+2️⃣ Variáveis analisadas pela IA
+
+A IA lê respostas do formulário.
+
+Project Size
+< 800 sqft → +5
+800–1500 → +10
+1500–3000 → +15
+3000–5000 → +20
+5000+ → +25
+
+Number of Floors
+1 floor → +5
+2 floors → +10
+3+ floors → +15
+
+Basement
+No basement → +0
+Basement → +10
+Finished basement → +15
+
+Program Requirements
+
+Cada espaço selecionado adiciona complexidade.
+
+Exemplo:
+
+Living room → +2
+Dining room → +2
+Home office → +3
+Mudroom → +2
+Laundry → +2
+Walk-in closet → +2
+
+Outdoor features
+Deck → +3
+Covered deck → +5
+Outdoor kitchen → +6
+Pergola → +3
+Balcony → +4
+
+Special architectural features
+
+Esses são grandes indicadores de complexidade.
+
+Fireplace → +5
+Wine cellar → +6
+Home theater → +6
+Gym → +5
+Elevator → +12
+Sauna → +6
+
+3️⃣ Como a IA calcula o Complexity Score
+
+Exemplo:
+
+Projeto:
+
+2800 sqft
+
+2 floors
+
+basement
+
+deck
+
+fireplace
+
+home office
+
+Pontuação:
+
+Size → 15
+Floors → 10
+Basement → 10
+Deck → 3
+Fireplace → 5
+Home Office → 3
+
+Total = 46
+
+
+Classificação:
+
+Standard Project
+
+
+Multiplicador:
+
+1.00
+
+4️⃣ Exemplo projeto mais complexo
+
+Projeto:
+
+4200 sqft
+
+3 floors
+
+finished basement
+
+outdoor kitchen
+
+elevator
+
+gym
+
+wine cellar
+
+Pontuação:
+
+Size → 20
+Floors → 15
+Basement → 15
+Outdoor kitchen → 6
+Elevator → 12
+Gym → 5
+Wine cellar → 6
+
+Total = 79
+
+
+Classificação:
+
+Complex Project
+
+
+Multiplicador:
+
+1.15
+
+5️⃣ Como isso afeta o preço
+
+Base estimate:
+
+2500 sqft × $1.60 = $4,000
+
+
+Complexity multiplier:
+
+1.15
+
+
+Final:
+
+$4,600
+
+6️⃣ Visual no Estimate Panel
+
+Cliente vê algo assim:
+
+Estimated Design Fee
+
+$4,200 – $4,800
+
+Project Complexity
+Standard
+
+Estimate Confidence
+82%
+
+7️⃣ Dados armazenados no /adm
+
+Campos novos:
+
+complexity_score
+complexity_category
+complexity_multiplier
+
+
+Exemplo:
+
+complexity_score: 46
+complexity_category: Standard
+complexity_multiplier: 1.00
+
+8️⃣ Prompt para implementar no Lovable
+
+Use esse prompt adicional.
+
+Create a Project Complexity AI Layer for the architectural estimate system.
+
+The system must analyze project inputs from the form and generate a Complexity Score from 0 to 100.
+
+Inputs analyzed:
+
+project size
+number of floors
+basement
+program requirements
+outdoor spaces
+special architectural features
+
+Each input must add points to the complexity score.
+
+Score classification:
+
+0–30 → Simple
+31–60 → Standard
+61–80 → Complex
+81–100 → High Complexity
+
+Each category must apply a multiplier to the estimate:
+
+Simple → 0.90
+Standard → 1.00
+Complex → 1.15
+High Complexity → 1.30
+
+The complexity score must update dynamically as the user fills the form.
+
+The estimate calculation must follow this formula:
+
+Final Estimate =
+Project Size × Base Rate × Complexity Multiplier
++ Optional Services
++ Rush Fee
+
+The system must display the complexity level in the estimate panel.
+
+Store the following values in the admin database:
+
+complexity_score
+complexity_category
+complexity_multiplier

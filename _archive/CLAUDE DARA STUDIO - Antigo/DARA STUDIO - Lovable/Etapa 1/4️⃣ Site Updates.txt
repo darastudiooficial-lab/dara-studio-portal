@@ -1,0 +1,100 @@
+I want to create a Construction Site Updates feature inside each project.
+
+The goal is to allow clients and team members to upload photos and videos directly from the construction site using their phone.
+
+Do not modify existing project tables or delete any data.
+
+---
+
+FEATURE NAME
+
+Project Site Updates
+
+This feature should appear inside the project page.
+
+Project → Site Updates
+
+---
+
+UPLOAD FEATURES
+
+Accepted media types:
+
+Images: jpg, jpeg, png, webp
+Videos: mp4, mov
+
+Maximum file size:
+Images → 10MB
+Videos → 100MB
+
+Users should be able to:
+
+Upload photos
+Upload short videos
+Add a text description
+Attach the update to the project
+
+Each update should include:
+
+Media file
+Description
+User who uploaded
+Timestamp
+
+---
+
+DATABASE STRUCTURE
+
+Create a new table named:
+
+site_updates
+
+Fields:
+
+id
+project_id
+uploaded_by
+media_url
+description
+created_at
+
+---
+
+MEDIA STORAGE
+
+Store uploaded files in Supabase Storage.
+
+Organize files by project:
+
+/projects/project-id/site-updates/
+
+---
+
+TIMELINE VIEW
+
+Display updates as a timeline similar to messaging apps:
+
+Photo or video preview
+Description
+User name
+Date and time
+
+Newest updates should appear first.
+
+---
+
+MOBILE EXPERIENCE
+
+This feature must be optimized for mobile devices.
+
+Users should be able to:
+
+Take a photo from the camera
+Upload instantly
+See upload progress
+
+---
+
+FINAL GOAL
+
+Clients visiting the construction site should be able to document progress in seconds directly from their phone.

@@ -1,0 +1,149 @@
+Essa etapa não poderá perder nenhum dado já feito. Organizar a conexão com o banco no Supabase, Vamos centralizar tudo em: src/services/supabase
+
+client.ts
+authService.ts
+projectService.ts
+estimateService.ts
+freelancerService.ts
+paymentService.ts
+
+
+Criar pasta de serviços Supabase
+mkdir -p src/services/supabase
+
+Criar cliente global do Supabase
+src/services/supabase/client.ts
+
+import { createClient } from "@supabase/supabase-js"
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseKey)
+
+
+Criar serviço de autenticação
+src/services/supabase/authService.ts
+import { supabase } from "./client"
+
+export const login = async (email: string, password: string) => {
+
+  return supabase.auth.signInWithPassword({
+
+    email,
+
+    password
+
+  })
+
+}
+
+export const logout = async () => {
+
+  return supabase.auth.signOut()
+
+}
+
+export const getUser = async () => {
+
+  return supabase.auth.getUser()
+
+}
+
+
+Criar serviço de Estimates
+src/services/supabase/estimateService.ts
+import { supabase } from "./client"
+
+export const createEstimate = async (data: any) => {
+
+  const { data: result, error } = await supabase
+
+    .from("estimates")
+
+    .insert([data])
+
+  return { result, error }
+
+}
+
+export const getEstimates = async () => {
+
+  const { data, error } = await supabase
+
+    .from("estimates")
+
+    .select("*")
+
+  return { data, error }
+
+}
+
+
+Criar serviço de Projects
+src/services/supabase/projectService.ts
+import { supabase } from "./client"
+
+export const getProjects = async () => {
+
+  const { data, error } = await supabase
+
+    .from("projects")
+
+    .select("*")
+
+  return { data, error }
+
+}
+
+export const createProject = async (project: any) => {
+
+  const { data, error } = await supabase
+
+    .from("projects")
+
+    .insert([project])
+
+  return { data, error }
+
+}
+
+
+Criar serviço de pagamentos
+src/services/supabase/paymentService.ts
+import { supabase } from "./client"
+
+export const getPayments = async () => {
+
+  const { data, error } = await supabase
+
+    .from("payments")
+
+    .select("*")
+
+  return { data, error }
+
+}
+
+
+Criar serviço de freelancers
+src/services/supabase/freelancerService.ts
+import { supabase } from "./client"
+
+export const getFreelancers = async () => {
+
+  const { data, error } = await supabase
+
+    .from("freelancers")
+
+    .select("*")
+
+  return { data, error }
+
+}
+
+
+Atualizar imports no projeto
+import { supabase } from "@/services/supabase/client"
+
+

@@ -1,0 +1,232 @@
+1 - SEPARAR STAGE DO PROJETO E STAGE DO PAGAMENTO
+
+Hoje você tem tudo misturado. Isso é erro estrutural.
+
+✅ Solução correta
+
+Na collection Projects, criar dois campos diferentes:
+
+1. Project Stage
+
+(Fluxo técnico do projeto)
+
+Opções:
+
+Lead
+
+Budget Sent
+
+Budget Approved
+
+Waiting Payment
+
+In Progress
+
+Preview Sent
+
+Revision
+
+Final Review
+
+Completed
+
+On Hold
+
+Cancelled
+
+Delayed
+
+2. Payment Stage
+
+(Fluxo financeiro)
+
+Opções:
+
+Not Sent
+
+Waiting Entry (50%)
+
+Entry Paid
+
+Waiting Final
+
+Paid
+
+Overdue
+
+Refunded
+
+1.2 - Está dando esse erro da imagem (primeira imagem)
+1.3 - Na imagem 2 preciso que seja mais visivel e separado por cores (em atraso, não pago e afins)
+DASHBOARD MAIS VISUAL (CORES)
+
+Criar cards com cores fixas:
+
+🔴 Delayed Projects
+🟡 Waiting Payment
+🟠 Overdue Payment
+🟢 In Progress
+🔵 Preview Sent
+⚫ Cancelled
+
+Cada card:
+
+Fundo colorido
+
+Número grande
+
+Clicável
+
+Abre lista filtrada
+
+1.4 - Embaixo de cada nome da companhia está aparecendo: No street e No city, tire. (imagem 2)
+
+1.6 - Preciso que deixe a aba de "PT" e "Ingles" e traduza todo o site para ambas linguagens.
+ADICIONAR PT / EN (MULTILINGUAL)
+
+Você precisa implementar i18n.
+
+Solução simples:
+
+Criar Language Toggle no header:
+
+🇧🇷 PT | 🇺🇸 EN
+
+
+2 - Aba de "mapas" está dando erro, não consigo acessar, corrigir. (imagem 3)
+
+3 - Na aba de pagamentos terá que puxar as informações da aba de "projetos" pois é ali que a estrutura acontece.
+PAGAMENTOS PUXANDO DADOS DE PROJECTS
+
+Isso precisa ser automático.
+
+Estrutura correta
+
+Na collection Projects:
+
+Total Value
+
+Entry %
+
+Entry Amount (formula)
+
+Final Amount (formula)
+
+Total Paid (rollup from Payments)
+
+Remaining Balance (formula)
+
+Payment Stage
+
+Na collection Payments:
+
+Project (relation)
+
+Type (Entry / Final / Extra)
+
+Amount
+
+Paid Date
+
+Method
+
+Automação:
+
+Quando criar projeto:
+→ Sistema já calcula Entry e Final
+
+Quando registrar pagamento:
+→ Atualiza Total Paid
+→ Atualiza Remaining Balance
+→ Atualiza Payment Stage automaticamente
+
+
+
+Update Admin Panel (/adm) with the following corrections and improvements:
+
+Separate Project Stage and Payment Stage into two distinct fields inside Projects.
+
+Project Stage options:
+
+Lead
+
+Budget Sent
+
+Budget Approved
+
+Waiting Payment
+
+In Progress
+
+Preview Sent
+
+Revision
+
+Final Review
+
+Completed
+
+On Hold
+
+Cancelled
+
+Delayed
+
+Payment Stage options:
+
+Not Sent
+
+Waiting Entry
+
+Entry Paid
+
+Waiting Final
+
+Paid
+
+Overdue
+
+Refunded
+
+Rebuild Project list view to remove references to deleted fields and fix rendering errors.
+
+Improve Dashboard:
+Create colored clickable cards for:
+
+Delayed Projects (red)
+
+Waiting Payment (yellow)
+
+Overdue Payment (orange)
+
+In Progress (green)
+
+Preview Sent (blue)
+
+Cancelled (gray)
+
+Hide empty address fields.
+Do not show placeholders like “No Street” or “No City”.
+
+Add language toggle (PT / EN).
+Entire admin interface must support both Portuguese and English.
+Store selected language in local storage.
+
+Fix Map page:
+Only render map when Latitude and Longitude exist.
+Add Latitude and Longitude fields to Projects.
+Show fallback message if no geolocation.
+
+Payments must pull all financial logic from Projects:
+
+Entry %
+
+Entry Amount (auto calculated)
+
+Final Amount (auto calculated)
+
+Total Paid (rollup)
+
+Remaining Balance (formula)
+Payment Stage must update automatically based on remaining balance.
+

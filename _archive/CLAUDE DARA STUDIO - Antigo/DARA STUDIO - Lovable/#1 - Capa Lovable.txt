@@ -1,0 +1,139 @@
+1) Hero mais técnico e direto
+Sugestão de headline:
+Architectural Drafting & Wood Frame Design for Builders and Architects
+
+Subheadline:
+Construction-ready drawings, code-compliant documentation and fast turnaround for residential and light commercial projects in the U.S.
+
+Botões:
+Get a Project Estimate
+View Sample Drawings
+
+
+
+2) Seção “Who We Work With”
+Inclua logo após o hero.
+
+Título:
+Who We Support
+
+Blocos:
+Home Builders – construction drawings ready for permit and site execution
+Architects – drafting support and documentation outsourcing
+Developers – design documentation for residential projects
+Contractors – wood frame layouts and detailing
+
+Nova seção: Deliverables
+Exemplo:
+Construction Documentation Includes:
+Floor Plans
+Elevations
+Sections
+Structural Layouts
+Framing Plans
+Construction Details
+
+Seção recomendada:
+Developed following International Building Code (IBC) and International Residential Code (IRC)
+
+
+
+5) Seção “How Our Process Works”
+Etapas sugeridas:
+Submit Project Information
+Receive Rough Estimate
+Review Final Proposal
+Start Drafting Process
+Receive Construction Drawings
+
+
+
+3️⃣ Botão “Área do Cliente”
+Sugestão:
+"Client Portal" - com ícone de login.
+
+
+Melhorias na seção serviços:
+Mais escaneabilidade - Adicionar ícones maiores.
+Reduzir texto - Americano não lê parágrafo longo.
+
+Architectural Drafting
+• Construction Drawings
+• Code-Compliant Plans
+• Permit Documentation
+
+
+
+7) Portfólio mais técnico
+Em cada projeto inclua:
+Project Type
+Location
+Construction Type (Wood Frame / Commercial)
+Square Footage
+
+Exemplo:
+Single Family Residence
+3,200 sq ft
+Wood Frame Construction
+Worcester, MA
+
+
+
+5️⃣ Call to Action final
+Hoje: Vamos construir algo excepcional
+Sugestão: Start Your Project with a Professional Estimate
+Botão: Get a Project Estimate
+
+
+6️⃣ Sugestão MUITO estratégica
+Adicionar uma seção nova antes do portfólio: -“Como trabalhamos”
+
+Fluxo simples:
+1. Submit Project Details
+2. Receive Rough Estimate
+3. Review Final Proposal
+4. Start Your Project
+
+
+
+7️⃣Adicionar uma seção:
+Construction Codes:
+Projects Developed Following
+International Building Code (IBC)
+and International Residential Code (IRC)
+
+
+8️⃣ Sugestão de SEO (importantíssimo)
+Você precisa usar palavras-chave:
+Architectural Drafting Services
+Wood Frame Design
+Construction Drawings USA
+Permit Drawings
+
+
+9️⃣ Adicionar uma seção: - Para quem trabalhamos
+Home Builders
+Contractors
+Developers
+Architects
+
+
+
+9) Integração com o sistema de estimate
+Seu diferencial real é o estimate automatizado.
+Destaque isso em uma pequena seção: Fast Project Estimates for Builders
+
+Texto curto explicando: Submit project information and receive a preliminary estimate before starting the design process.
+
+
+
+10) Pequeno detalhe de UX
+Na seção de serviços, reduza parágrafos e use bullet points.
+Builders escaneiam conteúdo rapidamente.
+
+Exemplo:
+Architectural Drafting
+Permit drawings
+Construction documentation
+Code-compliant plans
+

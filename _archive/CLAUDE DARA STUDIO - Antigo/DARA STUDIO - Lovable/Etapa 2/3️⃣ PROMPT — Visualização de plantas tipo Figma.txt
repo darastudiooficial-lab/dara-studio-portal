@@ -1,0 +1,112 @@
+I want to implement an interactive Drawing Review system similar to Figma-style comments.
+
+This feature will allow users to comment directly on architectural drawings.
+
+IMPORTANT:
+
+Do NOT delete or modify existing tables or drawing records.
+
+---
+
+FEATURE NAME
+
+Drawing Comments
+
+Location:
+
+Project → Drawings → Review
+
+---
+
+DRAWING VIEWER
+
+Display drawings in a zoomable viewer.
+
+Users should be able to:
+
+Zoom
+Pan
+View high resolution
+
+Supported formats:
+
+PDF
+PNG
+JPG
+
+---
+
+COMMENT SYSTEM
+
+Users should be able to click anywhere on the drawing and leave a comment.
+
+Each comment should contain:
+
+User
+Comment text
+Coordinates on the drawing
+Timestamp
+
+---
+
+DATABASE STRUCTURE
+
+Create a new table:
+
+drawing_comments
+
+Fields:
+
+id
+drawing_id
+project_id
+user_id
+comment_text
+x_position
+y_position
+created_at
+
+---
+
+COMMENT THREADS
+
+Allow replies inside each comment thread.
+
+---
+
+VISUAL MARKERS
+
+When a comment is added:
+
+Show a numbered marker on the drawing.
+
+Clicking the marker should open the comment thread.
+
+---
+
+CLIENT INTERACTION
+
+Clients should be able to:
+
+View drawings
+Add comments
+Reply to comments
+
+But only admins can upload new drawings.
+
+---
+
+TIMELINE INTEGRATION
+
+When comments are added show events in the timeline.
+
+Example:
+
+Client commented on Floor Plan
+Architect replied to drawing comment
+
+---
+
+FINAL GOAL
+
+Drawings should become collaborative workspaces where architects and clients can discuss changes visually directly on the plan.

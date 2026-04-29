@@ -1,0 +1,173 @@
+I want to implement a Client Drawing Approval system inside each project.
+
+The goal is to allow clients to review architectural drawings and approve or request revisions directly inside the platform.
+
+IMPORTANT:
+Do NOT delete, reset, or rename existing database tables or records.
+
+All current tables such as:
+
+projects
+companies
+documents
+messages
+payments
+invoices
+
+must remain intact.
+
+You may create new tables only when required for this feature.
+
+---
+
+FEATURE NAME
+
+Drawing Approval
+
+Location in the system:
+
+Project → Drawings → Approval
+
+---
+
+FEATURE PURPOSE
+
+Clients should be able to review architectural drawings and either:
+
+Approve the drawing
+Request revisions
+Leave comments
+
+This should eliminate the need for email approvals.
+
+---
+
+DRAWING VERSION SYSTEM
+
+Each drawing must support versioning.
+
+Example:
+
+Floor Plan v1
+Floor Plan v2
+Floor Plan v3
+
+Only the latest version should be marked as "Pending Approval".
+
+Older versions should remain archived.
+
+---
+
+DRAWING STATUS
+
+Each drawing should have a status field:
+
+Draft
+Pending Client Approval
+Approved
+Revision Requested
+
+Admins should be able to change the status to "Pending Client Approval".
+
+Clients should only be able to:
+
+Approve
+Request Revision
+
+---
+
+CLIENT REVIEW INTERFACE
+
+Inside the Client Portal, the client should see a list of drawings that require approval.
+
+For each drawing display:
+
+Drawing name
+Preview image or PDF viewer
+Version number
+Upload date
+Status
+
+Clients should be able to:
+
+View drawing in full screen
+Zoom in/out
+Download the drawing
+
+---
+
+CLIENT ACTIONS
+
+Clients should have two main actions:
+
+Approve Drawing
+Request Revision
+
+If the client clicks Approve:
+
+Record approval timestamp
+Record approving user
+
+If the client requests revision:
+
+Allow client to write a comment describing the requested changes.
+
+---
+
+DATABASE STRUCTURE
+
+Create a table named:
+
+drawing_approvals
+
+Fields:
+
+id
+drawing_id
+project_id
+approved_by
+approval_status
+client_comment
+created_at
+
+---
+
+TIMELINE INTEGRATION
+
+When a drawing is approved or revision is requested, automatically add an event to the project timeline.
+
+Examples:
+
+📄 Floor Plan v3 approved by client
+📝 Client requested revision on Kitchen Layout
+
+---
+
+NOTIFICATIONS
+
+When a drawing is sent for approval:
+
+Notify the client.
+
+When a client approves or requests revision:
+
+Notify the admin team.
+
+---
+
+VISUAL INDICATORS
+
+Use clear status indicators:
+
+Draft → gray
+Pending Approval → yellow
+Approved → green
+Revision Requested → red
+
+---
+
+FINAL GOAL
+
+Clients should be able to review and approve architectural drawings directly from the portal with a simple and clear interface.
+
+This system should become the official approval process for project documents.

@@ -1,0 +1,49 @@
+Então vamos falar de valores primeiro:
+Exemplo simplificado:
+
+BASE_PRICE 
++ AREA_FACTOR
++ COMPLEXITY_FACTOR
++ LEVELS_FACTOR
++ SERVICES_SELECTED
++ LOCATION_FACTOR
++ URGENCY_FACTOR (Rush Fee)
+= ESTIMATE
+
+
+
+
+
+Estrutura ideal para seu SaaS
+Seu sistema vai ter:
+/estimate
+   smart-form
+   instant-calculator
+   proposal-generator
+
+/dashboard
+   leads
+   kanban
+   proposals
+   projects
+
+
+O que acontece quando ele envia
+Automação importante:
+Quando o cliente envia:
+Lead criado automaticamente
+↓
+Estimate salvo
+↓
+Projeto criado no CRM
+↓
+Kanban = New Lead
+
+E você recebe:
+NEW PROJECT REQUEST
+Client: John Smith
+Project: Residential Addition
+Area: 2,400 sqft
+Estimate: $4,200 – $5,600
+Timeline: Rush (3 weeks)
+

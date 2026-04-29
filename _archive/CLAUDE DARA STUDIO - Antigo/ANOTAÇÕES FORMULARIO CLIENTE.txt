@@ -1,0 +1,14 @@
+No portal do cliente (outra conta sozinha), o formulario está ficando em branco antes da pagina "review", corrigir erro
+
+
+
+Precisamos que o chat boot passe uma varredura e liste todos os pontos que não estão funcionando e que precisam funcioar ou melhorar, fazendo assim uma lista onde podemos ir por ordem para ajstar cada coisa necessária.
+
+
+
+Na aba "meus projetos" tem um lapis para editar informações, só que quando clico nele, edita apenas o nome do projeto, a ideia aqui é editar quais quer outra informações do projeto, exemplo, cliente quer anexar mais informações, ele escreveu um endereço errado, agora, se ele for mexer na medida, assim sim, abri uma janela/chat/ticket para ele conversar com a equipe sobre as dimensões, no mais, se não implicar no valor final do projeto, ele pode editar e salvar. Lembrando sempre que qualquer alteração é importante criar um "log" onde apareça nome da pessoa, hora e dia que editou e aparece tambem a seção que editou.
+
+
+
+Depois que o formulario principal do site estiver pronto, precisamos adaptar ele aqui.
+

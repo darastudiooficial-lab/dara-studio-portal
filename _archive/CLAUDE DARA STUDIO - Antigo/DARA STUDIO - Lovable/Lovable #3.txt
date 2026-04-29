@@ -1,0 +1,45 @@
+Tabela de Clientes (Customers)
+Esta tabela vai armazenar quem te contrata. Isso evita que você digite o nome do cliente várias vezes e perca o histórico dele.
+Nome/Empresa: (ex: Dapo Olagbaju-SixFortyFive LLC , Alysson-Thrive Contracting LLC , Marcos e Thayssa Calimann ).
+Tipo de Cliente: Construtora, Cliente Final, Real Estate.
+
+------------
+
+Tabela Principal: Projetos (Projects)
+Este será o coração da sua aba. Cada linha será um projeto/endereço único atrelado a um cliente.
+Cliente: (Campo de relação puxando da Tabela 1).
+Endereço do Projeto: (ex: 14 Meadowbrook Rd-Dover, MA , Rancho Caliman - Rondônia ).
+Tipo de Serviço: (Menu suspenso/Tags: Remodeling , 3D Kitchen , Architecture, PDF-Cad ).
+Metragem (Square Feet): (Número - ex: 720, 12200 ).
+Fase / Status: (Menu suspenso: Não Executado , In Progress, Preview Delivered , Entregue , Revisão ).
+Data de Início: (Data ).
+Data de Entrega / Prazo: (Data ).
+
+------------
+
+Tabela Financeira (Financials)
+Como você tem tabelas complexas de precificação com variações de multiplicadores (W/STRIPE, FULL, REL, PARTNER), separar o financeiro ajuda a não poluir a visualização das entregas.
+Projeto Relacionado: (Relação com a Tabela 2).
+Valor USD ($): (Número ).
+Valor BRL (R$): (Número ).
+Tabela de Preço Aplicada: (Menu suspenso: W/ Stripe (1.515), W/O Stripe (1.31), Partner, etc. ).
+Status do Pagamento: (Menu suspenso: 50% , 100%, Pendente).
+Custos com Terceiros (Emily): (Número - ex: R$ 150,00 ).
+Observações de Pagamento: (Texto longo - ex: "Total recebido pelo Stripe R$ 1.465,75" ou "Dapo paid U$3500" ).
+
+------------
+
+Tabela de Log / Acompanhamento (Activity Log)
+Essa tabela serve para você registrar aquele histórico de "diário de obra/projeto" que estava nas suas anotações .
+Projeto Relacionado: (Relação com a Tabela 2).
+Data do Evento: (Data - ex: 04/03/2026 ).
+Descrição: (Texto longo - ex: "Mandei o arquivo hoje para a Emily" , "Inicio da segunda modificação Cozinha - 3D" , "Aprovou o projeto para finalização" ).
+
+------------
+
+
+Como inserir isso no Lovable:
+No Lovable, vá até a seção onde você configura o Banco de Dados / Backend (geralmente integrando com o Supabase).
+Crie essas 4 tabelas exatamente com as colunas (campos) listadas acima.
+Peça para o Lovable gerar um Dashboard (Painel Administrativo) onde a tela inicial mostre uma lista (ou um quadro Kanban estilo Trello) alimentada pela tabela Projects, filtrada por "Status" (para você ver o que está pendente, o que está em revisão e o que já foi entregue).
+

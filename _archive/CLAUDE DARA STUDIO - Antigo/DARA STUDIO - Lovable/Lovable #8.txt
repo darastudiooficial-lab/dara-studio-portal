@@ -1,0 +1,257 @@
+Estrutura ideal do sistema
+1️⃣ Client Intake Form (Formulário inicial)
+
+Esse é o formulário público que você envia para o cliente.
+
+Objetivo:
+
+coletar informações mínimas
+
+gerar Rough Estimate automático
+
+Campos recomendados:
+
+Informações do cliente
+
+Name
+
+Email
+
+Phone
+
+Company (optional)
+
+Local do projeto
+
+Address (Google Places)
+
+City
+
+State
+
+Country
+
+Tipo de projeto
+
+Single Family Home
+
+Addition
+
+Remodel
+
+ADU
+
+Deck
+
+Commercial
+
+Área do projeto
+
+Se Brasil
+→ m²
+
+Se EUA
+→ ft²
+
+Upload obrigatório
+
+Site photos
+
+Property survey / plot plan
+
+Measurements (if available)
+
+Pergunta importante
+
+Do you have the following information?
+
+Property Survey / Plot Plan
+
+Site Photos
+
+Measurements
+
+Se não tiver todos →
+o sistema mostra:
+
+Rush Service is not available because required documentation is missing.
+
+------------
+
+2️⃣ Rough Estimate (automático)
+
+Após enviar o formulário:
+
+O sistema gera automaticamente:
+
+Rough Estimate
+
+Exemplo:
+
+Project Type: Addition
+Area: 2,000 ft²
+Rate: $1.40 / ft²
+
+Total Estimate:
+$2,800
+
+Mensagem padrão:
+
+This is a preliminary estimate based on the information provided.
+Final pricing will be confirmed after project review.
+
+Botão disponível:
+
+Request Final Proposal
+
+-------------
+
+3️⃣ Final Proposal Request (ESSE FORMULARIO EU JÁ FIZ NO JOTFORM, MAS PODEMOS MELHORAR ELE)
+
+Se o cliente clicar nesse botão:
+
+abre formulário mais detalhado.
+
+Campos adicionais:
+
+Scope confirmation
+
+Architectural Plans
+
+Interior Design
+
+3D Visualization
+
+Construction Documents
+
+Timeline
+
+When do you need the project?
+
+Flexible
+
+2–4 weeks
+
+Rush service
+
+-------------
+
+4️⃣ Rush Fee Logic (SE ELE ANEXAR OS 3 ITENS OU MAIS QUE QUERO, E TER TODAS AS INFORMAÇÕES EM MÃOS, AI SIM ELE CONSEGUE DAR CONTINUIDADE NO ORÇAMENTO, CASO ELE DEIXE PARA TRÁS 1 ITEM, AI ELE NÃO CONSEGUE ENVIAR O ORÇAMENTO E TERÁ QUE "DESATIVAR O BOTÃO DE RUSH FEE")
+
+Aqui entra sua ideia.
+
+Rush só pode ser ativado se:
+
+Plot plan enviado
+
+Fotos enviadas
+
+Medidas enviadas
+
+Se tudo estiver presente:
+
+Mostrar:
+
+Rush Service (optional)
+
+Checkbox:
+
+☐ Add Rush Service (+15%)
+
+Descrição:
+
+Rush service prioritizes your project in our workflow and reduces the delivery timeline.
+
+Cálculo automático
+Final Proposal = Estimate + 15% (if rush selected)
+
+-------------
+
+5️⃣ Geração automática de PROPOSAL
+
+Após envio do formulário final:
+
+O sistema gera automaticamente:
+
+Proposal PDF
+
+Com:
+
+Proposal Structure
+
+Header
+
+DARA Studio | Drafting & 3D Support
+Project Proposal
+
+Client Information
+
+Name
+Project Address
+
+Scope of Work
+
+Floor Plans
+
+Exterior Elevations
+
+Construction Details
+
+Project Cost
+
+Base Fee
+Rush Fee (if applicable)
+
+Total Fee
+
+Payment Terms
+
+50% Deposit
+50% Final Delivery
+
+Estimated Timeline
+
+Preview Delivery: 8–10 business days
+
+Botão:
+
+Accept Proposal
+
+----------
+
+6️⃣ Conversão automática para Project
+
+Se cliente aceitar:
+
+Sistema cria automaticamente:
+
+Project
+
+Preenchendo:
+
+endereço
+
+cliente
+
+valor
+
+pagamento
+
+prazo
+
+serviços
+
+Fluxo completo
+
+Client Form
+↓
+Rough Estimate
+↓
+Final Proposal Request
+↓
+Proposal PDF
+↓
+Accept Proposal
+↓
+Project Created
+

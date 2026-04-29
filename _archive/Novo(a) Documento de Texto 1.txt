@@ -1,0 +1,11 @@
+# 1. Copie o HTML para a pasta do servidor
+cp dara-studio-unified.html dara-email-server
+
+# 2. Entre na pasta e rode
+cd dara-email-server
+node server.js
+# → Deve aparecer ✅  DARA Email Server is ready
+
+# 3. Abra httplocalhost5000
+# 4. Preencha o formulário até a Etapa 8
+# 5. Clique Save for Later → botão mostra Sending... → e-mail chega em darastudiooficial@gmail.com

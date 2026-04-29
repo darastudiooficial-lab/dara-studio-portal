@@ -1,0 +1,2 @@
+Na aba de "SOLICITAR ORÇAMENTO" - precisamos fazer a mesma coisa que fizemos dentro do ADM.
+Perguntar antes, ou ter um botão de escolha unica se o projeto será BR ou USA.

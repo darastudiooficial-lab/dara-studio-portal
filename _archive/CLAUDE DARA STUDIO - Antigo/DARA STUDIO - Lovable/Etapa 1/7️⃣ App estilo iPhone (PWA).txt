@@ -1,0 +1,155 @@
+I want to convert the Client Portal into a mobile-first Progressive Web App (PWA) that behaves like a native mobile application.
+
+The goal is for clients to install the platform on their phone and access their architecture projects as if it were a real app.
+
+IMPORTANT:
+Do NOT delete or modify any existing database tables or data.
+
+This feature should only improve the frontend experience and mobile capabilities.
+
+---
+
+FEATURE NAME
+
+Client Portal Mobile App (PWA)
+
+---
+
+INSTALLABLE APP
+
+Users should be able to install the portal directly on their phone.
+
+Requirements:
+
+• Add a Web App Manifest
+• Enable install to home screen
+• Show an app icon on the phone
+• Launch in standalone mode (no browser UI)
+
+---
+
+PWA CONFIGURATION
+
+Create a manifest file with:
+
+App Name: Dara Studio Portal
+Short Name: Dara Portal
+Theme Color: Black
+Background Color: Off White
+
+Add icons:
+
+192x192
+512x512
+
+The app should launch in full-screen mode.
+
+---
+
+SERVICE WORKER
+
+Implement a service worker to provide:
+
+Basic offline support
+Caching for faster loading
+Improved mobile performance
+
+Cache:
+
+dashboard
+projects
+messages
+recent files
+
+---
+
+MOBILE NAVIGATION
+
+Create a bottom navigation bar similar to modern mobile apps.
+
+Tabs should include:
+
+Projects
+Timeline
+Messages
+Files
+Payments
+Profile
+
+Icons should be minimal and modern.
+
+---
+
+PROJECT MOBILE VIEW
+
+When opening a project on mobile, users should see:
+
+Project Overview
+Timeline
+Drawings
+Files
+Payments
+Site Updates
+Messages
+
+Content should be optimized for vertical scrolling.
+
+---
+
+CAMERA AND MEDIA UPLOAD
+
+Allow mobile users to:
+
+Take photos directly from the camera
+Upload images and videos
+Attach files to projects
+
+This is especially important for construction site updates.
+
+---
+
+PUSH NOTIFICATIONS
+
+Prepare the system for push notifications.
+
+Clients should receive notifications when:
+
+New message is posted
+Drawing needs approval
+New document uploaded
+Payment request created
+Construction update posted
+
+---
+
+MOBILE UI DESIGN
+
+The design must feel like a modern mobile app.
+
+Requirements:
+
+Large touch-friendly buttons
+Clear typography
+Minimal interface
+Fast loading
+Smooth transitions
+
+Color palette:
+
+Black
+Gold
+Off White
+
+---
+
+LOGIN EXPERIENCE
+
+Enable persistent login so users do not need to log in every time they open the app.
+
+Use Supabase authentication session persistence.
+
+---
+
+FINAL GOAL
+
+Clients should be able to install the platform on their phone and interact with their architecture projects as if they were using a professional mobile app.

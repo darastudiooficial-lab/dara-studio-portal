@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DARA Studio — Portal do Cliente v2 Consolidado</title>
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f5f3ef;color:#1a1814;min-height:100vh}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sp{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.fa{animation:fu .28s ease both}
+.nb{background:none;border:none;cursor:pointer;font-family:inherit}
+.inp{width:100%;border:1.5px solid #e2ddd6;border-radius:8px;padding:9px 12px;font-size:13px;color:#1a1814;background:#f5f3ef;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .15s}
+.inp:focus{border-color:#b89b6a}
+.ta{width:100%;border:1.5px solid #e2ddd6;border-radius:8px;padding:9px 12px;font-size:12px;color:#1a1814;background:#edeae4;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;min-height:70px;transition:border-color .15s}
+.ta:focus{border-color:#b89b6a}
+.btn{background:#b89b6a;border:none;border-radius:8px;padding:8px 18px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.btn:hover{opacity:.9}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.nav{width:100%;display:flex;align-items:center;gap:9px;padding:9px 12px;border:none;border-radius:8px;color:rgba(255,255,255,0.45);font-size:13px;font-family:inherit;cursor:pointer;background:none;transition:all .15s;text-align:left}
+.nav:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.78)}
+.nav.ac{background:rgba(184,155,106,0.15);color:#b89b6a;font-weight:600}
+.card{background:#fff;border:1px solid #e2ddd6;border-radius:10px;padding:14px 18px}
+.prow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.04)}
+.tab{background:none;border:none;padding:10px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+/* Estimate Form */
+.einp{width:100%;border:1.5px solid #e2ddd6;border-radius:8px;padding:9px 12px;font-size:13px;color:#1a1814;background:#edeae4;font-family:inherit;outline:none;box-sizing:border-box}
+.einp:focus{border-color:#b89b6a;background:#fff}
+.ecard{background:#fff;border:1.5px solid #e2ddd6;border-radius:10px;padding:13px 15px;cursor:pointer;transition:all .15s;text-align:left;width:100%}
+.ecard:hover{border-color:#b89b6a}
+.ecard.sel{background:rgba(184,155,106,0.12);border-color:#b89b6a}
+.escope{background:#edeae4;border:1.5px solid #e2ddd6;border-radius:9px;padding:10px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
+.escope.sel{background:rgba(184,155,106,0.12);border-color:#b89b6a}
+.estep{display:flex;align-items:center;flex:1}
+.estep-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .2s}
+.estep-line{flex:1;height:2px;transition:background .2s}
+</style>
+</head>
+<body>
+<div id="app" style="min-height:100vh"></div>
+<script>
+(function(){
+const {useState,useEffect,useRef,useCallback,createElement:e,Fragment}=React;
+
+/* ═══════════════════════════════════════════════
+   COLORS & TOKENS
+═══════════════════════════════════════════════ */
+const G='#b89b6a',GD='rgba(184,155,106,0.13)',GB='rgba(184,155,106,0.28)';
+const BG='#f5f3ef',BG2='#fff',BG3='#edeae4',BG4='#e4e0d8',SB='#1a1814';
+const TX='#1a1814',MU='#6b6760',DM='#a09b94',BR='#e2ddd6',BR2='#d4cfc6';
+const GN='#2d8653',GNB='rgba(45,134,83,0.10)';
+const AM='#c07c0a',AMB='rgba(192,124,10,0.10)';
+const RD='#b83232',RDB='rgba(184,50,50,0.09)';
+const BL='#2566a8',BLB='rgba(37,102,168,0.09)';
+const SR="Georgia,serif",SS="'Segoe UI',system-ui,sans-serif";
+const fmt=n=>'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2});
+const fmtShort=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+
+/* ═══════════════════════════════════════════════
+   SVG ICON SYSTEM
+═══════════════════════════════════════════════ */
+const Ic=({d,s=14,c='currentColor',style:st={}})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:c,strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',style:{flexShrink:0,...st}},
+  ...(Array.isArray(d)?d:[d]).map((p,i)=>e('path',{key:i,d:p}))
+);
+const I={
+  dash:['M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z','M9 22V12h6v10'],
+  folder:['M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'],
+  rcpt:['M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2','M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2','M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2'],
+  chat:'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  usr:['M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2','M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'],
+  bld:['M3 21h18','M9 21V7l6-4v18','M9 21H3V9l6-2'],
+  out:['M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4','M16 17l5-5-5-5','M21 12H9'],
+  plus:['M12 5v14','M5 12h14'],
+  back:['M19 12H5','M12 19l-7-7 7-7'],
+  bell:['M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9','M13.73 21a2 2 0 0 1-3.46 0'],
+  send:['M22 2L11 13','M22 2l-7 20-4-9-9-4z'],
+  x:['M18 6 6 18','M6 6l12 12'],
+  up:['M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4','M17 8l-5-5-5 5','M12 3v12'],
+  menu:'M3 12h18M3 6h18M3 18h18',
+  trend:['M23 6l-9.5 9.5-5-5L1 18','M17 6h6v6'],
+  eye:['M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z','M12 12m-3 0a3 3 0 1 0 6 0 3 3 0 0 0-6 0'],
+  eyex:['M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94','M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24','M1 1l22 22'],
+  check:['M20 6 9 17l-5-5'],
+  alert:['M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z','M12 9v4','M12 17h.01'],
+  info:['M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z','M12 16v-4','M12 8h.01'],
+  file:['M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z','M14 2v6h6'],
+  dload:['M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z','M14 2v6h6','M12 18v-6','M9 15l3 3 3-3'],
+  mail:['M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z','M22 6l-10 7L2 6'],
+  zap:'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  tkt:['M15 5v2','M15 11v2','M15 17v2','M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z'],
+  img:['M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z','M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'],
+};
+
+/* ═══════════════════════════════════════════════
+   DEMO DATA
+═══════════════════════════════════════════════ */
+const DEMO_USER={id:'u1',name:'Jackson Da Silva',company:'Jack General Services Inc.',email:'jackgeneraloffice@gmail.com',phone:'+1 (617) 775-0179',initials:'JD',avatar:null};
+const DEMO_PROJECTS=[
+  {id:1,code:'DARA-0010',address:'41 Bowdoin Ave',city:'Dorchester, MA',service:'New Construction — Single Family',stage:'Detalhamento',status:'on_track',budget:2718,paid:0,progress:6,updatedAt:'18/03/2026',pending:'Aguardando informações do cliente'},
+  {id:2,code:'DARA-0008',address:'88 Dover St',city:'Boston, MA',service:'Commercial Office Renovation',stage:'Estudo Preliminar',status:'on_track',budget:4200,paid:2100,progress:50,updatedAt:'14/03/2026',pending:null},
+  {id:3,code:'DARA-0005',address:'215 Hampton Rd',city:'Brookline, MA',service:'Interior Design — Living Room',stage:'Entrega Final',status:'completed',budget:1800,paid:1800,progress:100,updatedAt:'28/02/2026',pending:null},
+];
+const DEMO_INVOICES=[
+  {id:'INV-2026-003',project:'41 Bowdoin Ave',amount:1359,status:'pending',due:'15/04/2026'},
+  {id:'INV-2026-002',project:'88 Dover St',amount:1400,status:'pending',due:'30/03/2026'},
+  {id:'INV-2026-001',project:'88 Dover St',amount:700,status:'paid',due:'10/03/2026'},
+];
+const DEMO_ACTIVITY=[
+  {id:1,type:'file',text:'Novo arquivo publicado em 41 Bowdoin Ave',time:'2h atrás'},
+  {id:2,type:'invoice',text:'Fatura INV-2026-002 vence em 10 dias',time:'1d atrás'},
+  {id:3,type:'message',text:'Nova mensagem de Daniela (DARA Studio)',time:'2d atrás'},
+];
+
+/* ═══════════════════════════════════════════════
+   PRICING ENGINE
+═══════════════════════════════════════════════ */
+const BASE_RATE=1.44;
+const SVC_MULT={full_construction:1.0,floor_plans_only:0.50,pdf_to_cad:0.35};
+const SVC_LABEL={full_construction:'Full Construction',floor_plans_only:'Floor Plans Only',pdf_to_cad:'PDF to CAD'};
+const SVC_COLOR={full_construction:AM,floor_plans_only:GN,pdf_to_cad:BL};
+
+function calcPrice(sqft,service,delivery){
+  if(!sqft||!service)return null;
+  const base=sqft*BASE_RATE*(SVC_MULT[service]||1);
+  const mult=delivery==='rush'?1.40:delivery==='express'?1.60:1;
+  return{low:Math.round(base*mult*.82),high:Math.round(base*mult),base:Math.round(base),rushAmt:Math.round(base*.40),exprAmt:Math.round(base*.60)};
+}
+
+const US_STATES=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming","Washington D.C."];
+const BR_STATES=["Acre","Alagoas","Amapá","Amazonas","Bahia","Ceará","Distrito Federal","Espírito Santo","Goiás","Maranhão","Mato Grosso","Mato Grosso do Sul","Minas Gerais","Pará","Paraíba","Paraná","Pernambuco","Piauí","Rio de Janeiro","Rio Grande do Norte","Rio Grande do Sul","Rondônia","Roraima","Santa Catarina","São Paulo","Sergipe","Tocantins"];
+
+const E_STEPS=['Location','Details','Review','Scope','Rooms','Files','Rush','Submit'];
+const statusLabel={on_track:'Em Andamento',attention:'Atenção',completed:'Concluído'};
+const statusColor={on_track:{bg:GNB,c:GN},attention:{bg:AMB,c:AM},completed:{bg:BLB,c:BL}};
+
+/* ═══════════════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════════════ */
+const Badge=({s})=>{const sc=statusColor[s]||statusColor.on_track;return e('span',{style:{display:'inline-flex',alignItems:'center',gap:4,fontSize:11,fontWeight:600,background:sc.bg,color:sc.c,borderRadius:20,padding:'2px 9px'}},e('span',{style:{width:5,height:5,borderRadius:'50%',background:sc.c,flexShrink:0}}),statusLabel[s]||s);};
+
+const NavItem=({ico,label,active,badge,collapsed,onClick})=>e('button',{className:'nav'+(active?' ac':''),onClick,style:{justifyContent:collapsed?'center':'flex-start',padding:collapsed?'10px 0':'9px 12px',position:'relative'}},
+  e(Ic,{d:I[ico],s:15,c:'currentColor'}),
+  !collapsed&&e('span',{style:{flex:1}},label),
+  !collapsed&&badge>0&&e('span',{style:{background:G,color:SB,borderRadius:10,fontSize:10,fontWeight:700,minWidth:18,height:18,display:'flex',alignItems:'center',justifyContent:'center',padding:'0 5px'}},badge),
+  collapsed&&badge>0&&e('span',{style:{position:'absolute',top:6,right:6,width:7,height:7,borderRadius:'50%',background:G}})
+);
+
+const ProjectThumb=({service,size=56})=>{
+  const s=(service||'').toLowerCase();
+  const isInt=s.includes('interior')||s.includes('design');
+  const isCom=s.includes('commercial')||s.includes('office');
+  const bg=isInt?BLB:isCom?AMB:GNB;
+  const clr=isInt?BL:isCom?AM:GN;
+  const ico=isInt?'img':isCom?'bld':'folder';
+  return e('div',{style:{width:size,height:size,borderRadius:10,background:bg,border:'1px solid '+clr.replace(')',',0.25)').replace('rgb','rgba'),display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+    e(Ic,{d:I[ico],s:Math.round(size*.45),c:clr})
+  );
+};
+
+/* ═══════════════════════════════════════════════
+   LOGIN SCREEN
+═══════════════════════════════════════════════ */
+const Login=({onLogin})=>{
+  const[tab,setTab]=useState('in');
+  const[em,setEm]=useState('');
+  const[pw,setPw]=useState('');
+  const[nm,setNm]=useState('');
+  const[show,setShow]=useState(false);
+  const[busy,setBusy]=useState(false);
+  const[err,setErr]=useState('');
+  const[ok,setOk]=useState('');
+  const go=()=>{
+    if(!em||!pw){setErr('Preencha todos os campos.');return;}
+    setErr('');setBusy(true);
+    setTimeout(()=>{
+      setBusy(false);
+      if(tab==='in'){
+        if(em==='joao@darastudio.com'&&pw==='teste123')onLogin({...DEMO_USER});
+        else setErr('E-mail ou senha incorretos.');
+      }else{
+        if(pw.length<6){setBusy(false);setErr('Senha: mínimo 6 caracteres.');return;}
+        setOk('Conta criada! Verifique seu e-mail para confirmar.');setTab('in');
+      }
+    },700);
+  };
+  const inpS={width:'100%',border:'1.5px solid '+BR,borderRadius:8,padding:'9px 12px',fontSize:13,color:TX,background:BG2,fontFamily:SS,outline:'none',transition:'border-color .15s'};
+  return e('div',{className:'fa',style:{minHeight:'100vh',background:BG,display:'flex',alignItems:'center',justifyContent:'center',gap:48,padding:24,flexWrap:'wrap'}},
+    e('div',{style:{width:320,minWidth:260}},
+      e('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:24}},
+        e('div',{style:{width:38,height:38,background:G,borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:19,color:'#fff',fontFamily:SR,flexShrink:0}},'D'),
+        e('div',null,e('p',{style:{fontFamily:SR,fontWeight:700,fontSize:15,color:TX}},'DARA Studio'),e('p',{style:{fontSize:11,color:MU}},'Drafting & 3D Support'))
+      ),
+      e('h1',{style:{fontFamily:SR,fontSize:28,fontWeight:700,color:TX,marginBottom:10,lineHeight:1.25}},'Portal do Cliente'),
+      e('p',{style:{fontSize:13,color:MU,lineHeight:1.7,marginBottom:20}},'Acesse seus projetos, arquivos e comunicações em um único lugar.'),
+      [['folder','Acompanhe o progresso de cada projeto em tempo real'],['rcpt','Gerencie faturas e realize pagamentos com segurança'],['chat','Comunicação direta com a equipe DARA Studio']].map(([ic,tx])=>
+        e('div',{key:ic,style:{display:'flex',gap:10,alignItems:'flex-start',marginBottom:10}},
+          e('div',{style:{width:26,height:26,borderRadius:7,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,marginTop:2}},e(Ic,{d:I[ic],s:13,c:G})),
+          e('p',{style:{fontSize:12,color:MU,lineHeight:1.6}},tx)
+        )
+      ),
+      e('div',{style:{marginTop:16,padding:'7px 12px',borderRadius:7,background:AMB,border:'1px solid rgba(192,124,10,0.3)',display:'flex',alignItems:'center',gap:7}},
+        e('span',{style:{width:7,height:7,borderRadius:'50%',background:AM,flexShrink:0}}),
+        e('span',{style:{fontSize:11,color:AM,fontWeight:600}},'Modo demonstração — dados fictícios')
+      )
+    ),
+    e('div',{style:{width:370,minWidth:300,background:BG2,borderRadius:16,border:'1px solid '+BR,padding:28}},
+      e('div',{style:{display:'flex',background:BG3,borderRadius:8,padding:3,marginBottom:22}},
+        ...['in','up'].map(t=>e('button',{key:t,className:'nb',onClick:()=>{setTab(t);setErr('');setOk('');},style:{flex:1,padding:'7px',fontSize:13,fontWeight:tab===t?600:400,background:tab===t?BG2:'none',border:'none',borderRadius:6,color:tab===t?TX:MU}},t==='in'?'Entrar':'Criar Conta'))
+      ),
+      e('p',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},tab==='in'?'Bem-vindo de Volta':'Crie sua Conta'),
+      e('p',{style:{fontSize:12,color:MU,marginBottom:16}},tab==='in'?'Insira suas credenciais para acessar':'Preencha os dados para criar seu acesso'),
+      ok&&e('div',{style:{padding:'8px 12px',background:GNB,border:'1px solid rgba(45,134,83,0.3)',borderRadius:7,marginBottom:12,fontSize:12,color:GN}},ok),
+      e('button',{className:'nb',onClick:()=>setErr('Google OAuth disponível em produção.'),style:{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,border:'1.5px solid '+BR,borderRadius:9,padding:'10px',background:BG2,fontSize:13,color:TX,marginBottom:14,cursor:'pointer'}},
+        e('svg',{width:16,height:16,viewBox:'0 0 24 24'},
+          e('path',{fill:'#4285F4',d:'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'}),
+          e('path',{fill:'#34A853',d:'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z'}),
+          e('path',{fill:'#FBBC05',d:'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z'}),
+          e('path',{fill:'#EA4335',d:'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z'})
+        ),
+        tab==='in'?'Entrar com Google':'Cadastrar com Google'
+      ),
+      e('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:14}},e('div',{style:{flex:1,height:1,background:BR}}),e('span',{style:{fontSize:11,color:DM}},'OU'),e('div',{style:{flex:1,height:1,background:BR}})),
+      tab==='up'&&e('div',{style:{marginBottom:10}},
+        e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'Nome Completo'),
+        e('input',{style:inpS,value:nm,onChange:v=>setNm(v.target.value),placeholder:'Jackson Da Silva',onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR})
+      ),
+      e('div',{style:{marginBottom:10}},
+        e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'E-mail'),
+        e('input',{style:inpS,type:'email',value:em,onChange:v=>setEm(v.target.value),placeholder:'seu@email.com',onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR,onKeyDown:k=>k.key==='Enter'&&go()})
+      ),
+      e('div',{style:{marginBottom:err?8:14}},
+        e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'Senha'),
+        e('div',{style:{position:'relative'}},
+          e('input',{style:{...inpS,paddingRight:38},type:show?'text':'password',value:pw,onChange:v=>setPw(v.target.value),placeholder:'••••••••',onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR,onKeyDown:k=>k.key==='Enter'&&go()}),
+          e('button',{'aria-label':show?'Ocultar senha':'Mostrar senha',className:'nb',onClick:()=>setShow(s=>!s),style:{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',color:DM,padding:4}},e(Ic,{d:show?I.eyex:I.eye,s:14,c:DM}))
+        )
+      ),
+      err&&e('p',{style:{fontSize:12,color:RD,marginBottom:10,display:'flex',alignItems:'center',gap:5}},e(Ic,{d:I.alert,s:13,c:RD}),err),
+      tab==='in'&&e('div',{style:{textAlign:'right',marginBottom:10}},e('button',{className:'nb',style:{fontSize:12,color:G},onClick:()=>setOk('Link de recuperação enviado para: '+em)},'Esqueceu sua senha?')),
+      e('button',{className:'nb btn',onClick:go,disabled:busy,style:{width:'100%',padding:'11px',fontSize:14}},busy?'Aguarde...':(tab==='in'?'Entrar':'Criar Conta')),
+      e('p',{style:{textAlign:'center',fontSize:11,color:DM,marginTop:12}},'Demo: joao@darastudio.com / teste123')
+    )
+  );
+};
+
+/* ═══════════════════════════════════════════════
+   ESTIMATE FORM — 8-STEP WIZARD
+═══════════════════════════════════════════════ */
+const StepBar=({step})=>e('div',{style:{display:'flex',alignItems:'center',marginBottom:24,padding:'0 4px'}},
+  E_STEPS.map((s,i)=>e(Fragment,{key:s},
+    e('div',{style:{display:'flex',flexDirection:'column',alignItems:'center',gap:4,flexShrink:0}},
+      e('div',{className:'estep-dot',style:{width:28,height:28,background:i<step?G:i===step?G:BG3,border:'2px solid '+(i<=step?G:BR),color:i<step?'#fff':i===step?'#fff':DM}},
+        i<step?e(Ic,{d:I.check,s:12,c:'#fff'}):e('span',null,i+1)
+      ),
+      e('span',{style:{fontSize:9,color:i<=step?G:DM,fontWeight:i===step?700:400,textAlign:'center',maxWidth:52,lineHeight:1.2}},s)
+    ),
+    i<E_STEPS.length-1&&e('div',{className:'estep-line',style:{background:i<step?G:BR,margin:'0 4px',marginBottom:18}})
+  ))
+);
+
+const PriceSidebar=({data})=>{
+  const sqft=data.area?(data.areaUnit==='m2'?Math.round(data.area*10.7639):Number(data.area)):(data.width&&data.length?data.width*data.length:null);
+  const svc=data.service||data.detailService;
+  const price=calcPrice(sqft,svc,data.delivery||'standard');
+  const conf=Math.round([data.country,data.projectName,data.street,data.city,data.state,data.area,svc,data.projectType].filter(Boolean).length/8*100);
+  return e('div',{style:{width:220,flexShrink:0,display:'flex',flexDirection:'column',gap:10}},
+    e('div',{style:{background:BG2,border:'1px solid '+BR,borderRadius:10,padding:'14px 16px'}},
+      e('p',{style:{fontSize:10,fontWeight:700,color:G,letterSpacing:'.09em',textTransform:'uppercase',marginBottom:8}},'Estimativa Live'),
+      price
+        ?e(Fragment,null,
+          e('p',{style:{fontFamily:SR,fontSize:20,fontWeight:700,color:TX}},fmtShort(price.low)+' – '+fmtShort(price.high)),
+          e('p',{style:{fontSize:10,color:DM,marginTop:2}},'Base: '+fmtShort(price.base)),
+          svc&&e('p',{style:{fontSize:11,color:SVC_COLOR[svc]||AM,fontWeight:600,marginTop:4}},SVC_LABEL[svc]||svc)
+        )
+        :e('p',{style:{fontSize:12,color:DM}},'Preencha os campos para calcular'),
+      e('div',{style:{marginTop:10}},
+        e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:3}},e('span',null,'Completude'),e('span',{style:{color:G,fontWeight:600}},conf+'%')),
+        e('div',{style:{background:BG3,borderRadius:3,height:4}},e('div',{style:{width:conf+'%',height:'100%',borderRadius:3,background:G,transition:'width .3s'}}))
+      )
+    ),
+    e('div',{style:{background:AMB,border:'1px solid rgba(192,124,10,0.25)',borderRadius:10,padding:'11px 14px',fontSize:11,color:AM,lineHeight:1.5}},
+      e('strong',null,'Nota:'),' Os campos (*) são fundamentais. Alterações de área após o envio podem gerar ajustes de valor.'
+    )
+  );
+};
+
+// Step 1: Location
+const Step1=({data,set})=>{
+  const[stQ,setStQ]=useState(data.state||'');
+  const[stOpen,setStOpen]=useState(false);
+  const stList=(data.country==='BR'?BR_STATES:US_STATES).filter(s=>s.toLowerCase().includes(stQ.toLowerCase()));
+  const hasAddr=!!(data.projectName&&data.street&&data.city&&data.state&&data.zip);
+  const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent([data.street,data.city,data.state,data.zip].filter(Boolean).join(', '));
+  const lbl={fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'};
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Project Location'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Informe o endereço completo do projeto.'),
+    e('div',{style:{display:'flex',gap:10,marginBottom:18}},
+      ...['US','BR'].map(c=>e('button',{key:c,className:'nb',onClick:()=>{set('country',c);set('state','');setStQ('');},style:{flex:1,background:data.country===c?GD:BG3,border:'1.5px solid '+(data.country===c?G:BR),borderRadius:9,padding:'12px',textAlign:'left',cursor:'pointer'}},
+        e('p',{style:{fontSize:14,fontWeight:700,color:data.country===c?G:TX,marginBottom:2}},c),
+        e('p',{style:{fontSize:11,color:MU,marginBottom:1}},c==='US'?'United States':'Brazil'),
+        e('p',{style:{fontSize:10,color:DM}},c==='US'?'USD · sqft':'BRL · m²')
+      ))
+    ),
+    e('div',{style:{display:'grid',gap:12}},
+      e('div',null,e('label',{style:lbl},'Nome do Projeto *'),e('input',{className:'einp',value:data.projectName||'',onChange:v=>set('projectName',v.target.value),placeholder:'Ex: Residência Bowdoin Ave'})),
+      e('div',null,e('label',{style:lbl},'Endereço *'),e('input',{className:'einp',value:data.street||'',onChange:v=>set('street',v.target.value),placeholder:'123 Main St'})),
+      e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}},
+        e('div',null,e('label',{style:lbl},'Cidade *'),e('input',{className:'einp',value:data.city||'',onChange:v=>set('city',v.target.value),placeholder:'Boston'})),
+        e('div',null,e('label',{style:lbl},'CEP *'),e('input',{className:'einp',value:data.zip||'',onChange:v=>set('zip',v.target.value),placeholder:'02134'}))
+      ),
+      e('div',null,
+        e('label',{style:lbl},'Estado / Província *'),
+        e('div',{style:{position:'relative'}},
+          e('input',{className:'einp',value:stQ,onChange:v=>{setStQ(v.target.value);setStOpen(true);},onFocus:()=>setStOpen(true),placeholder:'Digite para buscar...'}),
+          stOpen&&stList.length>0&&e(Fragment,null,
+            e('div',{onClick:()=>setStOpen(false),style:{position:'fixed',inset:0,zIndex:49}}),
+            e('div',{style:{position:'absolute',top:'calc(100% + 4px)',left:0,right:0,zIndex:50,background:BG2,border:'1px solid '+BR,borderRadius:8,boxShadow:'0 6px 20px rgba(0,0,0,0.1)',maxHeight:200,overflowY:'auto'}},
+              stList.map(s=>e('div',{key:s,onClick:()=>{set('state',s);setStQ(s);setStOpen(false);},style:{padding:'9px 14px',fontSize:13,cursor:'pointer',color:data.state===s?G:TX,background:data.state===s?GD:'none',borderBottom:'1px solid rgba(0,0,0,0.04)'}},s))
+            )
+          ),
+          data.state&&e('p',{style:{fontSize:10,color:GN,marginTop:3,display:'flex',alignItems:'center',gap:4}},e(Ic,{d:I.check,s:10,c:GN}),data.state+' selecionado')
+        )
+      )
+    ),
+    hasAddr&&e('div',{style:{marginTop:16,padding:'12px 14px',background:BG3,border:'1px solid '+GB,borderRadius:10}},
+      e('a',{href:mapsUrl,target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:7,fontSize:12,fontWeight:600,color:G,textDecoration:'none',marginBottom:8}},
+        e('span',{style:{fontSize:16}},'📍'),
+        'Confirmar localização no Google Maps'
+      ),
+      e('div',{style:{background:BG4,borderRadius:7,height:90,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:5,border:'1px solid '+BR}},
+        e('span',{style:{fontSize:22}},'🗺️'),
+        e('p',{style:{fontSize:11,color:MU,fontWeight:500}},data.street+', '+data.city),
+        e('p',{style:{fontSize:10,color:DM}},'Configure Google Maps API Key para preview')
+      )
+    ),
+    e('p',{style:{fontSize:10,color:DM,marginTop:12}},e('span',{style:{color:RD}},'*'),' Todos os campos são obrigatórios para continuar.')
+  );
+};
+
+// Step 2: Project Details
+const Step2=({data,set})=>{
+  const services=[
+    {id:'drafting',label:'Drafting',ico:'file',desc:'2D floor plans, elevations, construction drawings'},
+    {id:'3d_rendering',label:'3D Rendering',ico:'img',desc:'Photorealistic exterior & interior visualizations'},
+    {id:'full_interior',label:'Full Interior Design',ico:'bld',desc:'Complete interior concept, materials & layout'},
+    {id:'concept_design',label:'Concept Design',ico:'info',desc:'Initial sketches, moodboards & spatial concepts'},
+  ];
+  const scopeItems=[
+    {id:'site_plan',label:'Site Plan'},{id:'floor_plans',label:'Floor Plans'},
+    {id:'elevations',label:'Elevations'},{id:'electrical',label:'Electrical'},
+    {id:'plumbing',label:'Plumbing'},{id:'hvac',label:'HVAC'},
+  ];
+  const styles=[
+    {id:'minimalist',label:'Minimalista'},{id:'modern',label:'Moderno'},
+    {id:'traditional',label:'Tradicional'},{id:'industrial',label:'Industrial'},
+    {id:'scandinavian',label:'Escandinavo'},{id:'luxury',label:'Luxo'},
+  ];
+  const toggleScope=id=>{const cur=data.scope||[];set('scope',cur.includes(id)?cur.filter(x=>x!==id):[...cur,id]);};
+  const unit=data.areaUnit||'sqft';
+  const lbl={fontSize:11,fontWeight:700,color:DM,letterSpacing:'.07em',textTransform:'uppercase',display:'block',marginBottom:8};
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Project Details'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:20}},'Defina o escopo e características do projeto.'),
+    e('div',{style:{marginBottom:22}},
+      e('label',{style:lbl},'Tipo de Serviço *'),
+      e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}},
+        services.map(svc=>e('button',{key:svc.id,className:'ecard'+(data.detailService===svc.id?' sel':''),onClick:()=>set('detailService',svc.id)},
+          e('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:6}},
+            e(Ic,{d:I[svc.ico],s:20,c:data.detailService===svc.id?G:DM}),
+            e('span',{style:{fontSize:13,fontWeight:700,color:data.detailService===svc.id?G:TX}},svc.label),
+            data.detailService===svc.id&&e(Ic,{d:I.check,s:14,c:G,style:{marginLeft:'auto'}})
+          ),
+          e('p',{style:{fontSize:11,color:DM,lineHeight:1.5}},svc.desc)
+        ))
+      )
+    ),
+    e('div',{style:{marginBottom:22,padding:'14px 16px',background:GD,border:'1px solid '+GB,borderRadius:10}},
+      e('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:10}},
+        e('label',{style:{...lbl,marginBottom:0}},'Área Estimada *'),
+        e('div',{style:{display:'flex',background:BG3,border:'1px solid '+BR,borderRadius:6,overflow:'hidden'}},
+          ...['sqft','m2'].map(u=>e('button',{key:u,className:'nb',onClick:()=>set('areaUnit',u),style:{padding:'4px 12px',fontSize:11,fontWeight:600,background:unit===u?G:'none',color:unit===u?'#fff':MU}},u==='sqft'?'sqft':'m²'))
+        )
+      ),
+      e('div',{style:{display:'flex',gap:10,alignItems:'stretch'}},
+        e('input',{type:'number',min:1,value:data.area||'',onChange:v=>set('area',Number(v.target.value)||''),placeholder:unit==='sqft'?'Ex: 1500':'Ex: 140',style:{flex:1,background:BG2,border:'1.5px solid '+BR,borderRadius:8,padding:'10px 12px',fontSize:14,fontWeight:600,color:TX,outline:'none',fontFamily:SS,transition:'border-color .15s'},onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR}),
+        e('div',{style:{background:BG2,border:'1px solid '+BR,borderRadius:8,padding:'10px 14px',fontSize:13,color:MU,display:'flex',alignItems:'center'}},unit==='sqft'?'sqft':'m²')
+      ),
+      data.area&&e('div',{style:{display:'flex',justifyContent:'space-between',marginTop:7}},
+        e('span',{style:{fontSize:11,color:MU}},unit==='m2'?'≈ '+Math.round(data.area*10.7639).toLocaleString()+' sqft':'≈ '+Math.round(data.area/10.7639).toLocaleString()+' m²'),
+        e('span',{style:{fontSize:11,fontWeight:700,color:AM}},'Campo crítico *')
+      )
+    ),
+    e('div',{style:{marginBottom:22}},
+      e('label',{style:lbl},'Escopo Técnico (múltipla escolha)'),
+      e('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}},
+        scopeItems.map(item=>e('button',{key:item.id,className:'escope'+(((data.scope||[]).includes(item.id))?' sel':''),onClick:()=>toggleScope(item.id)},
+          e('span',{style:{fontSize:12,fontWeight:(data.scope||[]).includes(item.id)?700:500,color:(data.scope||[]).includes(item.id)?G:MU}},item.label),
+          (data.scope||[]).includes(item.id)&&e(Ic,{d:I.check,s:12,c:G,style:{marginLeft:'auto'}})
+        ))
+      )
+    ),
+    e('div',{style:{marginBottom:16}},
+      e('label',{style:lbl},'Estilo Visual'),
+      e('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:14}},
+        styles.map(st=>e('button',{key:st.id,className:'ecard'+(data.style===st.id?' sel':''),onClick:()=>set('style',st.id),style:{textAlign:'center',padding:'12px 8px'}},
+          e('p',{style:{fontSize:11,fontWeight:data.style===st.id?700:500,color:data.style===st.id?G:MU}},st.label)
+        ))
+      ),
+      e('label',{style:lbl},'Objetivo do Projeto'),
+      e('div',{style:{position:'relative'}},
+        e('select',{value:data.objective||'',onChange:v=>set('objective',v.target.value),style:{width:'100%',background:BG3,border:'1.5px solid '+(data.objective?G:BR),borderRadius:8,padding:'10px 12px',fontSize:13,color:data.objective?TX:DM,outline:'none',fontFamily:SS,appearance:'none',cursor:'pointer',transition:'border-color .15s'}},
+          e('option',{value:''},'Selecione o objetivo...'),
+          ...['New Construction','Remodel','Addition','Renovation','Interior Refresh','Commercial Fit-Out'].map(o=>e('option',{key:o,value:o},o))
+        ),
+        e('span',{style:{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',fontSize:11,color:DM,pointerEvents:'none'}},'▾')
+      )
+    ),
+    e('div',{style:{padding:'11px 14px',background:AMB,border:'1px solid rgba(192,124,10,0.25)',borderRadius:8,display:'flex',gap:8,alignItems:'flex-start'}},
+      e(Ic,{d:I.alert,s:13,c:AM,style:{flexShrink:0,marginTop:1}}),
+      e('p',{style:{fontSize:11,color:AM,lineHeight:1.6}},'Os campos marcados com ',e('strong',null,'(*)'),' são fundamentais para o cálculo da sua estimativa. Alterações de área ou escopo após o envio poderão resultar em ',e('strong',null,'ajustes automáticos no valor'),'.'))
+  );
+};
+
+// Step 3: Review
+const Step3Review=({data,onGoTo})=>{
+  const SL={drafting:'Drafting','3d_rendering':'3D Rendering',full_interior:'Full Interior Design',concept_design:'Concept Design'};
+  const sqftDisp=data.area?`${Number(data.area).toLocaleString()} ${data.areaUnit==='m2'?'m²':'sqft'}`:'–';
+  const missing=[];
+  if(!data.projectName)missing.push('Nome do Projeto');
+  if(!data.street)missing.push('Endereço');
+  if(!data.city)missing.push('Cidade');
+  if(!data.state)missing.push('Estado');
+  if(!data.zip)missing.push('CEP');
+  if(!data.detailService)missing.push('Tipo de Serviço');
+  if(!data.area)missing.push('Área');
+  const RCard=({title,step,rows})=>e('div',{style:{background:BG3,border:'1px solid '+BR,borderRadius:12,overflow:'hidden',marginBottom:12}},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'11px 15px',borderBottom:'1px solid '+BR,background:BG2}},
+      e('span',{style:{fontSize:11,fontWeight:700,color:G,letterSpacing:'.08em',textTransform:'uppercase'}},title),
+      e('button',{onClick:()=>onGoTo(step),style:{background:'none',border:'1px solid '+G,borderRadius:6,padding:'3px 12px',fontSize:11,fontWeight:600,color:G,cursor:'pointer'}},'✏️ Editar')
+    ),
+    e('div',{style:{padding:'4px 0'}},rows.map(([k,v,crit])=>e('div',{key:k,style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:12,padding:'7px 15px',borderBottom:'1px solid rgba(0,0,0,0.04)'}},
+      e('span',{style:{fontSize:11,color:MU,flexShrink:0}},k),
+      e('span',{style:{fontSize:11,fontWeight:500,color:crit?AM:TX,textAlign:'right',maxWidth:'60%',wordBreak:'break-word'}},v||'–',crit&&e('span',{style:{fontSize:9,color:AM,marginLeft:3}},'*'))
+    )))
+  );
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Review Your Project'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Confirme os detalhes. Use ',e('strong',null,'Editar'),' em qualquer card para ajustar sem perder os dados.'),
+    RCard({title:'📍 Localização',step:0,rows:[['Nome',data.projectName],['Endereço',data.street],['Cidade / Estado',`${data.city||'–'}, ${data.state||'–'}`],['CEP',data.zip],['País',data.country==='BR'?'🇧🇷 Brasil':'🇺🇸 Estados Unidos']]}),
+    RCard({title:'📐 Detalhes',step:1,rows:[['Serviço',SL[data.detailService],true],['Área',sqftDisp,true],['Escopo',(data.scope||[]).join(', ')||'Nenhum'],['Estilo',data.style||'–'],['Objetivo',data.objective||'–']]}),
+    missing.length>0
+      ?e('div',{style:{padding:'10px 14px',background:RDB,border:'1px solid rgba(184,50,50,0.2)',borderRadius:8,display:'flex',gap:8,alignItems:'flex-start'}},
+        e(Ic,{d:I.alert,s:13,c:RD,style:{flexShrink:0,marginTop:1}}),
+        e('div',null,e('p',{style:{fontSize:11,fontWeight:700,color:RD,marginBottom:3}},'Campos obrigatórios faltando:'),e('p',{style:{fontSize:11,color:MU}},missing.join(' · ')))
+      )
+      :e('div',{style:{padding:'10px 14px',background:GNB,border:'1px solid rgba(45,134,83,0.25)',borderRadius:8,display:'flex',alignItems:'center',gap:7}},
+        e(Ic,{d:I.check,s:13,c:GN}),
+        e('span',{style:{fontSize:12,color:GN,fontWeight:600}},'Todos os campos completos — pronto para avançar.')
+      )
+  );
+};
+
+// Step 4: Scope (service type + project type)
+const Step4=({data,set})=>{
+  const[expanded,setExpanded]=useState(null);
+  const projectTypes=[
+    {id:'single_family',label:'Single Family',e:'🏠'},{id:'kitchen',label:'Kitchen Remodel',e:'🍳'},
+    {id:'bath_remodel',label:'Bath Remodel',e:'🚿'},{id:'interior_reno',label:'Interior Reno',e:'🛋️'},
+    {id:'home_addition',label:'Home Addition',e:'🏗️'},{id:'adu',label:'ADU',e:'🏡'},
+    {id:'multi_family',label:'Multi-Family',e:'🏢'},{id:'small_commercial',label:'Small Commercial',e:'🏪'},
+    {id:'garage',label:'Garage',e:'🚗'},{id:'3d_only',label:'3D Only',e:'🎨'},
+    {id:'custom',label:'Custom Home',e:'✨'},{id:'commercial',label:'Commercial',e:'🏛️'},
+  ];
+  const services=[
+    {id:'full_construction',label:'Full Construction',badge:'HIGH COMPLEXITY',color:AM,colorBg:AMB,desc:'Complete package: floor plans, 3D exterior, design extras, municipal review.',detail:'Comprehensive design package including initial concepts, detailed spatial planning, core building documentation, 3D exterior visualization, and municipal code review.'},
+    {id:'floor_plans_only',label:'Floor Plans Only',badge:'LOW COMPLEXITY',color:GN,colorBg:GNB,desc:'Essential spatial layouts and dimensioned floor plans only.',detail:'Streamlined service delivering interior spatial layouts and dimensioned floor plans. Does not include exterior design, 3D renderings, or permits.'},
+    {id:'pdf_to_cad',label:'PDF to CAD Conversion',badge:'DRAFTING ONLY',color:BL,colorBg:BLB,desc:'Convert PDF blueprints or hand-drawn sketches to fully editable CAD files.',detail:'Technical drafting service to convert your PDF blueprints or hand-drawn sketches into fully editable scaled digital CAD (.dwg) files.'},
+  ];
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Project Scope'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Defina o tipo de projeto e o serviço necessário.'),
+    e('div',{style:{marginBottom:20}},
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,letterSpacing:'.06em',textTransform:'uppercase',display:'block',marginBottom:8}},'Tipo de Projeto *'),
+      e('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:7}},
+        projectTypes.map(pt=>e('button',{key:pt.id,onClick:()=>set('projectType',pt.id),style:{background:data.projectType===pt.id?GD:BG3,border:'1.5px solid '+(data.projectType===pt.id?G:BR),borderRadius:8,padding:'9px 6px',cursor:'pointer',display:'flex',flexDirection:'column',alignItems:'center',gap:5,transition:'all .15s'}},
+          e('span',{style:{fontSize:18}},pt.e),
+          e('span',{style:{fontSize:10,fontWeight:500,color:data.projectType===pt.id?G:MU,textAlign:'center',lineHeight:1.3}},pt.label)
+        ))
+      )
+    ),
+    e('div',null,
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,letterSpacing:'.06em',textTransform:'uppercase',display:'block',marginBottom:8}},'Serviço Necessário *'),
+      services.map(svc=>e('div',{key:svc.id,style:{background:BG2,border:'1.5px solid '+(data.service===svc.id?svc.color:BR),borderRadius:12,overflow:'hidden',marginBottom:10,transition:'border-color .15s'}},
+        e('div',{style:{padding:'14px 16px',cursor:'pointer',display:'flex',alignItems:'flex-start',gap:14},onClick:()=>set('service',svc.id)},
+          e('div',{style:{width:18,height:18,borderRadius:'50%',border:'2px solid '+(data.service===svc.id?svc.color:BR),background:data.service===svc.id?svc.color:'none',flexShrink:0,marginTop:2,display:'flex',alignItems:'center',justifyContent:'center'}},
+            data.service===svc.id&&e('div',{style:{width:6,height:6,borderRadius:'50%',background:'#fff'}})
+          ),
+          e('div',{style:{flex:1}},
+            e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:5}},
+              e('span',{style:{fontSize:14,fontWeight:700,color:TX}},svc.label),
+              e('span',{style:{fontSize:9,fontWeight:700,background:svc.colorBg,color:svc.color,borderRadius:4,padding:'2px 8px'}},svc.badge)
+            ),
+            e('p',{style:{fontSize:12,color:MU,lineHeight:1.5}},svc.desc)
+          ),
+          e('button',{className:'nb',onClick:v=>{v.stopPropagation();setExpanded(expanded===svc.id?null:svc.id);},style:{fontSize:11,color:BL,fontWeight:600,flexShrink:0}},'?')
+        ),
+        expanded===svc.id&&e('div',{style:{padding:'12px 16px',background:BG3,borderTop:'1px solid '+BR,fontSize:12,color:MU,lineHeight:1.6}},svc.detail)
+      ))
+    )
+  );
+};
+
+// Step 5: Rooms
+const Step5=({data,set})=>{
+  const levels=['Ground Floor / Main Level','2nd Floor','3rd Floor','Basement','Attic','Garage'];
+  const toggleLevel=l=>{const cur=data.levels||[];set('levels',cur.includes(l)?cur.filter(x=>x!==l):[...cur,l]);};
+  const rooms=['Living Room','Kitchen','Master Bedroom','Bedroom','Bathroom','Master Bathroom','Dining Room','Office','Laundry','Mudroom','Pantry','Closet'];
+  const setRoom=(r,n)=>{set('rooms',{...(data.rooms||{}),[r]:n});};
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Rooms & Levels'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Selecione os níveis e quantidade de cômodos.'),
+    e('div',{style:{marginBottom:20}},
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,letterSpacing:'.06em',textTransform:'uppercase',display:'block',marginBottom:8}},'Níveis do Projeto *'),
+      e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}},
+        levels.map(l=>e('button',{key:l,onClick:()=>toggleLevel(l),style:{background:(data.levels||[]).includes(l)?GD:BG3,border:'1.5px solid '+((data.levels||[]).includes(l)?G:BR),borderRadius:8,padding:'10px 12px',cursor:'pointer',display:'flex',alignItems:'center',gap:8,transition:'all .15s',textAlign:'left'}},
+          e('div',{style:{width:16,height:16,borderRadius:4,border:'2px solid '+((data.levels||[]).includes(l)?G:BR),background:(data.levels||[]).includes(l)?G:'none',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+            (data.levels||[]).includes(l)&&e(Ic,{d:I.check,s:10,c:'#fff'})
+          ),
+          e('span',{style:{fontSize:12,fontWeight:500,color:(data.levels||[]).includes(l)?G:TX}},l)
+        ))
+      )
+    ),
+    e('div',null,
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,letterSpacing:'.06em',textTransform:'uppercase',display:'block',marginBottom:8}},'Cômodos por Nível'),
+      e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:8}},
+        rooms.map(r=>e('div',{key:r,style:{display:'flex',alignItems:'center',justifyContent:'space-between',background:BG3,border:'1px solid '+BR,borderRadius:8,padding:'8px 12px'}},
+          e('span',{style:{fontSize:12,color:TX}},r),
+          e('div',{style:{display:'flex',alignItems:'center',gap:8}},
+            e('button',{className:'nb',onClick:()=>setRoom(r,Math.max(0,((data.rooms||{})[r]||0)-1)),style:{width:22,height:22,borderRadius:5,background:BG2,border:'1px solid '+BR,fontSize:14,fontWeight:700,color:MU,display:'flex',alignItems:'center',justifyContent:'center'}},'-'),
+            e('span',{style:{fontSize:13,fontWeight:700,color:TX,minWidth:16,textAlign:'center'}},(data.rooms||{})[r]||0),
+            e('button',{className:'nb',onClick:()=>setRoom(r,((data.rooms||{})[r]||0)+1),style:{width:22,height:22,borderRadius:5,background:BG2,border:'1px solid '+BR,fontSize:14,fontWeight:700,color:G,display:'flex',alignItems:'center',justifyContent:'center'}},'+')
+          )
+        ))
+      )
+    ),
+    e('div',{style:{marginTop:16}},
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,letterSpacing:'.06em',textTransform:'uppercase',display:'block',marginBottom:6}},'Requisitos Especiais'),
+      e('textarea',{className:'ta',value:data.specialReq||'',onChange:v=>set('specialReq',v.target.value),placeholder:'Descreva necessidades especiais, acessibilidade, etc...',style:{minHeight:80}})
+    )
+  );
+};
+
+// Step 6: Files
+const Step6=({data,set})=>{
+  const[drag,setDrag]=useState(false);
+  const files=data.fileList||[];
+  const fStatus=data.fileStatus||{};
+  const addFiles=newFiles=>{
+    const combined=[...files];
+    const ns={...fStatus};
+    Array.from(newFiles).forEach(f=>{
+      if(!combined.find(x=>x.name===f.name)){combined.push(f);ns[f.name]='done';}
+    });
+    set('fileList',combined);set('fileStatus',ns);
+  };
+  const removeFile=name=>{
+    set('fileList',files.filter(f=>f.name!==name));
+    const ns={...fStatus};delete ns[name];set('fileStatus',ns);
+  };
+  const iconFor=name=>{
+    const ext=name.split('.').pop().toLowerCase();
+    if(['jpg','jpeg','png','gif','webp'].includes(ext))return'🖼️';
+    if(ext==='pdf')return'📄';if(ext==='dwg')return'📐';
+    if(['mp4','mov'].includes(ext))return'🎬';return'📎';
+  };
+  const doneCount=files.filter(f=>fStatus[f.name]==='done').length;
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Upload Files'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:14}},'Compartilhe arquivos de referência para o projeto.'),
+    e('div',{style:{background:BG3,border:'1px solid '+BR,borderRadius:8,padding:'13px 15px',marginBottom:14}},
+      e('p',{style:{fontSize:11,fontWeight:600,color:TX,marginBottom:7}},'Documentos recomendados:'),
+      ['Property Survey / Plot Plan','Site Photos','Measurements / Dimensions','Reference Images / Inspiration','Existing Plans or Blueprints','Sketches / Hand Drawings'].map(d=>e('p',{key:d,style:{fontSize:11,color:MU,marginBottom:3}},'• '+d)),
+      e('p',{style:{fontSize:10,color:DM,marginTop:8}},'PDF, JPG, PNG, DWG, MP4 — até 10 arquivos · Máx 50MB cada')
+    ),
+    files.length>0&&e('div',{style:{marginBottom:12}},
+      e('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:4}},
+        e('span',{style:{fontSize:11,color:MU}},doneCount===files.length?'Todos os arquivos prontos':doneCount+'/'+files.length+' arquivos'),
+        e('span',{style:{fontSize:11,fontWeight:600,color:G}},Math.round(doneCount/files.length*100)+'%')
+      ),
+      e('div',{style:{background:BG3,borderRadius:3,height:4}},e('div',{style:{width:Math.round(doneCount/files.length*100)+'%',height:'100%',borderRadius:3,background:GN,transition:'width .3s'}}))
+    ),
+    e('label',{onDragOver:v=>{v.preventDefault();setDrag(true);},onDragLeave:()=>setDrag(false),onDrop:v=>{v.preventDefault();setDrag(false);addFiles(v.dataTransfer.files);},style:{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',border:'2px dashed '+(drag?G:BR),borderRadius:10,padding:'28px 20px',cursor:'pointer',marginBottom:files.length?14:0,background:drag?GD:BG3,transition:'all .15s'}},
+      e(Ic,{d:I.up,s:24,c:G,style:{marginBottom:10}}),
+      e('p',{style:{fontSize:13,fontWeight:500,marginBottom:4,color:TX}},'Arraste & solte ou ',e('span',{style:{color:G}},'clique para buscar')),
+      e('p',{style:{fontSize:10,color:DM}},'PDF, JPG, PNG, DWG, MP4 — até 10 arquivos'),
+      e('input',{type:'file',multiple:true,accept:'.pdf,.jpg,.jpeg,.png,.gif,.webp,.dwg,.mp4,.mov',style:{display:'none'},onChange:v=>addFiles(v.target.files)})
+    ),
+    files.length>0&&e('div',{style:{display:'flex',flexDirection:'column',gap:7}},
+      files.map(f=>e('div',{key:f.name,style:{display:'flex',alignItems:'center',gap:11,padding:'9px 12px',background:fStatus[f.name]==='done'?GNB:BG3,border:'1px solid '+(fStatus[f.name]==='done'?'rgba(45,134,83,0.25)':BR),borderRadius:8,transition:'all .2s'}},
+        e('span',{style:{fontSize:18,flexShrink:0}},iconFor(f.name)),
+        e('div',{style:{flex:1,minWidth:0}},
+          e('p',{style:{fontSize:12,fontWeight:500,color:TX,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},f.name),
+          e('p',{style:{fontSize:10,color:fStatus[f.name]==='done'?GN:MU,marginTop:2}},fStatus[f.name]==='done'?'✓ Pronto':(f.size?(Math.round(f.size/1024))+'KB':'Arquivo selecionado'))
+        ),
+        fStatus[f.name]==='done'&&e(Ic,{d:I.check,s:13,c:GN,style:{flexShrink:0}}),
+        e('button',{className:'nb',onClick:()=>removeFile(f.name),style:{color:DM,padding:2,flexShrink:0}},e(Ic,{d:I.x,s:13,c:DM}))
+      ))
+    )
+  );
+};
+
+// Step 7: Rush
+const Step7=({data,set})=>{
+  const rushDocs=[
+    {id:'survey',label:'Property Survey / Plot Plan'},{id:'site_photos',label:'Site Photos'},
+    {id:'measurements',label:'Measurements / Dimensions'},{id:'reference',label:'Reference Images / Inspiration'},
+    {id:'existing',label:'Existing Plans or Blueprints'},{id:'sketches',label:'Sketches / Hand Drawings'},
+  ];
+  const ru=data.rushUploads||{};
+  const setRU=(id,file)=>set('rushUploads',{...ru,[id]:file});
+  const uploaded=rushDocs.filter(d=>ru[d.id]).length;
+  const allUp=uploaded===rushDocs.length;
+  const sqft=data.area?(data.areaUnit==='m2'?Math.round(data.area*10.7639):Number(data.area)):(data.width&&data.length?data.width*data.length:144);
+  const svc=data.service||'full_construction';
+  const std=calcPrice(sqft,svc,'standard');
+  const rush=calcPrice(sqft,svc,'rush');
+  const expr=calcPrice(sqft,svc,'express');
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Rush Fees'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:16}},'Para desbloquear Rush/Express, faça upload dos 6 documentos obrigatórios.'),
+    e('div',{style:{marginBottom:18}},
+      e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:11,color:DM,marginBottom:6}},
+        e('span',null,uploaded+' / '+rushDocs.length+' documentos enviados'),
+        e('span',{style:{color:allUp?GN:AM,fontWeight:600}},Math.round(uploaded/rushDocs.length*100)+'%')
+      ),
+      e('div',{style:{background:BG3,borderRadius:4,height:6}},e('div',{style:{width:Math.round(uploaded/rushDocs.length*100)+'%',height:'100%',borderRadius:4,background:allUp?GN:G,transition:'width .3s'}})),
+      e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:12}},
+        rushDocs.map(doc=>e('label',{key:doc.id,style:{display:'flex',alignItems:'center',gap:8,padding:'9px 12px',background:ru[doc.id]?GNB:BG3,border:'1.5px solid '+(ru[doc.id]?GN:BR),borderRadius:8,cursor:'pointer',transition:'all .15s'}},
+          e('div',{style:{width:16,height:16,borderRadius:4,background:ru[doc.id]?GN:BG2,border:'2px solid '+(ru[doc.id]?GN:BR),display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+            ru[doc.id]&&e(Ic,{d:I.check,s:10,c:'#fff'})
+          ),
+          e('span',{style:{fontSize:11,color:ru[doc.id]?GN:MU,flex:1}},ru[doc.id]?ru[doc.id].name||doc.label:doc.label),
+          e('input',{type:'file',accept:'image/*,.pdf',style:{display:'none'},onChange:v=>{const f=v.target.files?.[0];if(f)setRU(doc.id,f);}})
+        ))
+      )
+    ),
+    !allUp&&e('div',{style:{padding:'10px 14px',background:AMB,border:'1px solid rgba(192,124,10,0.25)',borderRadius:8,marginBottom:14,fontSize:11,color:AM}},
+      e(Ic,{d:I.alert,s:13,c:AM,style:{flexShrink:0,marginRight:6,verticalAlign:'middle'}}),
+      'Upload de todos os 6 documentos obrigatórios para desbloquear Rush/Express.'
+    ),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}},
+      [['standard','Standard',std,false,null],['rush','Rush +40%',rush,!allUp,'⚡'],['express','Express +60%',expr,!allUp,'🚀']].map(([key,label,price,locked,ic])=>
+        e('button',{key,onClick:()=>!locked&&set('delivery',key),disabled:locked,style:{background:data.delivery===key?GD:BG3,border:'2px solid '+(data.delivery===key?G:locked?BR:BR),borderRadius:10,padding:'14px 12px',cursor:locked?'not-allowed':'pointer',textAlign:'center',opacity:locked?.5:1,transition:'all .15s'}},
+          ic&&e('p',{style:{fontSize:20,marginBottom:4}},ic),
+          e('p',{style:{fontSize:13,fontWeight:700,color:data.delivery===key?G:TX,marginBottom:4}},label),
+          price&&e('p',{style:{fontFamily:SR,fontSize:15,fontWeight:700,color:data.delivery===key?G:TX}},fmtShort(price.low)+' – '+fmtShort(price.high)),
+          locked&&e('p',{style:{fontSize:10,color:DM,marginTop:4}},'Requer documentos')
+        )
+      )
+    )
+  );
+};
+
+// Step 8: Submit
+const Step8=({data,onSubmit,onGoTo,submitting,submitError})=>{
+  const[agreed,setAgreed]=useState(false);
+  const[saved,setSaved]=useState(false);
+  const sqft=data.area?(data.areaUnit==='m2'?Math.round(data.area*10.7639):Number(data.area)):(data.width&&data.length?data.width*data.length:null);
+  const price=calcPrice(sqft,data.service||data.detailService,data.delivery||'standard');
+  const SL={drafting:'Drafting','3d_rendering':'3D Rendering',full_interior:'Full Interior Design',concept_design:'Concept Design',full_construction:'Full Construction',floor_plans_only:'Floor Plans Only',pdf_to_cad:'PDF to CAD'};
+  const cards=[
+    {title:'📍 Location',step:0,rows:[['Nome',data.projectName],['Endereço',data.street],['Cidade / Estado',`${data.city||'–'}, ${data.state||'–'}`],['País',data.country==='BR'?'Brasil':'EUA']]},
+    {title:'📐 Project Details',step:1,rows:[['Serviço',SL[data.detailService]],['Área',data.area?`${Number(data.area).toLocaleString()} ${data.areaUnit==='m2'?'m²':'sqft'}`:'–'],['Escopo',(data.scope||[]).length>0?(data.scope||[]).join(', '):'Nenhum']]},
+    {title:'⚙️ Scope',step:3,rows:[['Tipo',(data.projectType||'–').replace(/_/g,' ')],['Engajamento',SLC[data.service]||'–'],['Entrega',data.delivery==='rush'?'Rush (+40%)':data.delivery==='express'?'Express (+60%)':'Standard']]},
+  ];
+  const SLC={full_construction:'Full Construction',floor_plans_only:'Floor Plans Only',pdf_to_cad:'PDF to CAD'};
+  return e('div',null,
+    e('h2',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},'Review & Submit'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Confirme os detalhes antes de enviar.'),
+    e('div',{style:{display:'flex',flexDirection:'column',gap:10,marginBottom:16}},
+      cards.map(card=>e('div',{key:card.title,style:{background:BG3,border:'1px solid '+BR,borderRadius:10,overflow:'hidden'}},
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 15px',borderBottom:'1px solid '+BR,background:BG2}},
+          e('span',{style:{fontSize:11,fontWeight:700,color:G,letterSpacing:'.08em',textTransform:'uppercase'}},card.title),
+          e('button',{onClick:()=>onGoTo(card.step),style:{background:'none',border:'1px solid '+G,borderRadius:6,padding:'3px 12px',fontSize:11,fontWeight:600,color:G,cursor:'pointer'}},'✏️ Edit')
+        ),
+        e('div',{style:{padding:'4px 0'}},card.rows.map(([k,v])=>e('div',{key:k,style:{display:'flex',justifyContent:'space-between',gap:12,padding:'7px 15px',borderBottom:'1px solid rgba(0,0,0,0.04)'}},
+          e('span',{style:{fontSize:11,color:MU}},k),
+          e('span',{style:{fontSize:11,fontWeight:500,color:TX,textAlign:'right',maxWidth:'60%',wordBreak:'break-word'}},v||'–')
+        )))
+      ))
+    ),
+    price&&e('div',{style:{background:GD,border:'1px solid '+GB,borderRadius:10,padding:'14px 16px',marginBottom:14}},
+      e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}},
+        e('div',null,
+          e('p',{style:{fontSize:10,fontWeight:700,color:G,letterSpacing:'.09em',textTransform:'uppercase',marginBottom:6}},'Estimated Design Fee'),
+          e('p',{style:{fontFamily:SR,fontSize:22,fontWeight:700,color:TX}},fmtShort(price.low)+' – '+fmtShort(price.high))
+        ),
+        e('span',{style:{fontSize:10,fontWeight:600,background:BG3,color:MU,borderRadius:5,padding:'3px 8px'}},'⚠ Preview only')
+      ),
+      e('p',{style:{fontSize:11,color:AM,marginTop:8}},'Preço final validado pelo servidor no envio. Manipulações no browser são detectadas e descartadas.')
+    ),
+    e('div',{style:{padding:'11px 14px',background:RDB,border:'1px solid rgba(184,50,50,0.2)',borderRadius:8,marginBottom:14}},
+      e('p',{style:{fontSize:11,fontWeight:700,color:RD,marginBottom:3}},'Aviso Legal'),
+      e('p',{style:{fontSize:11,color:MU,lineHeight:1.6}},'Este é um serviço de rascunho e design da DARA Studio. NÃO inclui carimbos de engenharia ou arquitetura. O cliente é responsável por contratar um Engenheiro ou Arquiteto licenciado.')
+    ),
+    submitError&&e('div',{style:{padding:'9px 12px',background:RDB,border:'1px solid rgba(184,50,50,0.2)',borderRadius:7,marginBottom:10,display:'flex',alignItems:'center',gap:7}},
+      e(Ic,{d:I.alert,s:13,c:RD}),e('span',{style:{fontSize:12,color:RD}},submitError)
+    ),
+    e('label',{style:{display:'flex',alignItems:'flex-start',gap:10,marginBottom:14,cursor:'pointer'}},
+      e('input',{type:'checkbox',checked:agreed,onChange:v=>setAgreed(v.target.checked),style:{marginTop:2,accentColor:G,width:15,height:15,flexShrink:0}}),
+      e('span',{style:{fontSize:12,color:TX,lineHeight:1.6}},'Concordo com esta estimativa e desejo prosseguir. Entendo que este é um valor aproximado e que o preço final será confirmado na revisão do projeto.')
+    ),
+    e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}},
+      e('button',{onClick:()=>agreed&&!submitting&&onSubmit(),disabled:!agreed||submitting,style:{background:submitting?AMB:agreed?G:BG3,border:'1px solid '+(submitting?AM:agreed?G:BR),borderRadius:9,padding:'12px',fontSize:14,fontWeight:700,color:submitting?AM:agreed?'#fff':DM,cursor:(!agreed||submitting)?'not-allowed':'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:7,transition:'all .2s'}},
+        submitting?e(Fragment,null,e('span',{style:{animation:'sp 1s linear infinite',display:'inline-block',marginRight:4}},'⟳'),'Enviando...')
+        :e(Fragment,null,e(Ic,{d:I.zap,s:15,c:agreed?'#fff':DM}),'Aceitar & Enviar')
+      ),
+      e('button',{className:'nb',onClick:()=>setSaved(true),style:{background:saved?GNB:'none',border:'1px solid '+(saved?'rgba(45,134,83,0.3)':BR),borderRadius:9,padding:'12px',fontSize:13,color:saved?GN:MU,cursor:'pointer',transition:'all .2s'}},
+        saved?'✓ Rascunho salvo!':'💾 Salvar para depois'
+      )
+    )
+  );
+};
+
+// Success screen
+const ESuccess=({data,onClose,onViewProject})=>{
+  const code='DARA-'+String(Date.now()).slice(-4);
+  const expiry=new Date(Date.now()+30*24*60*60*1000).toLocaleDateString('pt-BR');
+  const sqft=data.area?(data.areaUnit==='m2'?Math.round(data.area*10.7639):Number(data.area)):null;
+  const price=calcPrice(sqft,data.service||data.detailService,data.delivery||'standard');
+  return e('div',{className:'fa',style:{textAlign:'center',padding:'48px 20px'}},
+    e('div',{style:{width:60,height:60,borderRadius:'50%',background:GNB,border:'2px solid '+GN,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 18px'}},
+      e(Ic,{d:I.check,s:26,c:GN})
+    ),
+    e('h2',{style:{fontFamily:SR,fontSize:22,fontWeight:700,marginBottom:8}},'Estimativa Enviada!'),
+    e('p',{style:{fontSize:13,color:MU,lineHeight:1.7,maxWidth:380,margin:'0 auto 22px'}},'Sua solicitação foi criada. Nossa equipe irá revisá-la e entrará em contato em até 2–3 dias úteis.'),
+    e('div',{style:{background:BG2,border:'1px solid '+GB,borderRadius:11,padding:'18px',maxWidth:340,margin:'0 auto 16px',textAlign:'left'}},
+      e('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:10}},
+        e('span',{style:{fontFamily:'monospace',fontSize:13,fontWeight:700,color:G}},code),
+        e('span',{style:{fontSize:11,background:AMB,color:AM,borderRadius:4,padding:'2px 8px',fontWeight:600}},'Aguardando Revisão')
+      ),
+      ...[['Local',`${data.city||'–'}, ${data.state||'–'}`],['Entrega',data.delivery==='rush'?'Rush (+40%)':data.delivery==='express'?'Express (+60%)':'Standard'],price?['Estimativa',fmtShort(price.low)+' – '+fmtShort(price.high)]:null,['Válido até',expiry]].filter(Boolean).map(([k,v])=>
+        e('div',{key:k,style:{display:'flex',justifyContent:'space-between',padding:'6px 0',borderBottom:'1px solid '+BR}},
+          e('span',{style:{fontSize:12,color:MU}},k),
+          e('span',{style:{fontSize:12,fontWeight:k==='Estimativa'?700:500,color:k==='Estimativa'?G:TX}},v)
+        )
+      )
+    ),
+    e('div',{style:{display:'flex',gap:10,justifyContent:'center',maxWidth:340,margin:'0 auto'}},
+      e('button',{onClick:onViewProject,style:{flex:1,background:G,border:'none',borderRadius:9,padding:'11px',fontSize:13,fontWeight:700,color:'#fff',cursor:'pointer'}},'Ver Meus Projetos'),
+      e('button',{onClick:onClose,style:{flex:1,background:'none',border:'1px solid '+BR,borderRadius:9,padding:'11px',fontSize:13,color:MU,cursor:'pointer'}},'Fechar')
+    )
+  );
+};
+
+// Main EstimateForm component
+const EstimateForm=({onClose,onSubmit})=>{
+  const[step,setStep]=useState(0);
+  const[submitted,setSubmitted]=useState(false);
+  const[submitting,setSubmitting]=useState(false);
+  const[submitError,setSubmitError]=useState('');
+  const[data,setData]=useState({country:'US',levels:['Ground Floor / Main Level'],delivery:'standard',service:null,fileList:[],fileStatus:{}});
+  const set=(k,v)=>setData(d=>({...d,[k]:v}));
+
+  const canNext=()=>{
+    if(step===0)return!!(data.country&&data.projectName?.trim()&&data.street?.trim()&&data.city?.trim()&&data.state&&data.zip?.trim());
+    if(step===1)return!!(data.detailService&&data.area);
+    if(step===3)return!!(data.service&&data.projectType);
+    return true;
+  };
+
+  const handleSubmit=()=>{
+    setSubmitting(true);setSubmitError('');
+    setTimeout(()=>{
+      setSubmitting(false);
+      setSubmitted(true);
+      onSubmit&&onSubmit(data);
+    },1200);
+  };
+
+  const STEPS=[Step1,Step2,Step3Review,Step4,Step5,Step6,Step7,Step8];
+  const StepComp=STEPS[step];
+  const sqft=data.area?(data.areaUnit==='m2'?Math.round(data.area*10.7639):Number(data.area)):(data.width&&data.length?data.width*data.length:null);
+
+  if(submitted)return e('div',{style:{background:BG,minHeight:'100vh',fontFamily:SS}},
+    e('div',{style:{background:BG2,borderBottom:'1px solid '+BR,padding:'0 24px',height:52,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:40}},
+      e('div',{style:{display:'flex',alignItems:'center',gap:10}},
+        e('div',{style:{width:28,height:28,background:G,borderRadius:6,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontWeight:700,fontSize:14,color:'#fff'}},'D'),
+        e('span',{style:{fontFamily:SR,fontSize:12,fontWeight:700,color:TX}},'DARA Studio')
+      ),
+      e('button',{className:'nb',onClick:onClose,style:{color:DM,display:'flex',alignItems:'center',gap:5,fontSize:12}},e(Ic,{d:I.x,s:14,c:DM}),'Fechar')
+    ),
+    e('div',{style:{maxWidth:700,margin:'0 auto',padding:'40px 24px'}},
+      e(ESuccess,{data,onClose,onViewProject:onClose})
+    )
+  );
+
+  return e('div',{style:{background:BG,minHeight:'100vh',fontFamily:SS}},
+    e('div',{style:{background:BG2,borderBottom:'1px solid '+BR,padding:'0 24px',height:52,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:40}},
+      e('div',{style:{display:'flex',alignItems:'center',gap:10}},
+        e('div',{style:{width:28,height:28,background:G,borderRadius:6,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontWeight:700,fontSize:14,color:'#fff'}},'D'),
+        e('div',null,e('span',{style:{fontFamily:SR,fontSize:12,fontWeight:700,color:TX}},'DARA Studio'),e('span',{style:{fontSize:11,color:DM,marginLeft:8}},'Get Your Estimate'))
+      ),
+      e('button',{className:'nb',onClick:onClose,style:{color:DM,display:'flex',alignItems:'center',gap:5,fontSize:12}},e(Ic,{d:I.x,s:14,c:DM}),'Cancelar')
+    ),
+    e('div',{style:{maxWidth:960,margin:'0 auto',padding:'24px 20px'}},
+      e(StepBar,{step}),
+      e('div',{style:{display:'flex',gap:20,alignItems:'flex-start'}},
+        e('div',{style:{flex:1,minWidth:0,background:BG2,border:'1px solid '+BR,borderRadius:12,padding:'24px'}},
+          e(StepComp,{data,set,onSubmit:handleSubmit,onGoTo:setStep,submitting,submitError}),
+          step<7&&e('div',{style:{display:'flex',justifyContent:'space-between',marginTop:26,paddingTop:18,borderTop:'1px solid '+BR}},
+            e('button',{className:'nb',onClick:()=>setStep(s=>Math.max(0,s-1)),disabled:step===0,style:{display:'flex',alignItems:'center',gap:6,background:'none',border:'1px solid '+BR,borderRadius:8,padding:'9px 16px',fontSize:13,color:step===0?DM:MU,cursor:step===0?'not-allowed':'pointer'}},e(Ic,{d:I.back,s:14,c:step===0?DM:MU}),'Voltar'),
+            e('button',{className:'nb',onClick:()=>setStep(s=>Math.min(7,s+1)),disabled:!canNext(),style:{display:'flex',alignItems:'center',gap:6,background:canNext()?G:BG3,border:'1px solid '+(canNext()?G:BR),borderRadius:8,padding:'9px 20px',fontSize:13,fontWeight:700,color:canNext()?'#fff':DM,cursor:canNext()?'pointer':'not-allowed',transition:'all .15s'}},'Próximo',e(Ic,{d:'M9 18l6-6-6-6',s:14,c:canNext()?'#fff':DM}))
+          )
+        ),
+        e(PriceSidebar,{data})
+      )
+    )
+  );
+};
+
+/* ═══════════════════════════════════════════════
+   PROJECT DETAIL — 7 ABAS COMPLETAS
+═══════════════════════════════════════════════ */
+const ProjectDetail=({proj,onBack,onNewEstimate})=>{
+  const[tab,setTab]=useState('overview');
+  const[stageApproved,setStageApproved]=useState(false);
+  const[quoteApproved,setQuoteApproved]=useState(false);
+  const[areaAlert,setAreaAlert]=useState(null);
+  const[auditLog,setAuditLog]=useState([]);
+  const[showAudit,setShowAudit]=useState(false);
+  const[form,setForm]=useState({name:'Jackson Da Silva',email:'jackgeneraloffice@gmail.com',phone:'+1 (617) 775-0179',area:'2.000 sqft',levels:'Térreo + 2º Andar',start:'15/01/2026',architect:'Daniela Araújo',service:proj.service||''});
+  const[saving,setSaving]=useState(false);
+  const[saved,setSaved]=useState(false);
+  const[msgs,setMsgs]=useState([
+    {id:1,from:'admin',name:'Daniela',text:'A planta v3 foi enviada para aprovação. Alguma dúvida?',time:'10/03 14:30'},
+    {id:2,from:'client',name:'João',text:'Recebi! Vou revisar hoje à noite.',time:'10/03 16:12'},
+    {id:3,from:'admin',name:'Daniela',text:'Perfeito. Qualquer ajuste, abra um ticket.',time:'10/03 16:45'},
+  ]);
+  const[cmsg,setCmsg]=useState('');
+  const[updates,setUpdates]=useState([
+    {id:1,date:'14/03/2026',auth:'João (cliente)',text:'Fundação concluída, iniciando estrutura metálica.',photos:3},
+    {id:2,date:'08/03/2026',auth:'João (cliente)',text:'Terreno preparado e nivelado. Aprovado pela prefeitura.',photos:5},
+  ]);
+  const[utxt,setUtxt]=useState('');
+  const[tkts,setTkts]=useState([]);
+  const[tdesc,setTdesc]=useState('');
+  const[proofs,setProofs]=useState({});
+  const[previewFile,setPreviewFile]=useState(null);
+  const cref=useRef(null);
+  useEffect(()=>{if(cref.current)cref.current.scrollTop=9999;},[msgs]);
+
+  const logChange=(field,oldVal,newVal)=>{
+    if(oldVal===newVal)return;
+    setAuditLog(l=>[{id:Date.now(),ts:new Date().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),field,from:oldVal,to:newVal},...l]);
+  };
+
+  const handleFieldChange=(field,newVal)=>{
+    const oldVal=form[field];
+    if(field==='area'){
+      const oldN=parseInt(oldVal.replace(/\D/g,''))||0;
+      const newN=parseInt(newVal.replace(/\D/g,''))||0;
+      if(newN>oldN&&newN>0&&oldN>0)setAreaAlert({oldArea:oldVal,newArea:newVal});
+    }
+    logChange(field,oldVal,newVal);
+    setForm(f=>({...f,[field]:newVal}));
+    setSaved(false);
+  };
+
+  const handleSave=async(section)=>{
+    setSaving(true);
+    await new Promise(r=>setTimeout(r,600));
+    setSaving(false);setSaved(true);
+    setTimeout(()=>setSaved(false),3000);
+  };
+
+  const sendMsg=()=>{if(!cmsg.trim())return;setMsgs(m=>[...m,{id:Date.now(),from:'client',name:'João',text:cmsg.trim(),time:'agora'}]);setCmsg('');};
+  const postUpdate=()=>{if(!utxt.trim())return;setUpdates(u=>[{id:Date.now(),date:new Date().toLocaleDateString('pt-BR'),auth:'João (cliente)',text:utxt.trim(),photos:0},...u]);setUtxt('');};
+  const openTicket=()=>{if(!tdesc.trim())return;setTkts(t=>[{id:'TKT-'+(t.length+1).toString().padStart(3,'0'),desc:tdesc.trim(),date:new Date().toLocaleDateString('pt-BR'),status:'Aberto'},...t]);setTdesc('');};
+
+  // Project files by stage
+  const projectFiles=[
+    {stage:'REV 00',name:'Estimate Proposal.pdf',type:'pdf',size:'1.2 MB',posted:'15/01/2026',opened:'16/01/2026'},
+    {stage:'REV 00',name:'Initial Invoice.pdf',type:'pdf',size:'890 KB',posted:'16/01/2026',opened:'16/01/2026'},
+    {stage:'REV 00',name:'Comprovante Pagamento.pdf',type:'pdf',size:'450 KB',posted:'18/01/2026',opened:'18/01/2026'},
+    {stage:'REV 01',name:'Planta Baixa v1.pdf',type:'pdf',size:'3.2 MB',posted:'10/02/2026',opened:'11/02/2026'},
+    {stage:'REV 01',name:'Render Vista Frontal.jpg',type:'image',size:'5.1 MB',posted:'10/02/2026',opened:null},
+    {stage:'REV 02',name:'Planta Baixa v3.pdf',type:'pdf',size:'2.4 MB',posted:'12/03/2026',opened:'12/03/2026'},
+    {stage:'REV 02',name:'Orçamento Materiais.pdf',type:'pdf',size:'890 KB',posted:'08/03/2026',opened:null},
+  ];
+  const filesByStage=projectFiles.reduce((acc,f)=>{if(!acc[f.stage])acc[f.stage]=[];acc[f.stage].push(f);return acc;},{});
+
+  const revisions=[
+    {id:'REV 00',tag:'Completo',tagC:GN,tagBg:GNB,prog:'5/5',steps:['Estimate Created','Invoice Sent','Payment Received','REV 00 Started','REV 00 Preview Sent'],done:[true,true,true,true,true]},
+    {id:'REV 01',tag:'Em Andamento',tagC:AM,tagBg:AMB,prog:'2/3',steps:['REV 01 Started','REV 01 Preview Sent','Client Feedback REV 01'],done:[true,true,false]},
+    {id:'REV 02',tag:'Não Iniciado',tagC:DM,tagBg:BG3,prog:'0/3',steps:['REV 02 Started','REV 02 Preview Sent','Client Feedback REV 02'],done:[false,false,false]},
+    {id:'REV 03',tag:'Final',tagC:G,tagBg:GD,prog:'0/3',steps:['REV 03 Started','REV 03 Preview Sent','Client Feedback REV 03'],done:[false,false,false]},
+  ];
+  const finalization=[
+    {label:'Final Drawing Set Delivered',done:false},{label:'Permit Package Ready',done:false},
+    {label:'Client Final Approval',done:false},{label:'Project Closed',done:false,auto:true},
+  ];
+
+  const phases=[
+    {id:'INV-001',label:'Conceptual Design Development',pct:30,amt:Math.round(proj.budget*.3),due:'15/04/2026',paid:null},
+    {id:'INV-002',label:'Drafting & Design Coordination',pct:40,amt:Math.round(proj.budget*.4),due:'30/06/2026',paid:null},
+    {id:'INV-003',label:'Permit Drawing Preparation',pct:30,amt:Math.round(proj.budget*.3),due:'15/08/2026',paid:null},
+  ];
+
+  const phases2=['Levantamento','Estudo Preliminar','Detalhamento','Entrega Final'];
+  const phaseIdx=phases2.indexOf(proj.stage);
+  const remaining=proj.budget-proj.paid;
+  const tabs=[{id:'overview',l:'Overview'},{id:'timeline',l:'Progress'},{id:'files',l:'Drawings/Files'},{id:'updates',l:'Site Updates'},{id:'finance',l:'Finance'},{id:'chat',l:'Chat'},{id:'tickets',l:'Tickets'}];
+  const lbl={fontSize:10,fontWeight:600,color:DM,letterSpacing:'.06em',textTransform:'uppercase',display:'block',marginBottom:4};
+  const inpS={width:'100%',border:'1.5px solid '+BR,borderRadius:7,padding:'8px 10px',fontSize:12,color:TX,background:BG,fontFamily:SS,outline:'none',transition:'border-color .15s'};
+
+  return e('div',{className:'fa'},
+    // Area Alert Modal
+    areaAlert&&e('div',{style:{position:'fixed',inset:0,background:'rgba(0,0,0,0.5)',zIndex:500,display:'flex',alignItems:'center',justifyContent:'center',padding:24}},
+      e('div',{style:{background:BG2,borderRadius:14,padding:'26px',width:'100%',maxWidth:420,border:'1.5px solid '+AM,boxShadow:'0 16px 48px rgba(0,0,0,0.2)'}},
+        e('div',{style:{display:'flex',gap:10,marginBottom:14}},
+          e(Ic,{d:I.alert,s:22,c:AM,style:{flexShrink:0}}),
+          e('div',null,
+            e('p',{style:{fontFamily:SR,fontSize:16,fontWeight:700,marginBottom:4}},'Alerta: Área Aumentada'),
+            e('p',{style:{fontSize:12,color:MU,lineHeight:1.6}},'Área alterada de ',e('strong',null,areaAlert.oldArea),' para ',e('strong',{style:{color:AM}},areaAlert.newArea),'. Alterações de área implicam em renegociação de valores.')
+          )
+        ),
+        e('div',{style:{padding:'9px 12px',background:AMB,border:'1px solid rgba(192,124,10,0.25)',borderRadius:7,marginBottom:16,fontSize:11,color:AM}},e('strong',null,'⚡ Notificação de alta prioridade enviada para o Admin.')),
+        e('div',{style:{display:'flex',gap:10}},
+          e('button',{className:'btn',onClick:()=>setAreaAlert(null),style:{flex:1}},'Entendido'),
+          e('button',{className:'nb',onClick:()=>{setForm(f=>({...f,area:areaAlert.oldArea}));setAuditLog(l=>l.filter(x=>x.field!=='area'||x.to!==areaAlert.newArea));setAreaAlert(null);},style:{flex:1,background:'none',border:'1px solid '+BR,borderRadius:8,padding:'8px',fontSize:13,color:MU,cursor:'pointer'}},'Reverter')
+        )
+      )
+    ),
+    e('button',{className:'nb',onClick:onBack,style:{display:'flex',alignItems:'center',gap:6,color:MU,fontSize:12,marginBottom:14,padding:0}},e(Ic,{d:I.back,s:14,c:MU}),'Voltar para Projetos'),
+    // Header
+    e('div',{className:'card',style:{marginBottom:4}},
+      e('div',{style:{display:'flex',alignItems:'flex-start',gap:14,marginBottom:14}},
+        e(ProjectThumb,{service:proj.service,size:52}),
+        e('div',{style:{flex:1,minWidth:0}},
+          e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:4,flexWrap:'wrap'}},
+            e('span',{style:{fontFamily:'monospace',fontSize:10,color:G,fontWeight:700,background:GD,borderRadius:4,padding:'2px 8px'}},proj.code),
+            e(Badge,{s:proj.status})
+          ),
+          e('h1',{style:{fontFamily:SR,fontSize:18,fontWeight:700,marginBottom:1}},proj.address),
+          e('p',{style:{fontSize:12,color:MU}},proj.city+' · '+proj.service)
+        ),
+        e('div',{style:{display:'flex',gap:16,flexShrink:0}},
+          ...[['Budget',fmt(proj.budget),TX],['Pago',fmt(proj.paid),GN],['Saldo',fmt(remaining),remaining>0?AM:GN]].map(([l,v,c])=>
+            e('div',{key:l,style:{textAlign:'right'}},
+              e('p',{style:{fontSize:10,color:DM,marginBottom:2}},l),
+              e('p',{style:{fontFamily:SR,fontSize:14,fontWeight:700,color:c}},v)
+            )
+          )
+        )
+      ),
+      e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},
+        e('span',null,'Etapa: ',e('strong',{style:{color:TX,fontSize:11}},proj.stage)),
+        e('span',null,proj.progress+'% concluído · Atualizado '+proj.updatedAt)
+      ),
+      e('div',{style:{background:BG3,borderRadius:4,height:6,marginBottom:12}},e('div',{style:{width:proj.progress+'%',height:'100%',borderRadius:4,background:'linear-gradient(90deg,'+G+',#c9ae82)',transition:'width .8s ease'}})),
+      e('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between'}},
+        e('div',{style:{display:'flex',gap:0,flex:1}},
+          phases2.map((ph,i)=>e('div',{key:ph,style:{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:3}},
+            e('div',{style:{width:16,height:16,borderRadius:'50%',background:i<=phaseIdx?G:BG3,border:'2px solid '+(i<=phaseIdx?G:BR),display:'flex',alignItems:'center',justifyContent:'center'}},
+              i<phaseIdx?e(Ic,{d:I.check,s:9,c:'#fff'}):i===phaseIdx?e('div',{style:{width:5,height:5,borderRadius:'50%',background:'#fff'}}):null
+            ),
+            e('span',{style:{fontSize:9,color:i<=phaseIdx?TX:DM,textAlign:'center',lineHeight:1.3}},ph)
+          ))
+        ),
+        e('button',{onClick:()=>setStageApproved(true),disabled:stageApproved,className:'nb btn',style:{marginLeft:16,background:stageApproved?GNB:G,border:stageApproved?'1px solid rgba(45,134,83,0.3)':'none',color:stageApproved?GN:'#fff',fontSize:11,padding:'7px 14px',flexShrink:0}},stageApproved?e(Fragment,null,e(Ic,{d:I.check,s:12,c:GN,style:{marginRight:4}}),'Etapa Aprovada'):'✓ Aprovar Etapa')
+      )
+    ),
+    // Tabs
+    e('div',{style:{display:'flex',borderBottom:'1px solid '+BR,background:BG2,overflowX:'auto'}},
+      tabs.map(t=>e('button',{key:t.id,className:'tab',onClick:()=>setTab(t.id),style:{color:tab===t.id?G:DM,borderBottomColor:tab===t.id?G:'transparent'}},t.l))
+    ),
+    // Tab content
+    e('div',{style:{paddingTop:14}},
+      // OVERVIEW
+      tab==='overview'&&e('div',null,
+        e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:12,marginBottom:12}},
+          e('div',{className:'card'},
+            e('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12}},e(Ic,{d:I.usr,s:13,c:G}),e('span',{style:{fontFamily:SR,fontSize:13,fontWeight:700}},'Informações do Cliente'),e('span',{style:{fontSize:9,fontWeight:600,color:GN,background:GNB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'EDITÁVEL')),
+            ...['name','email','phone'].map((k,i)=>e('div',{key:k,style:{marginBottom:10}},
+              e('label',{style:lbl},['Nome Completo','E-mail','Telefone'][i]),
+              e('input',{style:inpS,value:form[k],onChange:v=>handleFieldChange(k,v.target.value),onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR})
+            )),
+            e('div',{style:{display:'flex',alignItems:'center',gap:10,marginTop:4}},
+              e('button',{className:'btn',onClick:()=>handleSave('client'),disabled:saving},saving?'Salvando...':'Salvar Alterações'),
+              saved&&e('span',{style:{fontSize:11,color:GN,display:'flex',alignItems:'center',gap:4}},e(Ic,{d:I.check,s:12,c:GN}),'Salvo!')
+            )
+          ),
+          e('div',{className:'card'},
+            e('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12,flexWrap:'wrap'}},
+              e(Ic,{d:I.bld,s:13,c:G}),
+              e('span',{style:{fontFamily:SR,fontSize:13,fontWeight:700}},'Detalhes Técnicos'),
+              quoteApproved
+                ?e('span',{style:{fontSize:9,fontWeight:700,color:RD,background:RDB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'🔒 BLOQUEADO')
+                :e('span',{style:{fontSize:9,fontWeight:600,color:AM,background:AMB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'EDITÁVEL'),
+              e('button',{className:'nb',onClick:()=>setQuoteApproved(q=>!q),style:{marginLeft:'auto',fontSize:10,fontWeight:600,background:quoteApproved?GNB:BG3,color:quoteApproved?GN:DM,border:'1px solid '+(quoteApproved?'rgba(45,134,83,0.3)':BR),borderRadius:5,padding:'2px 8px'}},quoteApproved?'✓ Aprovado':'Simular Aprovação')
+            ),
+            quoteApproved&&e('div',{style:{padding:'8px 11px',background:RDB,border:'1px solid rgba(184,50,50,0.2)',borderRadius:7,marginBottom:10,fontSize:11,color:RD}},'Detalhes bloqueados. Alterações requerem autorização do Admin.'),
+            ...['area','levels','start','architect','service'].map((k,i)=>e('div',{key:k,className:'prow'},
+              e('span',{style:{fontSize:11,color:MU}},['Área','Níveis','Início','Arquiteto','Serviço'][i]),
+              quoteApproved
+                ?e('span',{style:{fontSize:11,fontWeight:500,color:DM}},form[k])
+                :e('input',{value:form[k],onChange:v=>!quoteApproved&&handleFieldChange(k,v.target.value),readOnly:quoteApproved,style:{fontSize:11,fontWeight:500,color:TX,background:'none',border:'none',textAlign:'right',outline:'none',fontFamily:SS,borderBottom:'1px dashed '+BR,padding:'1px 4px',width:150},onFocus:v=>{if(!quoteApproved)v.target.style.borderBottomColor=G;},onBlur:v=>v.target.style.borderBottomColor=BR})
+            )),
+            !quoteApproved&&e('div',{style:{display:'flex',alignItems:'center',gap:10,marginTop:8}},
+              e('button',{className:'btn',onClick:()=>handleSave('details'),disabled:saving},saving?'Salvando...':'Salvar Alterações'),
+              saved&&e('span',{style:{fontSize:11,color:GN,display:'flex',alignItems:'center',gap:4}},e(Ic,{d:I.check,s:12,c:GN}),'Salvo!')
+            )
+          )
+        ),
+        // Audit Log
+        e('div',{className:'card'},
+          e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',cursor:'pointer'},onClick:()=>setShowAudit(s=>!s)},
+            e('div',{style:{display:'flex',alignItems:'center',gap:7}},
+              e('span',{style:{fontSize:13}},'📋'),
+              e('span',{style:{fontFamily:SR,fontSize:13,fontWeight:700}},'Audit Log'),
+              auditLog.length>0&&e('span',{style:{fontSize:10,fontWeight:700,background:GD,color:G,borderRadius:10,padding:'1px 8px'}},auditLog.length+' alteração'+(auditLog.length>1?'ões':''))
+            ),
+            e('span',{style:{fontSize:11,color:DM}},showAudit?'▲ Fechar':'▼ Ver histórico')
+          ),
+          showAudit&&e('div',{style:{marginTop:12,borderTop:'1px solid '+BR,paddingTop:12}},
+            auditLog.length===0
+              ?e('p',{style:{fontSize:12,color:DM,textAlign:'center',padding:'12px 0'}},'Nenhuma alteração registrada.')
+              :e('div',null,
+                e('div',{style:{display:'grid',gridTemplateColumns:'1.6fr 1fr 1.4fr 1.4fr',gap:0,padding:'7px 0',borderBottom:'1px solid '+BR}},
+                  ...['Data / Hora','Campo','Antes','Depois'].map(h=>e('span',{key:h,style:{fontSize:10,fontWeight:700,color:DM,textTransform:'uppercase',letterSpacing:'.06em'}},h))
+                ),
+                auditLog.map((entry,i)=>e('div',{key:entry.id,style:{display:'grid',gridTemplateColumns:'1.6fr 1fr 1.4fr 1.4fr',gap:0,padding:'9px 0',borderBottom:i<auditLog.length-1?'1px solid '+BR:'none',alignItems:'center'}},
+                  e('span',{style:{fontSize:11,color:MU}},entry.ts),
+                  e('span',{style:{fontSize:11,fontWeight:600,color:TX,textTransform:'capitalize'}},entry.field),
+                  e('span',{style:{fontSize:11,color:RD,background:RDB,borderRadius:4,padding:'2px 7px',display:'inline-block',maxWidth:'100%',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},entry.from||'—'),
+                  e('span',{style:{fontSize:11,color:GN,background:GNB,borderRadius:4,padding:'2px 7px',display:'inline-block',maxWidth:'100%',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},entry.to||'—')
+                ))
+              )
+          )
+        )
+      ),
+      // TIMELINE
+      tab==='timeline'&&e('div',null,
+        e('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:14,padding:'10px 14px',background:BG2,border:'1px solid '+BR,borderRadius:10}},
+          e('div',{style:{width:8,height:8,borderRadius:'50%',background:GN}}),
+          e('span',{style:{fontSize:12,fontWeight:600,color:GN}},'On Track'),
+          e('span',{style:{fontSize:12,color:DM}},proj.stage),
+          e('div',{style:{flex:1,background:BG3,borderRadius:3,height:5,margin:'0 8px'}},e('div',{style:{width:proj.progress+'%',height:'100%',borderRadius:3,background:G}})),
+          e('span',{style:{fontSize:11,fontWeight:700,color:G}},proj.progress+'%')
+        ),
+        e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:12,marginBottom:12}},
+          revisions.map(rev=>e('div',{key:rev.id,className:'card'},
+            e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:10}},
+              e('span',{style:{fontFamily:'monospace',fontSize:12,fontWeight:700,color:TX}},rev.id),
+              e('span',{style:{fontSize:10,fontWeight:600,background:rev.tagBg,color:rev.tagC,borderRadius:4,padding:'2px 7px'}},rev.tag),
+              e('span',{style:{marginLeft:'auto',fontSize:10,color:DM}},rev.prog)
+            ),
+            rev.steps.map((step,i)=>e('div',{key:step,style:{display:'flex',alignItems:'center',gap:8,padding:'5px 0',borderBottom:i<rev.steps.length-1?'1px solid rgba(0,0,0,0.04)':'none'}},
+              e('div',{style:{width:14,height:14,borderRadius:'50%',flexShrink:0,background:rev.done[i]?G:BG3,border:'1.5px solid '+(rev.done[i]?G:BR),display:'flex',alignItems:'center',justifyContent:'center'}},
+                rev.done[i]&&e(Ic,{d:I.check,s:8,c:'#fff'})
+              ),
+              e('span',{style:{fontSize:11,color:rev.done[i]?TX:DM}},step)
+            ))
+          ))
+        ),
+        e('div',{className:'card'},
+          e('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12}},
+            e('span',{style:{fontSize:13}},'⭐'),
+            e('span',{style:{fontFamily:SR,fontSize:14,fontWeight:700}},'Finalização')
+          ),
+          finalization.map((f,i)=>e('div',{key:f.label,style:{display:'flex',alignItems:'center',gap:10,padding:'6px 0',borderBottom:i<finalization.length-1?'1px solid rgba(0,0,0,0.04)':'none'}},
+            e('div',{style:{width:14,height:14,borderRadius:'50%',flexShrink:0,background:f.done?G:BG3,border:'1.5px solid '+(f.done?G:BR),display:'flex',alignItems:'center',justifyContent:'center'}},
+              f.done&&e(Ic,{d:I.check,s:8,c:'#fff'})
+            ),
+            e('span',{style:{fontSize:11,color:f.done?TX:DM,flex:1}},f.label),
+            f.auto&&e('span',{style:{fontSize:9,color:DM,background:BG3,borderRadius:3,padding:'1px 5px'}},'Auto')
+          ))
+        )
+      ),
+      // DRAWINGS/FILES
+      tab==='files'&&e('div',null,
+        e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:14,padding:'10px 14px',background:AMB,border:'1px solid rgba(192,124,10,0.15)',borderRadius:8}},
+          e(Ic,{d:I.info,s:13,c:AM}),
+          e('span',{style:{fontSize:12,color:AM}},'Arquivos publicados pela equipe DARA Studio. Use o botão de download.')
+        ),
+        Object.entries(filesByStage).map(([stage,files])=>e('div',{key:stage,style:{marginBottom:16}},
+          e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+            e('span',{style:{fontFamily:'monospace',fontSize:12,fontWeight:700,color:G}},stage),
+            e('span',{style:{fontSize:11,color:DM}},files.length+' arquivo(s)')
+          ),
+          e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:8}},
+            files.map(f=>e('div',{key:f.name,className:'card',style:{display:'flex',gap:10,alignItems:'flex-start',cursor:'pointer',transition:'border-color .15s'},onMouseEnter:v=>v.currentTarget.style.borderColor=G,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+              e('div',{style:{width:36,height:36,borderRadius:7,background:f.type==='image'?BLB:AMB,border:'1px solid '+(f.type==='image'?BL:AM)+'40',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+                e(Ic,{d:f.type==='image'?I.img:I.file,s:16,c:f.type==='image'?BL:AM})
+              ),
+              e('div',{style:{flex:1,minWidth:0}},
+                e('p',{style:{fontSize:12,fontWeight:500,color:TX,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},f.name),
+                e('p',{style:{fontSize:10,color:DM,marginTop:2}},f.size+' · '+f.posted),
+                f.opened
+                  ?e('p',{style:{fontSize:10,color:GN}},'✓ Aberto em '+f.opened)
+                  :e('p',{style:{fontSize:10,color:AM,fontWeight:600}},'◉ Novo')
+              ),
+              e(Ic,{d:I.dload,s:14,c:DM,style:{flexShrink:0,marginTop:2}})
+            ))
+          )
+        ))
+      ),
+      // SITE UPDATES
+      tab==='updates'&&e('div',null,
+        e('div',{className:'card',style:{marginBottom:14}},
+          e('p',{style:{fontSize:12,fontWeight:700,color:TX,marginBottom:8}},'Nova Atualização de Obra'),
+          e('textarea',{className:'ta',value:utxt,onChange:v=>setUtxt(v.target.value),placeholder:'Descreva o progresso da obra...'}),
+          e('button',{className:'btn',style:{marginTop:8},onClick:postUpdate},'Publicar Atualização')
+        ),
+        updates.map(u=>e('div',{key:u.id,className:'card',style:{marginBottom:8,border:'1px solid '+(u.saving?AM:BR)}},
+          e('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:5}},
+            e('span',{style:{fontSize:11,color:G,fontWeight:600}},u.auth),
+            e('span',{style:{fontSize:10,color:DM}},u.saving?'⏳ Salvando...':u.date)
+          ),
+          e('p',{style:{fontSize:12,color:TX,lineHeight:1.6}},u.text),
+          u.photos>0&&e('div',{style:{display:'flex',gap:6,marginTop:8}},
+            Array.from({length:u.photos}).map((_,i)=>e('div',{key:i,style:{width:48,height:42,background:BG3,border:'1px solid '+BR,borderRadius:5,display:'flex',alignItems:'center',justifyContent:'center',fontSize:14}},'🖼️'))
+          )
+        ))
+      ),
+      // FINANCE
+      tab==='finance'&&e('div',null,
+        e('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:14}},
+          ...[['Total',fmt(proj.budget),G],['Pago',fmt(proj.paid),GN],['Saldo',fmt(remaining),remaining>0?AM:GN]].map(([l,v,c])=>
+            e('div',{key:l,className:'card',style:{textAlign:'center'}},e('p',{style:{fontFamily:SR,fontSize:15,fontWeight:700,color:c}},v),e('p',{style:{fontSize:11,color:DM,marginTop:3}},l))
+          )
+        ),
+        phases.map(ph=>e('div',{key:ph.id,className:'card',style:{marginBottom:10}},
+          e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,flexWrap:'wrap',gap:6}},
+            e('div',null,e('p',{style:{fontSize:12,fontWeight:700,color:TX}},ph.label),e('p',{style:{fontSize:11,color:MU}},ph.pct+'% — '+fmt(ph.amt))),
+            e('div',{style:{textAlign:'right'}},
+              e('span',{style:{fontSize:10,fontWeight:600,background:proofs[ph.id]?GNB:AMB,color:proofs[ph.id]?GN:AM,borderRadius:4,padding:'2px 8px'}},proofs[ph.id]?'Comprovante enviado':'Pendente'),
+              e('p',{style:{fontSize:10,color:DM,marginTop:3}},'Vencimento: '+ph.due)
+            )
+          ),
+          !proofs[ph.id]&&e('label',{style:{display:'flex',alignItems:'center',justifyContent:'center',gap:6,background:G,border:'none',borderRadius:8,padding:'8px',fontSize:12,fontWeight:700,color:'#fff',cursor:'pointer',width:'100%',transition:'opacity .15s'}},
+            e(Ic,{d:I.up,s:14,c:'#fff'}),'Anexar Comprovante de Pagamento',
+            e('input',{type:'file',accept:'image/*,.pdf',style:{display:'none'},onChange:v=>{const f=v.target.files?.[0];if(f)setProofs(p=>({...p,[ph.id]:f.name}));}})
+          ),
+          proofs[ph.id]&&e('p',{style:{fontSize:11,color:GN,marginTop:4,textAlign:'center'}},'✓ '+proofs[ph.id]+' — aguardando confirmação da equipe DARA Studio')
+        ))
+      ),
+      // CHAT
+      tab==='chat'&&e('div',{className:'card',style:{padding:0,overflow:'hidden',display:'flex',flexDirection:'column',height:400}},
+        e('div',{style:{padding:'10px 16px',borderBottom:'1px solid '+BR,display:'flex',alignItems:'center',gap:8}},
+          e('span',{style:{width:8,height:8,borderRadius:'50%',background:GN,flexShrink:0}}),
+          e('span',{style:{fontSize:12,fontWeight:700,color:TX}},'Chat com DARA Studio'),
+          e('span',{style:{fontSize:11,color:DM,marginLeft:'auto'}},'Online')
+        ),
+        e('div',{ref:cref,style:{flex:1,overflowY:'auto',padding:'12px 16px',display:'flex',flexDirection:'column',gap:10}},
+          msgs.map(m=>e('div',{key:m.id,style:{display:'flex',flexDirection:m.from==='client'?'row-reverse':'row',gap:8,alignItems:'flex-end',opacity:m.sending?.6:1}},
+            e('div',{style:{width:26,height:26,borderRadius:'50%',background:m.from==='admin'?GD:BG3,border:'1px solid '+BR,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+              e('span',{style:{fontSize:10,fontWeight:700,color:m.from==='admin'?G:MU}},m.name[0])
+            ),
+            e('div',{style:{maxWidth:'70%'}},
+              e('div',{style:{background:m.from==='client'?GD:BG3,border:'1px solid '+(m.from==='client'?GB:BR),borderRadius:m.from==='client'?'10px 10px 3px 10px':'10px 10px 10px 3px',padding:'8px 12px'}},
+                e('p',{style:{fontSize:12,color:TX,lineHeight:1.5}},m.text)
+              ),
+              e('p',{style:{fontSize:10,color:m.error?RD:DM,marginTop:2,textAlign:m.from==='client'?'right':'left'}},m.name+' · '+(m.sending?'Enviando...':m.error?'Falha ao enviar':m.time))
+            )
+          ))
+        ),
+        e('div',{style:{borderTop:'1px solid '+BR,padding:'10px 14px',display:'flex',gap:8}},
+          e('input',{value:cmsg,onChange:v=>setCmsg(v.target.value),onKeyDown:k=>k.key==='Enter'&&sendMsg(),placeholder:'Escreva uma mensagem...',style:{flex:1,background:BG3,border:'1px solid '+BR,borderRadius:8,padding:'8px 12px',fontSize:12,color:TX,fontFamily:SS,outline:'none'},onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR}),
+          e('button',{className:'nb',onClick:sendMsg,style:{background:G,borderRadius:8,width:36,height:36,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},e(Ic,{d:I.send,s:13,c:'#fff'}))
+        )
+      ),
+      // TICKETS
+      tab==='tickets'&&e('div',null,
+        e('div',{className:'card',style:{marginBottom:14}},
+          e('p',{style:{fontSize:12,fontWeight:700,color:TX,marginBottom:8}},'Abrir Ticket de Revisão'),
+          e('textarea',{className:'ta',value:tdesc,onChange:v=>setTdesc(v.target.value),placeholder:'Descreva a revisão solicitada...'}),
+          e('button',{className:'btn',style:{marginTop:8},onClick:openTicket},'Abrir Ticket')
+        ),
+        tkts.length===0&&e('div',{style:{textAlign:'center',padding:'32px 0',color:DM}},e('p',{style:{fontSize:26,marginBottom:8}},'🎫'),e('p',{style:{fontSize:13}},'Nenhum ticket aberto ainda.')),
+        tkts.map(t=>e('div',{key:t.id,className:'card',style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}},
+          e('div',null,
+            e('div',{style:{display:'flex',gap:8,alignItems:'center',marginBottom:4}},
+              e('span',{style:{fontFamily:'monospace',fontSize:11,color:G,fontWeight:700}},t.id),
+              e('span',{style:{fontSize:10,fontWeight:600,background:AMB,color:AM,borderRadius:3,padding:'1px 6px'}},t.status)
+            ),
+            e('p',{style:{fontSize:12,color:TX,lineHeight:1.5}},t.desc)
+          ),
+          e('span',{style:{fontSize:10,color:DM,flexShrink:0}},t.date)
+        ))
+      )
+    )
+  );
+};
+
+/* ═══════════════════════════════════════════════
+   PAGES
+═══════════════════════════════════════════════ */
+const Dashboard=({user,projects,invoices,activity,onNav,onOpen,onNewEstimate})=>{
+  const active=projects.filter(p=>p.status!=='completed').length;
+  const pendAmt=invoices.filter(i=>i.status==='pending').reduce((s,i)=>s+i.amount,0);
+  const paidAmt=invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  return e('div',{className:'fa'},
+    e('div',{style:{marginBottom:20}},
+      e('h1',{style:{fontFamily:SR,fontSize:21,fontWeight:700,marginBottom:3}},'Bem-vindo, '+user.name.split(' ')[0]),
+      e('p',{style:{fontSize:12,color:MU}},'Resumo dos seus projetos em andamento.')
+    ),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:12,marginBottom:20}},
+      ...[
+        {v:active,l:'Projetos Ativos',c:G,ic:'folder',pg:'projects'},
+        {v:invoices.filter(i=>i.status==='pending').length,l:'Faturas Pendentes',c:AM,ic:'rcpt',pg:'invoices'},
+        {v:fmt(paidAmt),l:'Total Pago',c:GN,ic:'trend',pg:'invoices'},
+      ].map(m=>e('button',{key:m.l,className:'nb card',onClick:()=>onNav(m.pg),style:{textAlign:'left',cursor:'pointer',transition:'border-color .15s',width:'100%'},onMouseEnter:v=>v.currentTarget.style.borderColor=m.c,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+        e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:6}},e(Ic,{d:I[m.ic],s:14,c:m.c}),e('span',{style:{fontSize:11,color:MU}},m.l)),
+        e('p',{style:{fontFamily:SR,fontSize:20,fontWeight:700,color:m.c}},m.v)
+      ))
+    ),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:14}},
+      e('div',null,
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}},
+          e('h2',{style:{fontFamily:SR,fontSize:14,fontWeight:700}},'Projetos Recentes'),
+          e('button',{className:'nb',style:{fontSize:12,color:G},onClick:()=>onNav('projects')},'Ver todos →')
+        ),
+        projects.slice(0,2).map(p=>e('div',{key:p.id,className:'card',onClick:()=>onOpen(p),style:{marginBottom:8,cursor:'pointer',transition:'border-color .15s'},onMouseEnter:v=>v.currentTarget.style.borderColor=G,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+          e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,gap:10,flexWrap:'wrap'}},
+            e('div',{style:{display:'flex',gap:10,alignItems:'flex-start'}},
+              e(ProjectThumb,{service:p.service,size:40}),
+              e('div',null,e('p',{style:{fontSize:13,fontWeight:700,color:TX}},p.address),e('p',{style:{fontSize:11,color:MU,marginTop:1}},p.service))
+            ),
+            e(Badge,{s:p.status})
+          ),
+          e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},e('span',null,p.stage),e('span',null,p.progress+'%')),
+          e('div',{style:{background:BG3,borderRadius:3,height:4}},e('div',{style:{width:p.progress+'%',height:'100%',borderRadius:3,background:G}}))
+        ))
+      ),
+      e('div',null,
+        e('h2',{style:{fontFamily:SR,fontSize:14,fontWeight:700,marginBottom:10}},'Atividade Recente'),
+        activity.map(a=>e('div',{key:a.id,style:{display:'flex',gap:10,alignItems:'flex-start',padding:'8px 0',borderBottom:'1px solid rgba(0,0,0,0.04)'}},
+          e('div',{style:{width:28,height:28,borderRadius:7,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+            e(Ic,{d:a.type==='file'?I.dload:a.type==='invoice'?I.rcpt:I.chat,s:13,c:G})
+          ),
+          e('div',null,e('p',{style:{fontSize:12,color:TX,lineHeight:1.4}},a.text),e('p',{style:{fontSize:10,color:DM,marginTop:1}},a.time))
+        ))
+      )
+    )
+  );
+};
+
+const Projects=({projects,setProjects,onOpen,onNewEstimate})=>{
+  const[f,setF]=useState('active');
+  const list=projects.filter(p=>f==='all'?true:f==='active'?p.status!=='completed':p.status==='completed');
+  return e('div',{className:'fa'},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:18,flexWrap:'wrap',gap:10}},
+      e('div',null,
+        e('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:2}},'Meus Projetos'),
+        e('p',{style:{fontSize:12,color:MU}},projects.length+' projeto(s) no total')
+      ),
+      e('div',{style:{display:'flex',gap:8,alignItems:'center'}},
+        e('div',{style:{display:'flex',background:BG3,borderRadius:8,padding:3}},
+          [['active','Ativos'],['completed','Concluídos'],['all','Todos']].map(([id,l])=>e('button',{key:id,className:'nb',onClick:()=>setF(id),style:{padding:'6px 12px',fontSize:11,fontWeight:f===id?600:400,background:f===id?BG2:'none',borderRadius:6,color:f===id?TX:MU}},l))
+        ),
+        e('button',{className:'btn',onClick:onNewEstimate,style:{display:'flex',alignItems:'center',gap:6}},e(Ic,{d:I.plus,s:13,c:'#fff'}),'Novo Estimate')
+      )
+    ),
+    list.length===0&&e('div',{style:{textAlign:'center',padding:'48px 0',color:DM}},e('p',{style:{fontSize:28,marginBottom:8}},'📁'),e('p',{style:{fontSize:14,marginBottom:4}},'Nenhum projeto nesta categoria'),e('button',{className:'btn',style:{marginTop:12},onClick:onNewEstimate},'+ Criar Novo Estimate')),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:12}},
+      list.map(p=>e('div',{key:p.id,className:'card',onClick:()=>onOpen(p),style:{cursor:'pointer',transition:'border-color .15s'},onMouseEnter:v=>v.currentTarget.style.borderColor=G,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10,flexWrap:'wrap',gap:8}},
+          e('div',{style:{display:'flex',gap:10,alignItems:'flex-start'}},
+            e(ProjectThumb,{service:p.service,size:44}),
+            e('div',null,
+              e('p',{style:{fontFamily:'monospace',fontSize:10,color:G,fontWeight:700,marginBottom:2}},p.code),
+              e('p',{style:{fontSize:13,fontWeight:700,color:TX}},p.address),
+              e('p',{style:{fontSize:11,color:MU,marginTop:1}},p.city)
+            )
+          ),
+          e(Badge,{s:p.status})
+        ),
+        e('p',{style:{fontSize:11,color:MU,marginBottom:10,lineHeight:1.4}},p.service),
+        e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},e('span',null,p.stage),e('span',null,p.progress+'%')),
+        e('div',{style:{background:BG3,borderRadius:3,height:4,marginBottom:10}},e('div',{style:{width:p.progress+'%',height:'100%',borderRadius:3,background:p.status==='completed'?GN:G}})),
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center'}},
+          e('span',{style:{fontSize:12,fontWeight:700,color:TX}},fmt(p.budget)),
+          e('span',{style:{fontSize:10,color:DM}},p.updatedAt)
+        ),
+        p.pending&&e('div',{style:{marginTop:8,padding:'4px 9px',background:AMB,borderRadius:4,fontSize:10,color:AM,fontWeight:500}},p.pending)
+      ))
+    )
+  );
+};
+
+const Faturas=({invoices})=>{
+  const paid=invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  const pend=invoices.filter(i=>i.status==='pending').reduce((s,i)=>s+i.amount,0);
+  const[proofUp,setProofUp]=useState({});
+  return e('div',{className:'fa'},
+    e('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:4}},'Faturas'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Histórico financeiro e pagamentos'),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',gap:12,marginBottom:20}},
+      ...[['Total Pago',fmt(paid),GN],['Pendente',fmt(pend),AM],['Faturas',invoices.length,BL]].map(([l,v,c])=>
+        e('div',{key:l,className:'card',style:{textAlign:'center'}},
+          e('p',{style:{fontFamily:SR,fontSize:18,fontWeight:700,color:c}},v),
+          e('p',{style:{fontSize:11,color:DM,marginTop:3}},l)
+        )
+      )
+    ),
+    invoices.map(inv=>e('div',{key:inv.id,className:'card',style:{marginBottom:8}},
+      e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}},
+        e('div',null,
+          e('p',{style:{fontFamily:'monospace',fontSize:12,fontWeight:700,color:G}},inv.id),
+          e('p',{style:{fontSize:12,color:TX,marginTop:2}},inv.project),
+          e('p',{style:{fontSize:11,color:DM,marginTop:1}},'Vencimento: '+inv.due)
+        ),
+        e('div',{style:{textAlign:'right'}},
+          e('p',{style:{fontFamily:SR,fontSize:15,fontWeight:700,color:TX}},fmt(inv.amount)),
+          e('span',{style:{fontSize:10,fontWeight:600,background:inv.status==='paid'?GNB:AMB,color:inv.status==='paid'?GN:AM,borderRadius:4,padding:'2px 8px'}},inv.status==='paid'?'Pago':'Pendente')
+        )
+      ),
+      inv.status==='pending'&&!proofUp[inv.id]&&e('label',{style:{display:'flex',alignItems:'center',justifyContent:'center',gap:6,background:G,border:'none',borderRadius:8,padding:'7px',fontSize:12,fontWeight:700,color:'#fff',cursor:'pointer',width:'100%',marginTop:10}},
+        e(Ic,{d:I.up,s:13,c:'#fff'}),'Anexar Comprovante',
+        e('input',{type:'file',accept:'image/*,.pdf',style:{display:'none'},onChange:v=>{const f=v.target.files?.[0];if(f)setProofUp(p=>({...p,[inv.id]:f.name}));}})
+      ),
+      proofUp[inv.id]&&e('p',{style:{fontSize:11,color:GN,marginTop:8,textAlign:'center'}},'✓ '+proofUp[inv.id]+' — enviado para revisão')
+    ))
+  );
+};
+
+const Perfil=({user,onUpdate})=>e('div',{className:'fa',style:{maxWidth:520}},
+  e('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:18}},'Meu Perfil'),
+  e('div',{className:'card'},
+    e('div',{style:{display:'flex',alignItems:'center',gap:14,marginBottom:18,paddingBottom:16,borderBottom:'1px solid '+BR}},
+      e('div',{style:{width:58,height:58,borderRadius:'50%',background:GD,border:'2px solid '+G,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontSize:20,fontWeight:700,color:G,flexShrink:0}},user.initials),
+      e('div',null,e('p',{style:{fontFamily:SR,fontSize:16,fontWeight:700}},user.name),e('p',{style:{fontSize:12,color:MU}},user.company))
+    ),
+    ['Nome Completo','E-mail','Telefone'].map((l,i)=>e('div',{key:l,style:{marginBottom:12}},
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},l),
+      e('input',{className:'inp',defaultValue:[user.name,user.email,user.phone][i]})
+    )),
+    e('div',{style:{display:'flex',justifyContent:'flex-end',marginTop:8}},e('button',{className:'btn'},'Salvar Alterações'))
+  )
+);
+
+/* ═══════════════════════════════════════════════
+   MAIN LAYOUT
+═══════════════════════════════════════════════ */
+const Layout=({user,onLogout})=>{
+  const[page,setPage]=useState('dashboard');
+  const[sideOpen,setSideOpen]=useState(true);
+  const[proj,setProj]=useState(null);
+  const[projects,setProjects]=useState(DEMO_PROJECTS);
+  const[showEstimate,setShowEstimate]=useState(false);
+  const[notif,setNotif]=useState(true);
+  const[showN,setShowN]=useState(false);
+  const pend=DEMO_INVOICES.filter(i=>i.status==='pending').length;
+  const nav=[{id:'dashboard',ico:'dash',l:'Dashboard'},{id:'projects',ico:'folder',l:'Meus Projetos'},{id:'invoices',ico:'rcpt',l:'Faturas',b:pend},{id:'messages',ico:'chat',l:'Mensagens',b:1}];
+  const bot=[{id:'profile',ico:'usr',l:'Perfil'},{id:'company',ico:'bld',l:'Empresa'}];
+  const go=p=>{setProj(null);setPage(p);};
+  const openProject=p=>{setProj(p);setPage('detail');};
+  const newEstimate=()=>setShowEstimate(true);
+
+  const onEstimateSubmit=formData=>{
+    const np={
+      id:Date.now(),
+      code:'DARA-'+String(projects.length+1).padStart(4,'0'),
+      address:formData.street||formData.projectName||'Novo Projeto',
+      city:(formData.city||'')+', '+(formData.state||''),
+      service:(formData.service||'estimate').replace(/_/g,' '),
+      stage:'Levantamento',status:'on_track',
+      budget:0,paid:0,progress:0,
+      updatedAt:new Date().toLocaleDateString('pt-BR'),
+      pending:'Aguardando revisão — válido por 30 dias',
+    };
+    setProjects(prev=>[np,...prev]);
+    setShowEstimate(false);
+    setPage('projects');
+  };
+
+  if(showEstimate)return e(EstimateForm,{onClose:()=>setShowEstimate(false),onSubmit:onEstimateSubmit});
+
+  return e('div',{style:{display:'flex',minHeight:'100vh',background:BG}},
+    e('aside',{style:{width:sideOpen?205:52,background:SB,flexShrink:0,display:'flex',flexDirection:'column',transition:'width .2s ease',overflow:'hidden',position:'sticky',top:0,height:'100vh'}},
+      e('div',{style:{padding:sideOpen?'14px 12px 10px':'14px 0 10px',display:'flex',alignItems:'center',justifyContent:sideOpen?'space-between':'center',borderBottom:'1px solid rgba(255,255,255,0.06)',marginBottom:6}},
+        sideOpen&&e('div',{style:{display:'flex',alignItems:'center',gap:8}},
+          e('div',{style:{width:27,height:27,background:G,borderRadius:6,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontWeight:700,fontSize:13,color:'#fff',flexShrink:0}},'D'),
+          e('div',null,e('p',{style:{fontFamily:SR,fontSize:11,fontWeight:700,color:'#fff',lineHeight:1.2}},'DARA Studio'),e('p',{style:{fontSize:10,color:'rgba(255,255,255,0.35)'}},'Portal do Cliente'))
+        ),
+        e('button',{className:'nb',onClick:()=>setSideOpen(o=>!o),style:{color:'rgba(255,255,255,0.4)',padding:4,flexShrink:0}},e(Ic,{d:I.menu,s:14,c:'rgba(255,255,255,0.4)'}))
+      ),
+      sideOpen&&e('div',{style:{padding:'6px 8px 2px'}},
+        e('button',{className:'nb',onClick:newEstimate,style:{width:'100%',background:G,border:'none',borderRadius:8,padding:'9px 12px',color:'#fff',fontSize:12,fontWeight:700,display:'flex',alignItems:'center',gap:8,cursor:'pointer',transition:'opacity .15s'},onMouseEnter:v=>v.currentTarget.style.opacity='.9',onMouseLeave:v=>v.currentTarget.style.opacity='1'},
+          e(Ic,{d:I.plus,s:14,c:'#fff'}),'+ Novo Estimate'
+        )
+      ),
+      e('nav',{style:{flex:1,padding:'6px 8px',display:'flex',flexDirection:'column',gap:2}},
+        nav.map(n=>e(NavItem,{key:n.id,ico:n.ico,label:n.l,active:page===n.id||(page==='detail'&&n.id==='projects'),badge:n.b||0,collapsed:!sideOpen,onClick:()=>go(n.id)}))
+      ),
+      e('div',{style:{padding:'4px 8px 12px',borderTop:'1px solid rgba(255,255,255,0.06)'}},
+        bot.map(n=>e(NavItem,{key:n.id,ico:n.ico,label:n.l,active:page===n.id,badge:0,collapsed:!sideOpen,onClick:()=>go(n.id)})),
+        e(NavItem,{ico:'out',label:'Sair',active:false,badge:0,collapsed:!sideOpen,onClick:onLogout})
+      )
+    ),
+    e('main',{style:{flex:1,overflow:'auto',minWidth:0,display:'flex',flexDirection:'column'}},
+      e('div',{style:{background:BG2,borderBottom:'1px solid '+BR,padding:'0 20px',height:50,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:40}},
+        e('div',null,e('span',{style:{fontSize:12,color:G,fontWeight:600,letterSpacing:'.08em'}},'DARA Studio'),e('span',{style:{fontSize:12,color:DM,margin:'0 6px'}},'|'),e('span',{style:{fontSize:12,color:MU}},'Drafting & 3D Support')),
+        e('div',{style:{display:'flex',alignItems:'center',gap:10}},
+          !sideOpen&&e('button',{className:'nb btn',onClick:newEstimate,style:{fontSize:11,padding:'5px 12px',display:'flex',alignItems:'center',gap:5}},e(Ic,{d:I.plus,s:12,c:'#fff'}),'Novo Estimate'),
+          e('div',{style:{position:'relative'}},
+            e('button',{className:'nb',onClick:()=>{setShowN(o=>!o);setNotif(false);},style:{color:MU,padding:4,position:'relative'}},
+              e(Ic,{d:I.bell,s:16,c:MU}),
+              notif&&e('span',{style:{position:'absolute',top:2,right:2,width:6,height:6,borderRadius:'50%',background:G}})
+            ),
+            showN&&e(Fragment,null,
+              e('div',{onClick:()=>setShowN(false),style:{position:'fixed',inset:0,zIndex:49}}),
+              e('div',{style:{position:'absolute',right:0,top:38,width:270,background:BG2,border:'1px solid '+BR,borderRadius:10,zIndex:50,boxShadow:'0 6px 20px rgba(0,0,0,0.1)',overflow:'hidden'}},
+                e('div',{style:{padding:'10px 14px',borderBottom:'1px solid '+BR,display:'flex',justifyContent:'space-between',alignItems:'center'}},
+                  e('span',{style:{fontSize:12,fontWeight:700,color:TX}},'Notificações'),
+                  e('button',{className:'nb',onClick:()=>setShowN(false)},e(Ic,{d:I.x,s:13,c:DM}))
+                ),
+                DEMO_ACTIVITY.map(a=>e('div',{key:a.id,style:{padding:'9px 14px',borderBottom:'1px solid rgba(0,0,0,0.04)',display:'flex',gap:8,alignItems:'flex-start'}},
+                  e('div',{style:{width:24,height:24,borderRadius:6,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},e(Ic,{d:a.type==='file'?I.dload:a.type==='invoice'?I.rcpt:I.chat,s:12,c:G})),
+                  e('div',null,e('p',{style:{fontSize:11,color:TX,lineHeight:1.4}},a.text),e('p',{style:{fontSize:10,color:DM,marginTop:1}},a.time))
+                ))
+              )
+            )
+          ),
+          e('div',{style:{width:30,height:30,borderRadius:'50%',background:GD,border:'2px solid '+G,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontSize:11,fontWeight:700,color:G,cursor:'pointer'},onClick:()=>go('profile')},user.initials)
+        )
+      ),
+      e('div',{style:{padding:'20px 20px 60px',flex:1}},
+        page==='dashboard'&&e(Dashboard,{user,projects,invoices:DEMO_INVOICES,activity:DEMO_ACTIVITY,onNav:go,onOpen:openProject,onNewEstimate:newEstimate}),
+        page==='projects'&&e(Projects,{projects,setProjects,onOpen:openProject,onNewEstimate:newEstimate}),
+        page==='detail'&&proj&&e(ProjectDetail,{proj,onBack:()=>{setProj(null);setPage('projects');},onNewEstimate:newEstimate}),
+        page==='invoices'&&e(Faturas,{invoices:DEMO_INVOICES}),
+        page==='messages'&&e('div',{className:'fa',style:{textAlign:'center',padding:'60px 0',color:DM}},
+          e('div',{style:{width:56,height:56,borderRadius:'50%',background:GD,border:'2px solid '+G,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px'}},e(Ic,{d:I.chat,s:24,c:G})),
+          e('p',{style:{fontSize:16,fontWeight:700,color:TX,marginBottom:4,fontFamily:SR}},'Mensagens Gerais'),
+          e('p',{style:{fontSize:12,color:MU,marginBottom:20}},'Use o Chat dentro de cada projeto para comunicação direta.'),
+          e('button',{className:'btn',onClick:()=>go('projects')},'Ver Meus Projetos')
+        ),
+        page==='profile'&&e(Perfil,{user}),
+        page==='company'&&e('div',{className:'fa',style:{maxWidth:520}},
+          e('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:18}},'Minha Empresa'),
+          e('div',{className:'card'},
+            e('p',{style:{fontSize:12,color:MU,marginBottom:6}},'Empresa cadastrada:'),
+            e('p',{style:{fontSize:14,fontWeight:700,color:TX,marginBottom:16}},user.company),
+            ['Tipo','Status','Idioma'].map(l=>e('div',{key:l,style:{marginBottom:12}},
+              e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},l),
+              e('input',{className:'inp',defaultValue:l==='Tipo'?'Client':l==='Status'?'Ativo':'Português BR'})
+            )),
+            e('div',{style:{display:'flex',justifyContent:'flex-end',marginTop:8}},e('button',{className:'btn'},'Salvar Alterações'))
+          )
+        )
+      )
+    )
+  );
+};
+
+/* ═══════════════════════════════════════════════
+   APP ROOT
+═══════════════════════════════════════════════ */
+const App=()=>{
+  const[user,setUser]=useState(null);
+  return user
+    ?React.createElement(Layout,{user,onLogout:()=>setUser(null)})
+    :React.createElement(Login,{onLogin:setUser});
+};
+
+ReactDOM.createRoot(document.getElementById('app')).render(React.createElement(App));
+})();
+</script>
+</body>
+</html>

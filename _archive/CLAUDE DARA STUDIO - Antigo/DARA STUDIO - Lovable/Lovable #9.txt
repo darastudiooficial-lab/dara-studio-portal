@@ -1,0 +1,532 @@
+PROMPT MESTRE — SISTEMA DE ESTIMATES + PROPOSALS + PROJECTS
+
+Crie um sistema completo de gestão de leads, estimates, proposals e projetos para um escritório de arquitetura.
+
+O sistema deve funcionar com projetos no Brasil e nos Estados Unidos, adaptando automaticamente moeda, unidades de medida e cálculo de preço.
+
+1 DATABASE STRUCTURE
+
+Criar as seguintes coleções:
+
+1. Clients
+
+Campos:
+
+name
+
+email
+
+phone
+
+company
+
+country
+
+address
+
+city
+
+state
+
+zip
+
+created_at
+
+2. Estimates
+
+Campos:
+
+client_id
+
+country (Brazil / USA)
+
+Project information:
+
+project_type
+
+project_area
+
+Units logic:
+
+If country = Brazil
+→ unit = m²
+
+If country = USA
+→ unit = ft²
+
+Pricing:
+
+price_per_unit
+
+estimated_total
+
+rush_fee
+
+final_estimate
+
+Status:
+
+estimate_status
+
+Draft
+
+Sent
+
+Approved
+
+Rejected
+
+Uploads:
+
+site_photos
+
+property_survey
+
+measurements
+
+Rush eligibility boolean:
+
+rush_allowed
+
+3. Proposals
+
+Campos:
+
+estimate_id
+
+client_id
+
+proposal_status
+
+Status options:
+
+Draft
+
+Sent
+
+Accepted
+
+Declined
+
+Scope of Work:
+
+architectural_plans
+
+3d_visualization
+
+construction_documents
+
+drafting_services
+
+Pricing:
+
+base_price
+
+rush_fee
+
+total_price
+
+Payment terms:
+
+deposit_50
+
+final_50
+
+Timeline:
+
+preview_delivery_days
+
+final_delivery_days
+
+4. Projects
+
+Campos:
+
+Project information:
+
+client_id
+
+company_id
+
+project_address
+
+city
+
+state
+
+country
+
+Project details:
+
+project_type
+
+project_area
+
+package_type
+
+Dates:
+
+start_date
+
+preview_delivery
+
+final_delivery
+
+Stages:
+
+Project Stage:
+
+Lead
+
+Estimate
+
+Proposal
+
+Active
+
+Completed
+
+On Hold
+
+Cancelled
+
+Payment Stage:
+
+Not Paid
+
+Deposit Paid
+
+Fully Paid
+
+Pricing:
+
+currency
+
+total_value
+
+deposit_paid
+
+final_paid
+
+remaining_balance
+
+5. Companies
+
+Campos:
+
+owner_name
+
+company_name
+
+website
+
+instagram
+
+Address:
+
+street
+
+city
+
+state
+
+zip
+
+country
+
+2 CLIENT INTAKE FORM (PUBLIC)
+
+Criar página pública:
+
+/estimate-request
+
+Objetivo: gerar Rough Estimate automático
+
+Campos:
+
+Client info
+
+Name
+
+Email
+
+Phone
+
+Company (optional)
+
+Project location
+
+Address field using Google Places autocomplete
+
+Campos automáticos:
+
+street
+
+city
+
+state
+
+zip
+
+country
+
+Project Information
+
+Project Type
+
+Options:
+
+Single Family Home
+ADU
+Addition
+Remodel
+Commercial
+
+Area
+
+If country = Brazil
+show field:
+
+Área do projeto (m²)
+
+If country = USA
+
+Project Area (ft²)
+
+Required Uploads
+
+Site Photos
+
+Plot Plan / Survey
+
+Measurements
+
+Rush eligibility logic
+
+Rush allowed only if:
+
+plot plan uploaded
+
+photos uploaded
+
+measurements uploaded
+
+If missing show message:
+
+Rush service not available due to missing documentation.
+
+3 AUTOMATIC ESTIMATE CALCULATION
+
+Criar tabela de preços:
+
+Brazil pricing example:
+
+Single Family → R$120 / m²
+Addition → R$140 / m²
+
+USA pricing example:
+
+Single Family → $1.40 / ft²
+Addition → $1.60 / ft²
+
+Formula:
+
+Estimated Total = Area × Price per unit
+
+If Rush selected:
+
+Final Estimate = Estimated Total × 1.15
+
+4 ESTIMATE RESULT PAGE
+
+Após envio do formulário:
+
+Mostrar página:
+
+/estimate-result
+
+Exibir:
+
+Project summary
+
+Project type
+Project area
+Price per unit
+
+Estimated Total
+
+Mensagem:
+
+This is a rough estimate based on the information provided.
+
+Botão:
+
+Request Final Proposal
+
+5 FINAL PROPOSAL FORM
+
+Criar página:
+
+/proposal-request
+
+Campos adicionais:
+
+Scope of work:
+
+Checkbox options:
+
+Architectural Plans
+Construction Documents
+3D Visualization
+Drafting Services
+
+Timeline:
+
+Flexible
+2–4 weeks
+Rush Service
+
+Rush fee:
+
++15%
+
+6 AUTOMATIC PROPOSAL GENERATION
+
+Após envio do formulário:
+
+Criar página:
+
+/proposal-view
+
+Mostrar proposta estruturada:
+
+Header
+
+DARA Architecture & Design
+Project Proposal
+
+Client Information
+
+Name
+Project Address
+
+Scope of Work
+
+Selected services
+
+Project Cost
+
+Base price
+Rush fee
+
+Total price
+
+Payment Terms
+
+50% deposit
+50% final payment
+
+Timeline
+
+Preview Delivery: 8–10 business days
+
+Botão:
+
+Accept Proposal
+
+7 CONVERT PROPOSAL INTO PROJECT
+
+Se cliente clicar Accept Proposal
+
+Sistema deve automaticamente:
+
+1 Criar novo registro em Projects
+
+2 Preencher campos com dados da proposal
+
+3 Definir:
+
+Project Stage = Active
+Payment Stage = Not Paid
+
+8 ADMIN DASHBOARD
+
+Criar página:
+
+/adm
+
+Mostrar:
+
+Cards clicáveis:
+
+Leads
+Estimates
+Proposals
+Projects
+
+Mostrar alertas:
+
+Estimates awaiting response
+Proposals pending acceptance
+Projects with overdue payments
+
+9 FREELANCER AREA
+
+Criar página:
+
+/work
+
+Remover:
+
+company info
+
+client estimate forms
+
+Mostrar apenas:
+
+Assigned projects
+
+Para cada projeto:
+
+Project address
+Task description
+Payment amount
+
+Freelancer payments
+
+Status:
+
+Pending
+
+Paid
+
+10 INTERACTIVE PROPOSAL
+
+Criar página onde cliente pode ajustar serviços.
+
+Cliente pode:
+
+ativar:
+
+3D Visualization
+Rush Service
+
+Preço deve atualizar automaticamente em tempo real.
+
+RESULTADO FINAL DO SISTEMA
+
+Fluxo completo:
+
+Client Form
+↓
+Automatic Estimate
+↓
+Request Proposal
+↓
+Automatic Proposal
+↓
+Client Accepts
+↓
+Project Created
+↓
+Admin Dashboard + Freelancer Portal

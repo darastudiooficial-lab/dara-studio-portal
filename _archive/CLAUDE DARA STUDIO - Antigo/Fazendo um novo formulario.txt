@@ -1,0 +1,98 @@
+Identidade Visual: Design limpo, em etapas (Step-by-step wizard), utilizando a paleta Índigo (índigo claro para itens não selecionados, índigo escuro/matte para itens ativos) e botões grandes e clicáveis.
+
+Etapa 1: Localização (Project Location)
+Toggle/Cards grandes: País (US vs BR). Isso pode definir a moeda (USD vs BRL) no final.
+Porque separar BR/US, porque eu trabalho para os dois, se o cliente escolher BR, tudo vai se adaptar ao Brasil, como medidas, moedas, informações e valores a serem cobrados em R$ (POR METRO QUADRADO). Já se o cliente escolher US, tudo vai se adaptar ao MASSACHUSSETS, como medidas, moedas, informações e valores a serem cobrados em $ (PER SQFT).
+Quando o cliente escolhe essa primeira etapa, logo abaixo abrirá:
+
+Inputs de texto: 
+(Endereço do projeto)
+Street Adress
+City - State (ambos o cliente já vai ter pré preenchido, exemplo, ele pode digitar Na... que logo já puxa as cidades com essas iniciais, e isso serve para CIDADE E ESTADO (US/BR)
+Zip / Potal Code
+Automaticamente abre uma tela do google maps e mostra o endereço que puxou para o cliente confirmar se realmente é ali mesmo
+
+Botão: "voltar para a tela do site" - "next"
+
+
+Etapa 2: Sobre o Cliente (About You)
+ESSE EU VOU MANDAR UM PRINT DA FOTO EXATA DE COMO QUERO (imagem 01)
+Inputs: 
+Nome Completo
+E-mail
+Telefone/WhatsApp.
+(Telefone US deixar fixo +0 (000) 000-0000) - (Telefone BR deixar fixo +00 (00) 00000-0000)
+(email a mesma coisa, já dar as possibilidades que tem disponivel no mercado)
+
+Cards clicáveis (Perfil): 
+Proprietário (Homeowner) - se o cliente clicar aqui, não aparece nada.
+Construtor (Builder/Contractor), Arquiteto, Investidor, Corretor de Imóveis, Outro. - se o cliente escolher aqui, ai aparece as informações da empresa.
+(Oculto/Opcional dependendo da escolha acima): Campos de "Dados da Empresa" (Nome da empresa, Instagram, Website) que irão alimentar aquela nossa aba de Gestão de Usuários/Empresas.
+Nome da companhia
+Site (opcional)
+Endereço da companhia
+Street Adress
+City - State
+Zip / Potal Code
+E-mail
+Telefone/WhatsApp.
+Instagram (opcional)
+
+Botão: "Project Location" - "next"
+
+
+Etapa 3: Detalhes do Terreno/Estrutura (Project Details)
+ESSE EU VOU MANDAR UM PRINT DA FOTO EXATA DE COMO QUERO (imagem 02)
+Inputs curtos/Numéricos: Dimensões Base (Largura x Comprimento) -> O sistema calcula a Área Total automaticamente.
+Cards clicáveis/Multi-seleção (Níveis): Térreo (Ground Floor), 2º Andar, Porão (Basement), Sótão (Attic).
+Input opcional: Tamanho do lote.
+Cards clicáveis (Status Atual): Terreno vazio, Em construção, Ocupado.
+
+Botão: "Sobre o Cliente" - "next" e assi por diante em cada etapa.....
+
+
+Etapa 4: Escopo do Projeto (Project Type)
+ESSA ETAPA 4 E 5 É A MAIS IMPORTANTE E MAIS COMPLEXA PORQUE AQUI VAMOS COMPOR OS VALORES REAIS QUE COBRO PARA CADA PROJETO - VAMOS DEIXAR POR ULTIMO, PORQUE QUERO DETALHAR BEM ELE.
+Nessa etapa vai começar a aparecer o "estimate online", uma Barra Lateral onde mostra em tempo real os valores de cada coisa acrecentada no projeto:
+Mostra também um termômetro de "Estimate Confidence" (Nível de precisão do orçamento, ex: 87%) e o baseado no quanto de informação ele preencheu.
+Resumo: O Valor Estimado (Ex: $2,074 – $2,534) detalhado linha a linha (Custo do Térreo, Custo do 3D, Taxa de Urgência).
+Grid de Cards clicáveis (com ícones): Construção Nova (Single Family, Multi-Family), Reforma de Cozinha, Reforma de Banheiro, ADU, Deck/Área Externa, Garagem, Comercial, etc.
+Etapa 5: Serviços Necessários (Services Needed)
+(Estes dados vão alimentar exatamente a aba "Project Details" do seu Admin que fizemos antes)
+Cards de Pacote Principal: Projetos Completos (Alta Complexidade) vs Apenas Plantas (Baixa Complexidade).
+Cards de Design Extras: Design Arquitetônico, Planejamento de Espaço, Layout de Interiores.
+Cards de Visualização 3D: Render Externo, 3D Cozinha, 3D Banheiro, 3D Lavanderia.
+
+
+
+Etapa 6: Programa de Necessidades (Program Requirements)
+ESSE EU VOU MANDAR UM PRINT DA FOTO EXATA DE COMO QUERO (imagem 03)
+Contadores (+ / -): Quartos, Banheiros, Lavabos, Salas de Estar, Salas de Jantar, Cozinhas, Despensas (Pantry), Closets, Garagem (vagas).
+Contadores de Extras (Especiais): Deck coberto, Cozinha externa, Home Office, Lareira, Academia, Adega, Sauna, Elevador.
+Área de texto (Opcional): Necessidades especiais (ex: acessibilidade).
+Esse aqui eu quero essa lista bem completa, para não ficar tão longo, podemos separar em formato de 2 colunas, mas continua a mesmo estilo de "+ e -"
+
+
+
+
+Etapa 7: Upload de Arquivos (File Uploads)
+Área de Drag & Drop: Para o cliente subir fotos do local, plantas antigas, rascunhos à mão livre ou referências de estilo.
+Aqui ele pode subir, pdf, videos, fotos, word, todos os documentos possíveis. E se possível, mandar audio.
+
+
+
+
+Etapa 8: Prazos e Taxas (Rush Fees)
+ESSA ETAPA 8 É BEM IMPORTANTE TAMBEM, PORQUE ALI VAI SERGUIR A LISTA DOS DOCUMENTOS QUE O CLIENTE IRÁ PRECISAR ANEXAR PARA PODER "ABRIR" A ABINHA DE "RUSH FEE"
+AQUI TAMBEM VAMOS MEXER EM VALORES MAS ESTAREI ANEXADO A FOTO DE COMO QUERO (imagem 04 e 05), E CASO O CLIENTE SUBA TODOS ESSES ITENS DESBLOQUEIA a janela de valores (PRECISO DE SUGESTÃO PARA PODER EDITAR)
+Cards clicáveis (Entrega): Standard Delivery (Tempo normal) vs Rush Delivery (Entrega Expressa com +60% de taxa). - Lembrete, isso vai depender da complexidade do projeto e do tamanho do projeto, se for um projeto pequeno eu entrego rápido, e se for um projeto grande, teria que analisar.
+Checklist interativo: O sistema pergunta o que o cliente já tem em mãos para acelerar (ex: Já tem a Property Survey? Já tem medidas? Tem fotos?).
+
+
+
+Etapa 9: Revisão e Orçamento (Review & Submit) - A Mágica
+Barra Lateral Fixa (Lateral ou Final): Mostra um termômetro de "Estimate Confidence" (Nível de precisão do orçamento, ex: 87%) baseado no quanto de informação ele preencheu.
+Resumo: O Valor Estimado (Ex: $2,074 – $2,534) detalhado linha a linha (Custo do Térreo, Custo do 3D, Taxa de Urgência).
+Call to Action Final: O cliente visualiza os próximos passos (ex: "Sua conta na Área do Cliente será criada") e clica em Aceitar e Continuar.
+ESSE EU VOU MANDAR UM PRINT DA FOTO EXATA DE COMO QUERO (imagem 06 e 07)
+Aqui tem um ponto muito importante e crucial, o cliente vai ter a opção de continuar com o orçamento (ai ele é redirecionado para o portal), ou ele vai ter a opção de "salva e volto mais tarde", ele vai receber as informaç~çoes via email e eu tbm (só que essas informações vao ser geradas na nossa aba de "leads" no portal do ADMIN

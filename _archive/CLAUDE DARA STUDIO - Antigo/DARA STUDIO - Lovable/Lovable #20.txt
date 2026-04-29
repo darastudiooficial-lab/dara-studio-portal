@@ -1,0 +1,323 @@
+1️⃣ Estrutura do Formulário Inteligente (Adaptive Flow)
+
+A lógica é perguntas condicionais.
+
+Fluxo principal:
+
+STEP 1
+Project Region
+🇺🇸 USA
+🇧🇷 Brazil
+
+STEP 2
+Who are you?
+
+Builder
+Architect
+Homeowner
+Developer
+
+STEP 3
+Project Type
+
+STEP 4
+Project Size
+
+STEP 5
+Additional Needs
+
+STEP 6
+Contact Info
+
+Mas as perguntas mudam dependendo das respostas.
+
+2️⃣ Sistema de Perguntas Condicionais
+
+Exemplo real.
+
+Se cliente escolher:
+Project Type = Deck
+
+O formulário mostra:
+
+Deck size
+Height from ground
+Attached to house?
+Permit needed?
+
+Mas não mostra:
+
+Number of bedrooms
+Bathrooms
+Garage
+Se escolher:
+New Custom Home
+
+Perguntas aparecem:
+
+Bedrooms
+Bathrooms
+Garage
+Floors
+Basement
+Square footage
+3️⃣ Estrutura técnica das perguntas (melhor método)
+
+Crie um schema de perguntas.
+
+Arquivo:
+
+src/data/formQuestions.ts
+
+Exemplo:
+
+export const questions = [
+
+{
+id: "projectType",
+label: "What type of project is this?",
+type: "select",
+options: [
+"New Home",
+"Addition",
+"Deck",
+"Garage"
+]
+},
+
+{
+id: "deckSize",
+label: "Approximate deck size",
+type: "number",
+showIf: {
+projectType: "Deck"
+}
+},
+
+{
+id: "bedrooms",
+label: "Number of bedrooms",
+type: "number",
+showIf: {
+projectType: "New Home"
+}
+},
+
+{
+id: "bathrooms",
+label: "Number of bathrooms",
+type: "number",
+showIf: {
+projectType: "New Home"
+}
+}
+
+]
+4️⃣ Motor que decide o que mostrar
+
+Função:
+
+src/lib/formLogic.ts
+export function shouldShow(question, answers){
+
+if(!question.showIf) return true
+
+const key = Object.keys(question.showIf)[0]
+
+return answers[key] === question.showIf[key]
+
+}
+
+React:
+
+{questions.map(q => {
+
+if(!shouldShow(q, answers)) return null
+
+return <QuestionComponent question={q} />
+
+})}
+
+Isso cria o formulário adaptativo automaticamente.
+
+5️⃣ Sistema de Estimate Inteligente
+
+O cálculo considera:
+
+tipo de projeto
++
+tamanho
++
+complexidade
++
+entregáveis
+
+Exemplo:
+
+Deck
+base = $1200
+
++ size factor
++ permit drawings
++ 3D
+
+Função:
+
+estimateCalculator.ts
+let price = base
+
+price += sqft * rate
+
+if(permit)
+price += 800
+
+if(threeD)
+price += 600
+
+Resultado:
+
+Estimated Range
+
+$4,500 — $6,200
+6️⃣ Transformar Estimate em Lead automaticamente
+
+Quando o usuário envia o formulário:
+
+Submit Estimate
+
+executa:
+
+createLead()
+
+Arquivo:
+
+src/lib/createLead.ts
+export function createLead(data){
+
+return {
+
+id: Date.now(),
+
+clientName: data.name,
+
+email: data.email,
+
+projectType: data.projectType,
+
+estimate: data.estimate,
+
+status: "New Lead",
+
+createdAt: new Date()
+
+}
+
+}
+7️⃣ Lead vai direto para o ADMIN
+
+Esse lead entra automaticamente no Dashboard / CRM.
+
+Estrutura do CRM:
+
+New Leads
+↓
+Estimate Sent
+↓
+Proposal Sent
+↓
+Design Phase
+↓
+Revisions
+↓
+Completed
+
+O novo lead aparece automaticamente em:
+
+New Leads
+8️⃣ Estrutura do Lead (dados capturados)
+
+Cada lead salva:
+
+Client Name
+Email
+Phone
+
+Project Type
+Project Size
+Location
+Region (USA / BR)
+
+Estimate Range
+
+Attachments
+References
+
+Notes
+9️⃣ Estrutura da pasta no ADMIN
+
+No dashboard:
+
+Leads
+
+Lista:
+
+John Smith
+Deck Project
+Boston MA
+Estimate $4k-$6k
+Status: New Lead
+
+Clique no lead abre:
+
+Lead Detail Page
+
+com:
+
+Project info
+Client info
+Files
+Notes
+Buttons
+🔟 Botões importantes no ADMIN
+
+Dentro do lead:
+
+Generate Proposal
+Move to Kanban
+Schedule Meeting
+Archive
+11️⃣ Kanban automático
+
+Quando você clicar:
+
+Generate Proposal
+
+o sistema cria:
+
+Project Card
+
+no Kanban.
+
+Exemplo:
+
+Proposal Sent
+12️⃣ Estrutura completa do sistema
+Website
+
+Estimate Form
+↓
+Adaptive Questions
+↓
+Smart Estimate
+↓
+Lead Created
+
+Admin
+
+Leads Dashboard
+↓
+Lead Detail
+↓
+Generate Proposal
+↓
+Kanban Project

@@ -1,0 +1,117 @@
+I want to implement a Construction Task Management system inside each project.
+
+IMPORTANT:
+
+Do NOT delete or modify existing tables or data.
+
+Tasks must be linked to projects.
+
+---
+
+FEATURE NAME
+
+Project Tasks
+
+Location:
+
+Project → Tasks
+
+---
+
+TASK STRUCTURE
+
+Each task should include:
+
+Task Title
+Description
+Project ID
+Assigned User
+Status
+Priority
+Due Date
+Created At
+
+---
+
+TASK STATUS
+
+Tasks should support the following statuses:
+
+To Do
+In Progress
+Waiting
+Completed
+
+---
+
+TASK PRIORITY
+
+Each task should have a priority level:
+
+Low
+Medium
+High
+Urgent
+
+---
+
+TASK VIEWS
+
+Provide two viewing modes:
+
+List View
+Kanban Board
+
+Kanban columns:
+
+To Do
+In Progress
+Waiting
+Completed
+
+---
+
+TASK ASSIGNMENT
+
+Tasks should be assignable to:
+
+Admin
+Architect
+Freelancer
+Contractor
+
+---
+
+TASK COMMENTS
+
+Each task should support comments.
+
+Users should be able to discuss the task directly.
+
+---
+
+TASK NOTIFICATIONS
+
+Users should receive notifications when:
+
+A task is assigned to them
+A task is completed
+A comment is added
+
+---
+
+TIMELINE INTEGRATION
+
+Important task actions should appear in the Project Timeline.
+
+Examples:
+
+Task created
+Task completed
+Task assigned
+
+---
+
+FINAL GOAL
+
+The task system should help the architecture studio track all project work and construction responsibilities in an organized way.

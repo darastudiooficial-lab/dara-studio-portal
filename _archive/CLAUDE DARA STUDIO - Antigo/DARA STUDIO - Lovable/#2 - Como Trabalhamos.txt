@@ -1,0 +1,98 @@
+1️⃣ Ajuste estratégico de UX
+CTA 1 — antes do processo
+Logo abaixo do título.
+
+Exemplo:
+[ Get a Rough Estimate ]
+
+Texto pequeno:
+Answer a few quick questions about your project and receive a rough estimate instantly.
+
+
+CTA 2 — após "O que está incluído"
+Depois dessa parte o cliente já entende o escopo.
+Coloque:
+Ready to start your project?
+[ Get a Rough Estimate ]
+
+
+CTA 3 — final da página
+Have a project in mind?
+Start with a quick estimate to understand scope and pricing.
+[ Start Estimate ]
+
+
+
+2️⃣ Melhorar o "Nosso Processo"
+1️⃣ Proposal Approval
+Scope and project pricing are confirmed.
+Client receives a formal proposal with project scope, timeline and payment terms.
+
+2️⃣ Design Phase
+Initial layout and design direction are developed.
+Typical timeline: 8–16 business days
+
+3️⃣ Revision Phase
+Two (2) rounds of revisions included.
+Additional revisions available if needed.
+
+4️⃣ Final Construction Drawings
+Complete drawing set prepared for construction or permit submission.
+Typical timeline: 25–35 days after approval
+
+5️⃣ Builder Support
+We provide ongoing coordination with builders or consultants during construction when required.
+
+Adicionar timeline visual
+Exemplo:
+Proposal → Design → Revisions → Final Drawings → Builder Support
+
+
+
+3️⃣ Ajuste muito importante no "O que NÃO está incluído"
+Nos EUA os escritórios normalmente colocam isso dentro de um accordion colapsado.
+Exemplo: Services Not Included (View Details)
+Quando abre aparece:
+Structural engineering
+Electrical design
+HVAC systems
+Soil reports
+Site visits
+Energy compliance reports
+
+
+
+4️⃣ Sugestão MUITO poderosa
+Adicione um bloco novo aqui: Typical Project Timeline
+Exemplo:
+Typical Project Timeline
+Small projects = 2–4 weeks
+Medium residential projects = 4–8 weeks
+Full custom homes = 8–12 weeks
+
+* esse cronograma dependerá dos projetos em andamento já no escritório e dos pagamentos e informações necessárias vindo dos "clientes"
+
+
+
+5️⃣ Ajuste na seção "Por que DA·RA Studio"
+Sugestão: Why Builders Work With DA·RA Studio
+✔ Code-aware documentation
+✔ Builder-friendly drawing sets
+✔ Fast turnaround times
+✔ Clear scope and expectations
+✔ Remote collaboration across the U.S.
+
+
+
+7️⃣ Nota de design (importante)
+Seu layout já está clean estilo escritório americano, mas duas melhorias ajudariam:
+- espaçamento = Aumentar:
+margin-top: 64px
+margin-bottom: 64px
+entre seções.
+
+largura do texto = Use:
+max-width: 780px
+para blocos de texto.
+
+

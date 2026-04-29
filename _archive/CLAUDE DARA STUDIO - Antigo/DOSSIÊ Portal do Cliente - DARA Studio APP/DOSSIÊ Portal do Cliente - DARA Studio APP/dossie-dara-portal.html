@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Dossiê de Projeto — DARA Studio Portal do Cliente</title>
+<style>
+/* ── PRINT / PDF ── */
+@media print {
+  body { font-size: 11pt; }
+  .no-print { display: none !important; }
+  pre { white-space: pre-wrap; word-break: break-all; font-size: 8pt; }
+  .page-break { page-break-before: always; }
+  h1, h2, h3 { page-break-after: avoid; }
+  section { page-break-inside: avoid; }
+}
+
+/* ── BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #1a1814;
+  background: #ffffff;
+  line-height: 1.7;
+  font-size: 14px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+
+/* ── COVER ── */
+.cover {
+  text-align: center;
+  padding: 64px 0 56px;
+  border-bottom: 3px solid #b89b6a;
+  margin-bottom: 56px;
+}
+.cover .logo {
+  width: 56px; height: 56px;
+  background: #b89b6a;
+  border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif;
+  font-weight: 700; font-size: 26px; color: #fff;
+  margin-bottom: 20px;
+}
+.cover h1 {
+  font-family: Georgia, serif;
+  font-size: 32px; font-weight: 700;
+  color: #1a1814; margin-bottom: 8px;
+}
+.cover .subtitle { font-size: 16px; color: #6b6760; margin-bottom: 24px; }
+.cover .meta {
+  display: inline-flex; gap: 32px;
+  background: #f5f3ef; border: 1px solid #e2ddd6;
+  border-radius: 10px; padding: 14px 28px;
+}
+.cover .meta-item { text-align: center; }
+.cover .meta-item .label { font-size: 10px; font-weight: 600; color: #a09b94; letter-spacing: .08em; text-transform: uppercase; }
+.cover .meta-item .value { font-size: 14px; font-weight: 600; color: #1a1814; margin-top: 2px; }
+
+/* ── TOC ── */
+.toc { background: #f5f3ef; border: 1px solid #e2ddd6; border-radius: 10px; padding: 28px 32px; margin-bottom: 56px; }
+.toc h2 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #b89b6a; margin-bottom: 16px; }
+.toc ol { padding-left: 20px; }
+.toc li { padding: 5px 0; font-size: 14px; color: #1a1814; }
+.toc li a { color: #1a1814; text-decoration: none; }
+.toc li a:hover { color: #b89b6a; }
+.toc li span { color: #a09b94; font-size: 12px; margin-left: 8px; }
+
+/* ── SECTION ── */
+section { margin-bottom: 56px; }
+section + section { border-top: 1px solid #e2ddd6; padding-top: 48px; }
+
+/* ── HEADINGS ── */
+h1.section-title {
+  font-family: Georgia, serif;
+  font-size: 26px; font-weight: 700;
+  color: #1a1814; margin-bottom: 6px;
+}
+h1.section-title .num {
+  display: inline-block;
+  background: #b89b6a; color: #fff;
+  font-size: 13px; font-weight: 700;
+  border-radius: 6px; padding: 2px 10px;
+  margin-right: 10px; vertical-align: middle;
+  font-family: 'Segoe UI', sans-serif;
+}
+h2 { font-size: 16px; font-weight: 700; color: #1a1814; margin: 28px 0 12px; border-bottom: 1px solid #e2ddd6; padding-bottom: 6px; }
+h3 { font-size: 14px; font-weight: 600; color: #6b6760; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: .06em; }
+p { margin-bottom: 10px; color: #1a1814; }
+ul, ol { padding-left: 22px; margin-bottom: 14px; }
+li { margin-bottom: 5px; }
+
+/* ── CALLOUT / BADGE ── */
+.callout {
+  background: rgba(184,155,106,.10);
+  border-left: 3px solid #b89b6a;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px; margin: 16px 0;
+}
+.callout.green  { background: rgba(45,134,83,.08);  border-color: #2d8653; }
+.callout.red    { background: rgba(184,50,50,.07);   border-color: #b83232; }
+.callout.blue   { background: rgba(37,102,168,.08);  border-color: #2566a8; }
+.callout.amber  { background: rgba(192,124,10,.08);  border-color: #c07c0a; }
+
+/* ── PILL ── */
+.pill {
+  display: inline-block;
+  border-radius: 20px; padding: 2px 11px;
+  font-size: 11px; font-weight: 600; margin: 2px 3px;
+}
+.pill-gold   { background: rgba(184,155,106,.15); color: #9c7d42; border: 1px solid rgba(184,155,106,.3); }
+.pill-green  { background: rgba(45,134,83,.12);   color: #2d8653; border: 1px solid rgba(45,134,83,.3);  }
+.pill-amber  { background: rgba(192,124,10,.10);  color: #c07c0a; border: 1px solid rgba(192,124,10,.3); }
+.pill-red    { background: rgba(184,50,50,.09);   color: #b83232; border: 1px solid rgba(184,50,50,.25); }
+.pill-blue   { background: rgba(37,102,168,.09);  color: #2566a8; border: 1px solid rgba(37,102,168,.25);}
+.pill-gray   { background: #f0ede8; color: #6b6760; border: 1px solid #e2ddd6; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0 20px; font-size: 13px; }
+thead tr { background: #f5f3ef; }
+th { text-align: left; padding: 9px 13px; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #a09b94; border-bottom: 2px solid #e2ddd6; }
+td { padding: 9px 13px; border-bottom: 1px solid #e2ddd6; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #faf9f6; }
+
+/* ── CODE ── */
+pre {
+  background: #1a1814; color: #e8e3da;
+  border-radius: 10px; padding: 20px 22px;
+  overflow-x: auto; font-size: 12px;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  line-height: 1.6; margin: 14px 0 20px;
+  border: 1px solid #2e2b22;
+}
+code {
+  background: #f0ede8; color: #9c7d42;
+  border-radius: 4px; padding: 1px 6px;
+  font-size: 12px; font-family: 'Fira Code', 'Consolas', monospace;
+}
+pre code { background: none; color: #e8e3da; padding: 0; border-radius: 0; }
+
+/* ── COLOR SWATCHES ── */
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.swatch { border-radius: 8px; overflow: hidden; border: 1px solid #e2ddd6; width: 130px; }
+.swatch-color { height: 48px; }
+.swatch-label { background: #fff; padding: 6px 10px; font-size: 11px; }
+.swatch-label .name { font-weight: 700; color: #1a1814; }
+.swatch-label .hex  { color: #a09b94; font-size: 10px; }
+
+/* ── FLOW DIAGRAM ── */
+.flow { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 14px 0; }
+.flow-node {
+  background: #f5f3ef; border: 1px solid #e2ddd6;
+  border-radius: 8px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: #1a1814;
+}
+.flow-node.gold { background: rgba(184,155,106,.15); border-color: rgba(184,155,106,.4); color: #9c7d42; }
+.flow-node.green { background: rgba(45,134,83,.10); border-color: rgba(45,134,83,.3); color: #2d8653; }
+.flow-arrow { color: #b89b6a; font-weight: 700; font-size: 16px; padding: 0 2px; }
+
+/* ── STEP BADGE ── */
+.step-badge {
+  display: inline-block; width: 26px; height: 26px;
+  background: #b89b6a; color: #fff;
+  border-radius: 50%; text-align: center; line-height: 26px;
+  font-size: 11px; font-weight: 700; margin-right: 8px; flex-shrink: 0;
+}
+.step-row { display: flex; align-items: flex-start; gap: 0; margin-bottom: 10px; }
+
+/* ── FIELD MAP ── */
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.field-item {
+  background: #f5f3ef; border: 1px solid #e2ddd6;
+  border-radius: 7px; padding: 10px 13px;
+}
+.field-item .field-name { font-size: 12px; font-weight: 700; color: #1a1814; margin-bottom: 2px; }
+.field-item .field-type { font-size: 11px; color: #a09b94; }
+.field-item .field-req  { font-size: 10px; font-weight: 700; color: #b83232; margin-left: 4px; }
+
+/* ── ERROR MAP ── */
+.error-row { display: flex; gap: 0; align-items: stretch; margin-bottom: 6px; }
+.error-original { background: #f5f3ef; border: 1px solid #e2ddd6; border-radius: 6px 0 0 6px; padding: 7px 12px; font-size: 12px; color: #6b6760; font-family: 'Consolas', monospace; flex: 1; }
+.error-arrow { background: #e2ddd6; display: flex; align-items: center; padding: 0 8px; font-size: 12px; color: #b89b6a; }
+.error-friendly { background: rgba(45,134,83,.08); border: 1px solid rgba(45,134,83,.2); border-radius: 0 6px 6px 0; padding: 7px 12px; font-size: 12px; color: #2d8653; font-weight: 600; flex: 1; }
+
+/* ── FOOTER ── */
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid #e2ddd6; text-align: center; font-size: 11px; color: #a09b94; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ COVER ═══ -->
+<div class="cover">
+  <div class="logo">D</div>
+  <h1>Dossiê de Projeto</h1>
+  <p class="subtitle">DARA Studio — Portal do Cliente</p>
+  <div class="meta">
+    <div class="meta-item"><div class="label">Versão</div><div class="value">1.0 — Produção</div></div>
+    <div class="meta-item"><div class="label">Data</div><div class="value">Abril 2026</div></div>
+    <div class="meta-item"><div class="label">Stack</div><div class="value">React + Supabase</div></div>
+    <div class="meta-item"><div class="label">Arquivo principal</div><div class="value">PortalCliente.jsx</div></div>
+    <div class="meta-item"><div class="label">Linhas de código</div><div class="value">5.068</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ TABLE OF CONTENTS ═══ -->
+<div class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#s1">Visão Geral e Design</a> <span>Tecnologias, arquitetura, paleta e tipografia</span></li>
+    <li><a href="#s2">Telas e Formulários</a> <span>Navegação, campos e interações do usuário</span></li>
+    <li><a href="#s3">Textos e Copywriting</a> <span>Status, alertas e mensagens do sistema em pt-BR</span></li>
+    <li><a href="#s4">Código Refatorado</a> <span>PortalCliente.jsx · global.css · .env</span></li>
+  </ol>
+</div>
+
+
+<!-- ════════════════════════════════════════ SECTION 1 ═══ -->
+<section id="s1">
+<h1 class="section-title"><span class="num">01</span>Visão Geral e Design</h1>
+
+<h2>Resumo do Projeto</h2>
+<p>O <strong>Portal do Cliente DARA Studio</strong> é uma aplicação SaaS de página única (<em>Single Page Application</em>) construída em React que permite que clientes da DARA Studio acompanhem projetos de arquitetura e design em tempo real, gerenciem faturas e se comuniquem diretamente com a equipe.</p>
+
+<div class="callout">
+  <strong>Objetivo principal:</strong> eliminar a comunicação por e-mail e WhatsApp, centralizando toda a gestão de projeto — arquivos, orçamentos, tickets de revisão e pagamentos — em um único portal seguro e rastreável.
+</div>
+
+<h2>Stack Tecnológica</h2>
+<table>
+  <thead><tr><th>Camada</th><th>Tecnologia</th><th>Responsabilidade</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Frontend</strong></td><td>React 18 + Vite</td><td>Interface, estado e roteamento client-side</td></tr>
+    <tr><td><strong>Ícones</strong></td><td>lucide-react</td><td>Biblioteca de ícones SVG (tree-shaken)</td></tr>
+    <tr><td><strong>Backend / DB</strong></td><td>Supabase (PostgreSQL)</td><td>Auth, banco de dados relacional, Storage e Realtime</td></tr>
+    <tr><td><strong>Auth</strong></td><td>Supabase Auth</td><td>Email/senha, Google OAuth, recuperação de senha</td></tr>
+    <tr><td><strong>Storage</strong></td><td>Supabase Storage</td><td>Upload de comprovantes, fotos de obra e arquivos de estimativa</td></tr>
+    <tr><td><strong>Realtime</strong></td><td>Supabase Realtime</td><td>Chat ao vivo, notificações de novos projetos e faturas</td></tr>
+    <tr><td><strong>CSS</strong></td><td>CSS-in-JS + global.css</td><td>Inline styles para componentes, variáveis CSS globais</td></tr>
+    <tr><td><strong>Tipografia</strong></td><td>Google Fonts</td><td>Libre Baskerville (títulos) + Montserrat (corpo)</td></tr>
+  </tbody>
+</table>
+
+<h2>Tabelas do Banco de Dados</h2>
+<table>
+  <thead><tr><th>Tabela</th><th>Uso no Portal</th></tr></thead>
+  <tbody>
+    <tr><td><code>profiles</code></td><td>Perfil do cliente (nome, empresa, telefone, avatar)</td></tr>
+    <tr><td><code>projects</code></td><td>Registro de cada projeto/obra do cliente</td></tr>
+    <tr><td><code>invoices</code></td><td>Faturas pendentes e pagas</td></tr>
+    <tr><td><code>project_files</code></td><td>Arquivos de projeto publicados pelo admin</td></tr>
+    <tr><td><code>messages</code></td><td>Chat entre cliente e equipe por projeto</td></tr>
+    <tr><td><code>audit_logs</code></td><td>Histórico de alterações feitas pelo cliente</td></tr>
+    <tr><td><code>site_updates</code></td><td>Atualizações de obra postadas pelo cliente</td></tr>
+    <tr><td><code>tickets</code></td><td>Solicitações de revisão abertas pelo cliente</td></tr>
+    <tr><td><code>invoice_payments</code></td><td>Comprovantes de pagamento enviados pelo cliente</td></tr>
+  </tbody>
+</table>
+
+<h2>Storage Buckets</h2>
+<table>
+  <thead><tr><th>Bucket</th><th>Conteúdo</th><th>Quem faz upload</th></tr></thead>
+  <tbody>
+    <tr><td><code>payment-proofs</code></td><td>Comprovantes de pagamento (JPG, PDF)</td><td>Cliente</td></tr>
+    <tr><td><code>site-updates</code></td><td>Fotos de obra enviadas pelo cliente</td><td>Cliente</td></tr>
+    <tr><td><code>estimate-files</code></td><td>Arquivos de referência do formulário de estimativa</td><td>Cliente (anônimo ou logado)</td></tr>
+  </tbody>
+</table>
+
+<h2>Guia Visual — Paleta de Cores</h2>
+<div class="swatches">
+  <div class="swatch"><div class="swatch-color" style="background:#b89b6a"></div><div class="swatch-label"><div class="name">--gold</div><div class="hex">#b89b6a</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#f5f3ef"></div><div class="swatch-label"><div class="name">--bg</div><div class="hex">#f5f3ef</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#ffffff;border-bottom:1px solid #e2ddd6"></div><div class="swatch-label"><div class="name">--bg2</div><div class="hex">#ffffff</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#1a1814"></div><div class="swatch-label"><div class="name">--sidebar</div><div class="hex">#1a1814</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#2d8653"></div><div class="swatch-label"><div class="name">--green</div><div class="hex">#2d8653</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#c07c0a"></div><div class="swatch-label"><div class="name">--amber</div><div class="hex">#c07c0a</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#b83232"></div><div class="swatch-label"><div class="name">--red</div><div class="hex">#b83232</div></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#2566a8"></div><div class="swatch-label"><div class="name">--blue</div><div class="hex">#2566a8</div></div></div>
+</div>
+
+<h2>Tipografia</h2>
+<table>
+  <thead><tr><th>Variável</th><th>Fonte</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td><code>--serif</code></td><td>Libre Baskerville</td><td>Títulos de seção, nome do projeto, cabeçalhos de card</td></tr>
+    <tr><td><code>--sans</code></td><td>Montserrat</td><td>Corpo de texto, labels, botões, inputs</td></tr>
+  </tbody>
+</table>
+
+<h2>Princípios de UX</h2>
+<ul>
+  <li><strong>Otimistic UI:</strong> mensagens de chat, site updates e tickets aparecem instantaneamente na tela antes da confirmação do banco — o usuário nunca espera.</li>
+  <li><strong>Feedback de estado:</strong> todo botão de ação tem estado <em>Salvando…</em> e <em>✓ Salvo!</em> para comunicar progresso.</li>
+  <li><strong>Modo demonstração:</strong> quando o Supabase não está configurado, o portal funciona com dados fictícios — útil para testes e demos a clientes.</li>
+  <li><strong>Segurança de preço:</strong> o orçamento é sempre recalculado pelo backend (<code>serverCalcPrice</code>), jamais pelo valor digitado no browser.</li>
+  <li><strong>Bloqueio por aprovação:</strong> campos de detalhes técnicos ficam <em>read-only</em> após o orçamento ser marcado como "Aprovado", exigindo autorização do admin para alterações.</li>
+</ul>
+</section>
+
+
+<!-- ════════════════════════════════════════ SECTION 2 ═══ -->
+<section id="s2" class="page-break">
+<h1 class="section-title"><span class="num">02</span>Telas e Formulários</h1>
+
+<h2>Mapa de Navegação</h2>
+<div class="flow">
+  <div class="flow-node gold">Login / Cadastro</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node">Dashboard</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node">Meus Projetos</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node gold">Detalhe do Projeto</div>
+</div>
+<div class="flow" style="margin-top:8px">
+  <div class="flow-node">Dashboard</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node">Faturas</div>
+  <span style="margin:0 12px;color:#a09b94">|</span>
+  <div class="flow-node">Mensagens</div>
+  <span style="margin:0 12px;color:#a09b94">|</span>
+  <div class="flow-node">Perfil</div>
+  <span style="margin:0 12px;color:#a09b94">|</span>
+  <div class="flow-node">Empresa</div>
+</div>
+<div class="flow" style="margin-top:8px">
+  <div class="flow-node">Meus Projetos</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node gold">+ Novo Projeto</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node">Formulário de Estimativa (8 passos)</div>
+</div>
+
+<h2>Tela de Login / Cadastro</h2>
+<div class="field-grid">
+  <div class="field-item"><div class="field-name">Nome Completo<span class="field-req">* (cadastro)</span></div><div class="field-type">text — visível apenas na aba "Criar Conta"</div></div>
+  <div class="field-item"><div class="field-name">E-mail<span class="field-req">*</span></div><div class="field-type">email — com ícone Mail e ícone de pesquisa</div></div>
+  <div class="field-item"><div class="field-name">Senha<span class="field-req">*</span></div><div class="field-type">password — toggle Eye/EyeOff com aria-label</div></div>
+  <div class="field-item"><div class="field-name">Entrar com Google</div><div class="field-type">OAuth — supabase.auth.signInWithOAuth</div></div>
+</div>
+<p><strong>Ações:</strong></p>
+<ul>
+  <li><strong>Entrar</strong> → <code>supabase.auth.signInWithPassword</code></li>
+  <li><strong>Criar Conta</strong> → <code>supabase.auth.signUp</code> com <code>full_name</code></li>
+  <li><strong>Esqueceu sua senha?</strong> → <code>supabase.auth.resetPasswordForEmail</code></li>
+  <li><strong>Entrar com Google</strong> → <code>supabase.auth.signInWithOAuth({ provider: "google" })</code></li>
+</ul>
+
+<h2>Detalhe do Projeto — 7 Abas</h2>
+<table>
+  <thead><tr><th>Aba</th><th>Conteúdo</th><th>Quem edita</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Overview</strong></td><td>Informações do cliente + Detalhes técnicos + Audit Log</td><td>Cliente (com restrição por Quote)</td></tr>
+    <tr><td><strong>Progress</strong></td><td>Timeline de revisões REV 00–03 + Finalização</td><td>Somente Admin</td></tr>
+    <tr><td><strong>Drawings / Files</strong></td><td>Arquivos de projeto por etapa (preview + download)</td><td>Somente Admin (publicação)</td></tr>
+    <tr><td><strong>Site Updates</strong></td><td>Atualizações de obra com texto e fotos</td><td>Cliente</td></tr>
+    <tr><td><strong>Finance</strong></td><td>3 fases 30/40/30 + upload de comprovante</td><td>Cliente (comprovante)</td></tr>
+    <tr><td><strong>Chat</strong></td><td>Mensagens em tempo real por projeto</td><td>Cliente + Admin</td></tr>
+    <tr><td><strong>Tickets</strong></td><td>Abertura de tickets de revisão</td><td>Cliente</td></tr>
+  </tbody>
+</table>
+
+<h2>Formulário de Estimativa — 8 Passos</h2>
+<table>
+  <thead><tr><th>#</th><th>Passo</th><th>Campos principais</th><th>Validação</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><div class="step-badge">1</div></td>
+      <td><strong>Location</strong></td>
+      <td>País (US/BR), Nome do Projeto, Endereço, Cidade, Estado (autocomplete), CEP</td>
+      <td>Todos obrigatórios; link Google Maps gerado automaticamente</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">2</div></td>
+      <td><strong>Project Details</strong></td>
+      <td>Service Type (cards), Área (sqft/m²), Technical Scope (checklist), Estilo, Objetivo</td>
+      <td>Service Type e Área obrigatórios (*campo crítico para cálculo)</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">3</div></td>
+      <td><strong>Review</strong></td>
+      <td>Resumo de Location + Details com botão Edit por card</td>
+      <td>Checklist de completude — bloqueia se campos faltam</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">4</div></td>
+      <td><strong>Scope</strong></td>
+      <td>Tipo de projeto (12 cards), Tipo de serviço (Full Construction / Floor Plans / PDF to CAD)</td>
+      <td>Ambos obrigatórios</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">5</div></td>
+      <td><strong>Rooms</strong></td>
+      <td>Níveis (checkboxes), cômodos por nível (contadores), requerimentos especiais</td>
+      <td>Ao menos 1 nível obrigatório</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">6</div></td>
+      <td><strong>Files</strong></td>
+      <td>Drag &amp; drop — PDF, JPG, PNG, DWG, MP4 — até 10 arquivos</td>
+      <td>Next bloqueado enquanto houver upload em andamento; botão Retry por arquivo com erro</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">7</div></td>
+      <td><strong>Rush Fees</strong></td>
+      <td>6 documentos obrigatórios para desbloquear Rush (+40%) / Express (+60%)</td>
+      <td>Barra de progresso 0→100%; desbloqueado somente com todos os docs</td>
+    </tr>
+    <tr>
+      <td><div class="step-badge">8</div></td>
+      <td><strong>Review &amp; Submit</strong></td>
+      <td>Cards resumo editáveis, estimativa de preço (server-validated), checkbox de aceite</td>
+      <td>Checkbox obrigatório; botão desabilitado durante envio; erro exibido inline</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Lógica de Negócio — Regras Críticas</h2>
+<table>
+  <thead><tr><th>Regra</th><th>Implementação</th></tr></thead>
+  <tbody>
+    <tr><td>Audit Log</td><td>Toda edição em projeto existente registra [Data/Hora] + [Campo] + [Valor Antigo → Novo] na tabela <code>audit_logs</code></td></tr>
+    <tr><td>Alerta de Área</td><td>Se a área aumentar, popup de alerta é exibido ao cliente e notificação de alta prioridade é enviada ao Admin</td></tr>
+    <tr><td>Quote Lock</td><td>Campos de detalhes técnicos ficam <code>readOnly</code> quando <code>quoteApproved = true</code>; liberação requer ação do Admin</td></tr>
+    <tr><td>Segurança de Preço</td><td><code>serverCalcPrice()</code> recalcula independentemente; se detectar divergência (&gt; $1), usa valor do servidor</td></tr>
+    <tr><td>Expiração de Estimativa</td><td>Projetos criados via formulário têm <code>expires_at = +30 dias</code>; após isso entram em status Hold</td></tr>
+  </tbody>
+</table>
+</section>
+
+
+<!-- ════════════════════════════════════════ SECTION 3 ═══ -->
+<section id="s3" class="page-break">
+<h1 class="section-title"><span class="num">03</span>Textos e Copywriting</h1>
+
+<h2>Status de Projeto</h2>
+<table>
+  <thead><tr><th>Chave interna</th><th>Label exibido</th><th>Cor</th></tr></thead>
+  <tbody>
+    <tr><td><code>on_track</code></td><td><span class="pill pill-green">Em Andamento</span></td><td>Verde (#2d8653)</td></tr>
+    <tr><td><code>attention</code></td><td><span class="pill pill-amber">Atenção</span></td><td>Âmbar (#c07c0a)</td></tr>
+    <tr><td><code>completed</code></td><td><span class="pill pill-blue">Concluído</span></td><td>Azul (#2566a8)</td></tr>
+    <tr><td><code>pending</code></td><td><span class="pill pill-amber">Aguardando Revisão</span></td><td>Âmbar</td></tr>
+  </tbody>
+</table>
+
+<h2>Mensagens de Feedback do Sistema</h2>
+<table>
+  <thead><tr><th>Contexto</th><th>Mensagem</th><th>Tipo</th></tr></thead>
+  <tbody>
+    <tr><td>Perfil — salvar</td><td>✓ Salvo!</td><td><span class="pill pill-green">Sucesso</span></td></tr>
+    <tr><td>Perfil — salvando</td><td>Salvando…</td><td><span class="pill pill-amber">Loading</span></td></tr>
+    <tr><td>Chat — enviar mensagem</td><td>Enviando…</td><td><span class="pill pill-amber">Loading</span></td></tr>
+    <tr><td>Chat — falha</td><td>Falha ao enviar</td><td><span class="pill pill-red">Erro</span></td></tr>
+    <tr><td>Site Update — publicar</td><td>⏳ Salvando…</td><td><span class="pill pill-amber">Loading</span></td></tr>
+    <tr><td>Ticket — abrir</td><td>Salvando…</td><td><span class="pill pill-amber">Loading</span></td></tr>
+    <tr><td>Comprovante — enviando</td><td>⏳ Enviando…</td><td><span class="pill pill-amber">Loading</span></td></tr>
+    <tr><td>Comprovante — enviado</td><td>✓ Comprovante enviado — aguardando revisão da equipe DARA Studio</td><td><span class="pill pill-green">Sucesso</span></td></tr>
+    <tr><td>Upload arquivos — aguardando</td><td>Aguarde o upload dos arquivos antes de avançar.</td><td><span class="pill pill-amber">Warning</span></td></tr>
+    <tr><td>Submit estimativa</td><td>⟳ Enviando…</td><td><span class="pill pill-amber">Loading</span></td></tr>
+    <tr><td>Novo projeto — pendente</td><td>Aguardando revisão — válido por 30 dias</td><td><span class="pill pill-gray">Info</span></td></tr>
+  </tbody>
+</table>
+
+<h2>Mapeamento de Erros de Autenticação (Supabase → pt-BR)</h2>
+<div class="callout amber" style="margin-bottom:16px">
+  Os erros do Supabase chegam em inglês. O portal os traduz automaticamente usando um mapa de strings antes de exibir ao usuário.
+</div>
+<div class="error-row"><div class="error-original">Invalid login credentials</div><div class="error-arrow">→</div><div class="error-friendly">E-mail ou senha incorretos.</div></div>
+<div class="error-row"><div class="error-original">invalid_credentials</div><div class="error-arrow">→</div><div class="error-friendly">E-mail ou senha incorretos.</div></div>
+<div class="error-row"><div class="error-original">Email not confirmed</div><div class="error-arrow">→</div><div class="error-friendly">Confirme seu e-mail antes de entrar.</div></div>
+<div class="error-row"><div class="error-original">Too many requests</div><div class="error-arrow">→</div><div class="error-friendly">Muitas tentativas. Aguarde alguns minutos.</div></div>
+<div class="error-row"><div class="error-original">User not found</div><div class="error-arrow">→</div><div class="error-friendly">Nenhuma conta encontrada com este e-mail.</div></div>
+<div class="error-row"><div class="error-original">Network request failed</div><div class="error-arrow">→</div><div class="error-friendly">Sem conexão. Verifique sua internet.</div></div>
+<div class="error-row"><div class="error-original">Failed to fetch</div><div class="error-arrow">→</div><div class="error-friendly">Sem conexão. Verifique sua internet.</div></div>
+<div class="error-row"><div class="error-original">Invalid email</div><div class="error-arrow">→</div><div class="error-friendly">Endereço de e-mail inválido.</div></div>
+<div class="error-row"><div class="error-original">Password should be</div><div class="error-arrow">→</div><div class="error-friendly">A senha deve ter ao menos 6 caracteres.</div></div>
+<div class="error-row"><div class="error-original">User already registered</div><div class="error-arrow">→</div><div class="error-friendly">Este e-mail já possui uma conta.</div></div>
+<div class="error-row"><div class="error-original">signup_disabled</div><div class="error-arrow">→</div><div class="error-friendly">Cadastro desativado. Entre em contato com o suporte.</div></div>
+<div class="error-row"><div class="error-original">Unable to validate email</div><div class="error-arrow">→</div><div class="error-friendly">Endereço de e-mail inválido.</div></div>
+
+<h2>Alertas de Negócio</h2>
+<div class="callout amber"><strong>Alerta de Área Aumentada</strong><br>A área do projeto foi aumentada de <em>[valor antigo]</em> para <em>[valor novo]</em>. Alterações de área implicam em renegociação de valores. A equipe DARA Studio será notificada automaticamente.<br><br>⚡ Uma notificação de alta prioridade foi enviada para o Admin. Aguarde contato da equipe para confirmação dos novos valores.</div>
+<div class="callout red" style="margin-top:12px"><strong>Bloqueio por Quote Aprovado</strong><br>Os detalhes técnicos estão bloqueados pois o orçamento foi aprovado. Alterações requerem autorização do Admin.</div>
+<div class="callout" style="margin-top:12px"><strong>Estimativa — Aviso de Rodapé</strong><br>Os campos marcados com (*) são fundamentais para o cálculo da sua estimativa. Alterações de área ou escopo após o envio poderão resultar em ajustes automáticos no valor.</div>
+<div class="callout green" style="margin-top:12px"><strong>Estimativa Enviada com Sucesso</strong><br>Sua solicitação de projeto foi criada. Nossa equipe irá revisá-la e entrará em contato em até 2–3 dias úteis.</div>
+
+<h2>Formatação de Datas e Moedas</h2>
+<table>
+  <thead><tr><th>Campo</th><th>Formato</th><th>Exemplo</th></tr></thead>
+  <tbody>
+    <tr><td>Data de atualização do projeto</td><td>pt-BR: dd/MM/yyyy</td><td>18/03/2026</td></tr>
+    <tr><td>Vencimento de fatura</td><td>pt-BR: dd/MM/yyyy</td><td>15/04/2026</td></tr>
+    <tr><td>Notificação de tempo relativo</td><td>Xmin atrás / Xh atrás / Xd atrás</td><td>2h atrás</td></tr>
+    <tr><td>Valores monetários</td><td>USD: $X,XXX.XX</td><td>$2,718.00</td></tr>
+    <tr><td>Estimativa de preço</td><td>$X.XXX – $X.XXX</td><td>$1,980 – $2,415</td></tr>
+  </tbody>
+</table>
+
+<h2>Textos da Tela de Login</h2>
+<table>
+  <thead><tr><th>Elemento</th><th>Texto</th></tr></thead>
+  <tbody>
+    <tr><td>Tagline</td><td>Acesse seus projetos, arquivos e comunicações em um único lugar.</td></tr>
+    <tr><td>Título — login</td><td>Bem-vindo de Volta</td></tr>
+    <tr><td>Subtítulo — login</td><td>Insira suas credenciais para acessar sua conta</td></tr>
+    <tr><td>Título — cadastro</td><td>Crie sua Conta</td></tr>
+    <tr><td>Botão principal — login</td><td>Entrar</td></tr>
+    <tr><td>Botão principal — cadastro</td><td>Criar Conta</td></tr>
+    <tr><td>Botão Google</td><td>Entrar com Google / Cadastrar com Google</td></tr>
+    <tr><td>Link recuperação</td><td>Esqueceu sua senha?</td></tr>
+    <tr><td>Confirmação de cadastro</td><td>Conta criada! Verifique seu e-mail para confirmar o acesso.</td></tr>
+    <tr><td>Badge — modo demo</td><td>🟡 Modo demonstração (dados fictícios)</td></tr>
+    <tr><td>Badge — produção</td><td>🟢 Supabase conectado</td></tr>
+  </tbody>
+</table>
+</section>
+
+
+<!-- ════════════════════════════════════════ SECTION 4 ═══ -->
+<section id="s4" class="page-break">
+<h1 class="section-title"><span class="num">04</span>Código Refatorado</h1>
+
+<div class="callout">
+  <strong>Arquivos entregues neste dossiê:</strong>
+  <span class="pill pill-gold">PortalCliente.jsx</span>
+  <span class="pill pill-gold">global.css</span>
+  <span class="pill pill-gold">.env (exemplo)</span>
+  <br><br>
+  O arquivo <code>PortalCliente.jsx</code> é o único componente React da aplicação (SPA). Ele contém todos os componentes, lógica de negócio, camada de acesso a dados e formulários. As 5.068 linhas foram estruturadas nas seções: Auth Layer → Data Layer → UI Helpers → Pages → Estimate Form.
+</div>
+
+<h2>1. PortalCliente.jsx — Cabeçalho e Estrutura</h2>
+<p>Exibindo as primeiras 120 linhas para referência de estrutura. O arquivo completo está disponível em anexo.</p>
+<pre><code>import { useState, useEffect, useCallback } from &quot;react&quot;;
+import &#x27;./global.css&#x27;;
+import {
+  LayoutDashboard, FolderKanban, Receipt,
+  MessageSquare, User, Building2, LogOut, Plus,
+  ArrowLeft, CheckCircle2, AlertCircle, AlertTriangle,
+  ChevronRight, ChevronLeft, Bell, Settings, Send,
+  TrendingUp, FileText, FileDown, Upload, Mail, Menu, X,
+  Eye, EyeOff, Info, Zap
+} from &quot;lucide-react&quot;;
+
+// ── SUPABASE CLIENT ────────────────────────────────────────
+// Variáveis de ambiente injetadas pelo Vite em build-time (import.meta.env).
+// NUNCA exponha chaves diretamente no código — use o arquivo .env na raiz.
+// Exemplo .env:
+//   VITE_SUPABASE_URL=https://xxxx.supabase.co
+//   VITE_SUPABASE_ANON_KEY=eyJhbGc...
+//
+// Para ativar em produção:
+//   1. Instale: npm install @supabase/supabase-js
+//   2. Crie src/lib/supabase.js:
+//        import { createClient } from &#x27;@supabase/supabase-js&#x27;
+//        export const supabase = createClient(
+//          import.meta.env.VITE_SUPABASE_URL,
+//          import.meta.env.VITE_SUPABASE_ANON_KEY
+//        )
+//   3. Substitua a linha abaixo: import { supabase } from &#x27;./lib/supabase&#x27;
+const SUPABASE_READY = false; // ← mude para true após configurar
+const supabase = null;        // ← substitua pelo import do client real
+
+// ── DADOS DE DEMONSTRAÇÃO (usados quando SUPABASE_READY = false) ──────
+// Substituídos automaticamente por dados reais quando Supabase estiver conectado.
+const DEMO_USER = {
+  id:       &quot;mock-user-id&quot;,
+  name:     &quot;Jackson Da Silva&quot;,
+  company:  &quot;Jack General Services Inc.&quot;,
+  email:    &quot;jackgeneraloffice@gmail.com&quot;,
+  phone:    &quot;+1 (617) 775-0179&quot;,
+  initials: &quot;JD&quot;,
+  avatar:   null,
+};
+const DEMO_PROJECTS = [
+  { id:1, code:&quot;DARA-0010&quot;, address:&quot;41 Bowdoin Ave&quot;, city:&quot;Dorchester, MA&quot;,
+    service:&quot;New Construction — Single Family&quot;, stage:&quot;Detalhamento&quot;,
+    status:&quot;on_track&quot;, budget:2718, paid:0, progress:6,
+    updatedAt:&quot;Mar 18, 2026&quot;, pendingAction:&quot;Aguardando informações do cliente&quot; },
+  { id:2, code:&quot;DARA-0008&quot;, address:&quot;88 Dover St&quot;, city:&quot;Boston, MA&quot;,
+    service:&quot;Commercial Office Renovation&quot;, stage:&quot;Estudo Preliminar&quot;,
+    status:&quot;on_track&quot;, budget:4200, paid:2100, progress:50,
+    updatedAt:&quot;Mar 14, 2026&quot;, pendingAction:null },
+  { id:3, code:&quot;DARA-0005&quot;, address:&quot;215 Hampton Rd&quot;, city:&quot;Brookline, MA&quot;,
+    service:&quot;Interior Design — Living Room&quot;, stage:&quot;Entrega Final&quot;,
+    status:&quot;completed&quot;, budget:1800, paid:1800, progress:100,
+    updatedAt:&quot;Feb 28, 2026&quot;, pendingAction:null },
+];
+const DEMO_INVOICES = [
+  { id:&quot;INV-2026-003&quot;, project:&quot;41 Bowdoin Ave&quot;, amount:1359, status:&quot;pending&quot;, due:&quot;Apr 15, 2026&quot; },
+  { id:&quot;INV-2026-002&quot;, project:&quot;88 Dover St&quot;,    amount:1400, status:&quot;pending&quot;, due:&quot;Mar 30, 2026&quot; },
+  { id:&quot;INV-2026-001&quot;, project:&quot;88 Dover St&quot;,    amount:700,  status:&quot;paid&quot;,    due:&quot;Mar 10, 2026&quot; },
+];
+const DEMO_ACTIVITY = [
+  { id:1, type:&quot;file&quot;,    text:&quot;Novo arquivo publicado em 41 Bowdoin Ave&quot;,      time:&quot;2h atrás&quot;,  icon:FileDown },
+  { id:2, type:&quot;invoice&quot;, text:&quot;Fatura INV-2026-002 vencimento em 10 dias&quot;,     time:&quot;1d atrás&quot;,  icon:Receipt },
+  { id:3, type:&quot;message&quot;, text:&quot;Nova mensagem de Daniela (DARA Studio)&quot;,        time:&quot;2d atrás&quot;,  icon:MessageSquare },
+];
+
+// ── CAMADA DE ACESSO A DADOS ──────────────────────────────────
+// Cada função segue o mesmo padrão:
+//   1. Se supabase = null (demonstração) → retorna dados de demonstração
+//   2. Se supabase está conectado → busca do banco real
+//   3. Se a query falhar → retorna dados de demonstração como fallback seguro
+//
+// Para produção: substitua &quot;const supabase = null&quot; pelo client real
+// e mude SUPABASE_READY para true. O restante do código não muda.
+
+async function fetchProfile(userId) {
+  if (!supabase) return DEMO_USER;
+  const { data, error } = await supabase
+    .from(&quot;profiles&quot;)
+    .select(&quot;id, full_name, company, email, phone, avatar_url&quot;)
+    .eq(&quot;id&quot;, userId)
+    .single();
+  if (error || !data) return DEMO_USER;
+  return {
+    id:       data.id,
+    name:     data.full_name,
+    company:  data.company,
+    email:    data.email,
+    phone:    data.phone,
+    initials: (data.full_name||&quot;??&quot;).split(&quot; &quot;).map(w=&gt;w[0]).join(&quot;&quot;).slice(0,2).toUpperCase(),
+    avatar:   data.avatar_url || null,
+  };
+}
+
+async function fetchProjects(userId) {
+  if (!supabase) return DEMO_PROJECTS;
+  const { data, error } = await supabase
+    .from(&quot;projects&quot;)
+    .select(`id, code, address, city, service, stage, status,
+             budget, paid, progress, updated_at, pending_action`)
+    .eq(&quot;client_id&quot;, userId)
+    .order(&quot;updated_at&quot;, { ascending: false });
+  if (error || !data) return DEMO_PROJECTS;
+  return data.map(p =&gt; ({
+    id:            p.id,
+    code:          p.code,
+    address:       p.address,
+    city:          p.city,
+    service:       p.service,
+    stage:         p.stage,
+    status:        p.status,
+    budget:        p.budget,
+    paid:          p.paid,
+    progress:      p.progress,
+    updatedAt:     new Date(p.updated_at).toLocaleDateString(&quot;pt-BR&quot;,{day:&quot;2-digit&quot;,month:&quot;2-digit&quot;,year:&quot;numeric&quot;}),
+    pendingAction: p.pending_action || null,
+  }));
+}
+
+async function fetchInvoices(userId) {
+
+[... arquivo completo: 5.068 linhas — ver PortalCliente.jsx em anexo ...]</code></pre>
+
+<h2>2. global.css — Variáveis, Reset e Animações</h2>
+<p>Arquivo completo. Deve ser colocado em <code>src/global.css</code> e importado no topo de <code>PortalCliente.jsx</code>.</p>
+<pre><code>@import url(&#x27;https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap&#x27;);
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --gold:       #b89b6a;
+  --gold-h:     #c9ae82;
+  --gold-d:     rgba(184, 155, 106, 0.14);
+  --gold-border:rgba(184, 155, 106, 0.30);
+
+  --bg:         #f5f3ef;
+  --bg2:        #ffffff;
+  --bg3:        #edeae4;
+
+  --sidebar:    #1a1814;
+  --sidebar2:   #222018;
+  --sidebar3:   #2e2b22;
+
+  --text:       #1a1814;
+  --muted:      #6b6760;
+  --dim:        #a09b94;
+  --border:     #e2ddd6;
+
+  --green:      #2d8653;
+  --green-bg:   rgba(45, 134, 83, 0.10);
+
+  --amber:      #c07c0a;
+  --amber-bg:   rgba(192, 124, 10, 0.10);
+
+  --red:        #b83232;
+  --red-bg:     rgba(184, 50, 50, 0.09);
+
+  --blue:       #2566a8;
+  --blue-bg:    rgba(37, 102, 168, 0.09);
+
+  --serif:      &#x27;Libre Baskerville&#x27;, Georgia, serif;
+  --sans:       &#x27;Montserrat&#x27;, system-ui, sans-serif;
+  --r:          10px;
+}
+
+body {
+  background:   var(--bg);
+  font-family:  var(--sans);
+  color:        var(--text);
+  font-size:    14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input, textarea, select {
+  font-family: var(--sans);
+}
+
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar        { width: 4px; height: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 2px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+.fade-up  { animation: fadeUp  0.35s ease both; }
+.fade-in  { animation: fadeIn  0.25s ease both; }
+</code></pre>
+
+<h2>3. .env — Variáveis de Ambiente</h2>
+<p>Crie este arquivo na <strong>raiz do projeto Vite</strong> (mesmo nível de <code>package.json</code>). Nunca commite no Git — adicione <code>.env</code> ao seu <code>.gitignore</code>.</p>
+<pre><code># DARA Studio Portal — Variáveis de Ambiente
+# Arquivo: .env (raiz do projeto)
+# IMPORTANTE: Não commitar no Git. Adicionar ao .gitignore
+
+# ── Supabase ──────────────────────────────────────────────
+# URL do projeto Supabase (Project Settings → API → Project URL)
+VITE_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
+
+# Chave anônima pública (Project Settings → API → anon public)
+# Esta chave é segura para o frontend — não expõe dados protegidos
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+
+<h2>Como Ativar o Supabase em Produção</h2>
+<ol style="line-height:2.2">
+  <li>Instale o SDK: <code>npm install @supabase/supabase-js</code></li>
+  <li>Crie o arquivo <code>src/lib/supabase.js</code>:<br>
+    <pre style="margin:8px 0"><code>import { createClient } from &#39;@supabase/supabase-js&#39;
+export const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+)</code></pre>
+  </li>
+  <li>No topo de <code>PortalCliente.jsx</code>, substitua:<br>
+    <pre style="margin:8px 0"><code>// ANTES:
+const SUPABASE_READY = false;
+const supabase = null;
+
+// DEPOIS:
+import { supabase } from &#39;./lib/supabase&#39;;
+const SUPABASE_READY = true;</code></pre>
+  </li>
+  <li>Preencha o arquivo <code>.env</code> com suas credenciais reais do Supabase.</li>
+  <li>Execute <code>npm run build</code> para gerar o bundle de produção.</li>
+</ol>
+
+<h2>Checklist de Deploy</h2>
+<table>
+  <thead><tr><th>#</th><th>Item</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><code>import './global.css'</code> no topo do JSX</td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>2</td><td>Variável <code>G</code> removida do JSX (CSS inline eliminado)</td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>3</td><td>Datas formatadas em <code>pt-BR</code></td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>4</td><td><code>statusLabel</code> em português (Em Andamento / Concluído)</td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>5</td><td>Mapa de erros de auth em pt-BR</td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>6</td><td><code>aria-label</code> nos botões Eye/EyeOff</td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>7</td><td>Comentários referenciando <code>VITE_SUPABASE_URL</code> e <code>VITE_SUPABASE_ANON_KEY</code></td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>8</td><td>Supabase stub seguro (<code>supabase = null</code>) — sem strings banidas no artifact</td><td><span class="pill pill-green">✓ Implementado</span></td></tr>
+    <tr><td>9</td><td>Substituir <code>const supabase = null</code> pelo import real</td><td><span class="pill pill-amber">⚠ Pendente (produção)</span></td></tr>
+    <tr><td>10</td><td>Criar Storage Buckets: <code>payment-proofs</code>, <code>site-updates</code>, <code>estimate-files</code></td><td><span class="pill pill-amber">⚠ Pendente (produção)</span></td></tr>
+    <tr><td>11</td><td>Criar Edge Function <code>calculate-price</code> no Supabase</td><td><span class="pill pill-amber">⚠ Pendente (produção)</span></td></tr>
+    <tr><td>12</td><td>Configurar RLS (Row Level Security) nas tabelas do banco</td><td><span class="pill pill-amber">⚠ Pendente (produção)</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<footer>
+  DARA Studio — Portal do Cliente &nbsp;·&nbsp; Dossiê de Projeto v1.0 &nbsp;·&nbsp; Abril 2026 &nbsp;·&nbsp; Gerado automaticamente
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+O design da Etapa 1 (Project Location) está lindo, mas precisamos fazer dois ajustes finos de UX (Experiência do Usuário) e navegação.
+Por favor, atualize o componente da Etapa 1 do `EstimateWizard` com as seguintes regras:
+1. DIVULGAÇÃO PROGRESSIVA (Conditional Rendering)
+- Atualmente, os inputs de endereço (Street, City, State, Zip) e o botão "Continue" estão visíveis desde o início.
+- Altere a lógica para que o estado inicial comece apenas com a pergunta "Where is your project located?" e os dois botões gigantes de US e BR.
+- Os inputs de endereço e o botão "Continue" só devem ser renderizados (aparecer na tela) *após* o usuário clicar em uma das opções (US ou BR). Adicione uma leve transição/animação de fade-in para quando esses campos aparecerem.
+2. BOTÃO DE VOLTAR PARA O SITE
+- Precisamos de uma rota de fuga. Adicione um botão ou link discreto escrito "← Back to Site" (ou voltar).
+- O posicionamento ideal é no canto inferior esquerdo, alinhado à mesma linha horizontal do botão "Continue" que fica na direita.
+- O clique neste botão deve acionar a nossa navegação simulada e mudar o `currentApp` de volta para `'landing'` (a tela inicial do site).
+Por favor, forneça o código atualizado deste trecho garantindo que a renderização condicional dos inputs de endereço funcione perfeitamente ao clicar nos cards de país.

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DA•RA Studio — Análise Comparativa: Projeto Original vs. Atual</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+:root{
+  --bg:#0c0c0c; --bg2:#0f0f0f; --bg3:#141414; --card:#111;
+  --bd:#242424; --bd2:#2e2e2e;
+  --th:#f0ead8; --tm:#b0a898; --tl:#6e6760;
+  --gold:#C9A96E; --gbg:hsla(38,47%,61%,.10); --gbd:hsla(38,47%,61%,.22);
+  --red:#e05c5c; --green:#5aaa6a; --blue:#5b8dee; --orange:#e09a3a;
+  --wh:#f8f4ec;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--th);font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.65}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:200;background:rgba(12,12,12,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);height:52px;display:flex;align-items:center;padding:0 2rem}
+.nav-inner{max-width:1300px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:"Cormorant Garamond",serif;font-size:16px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
+.nav-links{display:flex;gap:0;overflow-x:auto}
+.nav-links a{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);text-decoration:none;padding:0 14px;height:52px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── HERO ── */
+.hero{padding:5rem 2rem;text-align:center;border-bottom:1px solid var(--bd);background:radial-gradient(ellipse 70% 40% at 50% 0%,hsla(38,47%,61%,.10) 0%,transparent 70%)}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,5vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:1rem}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:15px;color:var(--tl);max-width:640px;margin:0 auto 2rem;line-height:1.7}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.08em;padding:5px 14px;border-radius:20px}
+.badge-gold{background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)}
+.badge-red{background:rgba(224,92,92,.1);color:var(--red);border:1px solid rgba(224,92,92,.2)}
+.badge-green{background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)}
+.badge-blue{background:rgba(91,141,238,.1);color:var(--blue);border:1px solid rgba(91,141,238,.2)}
+
+/* ── LAYOUT ── */
+.container{max-width:1300px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem)}
+.section{padding:4rem 0;border-bottom:1px solid var(--bd)}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.section-label::after{content:"";width:40px;height:1px;background:var(--bd)}
+.section h2{font-family:"Cormorant Garamond",serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--th);margin-bottom:.6rem;line-height:1.15}
+.section-sub{font-size:14px;color:var(--tl);margin-bottom:2rem;max-width:700px;line-height:1.7}
+
+/* ── COMPARISON GRID ── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.compare-col{background:var(--card);border:1px solid var(--bd);border-radius:6px;overflow:hidden}
+.compare-col.old{border-color:rgba(224,92,92,.25)}
+.compare-col.new{border-color:rgba(201,169,110,.25)}
+.compare-header{padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--bd)}
+.compare-header.old-h{background:rgba(224,92,92,.06)}
+.compare-header.new-h{background:var(--gbg)}
+.compare-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.compare-tag.old-tag{background:rgba(224,92,92,.15);color:var(--red);border:1px solid rgba(224,92,92,.25)}
+.compare-tag.new-tag{background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)}
+.compare-title{font-size:13px;font-weight:600;color:var(--th)}
+.compare-body{padding:18px}
+
+/* ── FEATURE TABLE ── */
+.feat-table{width:100%;border-collapse:collapse;font-size:13px}
+.feat-table th{background:var(--bg3);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;text-align:left;border-bottom:1px solid var(--bd)}
+.feat-table td{padding:10px 14px;border-bottom:1px solid var(--bd);color:var(--tm);vertical-align:top;line-height:1.5}
+.feat-table tr:last-child td{border-bottom:none}
+.feat-table .feat-name{color:var(--th);font-weight:500}
+.feat-table .status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;white-space:nowrap}
+.status-done{background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)}
+.status-partial{background:hsla(38,47%,61%,.1);color:var(--gold);border:1px solid var(--gbd)}
+.status-missing{background:rgba(224,92,92,.1);color:var(--red);border:1px solid rgba(224,92,92,.2)}
+.status-new{background:rgba(91,141,238,.1);color:var(--blue);border:1px solid rgba(91,141,238,.2)}
+
+/* ── DASHBOARD MOCKUPS ── */
+.dash-frame{background:var(--bg2);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-top:8px}
+.dash-topbar{background:rgba(12,12,12,.97);border-bottom:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.dash-topbar-logo{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
+.dash-topbar-actions{display:flex;align-items:center;gap:8px}
+.dash-body{display:grid;grid-template-columns:200px 1fr;min-height:400px}
+.dash-sidebar{background:var(--bg);border-right:1px solid var(--bd);padding:8px 0}
+.dash-nav-item{padding:9px 16px;font-size:12px;color:var(--tl);cursor:pointer;display:flex;align-items:center;gap:8px;border-left:2px solid transparent;transition:all .15s}
+.dash-nav-item.active{color:var(--gold);background:var(--gbg);border-left-color:var(--gold)}
+.dash-main{padding:16px;overflow:auto}
+
+/* KPI Cards */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.kpi-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:14px}
+.kpi-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);margin-bottom:6px}
+.kpi-val{font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:300;color:var(--gold);margin-bottom:2px;line-height:1}
+.kpi-delta{font-size:11px;display:flex;align-items:center;gap:4px}
+.delta-up{color:var(--green)}
+.delta-down{color:var(--red)}
+
+/* Period selector */
+.period-selector{display:flex;gap:2px;background:var(--bg3);border-radius:4px;padding:3px;margin-bottom:14px;width:fit-content}
+.period-btn{padding:5px 12px;font-size:11px;font-weight:600;border:none;border-radius:3px;cursor:pointer;font-family:inherit;transition:all .15s;color:var(--tl);background:transparent}
+.period-btn.active{background:var(--card);color:var(--th)}
+
+/* Chart area */
+.chart-area{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:14px;margin-bottom:10px}
+.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.chart-title{font-size:12px;font-weight:600;color:var(--th)}
+.chart-legend{display:flex;gap:12px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--tl)}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:100px;padding:0 4px}
+.chart-bar-group{display:flex;gap:2px;align-items:flex-end;flex:1}
+.bar{border-radius:2px 2px 0 0;transition:opacity .2s;cursor:pointer}
+.bar:hover{opacity:.8}
+.chart-labels{display:flex;gap:6px;margin-top:6px}
+.chart-label{flex:1;text-align:center;font-size:9px;color:var(--tl)}
+
+/* Activity feed */
+.activity-feed{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:14px}
+.activity-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd)}
+.activity-item:last-child{border-bottom:none;padding-bottom:0}
+.activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.activity-body{flex:1}
+.activity-text{font-size:12px;color:var(--tm);line-height:1.5}
+.activity-time{font-size:10px;color:var(--tl);margin-top:2px}
+
+/* Pipeline */
+.pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.pipeline-col{background:var(--bg3);border:1px solid var(--bd);border-radius:4px;padding:8px}
+.pipeline-header{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.pipeline-count{background:var(--gbg);color:var(--gold);padding:1px 6px;border-radius:10px;font-size:10px}
+.pipeline-card{background:var(--card);border:1px solid var(--bd);border-radius:3px;padding:8px;margin-bottom:5px;font-size:11px}
+.pipeline-card-title{color:var(--th);font-weight:500;margin-bottom:2px}
+.pipeline-card-sub{color:var(--tl);font-size:10px}
+
+/* Table */
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:var(--bg3);color:var(--tl);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--bd);color:var(--tm)}
+.data-table tr:hover td{background:var(--gbg)}
+.data-table .status-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px}
+
+/* Tasks */
+.tasks-list{display:flex;flex-direction:column;gap:4px}
+.task-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:3px;font-size:12px}
+.task-check{width:14px;height:14px;border-radius:2px;border:1px solid var(--bd);flex-shrink:0}
+.task-check.done{background:var(--green);border-color:var(--green);display:flex;align-items:center;justify-content:center}
+.task-text{flex:1;color:var(--tm)}
+.task-text.done-text{text-decoration:line-through;color:var(--tl)}
+.task-priority{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:10px}
+
+/* Settings panel */
+.settings-grid{display:grid;grid-template-columns:180px 1fr;gap:0;background:var(--card);border:1px solid var(--bd);border-radius:4px;overflow:hidden}
+.settings-sidebar{border-right:1px solid var(--bd);padding:8px 0}
+.settings-nav{padding:8px 14px;font-size:12px;color:var(--tl);cursor:pointer;transition:all .15s;border-left:2px solid transparent}
+.settings-nav.active{color:var(--gold);background:var(--gbg);border-left-color:var(--gold)}
+.settings-main{padding:16px}
+.settings-group{margin-bottom:18px}
+.settings-group-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd)}
+.settings-row:last-child{border-bottom:none}
+.settings-label{font-size:12.5px;color:var(--th);font-weight:500}
+.settings-desc{font-size:11px;color:var(--tl);margin-top:1px}
+.toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
+.toggle.on{background:var(--green)}
+.toggle.off{background:var(--bd2)}
+.toggle::after{content:"";width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;top:3px;transition:left .2s}
+.toggle.on::after{left:19px}
+.toggle.off::after{left:3px}
+.settings-input{background:var(--bg);border:1px solid var(--bd);border-radius:3px;padding:6px 10px;font-size:12px;color:var(--tm);font-family:inherit;width:180px}
+.settings-select{background:var(--bg);border:1px solid var(--bd);border-radius:3px;padding:6px 10px;font-size:12px;color:var(--tm);font-family:inherit;width:180px}
+
+/* Gantt */
+.gantt{overflow-x:auto}
+.gantt-row{display:flex;align-items:center;gap:0;height:32px;border-bottom:1px solid var(--bd)}
+.gantt-label{width:140px;flex-shrink:0;font-size:11px;color:var(--tm);padding:0 10px;border-right:1px solid var(--bd)}
+.gantt-track{flex:1;position:relative;height:100%;background:var(--bg3)}
+.gantt-bar{position:absolute;height:16px;top:8px;border-radius:2px;opacity:.85}
+.gantt-header{display:flex;align-items:center;gap:0;height:24px;border-bottom:1px solid var(--bd);background:var(--bg)}
+.gantt-header-label{width:140px;flex-shrink:0;border-right:1px solid var(--bd)}
+.gantt-months{flex:1;display:flex}
+.gantt-month{flex:1;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd)}
+
+/* Placeholder skeleton */
+.skel{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:skel 1.5s infinite;border-radius:3px}
+@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Improvement cards */
+.improve-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.improve-card{background:var(--card);border-radius:4px;padding:16px 18px;display:flex;gap:12px;border:1px solid var(--bd)}
+.improve-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.improve-body .imp-title{font-size:13px;font-weight:600;color:var(--th);margin-bottom:4px}
+.improve-body .imp-desc{font-size:12px;color:var(--tl);line-height:1.6}
+.imp-tags{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.imp-tag{font-size:10px;font-weight:600;letter-spacing:.06em;padding:2px 8px;border-radius:20px}
+
+/* Progress bar */
+.progress-bar-top{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:1000;transition:width .1s}
+
+/* Responsive */
+@media(max-width:900px){
+  .compare-grid{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .dash-body{grid-template-columns:1fr}
+  .dash-sidebar{display:none}
+  .pipeline{grid-template-columns:1fr 1fr}
+  .settings-grid{grid-template-columns:1fr}
+  .settings-sidebar{display:none}
+}
+@media(max-width:600px){
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .pipeline{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-top" id="prog"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-logo">DA•RA STUDIO — Análise Comparativa</span>
+    <div class="nav-links">
+      <a href="#overview">Visão Geral</a>
+      <a href="#features">Features</a>
+      <a href="#admin-dash">Admin Dashboard</a>
+      <a href="#client-dash">Client Dashboard</a>
+      <a href="#freelancer-dash">Freelancer</a>
+      <a href="#settings">Settings</a>
+      <a href="#gantt">Gantt</a>
+      <a href="#improvements">Melhorias</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Análise Comparativa — Abril 2026</div>
+  <h1>Projeto Original ZIP<br><em>vs.</em> DA•RA App Atual</h1>
+  <p class="hero-sub">O projeto original (<code>dara-studio-drafting-3d-support-main</code>) tinha 151 componentes .tsx com dashboards completos. O dara-app.jsx atual é um site institucional + formulário. Este documento mapeia as diferenças e onde podemos juntar os dois.</p>
+  <div class="hero-badges">
+    <span class="badge badge-gold">ZIP Original: 151 .tsx</span>
+    <span class="badge badge-blue">App Atual: 69 componentes JSX</span>
+    <span class="badge badge-green">Site: ✅ Completo</span>
+    <span class="badge badge-red">Dashboards: Skeletons apenas</span>
+  </div>
+</div>
+
+<!-- S1 — OVERVIEW -->
+<section class="section" id="overview">
+<div class="container">
+  <div class="section-label">01 — Visão Geral</div>
+  <h2>O que cada projeto tinha</h2>
+  <p class="section-sub">Mapeamento completo das duas codebases. O ZIP original era um app React+TypeScript multi-arquivo com Supabase integrado. O dara-app.jsx é single-file sem backend.</p>
+
+  <div class="compare-grid">
+    <div class="compare-col old">
+      <div class="compare-header old-h">
+        <span class="compare-tag old-tag">ZIP Original</span>
+        <span class="compare-title">dara-studio-drafting-3d-support-main</span>
+      </div>
+      <div class="compare-body">
+        <table class="feat-table">
+          <tr><td class="feat-name">Arquitetura</td><td>React + TypeScript, multi-arquivo, Supabase</td></tr>
+          <tr><td class="feat-name">Componentes</td><td>151 arquivos .tsx</td></tr>
+          <tr><td class="feat-name">Admin Pages</td><td>19 páginas (Dashboard, Analytics, Finance, Gantt, Leads, Settings...)</td></tr>
+          <tr><td class="feat-name">Client Pages</td><td>8 páginas (Home, Projects, Files, Invoices, Messages, Profile...)</td></tr>
+          <tr><td class="feat-name">Freelancer Pages</td><td>7 páginas (Dashboard, Calendar, Contracts, Payments...)</td></tr>
+          <tr><td class="feat-name">Dashboard Widgets</td><td>KPICards, FinancialChart, ActivityFeed, ProjectPipeline, NewLeadsTable, TodaysTasks, QuickActions</td></tr>
+          <tr><td class="feat-name">Outros</td><td>ProjectKanbanBoard, ProjectTimeline, Gantt, Map, AI Code Check</td></tr>
+          <tr><td class="feat-name">UI Library</td><td>shadcn/ui (40+ componentes: accordion, calendar, chart, command...)</td></tr>
+          <tr><td class="feat-name">Auth</td><td>Supabase Auth real com RLS</td></tr>
+          <tr><td class="feat-name">Site público</td><td>Hero, Services, How We Work, Portfolio — básico</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="compare-col new">
+      <div class="compare-header new-h">
+        <span class="compare-tag new-tag">Atual</span>
+        <span class="compare-title">dara-app.jsx</span>
+      </div>
+      <div class="compare-body">
+        <table class="feat-table">
+          <tr><td class="feat-name">Arquitetura</td><td>React 18 JSX, single-file (~5.400 linhas), sem backend</td></tr>
+          <tr><td class="feat-name">Componentes</td><td>69 funções JSX no mesmo arquivo</td></tr>
+          <tr><td class="feat-name">Admin Dashboard</td><td>Skeleton com sidebar e stats "—" (91 linhas)</td></tr>
+          <tr><td class="feat-name">Client Dashboard</td><td>Skeleton com sidebar e 3 stats "—" (99 linhas)</td></tr>
+          <tr><td class="feat-name">Freelancer Dashboard</td><td>Skeleton com sidebar (56 linhas)</td></tr>
+          <tr><td class="feat-name">Site público</td><td>Hero, 6 Services, HowWeWork 5-steps, Portfolio, About, CTA, Blog, Copyright — <strong style="color:var(--green)">completo e polido</strong></td></tr>
+          <tr><td class="feat-name">Formulário</td><td>8 steps completos com validação, cálculo em tempo real, EmailJS</td></tr>
+          <tr><td class="feat-name">Auth</td><td>3 portais com split-panel design, setTimeout simulado</td></tr>
+          <tr><td class="feat-name">i18n</td><td>PT/EN completo em todas as páginas</td></tr>
+          <tr><td class="feat-name">Dark/Light Mode</td><td>useTheme() + CSS vars + prefers-color-scheme</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- S2 — FEATURE COMPARISON TABLE -->
+<section class="section" id="features">
+<div class="container">
+  <div class="section-label">02 — Inventário Completo</div>
+  <h2>Feature por Feature</h2>
+  <p class="section-sub">Mapeamento completo: o que o ZIP tinha, o que o App tem hoje, e onde juntar faz sentido.</p>
+
+  <table class="feat-table" style="margin-bottom:2rem">
+    <thead>
+      <tr>
+        <th>Feature / Módulo</th>
+        <th>ZIP Original</th>
+        <th>App Atual</th>
+        <th>Ação Recomendada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feat-name">Site público (Hero, Services, HWW, Footer)</td>
+        <td><span class="status status-partial">⚡ Básico</span></td>
+        <td><span class="status status-done">✓ Completo</span></td>
+        <td>Manter App atual — muito superior</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Formulário de Orçamento (8 steps)</td>
+        <td><span class="status status-partial">⚡ 11 steps diferentes</span></td>
+        <td><span class="status status-done">✓ Completo</span></td>
+        <td>Avaliar steps do ZIP para complementar</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Dark/Light Mode</td>
+        <td><span class="status status-missing">✗ Não tinha</span></td>
+        <td><span class="status status-done">✓ Completo</span></td>
+        <td>App atual — manter</td>
+      </tr>
+      <tr>
+        <td class="feat-name">i18n PT/EN</td>
+        <td><span class="status status-missing">✗ Não tinha</span></td>
+        <td><span class="status status-done">✓ Completo</span></td>
+        <td>App atual — manter</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Auth (login/cadastro)</td>
+        <td><span class="status status-done">✓ Supabase real</span></td>
+        <td><span class="status status-partial">⚡ Simulado (setTimeout)</span></td>
+        <td><strong style="color:var(--red)">Prioridade: implementar Supabase</strong></td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Dashboard — KPI Cards</td>
+        <td><span class="status status-done">✓ KPICards.tsx completo</span></td>
+        <td><span class="status status-missing">✗ "—" placeholder</span></td>
+        <td>Implementar com dados reais do Supabase</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Dashboard — Gráfico Financeiro</td>
+        <td><span class="status status-done">✓ FinancialChart.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Adicionar após Supabase</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Dashboard — Activity Feed</td>
+        <td><span class="status status-done">✓ ActivityFeed.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Adicionar após Supabase</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Dashboard — Project Pipeline</td>
+        <td><span class="status status-done">✓ ProjectPipeline.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Alta prioridade para gestão</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Dashboard — Today's Tasks</td>
+        <td><span class="status status-done">✓ TodaysTasks.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Adicionar — muito útil</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Dashboard — New Leads Table</td>
+        <td><span class="status status-done">✓ NewLeadsTable.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Alta prioridade — conectar ao formulário</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Kanban Board de Projetos</td>
+        <td><span class="status status-done">✓ ProjectKanbanBoard.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Excelente para gestão visual</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Gantt / Timeline</td>
+        <td><span class="status status-done">✓ AdminGantt.tsx + ProjectTimeline.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Diferencial importante para clientes</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Analytics</td>
+        <td><span class="status status-done">✓ AdminAnalytics.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Após Supabase + GA4</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Admin Settings (permissões, integrações)</td>
+        <td><span class="status status-done">✓ AdminSettings.tsx</span></td>
+        <td><span class="status status-partial">⚡ "Coming soon"</span></td>
+        <td>Implementar após auth real</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Finance Overview</td>
+        <td><span class="status status-done">✓ AdminFinanceOverview.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Após Supabase + pagamentos</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Client — Timeline de Projeto</td>
+        <td><span class="status status-done">✓ ClientTimeline.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Alta prioridade para experiência do cliente</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Client — Mensagens / Comunicação</td>
+        <td><span class="status status-done">✓ Messages.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Substituir WhatsApp por mensagens internas</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Client — Nova Proposta</td>
+        <td><span class="status status-done">✓ NewQuote.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Útil para clientes recorrentes</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Freelancer — Calendário</td>
+        <td><span class="status status-done">✓ FreelancerCalendar.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Adicionar após integração</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Blog + FAQ</td>
+        <td><span class="status status-missing">✗ Não tinha</span></td>
+        <td><span class="status status-done">✓ Completo (ADU Massachusetts)</span></td>
+        <td>App atual — manter e expandir</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Copyright Modal</td>
+        <td><span class="status status-missing">✗ Não tinha</span></td>
+        <td><span class="status status-done">✓ Completo</span></td>
+        <td>App atual — manter</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Video Player customizado</td>
+        <td><span class="status status-missing">✗ Não tinha</span></td>
+        <td><span class="status status-done">✓ AboutVideo com poster SVG</span></td>
+        <td>App atual — manter</td>
+      </tr>
+      <tr>
+        <td class="feat-name">AI Code Check</td>
+        <td><span class="status status-done">✓ AdminAICodeCheck.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Investigar uso / descartável</td>
+      </tr>
+      <tr>
+        <td class="feat-name">Mapa (AdminMap)</td>
+        <td><span class="status status-done">✓ AdminMap.tsx</span></td>
+        <td><span class="status status-missing">✗ Não existe</span></td>
+        <td>Baixa prioridade</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- S3 — ADMIN DASHBOARD MOCKUP -->
+<section class="section" id="admin-dash">
+<div class="container">
+  <div class="section-label">03 — Admin Dashboard</div>
+  <h2>Como deveria ser vs. como está</h2>
+  <p class="section-sub">O ZIP original tinha KPICards, FinancialChart, ActivityFeed, ProjectPipeline, TodaysTasks e NewLeadsTable. Abaixo: o que o Admin Dashboard completo deveria ter.</p>
+
+  <div class="compare-grid" style="margin-bottom:2rem">
+    <div class="compare-col old">
+      <div class="compare-header old-h">
+        <span class="compare-tag old-tag">Atual no App</span>
+        <span class="compare-title">AdminDashboard — 91 linhas</span>
+      </div>
+      <div class="compare-body">
+        <div class="dash-frame">
+          <div class="dash-topbar">
+            <span class="dash-topbar-logo">DA•RA STUDIO</span>
+            <span style="font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--red);background:rgba(224,92,92,.15);border:1px solid rgba(224,92,92,.25);border-radius:3px;padding:2px 8px">ADMIN</span>
+          </div>
+          <div class="dash-body">
+            <div class="dash-sidebar">
+              <div class="dash-nav-item active">Overview</div>
+              <div class="dash-nav-item">Clients</div>
+              <div class="dash-nav-item">Estimates</div>
+              <div class="dash-nav-item">Team</div>
+              <div class="dash-nav-item">Settings</div>
+            </div>
+            <div class="dash-main">
+              <div class="kpi-grid" style="grid-template-columns:1fr 1fr">
+                <div class="kpi-card"><div class="kpi-label">Active Clients</div><div class="kpi-val" style="color:var(--tl)">—</div><div class="kpi-delta" style="color:var(--tl);font-size:11px">Supabase pending</div></div>
+                <div class="kpi-card"><div class="kpi-label">Estimates 30d</div><div class="kpi-val" style="color:var(--tl)">—</div></div>
+                <div class="kpi-card"><div class="kpi-label">In Progress</div><div class="kpi-val" style="color:var(--tl)">—</div></div>
+                <div class="kpi-card"><div class="kpi-label">Est. Revenue</div><div class="kpi-val" style="color:var(--tl)">—</div></div>
+              </div>
+              <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:4px;padding:12px;font-size:12px;color:var(--tl)">Supabase integration pending — estimates submitted via EmailJS appear in your inbox.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-col new">
+      <div class="compare-header new-h">
+        <span class="compare-tag new-tag">Como deveria ser</span>
+        <span class="compare-title">Admin Dashboard Completo</span>
+      </div>
+      <div class="compare-body">
+        <div class="dash-frame">
+          <div class="dash-topbar">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="dash-topbar-logo">DA•RA STUDIO</span>
+              <span style="font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--red);background:rgba(224,92,92,.15);border:1px solid rgba(224,92,92,.25);border-radius:3px;padding:2px 8px">ADMIN</span>
+            </div>
+            <div class="dash-topbar-actions">
+              <div class="period-selector" style="margin-bottom:0">
+                <button class="period-btn">7d</button>
+                <button class="period-btn active">30d</button>
+                <button class="period-btn">90d</button>
+              </div>
+              <button style="background:var(--gold);color:#0c0c0c;border:none;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">+ New Estimate</button>
+            </div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-sidebar">
+              <div class="dash-nav-item active">📊 Overview</div>
+              <div class="dash-nav-item">👥 Clients</div>
+              <div class="dash-nav-item">📋 Estimates</div>
+              <div class="dash-nav-item">🏗️ Projects</div>
+              <div class="dash-nav-item">💰 Finance</div>
+              <div class="dash-nav-item">📅 Gantt</div>
+              <div class="dash-nav-item">👤 Team</div>
+              <div class="dash-nav-item">⚙️ Settings</div>
+            </div>
+            <div class="dash-main">
+              <!-- KPI Cards -->
+              <div class="kpi-grid">
+                <div class="kpi-card">
+                  <div class="kpi-label">Active Clients</div>
+                  <div class="kpi-val">24</div>
+                  <div class="kpi-delta delta-up">↑ 4 this month</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">New Estimates</div>
+                  <div class="kpi-val">8</div>
+                  <div class="kpi-delta delta-up">↑ 2 vs last period</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">In Progress</div>
+                  <div class="kpi-val">11</div>
+                  <div class="kpi-delta" style="color:var(--gold)">→ stable</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">Revenue MTD</div>
+                  <div class="kpi-val">$18k</div>
+                  <div class="kpi-delta delta-up">↑ 12%</div>
+                </div>
+              </div>
+              <!-- Financial Chart -->
+              <div class="chart-area">
+                <div class="chart-header">
+                  <span class="chart-title">Revenue vs. Estimates</span>
+                  <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Revenue</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Estimates</div>
+                  </div>
+                </div>
+                <div class="chart-bars">
+                  <div class="chart-bar-group"><div class="bar" style="height:45px;width:14px;background:var(--gold)"></div><div class="bar" style="height:55px;width:14px;background:var(--blue);opacity:.6"></div></div>
+                  <div class="chart-bar-group"><div class="bar" style="height:60px;width:14px;background:var(--gold)"></div><div class="bar" style="height:40px;width:14px;background:var(--blue);opacity:.6"></div></div>
+                  <div class="chart-bar-group"><div class="bar" style="height:40px;width:14px;background:var(--gold)"></div><div class="bar" style="height:70px;width:14px;background:var(--blue);opacity:.6"></div></div>
+                  <div class="chart-bar-group"><div class="bar" style="height:80px;width:14px;background:var(--gold)"></div><div class="bar" style="height:50px;width:14px;background:var(--blue);opacity:.6"></div></div>
+                  <div class="chart-bar-group"><div class="bar" style="height:65px;width:14px;background:var(--gold)"></div><div class="bar" style="height:45px;width:14px;background:var(--blue);opacity:.6"></div></div>
+                  <div class="chart-bar-group"><div class="bar" style="height:90px;width:14px;background:var(--gold)"></div><div class="bar" style="height:60px;width:14px;background:var(--blue);opacity:.6"></div></div>
+                </div>
+                <div class="chart-labels">
+                  <div class="chart-label">Oct</div><div class="chart-label">Nov</div><div class="chart-label">Dec</div>
+                  <div class="chart-label">Jan</div><div class="chart-label">Feb</div><div class="chart-label">Mar</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline + Activity + Tasks -->
+  <h3 style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:14px">Widgets adicionais do ZIP: Project Pipeline + Activity Feed + Today's Tasks</h3>
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px">
+    <!-- Pipeline -->
+    <div>
+      <div class="chart-area">
+        <div class="chart-header"><span class="chart-title">Project Pipeline</span><span style="font-size:11px;color:var(--tl)">7 projects active</span></div>
+        <div class="pipeline">
+          <div class="pipeline-col">
+            <div class="pipeline-header">Proposal <span class="pipeline-count">3</span></div>
+            <div class="pipeline-card"><div class="pipeline-card-title">ADU — Boston MA</div><div class="pipeline-card-sub">Full Construction · $4,200</div></div>
+            <div class="pipeline-card"><div class="pipeline-card-title">Redraw — Dallas TX</div><div class="pipeline-card-sub">PDF to CAD · $980</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header">Preview <span class="pipeline-count">2</span></div>
+            <div class="pipeline-card"><div class="pipeline-card-title">ADU — Newton MA</div><div class="pipeline-card-sub">Plans Only · Rush</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header">Revision <span class="pipeline-count">1</span></div>
+            <div class="pipeline-card"><div class="pipeline-card-title">Duplex — Miami FL</div><div class="pipeline-card-sub">Full Set · 2nd round</div></div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-header">Final <span class="pipeline-count">1</span></div>
+            <div class="pipeline-card"><div class="pipeline-card-title">Office — Portland</div><div class="pipeline-card-sub">✓ Delivery ready</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- New Leads Table -->
+      <div class="chart-area" style="margin-top:10px">
+        <div class="chart-header"><span class="chart-title">New Leads (from form)</span><button style="background:var(--gbg);border:1px solid var(--gbd);border-radius:3px;color:var(--gold);font-size:11px;padding:3px 10px;cursor:pointer;font-family:inherit">Export CSV</button></div>
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Type</th><th>Est. Fee</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>John Silva</td><td>Full Construction</td><td>$3,840</td><td>Apr 4</td><td><span class="status-pill" style="background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)">New</span></td></tr>
+            <tr><td>Maria Chen</td><td>PDF to CAD</td><td>$620</td><td>Apr 3</td><td><span class="status-pill" style="background:rgba(91,141,238,.1);color:var(--blue);border:1px solid rgba(91,141,238,.2)">In Review</span></td></tr>
+            <tr><td>R. Thompson</td><td>Plans Only</td><td>$1,280</td><td>Apr 1</td><td><span class="status-pill" style="background:hsla(38,47%,61%,.1);color:var(--gold);border:1px solid var(--gbd)">Sent Proposal</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Activity + Tasks -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="activity-feed">
+        <div class="chart-header"><span class="chart-title">Activity Feed</span></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--green)"></div><div class="activity-body"><div class="activity-text">John Silva submitted estimate form</div><div class="activity-time">2 min ago</div></div></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--gold)"></div><div class="activity-body"><div class="activity-text">Project ADU Boston — Preview delivered</div><div class="activity-time">1h ago</div></div></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--blue)"></div><div class="activity-body"><div class="activity-text">Maria Chen approved revision round 2</div><div class="activity-time">3h ago</div></div></div>
+        <div class="activity-item"><div class="activity-dot" style="background:var(--red)"></div><div class="activity-body"><div class="activity-text">Invoice #047 overdue — Dallas project</div><div class="activity-time">1d ago</div></div></div>
+      </div>
+      <div class="chart-area">
+        <div class="chart-header"><span class="chart-title">Today's Tasks</span><span style="font-size:11px;color:var(--green)">3/5 done</span></div>
+        <div class="tasks-list">
+          <div class="task-item"><div class="task-check done"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" fill="none"/></svg></div><span class="task-text done-text">Send ADU Boston preview</span><span class="task-priority" style="background:rgba(90,170,106,.1);color:var(--green)">Done</span></div>
+          <div class="task-item"><div class="task-check done"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" fill="none"/></svg></div><span class="task-text done-text">Review Maria Chen revisions</span><span class="task-priority" style="background:rgba(90,170,106,.1);color:var(--green)">Done</span></div>
+          <div class="task-item"><div class="task-check done"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" fill="none"/></svg></div><span class="task-text done-text">Follow up Dallas invoice</span><span class="task-priority" style="background:rgba(90,170,106,.1);color:var(--green)">Done</span></div>
+          <div class="task-item"><div class="task-check"></div><span class="task-text">Prepare Duplex Miami final set</span><span class="task-priority" style="background:rgba(224,92,92,.1);color:var(--red)">High</span></div>
+          <div class="task-item"><div class="task-check"></div><span class="task-text">Review new leads from form</span><span class="task-priority" style="background:hsla(38,47%,61%,.1);color:var(--gold)">Med</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- S4 — CLIENT DASHBOARD -->
+<section class="section" id="client-dash">
+<div class="container">
+  <div class="section-label">04 — Client Dashboard</div>
+  <h2>Portal do Cliente — Versão Completa</h2>
+  <p class="section-sub">O ZIP tinha ClientTimeline, DashboardHome, ProjectCard, Files, Invoices, Messages, NewQuote. O App atual tem só sidebar + "—".</p>
+
+  <div class="dash-frame">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button style="background:none;border:none;color:var(--tl);font-size:11px;cursor:pointer;font-family:inherit;letter-spacing:.08em">← Site</button>
+        <span style="color:var(--bd)">|</span>
+        <span class="dash-topbar-logo">DA•RA STUDIO</span>
+        <span style="font-size:10px;color:var(--tl);letter-spacing:.12em;text-transform:uppercase">Client Portal</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:12px;color:var(--tl)">John Silva</span>
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--gbg);border:1px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);font-weight:700">J</div>
+      </div>
+    </div>
+    <div class="dash-body">
+      <div class="dash-sidebar">
+        <div class="dash-nav-item active">🏠 Overview</div>
+        <div class="dash-nav-item">📐 My Projects</div>
+        <div class="dash-nav-item">📁 Files</div>
+        <div class="dash-nav-item">💳 Invoices</div>
+        <div class="dash-nav-item">💬 Messages</div>
+        <div class="dash-nav-item">+ New Quote</div>
+        <div class="dash-nav-item">👤 Profile</div>
+      </div>
+      <div class="dash-main">
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px">
+          <div class="kpi-card"><div class="kpi-label">Active Projects</div><div class="kpi-val">2</div></div>
+          <div class="kpi-card"><div class="kpi-label">Files Ready</div><div class="kpi-val">7</div></div>
+          <div class="kpi-card"><div class="kpi-label">Pending Invoice</div><div class="kpi-val">$1.2k</div><div class="kpi-delta delta-down">⚠ Due Apr 15</div></div>
+        </div>
+        <!-- Project Timeline -->
+        <div class="chart-area" style="margin-bottom:10px">
+          <div class="chart-header"><span class="chart-title">ADU Boston — Project Timeline</span><span class="status status-partial" style="font-size:11px">Design Preview</span></div>
+          <div style="display:flex;gap:0;margin-top:6px">
+            <div style="flex:1;text-align:center">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 4px"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 5l2 2L8 3" stroke="#fff" stroke-width="1.5" fill="none"/></svg></div>
+              <div style="font-size:10px;color:var(--green);font-weight:600">Proposal</div>
+            </div>
+            <div style="flex:1;height:2px;background:var(--green);align-self:center;margin-top:-14px"></div>
+            <div style="flex:1;text-align:center">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;animation:pulse 2s infinite"><span style="color:#0c0c0c;font-size:10px;font-weight:700">2</span></div>
+              <div style="font-size:10px;color:var(--gold);font-weight:600">Preview</div>
+            </div>
+            <div style="flex:1;height:2px;background:var(--bd);align-self:center;margin-top:-14px"></div>
+            <div style="flex:1;text-align:center">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;margin:0 auto 4px"><span style="color:var(--tl);font-size:10px">3</span></div>
+              <div style="font-size:10px;color:var(--tl)">Revisions</div>
+            </div>
+            <div style="flex:1;height:2px;background:var(--bd);align-self:center;margin-top:-14px"></div>
+            <div style="flex:1;text-align:center">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;margin:0 auto 4px"><span style="color:var(--tl);font-size:10px">4</span></div>
+              <div style="font-size:10px;color:var(--tl)">Final Set</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;background:var(--bg3);border-radius:3px;padding:10px 12px;font-size:12px;color:var(--tl)">
+            <strong style="color:var(--th)">Next step:</strong> Review the design preview sent to your email and submit feedback via the portal. Expected delivery: Apr 10–12.
+          </div>
+        </div>
+        <!-- Recent Files -->
+        <div class="chart-area">
+          <div class="chart-header"><span class="chart-title">Recent Files</span><button style="background:var(--gbg);border:1px solid var(--gbd);border-radius:3px;color:var(--gold);font-size:11px;padding:3px 10px;cursor:pointer;font-family:inherit">View All</button></div>
+          <table class="data-table">
+            <thead><tr><th>File</th><th>Type</th><th>Date</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>ADU_Boston_Preview_v1.pdf</td><td>PDF</td><td>Apr 4</td><td><button style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;font-family:inherit">↓ Download</button></td></tr>
+              <tr><td>Scope_Agreement.pdf</td><td>PDF</td><td>Mar 28</td><td><button style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;font-family:inherit">↓ Download</button></td></tr>
+              <tr><td>Site_Photos.zip</td><td>ZIP</td><td>Mar 25</td><td><button style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;font-family:inherit">↓ Download</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- S5 — FREELANCER -->
+<section class="section" id="freelancer-dash">
+<div class="container">
+  <div class="section-label">05 — Freelancer Dashboard</div>
+  <h2>Workspace Freelancer — Versão Completa</h2>
+  <p class="section-sub">ZIP tinha FreelancerCalendar, FreelancerContracts, FreelancerPayments, FreelancerProjects. App atual tem só sidebar básico.</p>
+
+  <div class="dash-frame">
+    <div class="dash-topbar">
+      <span class="dash-topbar-logo">DA•RA STUDIO — Freelancer</span>
+      <span style="font-size:10px;color:var(--tl)">Ana Rodrigues · Drafter</span>
+    </div>
+    <div class="dash-body">
+      <div class="dash-sidebar">
+        <div class="dash-nav-item active">📊 Overview</div>
+        <div class="dash-nav-item">🏗️ Projects</div>
+        <div class="dash-nav-item">📅 Calendar</div>
+        <div class="dash-nav-item">📄 Contracts</div>
+        <div class="dash-nav-item">💰 Payments</div>
+        <div class="dash-nav-item">👤 Profile</div>
+      </div>
+      <div class="dash-main">
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+          <div class="kpi-card"><div class="kpi-label">Active Projects</div><div class="kpi-val">3</div></div>
+          <div class="kpi-card"><div class="kpi-label">Pending Payment</div><div class="kpi-val">$2.4k</div><div class="kpi-delta delta-up">Due Apr 15</div></div>
+          <div class="kpi-card"><div class="kpi-label">Completed MTD</div><div class="kpi-val">5</div><div class="kpi-delta delta-up">↑ 2 vs last month</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <div class="chart-area">
+            <div class="chart-header"><span class="chart-title">Current Tasks</span></div>
+            <div class="tasks-list">
+              <div class="task-item"><div class="task-check"></div><span class="task-text">ADU Boston — Floor plan layer cleanup</span><span class="task-priority" style="background:rgba(224,92,92,.1);color:var(--red)">High</span></div>
+              <div class="task-item"><div class="task-check"></div><span class="task-text">Duplex Miami — Elevations draft</span><span class="task-priority" style="background:hsla(38,47%,61%,.1);color:var(--gold)">Med</span></div>
+              <div class="task-item"><div class="task-check done"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 5l2 2L8 3" stroke="#fff" stroke-width="1.5" fill="none"/></svg></div><span class="task-text done-text">Dallas PDF conversion</span><span class="task-priority" style="background:rgba(90,170,106,.1);color:var(--green)">Done</span></div>
+            </div>
+          </div>
+          <div class="chart-area">
+            <div class="chart-header"><span class="chart-title">Payment History</span></div>
+            <table class="data-table">
+              <thead><tr><th>Project</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Dallas PDF</td><td>$490</td><td><span class="status-pill" style="background:rgba(90,170,106,.1);color:var(--green)">Paid</span></td></tr>
+                <tr><td>Boston ADU</td><td>$1,200</td><td><span class="status-pill" style="background:hsla(38,47%,61%,.1);color:var(--gold)">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- S6 — SETTINGS -->
+<section class="section" id="settings">
+<div class="container">
+  <div class="section-label">06 — Admin Settings</div>
+  <h2>Configurações Avançadas (AdminSettings.tsx)</h2>
+  <p class="section-sub">O ZIP tinha AdminSettings com integrações, permissões e configurações avançadas. O App atual tem "Coming soon" para todas as abas de Settings.</p>
+
+  <div class="settings-grid" style="margin-bottom:10px">
+    <div class="settings-sidebar">
+      <div class="settings-nav active">⚙️ General</div>
+      <div class="settings-nav">🔐 Security</div>
+      <div class="settings-nav">🔗 Integrations</div>
+      <div class="settings-nav">👥 Team & Permissions</div>
+      <div class="settings-nav">📧 Email / Notifications</div>
+      <div class="settings-nav">💰 Billing</div>
+    </div>
+    <div class="settings-main">
+      <!-- General -->
+      <div class="settings-group">
+        <div class="settings-group-title">Studio Information</div>
+        <div class="settings-row">
+          <div><div class="settings-label">Studio Name</div></div>
+          <input class="settings-input" value="DA•RA Studio" style="color:var(--th)"/>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Contact Email</div></div>
+          <input class="settings-input" value="darastudiooficial@gmail.com" style="color:var(--th)"/>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">WhatsApp</div></div>
+          <input class="settings-input" value="+55 48 99650-3350" style="color:var(--th)"/>
+        </div>
+      </div>
+      <!-- Features -->
+      <div class="settings-group">
+        <div class="settings-group-title">Features & Display</div>
+        <div class="settings-row">
+          <div><div class="settings-label">Rush Fee Multiplier (Rush)</div><div class="settings-desc">Applied when Rush tier is selected</div></div>
+          <select class="settings-select"><option>+40% (default)</option><option>+35%</option><option>+50%</option></select>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Rush Fee Multiplier (Express)</div></div>
+          <select class="settings-select"><option>+60% (default)</option><option>+50%</option><option>+75%</option></select>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Dark Mode default</div><div class="settings-desc">Site default theme for new visitors</div></div>
+          <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Blog visible</div></div>
+          <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Show pricing on site</div><div class="settings-desc">Display $/sqft rates publicly</div></div>
+          <div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
+        </div>
+      </div>
+      <!-- Integrations -->
+      <div class="settings-group">
+        <div class="settings-group-title">Integrations</div>
+        <div class="settings-row">
+          <div><div class="settings-label">EmailJS Service ID</div></div>
+          <input class="settings-input" value="service_5r3fa8q" style="color:var(--th)"/>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Supabase Project URL</div><div class="settings-desc">For real-time dashboard data</div></div>
+          <input class="settings-input" value="tcyfqcfq..." style="color:var(--tl)"/>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">Google Analytics ID</div><div class="settings-desc">G-XXXXXXXXXX for tracking</div></div>
+          <input class="settings-input" placeholder="G-XXXXXXXXXX" style="color:var(--tl)"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- S7 — GANTT -->
+<section class="section" id="gantt">
+<div class="container">
+  <div class="section-label">07 — Gantt / Timeline</div>
+  <h2>Visualização de Cronograma (AdminGantt.tsx)</h2>
+  <p class="section-sub">O ZIP tinha um Gantt completo. Extremamente útil para comunicar prazos ao cliente. Abaixo: mockup de como seria.</p>
+
+  <div class="chart-area">
+    <div class="chart-header">
+      <span class="chart-title">Project Gantt — April 2026</span>
+      <div style="display:flex;gap:8px">
+        <div class="period-selector" style="margin-bottom:0"><button class="period-btn active">Week</button><button class="period-btn">Month</button><button class="period-btn">Quarter</button></div>
+      </div>
+    </div>
+    <div class="gantt">
+      <div class="gantt-header">
+        <div class="gantt-header-label" style="padding:0 10px;font-size:10px;color:var(--tl)">Project</div>
+        <div class="gantt-months">
+          <div class="gantt-month">Apr 1–7</div>
+          <div class="gantt-month">Apr 8–14</div>
+          <div class="gantt-month">Apr 15–21</div>
+          <div class="gantt-month">Apr 22–30</div>
+        </div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-label">ADU Boston</div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:5%;width:35%;background:var(--gold)"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-label">Duplex Miami</div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:20%;width:45%;background:var(--blue)"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-label">Dallas PDF→CAD</div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:0%;width:20%;background:var(--green)"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-label">Portland Office</div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:40%;width:55%;background:var(--orange)"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="gantt-label">Newton ADU</div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:55%;width:40%;background:var(--gold);opacity:.6"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;margin-top:10px;flex-wrap:wrap">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Full Construction</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Plans Only</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>PDF to CAD</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Office Support</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- S8 — IMPROVEMENTS -->
+<section class="section" id="improvements">
+<div class="container">
+  <div class="section-label">08 — Plano de Ação</div>
+  <h2>Onde juntar os dois projetos</h2>
+  <p class="section-sub">Prioridades claras baseadas no que o ZIP tinha e o que o App precisa. Organizadas por impacto no negócio.</p>
+
+  <div class="improve-grid">
+    <div class="improve-card" style="border-color:rgba(224,92,92,.25)">
+      <div class="improve-icon" style="background:rgba(224,92,92,.12);color:var(--red);border:1px solid rgba(224,92,92,.25)">🔐</div>
+      <div class="improve-body">
+        <div class="imp-title">1. Supabase Auth Real</div>
+        <div class="imp-desc">ZIP tinha Supabase integrado. App usa setTimeout. Sem isso, nenhum dashboard funciona com dados reais.</div>
+        <div class="imp-tags"><span class="imp-tag badge-red">Pré-requisito</span><span class="imp-tag badge-red">Alta</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(224,92,92,.25)">
+      <div class="improve-icon" style="background:rgba(224,92,92,.12);color:var(--red);border:1px solid rgba(224,92,92,.25)">📊</div>
+      <div class="improve-body">
+        <div class="imp-title">2. KPI Cards + Pipeline</div>
+        <div class="imp-desc">Conectar orçamentos enviados pelo formulário ao dashboard admin. Cada submit = novo lead na NewLeadsTable.</div>
+        <div class="imp-tags"><span class="imp-tag badge-red">Alta</span><span class="imp-tag badge-blue">Requer Supabase</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(224,92,92,.25)">
+      <div class="improve-icon" style="background:rgba(224,92,92,.12);color:var(--red);border:1px solid rgba(224,92,92,.25)">📅</div>
+      <div class="improve-body">
+        <div class="imp-title">3. Client Timeline</div>
+        <div class="imp-desc">ZIP tinha ClientTimeline.tsx. É o recurso mais valioso para retenção: cliente vê em tempo real em que etapa está o projeto.</div>
+        <div class="imp-tags"><span class="imp-tag badge-red">Alta</span><span class="imp-tag badge-red">Diferencial</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:var(--gbd)">
+      <div class="improve-icon" style="background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)">📈</div>
+      <div class="improve-body">
+        <div class="imp-title">4. Financial Chart</div>
+        <div class="imp-desc">FinancialChart.tsx do ZIP: gráfico Revenue vs. Estimates por período. Conectar ao histórico de propostas aceitas.</div>
+        <div class="imp-tags"><span class="imp-tag badge-med">Média</span><span class="imp-tag badge-blue">Requer Supabase</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:var(--gbd)">
+      <div class="improve-icon" style="background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)">🏗️</div>
+      <div class="improve-body">
+        <div class="imp-title">5. Kanban Board</div>
+        <div class="imp-desc">ProjectKanbanBoard.tsx do ZIP: visualização Proposal → Preview → Revision → Final. Extremamente útil para o estúdio.</div>
+        <div class="imp-tags"><span class="imp-tag badge-med">Média</span><span class="imp-tag badge-med">Visual</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:var(--gbd)">
+      <div class="improve-icon" style="background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)">📆</div>
+      <div class="improve-body">
+        <div class="imp-title">6. Gantt / Timeline</div>
+        <div class="imp-desc">AdminGantt.tsx + ProjectTimeline.tsx: cronograma visual por projeto. Imprescindível quando há 5+ projetos simultâneos.</div>
+        <div class="imp-tags"><span class="imp-tag badge-med">Média</span><span class="imp-tag badge-med">Gestão</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:var(--gbd)">
+      <div class="improve-icon" style="background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)">💬</div>
+      <div class="improve-body">
+        <div class="imp-title">7. Mensagens Internas</div>
+        <div class="imp-desc">ZIP tinha Messages.tsx no client dashboard. Substituir dependência de WhatsApp por comunicação dentro do portal.</div>
+        <div class="imp-tags"><span class="imp-tag badge-med">Média</span><span class="imp-tag badge-blue">Requer Supabase Realtime</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(90,170,106,.2)">
+      <div class="improve-icon" style="background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)">⚙️</div>
+      <div class="improve-body">
+        <div class="imp-title">8. Admin Settings Funcional</div>
+        <div class="imp-desc">Implementar settings de Rush Fees, visibilidade de features, integrações EmailJS/Supabase/GA4 editáveis pela interface.</div>
+        <div class="imp-tags"><span class="imp-tag badge-low">Baixa</span><span class="imp-tag badge-low">QoL</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(90,170,106,.2)">
+      <div class="improve-icon" style="background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)">🌐</div>
+      <div class="improve-body">
+        <div class="imp-title">9. Domínio + SEO</div>
+        <div class="imp-desc">O site público atual é muito superior ao ZIP. Prioridade: domínio customizado, og:image, sitemap, Google Search Console.</div>
+        <div class="imp-tags"><span class="imp-tag badge-low">Baixa</span><span class="imp-tag badge-low">SEO</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(90,170,106,.2)">
+      <div class="improve-icon" style="background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)">📝</div>
+      <div class="improve-body">
+        <div class="imp-title">10. Mais Artigos no Blog</div>
+        <div class="imp-desc">O ZIP não tinha blog. O App tem. Expandir com: Wood Frame Guide, IRC/IBC Summary, How to Read Construction Documents.</div>
+        <div class="imp-tags"><span class="imp-tag badge-low">Baixa</span><span class="imp-tag badge-low">Conteúdo</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(90,170,106,.2)">
+      <div class="improve-icon" style="background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.2)">🗂️</div>
+      <div class="improve-body">
+        <div class="imp-title">11. Refatorar Arquitetura</div>
+        <div class="imp-desc">App.jsx tem 5.400 linhas em um arquivo. Migrar para multi-arquivo (como o ZIP) quando Supabase for implementado.</div>
+        <div class="imp-tags"><span class="imp-tag badge-low">Baixa</span><span class="imp-tag badge-low">Técnica</span></div>
+      </div>
+    </div>
+    <div class="improve-card" style="border-color:rgba(91,141,238,.2)">
+      <div class="improve-icon" style="background:rgba(91,141,238,.1);color:var(--blue);border:1px solid rgba(91,141,238,.2)">✅</div>
+      <div class="improve-body">
+        <div class="imp-title">O que NÃO mudar</div>
+        <div class="imp-desc">Site público, formulário 8-steps, dark/light mode, i18n PT/EN, blog, copyright modal, auth split-panel design — tudo isso o App atual tem muito melhor que o ZIP.</div>
+        <div class="imp-tags"><span class="imp-tag badge-blue">Manter</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<div style="background:#080808;border-top:1px solid var(--bd);padding:1.5rem 0;text-align:center">
+  <div class="container">
+    <p style="font-size:13px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:6px">DA•RA Studio — Análise Comparativa</p>
+    <p style="font-size:12px;color:var(--tl)">ZIP Original: 151 .tsx · App Atual: 69 componentes JSX · Abril 2026</p>
+    <p style="font-size:11px;color:var(--tl);margin-top:4px;opacity:.6">Use este documento para priorizar o roadmap com o time.</p>
+  </div>
+</div>
+
+<script>
+// Progress
+window.addEventListener('scroll',()=>{
+  const p=document.getElementById('prog');
+  p.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+});
+// Active nav
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-links a');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(a=>a.classList.remove('active'));
+      const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if(a)a.classList.add('active');
+    }
+  });
+},{threshold:0.3});
+secs.forEach(s=>obs.observe(s));
+// Period buttons
+document.querySelectorAll('.period-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const group=btn.closest('.period-selector');
+    group.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+// Toggle settings nav
+document.querySelectorAll('.settings-nav').forEach(nav=>{
+  nav.addEventListener('click',()=>{
+    document.querySelectorAll('.settings-nav').forEach(n=>n.classList.remove('active'));
+    nav.classList.add('active');
+  });
+});
+// Dash nav items
+document.querySelectorAll('.dash-nav-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const parent=item.closest('.dash-sidebar,.dash-body');
+    if(parent){
+      parent.querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

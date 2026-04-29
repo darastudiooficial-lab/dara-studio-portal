@@ -1,0 +1,51 @@
+11️⃣ Estrutura final recomendada
+src
+
+components
+   forms
+       RegionSelector.tsx
+       EstimateForm.tsx
+       ClientInfo.tsx
+
+context
+   projectContext.ts
+
+lib
+   estimateCalculator.ts
+   currency.ts
+   units.ts
+
+pages
+   Estimate.tsx
+12️⃣ Experiência final do cliente
+
+Fluxo:
+
+SOLICITAR ORÇAMENTO
+
+Step 1
+Select Project Region
+🇺🇸 USA
+🇧🇷 Brazil
+
+Step 2
+Location
+
+Step 3
+Project Details
+
+Step 4
+Your Info
+
+Step 5
+Estimate + Proposal
+
+
+
+13️⃣ Sugestão estratégica (muito forte)
+
+Como você trabalha com EUA e Brasil, você pode adicionar isso no topo:
+
+Serving projects in
+United States 🇺🇸
+Brazil 🇧🇷

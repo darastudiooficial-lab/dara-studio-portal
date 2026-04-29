@@ -1,0 +1,52 @@
+
+Na aba de "projetos" - "tipo de serviços", acho que poderiamos deixar manuscrito, eu mesma escrever e em "serviços" ai sim colocar tudo que faço:
+3D Visualization — Visualização 3D
+3D Kitchen — Projeto 3D de Cozinha
+Additions & Extensions — Ampliações e Extensões
+ADU (Accessory Dwelling Units) — Unidades Habitacionais Acessórias (ADU)
+Architecture — Projeto Arquitetônico
+Barndominium Design — Projeto de Barndominium
+Commercial Projects — Projetos Comerciais
+Drafting Plan (PDF-CAD) — Desenho Técnico / Conversão de PDF para CAD
+Garage — Projeto de Garagem
+Multi-Family Residences — Residências Multifamiliares
+Remodeling & Renovations — Reformas e Renovações
+Single-Family Homes — Casas Unifamiliares
+Technical Drafting — Desenho Técnico
+Executive Project — Projeto Executivo
+Wood Frame — Projeto em Wood Frame
+Project Budgeting — Orçamento de Projeto / Orçamento de Obra
+
+E podemos reorganizar assim com 3 blocos:
+Estrutura Profissional de Menu (Arquitetura / SaaS)
+1. Design Services — Serviços de Projeto
+Serviços principais de arquitetura.
+Single-Family Homes — Casas Unifamiliares
+Multi-Family Residences — Residências Multifamiliares
+ADU (Accessory Dwelling Units) — Unidades Habitacionais Acessórias
+Additions & Extensions — Ampliações e Extensões
+Remodeling & Renovations — Reformas e Renovações
+Barndominium Design — Projeto de Barndominium
+Commercial Projects — Projetos Comerciais
+Garage Design — Projeto de Garagem
+
+2. Drafting & Technical Documentation — Desenho Técnico
+Serviços técnicos usados por construtores e arquitetos.
+Technical Drafting — Desenho Técnico
+Executive Project — Projeto Executivo
+Drafting Plan (PDF-CAD) — Conversão PDF para CAD
+Wood Frame Design — Projeto Estrutural Wood Frame
+
+[Wood Frame Engineering
+Wood Frame Houses
+Structural Layout
+Framing Plans
+Construction Details (IRC Based)
+Isso pode virar seu maior diferencial no mercado americano.]
+
+3. Visualization — Visualização de Projeto
+Ferramentas visuais para apresentação do projeto.
+3D Visualization — Visualização 3D
+3D Kitchen Design — Projeto 3D de Cozinha
+3D Bath Design — Projeto 3D de Bath
+

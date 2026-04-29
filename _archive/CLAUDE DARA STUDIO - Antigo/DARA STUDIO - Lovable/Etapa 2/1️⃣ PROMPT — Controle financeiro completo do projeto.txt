@@ -1,0 +1,141 @@
+I want to implement a complete Project Financial Management system inside the Admin panel and inside each project.
+
+IMPORTANT:
+
+Do NOT delete, reset, rename, or recreate existing database tables or records.
+
+All existing financial data such as:
+
+projects
+payments
+invoices
+companies
+
+must remain intact.
+
+This feature should extend the current financial capabilities without breaking existing data.
+
+---
+
+FEATURE NAME
+
+Project Financial Center
+
+Location:
+
+Project → Finance
+
+---
+
+FINANCIAL OVERVIEW
+
+Inside each project create a financial dashboard displaying:
+
+Total Project Budget
+Total Invoiced
+Total Paid
+Outstanding Balance
+Next Payment Due
+
+Display these values using clear financial KPI cards.
+
+---
+
+PROJECT BUDGET
+
+Add a project budget structure.
+
+Each project should support:
+
+Total Budget
+Budget Breakdown
+
+Example breakdown:
+
+Design Fee
+Engineering
+Permits
+Construction Administration
+Consultants
+
+Store this data linked to the project.
+
+---
+
+INVOICE MANAGEMENT
+
+Inside each project allow admins to:
+
+Create Invoice
+Edit Invoice
+Mark Invoice as Paid
+Attach invoice files
+
+Each invoice should contain:
+
+Invoice Number
+Project ID
+Client
+Amount
+Status
+Due Date
+Payment Date
+Notes
+
+---
+
+PAYMENT TRACKING
+
+Payments should be linked directly to invoices.
+
+Display:
+
+Paid
+Pending
+Overdue
+
+Allow admins to mark payments manually if payment was received outside the system.
+
+---
+
+FINANCIAL TIMELINE
+
+All financial actions should appear in the Project Timeline.
+
+Examples:
+
+Invoice created
+Invoice paid
+Payment overdue
+
+---
+
+FINANCE DASHBOARD
+
+Inside the Admin dashboard add a financial snapshot section showing:
+
+Monthly Revenue
+Outstanding Payments
+Paid Invoices
+Upcoming Payments
+
+---
+
+CLIENT PORTAL VIEW
+
+Clients should see their financial summary inside the Client Portal.
+
+Client view should display:
+
+Invoices
+Payment Status
+Due Dates
+Download Invoice
+
+Clients should NOT be able to edit financial data.
+
+---
+
+FINAL GOAL
+
+Each project should function as a financial unit where the architecture studio can clearly track revenue, invoices, payments, and outstanding balances.

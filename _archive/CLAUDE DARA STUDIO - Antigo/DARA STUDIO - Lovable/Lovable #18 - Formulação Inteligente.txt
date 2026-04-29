@@ -1,0 +1,292 @@
+1️⃣ Estrutura do FORMULÁRIO INTELIGENTE
+
+Arquivo sugerido:
+
+src/pages/Estimate.tsx
+
+Estrutura do formulário:
+
+Seção 1 — Tipo de cliente
+<select name="clientType">
+<option value="builder">Builder / Contractor</option>
+<option value="architect">Architect</option>
+<option value="homeowner">Homeowner</option>
+</select>
+Seção 2 — Tipo de projeto
+<select name="projectType">
+<option value="new_home">New Custom Home</option>
+<option value="addition">Home Addition</option>
+<option value="garage">Garage</option>
+<option value="deck">Deck</option>
+<option value="interior">Interior Renovation</option>
+</select>
+Seção 3 — Tamanho aproximado
+<select name="size">
+<option value="small">Under 1,500 sqft</option>
+<option value="medium">1,500 – 3,000 sqft</option>
+<option value="large">3,000 – 5,000 sqft</option>
+<option value="xlarge">Over 5,000 sqft</option>
+</select>
+Seção 4 — Entregáveis necessários
+<label>
+<input type="checkbox" value="floorplans" />
+Floor Plans
+</label>
+
+<label>
+<input type="checkbox" value="elevations" />
+Exterior Elevations
+</label>
+
+<label>
+<input type="checkbox" value="sections" />
+Building Sections
+</label>
+
+<label>
+<input type="checkbox" value="3d" />
+3D Visualization
+</label>
+Seção 5 — Documentos disponíveis
+
+Aqui entra sua ideia do Rush Fee.
+
+<label>
+<input type="checkbox" name="hasSurvey" />
+Plot Plan / Survey
+</label>
+
+<label>
+<input type="checkbox" name="hasMeasurements" />
+Site Measurements
+</label>
+
+<label>
+<input type="checkbox" name="hasPhotos" />
+Site Photos
+</label>
+2️⃣ SISTEMA DE ROUGH ESTIMATE AUTOMÁTICO
+
+Criar arquivo:
+
+src/lib/estimateCalculator.ts
+
+Código:
+
+export function calculateEstimate(data:any){
+
+let basePrice = 0
+
+// tipo de projeto
+switch(data.projectType){
+
+case "deck":
+basePrice = 1200
+break
+
+case "garage":
+basePrice = 2500
+break
+
+case "addition":
+basePrice = 4500
+break
+
+case "new_home":
+basePrice = 7500
+break
+
+}
+
+// tamanho
+
+switch(data.size){
+
+case "medium":
+basePrice *= 1.3
+break
+
+case "large":
+basePrice *= 1.6
+break
+
+case "xlarge":
+basePrice *= 2
+break
+
+}
+
+// extras
+
+if(data.deliverables.includes("3d")){
+basePrice += 800
+}
+
+if(data.deliverables.includes("sections")){
+basePrice += 500
+}
+
+return basePrice
+
+}
+3️⃣ DETECTAR RUSH PROJECT AUTOMATICAMENTE
+
+Regra:
+
+Rush só aparece se cliente tiver:
+
+✔ measurements
+✔ photos
+✔ survey
+
+Função:
+
+export function checkRushEligibility(data:any){
+
+if(
+data.hasSurvey &&
+data.hasMeasurements &&
+data.hasPhotos
+){
+return true
+}
+
+return false
+
+}
+4️⃣ TELA DE RESULTADO DO ESTIMATE
+
+Depois do submit:
+
+Estimated Range
+$4,500 – $6,000
+
+Código:
+
+<h2>
+Estimated Project Range
+</h2>
+
+<p>
+${estimate} – ${estimate * 1.25}
+</p>
+5️⃣ BOTÃO "GENERATE PROPOSAL"
+
+Só aparece depois do estimate.
+
+<button>
+Generate Full Proposal
+</button>
+
+Quando clicar:
+
+Enviar dados para:
+
+src/pages/Proposal.tsx
+6️⃣ GERAR PROJETO AUTOMÁTICO
+
+Criar função:
+
+src/lib/projectGenerator.ts
+export function createProject(data:any){
+
+return {
+
+id: Date.now(),
+
+name: data.projectType,
+
+client: data.clientName,
+
+status: "New Lead",
+
+estimate: data.estimate,
+
+createdAt: new Date()
+
+}
+
+}
+7️⃣ INTEGRAÇÃO COM DASHBOARD
+
+Seu dashboard terá:
+
+src/pages/dashboard/Kanban.tsx
+
+Colunas:
+
+New Lead
+Proposal Sent
+Design Phase
+Revisions
+Completed
+
+Estrutura:
+
+const columns = [
+
+"New Lead",
+"Proposal Sent",
+"Design Phase",
+"Revisions",
+"Completed"
+
+]
+8️⃣ PROJETO AUTOMÁTICO NO KANBAN
+
+Quando proposal for gerada:
+
+status = "Proposal Sent"
+
+Então ele aparece automaticamente no dashboard.
+
+9️⃣ ESTRUTURA FINAL DO SISTEMA
+
+Arquivos:
+
+src
+
+pages
+   Estimate.tsx
+   Proposal.tsx
+   dashboard
+       Kanban.tsx
+
+lib
+   estimateCalculator.ts
+   projectGenerator.ts
+   rushCheck.ts
+
+components
+   EstimateForm.tsx
+   EstimateResult.tsx
+   ProposalGenerator.tsx
+🔟 Resultado do sistema
+
+Cliente:
+
+Preenche formulário
+
+↓
+
+Sistema calcula:
+
+Rough Estimate
+
+↓
+
+Cliente clica:
+
+Generate Proposal
+
+↓
+
+Sistema cria:
+
+Projeto
+Kanban
+Dashboard
+
+↓
+
+Você gerencia tudo.

@@ -1,0 +1,10 @@
+O arquivo portal-dara-studio.html é o portal completo funcionando — um único arquivo HTML que abre direto no browser, sem instalar nada.
+Como usar:
+
+Baixe o arquivo acima
+Clique duas vezes para abrir no Chrome/Safari/Edge
+Login: joao@darastudio.com / teste123
+
+Tudo funciona em modo demonstração — projetos, faturas, chat, formulário de estimativa, abas do projeto, upload de comprovantes. Os dados são os dados demo (não há banco de dados ativo, mas toda a interface e navegação estão funcionando.
+
+https://claude.ai/share/d1f3921a-a0c1-4604-a3a1-826d603b0578

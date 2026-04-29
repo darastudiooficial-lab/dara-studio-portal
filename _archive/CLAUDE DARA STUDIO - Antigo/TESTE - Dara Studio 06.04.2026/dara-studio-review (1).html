@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DA•RA Studio — Site Review</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+:root{
+  --bg:#0c0c0c;--bg2:#0f0f0f;--bg3:#141414;--card:#111;
+  --bd:#242424;--bd2:#2e2e2e;
+  --th:#f0ead8;--tm:#b0a898;--tl:#6e6760;
+  --gold:#C9A96E;--gbg:hsla(38,47%,61%,.10);--gbd:hsla(38,47%,61%,.25);
+  --red:#e05c5c;--green:#5aaa6a;--blue:#5b8dee;
+  --wh:#f8f4ec;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--th);font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.65}
+
+/* ── STICKY NAV ── */
+.sitenav{position:sticky;top:0;z-index:200;background:rgba(12,12,12,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);height:52px;display:flex;align-items:center}
+.sitenav-inner{max-width:1200px;margin:0 auto;width:100%;padding:0 2rem;display:flex;align-items:center;gap:0;overflow-x:auto}
+.sitenav-logo{font-family:"Cormorant Garamond",serif;font-size:15px;font-weight:700;letter-spacing:.14em;color:var(--gold);white-space:nowrap;margin-right:20px;padding-right:20px;border-right:1px solid var(--bd)}
+.sitenav a{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);text-decoration:none;padding:0 13px;height:52px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.sitenav a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── HERO SECTION ── */
+.hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;position:relative;background:radial-gradient(ellipse 80% 50% at 50% -10%,hsla(38,47%,61%,.12) 0%,transparent 70%);border-bottom:1px solid var(--bd)}
+.hero-grid{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:"";flex:0 0 28px;height:1px;background:var(--gold)}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:1.08;margin-bottom:1.5rem}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:clamp(14px,1.5vw,16px);color:var(--tm);max-width:620px;line-height:1.75;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:4rem}
+.btn-gold{background:var(--gold);color:#0c0c0c;border:none;padding:13px 28px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit}
+.btn-outline{background:transparent;color:var(--th);border:1px solid var(--bd);padding:13px 28px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit}
+.hero-stats{display:flex;gap:3rem;justify-content:center}
+.stat-val{font-family:"Cormorant Garamond",serif;font-size:2.8rem;font-weight:300;color:var(--gold);line-height:1}
+.stat-label{font-size:11px;color:var(--tl);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+
+/* ── EYEBROW ── */
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+
+/* ── SECTION ── */
+.section{padding:clamp(4rem,8vw,7rem) 0;border-bottom:1px solid var(--bd)}
+.section.alt{background:var(--bg3)}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.5rem)}
+.section-title{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--th);margin-bottom:1rem;line-height:1.12}
+.section-sub{font-size:clamp(14px,1.3vw,15.5px);color:var(--tl);max-width:580px;line-height:1.8;margin-bottom:2.5rem}
+
+/* ── SERVICE CARDS ── */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.service-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:28px 26px;transition:border-color .2s,background .2s}
+.service-card:hover{border-color:var(--gold);background:hsla(38,47%,61%,.05)}
+.service-num{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--tl);margin-bottom:14px}
+.service-icon{width:42px;height:42px;background:var(--gbg);border:1px solid var(--gbd);border-radius:3px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.service-title{font-family:"Cormorant Garamond",serif;font-size:1.15rem;font-weight:600;color:var(--th);margin-bottom:10px;line-height:1.3}
+.service-body{font-size:13px;color:var(--tl);line-height:1.75}
+.service-bullets{margin-top:10px;list-style:none;display:flex;flex-direction:column;gap:4px}
+.service-bullets li{font-size:12px;color:var(--tl);padding-left:14px;position:relative}
+.service-bullets li::before{content:"→";position:absolute;left:0;color:var(--gold);font-size:11px}
+
+/* ── HOW WE WORK ── */
+.hww-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.hww-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:22px 20px;transition:all .2s}
+.hww-card:hover{border-color:var(--gold)}
+.hww-num{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--gold);margin-bottom:10px}
+.hww-title{font-family:"Cormorant Garamond",serif;font-size:1.05rem;font-weight:600;color:var(--th);margin-bottom:8px}
+.hww-body{font-size:12.5px;color:var(--tl);line-height:1.7}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:2rem}
+.price-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:24px;position:relative}
+.price-card.featured{border-color:var(--gold);background:hsla(38,47%,61%,.06)}
+.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0c0c0c;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 12px;border-radius:20px;white-space:nowrap}
+.price-tier{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:10px}
+.price-val{font-family:"Cormorant Garamond",serif;font-size:2rem;font-weight:300;color:var(--gold);margin-bottom:4px}
+.price-unit{font-size:12px;color:var(--tl);margin-bottom:14px}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:6px}
+.price-features li{font-size:12.5px;color:var(--tl);display:flex;align-items:flex-start;gap:8px}
+.price-features li::before{content:"✓";color:var(--green);flex-shrink:0;font-size:12px;margin-top:1px}
+.rush-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rush-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:18px 16px;text-align:center}
+.rush-card.rec{border-color:var(--gold)}
+.rush-name{font-size:12px;font-weight:700;color:var(--th);margin-bottom:4px}
+.rush-pct{font-family:"Cormorant Garamond",serif;font-size:1.8rem;color:var(--gold);margin-bottom:6px}
+.rush-delivery{font-size:11px;color:var(--tl)}
+
+/* ── AUTH PORTALS ── */
+.portals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.portal-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:24px;display:flex;align-items:center;gap:16px;transition:all .2s;cursor:pointer}
+.portal-card:hover{border-color:var(--gold);background:var(--gbg)}
+.portal-icon{width:48px;height:48px;background:var(--gbg);border:1px solid var(--gbd);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.portal-label{font-size:15px;font-weight:600;color:var(--th);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.portal-sub{font-size:12.5px;color:var(--tl)}
+.restricted{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:rgba(224,92,92,.13);border:1px solid rgba(224,92,92,.25);border-radius:3px;padding:2px 8px}
+
+/* ── FORM STEPS ── */
+.steps-timeline{display:flex;flex-direction:column;gap:0}
+.step-row{display:flex;gap:0;position:relative}
+.step-row:not(:last-child)::after{content:"";position:absolute;left:23px;top:52px;bottom:-1px;width:1px;background:var(--bd)}
+.step-dot{width:48px;height:48px;border-radius:50%;background:var(--gbg);border:1px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:2px;z-index:1}
+.step-content{flex:1;padding:0 0 32px 20px}
+.step-title{font-size:15px;font-weight:600;color:var(--th);margin-bottom:6px;font-family:"Cormorant Garamond",serif}
+.step-fields{font-size:13px;color:var(--tl);line-height:1.7;margin-bottom:6px}
+.step-validation{font-size:11.5px;color:var(--tl);font-style:italic;background:var(--gbg);border-left:2px solid var(--gbd);padding:4px 10px;border-radius:0 2px 2px 0}
+
+/* ── FORM INPUTS PREVIEW ── */
+.form-preview{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:28px;max-width:460px}
+.form-input-preview{margin-bottom:16px}
+.form-label{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tl);margin-bottom:6px;display:block}
+.form-input-box{background:var(--bg);border:1.5px solid var(--bd);border-radius:4px;padding:11px 14px;color:var(--tm);font-size:13.5px;font-family:inherit;width:100%}
+.form-input-box.focused{border-color:var(--gold)}
+.form-error{font-size:11.5px;color:var(--red);margin-top:4px}
+
+/* ── AUTH SPLIT PREVIEW ── */
+.auth-preview{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.auth-left{background:var(--wh);border-radius:6px;padding:32px;color:#1a1611}
+.auth-left h3{font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:400;color:#4a4035;margin-bottom:12px;line-height:1.2}
+.auth-left p{font-size:13px;color:#7a7060;line-height:1.65;margin-bottom:18px}
+.auth-feature{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.auth-check{color:#a07840;flex-shrink:0;margin-top:1px}
+.auth-feature p{font-size:12.5px;color:#7a7060;line-height:1.5;margin:0}
+.auth-right{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:28px;box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.auth-tabs{display:flex;background:var(--bg3);border-radius:6px;padding:3px;gap:2px;margin-bottom:20px}
+.auth-tab{flex:1;padding:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;border-radius:4px;font-family:inherit;text-align:center}
+.auth-tab.active{background:var(--card);color:var(--th)}
+.auth-tab.inactive{background:transparent;color:var(--tl)}
+.demo-hint{background:var(--gbg);border:1px solid var(--gbd);border-radius:3px;padding:6px 12px;font-size:12px;color:var(--gold);text-align:center;margin-top:12px}
+
+/* ── DASHBOARD PREVIEW ── */
+.dash-preview{background:var(--card);border:1px solid var(--bd);border-radius:6px;overflow:hidden}
+.dash-header{background:rgba(12,12,12,.97);border-bottom:1px solid var(--bd);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.dash-logo{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
+.dash-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.dash-badge.admin{background:rgba(224,92,92,.15);color:var(--red);border:1px solid rgba(224,92,92,.25)}
+.dash-badge.client{background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)}
+.dash-inner{display:grid;grid-template-columns:180px 1fr;gap:0}
+.dash-sidebar{background:var(--bg2);border-right:1px solid var(--bd);padding:8px 0}
+.dash-sidebar-item{padding:10px 16px;font-size:12.5px;color:var(--tl);cursor:pointer;border-left:2px solid transparent;transition:all .15s}
+.dash-sidebar-item.active{color:var(--gold);background:var(--gbg);border-left-color:var(--gold)}
+.dash-sidebar-item:hover{color:var(--th)}
+.dash-main{padding:24px}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.dash-stat{background:var(--bg3);border:1px solid var(--bd);border-radius:4px;padding:14px}
+.dash-stat-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);margin-bottom:6px}
+.dash-stat-val{font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--gold)}
+
+/* ── BLOG ── */
+.blog-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.blog-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;overflow:hidden;transition:border-color .2s}
+.blog-card:hover{border-color:var(--gold)}
+.blog-thumb{height:160px;background:linear-gradient(135deg,var(--bg3) 0%,var(--bd) 100%);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bd)}
+.blog-thumb-inner{text-align:center}
+.blog-thumb-title{font-family:"Cormorant Garamond",serif;font-size:1rem;font-weight:300;color:var(--gold);letter-spacing:.1em}
+.blog-content{padding:20px}
+.blog-tags{display:flex;gap:6px;margin-bottom:10px}
+.blog-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gbg);border:1px solid var(--gbd);padding:2px 8px;border-radius:2px}
+.blog-title{font-family:"Cormorant Garamond",serif;font-size:1.1rem;font-weight:600;color:var(--th);margin-bottom:8px;line-height:1.3}
+.blog-excerpt{font-size:12.5px;color:var(--tl);line-height:1.65;margin-bottom:14px}
+.blog-meta{font-size:11px;color:var(--tl);display:flex;justify-content:space-between;align-items:center}
+.blog-read{color:var(--gold);font-weight:600;font-size:12px}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;gap:2px}
+.faq-item{background:var(--card);border:1px solid var(--bd);border-radius:3px;overflow:hidden}
+.faq-q{padding:16px 18px;font-size:13.5px;font-weight:500;color:var(--th);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q:hover{background:var(--gbg)}
+.faq-icon{width:22px;height:22px;border-radius:50%;border:1px solid var(--gbd);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:14px}
+.faq-a{padding:0 18px 16px;font-size:13px;color:var(--tl);line-height:1.75;border-top:1px solid var(--bd);padding-top:14px;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open{border-left:2px solid var(--gold)}
+.faq-item.open .faq-q{color:var(--gold)}
+
+/* ── FOOTER PREVIEW ── */
+.footer-preview{background:#080808;padding:clamp(2.5rem,5vw,4rem) 0 0;border-top:1px solid var(--bd)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+.footer-brand{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:700;letter-spacing:.14em;color:var(--gold);margin-bottom:10px}
+.footer-tagline{font-size:13px;color:var(--tl);line-height:1.65;margin-bottom:16px;max-width:280px}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tl);margin-bottom:12px}
+.footer-link{display:block;font-size:13px;color:var(--tl);text-decoration:none;margin-bottom:7px;transition:color .2s}
+.footer-link:hover{color:var(--gold)}
+.footer-bar{border-top:1px solid var(--bd);padding:14px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-copyright{font-size:11px;color:var(--tl)}
+
+/* ── IMPROVEMENT NOTES ── */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.note-card{background:var(--card);border-radius:4px;padding:18px 20px;display:flex;gap:12px}
+.note-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.note-icon.high{background:rgba(224,92,92,.12);color:var(--red);border:1px solid rgba(224,92,92,.25)}
+.note-icon.med{background:hsla(38,47%,61%,.12);color:var(--gold);border:1px solid var(--gbd)}
+.note-icon.low{background:rgba(90,170,106,.1);color:var(--green);border:1px solid rgba(90,170,106,.25)}
+.note-body{}
+.note-title{font-size:13px;font-weight:600;color:var(--th);margin-bottom:4px}
+.note-desc{font-size:12.5px;color:var(--tl);line-height:1.6}
+.note-badge{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-top:6px}
+.badge-high{background:rgba(224,92,92,.1);color:var(--red);border:1px solid rgba(224,92,92,.2)}
+.badge-med{background:var(--gbg);color:var(--gold);border:1px solid var(--gbd)}
+.badge-low{background:rgba(90,170,106,.08);color:var(--green);border:1px solid rgba(90,170,106,.2)}
+
+/* ── TECH STACK ── */
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.stack-item{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.stack-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.stack-name{font-size:13px;font-weight:600;color:var(--th)}
+.stack-detail{font-size:11px;color:var(--tl)}
+
+/* ── COLOR SWATCHES ── */
+.swatch-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1rem}
+.swatch{width:52px;height:52px;border-radius:4px;position:relative;cursor:default;border:1px solid rgba(255,255,255,.06)}
+.swatch span{position:absolute;bottom:-18px;left:0;right:0;font-size:9px;color:var(--tl);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .dash-stats{grid-template-columns:1fr 1fr}
+  .auth-preview{grid-template-columns:1fr}
+  .auth-left{display:none}
+  .rush-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hero-stats{gap:1.5rem}
+  .footer-grid{grid-template-columns:1fr}
+  .dash-inner{grid-template-columns:1fr}
+  .dash-sidebar{display:none}
+  .dash-stats{grid-template-columns:1fr 1fr}
+}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.section-badge{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:var(--gbg);border:1px solid var(--gbd);border-radius:20px;padding:4px 14px;white-space:nowrap;align-self:flex-start;margin-top:6px}
+
+/* ── SCROLL PROGRESS ── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:1000;transition:width .1s linear}
+
+/* ── ANNOTATIONS (for team review) ── */
+.annotation{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.05em;background:rgba(91,141,238,.12);color:var(--blue);border:1px solid rgba(91,141,238,.25);border-radius:3px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="prog"></div>
+
+<!-- Sticky nav -->
+<nav class="sitenav">
+  <div class="sitenav-inner">
+    <span class="sitenav-logo">DA•RA STUDIO</span>
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#how-we-work">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#form">Form</a>
+    <a href="#auth">Portals</a>
+    <a href="#dashboards">Dashboards</a>
+    <a href="#blog">Blog</a>
+    <a href="#footer">Footer</a>
+    <a href="#improvements">🔍 Review Notes</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:1;max-width:860px">
+    <div class="hero-eyebrow">B2B Architectural Drafting — Remote from Brazil, serving the U.S. &amp; worldwide</div>
+    <h1>Technical documentation<br><em>that builders</em><br>can actually build from.</h1>
+    <p class="hero-sub">DA•RA Studio transforms concepts, sketches, and ideas into precise, permit-ready technical drawings aligned with U.S. (IRC/IBC) and Brazilian (NBR) standards.</p>
+    <div class="hero-btns">
+      <button class="btn-gold">Request a Quote</button>
+      <button class="btn-outline">How We Work</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">150+</div><div class="stat-label">Projects Delivered</div></div>
+      <div class="stat"><div class="stat-val">10+</div><div class="stat-label">Years of Experience</div></div>
+      <div class="stat"><div class="stat-val">98%</div><div class="stat-label">Client Satisfaction</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══════════════════════════════════════════════════════════ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">What We Do</div>
+        <h2 class="section-title">Specialized Technical Support</h2>
+        <p class="section-sub">DA•RA offers specialized technical support for architecture, engineering, and construction firms — acting as an extension of your team.</p>
+      </div>
+      <span class="section-badge">6 Services</span>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+        <div class="service-title">Architectural Drafting</div>
+        <div class="service-body">Floor plans, elevations, sections, and full construction document sets. Aligned with U.S. (IRC/IBC) and Brazilian (NBR) codes, ready for permitting and construction.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+        <div class="service-title">Wood Frame Design</div>
+        <div class="service-body">Framing layouts and load-path documentation for residential wood construction — builder-ready, engineer-coordinated, U.S. standard.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="service-title">PDF to CAD Conversion</div>
+        <div class="service-body">We convert PDF drawings, images, or non-editable files into organized technical CAD files.</div><ul class="service-bullets"><li>Redrawing old plans</li><li>Project updates</li><li>File standardization</li></ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <div class="service-title">Redrawing & Technical Drawing Production</div>
+        <div class="service-body">We develop and adjust architectural drawings with technical precision, following professional standards.</div><ul class="service-bullets"><li>Floor plans</li><li>Sections and elevations</li><li>Basic detailing</li></ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="service-title">Architecture Office Support</div>
+        <div class="service-body">We act as a technical back-office for firms that need to scale production without expanding their internal team.</div><ul class="service-bullets"><li>Layout modeling</li><li>Project adjustments</li><li>Technical revisions</li></ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="service-title">3D Visualization & Concept Development</div>
+        <div class="service-body">High-quality 3D modeling and visual studies to support client presentations, design refinement, and municipal submissions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW WE WORK ═══════════════════════════════════════════════════════ -->
+<section class="section alt" id="how-we-work">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Our Process</div>
+        <h2 class="section-title">How We Work</h2>
+        <p class="section-sub">A structured, fully remote digital workflow — no in-person meetings. All coordination via WhatsApp and our client portal.</p>
+      </div>
+      <span class="section-badge">5 Steps</span>
+    </div>
+    <div class="hww-grid">
+      <div class="hww-card">
+        <div class="hww-num">01</div>
+        <div class="hww-title">Proposal Approval</div>
+        <div class="hww-body">Project scope and pricing are confirmed. Once approved and the initial deposit is made, your project enters the production queue.</div>
+      </div>
+      <div class="hww-card">
+        <div class="hww-num">02</div>
+        <div class="hww-title">Design Preview</div>
+        <div class="hww-body">Initial layout and visual direction are delivered for review. Timeline: 8–16 business days (Standard) or 5–8 days (Rush).</div>
+      </div>
+      <div class="hww-card">
+        <div class="hww-num">03</div>
+        <div class="hww-title">Revisions Phase</div>
+        <div class="hww-body">Two revision rounds included to refine layout and design intent. Additional revisions are available at an hourly rate.</div>
+      </div>
+      <div class="hww-card">
+        <div class="hww-num">04</div>
+        <div class="hww-title">Final Drawing Set</div>
+        <div class="hww-body">Complete architectural drawing package delivered digitally in PDF format. Timeline: 25–30 days (Standard).</div>
+      </div>
+      <div class="hww-card">
+        <div class="hww-num">05</div>
+        <div class="hww-title">Ongoing Coordination</div>
+        <div class="hww-body">We remain available via WhatsApp and the client portal to answer questions from your team, engineer, or contractor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Transparent Pricing</div>
+        <h2 class="section-title">Estimate Tiers</h2>
+        <p class="section-sub">Pricing calculated by square footage. Final estimate generated in Step 8 of the request form.</p>
+      </div>
+      <span class="section-badge">3 Tiers</span>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">PDF to CAD</div>
+        <div class="price-val">$0.50<span style="font-size:1rem">/sqft</span></div>
+        <div class="price-unit">Conversion only</div>
+        <ul class="price-features">
+          <li>Organized CAD layers</li>
+          <li>Clean redraw from PDF/image</li>
+          <li>No floor additions</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Floor Plans Only</div>
+        <div class="price-val">$0.80<span style="font-size:1rem">/sqft</span></div>
+        <div class="price-unit">Plans & layouts</div>
+        <ul class="price-features">
+          <li>Floor plans with dimensions</li>
+          <li>Room layout + labels</li>
+          <li>IRC/NBR aligned</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Full Set</div>
+        <div class="price-tier">Full Construction</div>
+        <div class="price-val">$1.60<span style="font-size:1rem">/sqft</span></div>
+        <div class="price-unit">Complete document set</div>
+        <ul class="price-features">
+          <li>Floor plans + elevations + sections</li>
+          <li>Permit-ready documentation</li>
+          <li>2nd floor ×2 area</li>
+          <li>Basement/Attic +$0.80/sqft</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:14px;margin-top:2rem">Rush Fee Multipliers</h3>
+    <div class="rush-grid">
+      <div class="rush-card">
+        <div class="rush-name">Standard</div>
+        <div class="rush-pct">+0%</div>
+        <div class="rush-delivery">Preview 8–16 days · Final 25–30 days</div>
+      </div>
+      <div class="rush-card rec">
+        <div class="rush-name">Rush ⭐ Recommended</div>
+        <div class="rush-pct" style="color:var(--gold)">+40%</div>
+        <div class="rush-delivery">Preview 5–8 days · Final 15–20 days</div>
+      </div>
+      <div class="rush-card">
+        <div class="rush-name">Express</div>
+        <div class="rush-pct" style="color:var(--red)">+60%</div>
+        <div class="rush-delivery">Preview 2–4 days · Final 7–12 days</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--tl);margin-top:10px">⚠ Rush &amp; Express unlock only after uploading 6 project documents (Survey, Photos, Measurements, References, Existing Plans, Sketches).</p>
+  </div>
+</section>
+
+<!-- ══ FORM ═══════════════════════════════════════════════════════════════ -->
+<section class="section alt" id="form">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Estimate Request</div>
+        <h2 class="section-title">8-Step Quote Form</h2>
+        <p class="section-sub">Progressive data collection with real-time estimate calculation. Supports PT-BR and EN. Sends via EmailJS with no backend required.</p>
+      </div>
+      <span class="section-badge">8 Steps</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+      <div class="steps-timeline">
+        <div class="step-row">
+          <div class="step-dot">01</div>
+          <div class="step-content">
+            <div class="step-title">Location</div>
+            <div class="step-fields">Region (US/BR) · Street Address · City · State · ZIP</div>
+            <div class="step-validation">All required. Region sets currency ($/ R$) and units (ft/m)</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">02</div>
+          <div class="step-content">
+            <div class="step-title">About You</div>
+            <div class="step-fields">Full Name · Email · Phone · Role · Company info</div>
+            <div class="step-validation">Email regex · phone min 7 digits · role required</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">03</div>
+          <div class="step-content">
+            <div class="step-title">Project Details</div>
+            <div class="step-fields">Width × Length (ft or m) · Floor levels</div>
+            <div class="step-validation">FtInInput: accepts 15'-2", 15-2, or 15.17</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">04</div>
+          <div class="step-content">
+            <div class="step-title">Scope</div>
+            <div class="step-fields">13 project types · Engagement type · 3D extras</div>
+            <div class="step-validation">Min 1 project type + 1 engagement required</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">05</div>
+          <div class="step-content">
+            <div class="step-title">Room Program</div>
+            <div class="step-fields">+/− counters per room category (8 types)</div>
+            <div class="step-validation">Optional — no validation</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">06</div>
+          <div class="step-content">
+            <div class="step-title">Files</div>
+            <div class="step-fields">Drag-and-drop upload · up to 10 files · preview</div>
+            <div class="step-validation">Optional — ≥6 docs unlocks Rush/Express in step 7</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">07</div>
+          <div class="step-content">
+            <div class="step-title">Delivery Speed</div>
+            <div class="step-fields">Standard / Rush +40% / Express +60%</div>
+            <div class="step-validation">Rush/Express locked until 6 docs uploaded</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-dot">08</div>
+          <div class="step-content">
+            <div class="step-title">Review & Submit</div>
+            <div class="step-fields">Full summary · Price estimate · Legal disclaimer · Copyright checkbox</div>
+            <div class="step-validation">Checkbox required · isSending guard · 30s timeout</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-preview">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px">Step 2 — About You (preview)</div>
+          <div class="form-input-preview">
+            <label class="form-label">Full Name *</label>
+            <div class="form-input-box">John Silva</div>
+          </div>
+          <div class="form-input-preview">
+            <label class="form-label">Email *</label>
+            <div class="form-input-box focused">john@construction.com</div>
+          </div>
+          <div class="form-input-preview">
+            <label class="form-label">Phone *</label>
+            <div class="form-input-box">+1 555 0123</div>
+          </div>
+          <div class="form-input-preview">
+            <label class="form-label">Your Role *</label>
+            <div class="form-input-box">Builder / Contractor</div>
+          </div>
+          <div class="form-input-preview" style="margin-bottom:0">
+            <label class="form-label">Company Name</label>
+            <div class="form-input-box">Silva Construction LLC</div>
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:18px;margin-top:14px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);margin-bottom:10px">EmailJS Config (active)</div>
+          <div style="font-family:monospace;font-size:12px;color:var(--tm);line-height:1.8">
+            serviceId: <span style="color:var(--gold)">service_5r3fa8q</span><br>
+            templateId: <span style="color:var(--gold)">template_1qqwpkf</span><br>
+            studioEmail: <span style="color:var(--gold)">darastudiooficial@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AUTH PORTALS ══════════════════════════════════════════════════════ -->
+<section class="section" id="auth">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Client Access</div>
+        <h2 class="section-title">Auth Portals — Split Panel Design</h2>
+        <p class="section-sub">Left panel: DA•RA identity on light beige. Right panel: white card with form. Responsive — left panel hides on mobile.</p>
+      </div>
+      <span class="section-badge">3 Portals</span>
+    </div>
+
+    <div class="portals-grid" style="margin-bottom:2rem">
+      <div class="portal-card">
+        <div class="portal-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div>
+          <div class="portal-label">Client Portal</div>
+          <div class="portal-sub">Access your projects, files and invoices</div>
+        </div>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <div>
+          <div class="portal-label">Freelancer Workspace</div>
+          <div class="portal-sub">Manage projects, payments and contracts</div>
+        </div>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <div class="portal-label">Admin Panel <span class="restricted">Restricted</span></div>
+          <div class="portal-sub">Restricted to DA•RA Studio administrators</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:14px">Client Login — Split Panel (preview)</h3>
+    <div class="auth-preview">
+      <div class="auth-left">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+          <div style="width:36px;height:36px;border-radius:4px;background:#a07840;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:16px">D</div>
+          <div><p style="font-size:13px;font-weight:600;color:#4a4035">DARA Studio</p><p style="font-size:11px;color:#7a7060">Drafting &amp; 3D Support</p></div>
+        </div>
+        <h3>Client<br>Portal</h3>
+        <p>Access your projects, files and communications in one place.</p>
+        <div class="auth-feature"><span class="auth-check">✓</span><p>Track each project's progress in real time</p></div>
+        <div class="auth-feature"><span class="auth-check">✓</span><p>Manage invoices and payments securely</p></div>
+        <div class="auth-feature"><span class="auth-check">✓</span><p>Direct communication with the DARA Studio team</p></div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(160,120,64,.10);border:1px solid rgba(160,120,64,.25);border-radius:20px;padding:4px 12px;margin-top:10px">
+          <span style="width:7px;height:7px;border-radius:50%;background:#a07840;display:block"></span>
+          <span style="font-size:12px;color:#a07840;font-weight:500">Demo mode — sample data</span>
+        </div>
+      </div>
+      <div class="auth-right">
+        <div class="auth-tabs">
+          <div class="auth-tab active">Sign In</div>
+          <div class="auth-tab inactive">Create Account</div>
+        </div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--th);margin-bottom:4px">Welcome Back</p>
+        <p style="font-size:12.5px;color:var(--tl);margin-bottom:16px">Enter your credentials to access</p>
+        <button style="width:100%;padding:11px;background:var(--card);border:1px solid var(--bd);border-radius:4px;color:var(--th);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;cursor:pointer;font-family:inherit">
+          <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Continue with Google
+        </button>
+        <div class="form-input-preview">
+          <label class="form-label">EMAIL</label>
+          <div class="form-input-box">seu@email.com</div>
+        </div>
+        <div class="form-input-preview" style="margin-bottom:14px">
+          <label class="form-label">PASSWORD</label>
+          <div class="form-input-box">••••••••</div>
+        </div>
+        <button class="btn-gold" style="width:100%;padding:12px;border-radius:4px;font-size:14px">Sign In</button>
+        <div class="demo-hint">Demo: joao@darastudio.com / teste123</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DASHBOARDS ════════════════════════════════════════════════════════ -->
+<section class="section alt" id="dashboards">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Post-Login</div>
+        <h2 class="section-title">3 Dashboards</h2>
+        <p class="section-sub">Each portal redirects to its own dashboard after the 2.5s success screen. Sidebar navigation, responsive layout, EN/PT support.</p>
+      </div>
+      <span class="section-badge">3 Panels</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="dash-preview">
+        <div class="dash-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="dash-logo">DA•RA STUDIO</span>
+            <span class="dash-badge client">Client Portal</span>
+          </div>
+          <button style="background:none;border:1px solid var(--bd);border-radius:2px;color:var(--tl);font-size:11px;padding:4px 10px;cursor:pointer;font-family:inherit">Sign out</button>
+        </div>
+        <div class="dash-inner">
+          <div class="dash-sidebar">
+            <div class="dash-sidebar-item active">Overview</div>
+            <div class="dash-sidebar-item">My Projects</div>
+            <div class="dash-sidebar-item">Files</div>
+            <div class="dash-sidebar-item">Invoices</div>
+            <div class="dash-sidebar-item">Settings</div>
+          </div>
+          <div class="dash-main">
+            <div class="dash-stats" style="grid-template-columns:1fr 1fr 1fr">
+              <div class="dash-stat"><div class="dash-stat-label">Active Projects</div><div class="dash-stat-val">—</div></div>
+              <div class="dash-stat"><div class="dash-stat-label">Files</div><div class="dash-stat-val">—</div></div>
+              <div class="dash-stat"><div class="dash-stat-label">Invoices</div><div class="dash-stat-val">—</div></div>
+            </div>
+            <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:4px;padding:14px;font-size:12px;color:var(--tl)">Supabase integration pending — projects will appear here.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-preview">
+        <div class="dash-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="dash-logo">DA•RA STUDIO</span>
+            <span class="dash-badge admin">ADMIN</span>
+          </div>
+          <button style="background:none;border:1px solid var(--bd);border-radius:2px;color:var(--tl);font-size:11px;padding:4px 10px;cursor:pointer;font-family:inherit">Sign out</button>
+        </div>
+        <div class="dash-inner">
+          <div class="dash-sidebar">
+            <div class="dash-sidebar-item active">Overview</div>
+            <div class="dash-sidebar-item">Clients</div>
+            <div class="dash-sidebar-item">Estimates</div>
+            <div class="dash-sidebar-item">Team</div>
+            <div class="dash-sidebar-item">Settings</div>
+          </div>
+          <div class="dash-main">
+            <div class="dash-stats">
+              <div class="dash-stat"><div class="dash-stat-label">Active Clients</div><div class="dash-stat-val">—</div></div>
+              <div class="dash-stat"><div class="dash-stat-label">Estimates 30d</div><div class="dash-stat-val">—</div></div>
+              <div class="dash-stat"><div class="dash-stat-label">In Progress</div><div class="dash-stat-val">—</div></div>
+              <div class="dash-stat"><div class="dash-stat-label">Est. Revenue</div><div class="dash-stat-val">—</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button style="background:var(--gbg);border:1px solid var(--gbd);border-radius:2px;color:var(--gold);padding:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">View Emails →</button>
+              <button style="background:#25D366;border:none;border-radius:2px;color:#fff;padding:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">WhatsApp →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:12.5px;color:var(--tl);background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:12px 16px;border-left:3px solid var(--gold)">
+      ⚠ <strong style="color:var(--th)">Auth is simulated</strong> — Any valid email + 6-char password works. Supabase integration required for real auth.
+      <br>Demo credentials: <code style="background:var(--gbg);color:var(--gold);padding:1px 6px;border-radius:3px">admin@darastudio.com</code> / <code style="background:var(--gbg);color:var(--gold);padding:1px 6px;border-radius:3px">admin123</code>
+    </p>
+  </div>
+</section>
+
+<!-- ══ BLOG ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="blog">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">The DA•RA Journal</div>
+        <h2 class="section-title">Technical Insights &amp;<br><em style="font-style:italic;color:var(--gold)">Building Knowledge</em></h2>
+        <p class="section-sub">In-depth articles on architectural drafting, building codes, ADUs, wood frame construction, and the documentation that gets projects built.</p>
+      </div>
+      <span class="section-badge">1 Article + 7 FAQ</span>
+    </div>
+    <div class="blog-cards">
+      <div class="blog-card">
+        <div class="blog-thumb">
+          <div class="blog-thumb-inner">
+            <div class="blog-thumb-title">ADU · MASSACHUSETTS</div>
+          </div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-tags">
+            <span class="blog-tag">ADU</span>
+            <span class="blog-tag">Massachusetts</span>
+            <span class="blog-tag">2024</span>
+          </div>
+          <div class="blog-title">Como Construir uma ADU em Massachusetts</div>
+          <div class="blog-excerpt">Tudo o que você precisa saber sobre o Affordable Homes Act (2024), requisitos do IRC 2021, e os erros mais comuns em projetos de ADU no estado.</div>
+          <div class="blog-meta"><span>DA•RA Studio</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card" style="opacity:.5">
+        <div class="blog-thumb">
+          <div class="blog-thumb-inner"><div style="font-size:2rem;color:var(--bd)">+</div><div style="font-size:11px;color:var(--tl);letter-spacing:.1em;text-transform:uppercase;margin-top:6px">More articles soon</div></div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-tags"><span class="blog-tag">Coming soon</span></div>
+          <div class="blog-title">Wood Frame Construction Guide</div>
+          <div class="blog-excerpt">Coming soon — practical guide for architects and contractors working with wood frame structural systems.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:14px;margin-top:2.5rem">ADU Article — FAQ Accordion (7 items)</h3>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Quais são as maneiras mais acessíveis de construir uma ADU?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Começar com um projeto pré-fabricado é uma das opções mais acessíveis. Esses projetos prontos para construir eliminam o custo e o tempo de um projeto arquitetônico personalizado.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Como faço para iniciar um projeto de ADU?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">O primeiro passo é verificar se sua cidade ou município permite ADUs. Em Massachusetts, o Affordable Homes Act (2024) já as permite por direito em zonas unifamiliares.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Como preparar meu projeto pré-desenhado para aprovação?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Projetos pré-desenhados não incluem informações específicas do local. Será necessário desenvolver uma planta de implantação mostrando a localização da ADU no terreno.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Uma ADU é um bom investimento?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Com certeza. As ADUs são excelentes investimentos: podem gerar renda passiva como unidade de aluguel ou proporcionar economia ao acomodar familiares.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Por que preciso de uma planta do terreno?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Cada propriedade é única e cada município tem suas próprias regras de zoneamento, recuos obrigatórios, topografia e características específicas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>O que está incluído nos desenhos de um projeto de ADU?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Um conjunto completo inclui: capa com vista do projeto, folha de notas e termos gerais, plantas baixas com dimensões e layout dos cômodos, elevações externas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Vale a pena converter uma garagem em ADU?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Em muitos casos, a conversão de garagem acaba custando mais do que construir uma ADU nova — especialmente quando são necessárias adaptações estruturais.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER PREVIEW ════════════════════════════════════════════════════ -->
+<section class="footer-preview" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">DA•RA STUDIO</div>
+        <p class="footer-tagline">B2B architectural drafting studio — remote from Criciúma, SC — Brazil. Serving the U.S. and worldwide.</p>
+        <p style="font-size:12px;color:var(--tl)">darastudiooficial@gmail.com<br>+55 48 99650-3350</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <a class="footer-link" href="#services">Services</a>
+        <a class="footer-link" href="#how-we-work">How We Work</a>
+        <a class="footer-link" href="#form">Get a Quote</a>
+        <a class="footer-link" href="#auth">Client Area</a>
+        <a class="footer-link" href="#blog">Blog</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <a class="footer-link" href="#">Architectural Drafting</a>
+        <a class="footer-link" href="#">Wood Frame Design</a>
+        <a class="footer-link" href="#">PDF to CAD</a>
+        <a class="footer-link" href="#">3D Visualization</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <a class="footer-link" href="#">WhatsApp</a>
+        <a class="footer-link" href="#">Email</a>
+        <a class="footer-link" href="#">Copyright Notice</a>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p class="footer-copyright">© 2026 DA•RA Studio. All rights reserved.</p>
+      <p class="footer-copyright">dara-studio-lac.vercel.app</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TECH STACK + COLORS ═══════════════════════════════════════════════ -->
+<section class="section alt" style="border-bottom:1px solid var(--bd)">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Under the Hood</div>
+        <h2 class="section-title">Tech Stack &amp; Design Tokens</h2>
+      </div>
+    </div>
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:12px">Stack</h3>
+    <div class="stack-grid" style="margin-bottom:2rem">
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">React 18</div><div class="stack-detail">create-react-app 5</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">useRouter()</div><div class="stack-detail">pushState + popstate</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">EmailJS</div><div class="stack-detail">No backend needed</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">CSS Custom Props</div><div class="stack-detail">Dark/Light mode</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">Supabase</div><div class="stack-detail">Auth — pending impl.</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">Vercel</div><div class="stack-detail">SPA rewrite rule</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">Cormorant Garamond</div><div class="stack-detail">Display typeface</div></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><div class="stack-name">DM Sans</div><div class="stack-detail">Body typeface</div></div></div>
+    </div>
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);margin-bottom:14px">Dark Mode Palette</h3>
+    <div class="swatch-row">
+      <div><div class="swatch" style="background:#0c0c0c"><span>--bg</span></div></div>
+      <div><div class="swatch" style="background:#0f0f0f"><span>--bg2</span></div></div>
+      <div><div class="swatch" style="background:#141414"><span>--bg3</span></div></div>
+      <div><div class="swatch" style="background:#111111"><span>--card</span></div></div>
+      <div><div class="swatch" style="background:#242424"><span>--bd</span></div></div>
+      <div><div class="swatch" style="background:#C9A96E"><span>--gold</span></div></div>
+      <div><div class="swatch" style="background:#f0ead8"><span>--th</span></div></div>
+      <div><div class="swatch" style="background:#b0a898"><span>--tm</span></div></div>
+      <div><div class="swatch" style="background:#6e6760"><span>--tl</span></div></div>
+      <div><div class="swatch" style="background:#e05c5c"><span>--red</span></div></div>
+      <div><div class="swatch" style="background:#5aaa6a"><span>--green</span></div></div>
+      <div><div class="swatch" style="background:#25D366"><span>WA</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IMPROVEMENT NOTES FOR TEAM ════════════════════════════════════════ -->
+<section class="section" id="improvements">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Team Review</div>
+        <h2 class="section-title">Where We Can Improve</h2>
+        <p class="section-sub">Open items, pending features and improvement opportunities for the team to evaluate and prioritize.</p>
+      </div>
+    </div>
+    <div class="notes-grid">
+
+      <div class="note-card" style="border:1px solid rgba(224,92,92,.2)">
+        <div class="note-icon high">🔐</div>
+        <div class="note-body">
+          <div class="note-title">Real Authentication</div>
+          <div class="note-desc">Currently uses setTimeout simulation. Any email + 6-char password works. Need to implement Supabase Auth with real session management.</div>
+          <span class="note-badge badge-high">High Priority</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(224,92,92,.2)">
+        <div class="note-icon high">📊</div>
+        <div class="note-body">
+          <div class="note-title">Dashboard Real Data</div>
+          <div class="note-desc">All 3 dashboards show placeholder "—" stats. Need Supabase tables for projects, files, invoices and real-time data binding.</div>
+          <span class="note-badge badge-high">High Priority</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(224,92,92,.2)">
+        <div class="note-icon high">🔑</div>
+        <div class="note-body">
+          <div class="note-title">Environment Variables</div>
+          <div class="note-desc">EmailJS credentials are hardcoded in source. Need .env file with REACT_APP_EMAILJS_* and Vercel env vars configured before production.</div>
+          <span class="note-badge badge-high">High Priority</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid var(--gbd)">
+        <div class="note-icon med">🖼️</div>
+        <div class="note-body">
+          <div class="note-title">Portfolio — Real Projects</div>
+          <div class="note-desc">Portfolio section shows placeholder cards. Need real project images, titles, types and case study content from the studio.</div>
+          <span class="note-badge badge-med">Medium</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid var(--gbd)">
+        <div class="note-icon med">🌐</div>
+        <div class="note-body">
+          <div class="note-title">Custom Domain</div>
+          <div class="note-desc">Currently on dara-studio-lac.vercel.app. Configure DNS for a custom domain (e.g. darastudio.com) in Vercel dashboard.</div>
+          <span class="note-badge badge-med">Medium</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid var(--gbd)">
+        <div class="note-icon med">📝</div>
+        <div class="note-body">
+          <div class="note-title">More Blog Articles</div>
+          <div class="note-desc">Only 1 article live (ADU Massachusetts). Add Wood Frame Guide, IRC/IBC Code Summary, How to Read Construction Documents.</div>
+          <span class="note-badge badge-med">Medium</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid var(--gbd)">
+        <div class="note-icon med">📱</div>
+        <div class="note-body">
+          <div class="note-title">Mobile Testing</div>
+          <div class="note-desc">Responsive breakpoints are set but need real-device testing on iOS Safari and Android Chrome, especially the 8-step form flow.</div>
+          <span class="note-badge badge-med">Medium</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(90,170,106,.2)">
+        <div class="note-icon low">📈</div>
+        <div class="note-body">
+          <div class="note-title">Google Analytics 4</div>
+          <div class="note-desc">No tracking configured. Add GA4 for form conversion funnel tracking, page views, and user behavior analysis.</div>
+          <span class="note-badge badge-low">Low</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(90,170,106,.2)">
+        <div class="note-icon low">🗺️</div>
+        <div class="note-body">
+          <div class="note-title">SEO — sitemap.xml + og:image</div>
+          <div class="note-desc">No sitemap.xml generated. Need Open Graph image for social sharing previews. Submit to Google Search Console after domain setup.</div>
+          <span class="note-badge badge-low">Low</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(90,170,106,.2)">
+        <div class="note-icon low">⚖️</div>
+        <div class="note-body">
+          <div class="note-title">DMCA / Copyright Register</div>
+          <div class="note-desc">Copyright modal is live but work is not formally registered with the U.S. Copyright Office (USCO). Registration strengthens legal protection.</div>
+          <span class="note-badge badge-low">Low</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(90,170,106,.2)">
+        <div class="note-icon low">🎬</div>
+        <div class="note-body">
+          <div class="note-title">About Section — 3rd Video</div>
+          <div class="note-desc">About video player is ready but only one video embedded. Studio mentioned a 3rd video "still being produced."</div>
+          <span class="note-badge badge-low">Low</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="border:1px solid rgba(90,170,106,.2)">
+        <div class="note-icon low">💾</div>
+        <div class="note-body">
+          <div class="note-title">Single-File Architecture</div>
+          <div class="note-desc">App.jsx is ~5,400 lines in one file (10MB). Consider splitting into separate component files as complexity grows. Reduces cognitive load for the team.</div>
+          <span class="note-badge badge-low">Low</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════════════════ -->
+<div style="background:#080808;border-top:1px solid var(--bd);padding:1.5rem 0;text-align:center">
+  <div class="container">
+    <p style="font-size:13px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:6px">DA•RA Studio — Site Review Document</p>
+    <p style="font-size:12px;color:var(--tl)">darastudiooficial@gmail.com · wa.me/5548996503350 · dara-studio-lac.vercel.app</p>
+    <p style="font-size:11px;color:var(--tl);margin-top:6px;opacity:.6">React 18 · 5,394 lines · 69 components · April 2026</p>
+  </div>
+</div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const p = document.getElementById('prog');
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  p.style.width = pct + '%';
+});
+
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// Smooth active nav
+const sections = document.querySelectorAll('section[id], .hero[id], .footer-preview[id]');
+const navLinks = document.querySelectorAll('.sitenav a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.style.color = '');
+      const active = document.querySelector(`.sitenav a[href="#${e.target.id}"]`);
+      if (active) active.style.color = '#C9A96E';
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

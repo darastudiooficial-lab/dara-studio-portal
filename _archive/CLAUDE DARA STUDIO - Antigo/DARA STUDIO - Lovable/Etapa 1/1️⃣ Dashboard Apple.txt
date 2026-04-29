@@ -1,0 +1,99 @@
+I want to redesign the Admin Dashboard to follow a clean, premium SaaS design similar to Apple-style interfaces and modern tools like Linear.
+
+The dashboard must be minimal, fast, and visually organized.
+
+Do not modify or delete any existing database tables or data.
+
+The dashboard should become the main control center for the architecture studio.
+
+---
+
+DASHBOARD STRUCTURE
+
+Top KPI Cards:
+
+Active Projects
+Projects in Permit Phase
+Pending Payments
+Monthly Revenue
+
+Each card should show:
+
+• number
+• small trend indicator
+• quick action button
+
+---
+
+PROJECT OVERVIEW PANEL
+
+Show the most important projects with:
+
+Project name
+Client name
+Current phase
+Progress bar
+Next milestone
+
+Allow quick navigation to the project page.
+
+---
+
+ACTIVITY FEED
+
+Add a real-time activity feed showing:
+
+Project updates
+New documents uploaded
+Payments received
+Client messages
+
+Structure:
+
+User
+Action
+Project
+Timestamp
+
+---
+
+FINANCIAL SNAPSHOT
+
+Add a visual chart showing:
+
+Revenue this month
+Outstanding invoices
+Payments received
+
+Use a clean chart style.
+
+---
+
+QUICK ACTIONS PANEL
+
+Add buttons for:
+
+Create New Project
+Upload Document
+Add Client
+Create Invoice
+
+---
+
+DESIGN REQUIREMENTS
+
+The UI should feel modern and premium:
+
+• large spacing
+• subtle shadows
+• gold / black / off-white color palette
+• clear typography
+• responsive layout
+
+The design must work well on desktop and tablet.
+
+---
+
+FINAL GOAL
+
+The dashboard should feel like a professional SaaS control center for an architecture firm.

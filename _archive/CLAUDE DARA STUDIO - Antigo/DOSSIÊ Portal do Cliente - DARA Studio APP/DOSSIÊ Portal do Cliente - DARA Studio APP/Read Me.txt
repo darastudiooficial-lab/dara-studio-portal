@@ -1,0 +1,8 @@
+dossie-dara-portal.html — abra no Chrome e use Ctrl+P → Salvar como PDF para gerar o documento final. O HTML já tem CSS de impressão (@media print) configurado para quebras de página corretas, fontes menores e sem elementos desnecessários.
+O dossiê está estruturado em 4 seções:
+Seção 1 — Visão Geral e Design: stack completa (React + Supabase), todas as 9 tabelas do banco, 3 Storage buckets, paleta de cores com swatches visuais, tipografia (Libre Baskerville + Montserrat) e os 5 princípios de UX do projeto.
+Seção 2 — Telas e Formulários: mapa de navegação visual, campos de todos os formulários (login, cadastro, detalhe do projeto), as 7 abas do projeto com responsabilidades claras, os 8 passos do formulário de estimativa com validações, e a tabela de regras de negócio críticas (Audit Log, Quote Lock, etc.).
+Seção 3 — Textos e Copywriting: todos os status em pt-BR, mensagens de feedback do sistema (Loading/Sucesso/Erro), o mapa completo de tradução de erros Supabase → português com setas visuais, formatação de datas e moedas, e todos os textos fixos da tela de login.
+Seção 4 — Código Refatorado: preview estrutural do PortalCliente.jsx, o global.css completo, o exemplo de .env, o passo-a-passo de ativação do Supabase em produção, e um checklist de deploy com 12 itens marcados como ✓ Implementado ou ⚠ Pendente.
+global.css — arquivo pronto para colocar em src/global.css. Contém o reset, todas as variáveis CSS (--gold, --bg, etc.), importação das Google Fonts e os 3 keyframes (fadeUp, fadeIn, spin).
+dara-portal-cliente.zip — pacote completo com PortalCliente.jsx, global.css, README.md e o dossiê HTML.

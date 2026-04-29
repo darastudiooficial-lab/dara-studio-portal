@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --gold:       #b89b6a;
+  --gold-h:     #c9ae82;
+  --gold-d:     rgba(184, 155, 106, 0.14);
+  --gold-border:rgba(184, 155, 106, 0.30);
+
+  --bg:         #f5f3ef;
+  --bg2:        #ffffff;
+  --bg3:        #edeae4;
+
+  --sidebar:    #1a1814;
+  --sidebar2:   #222018;
+  --sidebar3:   #2e2b22;
+
+  --text:       #1a1814;
+  --muted:      #6b6760;
+  --dim:        #a09b94;
+  --border:     #e2ddd6;
+
+  --green:      #2d8653;
+  --green-bg:   rgba(45, 134, 83, 0.10);
+
+  --amber:      #c07c0a;
+  --amber-bg:   rgba(192, 124, 10, 0.10);
+
+  --red:        #b83232;
+  --red-bg:     rgba(184, 50, 50, 0.09);
+
+  --blue:       #2566a8;
+  --blue-bg:    rgba(37, 102, 168, 0.09);
+
+  --serif:      'Libre Baskerville', Georgia, serif;
+  --sans:       'Montserrat', system-ui, sans-serif;
+  --r:          10px;
+}
+
+body {
+  background:   var(--bg);
+  font-family:  var(--sans);
+  color:        var(--text);
+  font-size:    14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input, textarea, select {
+  font-family: var(--sans);
+}
+
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar        { width: 4px; height: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 2px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+.fade-up  { animation: fadeUp  0.35s ease both; }
+.fade-in  { animation: fadeIn  0.25s ease both; }

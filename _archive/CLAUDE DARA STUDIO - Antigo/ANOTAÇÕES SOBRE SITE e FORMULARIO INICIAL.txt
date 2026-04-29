@@ -1,0 +1,66 @@
+Ajustar a logomarca da DARA STUDIO
+
+Colocar todos os botões igual, com o memso efeito de "subir" para cima com um efeito de ficar um pouco mais escuro.
+
+Ajustar o texto "thank you" do formulario, fizemos no gemini, então é só copiar e colar.
+
+
+Precisamos que o chat boot passe uma varredura e liste todos os pontos que não estão funcionando e que precisam funcioar ou melhorar, fazendo assim uma lista onde podemos ir por ordem para ajstar cada coisa necessária.
+
+
+Inserir imagens de projeto já feitos no site com uma logomarca escrito em marca da agua bem pequena e no final de cada foto escrito:© The authorship of the contents, materials and images displayed on DA•RA Studio is protected by national and international copyright laws."
+
+
+Inserir um botão ao lado do "contact" escrito "copyright laws", onde vou anexar o arquivo para podermos ajustar e melhorar, caso precise. Essa mesma escrita, preciso que coloco no rodapé do site tambem onde a pessoa clica e abre uma pagina "flutuante" mostrando todo o texto.
+
+
+Precisamos criar um botão estilo "blog", aceito sugestão ao lado do nome "portifolio", onde eu insira informações como:
+ai abrir um "mini menu" escrito
+- ADU [Additional Dwelling Unit]
+- Building Permit
+Nesse nome aceito sugestões.
+
+
+
+Precisamos deixar o site responsivo para ipad, celular, notebook e desktop.
+
+
+Precisamos deixar o site responsivo para deixar claro ou escuro, fiz um prompt no gemini, é só copiar e colar
+
+
+Ao clicar em "portal do cliente", a pagina do site já se direciona para lá, mas gostaria de uma pagina de introdução que fizemos em outra conta, vou mandar print da imagem e preciso que você faça a junção dos dois modelos.
+
+
+No preenchimento do email, sugerir alguns @ prontos
+
+
+Precisamos ajustar a unidade de medida, ainda está dando erro nessa parte, o cliente precisa colocar numero quebrado, exemplo 12'-9" x 15'-2", e o formulario não aceita, então precisamos cuidar dessa parte tambem e logo abaixo aparece a escrita. Fiz um prompt no gemini.
+
+
+Na aba "project details" aparece o preço do basement e no attic, não gostaria que aparecesse, pretendo explicar e explorar isso na outra aba de "serviços", onde tenho alguma coisa pronta no gemini.
+
+
+
+Na aba de "serviços", fiz um ajuste no gemini e preciso adaptar nosso modelo. Lembrando que vou anexar o texto como sugestão, mas preciso que faça uma junção doque já fizemos para oque estou propondo, pois estou fazendo melhorias em cima doque já temos e não algo novo, então se precisar, me de sugestão.
+
+
+Nova lista de "serviços" no gemini.
+
+
+Nova lista de "preços" no gemini. e preciso adaptar nosso modelo. Lembrando que vou anexar o texto como sugestão, mas preciso que faça uma junção doque já fizemos para oque estou propondo, pois estou fazendo melhorias em cima doque já temos e não algo novo, então se precisar, me de sugestão.
+
+
+Na aba "uploads" o cliente pode anexar mais de um arquivo e varios modelos como imagens, fotos, videos, pdf, dwg e afins
+
+
+Na aba "rush fee" a mesma coisa.
+
+
+Na aba "review", eu tive a ideia de separarmos em card com duas colunas cada etapa, separar tambem dados do cliente/empresa, separa dados e informações do projeto
+
+
+Continuando na aba do formulario depois da mensagem "thank you", aparece um botão bem pequeno de "edit answers", preciso que esse botão seja visivel seguindo o padrão do site, e preciso que ele volte a aba de "review" e não para a aba de "rush fee", porque as vezes o cliente descide dar continuidade ao projeto ao invez de deixar para mais tarde.
+
+
+
+

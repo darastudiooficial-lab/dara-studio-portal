@@ -1,0 +1,108 @@
+ESTIMATE (orçamento preliminar) de PROJECT (projeto contratado)
+Estrutura recomendada
+1️⃣ Nova aba: Estimates
+
+Essa aba serve para:
+
+fazer orçamentos rápidos
+
+clientes que ainda não fecharam contrato
+
+simulação de preço
+
+enviar proposal
+
+Depois você pode ter um botão:
+
+Convert to Project
+
+Estrutura da aba Estimates
+
+Cada estimate deve ter:
+
+Client / Company
+
+Company Name
+
+Contact Person
+
+Market
+
+Brazil
+
+United States
+
+Project Type
+
+Brasil:
+
+Arquitetura
+
+Interiores
+
+Reforma
+
+Construção
+
+USA:
+
+Architecture
+
+Interior Design
+
+Deck / Exterior
+
+Addition / Renovation
+
+Area
+
+Se Brazil
+→ m²
+
+Se USA
+→ ft²
+
+Rate
+
+Valor automático conforme tipo de projeto.
+
+Exemplo:
+
+Brasil
+
+Arquitetura → R$80 / m²
+Interiores → R$120 / m²
+Reforma → R$90 / m²
+
+USA
+
+Architecture → $1.40 / ft²
+Interior → $2.00 / ft²
+Deck / Exterior → $1.10 / ft²
+
+Total Estimate
+
+Cálculo automático:
+
+Total Estimate = Area × Rate
+Conversão automática para projeto
+
+Botão:
+
+Convert Estimate → Project
+
+Ao clicar:
+
+cria novo projeto
+
+copia:
+
+cliente
+
+endereço
+
+área
+
+valor
+
+tipo de projeto

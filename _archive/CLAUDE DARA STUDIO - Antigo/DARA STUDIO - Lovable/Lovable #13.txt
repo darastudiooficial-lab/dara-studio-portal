@@ -1,0 +1,78 @@
+6️⃣ Nova seção de STATUS AUTOMÁTICO
+
+Adicionar abaixo:
+<div className="mt-6">
+
+<h3 className="text-lg font-semibold">Project Status</h3>
+
+<div className="grid grid-cols-3 gap-4 mt-3">
+
+<div>
+<label className="text-sm font-medium">Current Status</label>
+<select className="w-full border rounded-md p-2">
+<option>Draft</option>
+<option>In Progress</option>
+<option>Waiting Client</option>
+<option>Revision</option>
+<option>Completed</option>
+<option>Delayed</option>
+</select>
+</div>
+
+<div>
+<label className="text-sm font-medium">Days Remaining</label>
+<input
+type="number"
+className="w-full border rounded-md p-2"
+/>
+</div>
+
+<div>
+<label className="text-sm font-medium">Revision Count</label>
+<input
+type="number"
+className="w-full border rounded-md p-2"
+/>
+</div>
+
+</div>
+
+</div>
+
+7️⃣ Melhorar HISTÓRICO (ficou muito bom já)
+
+Eu apenas adicionaria:
+
+Created by
+Internal / Client visible
+
+Código:
+
+<select className="border rounded-md p-2">
+<option value="private">Private</option>
+<option value="client">Visible to Client</option>
+</select>
+8️⃣ Estrutura ideal no banco
+
+Tabela projects deveria ter:
+
+start_date
+preview_delivery
+revision_return
+final_delivery
+deadline
+revision_count
+project_status
+9️⃣ Evolução futura (recomendado)
+
+Depois podemos adicionar:
+
+Timeline visual
+Start ───── Preview ───── Revision ───── Final
+Alertas automáticos
+⚠ Deadline in 3 days
+⚠ Client delay
+Dashboard
+Active projects
+Delayed projects
+Projects waiting client

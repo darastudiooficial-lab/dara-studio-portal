@@ -1,0 +1,13 @@
+PARE TUDO. Você cometeu um erro crítico de "Lazy Output" (código preguiçoso) e o ambiente de preview quebrou porque você omitiu o código anterior. Todo o nosso "Admin Portal" e as telas que construímos antes desapareceram.
+Precisamos consolidar o sistema. Por favor, junte a nova lógica de Landing Page com o código integral do Portal que já tínhamos construído. Siga estas regras estritas:
+1. RECUPERAÇÃO OBRIGATÓRIA
+- Resgate TODO o código, componentes, estados e estilizações do nosso `AdminPortal` original (incluindo Sidebar, Dashboard, Gestão de Projetos, Abas do Projeto, etc.). Não resuma, não omita.
+2. ATUALIZAÇÃO DA LANDING PAGE
+- Na `LandingPageView`, altere o botão "Client Login" para um botão genérico chamado "Acessar Portal".
+- Quando o usuário clicar em "Acessar Portal", altere o estado `currentApp` para `'admin'` (ou o nome do estado que renderiza o nosso portal completão que já estava pronto).
+3. RENDERIZAÇÃO CONDICIONAL (State-based Routing)
+- Mantenha a estrutura:
+  Se 'landing' -> Mostra a Landing Page.
+  Se 'estimator' -> Mostra o Form (Etapas 1 e 2 com a máscara de telefone que acabamos de fazer).
+  Se 'admin' (ou 'portal') -> Mostra O CÓDIGO COMPLETO DO PORTAL que construímos nas sessões anteriores.
+Por favor, reescreva o código completo sem usar comentários ou placeholders de abreviação, preciso do código integral para rodar no preview.

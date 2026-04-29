@@ -1,0 +1,243 @@
+1️⃣ Arquitetura do Live Estimate
+
+A estrutura ideal da página é duas colunas.
+
+Layout:
+
+-----------------------------------------------------
+|                                                   |
+|   FORMULÁRIO INTELIGENTE        LIVE ESTIMATE     |
+|                                                   |
+|   Perguntas                    Estimated Range    |
+|   aparecem                     $4,200 — $5,800    |
+|   automaticamente                                |
+|                                                   |
+|   Botão NEXT                    Project Summary   |
+|                                                   |
+-----------------------------------------------------
+
+Esse painel nunca desaparece.
+
+2️⃣ Estrutura React da página
+
+Arquivo:
+
+src/pages/Estimate.tsx
+
+Estrutura:
+
+<div className="grid grid-cols-2 gap-12">
+
+   <EstimateForm />
+
+   <EstimatePreview />
+
+</div>
+3️⃣ Estado central das respostas
+
+Criar estado global das respostas do formulário.
+
+const [answers, setAnswers] = useState({})
+
+Cada campo atualiza:
+
+setAnswers(prev => ({
+   ...prev,
+   projectType: value
+}))
+4️⃣ Recalcular estimate automaticamente
+
+Toda vez que respostas mudarem:
+
+useEffect(() => {
+
+const result = calculateEstimate(answers)
+
+setEstimate(result)
+
+}, [answers])
+
+Isso cria o efeito de atualização em tempo real.
+
+5️⃣ Painel lateral de estimate
+
+Componente:
+
+src/components/EstimatePreview.tsx
+
+Código:
+
+export default function EstimatePreview({ estimate, region }){
+
+const currency = region === "USA" ? "$" : "R$"
+
+return(
+
+<div className="estimate-panel">
+
+<h3>Estimated Project Range</h3>
+
+<p className="estimate-price">
+
+{currency} {estimate.min} — {currency} {estimate.max}
+
+</p>
+
+</div>
+
+)
+
+}
+6️⃣ Melhorar muito a UX (recomendado)
+
+Além do valor, mostrar resumo do projeto.
+
+Exemplo:
+
+Project Summary
+
+Project Type
+Deck
+
+Size
+350 sqft
+
+Deliverables
+Construction Drawings
+3D Visualization
+
+Isso aumenta confiança do cliente.
+
+7️⃣ Algoritmo de estimate com range
+
+Em vez de número único, usar range.
+
+Arquivo:
+
+estimateCalculator.ts
+export function calculateEstimate(data){
+
+let base = 0
+
+if(data.projectType === "deck")
+base = 1200
+
+if(data.projectType === "addition")
+base = 4500
+
+if(data.projectType === "new_home")
+base = 7500
+
+let complexityFactor = 1
+
+if(data.size === "medium")
+complexityFactor = 1.3
+
+if(data.size === "large")
+complexityFactor = 1.7
+
+const price = base * complexityFactor
+
+return {
+
+min: Math.round(price * 0.9),
+
+max: Math.round(price * 1.25)
+
+}
+
+}
+8️⃣ Mostrar progresso do estimate
+
+Outra técnica que aumenta conversão:
+
+Estimate Confidence
+
+Low
+Medium
+High
+
+Quando o cliente responde mais perguntas → confiança aumenta.
+
+9️⃣ Mostrar aviso profissional
+
+Para evitar problemas legais:
+
+This estimate is a rough range based on initial project information.
+Final pricing may vary depending on scope and complexity.
+🔟 Botão final de conversão
+
+Depois do estimate:
+
+Generate Detailed Proposal
+
+ou
+
+Request Full Proposal
+11️⃣ Lead é criado automaticamente
+
+Quando o cliente clica:
+
+Submit Estimate
+
+executa:
+
+createLead({
+answers,
+estimate,
+region
+})
+
+Esse lead vai para:
+
+ADMIN → Leads
+12️⃣ Estrutura final do Lead
+
+No seu CRM:
+
+Lead
+
+Client
+Project Type
+Project Size
+Location
+Region
+
+Estimated Range
+
+Status
+New Lead
+13️⃣ Estrutura da pasta ADMIN
+Admin
+
+Dashboard
+Leads
+Projects
+Proposals
+Kanban
+Clients
+14️⃣ UX final para o cliente
+
+Experiência real:
+
+Cliente abre "Solicitar Orçamento"
+
+↓
+Seleciona região
+
+↓
+Responde perguntas
+
+↓
+Estimate muda em tempo real
+
+↓
+Confiança aumenta
+
+↓
+Clica
+
+Generate Proposal
+
+↓
+Lead criado automaticamente

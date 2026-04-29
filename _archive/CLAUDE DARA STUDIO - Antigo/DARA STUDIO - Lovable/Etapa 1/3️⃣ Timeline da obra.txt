@@ -1,0 +1,164 @@
+I want to implement a full Project Timeline feature inside each project.
+
+The goal is to create a chronological feed where all project activities are recorded and visible to admins, clients, and team members.
+
+This timeline should function as the central activity history of the project.
+
+IMPORTANT:
+Do NOT delete or modify any existing tables or data. This feature must integrate with the current system safely.
+
+---
+
+FEATURE NAME
+
+Project Timeline
+
+Location in the system:
+
+Project → Timeline
+
+This timeline will act as the project's activity feed.
+
+---
+
+TIMELINE PURPOSE
+
+The timeline must show all important events related to the project in chronological order.
+
+Examples of events:
+
+Project created
+New document uploaded
+Drawing uploaded
+Contract signed
+Invoice issued
+Payment received
+Construction update posted
+Client message sent
+Milestone completed
+
+---
+
+TIMELINE EVENT STRUCTURE
+
+Each timeline event should display:
+
+Event icon
+User who triggered the event
+Event description
+Related project
+Timestamp
+
+Example:
+
+📄 Drawing uploaded by Admin – Floor Plan v2
+💰 Payment received – $4,000
+📷 Construction update added – Framing progress
+📝 Client comment added
+
+---
+
+DATABASE STRUCTURE
+
+Create a new table named:
+
+project_timeline
+
+Fields:
+
+id
+project_id
+event_type
+description
+user_id
+related_entity_id
+created_at
+
+The timeline should link to existing objects when possible.
+
+Examples:
+
+documents
+drawings
+payments
+contracts
+site_updates
+messages
+
+---
+
+AUTOMATIC EVENTS
+
+The system should automatically create timeline entries when important actions occur.
+
+Examples:
+
+When a project is created
+When a document is uploaded
+When a payment is recorded
+When a contract is signed
+When a site update is posted
+
+---
+
+MANUAL TIMELINE POSTS
+
+Admins and team members should also be able to add manual timeline posts.
+
+Example:
+
+“Concrete inspection completed today.”
+
+These posts should support:
+
+Text
+Optional photo upload
+
+---
+
+TIMELINE DESIGN
+
+The UI should resemble a modern activity feed.
+
+Design requirements:
+
+Vertical timeline layout
+Event icons
+Clean cards
+Clear timestamps
+Media preview when available
+
+Newest events appear at the top.
+
+---
+
+PROJECT INTEGRATION
+
+The timeline should automatically integrate with other modules such as:
+
+Documents
+Drawings
+Payments
+Contracts
+Site Updates
+Messages
+
+When activity occurs in those modules, it should appear in the timeline automatically.
+
+---
+
+FILTER OPTIONS
+
+Allow filtering timeline events by:
+
+All activity
+Financial events
+Documents
+Construction updates
+Messages
+
+---
+
+FINAL GOAL
+
+The timeline should become the central history of the project so that anyone can instantly understand everything that has happened in the project from beginning to completion.

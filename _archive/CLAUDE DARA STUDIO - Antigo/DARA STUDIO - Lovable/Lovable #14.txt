@@ -1,0 +1,15 @@
+Fazer um "esquema" que eu consiga mover os card, por exemplo, criei um projeto, mas crie na empresa errada, quero que eu tenha a opção de arrastar e fixar na empresa correta
+
+Colocar a aba "valor total" depois do "final 50%"
+
+Em edição de projeto - "endereço" - preciso tirar o botão "copia da empresa", pois não precisa.
+
+Adicionar nos card o dia em que a empresa me pagou, pode ser depois da aba "valor total", porque ai eu sei quando que a empresa fez o pagamento final do projeto, e isso tambem podemos incluir na "edição de projetos" - "datas & notas" - ou em "financeiros"~
+
+
+COLOCAR BOTOES COLORIDOS EM "PROJETOS E FINANCEIROS"
+LEMBRAR QUE NO FINAL DE TUDO TEMOS QUE TER O SITE EM PT E INGLES
+SEPARAR PROJETOS POR MES E ANOS, POIS DEPOIS QUERO FAZER UM APANHADO GERAL DE QUANTO ENTROU.
+
+
+

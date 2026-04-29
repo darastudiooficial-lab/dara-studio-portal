@@ -1,0 +1,148 @@
+Estrutura do Kanban para arquitetura
+Colunas recomendadas:
+Leads
+Estimate Sent
+Approved
+In Progress
+Preview Sent
+Revision
+Final Delivery
+Completed
+On Hold
+
+
+Campo necessário no banco
+Na tabela projects adicione:
+status
+
+Valores possíveis:
+lead
+estimate_sent
+approved
+in_progress
+preview_sent
+revision
+final_delivery
+completed
+on_hold
+
+
+Automação com as datas que você já criou
+Exemplo de regra automática:
+Campo preenchido	Status automático
+preview_delivery	preview_sent
+revision_return	revision
+final_delivery	final_delivery
+deadline + entregue	completed
+
+Exemplo de lógica:
+if preview_delivery != null → preview_sent
+if revision_return != null → revision
+if final_delivery != null → final_delivery
+
+
+Estrutura do Kanban no frontend
+Crie nova página:
+src/pages/admin/ProjectsBoard.tsx
+
+
+Código Kanban (copiar no Lovable)
+Este é um Kanban simples e funcional.
+
+import { useEffect, useState } from "react"
+import { supabase } from "@/services/supabase/client"
+
+const columns = [
+  "lead",
+  "estimate_sent",
+  "approved",
+  "in_progress",
+  "preview_sent",
+  "revision",
+  "final_delivery",
+  "completed"
+]
+
+export default function ProjectsBoard() {
+
+  const [projects,setProjects] = useState([])
+
+  useEffect(()=>{
+    fetchProjects()
+  },[])
+
+  const fetchProjects = async () => {
+
+    const {data,error} = await supabase
+      .from("projects")
+      .select("*")
+
+    if(!error){
+      setProjects(data)
+    }
+
+  }
+
+  return (
+
+    <div className="p-6">
+
+      <h1 className="text-xl font-bold mb-6">
+        Projects Board
+      </h1>
+
+      <div className="grid grid-cols-4 gap-4">
+
+        {columns.map(status => (
+
+          <div
+            key={status}
+            className="bg-gray-100 rounded-lg p-3"
+          >
+
+            <h2 className="font-semibold mb-3 capitalize">
+              {status.replace("_"," ")}
+            </h2>
+
+            {projects
+              .filter(p => p.status === status)
+              .map(project => (
+
+                <div
+                  key={project.id}
+                  className="bg-white p-3 rounded shadow mb-2"
+                >
+
+                  <div className="font-medium">
+                    {project.name}
+                  </div>
+
+                  <div className="text-sm text-gray-500">
+                    Deadline: {project.deadline}
+                  </div>
+
+                </div>
+
+              ))
+            }
+
+          </div>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  )
+
+}
+
+
+Conectar ao menu admin
+No App.tsx adicione:
+import ProjectsBoard from "./pages/admin/ProjectsBoard"
+E a rota:
+<Route path="/admin/projects-board" element={<ProjectsBoard />} />
+
+Cada projeto aparece automaticamente na coluna correta.

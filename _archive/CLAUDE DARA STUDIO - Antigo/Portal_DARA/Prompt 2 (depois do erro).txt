@@ -1,0 +1,17 @@
+Como Arquiteto de Software, precisamos organizar a estrutura de rotas (Routing) do nosso aplicativo React/Vite para que o novo "Estimator Wizard" público não interfira no "Admin Portal" que já construímos.
+Por favor, crie ou atualize o arquivo de roteamento principal (ex: `App.jsx` ou `Router.jsx` usando `react-router-dom`) para implementar a seguinte arquitetura de pastas e acessos:
+1. ESTRUTURA DE ROTAS
+Crie três grandes áreas isoladas:
+- Rota Pública (`/`): A Landing Page de apresentação rápida da DARA Studio.
+- Rota do Formulário (`/estimate`): Onde o componente `EstimateWizard` (que estamos construindo) será renderizado.
+- Rotas Privadas Admin (`/admin/*`): Onde o nosso painel interno atual vai morar.
+- Rotas Privadas Cliente (`/portal/*`): Onde o portal do cliente vai morar.
+2. A PÁGINA DE APRESENTAÇÃO (Landing Page Placeholder)
+- Crie um componente super simples chamado `LandingPageView` para a rota `/`.
+- Ele deve ter apenas um Hero Banner elegante escuro com o logo da DARA Studio, uma breve frase de impacto (ex: "Elevating Architectural Design") e dois botões centrais:
+  a) "Get an Estimate" (Leva para `/estimate`).
+  b) "Client Login" (Leva para a tela de login do `/portal`).
+3. LÓGICA DE INTEGRAÇÃO (O "Submit" do Form)
+- No componente do `EstimateWizard` (na Etapa 9), adicione a lógica simulada no botão "Accept & Continue".
+- Ao clicar, use o `useNavigate` do React Router para redirecionar o usuário para a rota `/portal` (simulando que a conta foi criada e ele foi enviado para a área logada).
+Por favor, forneça o código dessa estrutura de roteamento e do componente `LandingPageView` simples. Certifique-se de instruir claramente que os componentes antigos do Admin devem apenas ser importados para dentro da rota `/admin`, mantendo todo o trabalho anterior intacto.

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DARA Admin — Preview Completo</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#080808;display:flex;align-items:flex-start;justify-content:center;padding:24px;min-height:100vh}
+:root{
+  --bg:#0c0c0c;--surface:#141414;--elevated:#1c1c1c;--card:#181818;
+  --border:#242424;--border-h:#333;
+  --tx1:#efefef;--tx2:#888;--txm:#444;
+  --purple:#a78bfa;--purple-d:rgba(167,139,250,0.1);
+  --green:#34d399;--green-d:rgba(52,211,153,0.1);
+  --amber:#fbbf24;--amber-d:rgba(251,191,36,0.1);
+  --red:#f87171;--red-d:rgba(248,113,113,0.1);
+  --blue:#60a5fa;--blue-d:rgba(96,165,250,0.1);
+  --teal:#2dd4bf;--teal-d:rgba(45,212,191,0.1);
+}
+.shell{display:flex;height:820px;background:var(--bg);border-radius:14px;overflow:hidden;border:1px solid var(--border);width:100%;max-width:1180px;box-shadow:0 0 0 1px #000,0 40px 80px rgba(0,0,0,.6)}
+.sidebar{width:216px;min-width:216px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 12px}
+.logo-wrap{padding:2px 10px 20px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.logo-mark{font-size:15px;font-weight:700;color:var(--tx1);letter-spacing:-.03em}
+.logo-sub{font-size:10px;color:var(--txm);margin-left:8px;text-transform:uppercase;letter-spacing:.1em}
+.nav-group{font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.1em;padding:10px 10px 5px;font-weight:500}
+.nav{display:flex;flex-direction:column;gap:1px}
+.ni{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;font-size:12.5px;cursor:pointer;color:var(--tx2);transition:all .15s;user-select:none;border:1px solid transparent}
+.ni:hover{background:var(--elevated);color:var(--tx1)}
+.ni.active{background:var(--elevated);color:var(--tx1);font-weight:500;border-color:var(--border)}
+.ni-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.sb-bottom{border-top:1px solid var(--border);padding-top:12px;margin-top:auto;display:flex;flex-direction:column;gap:1px}
+.user-pill{margin-top:10px;padding:9px 10px;border-radius:8px;background:var(--elevated);border:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.user-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;flex-shrink:0}
+.user-email{font-size:11px;color:var(--tx2)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0}
+.page-title{font-size:14px;font-weight:500;color:var(--tx1)}
+.page-sub{font-size:11px;color:var(--txm);margin-top:1px}
+.topbar-btn{background:var(--elevated);border:1px solid var(--border);border-radius:7px;padding:5px 12px;color:var(--tx2);font-size:11px;cursor:pointer;transition:all .15s;font-family:inherit}
+.topbar-btn:hover{color:var(--tx1);border-color:var(--border-h)}
+.content{flex:1;overflow-y:auto;padding:24px}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.page{display:none}.page.active{display:block}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi-accent{position:absolute;top:0;left:0;right:0;height:2px}
+.kpi-label{font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:500}
+.kpi-val{font-size:26px;font-weight:600;color:var(--tx1);line-height:1;letter-spacing:-.02em}
+.kpi-sub{font-size:11px;color:var(--tx2);margin-top:6px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:18px 20px}
+.card-title{font-size:10px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.af-item{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--border)}
+.af-item:last-child{border-bottom:none}
+.af-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.af-desc{font-size:12.5px;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.af-meta{font-size:11px;color:var(--txm)}
+.sbar{display:flex;flex-direction:column;gap:10px}
+.sbar-row{display:flex;align-items:center;gap:10px}
+.sbar-left{display:flex;align-items:center;gap:8px;min-width:90px}
+.sbar-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sbar-lbl{font-size:12px;color:var(--tx2)}
+.sbar-track{flex:1;height:3px;background:var(--border);border-radius:3px;overflow:hidden}
+.sbar-fill{height:100%;border-radius:3px}
+.sbar-num{font-size:12px;color:var(--tx1);font-weight:500;min-width:18px;text-align:right}
+.tbl{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden}
+.tbl-head{display:grid;gap:10px;padding:9px 18px;border-bottom:1px solid var(--border)}
+.tbl-th{font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.07em;font-weight:500}
+.tbl-row{display:grid;gap:10px;padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.tbl-row:last-child{border-bottom:none}
+.tbl-row:hover{background:var(--elevated)}
+.tbl-name{font-size:13px;font-weight:500;color:var(--tx1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbl-sub{font-size:11px;color:var(--txm);margin-top:1px}
+.tbl-td{font-size:12.5px;color:var(--tx2)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:500;white-space:nowrap}
+.bdot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+.toolbar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txm);font-size:13px;pointer-events:none}
+.search-inp{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px 7px 28px;color:var(--tx1);font-size:12.5px;outline:none;transition:border-color .15s;width:220px;font-family:inherit}
+.search-inp:focus{border-color:var(--border-h)}
+.pills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{padding:4px 11px;border-radius:20px;font-size:11.5px;cursor:pointer;border:1px solid var(--border);color:var(--tx2);background:transparent;transition:all .15s}
+.pill.active,.pill:hover{border-color:var(--border-h);background:var(--elevated);color:var(--tx1)}
+.pill.active{font-weight:500}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:22px}
+.tab-btn{padding:8px 16px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--tx2);font-size:13px;cursor:pointer;transition:all .15s;margin-bottom:-1px;font-family:inherit}
+.tab-btn.active{border-bottom-color:var(--tx1);color:var(--tx1);font-weight:500}
+.proj-header{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:20px 24px;margin-bottom:22px}
+.breadcrumb{font-size:11px;color:var(--txm);margin-bottom:12px;cursor:pointer;display:inline-block}
+.breadcrumb:hover{color:var(--tx2)}
+.proj-title{font-size:19px;font-weight:500;color:var(--tx1);margin-bottom:5px;letter-spacing:-.01em}
+.proj-client{font-size:13px;color:var(--tx2)}
+.proj-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.proj-chip{font-size:11px;padding:2px 9px;border-radius:20px;background:var(--elevated);color:var(--tx2);border:1px solid var(--border)}
+.tl-form{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;gap:8px;align-items:flex-end;margin-bottom:22px}
+.tl-textarea{flex:1;background:transparent;border:none;outline:none;resize:none;color:var(--tx1);font-size:12.5px;font-family:inherit;line-height:1.5}
+.tl-textarea::placeholder{color:var(--txm)}
+.tl-submit{background:var(--tx1);color:var(--bg);border:none;border-radius:7px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit}
+.tl-list{position:relative}
+.tl-line{position:absolute;left:7px;top:8px;bottom:8px;width:1px;background:var(--border)}
+.tl-event{display:flex;gap:14px;padding-bottom:18px}
+.tl-dot{width:15px;height:15px;border-radius:50%;flex-shrink:0;margin-top:2px;z-index:1;border:2px solid var(--bg)}
+.tl-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px}
+.tl-desc{font-size:12.5px;color:var(--tx1);line-height:1.4;margin-bottom:4px}
+.tl-time{font-size:10.5px;color:var(--txm)}
+.tl-type{font-size:10px;padding:1px 7px;border-radius:20px;float:right}
+.kanban{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.k-col{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.k-col-head{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.k-col-bar{width:3px;height:14px;border-radius:2px;flex-shrink:0}
+.k-col-title{font-size:12px;font-weight:500;color:var(--tx2)}
+.k-col-count{font-size:10px;padding:1px 6px;border-radius:20px;margin-left:auto}
+.k-body{padding:10px;display:flex;flex-direction:column;gap:8px}
+.k-task{background:var(--elevated);border:1px solid var(--border);border-radius:8px;padding:10px 11px;display:flex;gap:9px;align-items:flex-start}
+.k-check{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border-h);flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .15s}
+.k-check.done{background:var(--green);border-color:var(--green);color:var(--bg)}
+.k-task-title{font-size:12px;font-weight:500;color:var(--tx1);line-height:1.4}
+.k-task-title.done{color:var(--txm);text-decoration:line-through}
+.k-task-meta{display:flex;gap:6px;margin-top:5px}
+.k-pri{font-size:10px;padding:1px 6px;border-radius:20px}
+.pay-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.pay-mini{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px}
+.pay-mini-label{font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.pay-mini-val{font-size:18px;font-weight:600;letter-spacing:-.02em}
+.pay-bar-wrap{margin-bottom:18px}
+.pay-bar-track{height:4px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:5px}
+.pay-bar-fill{height:100%;background:var(--green);border-radius:4px}
+.pay-pct{font-size:11px;color:var(--txm)}
+.pay-row{display:grid;grid-template-columns:80px 1fr 90px 80px;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center}
+.pay-row:last-child{border-bottom:none}
+.ms-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.ms-item:last-child{border-bottom:none}
+.ms-bar{width:3px;align-self:stretch;border-radius:2px;flex-shrink:0}
+.ms-info{flex:1;min-width:0}
+.ms-name{font-size:13px;font-weight:500;color:var(--tx1)}
+.ms-proj{font-size:11px;color:var(--txm);margin-top:1px}
+.ms-date{font-size:11.5px;color:var(--txm);flex-shrink:0}
+.ms-amt{font-size:13px;font-weight:500;color:var(--tx1);min-width:80px;text-align:right;flex-shrink:0}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none}
+.drawer-overlay.open{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:380px;background:var(--surface);border-left:1px solid var(--border);z-index:101;overflow-y:auto;padding:24px;transform:translateX(100%);transition:transform .25s ease}
+.drawer.open{transform:translateX(0)}
+.drawer::-webkit-scrollbar{width:4px}
+.drawer::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.drawer-close{background:transparent;border:none;color:var(--tx2);font-size:18px;cursor:pointer;padding:2px 6px;border-radius:5px;transition:all .15s;line-height:1}
+.drawer-close:hover{background:var(--elevated);color:var(--tx1)}
+.drawer-name{font-size:17px;font-weight:500;color:var(--tx1);margin-bottom:4px;letter-spacing:-.01em}
+.drawer-email{font-size:12.5px;color:var(--txm);margin-bottom:20px}
+.d-section{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.d-section-title{font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.08em;font-weight:500;margin-bottom:12px}
+.drow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)}
+.drow:last-child{border-bottom:none}
+.drow-label{font-size:12px;color:var(--txm)}
+.drow-val{font-size:12px;color:var(--tx1);text-align:right}
+.emp-card{background:var(--elevated);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.emp-card:last-child{margin-bottom:0}
+.emp-name{font-size:13px;font-weight:500;color:var(--tx1);margin-bottom:2px}
+.emp-role{font-size:11px;color:var(--txm);margin-bottom:5px}
+.emp-email{font-size:11.5px;color:var(--blue)}
+.leads-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:13px}
+.lead-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px 17px;display:flex;flex-direction:column;gap:9px;transition:border-color .15s}
+.lead-card:hover{border-color:var(--border-h)}
+.lead-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.lead-name{font-size:13.5px;font-weight:500;color:var(--tx1)}
+.lead-co{font-size:11px;color:var(--txm);margin-top:1px}
+.lead-date{font-size:11px;color:var(--txm);flex-shrink:0}
+.lead-contact{display:flex;gap:12px;flex-wrap:wrap}
+.lead-email{font-size:12px;color:var(--blue)}
+.lead-phone{font-size:12px;color:var(--tx2)}
+.lead-tags{display:flex;gap:7px;flex-wrap:wrap}
+.lead-svc{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--elevated);border:1px solid var(--border);color:var(--tx2)}
+.lead-budget{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--purple-d);color:var(--purple)}
+.lead-msg{font-size:12px;color:var(--tx2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lead-footer{display:flex;align-items:center;justify-content:space-between}
+.lead-select{background:var(--elevated);border:1px solid var(--border);border-radius:6px;color:var(--tx2);font-size:11px;padding:3px 7px;outline:none;cursor:pointer;font-family:inherit}
+.act-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.act-item:last-child{border-bottom:none}
+.act-icon{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.act-body{flex:1;min-width:0}
+.act-desc{font-size:13px;color:var(--tx1);font-weight:500;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.act-proj{font-size:11.5px;color:var(--tx2);margin-bottom:2px}
+.act-time{font-size:11px;color:var(--txm)}
+.act-tag{font-size:10px;padding:2px 8px;border-radius:20px;flex-shrink:0;align-self:center;margin-left:auto}
+.settings-layout{display:grid;grid-template-columns:180px 1fr;gap:20px}
+.settings-nav{display:flex;flex-direction:column;gap:1px}
+.s-ni{padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;color:var(--tx2);transition:all .15s}
+.s-ni:hover{background:var(--elevated);color:var(--tx1)}
+.s-ni.active{background:var(--elevated);color:var(--tx1);font-weight:500}
+.s-panel{display:none}.s-panel.active{display:block}
+.s-section{background:var(--card);border:1px solid var(--border);border-radius:11px;margin-bottom:16px;overflow:hidden}
+.s-section-head{padding:14px 20px;border-bottom:1px solid var(--border)}
+.s-section-title{font-size:13px;font-weight:500;color:var(--tx1)}
+.s-section-sub{font-size:11.5px;color:var(--txm);margin-top:2px}
+.s-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;border-bottom:1px solid var(--border)}
+.s-row:last-child{border-bottom:none}
+.s-row-label{font-size:13px;color:var(--tx1);font-weight:500}
+.s-row-sub{font-size:11.5px;color:var(--txm);margin-top:2px}
+.s-inp{background:var(--elevated);border:1px solid var(--border);border-radius:7px;padding:7px 12px;color:var(--tx1);font-size:12.5px;outline:none;width:240px;font-family:inherit;transition:border-color .15s}
+.s-inp:focus{border-color:var(--border-h)}
+.s-btn{background:var(--elevated);border:1px solid var(--border);border-radius:7px;padding:7px 14px;color:var(--tx1);font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.s-btn:hover{border-color:var(--border-h)}
+.s-btn.primary{background:var(--tx1);color:var(--bg);border-color:var(--tx1)}
+.s-btn.danger{color:var(--red);border-color:rgba(248,113,113,.3);background:var(--red-d)}
+.toggle{position:relative;width:36px;height:20px;flex-shrink:0;display:block}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.t-track{position:absolute;inset:0;background:var(--border-h);border-radius:20px;cursor:pointer;transition:background .2s}
+.toggle input:checked+.t-track{background:var(--green)}
+.t-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .2s;pointer-events:none}
+.toggle input:checked~.t-thumb{transform:translateX(16px)}
+.foot-count{font-size:11px;color:var(--txm);margin-top:12px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <span class="logo-mark">DARA</span>
+      <span class="logo-sub">admin</span>
+    </div>
+    <div class="nav-group">Menu</div>
+    <div class="nav" id="main-nav">
+      <div class="ni active" data-page="dashboard"><span class="ni-icon">▦</span>Dashboard</div>
+      <div class="ni" data-page="projects"><span class="ni-icon">◫</span>Projetos</div>
+      <div class="ni" data-page="payments"><span class="ni-icon">◈</span>Pagamentos</div>
+    </div>
+    <div class="nav-group">CRM</div>
+    <div class="nav">
+      <div class="ni" data-page="companies"><span class="ni-icon">◉</span>Empresas</div>
+      <div class="ni" data-page="leads"><span class="ni-icon">◎</span>Leads</div>
+    </div>
+    <div class="nav-group">Sistema</div>
+    <div class="nav">
+      <div class="ni" data-page="activity"><span class="ni-icon">◌</span>Atividade</div>
+      <div class="ni" data-page="settings"><span class="ni-icon">⊙</span>Configurações</div>
+    </div>
+    <div class="sb-bottom">
+      <div class="ni"><span class="ni-icon">↩</span>Sair</div>
+      <div class="user-pill">
+        <div class="user-avatar">AD</div>
+        <span class="user-email">admin@darastudio.com</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="page-title" id="page-title">Dashboard</div>
+        <div class="page-sub" id="page-sub">segunda-feira, 6 de abril de 2026</div>
+      </div>
+      <button class="topbar-btn" id="refresh-btn">↺ Atualizar</button>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-label">Total de projetos</div><div class="kpi-val">13</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--green)"></div><div class="kpi-label">Projetos ativos</div><div class="kpi-val">5</div><div class="kpi-sub">38% do total</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--blue)"></div><div class="kpi-label">Receita recebida</div><div class="kpi-val" style="font-size:20px">R$ 14.280</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-label">Pag. pendentes</div><div class="kpi-val">3</div><div class="kpi-sub" style="color:var(--amber)">Requer atenção</div></div>
+        </div>
+        <div class="two-col">
+          <div class="card">
+            <div class="card-title">Atividade recente</div>
+            <div class="af-item"><div class="af-dot" style="background:var(--purple)"></div><div><div class="af-desc">Estimate Created – Mar 19</div><div class="af-meta">Timeline · 19 mar, 09:47</div></div></div>
+            <div class="af-item"><div class="af-dot" style="background:var(--blue)"></div><div><div class="af-desc">Pagamento registrado – Casa Ipanema</div><div class="af-meta">Pagamento · 22 mar, 10:05</div></div></div>
+            <div class="af-item"><div class="af-dot" style="background:var(--green)"></div><div><div class="af-desc">Status atualizado – Ativo</div><div class="af-meta">Status · 21 mar, 14:30</div></div></div>
+            <div class="af-item"><div class="af-dot" style="background:var(--amber)"></div><div><div class="af-desc">Nota adicionada – Reunião com cliente</div><div class="af-meta">Nota · 23 mar, 16:26</div></div></div>
+            <div class="af-item"><div class="af-dot" style="background:var(--teal)"></div><div><div class="af-desc">Novo lead recebido – Ana Lima</div><div class="af-meta">Lead · 06 abr, 09:05</div></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Projetos por status</div>
+            <div class="sbar">
+              <div class="sbar-row"><div class="sbar-left"><div class="sbar-dot" style="background:var(--green)"></div><span class="sbar-lbl">Ativo</span></div><div class="sbar-track"><div class="sbar-fill" style="width:38%;background:var(--green)"></div></div><span class="sbar-num">5</span></div>
+              <div class="sbar-row"><div class="sbar-left"><div class="sbar-dot" style="background:var(--purple)"></div><span class="sbar-lbl">Concluído</span></div><div class="sbar-track"><div class="sbar-fill" style="width:23%;background:var(--purple)"></div></div><span class="sbar-num">3</span></div>
+              <div class="sbar-row"><div class="sbar-left"><div class="sbar-dot" style="background:var(--amber)"></div><span class="sbar-lbl">Proposta</span></div><div class="sbar-track"><div class="sbar-fill" style="width:23%;background:var(--amber)"></div></div><span class="sbar-num">3</span></div>
+              <div class="sbar-row"><div class="sbar-left"><div class="sbar-dot" style="background:var(--blue)"></div><span class="sbar-lbl">Lead</span></div><div class="sbar-track"><div class="sbar-fill" style="width:15%;background:var(--blue)"></div></div><span class="sbar-num">2</span></div>
+              <div class="sbar-row"><div class="sbar-left"><div class="sbar-dot" style="background:var(--txm)"></div><span class="sbar-lbl">Outros</span></div><div class="sbar-track"><div class="sbar-fill" style="width:15%;background:var(--border-h)"></div></div><span class="sbar-num">2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="page" id="page-projects">
+        <div class="toolbar">
+          <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-inp" id="proj-search" placeholder="Buscar projeto..."></div>
+          <div class="pills" id="proj-pills">
+            <span class="pill active" data-pf="all">Todos</span>
+            <span class="pill" data-pf="active">Ativos</span>
+            <span class="pill" data-pf="proposal">Proposta</span>
+            <span class="pill" data-pf="completed">Concluídos</span>
+            <span class="pill" data-pf="lead">Leads</span>
+          </div>
+        </div>
+        <div class="tbl">
+          <div class="tbl-head" style="grid-template-columns:1fr 150px 100px 90px">
+            <span class="tbl-th">Projeto</span><span class="tbl-th">Cliente</span><span class="tbl-th">Criado em</span><span class="tbl-th">Status</span>
+          </div>
+          <div id="proj-rows"></div>
+        </div>
+        <div class="foot-count" id="proj-count"></div>
+      </div>
+
+      <!-- PROJECT DETAIL -->
+      <div class="page" id="page-project-detail">
+        <div class="proj-header">
+          <span class="breadcrumb" onclick="navTo('projects')">← Projetos</span>
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div><div class="proj-title" id="pd-name">Casa Ipanema – Reforma Completa</div><div class="proj-client" id="pd-client">Ana Souza · ana.souza@email.com</div></div>
+            <span class="badge" id="pd-badge" style="background:var(--green-d);color:var(--green);flex-shrink:0;margin-top:4px"><span class="bdot" style="background:var(--green)"></span>Ativo</span>
+          </div>
+          <div class="proj-chips"><span class="proj-chip">Arquitetura de Interiores</span><span class="proj-chip">Projeto Executivo</span><span class="proj-chip">Acompanhamento de Obra</span></div>
+        </div>
+        <div class="tabs" id="pd-tabs">
+          <button class="tab-btn active" data-tab="tl">Timeline</button>
+          <button class="tab-btn" data-tab="tk">Tarefas</button>
+          <button class="tab-btn" data-tab="tp">Pagamentos</button>
+          <button class="tab-btn" data-tab="tf">Arquivos</button>
+        </div>
+        <div id="tab-tl">
+          <div class="tl-form"><textarea class="tl-textarea" placeholder="Adicionar nota à timeline..." rows="2"></textarea><button class="tl-submit">Adicionar</button></div>
+          <div class="tl-list">
+            <div class="tl-line"></div>
+            <div class="tl-event"><div class="tl-dot" style="background:var(--purple)"></div><div class="tl-card"><span class="tl-type" style="background:var(--purple-d);color:var(--purple)">Timeline</span><div class="tl-desc">Estimate Created – Proposta inicial enviada ao cliente para aprovação.</div><div class="tl-time">19 mar 2026, 09:47</div></div></div>
+            <div class="tl-event"><div class="tl-dot" style="background:var(--blue)"></div><div class="tl-card"><span class="tl-type" style="background:var(--blue-d);color:var(--blue)">Status</span><div class="tl-desc">Projeto aprovado. Contrato assinado digitalmente via Supabase Auth.</div><div class="tl-time">21 mar 2026, 14:30</div></div></div>
+            <div class="tl-event"><div class="tl-dot" style="background:var(--green)"></div><div class="tl-card"><span class="tl-type" style="background:var(--green-d);color:var(--green)">Pagamento</span><div class="tl-desc">Entrada recebida – R$ 1.164 via Stripe. Fee: 0%.</div><div class="tl-time">22 mar 2026, 10:05</div></div></div>
+            <div class="tl-event"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-card"><span class="tl-type" style="background:var(--amber-d);color:var(--amber)">Nota</span><div class="tl-desc">Reunião de briefing realizada. Paleta e materiais alinhados com cliente.</div><div class="tl-time">23 mar 2026, 16:26</div></div></div>
+          </div>
+        </div>
+        <div id="tab-tk" style="display:none">
+          <div style="margin-bottom:14px"><button class="s-btn" style="width:100%;text-align:left;border-style:dashed;color:var(--txm);font-size:12px">+ Nova tarefa</button></div>
+          <div class="kanban">
+            <div class="k-col">
+              <div class="k-col-head"><div class="k-col-bar" style="background:var(--amber)"></div><span class="k-col-title">Pendentes</span><span class="k-col-count" style="background:var(--amber-d);color:var(--amber)">3</span></div>
+              <div class="k-body">
+                <div class="k-task"><div class="k-check"></div><div><div class="k-task-title">Criar moodboard de referências</div><div class="k-task-meta"><span class="k-pri" style="background:var(--red-d);color:var(--red)">Alta</span></div></div></div>
+                <div class="k-task"><div class="k-check"></div><div><div class="k-task-title">Selecionar fornecedores de piso</div><div class="k-task-meta"><span class="k-pri" style="background:var(--amber-d);color:var(--amber)">Média</span></div></div></div>
+                <div class="k-task"><div class="k-check"></div><div><div class="k-task-title">Enviar proposta de iluminação</div><div class="k-task-meta"><span class="k-pri" style="background:var(--blue-d);color:var(--blue)">Baixa</span><span style="font-size:10px;color:var(--red)">⚠ vencida</span></div></div></div>
+              </div>
+            </div>
+            <div class="k-col">
+              <div class="k-col-head"><div class="k-col-bar" style="background:var(--green)"></div><span class="k-col-title">Concluídas</span><span class="k-col-count" style="background:var(--green-d);color:var(--green)">2</span></div>
+              <div class="k-body">
+                <div class="k-task" style="opacity:.5"><div class="k-check done">✓</div><div><div class="k-task-title done">Reunião inicial de briefing</div><div class="k-task-meta"><span class="k-pri" style="background:var(--amber-d);color:var(--amber)">Média</span></div></div></div>
+                <div class="k-task" style="opacity:.5"><div class="k-check done">✓</div><div><div class="k-task-title done">Assinar contrato com cliente</div><div class="k-task-meta"><span class="k-pri" style="background:var(--red-d);color:var(--red)">Alta</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab-tp" style="display:none">
+          <div class="pay-summary">
+            <div class="pay-mini"><div class="pay-mini-label">Contrato total</div><div class="pay-mini-val" style="color:var(--purple)">R$ 12.500</div></div>
+            <div class="pay-mini"><div class="pay-mini-label">Recebido</div><div class="pay-mini-val" style="color:var(--green)">R$ 2.328</div></div>
+          </div>
+          <div class="pay-bar-wrap"><div class="pay-bar-track"><div class="pay-bar-fill" style="width:18.6%"></div></div><div class="pay-pct">18% recebido</div></div>
+          <div class="tbl">
+            <div class="pay-row"><span class="tbl-td">Entrada</span><span style="font-size:13px;font-weight:500;color:var(--tx1)">R$ 1.164</span><span class="tbl-td">16/03/2026</span><span class="badge" style="background:var(--green-d);color:var(--green)"><span class="bdot" style="background:var(--green)"></span>Pago</span></div>
+            <div class="pay-row"><span class="tbl-td">Entrada</span><span style="font-size:13px;font-weight:500;color:var(--tx1)">R$ 1.164</span><span class="tbl-td">16/03/2026</span><span class="badge" style="background:var(--green-d);color:var(--green)"><span class="bdot" style="background:var(--green)"></span>Pago</span></div>
+            <div class="pay-row"><span class="tbl-td">Final</span><span style="font-size:13px;font-weight:500;color:var(--tx1)">R$ 10.172</span><span class="tbl-td">—</span><span class="badge" style="background:var(--amber-d);color:var(--amber)"><span class="bdot" style="background:var(--amber)"></span>Pendente</span></div>
+          </div>
+        </div>
+        <div id="tab-tf" style="display:none"><div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:40px;text-align:center"><p style="font-size:13px;color:var(--txm)">Nenhum arquivo anexado a este projeto ainda.</p></div></div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="page" id="page-payments">
+        <div class="three-col">
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--green)"></div><div class="kpi-label">Total recebido</div><div class="kpi-val" style="font-size:20px">R$ 14.280</div><div class="kpi-sub">4 pagamentos</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--blue)"></div><div class="kpi-label">Líquido (após Stripe)</div><div class="kpi-val" style="font-size:20px">R$ 13.780</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-label">Pendente</div><div class="kpi-val" style="font-size:20px">R$ 5.820</div><div class="kpi-sub" style="color:var(--amber)">3 em aberto</div></div>
+        </div>
+        <div class="tabs" id="pay-tabs">
+          <button class="tab-btn active" data-ptab="plist">Pagamentos (5)</button>
+          <button class="tab-btn" data-ptab="pms">Milestones (19)</button>
+        </div>
+        <div id="plist">
+          <div class="toolbar">
+            <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-inp" id="pay-search" placeholder="Buscar projeto..."></div>
+            <div class="pills" id="pay-pills">
+              <span class="pill active" data-payf="all">Todos</span>
+              <span class="pill" data-payf="paid">Pagos</span>
+              <span class="pill" data-payf="pending">Pendentes</span>
+            </div>
+          </div>
+          <div class="tbl">
+            <div class="tbl-head" style="grid-template-columns:1fr 90px 100px 100px 90px 90px">
+              <span class="tbl-th">Projeto</span><span class="tbl-th">Tipo</span><span class="tbl-th">Tabela</span><span class="tbl-th">Valor BRL</span><span class="tbl-th">Data</span><span class="tbl-th">Status</span>
+            </div>
+            <div id="pay-rows"></div>
+          </div>
+        </div>
+        <div id="pms" style="display:none">
+          <div class="tbl" style="padding:0 20px">
+            <div class="ms-item"><div class="ms-bar" style="background:var(--green)"></div><div class="ms-info"><div class="ms-name">Entry Payment (Lote A)</div><div class="ms-proj">Casa Ipanema</div></div><span class="ms-date">16/03/2026</span><span class="ms-amt">R$ 1.164</span><span class="badge" style="background:var(--green-d);color:var(--green)"><span class="bdot" style="background:var(--green)"></span>Pago</span></div>
+            <div class="ms-item"><div class="ms-bar" style="background:var(--red)"></div><div class="ms-info"><div class="ms-name">Entry Payment</div><div class="ms-proj">Duplex Itaim</div></div><span class="ms-date" style="color:var(--red)">⚠ 01/04/2026</span><span class="ms-amt">R$ 2.200</span><span class="badge" style="background:var(--red-d);color:var(--red)"><span class="bdot" style="background:var(--red)"></span>Em atraso</span></div>
+            <div class="ms-item"><div class="ms-bar" style="background:var(--amber)"></div><div class="ms-info"><div class="ms-name">Mid Payment</div><div class="ms-proj">Escritório Faria Lima</div></div><span class="ms-date">15/04/2026</span><span class="ms-amt">R$ 1.800</span><span class="badge" style="background:var(--amber-d);color:var(--amber)"><span class="bdot" style="background:var(--amber)"></span>Pendente</span></div>
+            <div class="ms-item"><div class="ms-bar" style="background:var(--amber)"></div><div class="ms-info"><div class="ms-name">Final Payment</div><div class="ms-proj">Residência Higienópolis</div></div><span class="ms-date">30/04/2026</span><span class="ms-amt">R$ 3.100</span><span class="badge" style="background:var(--amber-d);color:var(--amber)"><span class="bdot" style="background:var(--amber)"></span>Pendente</span></div>
+            <div class="ms-item"><div class="ms-bar" style="background:var(--green)"></div><div class="ms-info"><div class="ms-name">Entry Payment</div><div class="ms-proj">Apartamento Moema</div></div><span class="ms-date">14/03/2026</span><span class="ms-amt">R$ 2.200</span><span class="badge" style="background:var(--green-d);color:var(--green)"><span class="bdot" style="background:var(--green)"></span>Pago</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPANIES -->
+      <div class="page" id="page-companies">
+        <div class="toolbar">
+          <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-inp" id="co-search" placeholder="Nome, CNPJ, cidade..."></div>
+          <span style="font-size:12px;color:var(--txm)" id="co-count"></span>
+        </div>
+        <div class="tbl">
+          <div class="tbl-head" style="grid-template-columns:1fr 155px 120px 70px">
+            <span class="tbl-th">Empresa</span><span class="tbl-th">CNPJ</span><span class="tbl-th">Cidade</span><span class="tbl-th">UF</span>
+          </div>
+          <div id="co-rows"></div>
+        </div>
+        <div class="foot-count" id="co-foot"></div>
+      </div>
+
+      <!-- LEADS -->
+      <div class="page" id="page-leads">
+        <div class="kpi-grid" style="margin-bottom:22px">
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--purple)"></div><div class="kpi-label">Total de leads</div><div class="kpi-val">102</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--blue)"></div><div class="kpi-label">Este mês</div><div class="kpi-val">14</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--green)"></div><div class="kpi-label">Convertidos</div><div class="kpi-val">13</div></div>
+          <div class="kpi-card"><div class="kpi-accent" style="background:var(--amber)"></div><div class="kpi-label">Taxa de conversão</div><div class="kpi-val">12%</div></div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-inp" id="lead-search" placeholder="Nome, email, serviço..."></div>
+          <div class="pills" id="lead-pills">
+            <span class="pill active" data-lf="all">Todos 102</span>
+            <span class="pill" data-lf="new">Novos</span>
+            <span class="pill" data-lf="contacted">Contactados</span>
+            <span class="pill" data-lf="qualified">Qualificados</span>
+            <span class="pill" data-lf="converted">Convertidos</span>
+            <span class="pill" data-lf="lost">Perdidos</span>
+          </div>
+        </div>
+        <div class="leads-grid" id="lead-cards"></div>
+        <div class="foot-count" id="lead-count"></div>
+      </div>
+
+      <!-- ACTIVITY -->
+      <div class="page" id="page-activity">
+        <div class="toolbar">
+          <div class="pills" id="act-pills">
+            <span class="pill active" data-af="all">Todos</span>
+            <span class="pill" data-af="timeline_event">Timeline</span>
+            <span class="pill" data-af="payment">Pagamento</span>
+            <span class="pill" data-af="status_change">Status</span>
+            <span class="pill" data-af="note">Notas</span>
+          </div>
+        </div>
+        <div class="card" style="padding:0 20px">
+          <div id="act-list"></div>
+        </div>
+        <div class="foot-count" id="act-count"></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="page" id="page-settings">
+        <div class="settings-layout">
+          <div class="settings-nav" id="s-nav">
+            <div class="s-ni active" data-sp="studio">Studio</div>
+            <div class="s-ni" data-sp="account">Conta</div>
+            <div class="s-ni" data-sp="notif">Notificações</div>
+            <div class="s-ni" data-sp="integr">Integrações</div>
+            <div class="s-ni" data-sp="danger">Avançado</div>
+          </div>
+          <div>
+            <div class="s-panel active" id="sp-studio">
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Informações do Studio</div><div class="s-section-sub">Dados públicos e de contato.</div></div>
+                <div class="s-row"><div><div class="s-row-label">Nome do Studio</div></div><input class="s-inp" value="DARA Studio"></div>
+                <div class="s-row"><div><div class="s-row-label">E-mail de contato</div></div><input class="s-inp" type="email" value="contato@darastudio.com"></div>
+                <div class="s-row"><div><div class="s-row-label">Telefone</div></div><input class="s-inp" value="+55 11 99999-0000"></div>
+                <div class="s-row"><div><div class="s-row-label">Cidade</div></div><input class="s-inp" value="São Paulo, SP"></div>
+                <div class="s-row" style="justify-content:flex-end"><button class="s-btn primary">Salvar alterações</button></div>
+              </div>
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Preferências financeiras</div><div class="s-section-sub">Moeda e taxas padrão.</div></div>
+                <div class="s-row"><div><div class="s-row-label">Moeda padrão</div></div><select class="s-inp" style="width:auto"><option>BRL — Real Brasileiro</option><option>USD — Dólar</option></select></div>
+                <div class="s-row"><div><div class="s-row-label">Taxa Stripe padrão (%)</div></div><input class="s-inp" type="number" value="3.4" style="width:100px"></div>
+              </div>
+            </div>
+            <div class="s-panel" id="sp-account">
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Conta do administrador</div></div>
+                <div class="s-row"><div><div class="s-row-label">Nome</div></div><input class="s-inp" value="Admin DARA"></div>
+                <div class="s-row"><div><div class="s-row-label">E-mail</div></div><input class="s-inp" type="email" value="admin@darastudio.com"></div>
+                <div class="s-row" style="justify-content:flex-end"><button class="s-btn primary">Salvar</button></div>
+              </div>
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Segurança</div></div>
+                <div class="s-row"><div><div class="s-row-label">Senha</div><div class="s-row-sub">Última alteração: 15 jan 2026</div></div><button class="s-btn">Alterar senha</button></div>
+              </div>
+            </div>
+            <div class="s-panel" id="sp-notif">
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Notificações por e-mail</div></div>
+                <div class="s-row"><div><div class="s-row-label">Novo lead recebido</div><div class="s-row-sub">E-mail quando chegar um novo quote request.</div></div><label class="toggle"><input type="checkbox" checked><div class="t-track"></div><div class="t-thumb"></div></label></div>
+                <div class="s-row"><div><div class="s-row-label">Pagamento confirmado</div><div class="s-row-sub">Notificar quando pagamento for confirmado.</div></div><label class="toggle"><input type="checkbox" checked><div class="t-track"></div><div class="t-thumb"></div></label></div>
+                <div class="s-row"><div><div class="s-row-label">Milestone vencendo</div><div class="s-row-sub">Alertar 3 dias antes do vencimento.</div></div><label class="toggle"><input type="checkbox"><div class="t-track"></div><div class="t-thumb"></div></label></div>
+                <div class="s-row"><div><div class="s-row-label">Resumo semanal</div><div class="s-row-sub">Relatório toda segunda-feira.</div></div><label class="toggle"><input type="checkbox" checked><div class="t-track"></div><div class="t-thumb"></div></label></div>
+              </div>
+            </div>
+            <div class="s-panel" id="sp-integr">
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Supabase</div><div class="s-section-sub">Banco de dados e autenticação.</div></div>
+                <div class="s-row"><div><div class="s-row-label">URL do projeto</div></div><input class="s-inp" value="https://xxx.supabase.co" style="font-family:monospace;font-size:11.5px"></div>
+                <div class="s-row"><div><div class="s-row-label">Status</div></div><span class="badge" style="background:var(--green-d);color:var(--green)"><span class="bdot" style="background:var(--green)"></span>Conectado</span></div>
+              </div>
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Stripe</div><div class="s-section-sub">Processamento de pagamentos.</div></div>
+                <div class="s-row"><div><div class="s-row-label">Chave pública</div></div><input class="s-inp" value="pk_live_••••••••••••" style="font-family:monospace;font-size:11.5px"></div>
+                <div class="s-row"><div><div class="s-row-label">Status</div></div><span class="badge" style="background:var(--green-d);color:var(--green)"><span class="bdot" style="background:var(--green)"></span>Ativo</span></div>
+              </div>
+            </div>
+            <div class="s-panel" id="sp-danger">
+              <div class="s-section">
+                <div class="s-section-head"><div class="s-section-title">Zona de risco</div><div class="s-section-sub">Ações irreversíveis. Proceda com cautela.</div></div>
+                <div class="s-row"><div><div class="s-row-label">Exportar todos os dados</div><div class="s-row-sub">Gera CSV com todos os registros do sistema.</div></div><button class="s-btn">Exportar</button></div>
+                <div class="s-row"><div><div class="s-row-label" style="color:var(--red)">Limpar cache</div><div class="s-row-sub">Força revalidação de todos os dados.</div></div><button class="s-btn danger">Limpar cache</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Drawer -->
+<div class="drawer-overlay" id="d-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head"><span style="font-size:12px;color:var(--txm)">Detalhe da empresa</span><button class="drawer-close" onclick="closeDrawer()">✕</button></div>
+  <div id="drawer-body"></div>
+</div>
+
+<script>
+const SC={
+  active:    {l:'Ativo',      c:'var(--green)',  b:'var(--green-d)'},
+  proposal:  {l:'Proposta',   c:'var(--amber)',  b:'var(--amber-d)'},
+  completed: {l:'Concluído',  c:'var(--purple)', b:'var(--purple-d)'},
+  lead:      {l:'Lead',       c:'var(--blue)',   b:'var(--blue-d)'},
+  on_hold:   {l:'Em pausa',   c:'var(--amber)',  b:'var(--amber-d)'},
+  cancelled: {l:'Cancelado',  c:'var(--red)',    b:'var(--red-d)'},
+  paid:      {l:'Pago',       c:'var(--green)',  b:'var(--green-d)'},
+  pending:   {l:'Pendente',   c:'var(--amber)',  b:'var(--amber-d)'},
+  overdue:   {l:'Em atraso',  c:'var(--red)',    b:'var(--red-d)'},
+  new:       {l:'Novo',       c:'var(--blue)',   b:'var(--blue-d)'},
+  contacted: {l:'Contactado', c:'var(--teal)',   b:'var(--teal-d)'},
+  qualified: {l:'Qualificado',c:'var(--purple)', b:'var(--purple-d)'},
+  converted: {l:'Convertido', c:'var(--green)',  b:'var(--green-d)'},
+  lost:      {l:'Perdido',    c:'var(--red)',    b:'var(--red-d)'},
+};
+function badge(s){const c=SC[s]||{l:s,c:'var(--tx2)',b:'transparent'};return`<span class="badge" style="background:${c.b};color:${c.c}"><span class="bdot" style="background:${c.c}"></span>${c.l}</span>`;}
+
+const PI={
+  dashboard:{t:'Dashboard',s:'segunda-feira, 6 de abril de 2026'},
+  projects:{t:'Projetos',s:'13 projetos no total'},
+  'project-detail':{t:'Detalhe do Projeto',s:''},
+  payments:{t:'Pagamentos',s:'5 registros · 4 pagos'},
+  companies:{t:'Empresas',s:'86 cadastradas'},
+  leads:{t:'Leads',s:'102 quote requests · 12% conversão'},
+  activity:{t:'Atividade',s:'log completo do sistema'},
+  settings:{t:'Configurações',s:'DARA Studio'},
+};
+
+function navTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page)?.classList.add('active');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.ni[data-page="${page}"]`)?.classList.add('active');
+  const i=PI[page]||{t:page,s:''};
+  document.getElementById('page-title').textContent=i.t;
+  document.getElementById('page-sub').textContent=i.s;
+}
+
+document.querySelectorAll('.sidebar .ni[data-page]').forEach(el=>{
+  el.addEventListener('click',()=>navTo(el.dataset.page));
+});
+
+// --- PROJECTS ---
+const projects=[
+  {id:'p1',n:'Casa Ipanema – Reforma Completa',c:'Ana Souza',d:'16/03/2026',s:'active'},
+  {id:'p2',n:'Apartamento Moema – Interiores',c:'Carlos Lima',d:'14/03/2026',s:'active'},
+  {id:'p3',n:'Escritório Faria Lima',c:'Tech Corp',d:'10/03/2026',s:'proposal'},
+  {id:'p4',n:'Residência Higienópolis',c:'Beatriz Costa',d:'05/03/2026',s:'active'},
+  {id:'p5',n:'Cobertura Jardins',c:'Roberto Alves',d:'01/03/2026',s:'completed'},
+  {id:'p6',n:'Loft Vila Madalena',c:'Julia Ferreira',d:'22/02/2026',s:'lead'},
+  {id:'p7',n:'Casa Alphaville',c:'Marcos Pinto',d:'15/02/2026',s:'on_hold'},
+  {id:'p8',n:'Apartamento Pinheiros',c:'Fernanda Rocha',d:'10/02/2026',s:'active'},
+  {id:'p9',n:'Estúdio Brooklin',c:'Diego Santos',d:'03/02/2026',s:'proposal'},
+  {id:'p10',n:'Casa Campo Belo',c:'Patricia Nunes',d:'28/01/2026',s:'completed'},
+  {id:'p11',n:'Escritório Berrini',c:'FinTech SA',d:'20/01/2026',s:'active'},
+  {id:'p12',n:'Duplex Itaim',c:'Luciana Melo',d:'15/01/2026',s:'lead'},
+  {id:'p13',n:'Casa Perdizes',c:'André Carvalho',d:'08/01/2026',s:'cancelled'},
+];
+let pf='all',ps='';
+function renderProjects(){
+  const r=projects.filter(p=>(pf==='all'||p.s===pf)&&(!ps||p.n.toLowerCase().includes(ps.toLowerCase())));
+  document.getElementById('proj-rows').innerHTML=r.map(p=>`
+    <div class="tbl-row" style="grid-template-columns:1fr 150px 100px 90px" onclick="openProject('${p.id}','${p.n.replace(/'/g,"\\'")}','${p.c}','${p.s}')">
+      <div class="tbl-name">${p.n}</div>
+      <span class="tbl-td">${p.c}</span>
+      <span class="tbl-td">${p.d}</span>
+      ${badge(p.s)}
+    </div>`).join('');
+  document.getElementById('proj-count').textContent=`Exibindo ${r.length} de ${projects.length} projetos`;
+}
+document.getElementById('proj-search').addEventListener('input',e=>{ps=e.target.value;renderProjects();});
+document.getElementById('proj-pills').addEventListener('click',e=>{
+  const p=e.target.closest('[data-pf]');if(!p)return;
+  pf=p.dataset.pf;
+  document.querySelectorAll('#proj-pills .pill').forEach(x=>x.classList.remove('active'));
+  p.classList.add('active');renderProjects();
+});
+function openProject(id,name,client,status){
+  document.getElementById('pd-name').textContent=name;
+  document.getElementById('pd-client').textContent=client;
+  const s=SC[status]||SC.active;
+  const b=document.getElementById('pd-badge');
+  b.innerHTML=`<span class="bdot" style="background:${s.c}"></span>${s.l}`;
+  b.style.background=s.b;b.style.color=s.c;
+  switchPdTab('tl');navTo('project-detail');
+}
+document.getElementById('pd-tabs').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-tab]');if(!btn)return;
+  switchPdTab(btn.dataset.tab);
+});
+function switchPdTab(tab){
+  ['tl','tk','tp','tf'].forEach(t=>{document.getElementById('tab-'+t).style.display=t===tab?'block':'none';});
+  document.querySelectorAll('#pd-tabs .tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+}
+
+// --- PAYMENTS ---
+const payments=[
+  {proj:'Casa Ipanema',type:'Entrada',table:'W/ Stripe (1.515)',brl:'R$ 1.164',date:'16/03/2026',status:'paid'},
+  {proj:'Casa Ipanema',type:'Entrada',table:'W/ Stripe (1.515)',brl:'R$ 1.164',date:'16/03/2026',status:'paid'},
+  {proj:'Apartamento Moema',type:'Entrada',table:'W/ Stripe (1.515)',brl:'R$ 2.200',date:'14/03/2026',status:'paid'},
+  {proj:'Residência Higienópolis',type:'Final',table:'W/ Stripe (1.515)',brl:'R$ 3.100',date:'—',status:'pending'},
+  {proj:'Escritório Faria Lima',type:'Meio',table:'W/ Stripe (1.515)',brl:'R$ 1.800',date:'—',status:'paid'},
+];
+let payf='all',pays='';
+function renderPayments(){
+  const r=payments.filter(p=>(payf==='all'||p.status===payf)&&(!pays||p.proj.toLowerCase().includes(pays.toLowerCase())));
+  document.getElementById('pay-rows').innerHTML=r.map(p=>`
+    <div class="tbl-row" style="grid-template-columns:1fr 90px 100px 100px 90px 90px">
+      <div class="tbl-name">${p.proj}</div>
+      <span class="tbl-td">${p.type}</span>
+      <span class="tbl-td" style="font-size:11px">${p.table}</span>
+      <span style="font-size:13px;font-weight:500;color:var(--tx1)">${p.brl}</span>
+      <span class="tbl-td">${p.date}</span>
+      ${badge(p.status)}
+    </div>`).join('');
+}
+document.getElementById('pay-search').addEventListener('input',e=>{pays=e.target.value;renderPayments();});
+document.getElementById('pay-pills').addEventListener('click',e=>{
+  const p=e.target.closest('[data-payf]');if(!p)return;
+  payf=p.dataset.payf;
+  document.querySelectorAll('#pay-pills .pill').forEach(x=>x.classList.remove('active'));
+  p.classList.add('active');renderPayments();
+});
+document.getElementById('pay-tabs').addEventListener('click',e=>{
+  const b=e.target.closest('[data-ptab]');if(!b)return;
+  const t=b.dataset.ptab;
+  document.getElementById('plist').style.display=t==='plist'?'block':'none';
+  document.getElementById('pms').style.display=t==='pms'?'block':'none';
+  document.querySelectorAll('#pay-tabs .tab-btn').forEach(x=>x.classList.toggle('active',x.dataset.ptab===t));
+});
+
+// --- COMPANIES ---
+const companies=[
+  {id:'c1',n:'Construtora Ipanema Ltda',cnpj:'12.345.678/0001-90',city:'Rio de Janeiro',uf:'RJ',email:'contato@ipanema.com.br',phone:'(21) 3333-4444',addr:'Rua Visc. Pirajá, 550'},
+  {id:'c2',n:'Tech Corp Brasil S.A.',cnpj:'98.765.432/0001-11',city:'São Paulo',uf:'SP',email:'ti@techcorp.com.br',phone:'(11) 4002-8922',addr:'Av. Faria Lima, 3000'},
+  {id:'c3',n:'Fintech SA',cnpj:'55.443.221/0001-77',city:'São Paulo',uf:'SP',email:'ops@fintech.com.br',phone:'(11) 9999-8888',addr:'Av. Berrini, 1681'},
+  {id:'c4',n:'Incorporadora Jardins',cnpj:'33.221.100/0001-55',city:'São Paulo',uf:'SP',email:'vendas@jardins.com.br',phone:'(11) 3030-1010',addr:'Alameda Santos, 211'},
+  {id:'c5',n:'Studio Moema Arquitetura',cnpj:'77.665.443/0001-22',city:'São Paulo',uf:'SP',email:'arq@studiomoema.com.br',phone:'(11) 2020-3030',addr:'Rua Canário, 400'},
+  {id:'c6',n:'Construtora Alphaville',cnpj:'11.223.344/0001-66',city:'Barueri',uf:'SP',email:'obras@alphaville.com.br',phone:'(11) 4141-5252',addr:'Rod. Castello Branco, km 23'},
+  {id:'c7',n:'Rio Renovações Ltda',cnpj:'44.556.677/0001-88',city:'Rio de Janeiro',uf:'RJ',email:'oi@riorenov.com.br',phone:'(21) 2222-3333',addr:'Rua Sete de Setembro, 30'},
+  {id:'c8',n:'BH Interiores ME',cnpj:'22.334.455/0001-99',city:'Belo Horizonte',uf:'MG',email:'bh@bhinteriores.com',phone:'(31) 5050-6060',addr:'Av. Afonso Pena, 1200'},
+];
+const emps={
+  c1:[{n:'Rodrigo Leal',r:'Diretor de Obras',e:'rodrigo@ipanema.com.br'},{n:'Marina Fonseca',r:'Arquiteta',e:'marina@ipanema.com.br'}],
+  c2:[{n:'Thiago Alves',r:'CTO',e:'thiago@techcorp.com.br'}],
+  c3:[{n:'Carolina Mota',r:'CFO',e:'carolina@fintech.com.br'},{n:'Pedro Salave',r:'Gerente de Projetos',e:'pedro@fintech.com.br'}],
+};
+let cos='';
+function renderCompanies(){
+  const q=cos.toLowerCase();
+  const r=companies.filter(c=>!q||c.n.toLowerCase().includes(q)||(c.cnpj||'').replace(/\D/g,'').includes(cos.replace(/\D/g,''))||(c.city||'').toLowerCase().includes(q)||(c.email||'').toLowerCase().includes(q));
+  document.getElementById('co-rows').innerHTML=r.map(c=>`
+    <div class="tbl-row" style="grid-template-columns:1fr 155px 120px 70px" onclick="openDrawer('${c.id}')">
+      <div><div class="tbl-name">${c.n}</div><div class="tbl-sub">${c.email||''}</div></div>
+      <span class="tbl-td" style="font-family:monospace;font-size:11px">${c.cnpj}</span>
+      <span class="tbl-td">${c.city}</span>
+      <span class="tbl-td">${c.uf}</span>
+    </div>`).join('');
+  document.getElementById('co-count').textContent=`${r.length} resultado${r.length!==1?'s':''}`;
+  document.getElementById('co-foot').textContent=`Exibindo ${r.length} de ${companies.length} empresas`;
+}
+document.getElementById('co-search').addEventListener('input',e=>{cos=e.target.value;renderCompanies();});
+function openDrawer(id){
+  const c=companies.find(x=>x.id===id);if(!c)return;
+  const ee=emps[id]||[];
+  document.getElementById('drawer-body').innerHTML=`
+    <div class="drawer-name">${c.n}</div>
+    <div class="drawer-email">${c.email}</div>
+    <div class="d-section">
+      <div class="d-section-title">Dados</div>
+      <div class="drow"><span class="drow-label">CNPJ</span><span class="drow-val" style="font-family:monospace">${c.cnpj}</span></div>
+      <div class="drow"><span class="drow-label">Telefone</span><span class="drow-val">${c.phone}</span></div>
+      <div class="drow"><span class="drow-label">Endereço</span><span class="drow-val">${c.addr}</span></div>
+      <div class="drow"><span class="drow-label">Cidade</span><span class="drow-val">${c.city} — ${c.uf}</span></div>
+    </div>
+    ${ee.length?`<div class="d-section"><div class="d-section-title">Contatos (${ee.length})</div>${ee.map(e=>`<div class="emp-card"><div class="emp-name">${e.n}</div><div class="emp-role">${e.r}</div><div class="emp-email">${e.e}</div></div>`).join('')}</div>`:''}`;
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('d-overlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('d-overlay').classList.remove('open');
+}
+
+// --- LEADS ---
+const leads=[
+  {n:'Ana Lima',co:'',email:'ana.lima@email.com',ph:'(11) 98765-4321',svc:'Arquitetura de Interiores',budget:'R$ 50k – 100k',msg:'Quero reformar meu apartamento de 120m². Busco estilo contemporâneo com toques naturais.',s:'new',d:'06/04/2026'},
+  {n:'Bruno Carvalho',co:'BC Imóveis',email:'bruno@bcim.com.br',ph:'(21) 99887-6543',svc:'Projeto Executivo',budget:'R$ 100k – 250k',msg:'Precisamos de projeto executivo para três salas comerciais no Centro do Rio.',s:'contacted',d:'05/04/2026'},
+  {n:'Camila Torres',co:'',email:'camila.torres@gmail.com',ph:'(11) 91234-5678',svc:'Consultoria',budget:'Até R$ 20k',msg:'Busco consultoria para decoração de home office.',s:'qualified',d:'04/04/2026'},
+  {n:'Daniel Souza',co:'DS Engenharia',email:'daniel@dseng.com.br',ph:'(11) 94444-3333',svc:'Acompanhamento de Obra',budget:'R$ 250k+',msg:'Grande obra residencial em Alphaville. Necessitamos de acompanhamento completo.',s:'converted',d:'01/04/2026'},
+  {n:'Elisa Ramos',co:'',email:'elisa.ramos@outlook.com',ph:'(19) 92222-1111',svc:'Arquitetura de Interiores',budget:'R$ 30k – 50k',msg:'Casa recém-comprada em Campinas. Quero renovar sala e cozinha.',s:'new',d:'31/03/2026'},
+  {n:'Felipe Novaes',co:'Novaes & Cia',email:'felipe@novaes.adv.br',ph:'(11) 93333-2222',svc:'Projeto Executivo',budget:'R$ 50k – 100k',msg:'Escritório de advocacia precisa de modernização completa.',s:'lost',d:'28/03/2026'},
+];
+const SL={new:'Novo',contacted:'Contactado',qualified:'Qualificado',converted:'Convertido',lost:'Perdido'};
+let lf='all',ls='';
+function renderLeads(){
+  const r=leads.filter(l=>(lf==='all'||l.s===lf)&&(!ls||l.n.toLowerCase().includes(ls.toLowerCase())||(l.email||'').toLowerCase().includes(ls.toLowerCase())||(l.svc||'').toLowerCase().includes(ls.toLowerCase())));
+  document.getElementById('lead-cards').innerHTML=r.map(l=>`
+    <div class="lead-card">
+      <div class="lead-head"><div><div class="lead-name">${l.n}</div>${l.co?`<div class="lead-co">${l.co}</div>`:''}</div><span class="lead-date">${l.d}</span></div>
+      <div class="lead-contact">${l.email?`<span class="lead-email">${l.email}</span>`:''}<span class="lead-phone">${l.ph}</span></div>
+      <div class="lead-tags">${l.svc?`<span class="lead-svc">${l.svc}</span>`:''}<span class="lead-budget">${l.budget}</span></div>
+      <p class="lead-msg">${l.msg}</p>
+      <div class="lead-footer">${badge(l.s)}<select class="lead-select">${Object.entries(SL).map(([v,t])=>`<option value="${v}"${v===l.s?' selected':''}>${t}</option>`).join('')}</select></div>
+    </div>`).join('');
+  document.getElementById('lead-count').textContent=`Exibindo ${r.length} de ${leads.length} leads`;
+}
+document.getElementById('lead-search').addEventListener('input',e=>{ls=e.target.value;renderLeads();});
+document.getElementById('lead-pills').addEventListener('click',e=>{
+  const p=e.target.closest('[data-lf]');if(!p)return;
+  lf=p.dataset.lf;
+  document.querySelectorAll('#lead-pills .pill').forEach(x=>x.classList.remove('active'));
+  p.classList.add('active');renderLeads();
+});
+
+// --- ACTIVITY ---
+const actLog=[
+  {type:'timeline_event',desc:'Estimate Created – Proposta inicial enviada',proj:'Casa Ipanema',time:'19 mar 2026, 09:47'},
+  {type:'timeline_event',desc:'Estimate Created – Briefing de interiores concluído',proj:'Apartamento Moema',time:'19 mar 2026, 09:47'},
+  {type:'status_change',desc:'Projeto marcado como Ativo',proj:'Escritório Faria Lima',time:'21 mar 2026, 14:30'},
+  {type:'payment',desc:'Pagamento de entrada recebido – R$ 1.164',proj:'Casa Ipanema',time:'22 mar 2026, 10:05'},
+  {type:'note',desc:'Reunião de briefing realizada com cliente',proj:'Casa Ipanema',time:'23 mar 2026, 16:26'},
+  {type:'payment',desc:'Pagamento de entrada recebido – R$ 2.200',proj:'Apartamento Moema',time:'24 mar 2026, 09:12'},
+  {type:'timeline_event',desc:'Estimate Created – Projeto residencial criado',proj:'Residência Higienópolis',time:'24 mar 2026, 10:33'},
+  {type:'status_change',desc:'Status alterado para Em pausa',proj:'Casa Alphaville',time:'25 mar 2026, 15:00'},
+  {type:'note',desc:'Cliente solicitou revisão da proposta de iluminação',proj:'Escritório Faria Lima',time:'26 mar 2026, 11:22'},
+  {type:'payment',desc:'Pagamento Meio recebido – R$ 1.800',proj:'Escritório Faria Lima',time:'01 abr 2026, 09:00'},
+];
+const AC={
+  timeline_event:{icon:'◉',label:'Timeline',bg:'var(--purple-d)',c:'var(--purple)'},
+  payment:{icon:'◈',label:'Pagamento',bg:'var(--green-d)',c:'var(--green)'},
+  status_change:{icon:'◫',label:'Status',bg:'var(--blue-d)',c:'var(--blue)'},
+  note:{icon:'◌',label:'Nota',bg:'var(--amber-d)',c:'var(--amber)'},
+};
+let af='all';
+function renderActivity(){
+  const r=actLog.filter(a=>af==='all'||a.type===af);
+  document.getElementById('act-list').innerHTML=r.map(a=>{
+    const c=AC[a.type]||{icon:'◌',label:a.type,bg:'var(--border)',c:'var(--tx2)'};
+    return`<div class="act-item">
+      <div class="act-icon" style="background:${c.bg};color:${c.c}">${c.icon}</div>
+      <div class="act-body"><div class="act-desc">${a.desc}</div><div class="act-proj">${a.proj}</div><div class="act-time">${a.time}</div></div>
+      <span class="act-tag" style="background:${c.bg};color:${c.c}">${c.label}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('act-count').textContent=`${r.length} eventos exibidos`;
+}
+document.getElementById('act-pills').addEventListener('click',e=>{
+  const p=e.target.closest('[data-af]');if(!p)return;
+  af=p.dataset.af;
+  document.querySelectorAll('#act-pills .pill').forEach(x=>x.classList.remove('active'));
+  p.classList.add('active');renderActivity();
+});
+
+// --- SETTINGS ---
+document.getElementById('s-nav').addEventListener('click',e=>{
+  const item=e.target.closest('[data-sp]');if(!item)return;
+  document.querySelectorAll('.s-ni').forEach(x=>x.classList.remove('active'));
+  item.classList.add('active');
+  document.querySelectorAll('.s-panel').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sp-'+item.dataset.sp).classList.add('active');
+});
+
+// --- INIT ---
+renderProjects();
+renderPayments();
+renderCompanies();
+renderLeads();
+renderActivity();
+
+document.getElementById('refresh-btn').addEventListener('click',function(){
+  this.textContent='↺ Atualizando...';
+  setTimeout(()=>{this.textContent='↺ Atualizar';},900);
+});
+window.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+</script>
+</body>
+</html>

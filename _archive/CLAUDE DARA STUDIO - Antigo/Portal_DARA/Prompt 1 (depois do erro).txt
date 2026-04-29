@@ -1,0 +1,56 @@
+Atue como um Engenheiro Front-end Sênior especialista em UX/UI. Vamos construir um "Estimator Wizard" (Formulário de Orçamento de Múltiplas Etapas) para um escritório de Arquitetura e 3D. 
+
+O design deve ser extremamente premium, limpo, focado em conversão. Utilizaremos o esquema de cores que já construímos (Dark mode elegante com detalhes e botões primários em nossa paleta Índigo: fundo das telas escuro, cards inativos com fundo levemente mais claro, cards ativos com borda/fundo Índigo). A interação principal deve ser via "Cards Clicáveis" grandes, minimizando digitação.
+
+Por favor, crie o componente principal `EstimateWizard` e seu gerenciador de estado, com a seguinte estrutura e etapas:
+
+### ESTRUTURA GLOBAL E BARRA LATERAL (SIDEBAR)
+- A partir da Etapa 4, o layout deve se dividir em duas colunas: a principal (esquerda, 70%) para as perguntas, e uma Sidebar fixa (direita, 30%).
+- Na Sidebar, exiba:
+  1. "Estimate Confidence" (Barra de progresso de 0 a 100% indicando a precisão do orçamento).
+  2. "Live Estimate" (Valor mínimo e máximo, ex: $1,116 - $1,364).
+  3. "Cost Breakdown" (Lista detalhada dos itens adicionados e seus valores).
+- O header deve ter uma linha do tempo (Stepper) mostrando as etapas.
+
+### ETAPA 1: LOCALIZAÇÃO (Project Location)
+- Toggle de Botões Gigantes: "US (United States - USD / sqft)" vs "BR (Brasil - BRL / m²)". Essa escolha deve alterar um estado global que definirá as máscaras e moedas nas próximas etapas.
+- Inputs: Street Address, City, State/Province (com auto-complete simulado via dropdown ao digitar), ZIP/Postal Code.
+- Abaixo dos inputs, adicione um container simulando um iframe do Google Maps para o cliente confirmar o local.
+
+### ETAPA 2: SOBRE O CLIENTE (About You)
+- Inputs: Full Name, Email, Phone (aplique máscara condicional: se US `+1 (000) 000-0000`, se BR `+55 (00) 00000-0000`).
+- Seletor "Who are you?" (Cards clicáveis horizontais): Homeowner, Builder/Contractor, Architect, Developer, Investor, Real Estate Agent.
+- Lógica Condicional: Se qualquer opção diferente de "Homeowner" for selecionada, revele uma seção inferior "Company Information" com: Business Name, Website, Address, City, State, ZIP, Email, Phone, e Instagram.
+
+### ETAPA 3: DETALHES DO PROJETO (Project Details)
+- Inputs lado a lado: Width x Length. Abaixo, mostre um texto automático "Base Area: [X] sqft/m²".
+- Seletor "Levels" (Checkboxes customizados em formato de card): Ground Floor / Main Level (Default check), 2nd Floor (mostre um texto sutil que isso dobra o total), Basement (+ $0.80/sqft), Attic (+ $0.60/sqft).
+- Input opcional: Lot Size.
+- Seletor "Current Status" (Cards clicáveis): Vacant Lot, Under Construction, Occupied.
+
+### ETAPAS 4 e 5: ESCOPO E SERVIÇOS (Placeholder)
+- Deixe um componente vazio/placeholder para essas etapas, pois a lógica de precificação dinâmica será inserida posteriormente.
+
+### ETAPA 6: PROGRAMA DE NECESSIDADES (Program Requirements)
+- Organize contadores numéricos estáticos (botões de `-` e `+` com o número no meio) para selecionar quantidades de cômodos.
+- Para economizar espaço vertical, utilize um layout de CSS Grid com 2 colunas para os seguintes itens agrupados:
+  * Core Rooms: Bedrooms, Bathrooms, Half Baths, Living Rooms, Family Room, Dining Room.
+  * Kitchen & Dining / Utility: Kitchen, Pantry, Walk-in Closet, Laundry, Garage Bays.
+  * Outdoor & Special: Covered Deck, Screened Porch, Home Office, Gym, Fireplace, Wine Cellar, Elevator.
+- No final da página, uma `textarea` para "Special Requirements (optional)".
+
+### ETAPA 7: UPLOAD DE ARQUIVOS (File Uploads)
+- Crie um grande componente de Drag & Drop (área tracejada) com ícone de upload, aceitando PDF, JPG, PNG, DOC, MP4.
+
+### ETAPA 8: PRAZOS E TAXAS (Rush Fees)
+- Lista interativa perguntando "Do you have the following info?": Property Survey, Site Photos, Measurements. Com botões de "Upload" ao lado de cada.
+- Seletor bloqueado: "Unlock Faster Delivery". Se os itens acima não estiverem marcados/upados, o card de Rush Fee fica bloqueado com um aviso vermelho claro de erro informando que faltam documentos. Se desbloqueado, permite escolher entre "Standard Delivery" (Incluso) ou "Rush Express" (+60% de taxa no breakdown).
+
+### ETAPA 9: REVISÃO E ENVIO (Review & Submit)
+- Mostre um resumo de leitura (read-only) com os dados preenchidos.
+- Seção "What Happens Next" listando os 3 próximos passos de forma visual.
+- Dois botões de ação final lado a lado:
+  1. Botão Principal (Solid Índigo): "Accept & Continue" (que no futuro criará a conta no Client Portal).
+  2. Botão Secundário (Outline ou Ghost): "Save for Later" (que simula o envio de um e-mail para o cliente com o link, e dispara o lead para o Admin).
+
+Por favor, gere o código base para este fluxo utilizando React e Tailwind CSS, garantindo as transições suaves entre as etapas.

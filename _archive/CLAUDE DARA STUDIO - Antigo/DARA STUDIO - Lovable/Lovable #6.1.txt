@@ -1,0 +1,43 @@
+I want to restructure the project creation flow to support two markets: Brazil and United States.
+
+Add a required field called:
+
+Project Market
+
+Options:
+- Brazil
+- United States
+
+This field should automatically configure the project settings.
+
+If Project Market = Brazil:
+- Currency: BRL (R$)
+- Area unit: square meters (m²)
+- Address fields:
+  - Endereço
+  - Número
+  - Bairro
+  - Cidade
+  - Estado
+  - CEP
+- Budget calculation based on R$/m²
+
+If Project Market = United States:
+- Currency: USD ($)
+- Area unit: square feet (ft²)
+- Address fields:
+  - Address
+  - City
+  - State
+  - ZIP Code
+- Budget calculation based on USD/ft²
+
+The system must automatically calculate:
+
+Total Fee = Area × Rate per Area
+
+Example:
+Brazil: 150 m² × R$80 = R$12,000  
+USA: 2,000 ft² × $1.40 = $2,800
+
+This configuration will allow managing projects from both markets inside the same system while keeping correct units, currencies, and address formats.

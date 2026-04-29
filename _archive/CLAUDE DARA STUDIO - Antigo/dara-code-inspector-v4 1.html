@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DARA Studio | MA Code Inspector v4.0</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ─────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border3);border-radius:2px}
+
+/* ── TOKENS ────────────────────────────── */
+:root{
+  --bg0:#080b0f;--bg1:#0f1318;--bg2:#161b22;--bg3:#1d242e;--bg4:#242c38;
+  --border:#222933;--border2:#2e3847;--border3:#3a4659;
+  --t0:#eef1f6;--t1:#b0bac8;--t2:#6b7a8d;--t3:#3a4555;
+  --blue:#3b82f6;--bluebg:#0a1929;--bluet:#3b82f614;--blueglow:#3b82f630;
+  --green:#22c55e;--greenbg:#0a1f12;--greent:#22c55e18;
+  --amber:#f59e0b;--amberbg:#1c1506;--ambert:#f59e0b18;
+  --red:#ef4444;--redbg:#1f0808;--redt:#ef444418;
+  --purple:#a855f7;--purplebg:#150d24;--purplet:#a855f718;
+  --font:'Syne',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --r:6px;--r2:10px;--r3:14px;
+}
+[data-theme="light"]{
+  --bg0:#f4f6f9;--bg1:#ffffff;--bg2:#f0f3f7;--bg3:#e8ecf2;--bg4:#dde3ec;
+  --border:#dce2ec;--border2:#c8d0de;--border3:#b0bccf;
+  --t0:#0d1420;--t1:#2d3a4a;--t2:#5a6a7e;--t3:#8a9ab0;
+  --blue:#1d4ed8;--bluebg:#eff6ff;--bluet:#3b82f612;--blueglow:#3b82f620;
+  --green:#15803d;--greenbg:#f0fdf4;--greent:#22c55e15;
+  --amber:#b45309;--amberbg:#fffbeb;--ambert:#f59e0b15;
+  --red:#b91c1c;--redbg:#fef2f2;--redt:#ef444415;
+  --purple:#7c3aed;--purplebg:#faf5ff;--purplet:#a855f715;
+}
+
+/* ── BASE ──────────────────────────────── */
+body{font-family:var(--font);background:var(--bg0);color:var(--t0);display:flex;flex-direction:column}
+.app{display:flex;flex-direction:column;height:100vh}
+
+/* ── HEADER ────────────────────────────── */
+.hdr{height:54px;background:var(--bg1);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;z-index:50;gap:12px}
+.hdr-brand{display:flex;align-items:center;gap:10px}
+.hdr-icon{width:32px;height:32px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;font-family:var(--mono);flex-shrink:0;box-shadow:0 0 14px var(--blueglow)}
+.hdr-name{font-size:11.5px;font-weight:700;color:var(--t0);letter-spacing:.05em;text-transform:uppercase}
+.hdr-name em{color:var(--blue);font-style:normal}
+.hdr-sub{font-size:8.5px;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;margin-top:1px}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.live-pill{display:flex;align-items:center;gap:5px;background:var(--greenbg);border:1px solid var(--greent);border-radius:20px;padding:3px 9px;font-size:8.5px;font-weight:700;color:var(--green);letter-spacing:.1em;text-transform:uppercase}
+.live-pill::before{content:'';width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hbtn{display:flex;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:5px 11px;font-size:10px;font-weight:700;color:var(--t1);cursor:pointer;transition:all .15s;letter-spacing:.04em;text-transform:uppercase;font-family:var(--font);white-space:nowrap}
+.hbtn:hover{background:var(--bg3);border-color:var(--border2);color:var(--t0)}
+.hbtn svg{width:12px;height:12px;flex-shrink:0}
+.hbtn.ai-btn{border-color:var(--purple);color:var(--purple);background:var(--purplebg)}
+.hbtn.ai-btn:hover{background:var(--purple);color:#fff}
+.hsearch{position:relative}
+.hsearch input{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:5px 12px 5px 28px;font-size:11.5px;width:180px;color:var(--t0);outline:none;font-family:var(--font);transition:border-color .15s}
+.hsearch input:focus{border-color:var(--blue)}
+.hsearch input::placeholder{color:var(--t3)}
+.hsearch-ic{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;width:12px;height:12px}
+
+/* ── LAYOUT ────────────────────────────── */
+.body{display:flex;flex:1;overflow:hidden}
+.sb1{width:190px;background:var(--bg1);border-right:1px solid var(--border);overflow-y:auto;padding:10px 6px;flex-shrink:0}
+.sb2{width:168px;background:var(--bg0);border-right:1px solid var(--border);overflow-y:auto;padding:10px 6px;flex-shrink:0}
+.sbl{font-size:8.5px;font-weight:700;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;padding:0 8px;margin-bottom:9px}
+.pbtn{display:flex;align-items:center;gap:7px;width:100%;padding:7px 9px;border-radius:var(--r);font-size:11px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--t2);margin-bottom:1px;text-align:left;transition:all .12s;font-family:var(--font)}
+.pbtn:hover{background:var(--bg2);color:var(--t0)}
+.pbtn.active{background:var(--blue);color:#fff}
+.sbtn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:6px 9px;border-radius:var(--r);font-size:10px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--t2);margin-bottom:1px;text-align:left;border-left:2px solid transparent;transition:all .12s;font-family:var(--font)}
+.sbtn:hover{background:var(--bg2);color:var(--t1)}
+.sbtn.active{border-left-color:var(--blue);color:var(--blue);background:var(--bluet)}
+.scnt{font-size:8.5px;padding:1px 5px;border-radius:9px;background:var(--bg3);color:var(--t3)}
+.sbtn.active .scnt{background:var(--bluet);color:var(--blue)}
+
+/* ── MAIN ──────────────────────────────── */
+.main{flex:1;overflow-y:auto;padding:20px;background:radial-gradient(ellipse at top right,var(--bg2),var(--bg0) 60%)}
+
+/* toolbar */
+.toolbar{display:flex;align-items:center;gap:7px;margin-bottom:16px;flex-wrap:wrap}
+.bc{font-size:10px;color:var(--t2);display:flex;align-items:center;gap:4px;margin-right:auto}
+.bc strong{color:var(--t0);font-weight:700}
+.fbtn{padding:4px 9px;border-radius:var(--r);font-size:9.5px;font-weight:700;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--t2);transition:all .12s;font-family:var(--font);letter-spacing:.04em;text-transform:uppercase}
+.fbtn:hover{border-color:var(--border2);color:var(--t1)}
+.fbtn.active{background:var(--bg2);border-color:var(--border3);color:var(--t0)}
+.expbtn{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--r);font-size:9.5px;font-weight:700;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--t2);transition:all .15s;font-family:var(--font);letter-spacing:.04em;text-transform:uppercase}
+.expbtn:hover{background:var(--greenbg);border-color:var(--green);color:var(--green)}
+.expbtn svg{width:11px;height:11px}
+.empty{background:var(--bg1);border:1px dashed var(--border2);border-radius:var(--r3);padding:48px 24px;text-align:center;color:var(--t3);font-size:12px}
+
+/* ── CARDS ─────────────────────────────── */
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;margin-bottom:14px;display:flex;flex-direction:column;transition:border-color .15s}
+.card:hover{border-color:var(--border3)}
+
+/* image area */
+.card-img-wrap{position:relative;width:100%;overflow:hidden;background:var(--bg2);border-bottom:1px solid var(--border);min-height:0}
+.card-img-wrap.has-img{min-height:200px}
+.card-img{width:100%;display:block;object-fit:cover;max-height:260px}
+.card-img-placeholder{display:none}
+.img-actions{position:absolute;top:8px;right:8px;display:flex;gap:6px}
+.img-action-btn{display:flex;align-items:center;gap:4px;background:rgba(8,11,15,.75);border:1px solid var(--border2);color:var(--t1);border-radius:var(--r);padding:4px 9px;font-size:9px;font-weight:700;cursor:pointer;font-family:var(--font);letter-spacing:.04em;text-transform:uppercase;backdrop-filter:blur(6px);transition:all .15s}
+.img-action-btn:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.img-action-btn.gen-btn{border-color:var(--purple);color:var(--purple)}
+.img-action-btn.gen-btn:hover{background:var(--purple);border-color:var(--purple);color:#fff}
+.img-action-btn svg{width:11px;height:11px}
+.img-badge{position:absolute;bottom:8px;left:8px;background:rgba(8,11,15,.75);border:1px solid var(--border2);border-radius:var(--r);padding:3px 8px;font-size:8.5px;font-weight:700;color:var(--t2);font-family:var(--mono);letter-spacing:.04em;backdrop-filter:blur(6px)}
+
+/* generating spinner */
+.img-generating{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 20px;min-height:180px;color:var(--t2);font-size:11px}
+.spinner{width:24px;height:24px;border:2px solid var(--border2);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-progress{font-size:9px;color:var(--t3);font-family:var(--mono);letter-spacing:.06em}
+
+/* card body */
+.card-body{display:flex;flex:1}
+.card-l{padding:14px;background:var(--bluebg);border-right:1px solid var(--border);width:30%;flex-shrink:0;display:flex;flex-direction:column;gap:9px}
+.card-r{padding:14px;flex:1;min-width:0;display:flex;flex-direction:column;gap:9px}
+.trl{font-size:8.5px;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:4px}
+.pt{font-size:10.5px;color:var(--t1);line-height:1.7;font-style:italic;flex:1}
+.why{background:var(--redbg);border:1px solid var(--redt);border-radius:var(--r);padding:9px 11px;margin-top:auto}
+.why-lbl{font-size:8.5px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+.why-txt{font-size:10px;color:#f87171;line-height:1.55}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ctitle{font-size:11.5px;font-weight:700;color:var(--t0);text-transform:uppercase;letter-spacing:.06em}
+.badge{font-size:8.5px;font-weight:700;padding:3px 7px;border-radius:var(--r);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;flex-shrink:0}
+.badge.c{background:var(--greent);color:var(--green);border:1px solid var(--greent)}
+.badge.l{background:var(--ambert);color:var(--amber);border:1px solid var(--ambert)}
+.nb{position:relative}
+.nl{font-size:8.5px;font-weight:700;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.codebox{border-radius:var(--r);padding:9px 38px 9px 11px;font-family:var(--mono);font-size:10px;line-height:1.65;text-transform:uppercase;position:relative;word-break:break-word}
+.codebox.dk{background:#03080f;color:#60a5fa;border:1px solid #0f2847}
+.codebox.lt{background:var(--bg2);color:var(--t1);border:1px solid var(--border)}
+.cpbtn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--blue);border:none;color:#fff;border-radius:5px;padding:3px 7px;cursor:pointer;font-size:8.5px;font-family:var(--mono);opacity:0;transition:opacity .15s;white-space:nowrap}
+.nb:hover .cpbtn{opacity:1}
+.cpbtn.copied{background:var(--green)}
+
+/* ── AI IMAGE MODAL ─────────────────────── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px)}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg1);border:1px solid var(--border2);border-radius:var(--r3);padding:24px;width:100%;max-width:560px;display:flex;flex-direction:column;gap:16px}
+.modal-title{font-size:14px;font-weight:700;color:var(--t0);display:flex;align-items:center;gap:8px}
+.modal-title svg{color:var(--purple)}
+.modal-sub{font-size:10px;color:var(--t2);line-height:1.6;margin-top:-8px}
+.modal textarea{width:100%;background:var(--bg0);border:1px solid var(--border);border-radius:var(--r);padding:12px;font-size:11px;font-family:var(--mono);color:var(--t0);outline:none;height:130px;resize:vertical;line-height:1.6;transition:border-color .15s}
+.modal textarea:focus{border-color:var(--purple)}
+.modal textarea::placeholder{color:var(--t3)}
+.prompt-tip{font-size:9.5px;color:var(--t3);background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;line-height:1.7;font-family:var(--mono)}
+.prompt-tip strong{color:var(--purple);font-weight:600}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+.modal-cancel{padding:7px 16px;border-radius:var(--r);font-size:11px;font-weight:700;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--t2);transition:all .15s;font-family:var(--font)}
+.modal-cancel:hover{background:var(--bg2);color:var(--t1)}
+.modal-gen{padding:7px 18px;border-radius:var(--r);font-size:11px;font-weight:700;border:1px solid var(--purple);cursor:pointer;background:var(--purple);color:#fff;transition:all .15s;font-family:var(--font);display:flex;align-items:center;gap:6px}
+.modal-gen:hover{background:#9333ea}
+.modal-gen:disabled{opacity:.5;cursor:not-allowed}
+.modal-gen svg{width:13px;height:13px}
+
+/* ── IMG UPLOAD ZONE ────────────────────── */
+.upload-zone{border:1px dashed var(--border2);border-radius:var(--r);padding:18px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.upload-zone:hover{border-color:var(--purple);background:var(--purplebg)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone-text{font-size:10px;color:var(--t2);display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+.upload-zone-text svg{width:20px;height:20px;color:var(--t3)}
+
+/* ── SCANNER ────────────────────────────── */
+.scanner{background:var(--bg1);border:1px solid var(--border2);border-radius:var(--r3);padding:20px;margin-top:10px}
+.scn-title{font-size:12.5px;font-weight:700;color:var(--t0);display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.scn-sub{font-size:8.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.scanner textarea{width:100%;background:var(--bg0);border:1px solid var(--border);border-radius:var(--r);padding:11px;font-size:10.5px;font-family:var(--mono);color:var(--t0);outline:none;height:90px;resize:vertical;transition:border-color .15s}
+.scanner textarea:focus{border-color:var(--blue)}
+.scanner textarea::placeholder{color:var(--t3)}
+.scanres{margin-top:8px;padding:11px 14px;border-radius:var(--r);font-size:11px;font-weight:600;display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+.scanres svg{flex-shrink:0;margin-top:2px;width:15px;height:15px}
+.scanres.err{background:var(--redbg);border:1px solid var(--redt);color:#f87171}
+.scanres.wrn{background:var(--amberbg);border:1px solid var(--ambert);color:#fbbf24}
+.scanres.ok{background:var(--greenbg);border:1px solid var(--greent);color:#4ade80}
+
+/* ── TOAST ──────────────────────────────── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg1);border:1px solid var(--border2);color:var(--t0);padding:9px 14px;border-radius:var(--r2);font-size:11.5px;font-weight:600;box-shadow:0 4px 24px #0009;z-index:999;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;max-width:300px}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-icon">D</div>
+    <div>
+      <div class="hdr-name">DARA Studio <em>| Code Inspector v4</em></div>
+      <div class="hdr-sub">780 CMR 10th Ed · 248 CMR · NEC 2023 · NFPA 72 · Image Support</div>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <div class="live-pill">Online</div>
+    <div class="hsearch">
+      <svg class="hsearch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search" placeholder="Search notes…" oninput="render()">
+    </div>
+    <button class="hbtn ai-btn" onclick="openGlobalGen()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      AI Diagram
+    </button>
+    <button class="hbtn" onclick="exportNotes()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export
+    </button>
+    <button class="hbtn" onclick="toggleTheme()" id="thbtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      Light
+    </button>
+  </div>
+</header>
+
+<div class="body">
+  <aside class="sb1"><div class="sbl">Project type</div><div id="sb1"></div></aside>
+  <aside class="sb2"><div class="sbl">Technical systems</div><div id="sb2"></div></aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="bc" id="bc"></div>
+      <div style="display:flex;gap:4px">
+        <button class="fbtn active" onclick="setF(this,'all')">All</button>
+        <button class="fbtn" onclick="setF(this,'code_compliant')">✓ Compliant</button>
+        <button class="fbtn" onclick="setF(this,'lessons_learned')">⚡ Lessons</button>
+      </div>
+      <button class="expbtn" onclick="exportNotes()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export filtered
+      </button>
+    </div>
+    <div id="notes"></div>
+
+    <!-- SCANNER -->
+    <div class="scanner">
+      <div class="scn-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Inspector Validation Scanner
+      </div>
+      <div class="scn-sub">Anti-error AI · 780 CMR 10th Ed · 248 CMR · NEC 2023 · Sill height · Smoke detector rules</div>
+      <textarea id="scanin" placeholder="Paste any note to validate against Massachusetts code…" oninput="scan(this.value)"></textarea>
+      <div id="scanout"></div>
+    </div>
+  </main>
+</div>
+
+<!-- AI IMAGE MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Generate Technical Diagram
+    </div>
+    <div class="modal-sub">Descreva o diagrama técnico que deseja. O <strong>Prompt Mestre</strong> de estilo já está aplicado automaticamente — adicione apenas o que quer ver.</div>
+
+    <div class="prompt-tip">
+      <strong>Base aplicada automaticamente:</strong><br>
+      Architectural technical diagram, clean 3D rendering in axonometric section style. Isolated white background. Minimalist palette (grays, white, technical blue for connections). Soft studio lighting, no heavy shadows. Professional construction manual style…<br><br>
+      <strong>Sua descrição específica:</strong> descreva o elemento, componente, ou detalhe construtivo abaixo.
+    </div>
+
+    <textarea id="modal-prompt" placeholder="Ex: Show a cross section of a Saltbox roof with asymmetric rafters, label the long slope and short slope, show insulation R-60 at the heel height…"></textarea>
+
+    <div class="upload-zone" id="upload-zone" title="Or upload your own image">
+      <input type="file" id="img-upload" accept="image/*" onchange="handleUpload(event)">
+      <div class="upload-zone-text">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Or upload your own image (PNG, JPG)</span>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-gen" id="modal-gen-btn" onclick="generateImage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Generate Diagram
+      </button>
+    </div>
+  </div>
+</div>
+
+</div><!-- .app -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// PROJECTS & SYSTEMS
+// ═══════════════════════════════════════════════════════
+const PROJECTS=[
+  {id:'new_con',   label:'New Construction',    icon:'🏠'},
+  {id:'addition',  label:'Addition / Expansion', icon:'➕'},
+  {id:'remodel',   label:'Interior Remodel',     icon:'🔨'},
+  {id:'interiors', label:'Interior Design',      icon:'🎨'},
+  {id:'deck_roof', label:'Deck (With Roof)',      icon:'🏗'},
+  {id:'deck_open', label:'Deck (Open)',           icon:'🪵'},
+  {id:'porch_enc', label:'Porch (Enclosed)',      icon:'🏛'},
+  {id:'porch_open',label:'Porch (Open)',          icon:'🌿'},
+  {id:'adu',       label:'ADU / In-Law Suite',   icon:'🏘'},
+  {id:'basement',  label:'Finished Basement',    icon:'🔲'},
+  {id:'dormer',    label:'Dormer / Attic',        icon:'🏚'},
+  {id:'garage',    label:'Garage (Det/Att)',      icon:'🚗'},
+];
+const SYSTEMS=[
+  {id:'roof_types', label:'Roof Types & Styles'},
+  {id:'roof_conn',  label:'Roof Connections'},
+  {id:'foundation', label:'Foundation / Footings'},
+  {id:'framing',    label:'Framing & Structure'},
+  {id:'thermal',    label:'Thermal / Insulation'},
+  {id:'envelope',   label:'Wall Assembly'},
+  {id:'mep',        label:'MEP Systems'},
+  {id:'fire',       label:'Life Safety / Fire'},
+];
+
+// ═══════════════════════════════════════════════════════
+// IMAGE STORE (noteId → dataURL or URL string)
+// ═══════════════════════════════════════════════════════
+const IMG_STORE={};
+
+// ═══════════════════════════════════════════════════════
+// NOTES DATABASE — each note has an optional `image` field
+// ═══════════════════════════════════════════════════════
+const NOTES=[
+  // ── ROOF TYPES ──────────────────────────────────────
+  {id:1,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Gable Roof — Two-Slope Classic',
+   pt:'Telhado de Duas Águas: Modelo mais popular nos EUA. Duas superfícies inclinadas que se encontram em uma cumeeira, formando um triângulo (gable) nas extremidades.',
+   cad:'GABLE ROOF SYSTEM PER ARCH. PLANS. VERIFY SNOW LOAD PER 780 CMR TABLE R301.2(1).',
+   layout:'ROOF SYSTEM SHALL BE A GABLE DESIGN WITH SLOPES AS INDICATED. STRUCTURE TO RESIST SNOW AND WIND LOADS PER MASSACHUSETTS STATE BUILDING CODE 780 CMR 10TH EDITION AND ASCE 7.',
+   why:'Inspector tip: Gable ends create a flat vertical surface exposed to wind uplift. Gable-end wall bracing per 780 CMR R602.10.6 is required and frequently missed on plan review.',
+   imageTip:'Show a clean axonometric section of a gable roof framing system. Label the ridge board, common rafters, collar ties, and gable end. Use technical blue to highlight the rafter-to-plate hurricane tie connections. Add snow load arrows on the roof surface.'},
+
+  {id:2,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Hip Roof — Four-Slope System',
+   pt:'Telhado de Quatro Águas: Todas as quatro faces inclinadas, sem gable aberto. Mais resistente ao vento que o Gable.',
+   cad:'HIP ROOF SYSTEM: 4 SLOPED FACES, NO EXPOSED GABLE WALL. PER ARCH. PLANS AND ASCE 7.',
+   layout:'ROOF SYSTEM SHALL BE A HIP DESIGN WITH FOUR SLOPED FACES. HIP ROOFS PROVIDE SUPERIOR UPLIFT RESISTANCE. ALL RAFTER-TO-PLATE CONNECTIONS SHALL HAVE APPROVED HURRICANE TIES PER 780 CMR R802.11.',
+   why:'Inspector tip: Hip roofs are the most wind-resistant residential roof. Hurricane ties are required at every rafter and inspectors count them.',
+   imageTip:'Show an exploded axonometric view of a hip roof framing system. Label the hip rafters, jack rafters, ridge board, and hip ridgeline. Use technical blue arrows to show wind pressure distribution on all four slopes.'},
+
+  {id:3,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Saltbox — New England Asymmetric',
+   pt:'Telhado Saltbox: Assimétrico, com um lado muito mais longo que o outro. Estilo icônico da Nova Inglaterra.',
+   cad:'SALTBOX ASYMMETRIC ROOF: LONG-SLOPE RAFTERS ENGINEERED FOR SNOW DRIFT. 780 CMR SNOW LOAD.',
+   layout:'SALTBOX ROOF ASSEMBLY SHALL COMPLY WITH 780 CMR 10TH EDITION. LONG SLOPE RAFTERS MUST BE SIZED FOR CUMULATIVE SNOW DRIFT LOADS PER ASCE 7. HEEL HEIGHT ON LONG SLOPE SHALL ACCOMMODATE MINIMUM R-60 ATTIC INSULATION.',
+   why:'Inspector tip: The long Saltbox slope accumulates significant snow drift. Verify the heel height provides room for the required R-60 attic insulation before framing begins.',
+   imageTip:'Show a cross-section of a New England Saltbox colonial house with its iconic asymmetric roof. The front slope is short and steep, the rear slope is very long extending to the first floor. Show exposed wood framing (rafters). Add floating text labels: "Long Slope – Snow Drift Zone" and "Short Slope". Highlight in blue the heel height dimension with a note "R-60 Required".'},
+
+  {id:4,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Mansard Roof — French Style',
+   pt:'Telhado Mansarda: Quatro águas com dois ângulos. Parte inferior quase vertical, superior quase plana. Maximiza espaço habitável no sótão.',
+   cad:'MANSARD ROOF: DUAL-SLOPE 4-SIDE. LOWER SLOPES WATERPROOFED AS WALL ASSEMBLY.',
+   layout:'MANSARD ROOF DESIGN PER ARCHITECTURAL DETAILS. LOWER SLOPES REQUIRE WATERPROOFING EQUAL TO WALL ASSEMBLIES. INSULATION OF UPPER FLAT PORTION: MIN. R-60 PER IECC 2021.',
+   why:'Inspector tip: The lower Mansard slope behaves like a wall — the vapor retarder goes on the warm-in-winter side, not under the shingles. Many projects get this backwards.',
+   imageTip:'Show a cross-section of a Mansard roof (French style). Highlight the two distinct slopes on each side: the lower near-vertical slope and the upper nearly-flat slope. Include a human silhouette inside the attic space demonstrating the full ceiling height achieved. Label "Near-Vertical Lower Slope – Waterproof as Wall" and "Upper Slope – Min R-60". Use technical blue to show the vapor retarder placement.'},
+
+  {id:5,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Gambrel Roof — Dutch Colonial / Barn',
+   pt:'Telhado Gambrel (Celeiro): Duas águas com dois ângulos em cada lado. Estilo Dutch Colonial. Maximiza espaço de sótão.',
+   cad:'GAMBREL ROOF: DUAL-SLOPE 2-SIDE. VERIFY STRUCTURAL KNEEWALL AND ATTIC EGRESS.',
+   layout:'GAMBREL RAFTERS SHALL BE ENGINEERED FOR BOTH UPPER AND LOWER SLOPE SEGMENTS. KNEEWALL SHALL BE CONTINUOUS AND BRACED. WHERE ATTIC IS HABITABLE, PROVIDE EGRESS PER 780 CMR R310.',
+   why:'Inspector tip: The horizontal thrust at the Gambrel break point must be addressed with a collar tie or kneewall tied back to the floor diaphragm.',
+   imageTip:'Show a cross-section of a Gambrel (barn-style) roof with two distinct slopes on each side. Label the upper low-slope segment and lower steep-slope segment. Highlight the kneewall in technical blue. Add arrows showing horizontal thrust forces at the break point and label "Collar Tie / Kneewall Required".'},
+
+  {id:6,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Flat Roof — TPO / EPDM Membrane',
+   pt:'Telhado Plano: Leve inclinação para drenagem (mín. 1/4":12"). Requer membrana impermeável de alta performance (TPO ou EPDM).',
+   cad:'FLAT ROOF (MIN. 1/4":12" SLOPE): TPO OR EPDM MEMBRANE PER MANUFACTURER AND 780 CMR R905.',
+   layout:'FLAT ROOF SHALL PROVIDE MIN. SLOPE OF 1/4":12" FOR DRAINAGE. MEMBRANE: TPO OR EPDM PER 780 CMR R905. PROVIDE PRIMARY AND OVERFLOW DRAIN AT EACH LOW POINT.',
+   why:'Inspector tip: Flat roofs in MA must have a secondary overflow drain. A single blocked drain + rain load is a structural failure risk.',
+   imageTip:'Show a detailed cross-section of a flat roof assembly from the inside out. Label each layer: structural deck, rigid insulation (sloped), TPO/EPDM membrane, protective ballast. In technical blue, highlight the primary roof drain and the secondary overflow scupper. Add a rain drop arrow showing water flow path.'},
+
+  {id:7,project:'new_con',system:'roof_types',status:'code_compliant',
+   title:'Shed Roof — Single Slope',
+   pt:'Telhado de Uma Água: Uma única superfície inclinada. Popular em designs contemporâneos e ADUs.',
+   cad:'SHED ROOF (MONO-SLOPE): SINGLE SLOPE MIN. 1/4":12". ENGINEER FOR COMBINED LOADS.',
+   layout:'SHED ROOF RAFTERS SHALL BE SIZED FOR DEAD, LIVE, SNOW, AND WIND UPLIFT LOADS PER 780 CMR AND ASCE 7. WHERE SOLAR PANELS ANTICIPATED, ADD MIN. 5 PSF DEAD LOAD.',
+   why:'Inspector tip: The high wall side must be flashed and counter-flashed where it meets a larger structure. Show solar panel load on structural drawings at permit — not after framing.',
+   imageTip:'Show an axonometric section of a contemporary shed roof (mono-slope). Label the single slope direction, the high wall and low eave sides. Show solar panels on the roof surface in technical blue with a note "Solar Panel Dead Load: +5 PSF Min". Include step flashing detail at the high wall connection.'},
+
+  // ── ROOF CONNECTIONS ────────────────────────────────
+  {id:20,project:'addition',system:'roof_conn',status:'code_compliant',
+   title:'Shingle Weaving — New-to-Existing Tie-In',
+   pt:'Entrelaçamento de telhas: Remove-se as telhas da área de contato e as novas são entrelaçadas com as antigas para garantir fluxo de água sem barreiras.',
+   cad:'ROOF TIE-IN: REMOVE SHINGLES 3FT BEYOND JOIN. WEAVE NEW WITH EXISTING COURSES.',
+   layout:'SHINGLE WEAVING TIE-IN: REMOVE EXISTING SHINGLES MIN. 3 FEET BEYOND INTERSECTION. INSTALL ICE AND WATER SHIELD OVER FULL TRANSITION AREA. INTERLAY NEW SHINGLES WITH EXISTING IN ALTERNATING PATTERN.',
+   why:'Inspector tip: Simply butting new shingles against old creates a step where water backs up. Weaving must extend 3 feet minimum beyond the join.',
+   imageTip:'Show a close-up cross-section at a roof tie-in junction where a new addition roof meets an existing house roof. Show the shingle weaving (interlocking) technique with new shingles alternating with old shingles. Use technical blue to highlight the Ice and Water Shield membrane layer beneath. Label the layers from bottom: sheathing, ice & water shield, old shingles, new woven shingles. Add blue arrows showing water flow path.'},
+
+  {id:21,project:'addition',system:'roof_conn',status:'code_compliant',
+   title:'Valley Connection — Open Metal + Ice & Water',
+   pt:'Conexão em Valley: Quando o novo telhado encontra o existente em ângulo. Valley Flashing metálico + membrana Ice & Water Shield.',
+   cad:'VALLEY: OPEN METAL FLASHING OVER ICE & WATER SHIELD. MIN. 36" EACH SIDE. 780 CMR R905.',
+   layout:'OPEN METAL VALLEY FLASHING OVER CONTINUOUS ICE AND WATER SHIELD EXTENDING MIN. 36 INCHES FROM VALLEY CENTERLINE EACH SIDE. VALLEY METAL: MIN. 24-GAUGE GALVANIZED STEEL. SHINGLES SHALL NOT CROSS VALLEY CENTERLINE.',
+   why:'Inspector tip: Valleys channel the highest water volume on a roof. Ice & Water membrane must go in before the valley metal.',
+   imageTip:'Show a detailed cross-section of an open valley flashing connection where two roof slopes intersect forming a V. Show the layers from bottom: sheathing, ice and water shield (highlighted in blue, 36 inches each side), open metal valley flashing. Add blue arrows showing heavy water flow volume running down both slopes into the valley. Label "36 inches minimum each side – Ice & Water Shield".'},
+
+  {id:22,project:'porch_enc',system:'roof_conn',status:'lessons_learned',
+   title:'Step & Counter Flashing — Roof-to-Wall',
+   pt:'Rufo em Degrau + Contra-rufo: Peças de metal em "L" instaladas degrau a degrau. O contra-rufo é inserido no revestimento da parede, nunca por cima.',
+   cad:'STEP & COUNTER-FLASHING AT ALL ROOF-TO-WALL JUNCTIONS. CUT SIDING 1" ABOVE ROOF.',
+   layout:'STEP FLASHING (L-SHAPED, ONE PIECE PER SHINGLE COURSE) AND COUNTER-FLASHING INSERTED INTO WALL SIDING. SIDING CUT BACK MIN. 1 INCH FROM FINISHED ROOF SURFACE. NEVER INSTALL OVER EXISTING SIDING.',
+   why:'Inspector tip: The #1 flashing mistake: installing step flashing ON TOP of existing siding. Inspector will require complete removal and reinstallation.',
+   imageTip:'Show a detailed exploded cross-section of a step flashing and counter-flashing system at a roof-to-wall junction. Show each L-shaped step flashing piece (one per shingle course) in technical blue, with one leg under the shingle and one leg going up the wall. Show the counter-flashing piece in blue tucked behind the cut wall siding (not over it). Add a blue arrow showing water running down the wall and being directed OVER the top of the step flashing, not behind it. Label "Counter-flashing inserted INTO siding" and "Step flashing – one per shingle course".'},
+
+  {id:23,project:'new_con',system:'roof_conn',status:'code_compliant',
+   title:'Ice & Water Shield — 24" Inside Wall Line',
+   pt:'Membrana Ice & Water Shield obrigatória da borda do telhado até 24" para dentro da linha da parede externa. Obrigatório em MA.',
+   cad:'ICE & WATER SHIELD: EAVE TO 24" INSIDE EXT. WALL LINE. 780 CMR R905.1.2.',
+   layout:'SELF-ADHERING MEMBRANE SHALL EXTEND FROM EAVE EDGES TO MIN. 24 INCHES INSIDE THE EXTERIOR WALL LINE PER 780 CMR R905.1.2. REQUIRED ON ALL MASSACHUSETTS ROOFS.',
+   why:'Inspector tip: Mandatory on every MA project. If not dimensioned on roof plan, expect a plan review comment. No exceptions.',
+   imageTip:'Show a cross-section of a roof eave area. In technical blue, highlight the Ice and Water Shield membrane starting at the eave edge and extending up the roof slope past the exterior wall line with a clear dimension arrow showing "24 inches minimum inside wall line". Show the roof layers: sheathing, ice & water shield, underlayment, shingles. Add an ice dam scenario on the eave to illustrate why the membrane is needed.'},
+
+  // ── FOUNDATION ──────────────────────────────────────
+  {id:30,project:'new_con',system:'foundation',status:'code_compliant',
+   title:'Foundation Anchorage — Sill Plate Bolts',
+   pt:'Sill plates com parafusos de 1/2" a cada 6\' máx. e a 12" das extremidades de cada seção.',
+   cad:'SILL PLATES: 1/2" ANCHOR BOLTS @ MAX 6\'-0" O.C., WITHIN 12" OF EACH END. 780 CMR R403.1.6.',
+   layout:'FOUNDATION ANCHORAGE PER 780 CMR R403.1.6. PROVIDE 1/2" ANCHOR BOLTS SPACED MAX. 6 FEET O.C. AND WITHIN 12 INCHES OF EACH END OF EVERY SILL PLATE SECTION. MIN. EMBEDMENT 7 INCHES INTO CONCRETE.',
+   why:'Inspector tip: The 12-inch end-distance rule is the most-missed dimension on foundation inspections. Inspectors measure every bolt location with a tape.',
+   imageTip:'Show a cut-away view of a concrete foundation wall with a pressure-treated sill plate on top. In technical blue, highlight the anchor bolts showing the 12-inch end distance and the 6-foot maximum spacing with dimension lines. Show a close-up of one bolt with the 7-inch minimum embedment depth labeled.'},
+
+  {id:31,project:'deck_open',system:'foundation',status:'code_compliant',
+   title:'Deck Footings — 48" Frost Depth (MA)',
+   pt:'Sapatas de deck devem estar a no mínimo 48 polegadas abaixo do nível do terreno em MA.',
+   cad:'DECK FOOTINGS MIN. 48" BELOW FINISHED GRADE. 780 CMR TABLE R301.2(1).',
+   layout:'DECK FOOTINGS SHALL BE PLACED A MINIMUM OF 48 INCHES BELOW FINISHED GRADE PER 780 CMR TABLE R301.2(1). CONTRACTOR SHALL VERIFY LOCAL AHJ DEPTH.',
+   why:'Inspector tip: 48 inches is the MA state minimum. Some municipalities require deeper. Always confirm with the local building department.',
+   imageTip:'Show a cross-section of a deck footing (sonotube or concrete pier) going 48 inches below grade. Show the frost line with a horizontal blue dashed line. Label "48 inches minimum – MA Frost Depth" with a dimension arrow. Show a deck post above grade sitting on the footing. Include a small diagram showing what happens to a shallow footing in winter (heaving and tilting).'},
+
+  // ── FRAMING ─────────────────────────────────────────
+  {id:40,project:'deck_open',system:'framing',status:'lessons_learned',
+   title:'Ledger Connection — Life Safety (No Nails)',
+   pt:'Conexão do deck à casa: NUNCA pregos. Lag bolts ou through-bolts conforme Tabela R507.9.1.3(1). Flashing completo obrigatório.',
+   cad:'DECK LEDGER: LAG SCREWS OR THRU-BOLTS PER 780 CMR TABLE R507.9.1.3(1). NO NAILS. FULL FLASHING.',
+   layout:'LEDGER CONNECTED TO HOUSE RIM JOIST USING LAG SCREWS OR CARRIAGE BOLTS PER 780 CMR TABLE R507.9.1.3(1). NAILS NOT PERMITTED. PROVIDE COMPLETE METAL LEDGER FLASHING WITH SELF-ADHERING MEMBRANE.',
+   why:'⚠ LIFE SAFETY: Ledger failure is the #1 cause of deck collapse fatalities. MA inspectors will not approve a ledger showing nails or missing flashing.',
+   imageTip:'Show a detailed cross-section of a deck ledger board connection to a house rim joist. In technical blue, highlight a lag screw going through the ledger into the rim joist. Show the complete flashing assembly: ledger flashing metal and self-adhering membrane. Add a red X symbol over a nail illustration labeled "NAILS PROHIBITED". Include a small callout showing the 780 CMR table reference for bolt spacing.'},
+
+  // ── THERMAL ─────────────────────────────────────────
+  {id:50,project:'new_con',system:'thermal',status:'code_compliant',
+   title:'Wall Assembly — R-20 / R-13+5 Zone 5A',
+   pt:'Isolamento de parede: Mínimo R-20 na cavidade OU R-13 + R-5 contínuo externo. MA Climate Zone 5A.',
+   cad:'EXT. WALL: R-20 CAVITY OR R-13+R-5 CI. IECC 2021 TABLE R402.1.3 / MA STRETCH CODE.',
+   layout:'EXTERIOR WALL ASSEMBLIES SHALL ACHIEVE MIN. R-20 (CAVITY) OR R-13 (CAVITY) PLUS R-5 CONTINUOUS INSULATION (CI) PER IECC 2021 TABLE R402.1.3 AND MA STRETCH ENERGY CODE FOR CLIMATE ZONE 5A.',
+   why:'Inspector tip: R-13 cavity alone fails in every MA Stretch Code municipality. Missing the R-5 CI layer on drawings = rejected rough-in inspection.',
+   imageTip:'Show an exploded wall assembly cross-section from exterior to interior. Label each layer left to right: exterior siding, R-5 continuous rigid insulation board (highlighted in blue), sheathing, R-13 batt insulation between studs, vapor retarder (kraft face on warm side), interior drywall. Add clear R-value labels for each insulation layer. Show temperature gradient arrows.'},
+
+  {id:51,project:'new_con',system:'thermal',status:'code_compliant',
+   title:'Attic Insulation — Minimum R-60 (10th Ed)',
+   pt:'Isolamento de sótão: MÍNIMO R-60. A 10ª Edição aumentou de R-49. R-49 trava o Certificado de Ocupação.',
+   cad:'ATTIC INSULATION: MIN. R-60 BLOWN-IN OR BATT. IECC 2021 TABLE R402.1.3.',
+   layout:'ROOF/CEILING ASSEMBLIES: MIN. R-60 PER IECC 2021 TABLE R402.1.3 FOR CLIMATE ZONE 5A. MA 10TH EDITION (EFF. OCT 2024) RAISED MINIMUM FROM R-49 TO R-60. CO WILL NOT ISSUE BELOW THIS VALUE.',
+   why:'Inspector tip: Any drawings showing R-49 were drafted under the 9th Edition. This single number will hold up a CO.',
+   imageTip:'Show a cross-section of an attic space with blown-in insulation filling the space above the ceiling joists. In technical blue, show a dimension line from the ceiling joist top to the top of insulation labeled "Min R-60 = approx. 20 inches blown-in". Add a large red X next to a label "R-49 – OUTDATED – 9th Ed." and a green check next to "R-60 – Required – 10th Ed. (Oct 2024)".'},
+
+  // ── MEP ─────────────────────────────────────────────
+  {id:60,project:'new_con',system:'mep',status:'lessons_learned',
+   title:'Plumbing Code — 248 CMR Only (NOT IPC)',
+   pt:'ATENÇÃO: MA usa 248 CMR. Referenciar IPC é causa de reprovação automática em MA.',
+   cad:'ALL PLUMBING: 248 CMR GOVERNS. IPC/IRC-P FOR COORDINATION ONLY.',
+   layout:'ALL PLUMBING AND GAS WORK SHALL COMPLY WITH 248 CMR. IPC AND IRC-P ARE REFERENCED FOR STRUCTURAL COORDINATION ONLY AND DO NOT GOVERN INSTALLATIONS IN MASSACHUSETTS.',
+   why:'Inspector tip: #1 compliance error from out-of-state architects. Any drawing citing IPC as governing standard will be rejected at plan review.',
+   imageTip:'Show a technical diagram of a plumbing rough-in with a prominent shield badge in the center labeled "248 CMR – MA Plumbing Code". On the left side, show a red X over "IPC" (International Plumbing Code). On the right side show a green check over "248 CMR". Include a small callout bubble: "IRC-P may only be cited for structural coordination".'},
+
+  // ── FIRE / LIFE SAFETY ──────────────────────────────
+  {id:70,project:'new_con',system:'fire',status:'code_compliant',
+   title:'Smoke & CO Alarms — 780 CMR + NFPA 72',
+   pt:'Detectores em todos os quartos, fora dos quartos, e em cada nível. Mais de 12 detectores = sistema NFPA 72 com Engenheiro.',
+   cad:'SMOKE/CO ALARMS: 780 CMR R314/R315, NFPA 72. >12 DETECTORS = FPE CERTIFIED SYSTEM.',
+   layout:'SMOKE ALARMS: ALL SLEEPING ROOMS, OUTSIDE EACH SLEEPING AREA, EVERY LEVEL PER 780 CMR R314. CO ALARMS PER R315. ALL INTERCONNECTED. >12 SMOKE DETECTORS = FIRE ALARM SYSTEM REQUIRING LICENSED FIRE PROTECTION ENGINEER.',
+   why:'⚠ NFPA 72: >12 smoke detectors triggers full Fire Alarm System — different permitting path, FPE stamp required.',
+   imageTip:'Show a building floor plan diagram with smoke detector locations marked as blue circles. Show interconnection wiring between all detectors in blue. In one corner, show a large warning box: "If detector count exceeds 12, this becomes a Fire Alarm System requiring NFPA 72 certification by a Licensed Fire Protection Engineer". Include a counter showing "12 detectors = residential max".'},
+
+  {id:71,project:'basement',system:'fire',status:'code_compliant',
+   title:'Egress Window — Finished Basement',
+   pt:'Quarto no subsolo: janela de escape obrigatória. Mínimo 5.0 sq ft ao nível do terreno. Peitoril máximo 44" do piso ACABADO.',
+   cad:'BASEMENT EGRESS: MIN. 5.0 SQ FT NET CLEAR (AT GRADE). 24"H x 20"W MIN. SILL MAX 44" AFF.',
+   layout:'SLEEPING ROOMS IN FINISHED BASEMENTS SHALL HAVE EMERGENCY ESCAPE OPENINGS PER 780 CMR R310. NET CLEAR: MIN. 5.0 SQ FT AT GRADE, 5.7 SQ FT ABOVE GRADE. MIN. 24"H x 20"W. MAX SILL HEIGHT 44" AFF. WINDOW WELLS DEEPER THAN 44" REQUIRE LADDER.',
+   why:'Inspector tip: Sill height is measured from FINISH floor, not subfloor. Net clear opening is measured after window is open — not rough opening.',
+   imageTip:'Show a cross-section of a basement egress window installation. Label: the net clear opening area (5.0 sq ft minimum), the 24-inch minimum height, 20-inch minimum width. In technical blue, show a dimension arrow from finish floor to window sill: "44 inches MAX – measured from FINISH FLOOR". Show a window well outside with a ladder in it labeled "Ladder required if well deeper than 44 inches". Include a small human silhouette climbing out.'},
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let aProj='new_con', aSys='roof_types', aFilter='all';
+let modalNoteId=null; // which note the modal is targeting
+
+// ═══════════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════════
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const ea=s=>String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
+const projLabel=()=>PROJECTS.find(p=>p.id===aProj)?.label||aProj;
+const sysLabel=()=>SYSTEMS.find(s=>s.id===aSys)?.label||aSys;
+const cntFor=sid=>NOTES.filter(n=>n.project===aProj&&n.system===sid).length;
+
+function toast(msg,dur=2400){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+function cp(id,field){
+  const n=NOTES.find(x=>x.id===id);if(!n)return;
+  navigator.clipboard.writeText(n[field]).catch(()=>{});
+  toast('Copied to clipboard!');
+  const b=document.querySelector(`[data-cp="${id}-${field}"]`);
+  if(b){b.textContent='✓';b.classList.add('copied');setTimeout(()=>{b.textContent='Copy';b.classList.remove('copied');},1500);}
+}
+function setF(el,v){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');aFilter=v;render();
+}
+function toggleTheme(){
+  const h=document.documentElement,dark=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',dark?'light':'dark');
+  document.getElementById('thbtn').innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>${dark?'Dark':'Light'}`;
+}
+function getFiltered(){
+  const q=(document.getElementById('search')?.value||'').toLowerCase();
+  return NOTES.filter(n=>
+    n.project===aProj&&n.system===aSys&&
+    (aFilter==='all'||n.status===aFilter)&&
+    (!q||n.title.toLowerCase().includes(q)||n.pt.toLowerCase().includes(q)||n.cad.toLowerCase().includes(q))
+  );
+}
+function exportNotes(){
+  const ns=getFiltered();
+  if(!ns.length){toast('No notes to export.');return;}
+  let txt=`DARA STUDIO | CODE INSPECTOR v4\nMA 780 CMR 10th Ed · 248 CMR · NEC 2023\nExported: ${new Date().toLocaleString()}\nProject: ${projLabel()} | System: ${sysLabel()}\n${'─'.repeat(60)}\n\n`;
+  ns.forEach((n,i)=>{
+    txt+=`NOTE ${i+1}: ${n.title}\nStatus: ${n.status.replace('_',' ').toUpperCase()}\n\nTRANSLATION (PT-BR):\n${n.pt}\n\nCAD NOTE (SHORT):\n${n.cad}\n\nLAYOUT / SHEET NOTE:\n${n.layout}\n\nINSPECTOR TIP:\n${n.why}\n\nDIAGRAM PROMPT:\n${n.imageTip||'—'}\n${'─'.repeat(60)}\n\n`;
+  });
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
+  a.download=`DARA_${aProj}_${aSys}.txt`;a.click();
+  toast(`Exported ${ns.length} note(s)!`);
+}
+
+// ═══════════════════════════════════════════════════════
+// IMAGE MODAL
+// ═══════════════════════════════════════════════════════
+function openModal(noteId){
+  modalNoteId=noteId;
+  const n=NOTES.find(x=>x.id===noteId);
+  const ta=document.getElementById('modal-prompt');
+  ta.value=n?.imageTip||'';
+  document.getElementById('modal-bg').classList.add('open');
+}
+function openGlobalGen(){
+  modalNoteId=null;
+  document.getElementById('modal-prompt').value='';
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('modal-bg').classList.remove('open');
+  document.getElementById('img-upload').value='';
+}
+document.getElementById('modal-bg').addEventListener('click',function(e){
+  if(e.target===this)closeModal();
+});
+
+// ── UPLOAD ───────────────────────────────────────────
+function handleUpload(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const dataURL=e.target.result;
+    if(modalNoteId!=null){
+      IMG_STORE[modalNoteId]=dataURL;
+      closeModal();
+      render();
+      toast('Image uploaded successfully!');
+    } else {
+      toast('Select a note first, then upload an image for it.');
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── AI GENERATE ──────────────────────────────────────
+const MASTER_PROMPT=`Architectural technical diagram, clean 3D rendering in axonometric section style. Isolated white background. Minimalist color palette (grays, white, and technical blue to highlight connections and key elements). Soft studio lighting, no heavy shadows. Professional construction manual style, similar to a high-quality architectural detail drawing. Labels are clean sans-serif text. No decorative elements. Precision and clarity above all.
+
+Specific scene: `;
+
+async function generateImage(){
+  const userPrompt=document.getElementById('modal-prompt').value.trim();
+  if(!userPrompt){toast('Please describe the diagram you want.');return;}
+
+  const btn=document.getElementById('modal-gen-btn');
+  btn.disabled=true;
+  btn.innerHTML=`<div class="spinner" style="width:13px;height:13px;border-width:2px"></div> Generating…`;
+
+  const fullPrompt=MASTER_PROMPT+userPrompt;
+
+  try{
+    // Call Anthropic API for a text description that will be rendered as SVG diagram
+    // (Since we're in a standalone HTML with no server, we generate an SVG diagram via Claude)
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:4000,
+        system:`You are an expert technical illustrator specializing in construction and architecture diagrams. 
+When given a description of a construction detail, you generate a complete, standalone SVG diagram that looks like a professional architectural technical drawing.
+
+STYLE REQUIREMENTS:
+- White background (#FFFFFF)
+- Thin precise lines (stroke-width 1-2px)
+- Gray tones: #2d3748 (dark), #718096 (mid), #e2e8f0 (light), #f7fafc (fill)
+- Technical blue for key highlighted elements: #3b82f6 (lines/fills), #dbeafe (light blue fills)
+- Red for warnings/errors: #ef4444
+- Green for correct elements: #22c55e
+- Clean sans-serif labels: font-family="system-ui, -apple-system, sans-serif"
+- Label sizes: 10-11px for annotations, 13-14px for titles
+- Dimension lines with arrows
+- Hatching for cut sections (use pattern fills)
+- Professional construction drawing aesthetic
+
+OUTPUT: Return ONLY a complete <svg> element, nothing else. The SVG must be self-contained, width="800" height="500", with viewBox="0 0 800 500". No markdown, no explanation, just the raw SVG code starting with <svg.`,
+        messages:[{role:'user',content:`Generate an SVG technical construction diagram for: ${fullPrompt}`}]
+      })
+    });
+
+    if(!resp.ok){
+      const err=await resp.json().catch(()=>({}));
+      throw new Error(err?.error?.message||`API error ${resp.status}`);
+    }
+
+    const data=await resp.json();
+    const svgText=data.content?.find(c=>c.type==='text')?.text||'';
+    
+    // Extract SVG from response
+    const svgMatch=svgText.match(/<svg[\s\S]*<\/svg>/i);
+    if(!svgMatch)throw new Error('No SVG generated. Try a more specific description.');
+    
+    const svgString=svgMatch[0];
+    const blob=new Blob([svgString],{type:'image/svg+xml'});
+    const dataURL=URL.createObjectURL(blob);
+
+    if(modalNoteId!=null){
+      IMG_STORE[modalNoteId]=dataURL;
+    } else {
+      // Global: attach to first visible note
+      const ns=getFiltered();
+      if(ns.length>0){IMG_STORE[ns[0].id]=dataURL;}
+      else{
+        // Show in a new tab
+        window.open(dataURL,'_blank');
+        toast('No note selected — opened diagram in new tab.');
+        closeModal();btn.disabled=false;btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Generate Diagram`;
+        return;
+      }
+    }
+
+    closeModal();render();
+    toast('Diagram generated successfully!');
+  }catch(err){
+    console.error(err);
+    toast(`Error: ${err.message}`,4000);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Generate Diagram`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// SCANNER
+// ═══════════════════════════════════════════════════════
+const ICONS={
+  err:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  wrn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+};
+function scan(val){
+  const el=document.getElementById('scanout');
+  if(!val.trim()){el.innerHTML='';return;}
+  const l=val.toLowerCase();const res=[];
+  if(/\b(9th edition|9th ed)\b/.test(l))
+    res.push({cls:'err',msg:'ERROR — 9th Edition reference: MA 780 CMR 10th Edition is mandatory (effective Oct 11, 2024).'});
+  if(/\bipc\b/.test(l)||l.includes('international plumbing code'))
+    res.push({cls:'err',msg:'ERROR — IPC reference: MA does NOT adopt IPC. All plumbing references must cite 248 CMR exclusively.'});
+  if((l.includes('r-13')||l.includes('r13'))&&!l.includes('r-5')&&!l.includes('continuous')&&!l.includes('r-20')&&!l.includes('r20'))
+    res.push({cls:'err',msg:'ERROR — R-13 alone fails MA Zone 5A. Specify R-20 cavity or R-13 + R-5 CI per IECC 2021.'});
+  if(l.includes('r-49')||l.includes('r49'))
+    res.push({cls:'err',msg:'ERROR — R-49 is outdated. MA 10th Ed requires R-60 minimum for flat ceiling/attic in Zone 5A.'});
+  if((l.includes('nail')||l.includes('toenail'))&&l.includes('ledger'))
+    res.push({cls:'err',msg:'ERROR — Ledger nailing: Nails are NOT permitted as primary ledger fasteners. Use lag screws per 780 CMR Table R507.9.1.3(1). LIFE SAFETY.'});
+  // Sill height detection
+  const sillM=val.match(/sill[^0-9]*(\d+)/i);
+  if(sillM&&parseInt(sillM[1])>44)
+    res.push({cls:'err',msg:`ERROR — Sill height ${sillM[1]}" exceeds the 44-inch maximum per 780 CMR R310. Measured from FINISH floor, not subfloor.`});
+  // Smoke detector count
+  const smokeN=val.match(/(\d{2,})\s*smoke/gi);
+  if(smokeN)smokeN.forEach(m=>{const n=parseInt(m);if(n>12)res.push({cls:'err',msg:`⚠ NFPA 72 ALERT — ${n} smoke detectors exceeds the 12-detector residential limit. Triggers a full Fire Alarm System requiring a licensed Fire Protection Engineer stamp.`});});
+  if(l.includes('ibc')&&!l.includes('780 cmr'))
+    res.push({cls:'wrn',msg:'WARNING — IBC reference: MA residential is governed by 780 CMR (IRC-based). Clarify the applicable section.'});
+  if(l.includes('irc-p')||l.includes('irc plumbing'))
+    res.push({cls:'wrn',msg:'WARNING — IRC-P: Replace with 248 CMR. IRC-P may only be cited for structural coordination in MA projects.'});
+  if(!res.length)res.push({cls:'ok',msg:'✓ No compliance issues detected. Note appears consistent with MA 780 CMR 10th Edition, 248 CMR, and NEC 2023.'});
+  el.innerHTML=res.map(r=>`<div class="scanres ${r.cls}">${ICONS[r.cls]}<span>${r.msg}</span></div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════
+function render(){
+  // sb1
+  document.getElementById('sb1').innerHTML=
+    PROJECTS.map(p=>`<button class="pbtn${p.id===aProj?' active':''}" onclick="setProj('${p.id}')"><span style="font-size:13px;line-height:1">${p.icon}</span>${p.label}</button>`).join('');
+  // sb2
+  document.getElementById('sb2').innerHTML=
+    SYSTEMS.map(s=>{const c=cntFor(s.id);return`<button class="sbtn${s.id===aSys?' active':''}" onclick="setSys('${s.id}')">${s.label}${c?`<span class="scnt">${c}</span>`:''}</button>`;}).join('');
+  // breadcrumb
+  document.getElementById('bc').innerHTML=`<span>${projLabel()}</span><span> › </span><strong>${sysLabel()}</strong>`;
+  // notes
+  const ns=getFiltered();let html='';
+  if(!ns.length){
+    html=`<div class="empty">No notes for this combination.<br><span style="font-size:11px;margin-top:6px;display:block;color:var(--t3)">Try a different project / system / filter.</span></div>`;
+  }else{
+    ns.forEach(n=>{
+      const imgSrc=IMG_STORE[n.id]||null;
+      const hasImg=!!imgSrc;
+      html+=`<div class="card" id="card-${n.id}">
+        <!-- IMAGE AREA -->
+        <div class="card-img-wrap${hasImg?' has-img':''}">
+          ${hasImg?`<img class="card-img" src="${imgSrc}" alt="${esc(n.title)} diagram" loading="lazy"/>`:''}
+          ${hasImg?`<div class="img-badge">AI Diagram · ${esc(n.title)}</div>`:''}
+          <div class="img-actions">
+            <button class="img-action-btn gen-btn" onclick="openModal(${n.id})" title="Generate or update AI diagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              ${hasImg?'Regen':'Add Diagram'}
+            </button>
+            ${hasImg?`<button class="img-action-btn" onclick="removeImg(${n.id})">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+              Remove
+            </button>`:''}
+          </div>
+        </div>
+        <!-- BODY -->
+        <div class="card-body">
+          <div class="card-l">
+            <div class="trl">🌐 Tradução PT-BR</div>
+            <div class="pt">${esc(n.pt)}</div>
+            ${n.why?`<div class="why"><div class="why-lbl">⚠ Inspector tip</div><div class="why-txt">${esc(n.why)}</div></div>`:''}
+          </div>
+          <div class="card-r">
+            <div class="ch">
+              <div class="ctitle">${esc(n.title)}</div>
+              <span class="badge ${n.status==='lessons_learned'?'l':'c'}">${n.status==='lessons_learned'?'⚡ Lessons Learned':'✓ Code Compliant'}</span>
+            </div>
+            <div class="nb">
+              <div class="nl">Quick CAD note (short)</div>
+              <div class="codebox dk">${esc(n.cad)}<button class="cpbtn" data-cp="${n.id}-cad" onclick="cp(${n.id},'cad')">Copy</button></div>
+            </div>
+            <div class="nb">
+              <div class="nl">Layout / sheet note (full code)</div>
+              <div class="codebox lt">${esc(n.layout)}<button class="cpbtn" data-cp="${n.id}-layout" onclick="cp(${n.id},'layout')">Copy</button></div>
+            </div>
+            ${n.imageTip?`<div class="nb">
+              <div class="nl">Diagram prompt (copy to Claude/DALL-E)</div>
+              <div class="codebox lt" style="font-style:italic;text-transform:none;font-size:9.5px;color:var(--t2)">${esc(n.imageTip)}<button class="cpbtn" onclick="navigator.clipboard.writeText(${JSON.stringify(MASTER_PROMPT+n.imageTip)});toast('Prompt copied!')">Copy</button></div>
+            </div>`:''}
+          </div>
+        </div>
+      </div>`;
+    });
+  }
+  document.getElementById('notes').innerHTML=html;
+}
+function setProj(id){aProj=id;render();}
+function setSys(id){aSys=id;render();}
+function removeImg(id){delete IMG_STORE[id];render();toast('Image removed.');}
+
+render();
+</script>
+</body>
+</html>

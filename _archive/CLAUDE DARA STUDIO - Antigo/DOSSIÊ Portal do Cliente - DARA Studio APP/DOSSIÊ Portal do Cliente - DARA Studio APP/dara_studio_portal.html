@@ -1,0 +1,598 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+  .p-root{--g:#b89b6a;--gd:rgba(184,155,106,0.14);--gb:rgba(184,155,106,0.3);--bg:#f5f3ef;--bg2:#fff;--bg3:#edeae4;--sb:#1a1814;--tx:#1a1814;--mu:#6b6760;--dm:#a09b94;--br:#e2ddd6;--gn:#2d8653;--gnb:rgba(45,134,83,0.1);--am:#c07c0a;--amb:rgba(192,124,10,0.1);--rd:#b83232;--rdb:rgba(184,50,50,0.09);--bl:#2566a8;--blb:rgba(37,102,168,0.09);--sr:'Libre Baskerville',Georgia,serif;--ss:'Montserrat',system-ui,sans-serif;font-family:var(--ss);background:var(--bg);color:var(--tx);font-size:13px;min-height:600px;display:flex;flex-direction:column;}
+  .p-root *{box-sizing:border-box;margin:0;padding:0;}
+  .p-root button{font-family:var(--ss);cursor:pointer;}
+  .p-root input,.p-root textarea,.p-root select{font-family:var(--ss);outline:none;}
+  @keyframes pu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes sp{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  .anim{animation:pu .3s ease both}
+</style>
+
+<div class="p-root" id="portal-root"></div>
+
+<script type="module">
+import{useState,useEffect,useCallback,useRef,createElement as h,Fragment}from'https://esm.sh/react@18';
+import{createRoot}from'https://esm.sh/react-dom@18/client';
+
+const G='#b89b6a',GD='rgba(184,155,106,0.14)',GB='rgba(184,155,106,0.3)';
+const BG='#f5f3ef',BG2='#fff',BG3='#edeae4',SB='#1a1814';
+const TX='#1a1814',MU='#6b6760',DM='#a09b94',BR='#e2ddd6';
+const GN='#2d8653',GNB='rgba(45,134,83,0.1)';
+const AM='#c07c0a',AMB='rgba(192,124,10,0.1)';
+const RD='#b83232',RDB='rgba(184,50,50,0.09)';
+const BL='#2566a8',BLB='rgba(37,102,168,0.09)';
+const SR="'Libre Baskerville',Georgia,serif",SS="'Montserrat',system-ui,sans-serif";
+const fmt=n=>`$${Number(n).toLocaleString('en-US',{minimumFractionDigits:2})}`;
+const statusLabel={on_track:'Em Andamento',attention:'Atenção',completed:'Concluído'};
+const statusColor={on_track:{bg:GNB,color:GN,dot:GN},attention:{bg:AMB,color:AM,dot:AM},completed:{bg:BLB,color:BL,dot:BL}};
+
+const DEMO_USER={id:'u1',name:'Jackson Da Silva',company:'Jack General Services Inc.',email:'jackgeneraloffice@gmail.com',phone:'+1 (617) 775-0179',initials:'JD',avatar:null};
+const DEMO_PROJECTS=[
+  {id:1,code:'DARA-0010',address:'41 Bowdoin Ave',city:'Dorchester, MA',service:'New Construction — Single Family',stage:'Detalhamento',status:'on_track',budget:2718,paid:0,progress:6,updatedAt:'18/03/2026',pendingAction:'Aguardando informações do cliente'},
+  {id:2,code:'DARA-0008',address:'88 Dover St',city:'Boston, MA',service:'Commercial Office Renovation',stage:'Estudo Preliminar',status:'on_track',budget:4200,paid:2100,progress:50,updatedAt:'14/03/2026',pendingAction:null},
+  {id:3,code:'DARA-0005',address:'215 Hampton Rd',city:'Brookline, MA',service:'Interior Design — Living Room',stage:'Entrega Final',status:'completed',budget:1800,paid:1800,progress:100,updatedAt:'28/02/2026',pendingAction:null},
+];
+const DEMO_INVOICES=[
+  {id:'INV-2026-003',project:'41 Bowdoin Ave',amount:1359,status:'pending',due:'15/04/2026'},
+  {id:'INV-2026-002',project:'88 Dover St',amount:1400,status:'pending',due:'30/03/2026'},
+  {id:'INV-2026-001',project:'88 Dover St',amount:700,status:'paid',due:'10/03/2026'},
+];
+const DEMO_ACTIVITY=[
+  {id:1,type:'file',text:'Novo arquivo publicado em 41 Bowdoin Ave',time:'2h atrás'},
+  {id:2,type:'invoice',text:'Fatura INV-2026-002 vencimento em 10 dias',time:'1d atrás'},
+  {id:3,type:'message',text:'Nova mensagem de Daniela (DARA Studio)',time:'2d atrás'},
+];
+
+// ── HELPERS ──
+const Icon=({d,size=14,color='currentColor',style:s={}})=>h('svg',{width:size,height:size,viewBox:'0 0 24 24',fill:'none',stroke:color,strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',style:{flexShrink:0,...s}},h('path',{d}));
+const icons={
+  dash:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
+  folder:'M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z',
+  receipt:'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2 M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2 M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 M12 12h.01 M12 16h.01',
+  chat:'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  user:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+  building:'M3 21h18 M9 21V7l6-4v18 M9 21H3V9l6-2',
+  logout:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9',
+  plus:'M12 5v14 M5 12h14',
+  back:'M19 12H5 M12 19l-7-7 7-7',
+  check:'M20 6 9 17l-5-5',
+  bell:'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9 M13.73 21a2 2 0 0 1-3.46 0',
+  send:'M22 2 11 13 M22 2l-7 20-4-9-9-4z',
+  upload:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M17 8l-5-5-5 5 M12 3v12',
+  x:'M18 6 6 18 M6 6l12 12',
+  file:'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6',
+  download:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3',
+  trend:'M23 6l-9.5 9.5-5-5L1 18 M17 6h6v6',
+  alert:'M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z M12 9v4 M12 17h.01',
+  eye:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 12m-3 0a3 3 0 1 0 6 0 3 3 0 0 0-6 0',
+  eyeoff:'M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24 M1 1l22 22',
+  ticket:'M15 5v2 M15 11v2 M15 17v2 M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z',
+  settings:'M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  menu:'M3 12h18 M3 6h18 M3 18h18',
+};
+const Ic=({n,size=14,color='currentColor',style:s={}})=>icons[n]?h(Icon,{d:icons[n],size,color,style:s}):null;
+
+const Badge=({status})=>{
+  const sc=statusColor[status]||statusColor.on_track;
+  return h('span',{style:{display:'inline-flex',alignItems:'center',gap:5,fontSize:11,fontWeight:600,background:sc.bg,color:sc.color,borderRadius:20,padding:'3px 10px'}},
+    h('span',{style:{width:5,height:5,borderRadius:'50%',background:sc.dot,flexShrink:0}}),
+    statusLabel[status]||status
+  );
+};
+
+const NavBtn=({icon,label,active,badge,onClick,collapsed})=>h('button',{onClick,style:{width:'100%',display:'flex',alignItems:'center',gap:10,padding:collapsed?'10px 0':'9px 14px',justifyContent:collapsed?'center':'flex-start',background:active?'rgba(184,155,106,0.15)':'none',border:'none',borderRadius:8,color:active?G:'rgba(255,255,255,0.45)',fontSize:13,fontWeight:active?600:400,position:'relative',transition:'all .15s'},onMouseEnter:e=>{if(!active){e.currentTarget.style.background='rgba(255,255,255,0.06)';e.currentTarget.style.color='rgba(255,255,255,0.75)';}},onMouseLeave:e=>{e.currentTarget.style.background=active?'rgba(184,155,106,0.15)':'none';e.currentTarget.style.color=active?G:'rgba(255,255,255,0.45)';}},
+  h(Ic,{n:icon,size:15,color:'currentColor'}),
+  !collapsed&&h('span',{style:{flex:1,textAlign:'left'}},label),
+  !collapsed&&badge>0&&h('span',{style:{background:G,color:SB,borderRadius:10,fontSize:10,fontWeight:700,minWidth:18,height:18,display:'flex',alignItems:'center',justifyContent:'center',padding:'0 5px'}},badge),
+  collapsed&&badge>0&&h('span',{style:{position:'absolute',top:6,right:6,width:7,height:7,borderRadius:'50%',background:G}})
+);
+
+// ── LOGIN ──
+const Login=({onLogin})=>{
+  const[tab,setTab]=useState('login');
+  const[email,setEmail]=useState('');
+  const[pw,setPw]=useState('');
+  const[name,setName]=useState('');
+  const[show,setShow]=useState(false);
+  const[loading,setLoading]=useState(false);
+  const[err,setErr]=useState('');
+  const[info,setInfo]=useState('');
+
+  const submit=()=>{
+    if(!email||!pw){setErr('Preencha todos os campos.');return;}
+    setErr('');setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+      if(tab==='login'){
+        if(email==='joao@darastudio.com'&&pw==='teste123') onLogin(DEMO_USER);
+        else setErr('E-mail ou senha incorretos.');
+      } else {
+        if(pw.length<6){setErr('Senha deve ter ao menos 6 caracteres.');return;}
+        setInfo('Conta criada! Verifique seu e-mail para confirmar o acesso.');setTab('login');
+      }
+    },800);
+  };
+
+  const inp={width:'100%',border:`1.5px solid ${BR}`,borderRadius:8,padding:'10px 12px',fontSize:13,color:TX,background:BG2,outline:'none',fontFamily:SS};
+
+  return h('div',{style:{minHeight:'100%',background:BG,display:'flex',alignItems:'center',justifyContent:'center',padding:20,gap:48}},
+    // Left brand
+    h('div',{style:{width:340,display:'flex',flexDirection:'column'},className:'anim'},
+      h('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:28}},
+        h('div',{style:{width:36,height:36,background:G,borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontWeight:700,fontSize:18,color:'#fff'}},'D'),
+        h('div',null,h('p',{style:{fontFamily:SR,fontWeight:700,fontSize:15,color:TX,lineHeight:1.2}},'DARA Studio'),h('p',{style:{fontSize:11,color:MU}},'Drafting & 3D Support'))
+      ),
+      h('h1',{style:{fontFamily:SR,fontSize:28,fontWeight:700,lineHeight:1.25,color:TX,marginBottom:12}},'Portal do',h('br'),'Cliente'),
+      h('p',{style:{fontSize:13,color:MU,lineHeight:1.7,marginBottom:24}},'Acesse seus projetos, arquivos e comunicações em um único lugar.'),
+      ...[['folder','Acompanhe o progresso de cada projeto em tempo real'],['receipt','Gerencie faturas e realize pagamentos com segurança'],['chat','Comunicação direta com a equipe DARA Studio']].map(([ic,txt])=>
+        h('div',{key:ic,style:{display:'flex',alignItems:'flex-start',gap:10,marginBottom:10}},
+          h('div',{style:{width:26,height:26,borderRadius:7,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,marginTop:2}},h(Ic,{n:ic,size:13,color:G})),
+          h('p',{style:{fontSize:12,color:MU,lineHeight:1.6}},txt)
+        )
+      ),
+      h('div',{style:{marginTop:20,padding:'7px 12px',borderRadius:7,background:AMB,border:`1px solid rgba(192,124,10,0.3)`,display:'flex',alignItems:'center',gap:7}},
+        h('div',{style:{width:7,height:7,borderRadius:'50%',background:AM,flexShrink:0}}),
+        h('span',{style:{fontSize:11,color:AM,fontWeight:600}},'Modo demonstração (dados fictícios)')
+      )
+    ),
+    // Form card
+    h('div',{style:{width:'100%',maxWidth:380,background:BG2,borderRadius:16,border:`1px solid ${BR}`,padding:28},className:'anim'},
+      // Tabs
+      h('div',{style:{display:'flex',background:BG3,borderRadius:8,padding:3,marginBottom:24}},
+        ...['login','register'].map(id=>h('button',{key:id,onClick:()=>{setTab(id);setErr('');setInfo('');},style:{flex:1,padding:'8px 0',fontSize:13,fontWeight:tab===id?600:400,background:tab===id?BG2:'none',border:'none',borderRadius:6,color:tab===id?TX:MU,transition:'all .15s'}},id==='login'?'Entrar':'Criar Conta'))
+      ),
+      h('p',{style:{fontFamily:SR,fontSize:17,fontWeight:700,marginBottom:4}},tab==='login'?'Bem-vindo de Volta':'Crie sua Conta'),
+      h('p',{style:{fontSize:12,color:MU,marginBottom:18}},tab==='login'?'Insira suas credenciais para acessar':'Preencha os dados para criar seu acesso'),
+      info&&h('div',{style:{padding:'8px 12px',background:GNB,border:'1px solid rgba(45,134,83,0.3)',borderRadius:7,marginBottom:12,fontSize:12,color:GN}},info),
+      // Google btn
+      h('button',{onClick:()=>setErr('Google OAuth requer Supabase configurado em produção.'),style:{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,border:`1.5px solid ${BR}`,borderRadius:9,padding:'10px',background:BG2,fontSize:13,fontWeight:500,color:TX,marginBottom:14},onMouseEnter:e=>e.currentTarget.style.borderColor=G,onMouseLeave:e=>e.currentTarget.style.borderColor=BR},
+        h('svg',{width:16,height:16,viewBox:'0 0 24 24'},
+          h('path',{fill:'#4285F4',d:'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'}),
+          h('path',{fill:'#34A853',d:'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z'}),
+          h('path',{fill:'#FBBC05',d:'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z'}),
+          h('path',{fill:'#EA4335',d:'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z'})
+        ),
+        tab==='login'?'Entrar com Google':'Cadastrar com Google'
+      ),
+      h('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:14}},h('div',{style:{flex:1,height:1,background:BR}}),h('span',{style:{fontSize:11,color:DM}},'OU'),h('div',{style:{flex:1,height:1,background:BR}})),
+      tab==='register'&&h('div',{style:{marginBottom:10}},
+        h('label',{style:{fontSize:11,fontWeight:600,color:MU,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'Nome Completo'),
+        h('input',{value:name,onChange:e=>setName(e.target.value),placeholder:'Jackson Da Silva',style:inp,onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR})
+      ),
+      h('div',{style:{marginBottom:10}},
+        h('label',{style:{fontSize:11,fontWeight:600,color:MU,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'E-mail'),
+        h('input',{type:'email',value:email,onChange:e=>setEmail(e.target.value),placeholder:'seu@email.com',style:inp,onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR,onKeyDown:e=>e.key==='Enter'&&submit()})
+      ),
+      h('div',{style:{marginBottom:err?8:16}},
+        h('label',{style:{fontSize:11,fontWeight:600,color:MU,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'Senha'),
+        h('div',{style:{position:'relative'}},
+          h('input',{type:show?'text':'password',value:pw,onChange:e=>setPw(e.target.value),placeholder:'••••••••',style:{...inp,paddingRight:36},onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR,onKeyDown:e=>e.key==='Enter'&&submit()}),
+          h('button',{'aria-label':show?'Ocultar senha':'Mostrar senha',onClick:()=>setShow(s=>!s),style:{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:DM,padding:4}},h(Ic,{n:show?'eyeoff':'eye',size:14,color:DM}))
+        )
+      ),
+      err&&h('p',{style:{fontSize:12,color:RD,marginBottom:10,display:'flex',alignItems:'center',gap:5}},h(Ic,{n:'alert',size:13,color:RD}),err),
+      tab==='login'&&h('div',{style:{textAlign:'right',marginBottom:12,marginTop:-4}},h('button',{style:{background:'none',border:'none',fontSize:12,color:G},onClick:()=>setInfo('E-mail de recuperação seria enviado para: '+email||'seu e-mail')},'Esqueceu sua senha?')),
+      h('button',{onClick:submit,disabled:loading,style:{width:'100%',background:loading?GD:G,border:'none',borderRadius:9,padding:12,fontSize:14,fontWeight:700,color:loading?G:'#fff',transition:'all .15s',boxShadow:loading?'none':`0 2px 12px ${GB}`}},loading?'Aguarde...':(tab==='login'?'Entrar':'Criar Conta')),
+      h('p',{style:{textAlign:'center',fontSize:11,color:DM,marginTop:14}},'Demo: joao@darastudio.com / teste123')
+    )
+  );
+};
+
+// ── PROJECT DETAIL ──
+const ProjectDetail=({project,onBack})=>{
+  const[tab,setTab]=useState('overview');
+  const[msgs,setMsgs]=useState([
+    {id:1,from:'admin',name:'Daniela',text:'Olá! A planta v3 foi enviada para sua aprovação. Alguma dúvida?',time:'10/03 14:30'},
+    {id:2,from:'client',name:'João',text:'Recebi! Vou revisar hoje à noite.',time:'10/03 16:12'},
+    {id:3,from:'admin',name:'Daniela',text:'Perfeito. Qualquer ajuste, abra um ticket.',time:'10/03 16:45'},
+  ]);
+  const[chatMsg,setChatMsg]=useState('');
+  const[updates,setUpdates]=useState([
+    {id:1,date:'14/03/2026',author:'João (cliente)',text:'Fundação concluída, iniciando estrutura metálica.',photos:3},
+    {id:2,date:'08/03/2026',author:'João (cliente)',text:'Terreno preparado e nivelado. Aprovado pela prefeitura.',photos:5},
+  ]);
+  const[siteText,setSiteText]=useState('');
+  const[tickets,setTickets]=useState([]);
+  const[ticketDesc,setTicketDesc]=useState('');
+  const[quoteApproved,setQuoteApproved]=useState(false);
+  const[payProof,setPayProof]=useState({});
+  const chatRef=useRef(null);
+  useEffect(()=>{if(chatRef.current)chatRef.current.scrollTop=chatRef.current.scrollHeight;},[msgs]);
+
+  const sendMsg=()=>{
+    if(!chatMsg.trim())return;
+    setMsgs(m=>[...m,{id:Date.now(),from:'client',name:'João',text:chatMsg.trim(),time:'agora'}]);
+    setChatMsg('');
+  };
+
+  const tabs=[{id:'overview',label:'Overview'},{id:'finance',label:'Finance'},{id:'chat',label:'Chat'},{id:'updates',label:'Site Updates'},{id:'tickets',label:'Tickets'}];
+  const budget=project.budget;
+  const phases=[
+    {id:'p1',label:'Conceptual Design',pct:30,amount:Math.round(budget*.3),due:'15/04/2026',status:'pending'},
+    {id:'p2',label:'Drafting & Coordination',pct:40,amount:Math.round(budget*.4),due:'30/06/2026',status:'pending'},
+    {id:'p3',label:'Permit Drawing',pct:30,amount:Math.round(budget*.3),due:'15/08/2026',status:'pending'},
+  ];
+
+  const s=(k,v)=>({[k]:v});
+  const card=(content,extra={})=>h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'16px 20px',...extra}},content);
+
+  return h('div',{className:'anim',style:{height:'100%',display:'flex',flexDirection:'column',minHeight:500}},
+    // Back
+    h('button',{onClick:onBack,style:{display:'flex',alignItems:'center',gap:6,background:'none',border:'none',color:MU,fontSize:12,marginBottom:14,padding:0}},h(Ic,{n:'back',size:14,color:MU}),'Voltar para Projetos'),
+    // Header
+    h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:12,padding:'16px 20px',marginBottom:4}},
+      h('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+        h('span',{style:{fontFamily:'monospace',fontSize:10,color:G,fontWeight:700,background:GD,borderRadius:4,padding:'2px 8px'}},project.code),
+        h(Badge,{status:project.status})
+      ),
+      h('h2',{style:{fontFamily:SR,fontSize:18,fontWeight:700,marginBottom:2}},project.address),
+      h('p',{style:{fontSize:12,color:MU,marginBottom:12}},project.city+' · '+project.service),
+      h('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},
+        h('span',null,'Etapa: ',h('strong',{style:{color:TX,fontSize:11}},project.stage)),
+        h('span',null,project.progress+'% concluído')
+      ),
+      h('div',{style:{background:BG3,borderRadius:4,height:6}},
+        h('div',{style:{width:project.progress+'%',height:'100%',borderRadius:4,background:`linear-gradient(90deg,${G},#c9ae82)`,transition:'width .8s ease'}})
+      )
+    ),
+    // Tabs
+    h('div',{style:{display:'flex',borderBottom:`1px solid ${BR}`,background:BG2,overflowX:'auto'}},
+      tabs.map(t=>h('button',{key:t.id,onClick:()=>setTab(t.id),style:{background:'none',border:'none',padding:'10px 16px',fontSize:12,fontWeight:500,color:tab===t.id?G:DM,borderBottom:`2px solid ${tab===t.id?G:'transparent'}`,whiteSpace:'nowrap',transition:'color .15s'}},t.label))
+    ),
+    // Tab content
+    h('div',{style:{flex:1,overflowY:'auto',padding:'16px 0'}},
+      // OVERVIEW
+      tab==='overview'&&h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}},
+        card(h(Fragment,null,
+          h('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12}},h(Ic,{n:'user',size:13,color:G}),h('span',{style:{fontFamily:SR,fontSize:13,fontWeight:700}},'Informações do Cliente'),h('span',{style:{fontSize:9,fontWeight:600,color:GN,background:GNB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'EDITÁVEL')),
+          ...[['Nome','Jackson Da Silva'],['E-mail','jackgeneraloffice@gmail.com'],['Telefone','+1 (617) 775-0179']].map(([l,v])=>
+            h('div',{key:l,style:{marginBottom:9}},
+              h('label',{style:{fontSize:10,fontWeight:600,color:DM,display:'block',marginBottom:3,textTransform:'uppercase',letterSpacing:'.05em'}},l),
+              h('input',{defaultValue:v,style:{width:'100%',border:`1.5px solid ${BR}`,borderRadius:7,padding:'7px 10px',fontSize:12,color:TX,background:BG,fontFamily:SS,outline:'none'},onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR})
+            )
+          ),
+          h('button',{style:{background:G,border:'none',borderRadius:7,padding:'7px 16px',fontSize:12,fontWeight:700,color:'#fff',marginTop:4}},'Salvar Alterações')
+        )),
+        card(h(Fragment,null,
+          h('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12}},
+            h(Ic,{n:'building',size:13,color:G}),
+            h('span',{style:{fontFamily:SR,fontSize:13,fontWeight:700}},'Detalhes Técnicos'),
+            quoteApproved
+              ?h('span',{style:{fontSize:9,fontWeight:700,color:RD,background:RDB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'🔒 BLOQUEADO')
+              :h('span',{style:{fontSize:9,fontWeight:600,color:AM,background:AMB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'EDITÁVEL'),
+            h('button',{onClick:()=>setQuoteApproved(q=>!q),style:{marginLeft:'auto',fontSize:10,fontWeight:600,background:quoteApproved?GNB:BG3,color:quoteApproved?GN:DM,border:`1px solid ${quoteApproved?'rgba(45,134,83,0.3)':BR}`,borderRadius:5,padding:'2px 8px'}},quoteApproved?'✓ Aprovado':'Simular Aprovação')
+          ),
+          quoteApproved&&h('div',{style:{padding:'8px 11px',background:RDB,border:'1px solid rgba(184,50,50,0.2)',borderRadius:7,marginBottom:10,fontSize:11,color:RD}},'Detalhes bloqueados após aprovação do orçamento.'),
+          ...[['Área','2.000 sqft'],['Níveis','Térreo + 2º Andar'],['Início','15/01/2026'],['Arquiteto','Daniela Araújo'],['Serviço',project.service]].map(([k,v])=>
+            h('div',{key:k,style:{display:'flex',justifyContent:'space-between',padding:'6px 0',borderBottom:`1px solid rgba(0,0,0,0.04)`}},
+              h('span',{style:{fontSize:11,color:MU}},k),
+              quoteApproved
+                ?h('span',{style:{fontSize:11,fontWeight:500,color:DM}},v)
+                :h('input',{defaultValue:v,style:{fontSize:11,fontWeight:500,color:TX,background:'none',border:'none',textAlign:'right',outline:'none',fontFamily:SS,cursor:'text',borderBottom:`1px dashed ${BR}`,padding:'1px 4px'},onFocus:e=>e.target.style.borderBottomColor=G,onBlur:e=>e.target.style.borderBottomColor=BR})
+            )
+          ),
+          !quoteApproved&&h('button',{style:{background:G,border:'none',borderRadius:7,padding:'7px 16px',fontSize:12,fontWeight:700,color:'#fff',marginTop:8}},'Salvar Alterações')
+        ))
+      ),
+      // FINANCE
+      tab==='finance'&&h('div',null,
+        h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}},
+          ...[['Total do Projeto',fmt(budget),G],['Pago',fmt(project.paid),GN],['Saldo',fmt(budget-project.paid),AM]].map(([l,v,c])=>
+            h('div',{key:l,style:{background:BG2,border:`1px solid ${BR}`,borderRadius:9,padding:'12px 14px',textAlign:'center'}},
+              h('p',{style:{fontSize:10,color:DM,marginBottom:4}}),
+              h('p',{style:{fontFamily:SR,fontSize:15,fontWeight:700,color:c}},v),
+              h('p',{style:{fontSize:10,color:MU}},l)
+            )
+          )
+        ),
+        ...phases.map(ph=>h('div',{key:ph.id,style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'14px 18px',marginBottom:10}},
+          h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}},
+            h('div',null,
+              h('p',{style:{fontSize:12,fontWeight:700,color:TX}},ph.label),
+              h('p',{style:{fontSize:11,color:MU}},ph.pct+'% — '+fmt(ph.amount))
+            ),
+            h('div',{style:{textAlign:'right'}},
+              h('span',{style:{fontSize:10,fontWeight:600,background:ph.status==='paid'?GNB:AMB,color:ph.status==='paid'?GN:AM,borderRadius:4,padding:'2px 8px'}},ph.status==='paid'?'Pago':'Pendente'),
+              h('p',{style:{fontSize:10,color:DM,marginTop:3}},'Vencimento: '+ph.due)
+            )
+          ),
+          ph.status==='pending'&&h('label',{style:{display:'flex',alignItems:'center',justifyContent:'center',gap:6,background:payProof[ph.id]?GN:G,border:'none',borderRadius:8,padding:8,fontSize:12,fontWeight:700,color:'#fff',cursor:'pointer'}},
+            payProof[ph.id]?'✓ '+payProof[ph.id]:'📎 Anexar Comprovante',
+            h('input',{type:'file',accept:'image/*,.pdf',style:{display:'none'},onChange:e=>{const f=e.target.files?.[0];if(f)setPayProof(p=>({...p,[ph.id]:f.name}));}})
+          )
+        ))
+      ),
+      // CHAT
+      tab==='chat'&&h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,overflow:'hidden',display:'flex',flexDirection:'column',height:380}},
+        h('div',{style:{padding:'12px 16px',borderBottom:`1px solid ${BR}`,display:'flex',alignItems:'center',gap:8}},
+          h('div',{style:{width:8,height:8,borderRadius:'50%',background:GN}}),
+          h('span',{style:{fontSize:12,fontWeight:600,color:TX}},'Chat com DARA Studio'),
+          h('span',{style:{fontSize:11,color:DM,marginLeft:'auto'}},'Online')
+        ),
+        h('div',{ref:chatRef,style:{flex:1,overflowY:'auto',padding:'14px 16px',display:'flex',flexDirection:'column',gap:10}},
+          msgs.map(m=>h('div',{key:m.id,style:{display:'flex',flexDirection:m.from==='client'?'row-reverse':'row',gap:8,alignItems:'flex-end'}},
+            h('div',{style:{width:26,height:26,borderRadius:'50%',background:m.from==='admin'?GD:BG3,border:`1px solid ${BR}`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+              h('span',{style:{fontSize:10,fontWeight:700,color:m.from==='admin'?G:MU}},m.name[0])
+            ),
+            h('div',{style:{maxWidth:'68%'}},
+              h('div',{style:{background:m.from==='client'?GD:BG3,border:`1px solid ${m.from==='client'?GB:BR}`,borderRadius:m.from==='client'?'10px 10px 3px 10px':'10px 10px 10px 3px',padding:'8px 12px'}},
+                h('p',{style:{fontSize:12,color:TX,lineHeight:1.5}},m.text)
+              ),
+              h('p',{style:{fontSize:10,color:DM,marginTop:2,textAlign:m.from==='client'?'right':'left'}},m.name+' · '+m.time)
+            )
+          ))
+        ),
+        h('div',{style:{borderTop:`1px solid ${BR}`,padding:'10px 14px',display:'flex',gap:8}},
+          h('input',{value:chatMsg,onChange:e=>setChatMsg(e.target.value),onKeyDown:e=>e.key==='Enter'&&sendMsg(),placeholder:'Escreva uma mensagem...',style:{flex:1,background:BG3,border:`1px solid ${BR}`,borderRadius:8,padding:'8px 12px',fontSize:12,color:TX,fontFamily:SS,outline:'none'}}),
+          h('button',{onClick:sendMsg,style:{background:G,border:'none',borderRadius:8,width:36,height:36,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},h(Ic,{n:'send',size:13,color:'#fff'}))
+        )
+      ),
+      // SITE UPDATES
+      tab==='updates'&&h('div',null,
+        h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'14px 18px',marginBottom:14}},
+          h('p',{style:{fontSize:12,fontWeight:700,color:TX,marginBottom:8}},'Nova Atualização de Obra'),
+          h('textarea',{value:siteText,onChange:e=>setSiteText(e.target.value),placeholder:'Descreva o progresso da obra...',style:{width:'100%',background:BG3,border:`1px solid ${BR}`,borderRadius:8,padding:'10px 12px',fontSize:12,color:TX,fontFamily:SS,resize:'vertical',minHeight:80,outline:'none',marginBottom:10},onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR}),
+          h('button',{onClick:()=>{if(!siteText.trim())return;setUpdates(u=>[{id:Date.now(),date:new Date().toLocaleDateString('pt-BR'),author:'João (cliente)',text:siteText.trim(),photos:0},...u]);setSiteText('');},style:{background:G,border:'none',borderRadius:8,padding:'8px 18px',fontSize:12,fontWeight:700,color:'#fff'}},'Publicar Atualização')
+        ),
+        ...updates.map(u=>h('div',{key:u.id,style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'12px 16px',marginBottom:8}},
+          h('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:5}},
+            h('span',{style:{fontSize:11,color:G,fontWeight:600}},u.author),
+            h('span',{style:{fontSize:10,color:DM}},u.date)
+          ),
+          h('p',{style:{fontSize:12,color:TX,lineHeight:1.6}},u.text),
+          u.photos>0&&h('p',{style:{fontSize:10,color:DM,marginTop:4}},u.photos+' foto(s) em anexo')
+        ))
+      ),
+      // TICKETS
+      tab==='tickets'&&h('div',null,
+        h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'14px 18px',marginBottom:14}},
+          h('p',{style:{fontSize:12,fontWeight:700,color:TX,marginBottom:8}},'Abrir Novo Ticket de Revisão'),
+          h('textarea',{value:ticketDesc,onChange:e=>setTicketDesc(e.target.value),placeholder:'Descreva a revisão solicitada...',style:{width:'100%',background:BG3,border:`1px solid ${BR}`,borderRadius:8,padding:'10px 12px',fontSize:12,color:TX,fontFamily:SS,resize:'vertical',minHeight:70,outline:'none',marginBottom:10},onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR}),
+          h('button',{onClick:()=>{if(!ticketDesc.trim())return;setTickets(t=>[{id:`TKT-${String(t.length+1).padStart(3,'0')}`,desc:ticketDesc.trim(),status:'Aberto',date:new Date().toLocaleDateString('pt-BR')},...t]);setTicketDesc('');},style:{background:G,border:'none',borderRadius:8,padding:'8px 18px',fontSize:12,fontWeight:700,color:'#fff'}},'Abrir Ticket')
+        ),
+        tickets.length===0
+          ?h('div',{style:{textAlign:'center',padding:'32px 0',color:DM}},h('p',{style:{fontSize:22,marginBottom:8}},'🎫'),h('p',{style:{fontSize:13}},'Nenhum ticket aberto ainda.'))
+          :tickets.map(t=>h('div',{key:t.id,style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'12px 16px',marginBottom:8}},
+            h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}},
+              h('div',null,
+                h('div',{style:{display:'flex',gap:8,alignItems:'center',marginBottom:4}},
+                  h('span',{style:{fontFamily:'monospace',fontSize:11,color:G,fontWeight:700}},t.id),
+                  h('span',{style:{fontSize:10,background:AMB,color:AM,borderRadius:3,padding:'1px 6px',fontWeight:600}},t.status)
+                ),
+                h('p',{style:{fontSize:12,color:TX}},t.desc)
+              ),
+              h('span',{style:{fontSize:10,color:DM}},t.date)
+            )
+          ))
+      )
+    )
+  );
+};
+
+// ── INVOICES PAGE ──
+const Invoices=({invoices})=>{
+  const total=invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  const outstanding=invoices.filter(i=>i.status==='pending').reduce((s,i)=>s+i.amount,0);
+  return h('div',{className:'anim'},
+    h('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:4}},'Faturas'),
+    h('p',{style:{fontSize:12,color:MU,marginBottom:20}},'Gerencie seus pagamentos e histórico financeiro'),
+    h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:20}},
+      ...[['Total Pago',fmt(total),GN],['Saldo Pendente',fmt(outstanding),AM]].map(([l,v,c])=>
+        h('div',{key:l,style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'14px 18px'}},
+          h('p',{style:{fontSize:11,color:DM,marginBottom:4}},l),
+          h('p',{style:{fontFamily:SR,fontSize:18,fontWeight:700,color:c}},v)
+        )
+      )
+    ),
+    invoices.map(inv=>h('div',{key:inv.id,style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'12px 18px',marginBottom:8,display:'flex',justifyContent:'space-between',alignItems:'center'}},
+      h('div',null,
+        h('p',{style:{fontFamily:'monospace',fontSize:12,fontWeight:700,color:G}},inv.id),
+        h('p',{style:{fontSize:12,color:TX,marginTop:2}},inv.project),
+        h('p',{style:{fontSize:11,color:DM,marginTop:1}},'Vencimento: '+inv.due)
+      ),
+      h('div',{style:{textAlign:'right'}},
+        h('p',{style:{fontFamily:SR,fontSize:15,fontWeight:700,color:TX}},fmt(inv.amount)),
+        h('span',{style:{fontSize:10,fontWeight:600,background:inv.status==='paid'?GNB:AMB,color:inv.status==='paid'?GN:AM,borderRadius:4,padding:'2px 8px'}},inv.status==='paid'?'Pago':'Pendente')
+      )
+    ))
+  );
+};
+
+// ── DASHBOARD ──
+const Dashboard=({profile,projects,invoices,activity,onNavigate,onOpenProject})=>{
+  const active=projects.filter(p=>p.status!=='completed').length;
+  const pending=invoices.filter(i=>i.status==='pending').length;
+  const totalPaid=invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  return h('div',{className:'anim'},
+    h('div',{style:{marginBottom:22}},
+      h('h1',{style:{fontFamily:SR,fontSize:22,fontWeight:700,marginBottom:3}},'Bem-vindo de volta, ',(profile.name||'').split(' ')[0]),
+      h('p',{style:{fontSize:12,color:MU}},'Aqui está o resumo dos seus projetos em andamento')
+    ),
+    h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12,marginBottom:22}},
+      ...[
+        {label:'Projetos Ativos',value:active,sub:projects.filter(p=>p.status==='completed').length+' concluídos',color:G,icon:'folder',page:'projects'},
+        {label:'Faturas Pendentes',value:pending,sub:fmt(invoices.filter(i=>i.status==='pending').reduce((s,i)=>s+i.amount,0))+' pendente',color:AM,icon:'receipt',page:'invoices'},
+        {label:'Total Pago',value:fmt(totalPaid),sub:'Histórico completo',color:GN,icon:'trend',page:'invoices'},
+      ].map(m=>h('button',{key:m.label,onClick:()=>onNavigate(m.page),style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'14px 18px',textAlign:'left',cursor:'pointer',transition:'all .15s'},onMouseEnter:e=>e.currentTarget.style.borderColor=m.color,onMouseLeave:e=>e.currentTarget.style.borderColor=BR},
+        h('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},h(Ic,{n:m.icon,size:14,color:m.color}),h('span',{style:{fontSize:11,color:MU,fontWeight:500}},m.label)),
+        h('p',{style:{fontFamily:SR,fontSize:20,fontWeight:700,color:m.color,marginBottom:2}},m.value),
+        h('p',{style:{fontSize:10,color:DM}},m.sub)
+      ))
+    ),
+    h('div',{style:{display:'grid',gridTemplateColumns:'1.6fr 1fr',gap:14}},
+      h('div',null,
+        h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}},
+          h('h2',{style:{fontFamily:SR,fontSize:15,fontWeight:700}},'Projetos Recentes'),
+          h('button',{onClick:()=>onNavigate('projects'),style:{background:'none',border:'none',fontSize:12,color:G,cursor:'pointer'}},'Ver todos →')
+        ),
+        projects.slice(0,2).map(p=>h('div',{key:p.id,onClick:()=>onOpenProject(p),style:{background:BG2,border:`1px solid ${BR}`,borderRadius:10,padding:'12px 16px',marginBottom:8,cursor:'pointer',transition:'all .15s'},onMouseEnter:e=>e.currentTarget.style.borderColor=G,onMouseLeave:e=>e.currentTarget.style.borderColor=BR},
+          h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}},
+            h('div',null,h('p',{style:{fontSize:12,fontWeight:700,color:TX}},p.address),h('p',{style:{fontSize:11,color:MU,marginTop:1}},p.service)),
+            h(Badge,{status:p.status})
+          ),
+          h('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:5}},h('span',null,p.stage),h('span',null,p.progress+'%')),
+          h('div',{style:{background:BG3,borderRadius:3,height:4}},h('div',{style:{width:p.progress+'%',height:'100%',borderRadius:3,background:G}}))
+        ))
+      ),
+      h('div',null,
+        h('h2',{style:{fontFamily:SR,fontSize:15,fontWeight:700,marginBottom:10}},'Atividade Recente'),
+        activity.map(a=>h('div',{key:a.id,style:{display:'flex',gap:10,alignItems:'flex-start',padding:'9px 0',borderBottom:`1px solid rgba(0,0,0,0.04)`}},
+          h('div',{style:{width:28,height:28,borderRadius:7,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},h(Ic,{n:a.type==='file'?'download':a.type==='invoice'?'receipt':'chat',size:13,color:G})),
+          h('div',null,h('p',{style:{fontSize:12,color:TX,lineHeight:1.4}},a.text),h('p',{style:{fontSize:10,color:DM,marginTop:2}},a.time))
+        ))
+      )
+    )
+  );
+};
+
+// ── PROJECTS PAGE ──
+const Projects=({projects,setProjects,onOpenProject})=>{
+  const[filter,setFilter]=useState('active');
+  const filtered=projects.filter(p=>filter==='all'?true:filter==='active'?p.status!=='completed':p.status==='completed');
+  return h('div',{className:'anim'},
+    h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:18}},
+      h('div',null,h('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:2}},'Meus Projetos'),h('p',{style:{fontSize:12,color:MU}},projects.length+' projeto(s) no total')),
+      h('div',{style:{display:'flex',background:BG3,borderRadius:8,padding:3}},
+        ...['active','completed','all'].map(f=>h('button',{key:f,onClick:()=>setFilter(f),style:{padding:'6px 12px',fontSize:11,fontWeight:filter===f?600:400,background:filter===f?BG2:'none',border:'none',borderRadius:6,color:filter===f?TX:MU,cursor:'pointer'}},{active:'Ativos',completed:'Concluídos',all:'Todos'}[f]))
+      )
+    ),
+    filtered.length===0?h('div',{style:{textAlign:'center',padding:'48px 0',color:DM}},h('p',{style:{fontSize:24,marginBottom:8}},'📁'),h('p',{style:{fontSize:14}},'Nenhum projeto nesta categoria')):
+    h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}},
+      filtered.map(p=>h('div',{key:p.id,onClick:()=>onOpenProject(p),style:{background:BG2,border:`1px solid ${BR}`,borderRadius:12,padding:'16px 18px',cursor:'pointer',transition:'all .15s'},onMouseEnter:e=>e.currentTarget.style.borderColor=G,onMouseLeave:e=>e.currentTarget.style.borderColor=BR},
+        h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}},
+          h('div',null,
+            h('p',{style:{fontFamily:'monospace',fontSize:10,color:G,fontWeight:700,marginBottom:3}},p.code),
+            h('p',{style:{fontSize:13,fontWeight:700,color:TX}},p.address),
+            h('p',{style:{fontSize:11,color:MU,marginTop:2}},p.city)
+          ),
+          h(Badge,{status:p.status})
+        ),
+        h('p',{style:{fontSize:11,color:MU,marginBottom:10}},p.service),
+        h('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:5}},h('span',null,p.stage),h('span',null,p.progress+'%')),
+        h('div',{style:{background:BG3,borderRadius:3,height:4,marginBottom:10}},h('div',{style:{width:p.progress+'%',height:'100%',borderRadius:3,background:p.status==='completed'?GN:G}})),
+        h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center'}},
+          h('span',{style:{fontSize:11,fontWeight:600,color:TX}},fmt(p.budget)),
+          h('span',{style:{fontSize:10,color:DM}},'Atualizado '+p.updatedAt)
+        ),
+        p.pendingAction&&h('div',{style:{marginTop:8,padding:'5px 10px',background:AMB,borderRadius:5,fontSize:10,color:AM,fontWeight:500}},p.pendingAction)
+      ))
+    )
+  );
+};
+
+// ── PROFILE PAGE ──
+const Profile=({profile})=>h('div',{className:'anim',style:{maxWidth:520}},
+  h('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:4}},'Meu Perfil'),
+  h('p',{style:{fontSize:12,color:MU,marginBottom:20}},'Gerencie suas informações pessoais'),
+  h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:12,padding:22}},
+    h('div',{style:{display:'flex',alignItems:'center',gap:14,marginBottom:20,paddingBottom:18,borderBottom:`1px solid ${BR}`}},
+      h('div',{style:{width:60,height:60,borderRadius:'50%',background:GD,border:`2px solid ${G}`,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontSize:22,fontWeight:700,color:G,flexShrink:0}},profile.initials),
+      h('div',null,h('p',{style:{fontFamily:SR,fontSize:16,fontWeight:700}}),h('p',{style:{fontSize:12,color:MU}},profile.company))
+    ),
+    ...[['Nome Completo',profile.name,'text'],['E-mail',profile.email,'email'],['Telefone',profile.phone,'tel']].map(([l,v,t])=>
+      h('div',{key:l,style:{marginBottom:12}},
+        h('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},l),
+        h('input',{type:t,defaultValue:v,style:{width:'100%',border:`1.5px solid ${BR}`,borderRadius:8,padding:'9px 12px',fontSize:13,color:TX,background:BG,fontFamily:SS,outline:'none'},onFocus:e=>e.target.style.borderColor=G,onBlur:e=>e.target.style.borderColor=BR})
+      )
+    ),
+    h('div',{style:{display:'flex',justifyContent:'flex-end',marginTop:8}},
+      h('button',{style:{background:G,border:'none',borderRadius:8,padding:'9px 22px',fontSize:13,fontWeight:700,color:'#fff'}},'Salvar Alterações')
+    )
+  )
+);
+
+// ── MAIN LAYOUT ──
+const Layout=({user,onLogout})=>{
+  const[page,setPage]=useState('dashboard');
+  const[sideOpen,setSideOpen]=useState(true);
+  const[selProject,setSelProject]=useState(null);
+  const[projects,setProjects]=useState(DEMO_PROJECTS);
+  const[invoices]=useState(DEMO_INVOICES);
+  const[activity]=useState(DEMO_ACTIVITY);
+  const[profile]=useState(DEMO_USER);
+  const[notif,setNotif]=useState(true);
+  const[showNotif,setShowNotif]=useState(false);
+
+  const pending=invoices.filter(i=>i.status==='pending').length;
+  const openProject=p=>{setSelProject(p);setPage('detail');};
+  const nav=[
+    {id:'dashboard',icon:'dash',label:'Dashboard'},
+    {id:'projects',icon:'folder',label:'Meus Projetos'},
+    {id:'invoices',icon:'receipt',label:'Faturas',badge:pending},
+    {id:'messages',icon:'chat',label:'Mensagens',badge:1},
+  ];
+  const bot=[
+    {id:'profile',icon:'user',label:'Perfil'},
+    {id:'company',icon:'building',label:'Empresa'},
+  ];
+
+  return h('div',{style:{display:'flex',minHeight:'100%',background:BG}},
+    // Sidebar
+    h('aside',{style:{width:sideOpen?210:52,background:SB,flexShrink:0,display:'flex',flexDirection:'column',transition:'width .22s ease',overflow:'hidden',position:'sticky',top:0,height:'100vh'}},
+      h('div',{style:{padding:sideOpen?'16px 14px 12px':'16px 0 12px',display:'flex',alignItems:'center',justifyContent:sideOpen?'space-between':'center',borderBottom:'1px solid rgba(255,255,255,0.06)',marginBottom:6}},
+        sideOpen&&h('div',{style:{display:'flex',alignItems:'center',gap:9}},
+          h('div',{style:{width:28,height:28,background:G,borderRadius:6,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontWeight:700,fontSize:14,color:'#fff',flexShrink:0}},'D'),
+          h('div',null,h('p',{style:{fontFamily:SR,fontSize:12,fontWeight:700,color:'#fff',lineHeight:1.2}},'DARA Studio'),h('p',{style:{fontSize:10,color:'rgba(255,255,255,0.35)'}},'Portal do Cliente'))
+        ),
+        h('button',{onClick:()=>setSideOpen(s=>!s),style:{background:'none',border:'none',color:'rgba(255,255,255,0.4)',padding:4,flexShrink:0}},h(Ic,{n:'menu',size:14,color:'rgba(255,255,255,0.4)'}))
+      ),
+      h('nav',{style:{flex:1,padding:'6px 8px',display:'flex',flexDirection:'column',gap:2}},
+        nav.map(item=>h(NavBtn,{key:item.id,...item,active:page===item.id||(page==='detail'&&item.id==='projects'),collapsed:!sideOpen,onClick:()=>{setSelProject(null);setPage(item.id);}}))
+      ),
+      h('div',{style:{padding:'6px 8px 10px',borderTop:'1px solid rgba(255,255,255,0.06)'}},
+        bot.map(item=>h(NavBtn,{key:item.id,...item,active:page===item.id,collapsed:!sideOpen,onClick:()=>setPage(item.id)})),
+        h(NavBtn,{icon:'logout',label:'Sair',collapsed:!sideOpen,onClick:onLogout})
+      )
+    ),
+    // Main
+    h('main',{style:{flex:1,overflow:'auto',minWidth:0,display:'flex',flexDirection:'column'}},
+      // Topbar
+      h('div',{style:{background:BG2,borderBottom:`1px solid ${BR}`,padding:'0 22px',height:50,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:40}},
+        h('div',null,h('span',{style:{fontSize:12,color:G,fontWeight:600,letterSpacing:'.08em'}},'DARA Studio'),h('span',{style:{fontSize:12,color:DM,margin:'0 6px'}},'|'),h('span',{style:{fontSize:12,color:MU}},'Drafting & 3D Support')),
+        h('div',{style:{display:'flex',alignItems:'center',gap:12}},
+          h('div',{style:{position:'relative'}},
+            h('button',{onClick:()=>{setShowNotif(o=>!o);setNotif(false);},style:{background:'none',border:'none',color:MU,padding:4,position:'relative'}},
+              h(Ic,{n:'bell',size:16,color:MU}),
+              notif&&h('span',{style:{position:'absolute',top:2,right:2,width:6,height:6,borderRadius:'50%',background:G}})
+            ),
+            showNotif&&h(Fragment,null,
+              h('div',{onClick:()=>setShowNotif(false),style:{position:'fixed',inset:0,zIndex:49}}),
+              h('div',{style:{position:'absolute',right:0,top:36,width:270,background:BG2,border:`1px solid ${BR}`,borderRadius:10,boxShadow:'0 8px 24px rgba(0,0,0,0.1)',zIndex:50,overflow:'hidden'}},
+                h('div',{style:{padding:'11px 14px',borderBottom:`1px solid ${BR}`,display:'flex',justifyContent:'space-between',alignItems:'center'}},
+                  h('span',{style:{fontSize:12,fontWeight:700,color:TX}},'Notificações'),
+                  h('button',{onClick:()=>setShowNotif(false),style:{background:'none',border:'none',color:DM}},h(Ic,{n:'x',size:13,color:DM}))
+                ),
+                DEMO_ACTIVITY.map(a=>h('div',{key:a.id,style:{padding:'10px 14px',borderBottom:`1px solid rgba(0,0,0,0.04)`,display:'flex',gap:10,alignItems:'flex-start'}},
+                  h('div',{style:{width:26,height:26,borderRadius:6,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},h(Ic,{n:a.type==='file'?'download':a.type==='invoice'?'receipt':'chat',size:12,color:G})),
+                  h('div',null,h('p',{style:{fontSize:11,color:TX,lineHeight:1.4}},a.text),h('p',{style:{fontSize:10,color:DM,marginTop:1}},a.time))
+                ))
+              )
+            )
+          ),
+          h('div',{style:{width:30,height:30,borderRadius:'50%',background:GD,border:`2px solid ${G}`,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:SR,fontSize:12,fontWeight:700,color:G}},profile.initials)
+        )
+      ),
+      // Content
+      h('div',{style:{padding:'22px 22px 48px',flex:1}},
+        page==='dashboard'&&h(Dashboard,{profile,projects,invoices,activity,onNavigate:p=>setPage(p),onOpenProject:openProject}),
+        page==='projects'&&h(Projects,{projects,setProjects,onOpenProject:openProject}),
+        page==='detail'&&selProject&&h(ProjectDetail,{project:selProject,onBack:()=>{setSelProject(null);setPage('projects');}}),
+        page==='invoices'&&h(Invoices,{invoices}),
+        page==='messages'&&h('div',{className:'anim',style:{textAlign:'center',padding:'60px 0',color:DM}},h('p',{style:{fontSize:28,marginBottom:8}},'💬'),h('p',{style:{fontSize:14,color:TX,marginBottom:4}},'Mensagens Gerais'),h('p',{style:{fontSize:12}},'Use a aba Chat dentro de cada projeto para comunicação direta.')),
+        page==='profile'&&h(Profile,{profile}),
+        page==='company'&&h('div',{className:'anim',style:{maxWidth:520}},h('h1',{style:{fontFamily:SR,fontSize:20,fontWeight:700,marginBottom:18}},'Minha Empresa'),h('div',{style:{background:BG2,border:`1px solid ${BR}`,borderRadius:12,padding:22}},h('p',{style:{fontSize:12,color:MU}},'Dados da empresa em ',h('strong',null,'Jack General Services Inc.'))))
+      )
+    )
+  );
+};
+
+// ── APP ROOT ──
+const App=()=>{
+  const[user,setUser]=useState(null);
+  return user?h(Layout,{user,onLogout:()=>setUser(null)}):h(Login,{onLogin:setUser});
+};
+
+createRoot(document.getElementById('portal-root')).render(h(App));
+</script>

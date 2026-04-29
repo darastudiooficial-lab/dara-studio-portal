@@ -1,0 +1,18 @@
+GLOBAL SAFETY RULES
+
+Do NOT delete, reset, or recreate existing database tables or records.
+
+Existing tables such as:
+projects
+companies
+payments
+invoices
+documents
+messages
+activity_log
+
+must remain intact.
+
+You may add new tables only when required for new features (for example site_updates).
+
+Do not rename existing tables or break existing relationships.

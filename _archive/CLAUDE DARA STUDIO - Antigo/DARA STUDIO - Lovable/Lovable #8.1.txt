@@ -1,0 +1,103 @@
+Create a client intake system that automatically generates project estimates and proposals.
+
+STEP 1 – Client Intake Form
+
+This form will be public and accessible via a shareable link.
+
+Fields:
+
+Client Information
+- Name
+- Email
+- Phone
+- Company (optional)
+
+Project Location
+- Address (Google Places autocomplete)
+- City
+- State
+- Country
+
+Project Information
+- Project Type
+- Estimated Area
+
+Area Units Logic
+If Brazil → square meters (m²)
+If United States → square feet (ft²)
+
+Required Uploads
+- Site Photos
+- Property Survey / Plot Plan
+- Measurements (if available)
+
+Rush Eligibility Logic
+
+Rush service should only be available if:
+- Plot Plan is uploaded
+- Site Photos are uploaded
+- Measurements are provided
+
+If these items are missing, show message:
+
+"Rush service is not available because required documentation is missing."
+
+STEP 2 – Rough Estimate
+
+After form submission, generate a Rough Estimate automatically.
+
+Estimate Formula:
+Total Estimate = Area × Rate
+
+Rates depend on project type and location.
+
+Show estimate summary and button:
+
+"Request Final Proposal"
+
+STEP 3 – Final Proposal Form
+
+When user clicks "Request Final Proposal", open a detailed form.
+
+Additional fields:
+
+Scope of Work
+- Architectural Plans
+- Interior Design
+- 3D Visualization
+- Construction Documents
+
+Timeline
+- Flexible
+- 2–4 weeks
+- Rush Service
+
+Rush Fee
+If Rush Service selected:
+Add 15% to total project cost.
+
+STEP 4 – Automatic Proposal Generation
+
+After submission, automatically generate a proposal summary including:
+
+Client Name
+Project Address
+Scope of Work
+Project Cost
+Rush Fee (if applicable)
+Total Cost
+
+Payment Terms
+50% Deposit
+50% Final Payment
+
+Estimated Timeline
+Preview Delivery: 8–10 business days
+
+Add button:
+
+"Accept Proposal"
+
+STEP 5 – Convert Proposal to Project
+
+If the client accepts the proposal, automatically create a new project using the submitted data.

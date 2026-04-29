@@ -1,0 +1,372 @@
+GLOBAL SAFETY RULES
+
+Do NOT delete, reset, or recreate existing database tables or records.
+
+Existing tables such as:
+
+projects
+
+companies
+
+payments
+
+invoices
+
+documents
+
+messages
+
+activity_log
+
+must remain intact.
+
+You may add new tables only when required for new features (for example site_updates).
+
+Do not rename existing tables or break existing relationships.
+
+Do not rename existing tables or columns unless absolutely necessary.
+
+I need a full technical review and structured refactor of my platform to stabilize the Admin panel and evolve the system into a professional SaaS architecture for an architecture studio.
+
+IMPORTANT REQUIREMENT
+
+Do NOT delete, reset, or recreate any existing database tables or records.
+
+All current data must remain intact, including data stored in tables such as:
+
+projects
+
+companies
+
+payments
+
+invoices
+
+activity_log
+
+documents
+
+messages
+
+You may reorganize the UI, routing, and logic, but do not remove existing records or reset the database.
+
+The goal is to fix bugs, connect modules properly, and restructure the system to work as a professional SaaS platform.
+
+---
+
+SYSTEM OVERVIEW
+
+The platform contains three environments:
+
+Public Website → /
+
+Client Portal → /dashboard
+
+Admin Panel → /adm
+
+The Admin panel is the main operational system used by the architecture studio to manage:
+
+Clients
+
+Projects
+
+Documents
+
+Payments
+
+Contracts
+
+Communication
+
+Construction updates
+
+Currently some modules feel disconnected and some pages do not communicate properly with the database.
+
+---
+
+STEP 1 — FIX ADMIN AUTHENTICATION LOGIC
+
+Improve the AdminLayout authentication logic.
+
+Current issue:
+
+The redirect logic checks only if the user exists, but not if the user has admin permissions.
+
+Correct behavior:
+
+If user is not authenticated → redirect to /adm/login
+
+If user is authenticated but not admin → redirect to /
+
+If user is admin → allow access
+
+Avoid redirect loops and ensure loading state is respected before redirecting.
+
+---
+
+STEP 2 — STABILIZE ADMIN ROUTING
+
+Ensure the Admin router uses nested routes and that AdminLayout renders pages correctly using Outlet.
+
+Correct base route structure:
+
+/adm
+
+/adm/dashboard
+
+/adm/projects
+
+/adm/companies
+
+/adm/leads
+
+/adm/finance
+
+/adm/contracts
+
+/adm/invoices
+
+/adm/files
+
+/adm/settings
+
+Ensure sidebar navigation links match the router paths exactly.
+
+---
+
+STEP 3 — REORGANIZE ADMIN MODULE STRUCTURE
+
+Refactor the Admin navigation to group modules logically.
+
+Recommended structure:
+
+Dashboard
+
+CRM
+
+Leads
+
+Companies
+
+Projects
+
+All Projects
+
+Project Pipeline
+
+Drawings
+
+Files
+
+Finance
+
+Finance Overview
+
+Proposals
+
+Contracts
+
+Invoices
+
+Clients
+
+Client Portal
+
+Client Tickets
+
+Tools
+
+AI Code Check
+
+Analytics
+
+Settings
+
+This change should improve clarity and scalability without removing existing features.
+
+---
+
+STEP 4 — CREATE PROJECT CENTER
+
+Projects should become the central object of the platform.
+
+Each project should contain the following sections:
+
+Project Overview
+
+Drawings
+
+Files
+
+Payments
+
+Contracts
+
+Site Updates
+
+Messages
+
+Milestones
+
+Instead of having these features scattered across the admin.
+
+---
+
+STEP 5 — IMPLEMENT VISUAL PROJECT PIPELINE
+
+Create a visual Kanban pipeline for projects.
+
+Pipeline columns:
+
+Lead
+
+Proposal
+
+Contract Signed
+
+Design Phase
+
+Permit Submission
+
+Permit Approved
+
+Construction
+
+Completed
+
+Each project appears as a draggable card.
+
+Card information:
+
+Project Name
+
+Client Name
+
+Location
+
+Current Phase
+
+Progress Indicator
+
+Dragging a project to a new column should update the project status field in the database.
+
+---
+
+STEP 6 — IMPROVE ADMIN DASHBOARD
+
+Redesign the dashboard to function as a professional control center.
+
+Add KPI cards for:
+
+Active Projects
+
+Projects in Permit Phase
+
+Projects in Construction
+
+Pending Payments
+
+Monthly Revenue
+
+Add sections:
+
+Recent Activity Feed
+
+Project Overview
+
+Financial Snapshot
+
+Ensure the dashboard loads data efficiently and shows meaningful operational insights.
+
+---
+
+STEP 7 — CREATE CONSTRUCTION SITE UPDATES MODULE
+
+Add a new feature called Project Site Updates.
+
+This feature allows clients and team members to upload construction progress directly from the site.
+
+Inside each project add a section:
+
+Project → Site Updates
+
+Users should be able to:
+
+Upload photos
+
+Upload short videos
+
+Add a description
+
+Attach the update to a project
+
+Suggested new table:
+
+site_updates
+
+Fields:
+
+id
+
+project_id
+
+uploaded_by
+
+media_url
+
+description
+
+created_at
+
+Store media files in Supabase Storage organized by project.
+
+---
+
+STEP 8 — MOBILE OPTIMIZATION
+
+Construction updates must be optimized for mobile devices.
+
+Users should be able to:
+
+Take photos directly from phone camera
+
+Upload instantly
+
+See upload progress
+
+View updates in a timeline format
+
+---
+
+STEP 9 — FIX DISCONNECTED PAGES
+
+Audit the entire Admin system and resolve cases where:
+
+Pages load but do not connect to database data
+
+Navigation routes break
+
+Components render empty states incorrectly
+
+Sidebar navigation does not match routing
+
+Ensure every module properly reads from Supabase.
+
+---
+
+STEP 10 — FINAL OBJECTIVE
+
+Transform the platform into a stable SaaS-style operating system for an architecture studio.
+
+The final system should allow:
+
+Clients to view projects and updates
+
+Admins to manage operations
+
+Teams to track project progress
+
+Construction updates to be uploaded directly from the field
+
+The system must remain stable, scalable, and production-ready.
+

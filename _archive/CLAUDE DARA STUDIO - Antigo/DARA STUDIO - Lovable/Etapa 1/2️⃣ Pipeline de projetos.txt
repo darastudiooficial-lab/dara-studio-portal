@@ -1,0 +1,77 @@
+I want to create a visual Project Pipeline inside the Admin panel.
+
+This feature should display all projects in a Kanban-style board so the studio can track project progress easily.
+
+Do not delete or modify existing project data.
+
+---
+
+PIPELINE STRUCTURE
+
+Create the following columns:
+
+Lead
+Proposal
+Contract Signed
+Design Phase
+Permit Submission
+Permit Approved
+Construction
+Completed
+
+Each project should appear as a card inside one of these columns.
+
+---
+
+PROJECT CARD CONTENT
+
+Each project card should display:
+
+Project Name
+Client Name
+Location
+Current Status
+Progress Indicator
+
+Optionally show:
+
+Next milestone
+Pending payment indicator
+
+---
+
+DRAG AND DROP
+
+Enable drag and drop functionality so that projects can move between columns.
+
+When a project moves to a new column:
+
+• When a project moves to a new column:
+
+• update the project.status field
+• persist the change in the database
+• immediately reflect the update in the UI
+• save the change to the database
+
+---
+
+PROJECT DETAILS
+
+Clicking a project card should open the project detail page.
+
+---
+
+VISUAL DESIGN
+
+The pipeline should feel modern and easy to read:
+
+• horizontal scroll
+• clean cards
+• color indicators
+• smooth drag animations
+
+---
+
+FINAL GOAL
+
+The pipeline should allow the architecture studio to instantly understand the stage of every project.

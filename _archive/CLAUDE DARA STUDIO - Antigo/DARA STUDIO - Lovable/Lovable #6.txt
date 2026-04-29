@@ -1,0 +1,141 @@
+Estrutura Profissional para Projetos (Brasil + EUA)
+1️⃣ Campo principal do projeto
+
+Todo projeto deve ter um campo obrigatório:
+
+Project Market
+
+Opções:
+
+🇧🇷 Brazil
+
+🇺🇸 United States
+
+Esse campo define automaticamente:
+
+moeda
+
+unidade de área
+
+formato de endereço
+
+lógica de orçamento
+
+2️⃣ Automação baseada no mercado
+🇧🇷 Se Market = Brazil
+
+Configura automaticamente:
+
+Moeda
+
+BRL (R$)
+
+Área
+
+m²
+
+Campos de endereço
+
+Endereço
+
+Número
+
+Bairro
+
+Cidade
+
+Estado
+
+CEP
+
+Campos do projeto
+
+Área do projeto (m²)
+
+Tipo de projeto
+
+Descrição
+
+Orçamento
+
+Cálculo baseado em R$/m²
+
+🇺🇸 Se Market = United States
+
+Configura automaticamente:
+
+Moeda
+
+USD ($)
+
+Área
+
+ft²
+
+Campos de endereço
+
+Address
+
+City
+
+State
+
+ZIP Code
+
+Campos do projeto
+
+Project Area (ft²)
+
+Project Type
+
+Description
+
+Orçamento
+
+Cálculo baseado em $/ft²
+
+3️⃣ Estrutura recomendada do projeto
+
+Cada projeto deve conter:
+
+Project Info
+
+Project Name
+
+Client Name
+
+Project Market (Brazil / USA)
+
+Location
+
+Campos dinâmicos conforme o país.
+
+Project Data
+
+Area (m² ou ft²)
+
+Project Type
+
+Description
+
+Financial
+
+Rate per Area (R$/m² ou $/ft²)
+
+Total Fee
+
+Payment Status
+
+4️⃣ Lógica de cálculo automática
+
+O sistema deve calcular automaticamente:
+
+Total Fee = Area × Rate per Area
+
+Exemplo Brasil:
+
+150 m² × R$80/m² = R$12.000
+
+Exemplo EUA:
+
+2,000 ft² × $1.40/ft² = $2,800

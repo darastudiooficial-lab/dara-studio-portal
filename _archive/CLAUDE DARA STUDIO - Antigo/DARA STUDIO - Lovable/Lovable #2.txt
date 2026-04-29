@@ -1,0 +1,174 @@
+1 - Continua separado por endereço ainda, se o endereço for o mesmo deixar tudo no mesmo quadro, se o endereço for diferente, criar um novo quadro.
+
+2 - Os botões ainda continuam brancos, quero eles coloridos conforme cada etapa
+
+3 - Os botoes de valores, valor, pago estão quadrados, quero que todos sejam o mesmo estilo, arredondados nas pontas e coloridos. Exemplo:
+"Valor" - Renomar para "Valor total" = deixar em vermelho para pagamento total, amarelo se o cliente já pagou 50% e verde se o cliente já acertou tudo
+"Pago" - Renomear para "Entrada 50%" = amarelo se o cliente já pagou 50%
+"Saldo" - Renomear para "Final 50%" = verde se o cliente já pagou os resntantes dos 50%
+
+Update financial status display inside Projects list and detail view.
+
+Replace square buttons with rounded pill-style badges.
+All badges must:
+
+Have fully rounded corners
+
+Equal padding
+
+Same size style
+
+Consistent typography
+
+Rename fields:
+
+“Valor” → “Valor Total”
+
+“Pago” → “Entrada 50%”
+
+“Saldo” → “Final 50%”
+
+Apply dynamic colors:
+
+Valor Total:
+
+Red if Total Paid = 0
+
+Yellow if Total Paid >= Entry Amount AND < Total Value
+
+Green if Total Paid >= Total Value
+
+Entrada 50%:
+
+Gray if not paid
+
+Yellow if Entry Paid = true
+
+Final 50%:
+
+Gray if not paid
+
+Green if Final Paid = true
+
+Ensure financial logic is connected to:
+
+Total Value
+
+Entry Amount
+
+Final Amount
+
+Total Paid (rollup from Payments)
+
+Do not use square buttons. Use pill-style status badges only.
+
+RESULTADO ESPERADO
+
+Visual ficará assim:
+
+[ 🔴 Valor Total $865.44 ]
+[ 🟡 Entrada 50% $432.72 ]
+[ ⚪ Final 50% $432.72 ]
+
+Depois do pagamento final:
+
+[ 🟢 Valor Total $865.44 ]
+[ 🟡 Entrada 50% $432.72 ]
+[ 🟢 Final 50% $432.72 ]
+
+🔵 ESTRUTURA VISUAL PADRONIZADA
+
+Todos os indicadores financeiros devem virar:
+
+👉 Status Pills (Badges)
+
+Bordas 100% arredondadas
+
+Padding interno
+
+Texto centralizado
+
+Fonte média
+
+Mesmo tamanho
+
+Nada de botão quadrado.
+
+🔵 NOVA LÓGICA VISUAL DOS CAMPOS
+
+1️⃣ "Valor" → Renomear para:
+
+Valor Total
+
+Cor dinâmica baseada no pagamento geral:
+
+🔴 Vermelho
+→ Quando nada foi pago
+
+🟡 Amarelo
+→ Quando 50% foi pago
+
+🟢 Verde
+→ Quando 100% foi pago
+
+Lógica:
+
+If Total Paid = 0 → Red
+If Total Paid >= Entry Amount AND < Total Value → Yellow
+If Total Paid >= Total Value → Green
+
+2️⃣ "Pago" → Renomear para:
+
+Entrada 50%
+
+Cor:
+
+⚪ Cinza → Não pago
+🟡 Amarelo → Pago
+
+Lógica:
+
+If Entry Paid = true → Yellow
+Else → Gray
+
+3️⃣ "Saldo" → Renomear para:
+
+Final 50%
+
+Cor:
+
+⚪ Cinza → Não pago
+🟢 Verde → Pago
+
+Lógica:
+
+If Final Paid = true → Green
+Else → Gray
+
+🔵 ESTRUTURA CORRETA NO BANCO (IMPORTANTE)
+
+Dentro de Projects você precisa ter:
+
+Total Value
+
+Entry Amount
+
+Final Amount
+
+Total Paid (rollup)
+
+Entry Paid (checkbox automático)
+
+Final Paid (checkbox automático)
+
+Automação:
+
+Entry Paid = true
+Se Total Paid >= Entry Amount
+
+Final Paid = true
+Se Total Paid >= Total Value
+
+4 - Preciso que você mostre os valores totais, exemplos $510,00 com virgula e zero caso tenha
+
+5 - Na aba "empresas" preciso que você dê uma sugestão de senha, porque vou passar ao cliente uma senha padrão e ele vai entrar na "area do cliente" por esse login, caso ele não tenha feito o cadastro. E essa aba de senha tem que ser visivel, então podemos criar uma aba chamada "area do cliente" com o login e  senha

@@ -1,0 +1,40 @@
+
+POST SOBRE ADU - https://claude.ai/chat/ca52ac7d-b161-4957-a301-f5f292415271
+Acrescentar um botão ao lado do "portifolio" escrito "blog" e ai abrir um "mini menu" escrito
+- ADU [Additional Dwelling Unit]
+- Building Permit
+
+
+Onde está escrito "O que é uma ADU?", preciso que revise nosso texto e acrescente o "JADU", abaixo pequei uma explicação breve entre cada um e preciso que faça a junção com o nosso, retirando a duplicidade, e deixando mais tecnico e explicativo possivel.
+
+Detached ADU
+A detached living space on your property with the look and feel of a house, just on a smaller scale. It will need its own sewer, water, electrical and other components, but it’s a great ADU option as it’s totally separate from the main living space.
+
+Attached ADU
+An attached ADU can either be an extension of your current home or an interior space within your home that you convert into an ADU, such as an attic.
+
+Garage Conversion
+You have the option of turning your attached or separate garage into a standalone unit to rent out or keep as an extra living space for loved ones.
+
+JADU
+A Compact ADUs that have lenient regulations and guidelines for bathrooms and kitchens, typically limited to a maximum of 500 sq. ft. To qualify as a JADU, it must be located within the primary structure of your home, which means that converting an attached garage could be suitable, but a detached garage may not qualify.
+
+
+Cotinuando sobre ADU, retire os textos logo abaixo do titulo:
+"DA·RA Studio - 2024 - Guia Completo - IRC 2021 · M.G.L. c. 40A"
+
+
+Retire a foto de capa
+
+
+Sobre os "croquis" feito na aba "O que é uma ADU?", preciso que redesenhe e diferencia a ADU com outra cor. Tem janela fora da casa, tem parede que não encosta na outra parede. Então preciso que ajustes esses itens.
+
+
+
+Na aba "Requisitos do IRC 2021" onde tem um desenho muito bom explicando cada coisa, preciso que redesenhe esse desenho e mostre melhor os texto, porque tem texto em cima de texto e não dá de ver. Se precisar diferencia cada coisa com uma cor/transparencia diferente, fique a vontade, porque assim fica mais explicativo.
+
+
+No botão "Solicite uma Avaliação de Viabilidade", preciso deixar claro que trabalhamos remotamente aqui do brasil mas que se o cliente tiver o plot pan / existing condicional, nós conseguimos fazer uma pré avaliação, e caso ele queira continuar, temos uma pessoa de confiança para se deslocar até ao local.
+
+
+

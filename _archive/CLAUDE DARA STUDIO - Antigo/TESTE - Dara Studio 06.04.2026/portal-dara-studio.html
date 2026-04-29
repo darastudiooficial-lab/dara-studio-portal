@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DARA Studio — Portal do Cliente</title>
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f5f3ef;color:#1a1814;min-height:100vh}
+#app{min-height:100vh}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fa{animation:fu .28s ease both}
+.nb{background:none;border:none;cursor:pointer;font-family:inherit}
+.inp{width:100%;border:1.5px solid #e2ddd6;border-radius:8px;padding:9px 12px;font-size:13px;color:#1a1814;background:#f5f3ef;font-family:inherit;outline:none;box-sizing:border-box}
+.inp:focus{border-color:#b89b6a}
+.ta{width:100%;border:1.5px solid #e2ddd6;border-radius:8px;padding:9px 12px;font-size:12px;color:#1a1814;background:#edeae4;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;min-height:70px}
+.ta:focus{border-color:#b89b6a}
+.btn{background:#b89b6a;border:none;border-radius:8px;padding:8px 18px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit}
+.nav{width:100%;display:flex;align-items:center;gap:9px;padding:9px 12px;border:none;border-radius:8px;color:rgba(255,255,255,0.45);font-size:13px;font-family:inherit;cursor:pointer;background:none;transition:all .15s;text-align:left}
+.nav:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.78)}
+.nav.ac{background:rgba(184,155,106,0.15);color:#b89b6a;font-weight:600}
+.card{background:#fff;border:1px solid #e2ddd6;border-radius:10px;padding:14px 18px}
+.prow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.04)}
+.tab{background:none;border:none;padding:10px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+const {useState,useEffect,useRef,createElement:e,Fragment}=React;
+
+const G='#b89b6a',GD='rgba(184,155,106,0.13)',GB='rgba(184,155,106,0.28)';
+const BG='#f5f3ef',BG2='#fff',BG3='#edeae4',SB='#1a1814';
+const TX='#1a1814',MU='#6b6760',DM='#a09b94',BR='#e2ddd6';
+const GN='#2d8653',GNB='rgba(45,134,83,0.10)';
+const AM='#c07c0a',AMB='rgba(192,124,10,0.10)';
+const RD='#b83232',RDB='rgba(184,50,50,0.09)';
+const BL='#2566a8',BLB='rgba(37,102,168,0.09)';
+const fmt=n=>'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2});
+
+const PROJECTS=[
+  {id:1,code:'DARA-0010',address:'41 Bowdoin Ave',city:'Dorchester, MA',service:'New Construction — Single Family',stage:'Detalhamento',status:'on_track',budget:2718,paid:0,progress:6,updatedAt:'18/03/2026',pending:'Aguardando informações do cliente'},
+  {id:2,code:'DARA-0008',address:'88 Dover St',city:'Boston, MA',service:'Commercial Office Renovation',stage:'Estudo Preliminar',status:'on_track',budget:4200,paid:2100,progress:50,updatedAt:'14/03/2026',pending:null},
+  {id:3,code:'DARA-0005',address:'215 Hampton Rd',city:'Brookline, MA',service:'Interior Design — Living Room',stage:'Entrega Final',status:'completed',budget:1800,paid:1800,progress:100,updatedAt:'28/02/2026',pending:null},
+];
+const INVOICES=[
+  {id:'INV-2026-003',project:'41 Bowdoin Ave',amount:1359,status:'pending',due:'15/04/2026'},
+  {id:'INV-2026-002',project:'88 Dover St',amount:1400,status:'pending',due:'30/03/2026'},
+  {id:'INV-2026-001',project:'88 Dover St',amount:700,status:'paid',due:'10/03/2026'},
+];
+const ACTIVITY=[
+  {id:1,text:'Novo arquivo publicado em 41 Bowdoin Ave',time:'2h atrás',ico:'F'},
+  {id:2,text:'Fatura INV-2026-002 vence em 10 dias',time:'1d atrás',ico:'$'},
+  {id:3,text:'Nova mensagem de Daniela (DARA Studio)',time:'2d atrás',ico:'M'},
+];
+const USER={name:'Jackson Da Silva',company:'Jack General Services Inc.',email:'jackgeneraloffice@gmail.com',phone:'+1 (617) 775-0179',initials:'JD'};
+
+const sLabel={on_track:'Em Andamento',attention:'Atenção',completed:'Concluído'};
+const sColor={on_track:{bg:GNB,c:GN},attention:{bg:AMB,c:AM},completed:{bg:BLB,c:BL}};
+
+const Svg=({d,s=14,c='currentColor'})=>e('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:c,strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',style:{flexShrink:0}},e('path',{d}));
+const I={
+  home:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10',
+  folder:'M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z',
+  rcpt:'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2',
+  chat:'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  usr:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+  bld:'M3 21h18M9 21V7l6-4v18M9 21H3V9l6-2',
+  out:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',
+  plus:'M12 5v14M5 12h14',
+  back:'M19 12H5M12 19l-7-7 7-7',
+  bell:'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0',
+  send:'M22 2L11 13M22 2l-7 20-4-9-9-4z',
+  x:'M18 6 6 18M6 6l12 12',
+  up:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12',
+  menu:'M3 12h18M3 6h18M3 18h18',
+  trend:'M23 6l-9.5 9.5-5-5L1 18M17 6h6v6',
+  eye:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 12m-3 0a3 3 0 1 0 6 0 3 3 0 0 0-6 0',
+  eyex:'M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22',
+  tkt:'M15 5v2M15 11v2M15 17v2M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z',
+};
+
+const Badge=({s})=>{const sc=sColor[s]||sColor.on_track;return e('span',{style:{display:'inline-flex',alignItems:'center',gap:4,fontSize:11,fontWeight:600,background:sc.bg,color:sc.c,borderRadius:20,padding:'2px 9px'}},e('span',{style:{width:5,height:5,borderRadius:'50%',background:sc.c,flexShrink:0}}),sLabel[s]||s);};
+
+const NavItem=({ico,label,active,badge,collapsed,onClick})=>e('button',{className:'nav'+(active?' ac':''),onClick,style:{justifyContent:collapsed?'center':'flex-start',padding:collapsed?'10px 0':'9px 12px',position:'relative'}},
+  e(Svg,{d:I[ico],s:15,c:'currentColor'}),
+  !collapsed&&e('span',{style:{flex:1}},label),
+  !collapsed&&badge>0&&e('span',{style:{background:G,color:SB,borderRadius:10,fontSize:10,fontWeight:700,minWidth:18,height:18,display:'flex',alignItems:'center',justifyContent:'center',padding:'0 5px'}},badge),
+  collapsed&&badge>0&&e('span',{style:{position:'absolute',top:6,right:6,width:7,height:7,borderRadius:'50%',background:G}})
+);
+
+const Login=({onLogin})=>{
+  const[tab,setTab]=useState('in');
+  const[em,setEm]=useState('');
+  const[pw,setPw]=useState('');
+  const[nm,setNm]=useState('');
+  const[show,setShow]=useState(false);
+  const[busy,setBusy]=useState(false);
+  const[err,setErr]=useState('');
+  const[ok,setOk]=useState('');
+  const go=()=>{
+    if(!em||!pw){setErr('Preencha todos os campos.');return;}
+    setErr('');setBusy(true);
+    setTimeout(()=>{
+      setBusy(false);
+      if(tab==='in'){
+        if(em==='joao@darastudio.com'&&pw==='teste123')onLogin({...USER});
+        else setErr('E-mail ou senha incorretos.');
+      }else{
+        if(pw.length<6){setErr('Senha: mínimo 6 caracteres.');return;}
+        setOk('Conta criada! Verifique seu e-mail.');setTab('in');
+      }
+    },700);
+  };
+  return e('div',{style:{minHeight:'100vh',background:BG,display:'flex',alignItems:'center',justifyContent:'center',gap:48,padding:24,flexWrap:'wrap'}},
+    e('div',{style:{width:320,minWidth:260}},
+      e('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:24}},
+        e('div',{style:{width:38,height:38,background:G,borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:19,color:'#fff',fontFamily:'Georgia,serif',flexShrink:0}},'D'),
+        e('div',null,e('p',{style:{fontFamily:'Georgia,serif',fontWeight:700,fontSize:15,color:TX}},'DARA Studio'),e('p',{style:{fontSize:11,color:MU}},'Drafting & 3D Support'))
+      ),
+      e('h1',{style:{fontFamily:'Georgia,serif',fontSize:28,fontWeight:700,color:TX,marginBottom:10,lineHeight:1.25}},'Portal do Cliente'),
+      e('p',{style:{fontSize:13,color:MU,lineHeight:1.7,marginBottom:20}},'Acesse seus projetos, arquivos e comunicações em um único lugar.'),
+      [['folder','Acompanhe o progresso de cada projeto em tempo real'],['rcpt','Gerencie faturas e realize pagamentos com segurança'],['chat','Comunicação direta com a equipe DARA Studio']].map(([ic,tx])=>
+        e('div',{key:ic,style:{display:'flex',gap:10,alignItems:'flex-start',marginBottom:10}},
+          e('div',{style:{width:26,height:26,borderRadius:7,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,marginTop:2}},e(Svg,{d:I[ic],s:13,c:G})),
+          e('p',{style:{fontSize:12,color:MU,lineHeight:1.6}},tx)
+        )
+      ),
+      e('div',{style:{marginTop:16,padding:'7px 12px',borderRadius:7,background:AMB,border:'1px solid rgba(192,124,10,0.3)',display:'flex',alignItems:'center',gap:7}},
+        e('span',{style:{width:7,height:7,borderRadius:'50%',background:AM,flexShrink:0}}),
+        e('span',{style:{fontSize:11,color:AM,fontWeight:600}},'Modo demonstração — dados fictícios')
+      )
+    ),
+    e('div',{style:{width:360,minWidth:300,background:BG2,borderRadius:16,border:'1px solid '+BR,padding:28}},
+      e('div',{style:{display:'flex',background:BG3,borderRadius:8,padding:3,marginBottom:22}},
+        ...['in','up'].map(t=>e('button',{key:t,className:'nb',onClick:()=>{setTab(t);setErr('');setOk('');},style:{flex:1,padding:'7px',fontSize:13,fontWeight:tab===t?600:400,background:tab===t?BG2:'none',border:'none',borderRadius:6,color:tab===t?TX:MU,cursor:'pointer'}},t==='in'?'Entrar':'Criar Conta'))
+      ),
+      e('p',{style:{fontFamily:'Georgia,serif',fontSize:17,fontWeight:700,marginBottom:4}},tab==='in'?'Bem-vindo de Volta':'Crie sua Conta'),
+      e('p',{style:{fontSize:12,color:MU,marginBottom:16}},tab==='in'?'Insira suas credenciais para acessar':'Preencha os dados para criar seu acesso'),
+      ok&&e('div',{style:{padding:'8px 12px',background:GNB,border:'1px solid rgba(45,134,83,0.3)',borderRadius:7,marginBottom:12,fontSize:12,color:GN}},ok),
+      e('button',{className:'nb',onClick:()=>setErr('Google OAuth disponível em produção com Supabase.'),style:{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,border:'1.5px solid '+BR,borderRadius:9,padding:'10px',background:BG2,fontSize:13,color:TX,marginBottom:14,cursor:'pointer'}},
+        e('svg',{width:16,height:16,viewBox:'0 0 24 24'},
+          e('path',{fill:'#4285F4',d:'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'}),
+          e('path',{fill:'#34A853',d:'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z'}),
+          e('path',{fill:'#FBBC05',d:'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z'}),
+          e('path',{fill:'#EA4335',d:'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z'})
+        ),
+        'Entrar com Google'
+      ),
+      e('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:14}},e('div',{style:{flex:1,height:1,background:BR}}),e('span',{style:{fontSize:11,color:DM}},'OU'),e('div',{style:{flex:1,height:1,background:BR}})),
+      tab==='up'&&e('div',{style:{marginBottom:10}},
+        e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'Nome Completo'),
+        e('input',{className:'inp',value:nm,onChange:v=>setNm(v.target.value),placeholder:'Jackson Da Silva'})
+      ),
+      e('div',{style:{marginBottom:10}},
+        e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'E-mail'),
+        e('input',{className:'inp',type:'email',value:em,onChange:v=>setEm(v.target.value),placeholder:'seu@email.com',onKeyDown:k=>k.key==='Enter'&&go()})
+      ),
+      e('div',{style:{marginBottom:err?8:14}},
+        e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},'Senha'),
+        e('div',{style:{position:'relative'}},
+          e('input',{className:'inp',type:show?'text':'password',value:pw,onChange:v=>setPw(v.target.value),placeholder:'••••••••',style:{paddingRight:38},onKeyDown:k=>k.key==='Enter'&&go()}),
+          e('button',{'aria-label':show?'Ocultar senha':'Mostrar senha',className:'nb',onClick:()=>setShow(s=>!s),style:{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',color:DM,padding:4}},e(Svg,{d:show?I.eyex:I.eye,s:14,c:DM}))
+        )
+      ),
+      err&&e('p',{style:{fontSize:12,color:RD,marginBottom:10}},err),
+      tab==='in'&&e('div',{style:{textAlign:'right',marginBottom:10}},e('button',{className:'nb',style:{fontSize:12,color:G},onClick:()=>setOk('Link de recuperação enviado (demo).')},'Esqueceu sua senha?')),
+      e('button',{className:'nb',onClick:go,disabled:busy,style:{width:'100%',background:busy?GD:G,borderRadius:9,padding:'11px',fontSize:14,fontWeight:700,color:busy?G:'#fff',border:'none',cursor:'pointer'}},busy?'Aguarde...':(tab==='in'?'Entrar':'Criar Conta')),
+      e('p',{style:{textAlign:'center',fontSize:11,color:DM,marginTop:12}},'Demo: joao@darastudio.com / teste123')
+    )
+  );
+};
+
+const ProjectDetail=({proj,onBack})=>{
+  const[tab,setTab]=useState('overview');
+  const[msgs,setMsgs]=useState([
+    {id:1,from:'admin',name:'Daniela',text:'A planta v3 foi enviada para aprovação. Alguma dúvida?',time:'10/03 14:30'},
+    {id:2,from:'client',name:'João',text:'Recebi! Vou revisar hoje à noite.',time:'10/03 16:12'},
+    {id:3,from:'admin',name:'Daniela',text:'Perfeito. Qualquer ajuste, abra um ticket.',time:'10/03 16:45'},
+  ]);
+  const[cmsg,setCmsg]=useState('');
+  const[updates,setUpdates]=useState([
+    {id:1,date:'14/03/2026',auth:'João (cliente)',text:'Fundação concluída, iniciando estrutura metálica.'},
+    {id:2,date:'08/03/2026',auth:'João (cliente)',text:'Terreno preparado e nivelado. Aprovado pela prefeitura.'},
+  ]);
+  const[utxt,setUtxt]=useState('');
+  const[tkts,setTkts]=useState([]);
+  const[tdesc,setTdesc]=useState('');
+  const[qApproved,setQApproved]=useState(false);
+  const[proofs,setProofs]=useState({});
+  const cref=useRef(null);
+  useEffect(()=>{if(cref.current)cref.current.scrollTop=9999;},[msgs]);
+
+  const sendMsg=()=>{if(!cmsg.trim())return;setMsgs(m=>[...m,{id:Date.now(),from:'client',name:'João',text:cmsg.trim(),time:'agora'}]);setCmsg('');};
+  const postUpdate=()=>{if(!utxt.trim())return;setUpdates(u=>[{id:Date.now(),date:new Date().toLocaleDateString('pt-BR'),auth:'João (cliente)',text:utxt.trim()},...u]);setUtxt('');};
+  const openTicket=()=>{if(!tdesc.trim())return;setTkts(t=>[{id:'TKT-'+(t.length+1).toString().padStart(3,'0'),desc:tdesc.trim(),date:new Date().toLocaleDateString('pt-BR'),status:'Aberto'},...t]);setTdesc('');};
+
+  const tabs=[{id:'overview',l:'Overview'},{id:'finance',l:'Finance'},{id:'chat',l:'Chat'},{id:'updates',l:'Site Updates'},{id:'tickets',l:'Tickets'}];
+  const bgt=proj.budget;
+  const phases=[
+    {id:'p1',l:'Conceptual Design Development',pct:30,amt:Math.round(bgt*.3),due:'15/04/2026'},
+    {id:'p2',l:'Drafting & Design Coordination',pct:40,amt:Math.round(bgt*.4),due:'30/06/2026'},
+    {id:'p3',l:'Permit Drawing Preparation',pct:30,amt:Math.round(bgt*.3),due:'15/08/2026'},
+  ];
+
+  return e('div',{className:'fa'},
+    e('button',{className:'nb',onClick:onBack,style:{display:'flex',alignItems:'center',gap:6,color:MU,fontSize:12,marginBottom:14,padding:0}},e(Svg,{d:I.back,s:14,c:MU}),'Voltar para Projetos'),
+    e('div',{className:'card',style:{marginBottom:4}},
+      e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10,flexWrap:'wrap',gap:10}},
+        e('div',null,
+          e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:5,flexWrap:'wrap'}},
+            e('span',{style:{fontFamily:'monospace',fontSize:10,color:G,fontWeight:700,background:GD,borderRadius:4,padding:'2px 8px'}},proj.code),
+            e(Badge,{s:proj.status})
+          ),
+          e('h2',{style:{fontFamily:'Georgia,serif',fontSize:17,fontWeight:700,marginBottom:2}},proj.address),
+          e('p',{style:{fontSize:12,color:MU}},proj.city+' · '+proj.service)
+        ),
+        e('div',{style:{textAlign:'right'}},
+          e('p',{style:{fontSize:11,color:DM}},proj.stage),
+          e('p',{style:{fontFamily:'Georgia,serif',fontSize:16,fontWeight:700,color:G,marginTop:2}},fmt(proj.budget))
+        )
+      ),
+      e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},
+        e('span',null,'Etapa: ',e('strong',{style:{color:TX}},proj.stage)),
+        e('span',null,proj.progress+'% concluído')
+      ),
+      e('div',{style:{background:BG3,borderRadius:4,height:6}},e('div',{style:{width:proj.progress+'%',height:'100%',borderRadius:4,background:G,transition:'width .6s ease'}}))
+    ),
+    e('div',{style:{display:'flex',borderBottom:'1px solid '+BR,background:BG2,overflowX:'auto',borderRadius:'0 0 0 0'}},
+      tabs.map(t=>e('button',{key:t.id,className:'tab',onClick:()=>setTab(t.id),style:{color:tab===t.id?G:DM,borderBottomColor:tab===t.id?G:'transparent'}},t.l))
+    ),
+    e('div',{style:{paddingTop:14}},
+      tab==='overview'&&e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:12}},
+        e('div',{className:'card'},
+          e('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12,flexWrap:'wrap'}},e(Svg,{d:I.usr,s:13,c:G}),e('span',{style:{fontFamily:'Georgia,serif',fontSize:13,fontWeight:700}},'Informações do Cliente'),e('span',{style:{fontSize:9,fontWeight:600,color:GN,background:GNB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'EDITÁVEL')),
+          ...['Nome completo','E-mail','Telefone'].map((l,i)=>e('div',{key:l,style:{marginBottom:10}},
+            e('label',{style:{fontSize:10,fontWeight:600,color:DM,display:'block',marginBottom:3,textTransform:'uppercase',letterSpacing:'.05em'}},l),
+            e('input',{className:'inp',defaultValue:[USER.name,USER.email,USER.phone][i]})
+          )),
+          e('button',{className:'btn',style:{marginTop:4}},'Salvar Alterações')
+        ),
+        e('div',{className:'card'},
+          e('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:12,flexWrap:'wrap'}},
+            e(Svg,{d:I.bld,s:13,c:G}),
+            e('span',{style:{fontFamily:'Georgia,serif',fontSize:13,fontWeight:700}},'Detalhes Técnicos'),
+            qApproved
+              ?e('span',{style:{fontSize:9,fontWeight:700,color:RD,background:RDB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'BLOQUEADO')
+              :e('span',{style:{fontSize:9,fontWeight:600,color:AM,background:AMB,borderRadius:3,padding:'1px 6px',marginLeft:4}},'EDITÁVEL'),
+            e('button',{className:'nb',onClick:()=>setQApproved(q=>!q),style:{marginLeft:'auto',fontSize:10,fontWeight:600,background:qApproved?GNB:BG3,color:qApproved?GN:DM,border:'1px solid '+(qApproved?'rgba(45,134,83,0.3)':BR),borderRadius:5,padding:'2px 8px'}},qApproved?'Aprovado':'Simular Aprovação')
+          ),
+          qApproved&&e('div',{style:{padding:'7px 11px',background:RDB,border:'1px solid rgba(184,50,50,0.2)',borderRadius:7,marginBottom:10,fontSize:11,color:RD}},'Detalhes bloqueados — orçamento aprovado. Alterações requerem autorização do Admin.'),
+          ...['Área','Níveis','Início','Arquiteto'].map((k,i)=>e('div',{key:k,className:'prow'},
+            e('span',{style:{fontSize:11,color:MU}},k),
+            qApproved
+              ?e('span',{style:{fontSize:11,fontWeight:500,color:DM}},['2.000 sqft','Térreo + 2º Andar','15/01/2026','Daniela Araújo'][i])
+              :e('input',{defaultValue:['2.000 sqft','Térreo + 2º Andar','15/01/2026','Daniela Araújo'][i],style:{fontSize:11,fontWeight:500,color:TX,background:'none',border:'none',textAlign:'right',outline:'none',fontFamily:'inherit',borderBottom:'1px dashed '+BR,padding:'1px 4px',width:140}})
+          )),
+          !qApproved&&e('button',{className:'btn',style:{marginTop:10}},'Salvar Alterações')
+        )
+      ),
+      tab==='finance'&&e('div',null,
+        e('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:14}},
+          ...[[fmt(bgt),'Total',G],[fmt(proj.paid),'Pago',GN],[fmt(bgt-proj.paid),'Saldo',AM]].map(([v,l,c])=>
+            e('div',{key:l,className:'card',style:{textAlign:'center'}},e('p',{style:{fontFamily:'Georgia,serif',fontSize:16,fontWeight:700,color:c}},v),e('p',{style:{fontSize:11,color:DM,marginTop:3}},l))
+          )
+        ),
+        phases.map(ph=>e('div',{key:ph.id,className:'card',style:{marginBottom:10}},
+          e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,flexWrap:'wrap',gap:6}},
+            e('div',null,e('p',{style:{fontSize:13,fontWeight:700,color:TX}},ph.l),e('p',{style:{fontSize:11,color:MU}},ph.pct+'% — '+fmt(ph.amt))),
+            e('div',{style:{textAlign:'right'}},
+              e('span',{style:{fontSize:10,fontWeight:600,background:proofs[ph.id]?GNB:AMB,color:proofs[ph.id]?GN:AM,borderRadius:4,padding:'2px 8px'}},proofs[ph.id]?'Comprovante enviado':'Pendente'),
+              e('p',{style:{fontSize:10,color:DM,marginTop:3}},'Vencimento: '+ph.due)
+            )
+          ),
+          !proofs[ph.id]&&e('label',{style:{display:'flex',alignItems:'center',justifyContent:'center',gap:6,background:G,border:'none',borderRadius:8,padding:'8px',fontSize:12,fontWeight:700,color:'#fff',cursor:'pointer',width:'100%'}},
+            'Anexar Comprovante de Pagamento',
+            e('input',{type:'file',accept:'image/*,.pdf',style:{display:'none'},onChange:v=>{const f=v.target.files?.[0];if(f)setProofs(p=>({...p,[ph.id]:f.name}));}})
+          ),
+          proofs[ph.id]&&e('p',{style:{fontSize:11,color:GN,marginTop:4,textAlign:'center'}},'\u2713 '+proofs[ph.id]+' — aguardando confirmação')
+        ))
+      ),
+      tab==='chat'&&e('div',{style:{background:BG2,border:'1px solid '+BR,borderRadius:10,overflow:'hidden',display:'flex',flexDirection:'column',height:400}},
+        e('div',{style:{padding:'10px 16px',borderBottom:'1px solid '+BR,display:'flex',alignItems:'center',gap:8}},
+          e('span',{style:{width:8,height:8,borderRadius:'50%',background:GN,flexShrink:0}}),
+          e('span',{style:{fontSize:12,fontWeight:700,color:TX}},'Chat com DARA Studio'),
+          e('span',{style:{fontSize:11,color:DM,marginLeft:'auto'}},'Online')
+        ),
+        e('div',{ref:cref,style:{flex:1,overflowY:'auto',padding:'12px 16px',display:'flex',flexDirection:'column',gap:10}},
+          msgs.map(m=>e('div',{key:m.id,style:{display:'flex',flexDirection:m.from==='client'?'row-reverse':'row',gap:8,alignItems:'flex-end'}},
+            e('div',{style:{width:26,height:26,borderRadius:'50%',background:m.from==='admin'?GD:BG3,border:'1px solid '+BR,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},
+              e('span',{style:{fontSize:10,fontWeight:700,color:m.from==='admin'?G:MU}},m.name[0])
+            ),
+            e('div',{style:{maxWidth:'70%'}},
+              e('div',{style:{background:m.from==='client'?GD:BG3,border:'1px solid '+(m.from==='client'?GB:BR),borderRadius:m.from==='client'?'10px 10px 3px 10px':'10px 10px 10px 3px',padding:'8px 12px'}},
+                e('p',{style:{fontSize:12,color:TX,lineHeight:1.5}},m.text)
+              ),
+              e('p',{style:{fontSize:10,color:DM,marginTop:2,textAlign:m.from==='client'?'right':'left'}},m.name+' · '+m.time)
+            )
+          ))
+        ),
+        e('div',{style:{borderTop:'1px solid '+BR,padding:'10px 14px',display:'flex',gap:8}},
+          e('input',{value:cmsg,onChange:v=>setCmsg(v.target.value),onKeyDown:k=>k.key==='Enter'&&sendMsg(),placeholder:'Escreva uma mensagem...',style:{flex:1,background:BG3,border:'1px solid '+BR,borderRadius:8,padding:'8px 12px',fontSize:12,color:TX,fontFamily:'inherit',outline:'none'},onFocus:v=>v.target.style.borderColor=G,onBlur:v=>v.target.style.borderColor=BR}),
+          e('button',{className:'nb',onClick:sendMsg,style:{background:G,borderRadius:8,width:36,height:36,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},e(Svg,{d:I.send,s:13,c:'#fff'}))
+        )
+      ),
+      tab==='updates'&&e('div',null,
+        e('div',{className:'card',style:{marginBottom:14}},
+          e('p',{style:{fontSize:12,fontWeight:700,color:TX,marginBottom:8}},'Nova Atualização de Obra'),
+          e('textarea',{className:'ta',value:utxt,onChange:v=>setUtxt(v.target.value),placeholder:'Descreva o progresso da obra...'}),
+          e('button',{className:'btn',style:{marginTop:8},onClick:postUpdate},'Publicar Atualização')
+        ),
+        updates.map(u=>e('div',{key:u.id,className:'card',style:{marginBottom:8}},
+          e('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:5}},e('span',{style:{fontSize:11,color:G,fontWeight:600}},u.auth),e('span',{style:{fontSize:10,color:DM}},u.date)),
+          e('p',{style:{fontSize:12,color:TX,lineHeight:1.6}},u.text)
+        ))
+      ),
+      tab==='tickets'&&e('div',null,
+        e('div',{className:'card',style:{marginBottom:14}},
+          e('p',{style:{fontSize:12,fontWeight:700,color:TX,marginBottom:8}},'Abrir Ticket de Revisão'),
+          e('textarea',{className:'ta',value:tdesc,onChange:v=>setTdesc(v.target.value),placeholder:'Descreva a revisão solicitada...'}),
+          e('button',{className:'btn',style:{marginTop:8},onClick:openTicket},'Abrir Ticket')
+        ),
+        tkts.length===0&&e('div',{style:{textAlign:'center',padding:'32px 0',color:DM}},e('p',{style:{fontSize:28,marginBottom:8}},'🎫'),e('p',{style:{fontSize:13}},'Nenhum ticket aberto ainda.')),
+        tkts.map(t=>e('div',{key:t.id,className:'card',style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}},
+          e('div',null,
+            e('div',{style:{display:'flex',gap:8,alignItems:'center',marginBottom:4}},
+              e('span',{style:{fontFamily:'monospace',fontSize:11,color:G,fontWeight:700}},t.id),
+              e('span',{style:{fontSize:10,fontWeight:600,background:AMB,color:AM,borderRadius:3,padding:'1px 6px'}},t.status)
+            ),
+            e('p',{style:{fontSize:12,color:TX}},t.desc)
+          ),
+          e('span',{style:{fontSize:10,color:DM,flexShrink:0}},t.date)
+        ))
+      )
+    )
+  );
+};
+
+const Dashboard=({user,projects,invoices,activity,onNav,onOpen})=>{
+  const active=projects.filter(p=>p.status!=='completed').length;
+  const pend=invoices.filter(i=>i.status==='pending');
+  const paid=invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  return e('div',{className:'fa'},
+    e('div',{style:{marginBottom:20}},
+      e('h1',{style:{fontFamily:'Georgia,serif',fontSize:21,fontWeight:700,marginBottom:3}},'Bem-vindo, '+user.name.split(' ')[0]),
+      e('p',{style:{fontSize:12,color:MU}},'Resumo dos seus projetos em andamento')
+    ),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:12,marginBottom:20}},
+      ...[[active,'Projetos Ativos',G,'folder','projects'],[pend.length,'Faturas Pendentes',AM,'rcpt','invoices'],[fmt(paid),'Total Pago',GN,'trend','invoices']].map(([v,l,c,ic,pg])=>
+        e('button',{key:l,className:'nb card',onClick:()=>onNav(pg),style:{textAlign:'left',cursor:'pointer',transition:'border-color .15s',width:'100%'},onMouseEnter:v=>v.currentTarget.style.borderColor=c,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+          e('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:6}},e(Svg,{d:I[ic],s:14,c}),e('span',{style:{fontSize:11,color:MU}},l)),
+          e('p',{style:{fontFamily:'Georgia,serif',fontSize:20,fontWeight:700,color:c}},v)
+        )
+      )
+    ),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:14}},
+      e('div',null,
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}},
+          e('h2',{style:{fontFamily:'Georgia,serif',fontSize:14,fontWeight:700}},'Projetos Recentes'),
+          e('button',{className:'nb',style:{fontSize:12,color:G},onClick:()=>onNav('projects')},'Ver todos \u2192')
+        ),
+        projects.slice(0,2).map(p=>e('div',{key:p.id,className:'card',onClick:()=>onOpen(p),style:{marginBottom:8,cursor:'pointer',transition:'border-color .15s'},onMouseEnter:v=>v.currentTarget.style.borderColor=G,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+          e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,flexWrap:'wrap',gap:6}},
+            e('div',null,e('p',{style:{fontSize:13,fontWeight:700,color:TX}},p.address),e('p',{style:{fontSize:11,color:MU,marginTop:1}},p.service)),
+            e(Badge,{s:p.status})
+          ),
+          e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},e('span',null,p.stage),e('span',null,p.progress+'%')),
+          e('div',{style:{background:BG3,borderRadius:3,height:4}},e('div',{style:{width:p.progress+'%',height:'100%',borderRadius:3,background:G}}))
+        ))
+      ),
+      e('div',null,
+        e('h2',{style:{fontFamily:'Georgia,serif',fontSize:14,fontWeight:700,marginBottom:10}},'Atividade Recente'),
+        activity.map(a=>e('div',{key:a.id,style:{display:'flex',gap:10,alignItems:'flex-start',padding:'8px 0',borderBottom:'1px solid rgba(0,0,0,0.04)'}},
+          e('div',{style:{width:26,height:26,borderRadius:7,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,fontSize:12,color:G,fontWeight:700}},a.ico),
+          e('div',null,e('p',{style:{fontSize:12,color:TX,lineHeight:1.4}},a.text),e('p',{style:{fontSize:10,color:DM,marginTop:1}},a.time))
+        ))
+      )
+    )
+  );
+};
+
+const Projects=({projects,onOpen})=>{
+  const[f,setF]=useState('active');
+  const list=projects.filter(p=>f==='all'?true:f==='active'?p.status!=='completed':p.status==='completed');
+  return e('div',{className:'fa'},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:18,flexWrap:'wrap',gap:10}},
+      e('div',null,e('h1',{style:{fontFamily:'Georgia,serif',fontSize:20,fontWeight:700,marginBottom:2}},'Meus Projetos'),e('p',{style:{fontSize:12,color:MU}},projects.length+' projeto(s)')),
+      e('div',{style:{display:'flex',background:BG3,borderRadius:8,padding:3}},
+        [['active','Ativos'],['completed','Concluídos'],['all','Todos']].map(([id,l])=>e('button',{key:id,className:'nb',onClick:()=>setF(id),style:{padding:'6px 12px',fontSize:11,fontWeight:f===id?600:400,background:f===id?BG2:'none',borderRadius:6,color:f===id?TX:MU}},l))
+      )
+    ),
+    list.length===0&&e('div',{style:{textAlign:'center',padding:'48px 0',color:DM}},e('p',{style:{fontSize:24,marginBottom:8}},'📁'),e('p',{style:{fontSize:14}},'Nenhum projeto nesta categoria')),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:12}},
+      list.map(p=>e('div',{key:p.id,className:'card',onClick:()=>onOpen(p),style:{cursor:'pointer',transition:'border-color .15s'},onMouseEnter:v=>v.currentTarget.style.borderColor=G,onMouseLeave:v=>v.currentTarget.style.borderColor=BR},
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10,flexWrap:'wrap',gap:6}},
+          e('div',null,
+            e('p',{style:{fontFamily:'monospace',fontSize:10,color:G,fontWeight:700,marginBottom:3}},p.code),
+            e('p',{style:{fontSize:13,fontWeight:700,color:TX}},p.address),
+            e('p',{style:{fontSize:11,color:MU,marginTop:2}},p.city)
+          ),
+          e(Badge,{s:p.status})
+        ),
+        e('p',{style:{fontSize:11,color:MU,marginBottom:10,lineHeight:1.4}},p.service),
+        e('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:DM,marginBottom:4}},e('span',null,p.stage),e('span',null,p.progress+'%')),
+        e('div',{style:{background:BG3,borderRadius:3,height:4,marginBottom:10}},e('div',{style:{width:p.progress+'%',height:'100%',borderRadius:3,background:p.status==='completed'?GN:G}})),
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center'}},
+          e('span',{style:{fontSize:12,fontWeight:700,color:TX}},fmt(p.budget)),
+          e('span',{style:{fontSize:10,color:DM}},p.updatedAt)
+        ),
+        p.pending&&e('div',{style:{marginTop:8,padding:'4px 9px',background:AMB,borderRadius:4,fontSize:10,color:AM,fontWeight:500}},p.pending)
+      ))
+    )
+  );
+};
+
+const Faturas=({invoices})=>{
+  const paid=invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  const pend=invoices.filter(i=>i.status==='pending').reduce((s,i)=>s+i.amount,0);
+  return e('div',{className:'fa'},
+    e('h1',{style:{fontFamily:'Georgia,serif',fontSize:20,fontWeight:700,marginBottom:4}},'Faturas'),
+    e('p',{style:{fontSize:12,color:MU,marginBottom:18}},'Histórico de pagamentos e saldos'),
+    e('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))',gap:12,marginBottom:18}},
+      ...[[fmt(paid),'Total Pago',GN],[fmt(pend),'Saldo Pendente',AM]].map(([v,l,c])=>
+        e('div',{key:l,className:'card',style:{textAlign:'center'}},e('p',{style:{fontFamily:'Georgia,serif',fontSize:18,fontWeight:700,color:c}},v),e('p',{style:{fontSize:11,color:DM,marginTop:3}},l))
+      )
+    ),
+    invoices.map(inv=>e('div',{key:inv.id,className:'card',style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8,flexWrap:'wrap',gap:8}},
+      e('div',null,
+        e('p',{style:{fontFamily:'monospace',fontSize:12,fontWeight:700,color:G}},inv.id),
+        e('p',{style:{fontSize:12,color:TX,marginTop:2}},inv.project),
+        e('p',{style:{fontSize:11,color:DM,marginTop:1}},'Vencimento: '+inv.due)
+      ),
+      e('div',{style:{textAlign:'right'}},
+        e('p',{style:{fontFamily:'Georgia,serif',fontSize:15,fontWeight:700,color:TX}},fmt(inv.amount)),
+        e('span',{style:{fontSize:10,fontWeight:600,background:inv.status==='paid'?GNB:AMB,color:inv.status==='paid'?GN:AM,borderRadius:4,padding:'2px 8px'}},inv.status==='paid'?'Pago':'Pendente')
+      )
+    ))
+  );
+};
+
+const Perfil=({user})=>e('div',{className:'fa',style:{maxWidth:480}},
+  e('h1',{style:{fontFamily:'Georgia,serif',fontSize:20,fontWeight:700,marginBottom:18}},'Meu Perfil'),
+  e('div',{className:'card'},
+    e('div',{style:{display:'flex',alignItems:'center',gap:14,marginBottom:18,paddingBottom:16,borderBottom:'1px solid '+BR}},
+      e('div',{style:{width:56,height:56,borderRadius:'50%',background:GD,border:'2px solid '+G,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Georgia,serif',fontSize:20,fontWeight:700,color:G,flexShrink:0}},user.initials),
+      e('div',null,e('p',{style:{fontFamily:'Georgia,serif',fontSize:16,fontWeight:700}},user.name),e('p',{style:{fontSize:12,color:MU}},user.company))
+    ),
+    ['Nome Completo','E-mail','Telefone'].map((l,i)=>e('div',{key:l,style:{marginBottom:12}},
+      e('label',{style:{fontSize:11,fontWeight:600,color:DM,display:'block',marginBottom:4,textTransform:'uppercase',letterSpacing:'.05em'}},l),
+      e('input',{className:'inp',defaultValue:[user.name,user.email,user.phone][i]})
+    )),
+    e('div',{style:{display:'flex',justifyContent:'flex-end',marginTop:8}},
+      e('button',{className:'btn'},'Salvar Alterações')
+    )
+  )
+);
+
+const Layout=({user,onLogout})=>{
+  const[page,setPage]=useState('dashboard');
+  const[open,setOpen]=useState(true);
+  const[proj,setProj]=useState(null);
+  const[notif,setNotif]=useState(true);
+  const[showN,setShowN]=useState(false);
+  const pend=INVOICES.filter(i=>i.status==='pending').length;
+  const nav=[{id:'dashboard',ico:'home',l:'Dashboard'},{id:'projects',ico:'folder',l:'Meus Projetos'},{id:'invoices',ico:'rcpt',l:'Faturas',b:pend},{id:'messages',ico:'chat',l:'Mensagens',b:1}];
+  const bot=[{id:'profile',ico:'usr',l:'Perfil'},{id:'company',ico:'bld',l:'Empresa'}];
+  const go=p=>{setProj(null);setPage(p);};
+
+  return e('div',{style:{display:'flex',minHeight:'100vh',background:BG}},
+    e('aside',{style:{width:open?200:52,background:SB,flexShrink:0,display:'flex',flexDirection:'column',transition:'width .2s ease',overflow:'hidden',position:'sticky',top:0,height:'100vh'}},
+      e('div',{style:{padding:open?'14px 12px 10px':'14px 0 10px',display:'flex',alignItems:'center',justifyContent:open?'space-between':'center',borderBottom:'1px solid rgba(255,255,255,0.06)',marginBottom:6}},
+        open&&e('div',{style:{display:'flex',alignItems:'center',gap:8}},
+          e('div',{style:{width:26,height:26,background:G,borderRadius:6,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Georgia,serif',fontWeight:700,fontSize:13,color:'#fff',flexShrink:0}},'D'),
+          e('div',null,e('p',{style:{fontFamily:'Georgia,serif',fontSize:11,fontWeight:700,color:'#fff',lineHeight:1.2}},'DARA Studio'),e('p',{style:{fontSize:10,color:'rgba(255,255,255,0.35)'}},'Portal do Cliente'))
+        ),
+        e('button',{className:'nb',onClick:()=>setOpen(o=>!o),style:{color:'rgba(255,255,255,0.4)',padding:4,flexShrink:0}},e(Svg,{d:I.menu,s:14,c:'rgba(255,255,255,0.4)'}))
+      ),
+      e('nav',{style:{flex:1,padding:'4px 8px',display:'flex',flexDirection:'column',gap:2}},
+        nav.map(n=>e(NavItem,{key:n.id,ico:n.ico,label:n.l,active:page===n.id||(page==='detail'&&n.id==='projects'),badge:n.b||0,collapsed:!open,onClick:()=>go(n.id)}))
+      ),
+      e('div',{style:{padding:'4px 8px 12px',borderTop:'1px solid rgba(255,255,255,0.06)'}},
+        bot.map(n=>e(NavItem,{key:n.id,ico:n.ico,label:n.l,active:page===n.id,badge:0,collapsed:!open,onClick:()=>go(n.id)})),
+        e(NavItem,{ico:'out',label:'Sair',active:false,badge:0,collapsed:!open,onClick:onLogout})
+      )
+    ),
+    e('main',{style:{flex:1,overflow:'auto',minWidth:0,display:'flex',flexDirection:'column'}},
+      e('div',{style:{background:BG2,borderBottom:'1px solid '+BR,padding:'0 20px',height:48,display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,zIndex:40}},
+        e('div',null,e('span',{style:{fontSize:12,color:G,fontWeight:600,letterSpacing:'.08em'}},'DARA Studio'),e('span',{style:{fontSize:12,color:DM,margin:'0 6px'}},'|'),e('span',{style:{fontSize:12,color:MU}},'Drafting & 3D Support')),
+        e('div',{style:{display:'flex',alignItems:'center',gap:10}},
+          e('div',{style:{position:'relative'}},
+            e('button',{className:'nb',onClick:()=>{setShowN(o=>!o);setNotif(false);},style:{color:MU,padding:4,position:'relative'}},
+              e(Svg,{d:I.bell,s:16,c:MU}),
+              notif&&e('span',{style:{position:'absolute',top:2,right:2,width:6,height:6,borderRadius:'50%',background:G}})
+            ),
+            showN&&e(Fragment,null,
+              e('div',{onClick:()=>setShowN(false),style:{position:'fixed',inset:0,zIndex:49}}),
+              e('div',{style:{position:'absolute',right:0,top:36,width:260,background:BG2,border:'1px solid '+BR,borderRadius:10,zIndex:50,boxShadow:'0 4px 20px rgba(0,0,0,0.1)',overflow:'hidden'}},
+                e('div',{style:{padding:'10px 14px',borderBottom:'1px solid '+BR,display:'flex',justifyContent:'space-between',alignItems:'center'}},
+                  e('span',{style:{fontSize:12,fontWeight:700,color:TX}},'Notificações'),
+                  e('button',{className:'nb',onClick:()=>setShowN(false)},e(Svg,{d:I.x,s:13,c:DM}))
+                ),
+                ACTIVITY.map(a=>e('div',{key:a.id,style:{padding:'9px 14px',borderBottom:'1px solid rgba(0,0,0,0.04)',display:'flex',gap:8,alignItems:'flex-start'}},
+                  e('div',{style:{width:24,height:24,borderRadius:6,background:GD,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,fontSize:11,color:G,fontWeight:700}},a.ico),
+                  e('div',null,e('p',{style:{fontSize:11,color:TX,lineHeight:1.4}},a.text),e('p',{style:{fontSize:10,color:DM,marginTop:1}},a.time))
+                ))
+              )
+            )
+          ),
+          e('div',{style:{width:30,height:30,borderRadius:'50%',background:GD,border:'2px solid '+G,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Georgia,serif',fontSize:11,fontWeight:700,color:G,cursor:'pointer'},onClick:()=>go('profile')},user.initials)
+        )
+      ),
+      e('div',{style:{padding:'20px 20px 60px',flex:1}},
+        page==='dashboard'&&e(Dashboard,{user,projects:PROJECTS,invoices:INVOICES,activity:ACTIVITY,onNav:go,onOpen:p=>{setProj(p);setPage('detail');}}),
+        page==='projects'&&e(Projects,{projects:PROJECTS,onOpen:p=>{setProj(p);setPage('detail');}}),
+        page==='detail'&&proj&&e(ProjectDetail,{proj,onBack:()=>{setProj(null);setPage('projects');}}),
+        page==='invoices'&&e(Faturas,{invoices:INVOICES}),
+        page==='messages'&&e('div',{className:'fa',style:{textAlign:'center',padding:'60px 0',color:DM}},e('p',{style:{fontSize:32,marginBottom:10}},'💬'),e('p',{style:{fontSize:14,color:TX,marginBottom:4,fontWeight:600}},'Mensagens Gerais'),e('p',{style:{fontSize:12}},'Use o Chat dentro de cada projeto para comunicação direta.')),
+        page==='profile'&&e(Perfil,{user}),
+        page==='company'&&e('div',{className:'fa',style:{maxWidth:480}},e('h1',{style:{fontFamily:'Georgia,serif',fontSize:20,fontWeight:700,marginBottom:18}},'Minha Empresa'),e('div',{className:'card'},e('p',{style:{fontSize:12,color:MU,marginBottom:4}},'Empresa registrada:'),e('p',{style:{fontSize:14,fontWeight:700,color:TX}},user.company)))
+      )
+    )
+  );
+};
+
+const App=()=>{
+  const[user,setUser]=useState(null);
+  return user
+    ?React.createElement(Layout,{user,onLogout:()=>setUser(null)})
+    :React.createElement(Login,{onLogin:setUser});
+};
+
+ReactDOM.createRoot(document.getElementById('app')).render(React.createElement(App));
+})();
+</script>
+</body>
+</html>

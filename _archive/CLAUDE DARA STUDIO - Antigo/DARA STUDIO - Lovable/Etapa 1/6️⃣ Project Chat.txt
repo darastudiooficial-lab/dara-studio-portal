@@ -1,0 +1,175 @@
+I want to implement an Internal Project Chat system inside each project.
+
+The goal is to centralize all communication between the architecture studio, clients, and collaborators directly inside the platform.
+
+IMPORTANT:
+Do NOT delete or modify existing database tables or records.
+
+Existing entities such as:
+
+projects
+documents
+messages
+invoices
+payments
+site_updates
+drawing_approvals
+
+must remain intact.
+
+You may create new tables only if required.
+
+---
+
+FEATURE NAME
+
+Project Chat
+
+Location in the system:
+
+Project → Messages
+
+---
+
+FEATURE PURPOSE
+
+Each project should have its own conversation channel where participants can communicate about the project.
+
+Participants may include:
+
+Admin
+Client
+Architect
+Freelancers
+Contractors
+
+---
+
+CHAT STRUCTURE
+
+Messages must be organized by project.
+
+Example structure:
+
+Project
+→ Chat Messages
+
+Each message should contain:
+
+User
+Message text
+Timestamp
+Optional attachment
+
+---
+
+DATABASE STRUCTURE
+
+Create a table named:
+
+project_messages
+
+Fields:
+
+id
+project_id
+user_id
+message_text
+attachment_url
+created_at
+
+---
+
+REAL-TIME MESSAGING
+
+Messages should appear instantly without refreshing the page.
+
+Use real-time subscriptions from Supabase.
+
+When a new message is sent:
+
+• insert into database
+• update the chat UI instantly
+• notify other users
+
+---
+
+MESSAGE FEATURES
+
+Users should be able to:
+
+Send text messages
+Upload images
+Upload PDFs or documents
+Reply in the conversation thread
+
+Attachments should be stored in Supabase Storage.
+
+File structure example:
+
+/projects/project-id/messages/
+
+---
+
+CHAT UI DESIGN
+
+The interface should resemble modern messaging apps.
+
+Design guidelines:
+
+Message bubbles
+User avatars
+Timestamp under each message
+Scrollable chat history
+Sticky message input field at the bottom
+
+The newest messages should appear at the bottom.
+
+---
+
+MENTIONS
+
+Allow users to mention other participants using:
+
+@username
+
+Mentioned users should receive a notification.
+
+---
+
+TIMELINE INTEGRATION
+
+Important messages should appear in the project timeline.
+
+Example events:
+
+💬 New message posted by Client
+📎 Document shared in project chat
+
+---
+
+NOTIFICATIONS
+
+Notify participants when:
+
+A new message is sent
+They are mentioned in a message
+A document is shared
+
+---
+
+MOBILE EXPERIENCE
+
+The chat must be optimized for mobile devices.
+
+Clients should be able to:
+
+Send messages from their phone
+Upload photos from the camera
+Attach documents
+
+---
+
+FINAL GOAL
+
+The project chat should become the central communication hub for each project, reducing email communication and keeping all discussions organized within the platform.

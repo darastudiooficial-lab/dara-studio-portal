@@ -1,0 +1,13 @@
+O design da Etapa 2 está perfeito! No entanto, precisamos corrigir o comportamento dos inputs de telefone ("Phone" e "Business Phone"). A formatação não está sendo mantida enquanto o usuário digita, e os números ficam soltos.
+Para não usarmos bibliotecas externas que possam quebrar o preview, por favor, crie uma função de máscara (mask) em JavaScript puro.
+Atualize o componente da Etapa 2 com as seguintes regras:
+1. FUNÇÃO DE MÁSCARA (Custom Formatter)
+- Crie uma função chamada `formatPhoneNumber(value, countrySelected)` que remova todos os caracteres não numéricos digitados e reaplique a formatação correta em tempo real.
+- Se o país selecionado na Etapa 1 for 'US':
+  A máscara deve forçar o padrão: `+1 (XXX) XXX-XXXX`.
+- Se o país selecionado for 'BR':
+  A máscara deve forçar o padrão: `+55 (XX) XXXXX-XXXX`.
+2. APLICAÇÃO NOS INPUTS
+- Utilize essa função no evento `onChange` (ou controlando o `value` do state) tanto do input "Phone" principal quanto do input "Business Phone" (que aparece caso ele não seja Homeowner).
+- A experiência deve ser fluida: o usuário digita apenas os números, e o input automaticamente insere o prefixo, os parênteses, o espaço e o traço.
+Por favor, me forneça o código atualizado da Etapa 2 contendo essa função de formatação e como ela está atrelada aos inputs.

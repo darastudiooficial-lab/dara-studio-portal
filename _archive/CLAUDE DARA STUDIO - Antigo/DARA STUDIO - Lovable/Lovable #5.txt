@@ -1,0 +1,89 @@
+Preciso adicionar uma lógica de criação de novo projeto com seleção de país, pois trabalho com projetos no Brasil e nos Estados Unidos, e cada um possui padrões diferentes de orçamento, moeda e unidades de medida.
+
+Fluxo desejado
+
+Quando eu clicar em “Novo Projeto”, o sistema deve abrir uma nova etapa inicial com a pergunta:
+
+“Este projeto é para qual país?”
+
+Com dois botões de seleção:
+
+🇧🇷 Brasil
+
+🇺🇸 Estados Unidos
+
+LÓGICA PARA PROJETOS NO BRASIL
+
+Se eu selecionar Brasil, o sistema deve automaticamente configurar o projeto com os seguintes padrões:
+
+Moeda
+
+Todos os valores devem ser exibidos em Real (R$).
+
+Unidade de medida
+
+Área em metros quadrados (m²).
+
+Campos obrigatórios
+
+Endereço completo no Brasil
+
+Cidade
+
+Estado
+
+CEP
+
+Informações do projeto
+
+Área total do projeto em m²
+
+Tipo de projeto
+
+Descrição do projeto
+
+Cálculo de orçamento
+
+O valor deve ser calculado com base em R$/m².
+
+LÓGICA PARA PROJETOS NOS EUA
+
+Se eu selecionar Estados Unidos, o sistema deve continuar utilizando o padrão já configurado atualmente, incluindo:
+
+Moeda
+
+Dólar (USD)
+
+Unidade
+
+Square feet (ft²)
+
+Campos de endereço
+
+Address
+
+City
+
+State
+
+ZIP Code
+
+Cálculo de orçamento
+
+Baseado em USD/ft², como já está configurado.
+
+OBJETIVO
+
+Criar um fluxo inteligente de criação de projeto, onde o sistema automaticamente adapta:
+
+moeda
+
+unidades de medida
+
+campos de endereço
+
+cálculo de orçamento
+
+de acordo com o país selecionado.
+
+Isso permitirá gerenciar projetos brasileiros e americanos dentro da mesma plataforma, mantendo cada padrão corretamente configurado.

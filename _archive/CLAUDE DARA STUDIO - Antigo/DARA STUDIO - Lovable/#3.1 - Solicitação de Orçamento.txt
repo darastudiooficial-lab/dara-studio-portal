@@ -1,0 +1,202 @@
+1️⃣ Nova Etapa ZERO no formulário
+Antes de Localização, adicione uma etapa chamada:
+
+Project Region
+Fluxo novo:
+1 — Project Region
+2 — Location
+3 — Project
+4 — Your Info
+5 — Details
+
+
+
+2️⃣ Tela inicial de escolha (UX ideal)
+Em vez de dropdown, use cards grandes clicáveis.
+
+Exemplo visual:
+Where is your project located?
+
+[ 🇺🇸 United States ]
+Projects following IRC / IBC standards
+
+[ 🇧🇷 Brazil ]
+Projects following Brazilian building standards
+
+
+
+3️⃣ Estrutura técnica (React)
+Crie estado global do projeto.
+
+Arquivo sugerido:
+src/context/projectContext.ts
+
+Código:
+import { createContext, useState } from "react"
+
+export const ProjectContext = createContext(null)
+
+export function ProjectProvider({ children }) {
+
+const [region, setRegion] = useState(null)
+
+return (
+
+<ProjectContext.Provider value={{ region, setRegion }}>
+{children}
+</ProjectContext.Provider>
+
+)
+
+}
+
+
+
+4️⃣ Página de seleção de região
+Arquivo:
+src/components/forms/RegionSelector.tsx
+
+Código:
+import { useContext } from "react"
+import { ProjectContext } from "@/context/projectContext"
+
+export default function RegionSelector(){
+
+const { setRegion } = useContext(ProjectContext)
+
+return(
+
+<div className="region-select">
+
+<h2>Where is your project located?</h2>
+
+<button onClick={() => setRegion("USA")}>
+🇺🇸 United States
+</button>
+
+<button onClick={() => setRegion("BR")}>
+🇧🇷 Brazil
+</button>
+
+</div>
+
+)
+
+}
+
+
+
+
+5️⃣ Ajustar moeda automaticamente
+Crie utilitário:
+src/lib/currency.ts
+
+Código:
+export function getCurrency(region:string){
+
+if(region === "USA"){
+
+return {
+symbol: "$",
+currency: "USD"
+}
+
+}
+
+return {
+symbol: "R$",
+currency: "BRL"
+}
+
+}
+
+
+
+
+
+6️⃣ Ajustar unidade automaticamente
+Arquivo:
+src/lib/units.ts
+
+Código:
+export function getUnits(region:string){
+
+if(region === "USA"){
+
+return {
+area: "sqft",
+length: "ft"
+}
+
+}
+
+return {
+area: "m²",
+length: "m"
+}
+
+}
+
+
+
+7️⃣ Ajustar campos do formulário automaticamente
+Exemplo:
+
+Campo área do projeto
+const units = getUnits(region)
+
+<label>
+Project Area ({units.area})
+</label>
+
+
+
+8️⃣ Ajustar moeda no Rough Estimate
+Exemplo:
+const currency = getCurrency(region)
+
+<p>
+Estimated Range:
+{currency.symbol} {estimate}
+</p>
+
+
+
+
+9️⃣ Ajustar perguntas automaticamente
+Algumas perguntas só existem nos EUA.
+Exemplo:
+Apenas EUA
+Is the project for permit submission?
+Apenas Brasil
+Projeto para aprovação na prefeitura?
+
+React:
+
+{region === "USA" && (
+<QuestionPermitUSA />
+)}
+
+{region === "BR" && (
+<QuestionPermitBR />
+)}
+
+
+
+
+🔟 Ajustar sistema de cálculo
+Arquivo:
+estimateCalculator.ts
+
+Exemplo:
+export function calculateEstimate(data){
+
+if(data.region === "USA"){
+
+return calculateUSA(data)
+
+}
+
+return calculateBR(data)
+
+}
