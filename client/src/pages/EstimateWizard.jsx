@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 
 /* ═══ CONSTANTS ═══ */
-const STEPS_EN = ["Location", "About You", "Project", "Scope", "Program", "Files", "Rush", "Review"];
-const STEPS_PT = ["Localização", "Sobre Você", "Projeto", "Escopo", "Programa", "Arquivos", "Urgência", "Revisão"];
+const STEPS_EN = ["Location", "About You", "Project", "Scope", "Services", "Program", "Files", "Rush", "Review"];
+const STEPS_PT = ["Localização", "Sobre Você", "Projeto", "Escopo", "Serviços", "Programa", "Arquivos", "Urgência", "Revisão"];
 
 const TRANSLATIONS = {
   EN: {
@@ -45,6 +45,8 @@ const TRANSLATIONS = {
     width: "Width",
     length: "Length",
     levels: "Levels / Floors",
+    selectServices: "Select Services",
+    servicesSub: "Choose the specific services you need for your project.",
     deliveryPackage: "Select Your Delivery Package",
     packageSub: "Choose the scope that best fits your needs.",
     programReqs: "Program Requirements",
@@ -138,6 +140,8 @@ const TRANSLATIONS = {
     width: "Largura",
     length: "Comprimento",
     levels: "Níveis / Andares",
+    selectServices: "Selecionar Serviços",
+    servicesSub: "Escolha os serviços específicos que você precisa para o seu projeto.",
     deliveryPackage: "Selecione seu Pacote de Entrega",
     packageSub: "Escolha o escopo que melhor se adapta às suas necessidades.",
     programReqs: "Requisitos do Programa",
@@ -389,13 +393,13 @@ function calcEst(d, lang = "EN") {
     garage_only: "Garage", garage_conversion: "Garage Conversion", basement_finishing: "Basement Finishing",
     deck_covered: "Covered Deck", deck_open: "Open Deck", porch_covered: "Covered Porch", porch_open: "Open Porch",
     renovation: "Renovation", kitchen_remodel: "Kitchen Remodel", bath_remodel: "Bath Remodel",
-    open_concept: "Open Concept Conversion"
+    open_concept: "Open Concept Conversion", other_const: "Other Construction", other_int: "Other Interior"
   } : {
     new_construction: "Nova Construção", addition: "Ampliação", second_story: "Segundo Pavimento",
     garage_only: "Garagem", garage_conversion: "Conversão de Garagem", basement_finishing: "Acabamento de Subsolo",
     deck_covered: "Deck Coberto", deck_open: "Deck Aberto", porch_covered: "Varanda Coberta", porch_open: "Varanda Aberta",
     renovation: "Reforma", kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro",
-    open_concept: "Conversão de Conceito Aberto"
+    open_concept: "Conversão de Conceito Aberto", other_const: "Outra Construção", other_int: "Outro Interior"
   };
 
   const dims = d.dims || {};
@@ -405,7 +409,7 @@ function calcEst(d, lang = "EN") {
   const NO_FLOOR_MULT = ["deck_covered", "deck_open", "porch_covered", "porch_open"];
 
   let areaBlocks = [];
-  selectedSvcs.forEach(svcId => {
+  (selectedSvcs || []).forEach(svcId => {
     const dim = dims[svcId] || {};
     const wi = parseDim(dim.w || "", isUS);
     const li = parseDim(dim.l || "", isUS);
@@ -413,21 +417,21 @@ function calcEst(d, lang = "EN") {
     if (a > 0) areaBlocks.push({ label: SVC_LABELS[svcId], area: a, noMult: NO_FLOOR_MULT.includes(svcId) });
   });
 
-  dimExtras.forEach(ex => {
+  (dimExtras || []).forEach(ex => {
     const wi = parseDim(ex.w || "", isUS);
     const li = parseDim(ex.l || "", isUS);
     const a = isUS ? (wi * li / 144) : (wi * li);
     if (a > 0) areaBlocks.push({ label: ex.label || T.customArea, area: a, noMult: false });
   });
 
-  if (areaBlocks.length === 0) {
+  if ((areaBlocks || []).length === 0) {
     const w0 = parseDim(d.width || "", isUS);
     const l0 = parseDim(d.length || "", isUS);
     const a0 = isUS ? (w0 * l0 / 144) : (w0 * l0);
     if (a0 > 0) areaBlocks.push({ label: lang === "EN" ? "Project Area" : "Área do Projeto", area: a0, noMult: false });
   }
 
-  const totalBaseArea = areaBlocks.reduce((s, b) => s + b.area, 0);
+  const totalBaseArea = (areaBlocks || []).reduce((s, b) => s + b.area, 0);
   const lv = d.levels || {};
   const mainFloors = (lv.ground ? 1 : 0) + (lv.second ? 1 : 0);
   const mainFactor = mainFloors > 0 ? mainFloors : 1;
@@ -460,12 +464,12 @@ function calcEst(d, lang = "EN") {
     full_construction: "As-Built Drawings",
     floor_plans_only: "Floor Plans Only",
     pdf_to_cad: "PDF to CAD Conversion",
-    3d_rendering: "3D Realistic Rendering"
+    "3d_rendering": "3D Realistic Rendering"
   } : {
     full_construction: "Levantamento Arquitetônico",
     floor_plans_only: "Apenas Plantas Baixas",
     pdf_to_cad: "Conversão de PDF para CAD",
-    3d_rendering: "Renderização 3D Realista"
+    "3d_rendering": "Renderização 3D Realista"
   };
 
   pkgName = PKG_LABELS[pkg] || pkg;
@@ -569,6 +573,13 @@ const Chk = () => (
     <path d="M20 6L9 17l-5-5" />
   </svg>
 );
+const InfoIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="16" x2="12" y2="12"></line>
+    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+  </svg>
+);
 
 /* ═══ UI COMPONENTS ═══ */
 function Title({ label, sub }) {
@@ -618,7 +629,26 @@ export default function EstimateWizard() {
       }
       return true;
     }
-    if (step === 2) return !!(data.levels && (data.levels.ground || data.levels.second || data.levels.basement || data.levels.attic));
+    if (step === 2) {
+      const selectedSvcs = Object.keys(data.services || {}).filter(k => data.services[k]);
+      if (selectedSvcs.length === 0) return false;
+      const allDimsFilled = selectedSvcs.every(id => {
+        const w = data.dims[id]?.w;
+        const l = data.dims[id]?.l;
+        if (!w || !l) return false;
+        
+        const hasLevel = data.svcLevels?.[id] && Object.values(data.svcLevels[id]).some(Boolean);
+        if (!hasLevel) return false;
+
+        if (data.region !== "BR") {
+          return parseDim(w, true) > 0 && parseDim(l, true) > 0;
+        }
+        return true;
+      });
+      if (!allDimsFilled) return false;
+
+      return !!data.propertyType;
+    }
     return true; // Steps 5, 6, 7 are optional as per user request
   };
 
@@ -662,7 +692,7 @@ export default function EstimateWizard() {
               </div>
             </div>
           </div>
-          <Stepper cur={step} />
+          <Stepper cur={step} steps={STEPS} />
         </div>
       </div>
 
@@ -674,10 +704,11 @@ export default function EstimateWizard() {
             {step === 1 && <S2 d={data} up={up} lang={lang} />}
             {step === 2 && <S3 d={data} up={up} lang={lang} />}
             {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
-            {step === 4 && <S6 d={data} up={up} lang={lang} />}
-            {step === 5 && <S7 d={data} up={up} lang={lang} />}
-            {step === 6 && <S8 d={data} up={up} lang={lang} />}
-            {step === 7 && <S9 d={data} est={est} lang={lang} />}
+            {step === 4 && <S5 d={data} up={up} lang={lang} />}
+            {step === 5 && <S6 d={data} up={up} lang={lang} />}
+            {step === 6 && <S7 d={data} up={up} lang={lang} />}
+            {step === 7 && <S8 d={data} up={up} lang={lang} />}
+            {step === 8 && <S9 d={data} est={est} lang={lang} />}
 
             {/* Navigation */}
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 36, paddingTop: 24, borderTop: "1px solid var(--border)" }}>
@@ -696,17 +727,17 @@ export default function EstimateWizard() {
 }
 
 /* ── SUB-COMPONENTS ── */
-function Stepper({ cur }) {
+function Stepper({ cur, steps }) {
   return (
     <div className="wz-stepper">
-      {STEPS.map((lbl, i) => {
+      {steps.map((lbl, i) => {
         const st = i < cur ? "done" : i === cur ? "active" : "future";
         return (
-          <div key={i} style={{ display: "flex", alignItems: "center", flex: i < STEPS.length - 1 ? "1" : "none" }}>
+          <div key={i} style={{ display: "flex", alignItems: "center", flex: i < steps.length - 1 ? "1" : "none" }}>
             <div className={`wz-step-dot ${st}`}>
               {st === "done" ? <Chk /> : i + 1}
             </div>
-            {i < STEPS.length - 1 && (
+            {i < steps.length - 1 && (
               <div className="wz-step-line">
                 <div className="wz-step-line-fill" style={{ width: i < cur ? "100%" : "0%" }} />
               </div>
@@ -900,29 +931,29 @@ function S2({ d, up, lang }) {
         </div>
         <div className="wz-f" style={{ maxWidth: 320 }}>
           <label className="wz-label">{T.phone} <span style={{ color: "var(--rd)" }}>*</span></label>
-          <InputMask mask={isUS ? "+1 (999) 999-9999" : "+55 (99) 99999-9999"} className={`wz-inp ${ferr("phone", d.phone) ? "inp-err" : ""}`} placeholder={isUS ? "+1 (000) 000-0000" : "+55 (00) 00000-0000"} 
+          <InputMask mask={isUS ? "+1 (999) 999-9999" : "+55 (99) 99999-9999"} maskChar={null} className={`wz-inp ${ferr("phone", d.phone) ? "inp-err" : ""}`} placeholder={isUS ? "+1 (000) 000-0000" : "+55 (00) 00000-0000"} 
             value={d.phone || ""} onChange={e => up("phone", e.target.value)} onBlur={() => touch("phone")} />
         </div>
       </div>
 
-      <p className="wz-label">{T.whoAreYou} <span style={{ color: "var(--rd)" }}>*</span></p>
-      <div className="wz-g3" style={{ marginBottom: 24 }}>
+      <p className="wz-label" style={{ marginBottom: 12 }}>{T.whoAreYou} <span style={{ color: "var(--rd)" }}>*</span></p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 24 }}>
         {ROLES.map(r => (
           <div key={r.id} className={`wz-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 10px" }}>
-            <div style={{ fontSize: 22, marginBottom: 6 }}>{r.icon}</div>
-            <div style={{ fontSize: 12, fontWeight: 600 }}>{isUS ? ROLES_EN[r.id] : ROLES_PT[r.id]}</div>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>{r.icon}</div>
+            <div style={{ fontSize: 13, fontWeight: 600 }}>{isUS ? ROLES_EN[r.id] : ROLES_PT[r.id]}</div>
           </div>
         ))}
       </div>
 
       {showCo && (
-        <div className="wz-animate" style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: "var(--r)", padding: 20 }}>
+        <div className="wz-animate" style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: "var(--r)", padding: 24 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 16 }}>{T.companyInfo}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               <div className="wz-f">
                 <label className="wz-label">{T.bizName} <span style={{ color: "var(--rd)" }}>*</span></label>
-                <input className={`wz-inp ${ferr("companyName", d.companyName) ? "inp-err" : ""}`} value={d.companyName || ""} onChange={e => up("companyName", e.target.value)} onBlur={() => touch("companyName")} />
+                <input className={`wz-inp ${ferr("companyName", d.companyName) ? "inp-err" : ""}`} placeholder="ACME Corp" value={d.companyName || ""} onChange={e => up("companyName", e.target.value)} onBlur={() => touch("companyName")} />
               </div>
               <div className="wz-f">
                 <label className="wz-label">{T.website}</label>
@@ -931,7 +962,35 @@ function S2({ d, up, lang }) {
             </div>
             <div className="wz-f">
               <label className="wz-label">{T.bizAddress} <span style={{ color: "var(--rd)" }}>*</span></label>
-              <input className={`wz-inp ${ferr("bizAddress", d.bizAddress) ? "inp-err" : ""}`} value={d.bizAddress || ""} onChange={e => up("bizAddress", e.target.value)} onBlur={() => touch("bizAddress")} />
+              <input className={`wz-inp ${ferr("bizAddress", d.bizAddress) ? "inp-err" : ""}`} placeholder="Address" value={d.bizAddress || ""} onChange={e => up("bizAddress", e.target.value)} onBlur={() => touch("bizAddress")} />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 120px", gap: 14 }}>
+              <div className="wz-f">
+                <label className="wz-label">{T.bizCity} <span style={{ color: "var(--rd)" }}>*</span></label>
+                <input className={`wz-inp ${ferr("bizCity", d.bizCity) ? "inp-err" : ""}`} placeholder="City" value={d.bizCity || ""} onChange={e => up("bizCity", e.target.value)} onBlur={() => touch("bizCity")} />
+              </div>
+              <div className="wz-f">
+                <label className="wz-label">{T.bizState} <span style={{ color: "var(--rd)" }}>*</span></label>
+                <input className={`wz-inp ${ferr("bizState", d.bizState) ? "inp-err" : ""}`} placeholder="State" value={d.bizState || ""} onChange={e => up("bizState", e.target.value)} onBlur={() => touch("bizState")} />
+              </div>
+              <div className="wz-f">
+                <label className="wz-label">{T.bizZip} <span style={{ color: "var(--rd)" }}>*</span></label>
+                <InputMask mask={isUS ? "99999" : "99999-999"} maskChar={null} className={`wz-inp ${ferr("bizZip", d.bizZip) ? "inp-err" : ""}`} placeholder={isUS ? "00000" : "00000-000"} value={d.bizZip || ""} onChange={e => up("bizZip", e.target.value)} onBlur={() => touch("bizZip")} />
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              <div className="wz-f">
+                <label className="wz-label">{T.bizEmail} <span style={{ color: "var(--rd)" }}>*</span></label>
+                <input className={`wz-inp ${ferr("bizEmail", d.bizEmail) ? "inp-err" : ""}`} type="email" placeholder="info@co.com" value={d.bizEmail || ""} onChange={e => up("bizEmail", e.target.value)} onBlur={() => touch("bizEmail")} />
+              </div>
+              <div className="wz-f">
+                <label className="wz-label">{T.bizPhone} <span style={{ color: "var(--rd)" }}>*</span></label>
+                <InputMask mask={isUS ? "+1 (999) 999-9999" : "+55 (99) 99999-9999"} maskChar={null} className={`wz-inp ${ferr("bizPhone", d.bizPhone) ? "inp-err" : ""}`} placeholder={isUS ? "+1 (000) 000-0000" : "+55 (00) 00000-0000"} value={d.bizPhone || ""} onChange={e => up("bizPhone", e.target.value)} onBlur={() => touch("bizPhone")} />
+              </div>
+            </div>
+            <div className="wz-f">
+              <label className="wz-label">INSTAGRAM</label>
+              <input className="wz-inp" placeholder="@handle" value={d.instagram || ""} onChange={e => up("instagram", e.target.value)} />
             </div>
           </div>
         </div>
@@ -945,62 +1004,267 @@ function S3({ d, up, lang }) {
   const T = TRANSLATIONS[lang];
   const unit = isUS ? "ft" : "m";
   const au = isUS ? "sqft" : "m²";
+  const [hoverId, setHoverId] = useState(null);
 
-  const setLv = (k, v) => up("levels", { ...d.levels, [k]: v });
-  const lvOpts = [
-    { key: "ground", label: isUS ? "Ground Floor / Main Level" : "Térreo / Nível Principal", rate: isUS ? 1.65 : 15.68, isMain: true },
-    { key: "second", label: isUS ? "2nd Floor" : "2º Pavimento", rate: isUS ? 1.35 : 12.83, isMain: true },
-    { key: "basement", label: isUS ? "Basement" : "Subsolo / Porão", rate: isUS ? 0.80 : 7.60, isAddon: true },
-    { key: "attic", label: isUS ? "Attic" : "Sótão", rate: isUS ? 0.80 : 7.60, isAddon: true },
+  const CONST_SVC = [
+    { id: "new_construction", pricingGroup: "multi-level", icon: "🏗️", label: isUS ? "New Construction" : "Nova Construção", sub: isUS ? "Complete project from scratch" : "Projeto completo do zero", desc: "Building a brand new house from the foundation up on an empty lot or after a full demolition." },
+    { id: "addition", pricingGroup: "multi-level", icon: "➕", label: isUS ? "Addition / Extension" : "Ampliação / Extensão", sub: isUS ? "New bedroom, wing or garage" : "Novo quarto, anexo ou garagem", desc: "Expanding the home's footprint horizontally by adding new rooms outward." },
+    { id: "second_story", pricingGroup: "single-level", icon: "🏢", label: isUS ? "Second Story Addition" : "Adição de Segundo Pavimento", sub: isUS ? "Build a new upper floor" : "Construir um novo andar superior", desc: "Expanding vertically by removing the roof and adding a full new level." },
+    { id: "garage_only", pricingGroup: "multi-level", icon: "🚗", label: isUS ? "Garage Only" : "Apenas Garagem", sub: isUS ? "Standalone garage project" : "Projeto de garagem independente", desc: "Building a brand new detached or attached garage." },
+    { id: "garage_conversion", pricingGroup: "multi-level", icon: "🔑", label: isUS ? "Garage Conversion" : "Conversão de Garagem", sub: isUS ? "Garage → livable area / ADU" : "Garagem → área habitável / ADU", desc: "Transforming an existing garage into a livable space (office, game room, or ADU)." },
+    { id: "basement_finishing", pricingGroup: "single-level", icon: "⛏️", label: isUS ? "Basement Finishing" : "Acabamento de Subsolo", sub: isUS ? "Remodel and finish a basement" : "Remodelar e finalizar um subsolo", desc: "Turning an unfinished, concrete basement into a fully insulated and usable living area." },
+    { id: "deck_covered", pricingGroup: "single-level", icon: "🏕️", label: isUS ? "Covered Deck" : "Deck Coberto", sub: isUS ? "Deck with roof structure" : "Deck com estrutura de telhado", desc: "An outdoor wooden or composite platform featuring a permanent roof structure." },
+    { id: "deck_open", pricingGroup: "single-level", icon: "☀️", label: isUS ? "Open Deck" : "Deck Aberto", sub: isUS ? "Deck without roof" : "Deck sem telhado", desc: "A classic outdoor platform without a roof." },
+    { id: "porch_covered", pricingGroup: "single-level", icon: "🏡", label: isUS ? "Covered Porch" : "Varanda Coberta", sub: isUS ? "Porch with roof" : "Varanda com telhado", desc: "A porch with a solid floor and a permanent roof." },
+    { id: "porch_open", pricingGroup: "single-level", icon: "🌿", label: isUS ? "Open / Screened Porch" : "Varanda Aberta", sub: isUS ? "Open or screened porch" : "Varanda aberta", desc: "A porch fully enclosed with insect screens for comfortable summer use." },
+    { id: "renovation", pricingGroup: "multi-level", icon: "🔨", label: isUS ? "Renovations & Remodeling" : "Reformas e Remodelações", sub: isUS ? "General remodel" : "Reforma geral", desc: "General updating of the home's interior or exterior without adding new square footage." },
+    { id: "other_const", pricingGroup: "single-level", icon: "✏️", label: isUS ? "Other" : "Outro", sub: isUS ? "Describe below" : "Descreva abaixo", desc: "Other construction services not listed." },
   ];
+
+  const INT_SVC = [
+    { id: "kitchen_remodel", pricingGroup: "multi-level", icon: "🍳", label: isUS ? "Kitchen Remodel" : "Reforma de Cozinha", sub: isUS ? "Focus on kitchen areas" : "Foco em áreas de cozinha", desc: "Full kitchen update including new cabinets, islands, countertops, and appliances." },
+    { id: "bath_remodel", pricingGroup: "multi-level", icon: "🛁", label: isUS ? "Bath Remodel" : "Reforma de Banheiro", sub: isUS ? "Focus on bathroom areas" : "Foco em áreas de banheiro", desc: "Full bathroom update including walk-in showers, new vanities, and tiling." },
+    { id: "open_concept", pricingGroup: "multi-level", icon: "🗂️", label: isUS ? "Open Concept Conversion" : "Conversão de Conceito Aberto", sub: isUS ? "Remove walls, integrate spaces" : "Remover paredes, integrar espaços", desc: "Removing structural or non-structural walls to integrate the kitchen, dining, and living areas." },
+    { id: "other_int", pricingGroup: "single-level", icon: "✏️", label: isUS ? "Other" : "Outro", sub: isUS ? "Describe below" : "Descreva abaixo", desc: "Other interior services not listed." },
+  ];
+
+  const services = d.services || {};
+  const dims = d.dims || {};
+  const svcLevels = d.svcLevels || {};
+  
+  const setSvc = (k) => up("services", { ...services, [k]: !services[k] });
+  const setDim = (k, field, val) => up("dims", { ...dims, [k]: { ...(dims[k] || {}), [field]: val } });
+  const toggleSvcLevel = (k, lvl) => {
+    const current = svcLevels[k] || {};
+    up("svcLevels", { ...svcLevels, [k]: { ...current, [lvl]: !current[lvl] } });
+  };
+  
+  const selectedSvcs = Object.keys(services).filter(k => services[k]);
+  const onDimKeyDown = (e) => { if (e.key === "." || e.key === ",") e.preventDefault(); };
+
+  const levelLabels = {
+    main: "Main",
+    second: "2nd Floor",
+    attic: "Attic",
+    basement: "Basement"
+  };
+
+  const getSvcArea = (svcId) => {
+    const wVal = dims[svcId]?.w || "";
+    const lVal = dims[svcId]?.l || "";
+    const wi = parseDim(wVal, isUS);
+    const li = parseDim(lVal, isUS);
+    const baseArea = isUS ? (wi * li / 144) : (wi * li);
+    
+    const lvls = svcLevels[svcId] || {};
+    const count = Object.values(lvls).filter(Boolean).length;
+    return baseArea * (count === 0 ? 1 : count); // Default to 1x if 0 selected for rendering intermediate, but validation requires >0
+  };
+
+  const calcGrandTotal = () => {
+    let sum = 0;
+    selectedSvcs.forEach(id => {
+      const wVal = dims[id]?.w || "";
+      const lVal = dims[id]?.l || "";
+      const wi = parseDim(wVal, isUS);
+      const li = parseDim(lVal, isUS);
+      const baseArea = isUS ? (wi * li / 144) : (wi * li);
+      
+      const lvls = svcLevels[id] || {};
+      const count = Object.values(lvls).filter(Boolean).length;
+      if (count > 0) sum += baseArea * count;
+    });
+    return sum;
+  };
 
   return (
     <div className="wz-animate">
       <Title label={T.tellAboutProject} sub={T.projectSub} />
 
-      <p className="wz-label">{T.propType}</p>
+      <p className="wz-label" style={{ marginBottom: 12 }}>PROPERTY TYPE</p>
       <div className="wz-g3" style={{ marginBottom: 28 }}>
         {[
-          { id: "single_family", icon: "🏠", label: isUS ? "Single Family" : "Residencial Unifamiliar", sub: isUS ? "One family" : "Uma família" },
+          { id: "single_family", icon: "🏠", label: isUS ? "Single Family Home" : "Residencial Unifamiliar", sub: isUS ? "One family" : "Uma família" },
           { id: "multi_family", icon: "🏘️", label: isUS ? "Multi-Family" : "Multifamiliar", sub: isUS ? "Duplex, Triplex…" : "Duplex, Triplex…" },
-          { id: "adu", icon: "🛖", label: "ADU", sub: isUS ? "Accessory Unit" : "Unidade Acessória" },
+          { id: "adu", icon: "🛖", label: "ADU", sub: isUS ? "Accessory Dwelling Unit" : "Unidade Acessória" },
         ].map(pt => (
           <div key={pt.id} className={`wz-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "18px 10px" }}>
             <div style={{ fontSize: 28, marginBottom: 8 }}>{pt.icon}</div>
-            <p style={{ fontSize: 12, fontWeight: 700, marginBottom: 3 }}>{pt.label}</p>
+            <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 3 }}>{pt.label}</p>
             <p style={{ fontSize: 10, color: "var(--mu)" }}>{pt.sub}</p>
           </div>
         ))}
       </div>
 
-      <p className="wz-label">{T.dimensions}</p>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 10, alignItems: "start", background: "var(--bg3)", padding: 20, borderRadius: "var(--r)", border: "1.5px solid var(--border)", marginBottom: 28 }}>
-        <div className="wz-f">
-          <label className="wz-label">{T.width} ({unit})</label>
-          <input className="wz-inp" placeholder={isUS ? "e.g. 31'2\"" : "ex: 10.5"} value={d.width || ""} onChange={e => up("width", e.target.value)} />
-          {isUS && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {fmtInches(parseDim(d.width, true))}</p>}
+      <p className="wz-label" style={{ marginBottom: 16 }}>TYPE OF SERVICE</p>
+      <div style={{ marginBottom: 28 }}>
+        <p style={{ fontSize: 10, fontWeight: 700, color: "var(--dm)", letterSpacing: ".08em", marginBottom: 12 }}>CONSTRUCTION & STRUCTURE</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
+          {CONST_SVC.map(svc => (
+            <div key={svc.id} className={`wz-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative" }}>
+              <div 
+                onMouseEnter={() => setHoverId(svc.id)} 
+                onMouseLeave={() => setHoverId(null)}
+                style={{ position: "absolute", top: 8, right: 8, color: "var(--mu)", cursor: "help", zIndex: 10 }}
+              >
+                <InfoIcon />
+                {hoverId === svc.id && (
+                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "var(--bg1)", border: "1px solid var(--border)", color: "var(--tx)", padding: "8px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500, width: "max-content", maxWidth: 200, textAlign: "left", boxShadow: "0 4px 12px rgba(0,0,0,0.5)", pointerEvents: "none" }}>
+                    {svc.desc}
+                  </div>
+                )}
+              </div>
+              <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
+              <p style={{ fontSize: 12, fontWeight: 700, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
+              <p style={{ fontSize: 10, color: "var(--dm)", lineHeight: 1.3 }}>{svc.sub}</p>
+            </div>
+          ))}
         </div>
-        <div style={{ fontSize: 20, color: "var(--dm)", marginTop: 28 }}>×</div>
-        <div className="wz-f">
-          <label className="wz-label">{T.length} ({unit})</label>
-          <input className="wz-inp" placeholder={isUS ? "e.g. 45'0\"" : "ex: 15.5"} value={d.length || ""} onChange={e => up("length", e.target.value)} />
-          {isUS && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {fmtInches(parseDim(d.length, true))}</p>}
+
+        <p style={{ fontSize: 10, fontWeight: 700, color: "var(--dm)", letterSpacing: ".08em", marginBottom: 12 }}>INTERIORS</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+          {INT_SVC.map(svc => (
+            <div key={svc.id} className={`wz-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative" }}>
+              <div 
+                onMouseEnter={() => setHoverId(svc.id)} 
+                onMouseLeave={() => setHoverId(null)}
+                style={{ position: "absolute", top: 8, right: 8, color: "var(--mu)", cursor: "help", zIndex: 10 }}
+              >
+                <InfoIcon />
+                {hoverId === svc.id && (
+                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "var(--bg1)", border: "1px solid var(--border)", color: "var(--tx)", padding: "8px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500, width: "max-content", maxWidth: 200, textAlign: "left", boxShadow: "0 4px 12px rgba(0,0,0,0.5)", pointerEvents: "none" }}>
+                    {svc.desc}
+                  </div>
+                )}
+              </div>
+              <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
+              <p style={{ fontSize: 12, fontWeight: 700, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
+              <p style={{ fontSize: 10, color: "var(--dm)", lineHeight: 1.3 }}>{svc.sub}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      <p className="wz-label">{T.levels}</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}>
-        {lvOpts.map(o => (
-          <div key={o.key} className={`wz-card ${d.levels[o.key] ? "active" : ""}`} onClick={() => setLv(o.key, !d.levels[o.key])} style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 18, height: 18, borderRadius: 4, border: "2px solid var(--border2)", background: d.levels[o.key] ? "var(--a)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {d.levels[o.key] && <Chk />}
-            </div>
-            <div style={{ flex: 1 }}>
-              <span style={{ fontSize: 13, fontWeight: 500 }}>{o.label}</span>
-              {o.isAddon && <span style={{ fontSize: 10, color: "var(--dm)", marginLeft: 8 }}>+{isUS ? "$" : "R$"}{o.rate}/{au} add-on</span>}
-            </div>
+      {selectedSvcs.length > 0 && (
+        <div className="wz-animate" style={{ marginBottom: 28 }}>
+          <p className="wz-label" style={{ marginBottom: 12 }}>PROJECT DIMENSIONS</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {selectedSvcs.map(svcId => {
+              const svcLabel = [...CONST_SVC, ...INT_SVC].find(s => s.id === svcId)?.label || svcId;
+              const wVal = d.dims[svcId]?.w || "";
+              const lVal = d.dims[svcId]?.l || "";
+              const wi = parseDim(wVal, isUS);
+              const li = parseDim(lVal, isUS);
+              const a = isUS ? (wi * li / 144) : (wi * li);
+
+              return (
+                <div key={svcId} style={{ background: "var(--bg3)", padding: 20, borderRadius: "var(--r)", border: "1.5px solid var(--border)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase" }}>{svcLabel}</p>
+                    {a > 0 && <div style={{ background: "rgba(100, 108, 255, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(a)} {au}</div>}
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 10, alignItems: "start", marginBottom: 20 }}>
+                    <div className="wz-f">
+                      <label className="wz-label">{T.width} ({unit})</label>
+                      <input className="wz-inp" placeholder={isUS ? "e.g. 31'2\" or 120" : "ex: 10.5"} value={wVal} onChange={e => setDim(svcId, "w", e.target.value)} onKeyDown={onDimKeyDown} />
+                      {isUS && wVal && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {fmtInches(wi)}</p>}
+                      {isUS && <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 4, lineHeight: 1.3 }}>Accepted formats: 10'1", 5'-10", 6'3 1/4", 180. Please do not use periods (.) or commas (,).</p>}
+                    </div>
+                    <div style={{ fontSize: 20, color: "var(--dm)", marginTop: 28 }}>×</div>
+                    <div className="wz-f">
+                      <label className="wz-label">{T.length} ({unit})</label>
+                      <input className="wz-inp" placeholder={isUS ? "e.g. 45'0\" or 540" : "ex: 15.5"} value={lVal} onChange={e => setDim(svcId, "l", e.target.value)} onKeyDown={onDimKeyDown} />
+                      {isUS && lVal && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {fmtInches(li)}</p>}
+                      {isUS && <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 4, lineHeight: 1.3 }}>Accepted formats: 10'1", 5'-10", 6'3 1/4", 180. Please do not use periods (.) or commas (,).</p>}
+                    </div>
+                  </div>
+
+                  <div style={{ background: "var(--bg1)", padding: 16, borderRadius: "var(--r)", border: "1px solid var(--border)" }}>
+                    <p className="wz-label" style={{ marginBottom: 12 }}>+ Add Levels / Floors</p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {Object.entries(levelLabels).map(([lvlKey, lvlLbl]) => {
+                        const isActive = !!(svcLevels[svcId] && svcLevels[svcId][lvlKey]);
+                        return (
+                          <div 
+                            key={lvlKey} 
+                            onClick={() => toggleSvcLevel(svcId, lvlKey)}
+                            style={{ 
+                              padding: "6px 12px", 
+                              borderRadius: 20, 
+                              border: isActive ? "1px solid var(--a)" : "1px solid var(--border)", 
+                              background: isActive ? "rgba(100, 108, 255, 0.1)" : "transparent",
+                              color: isActive ? "var(--a)" : "var(--tx)",
+                              fontSize: 12,
+                              fontWeight: isActive ? 600 : 500,
+                              cursor: "pointer",
+                              userSelect: "none"
+                            }}
+                          >
+                            {lvlLbl} {(lvlKey === "attic" || lvlKey === "basement") && <span style={{ opacity: 0.6 }}> (+ {isUS ? "$0.80/sqft" : "R$7.60/m²"})</span>}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {svcLevels[svcId] && Object.values(svcLevels[svcId]).some(Boolean) && (
+                      <p style={{ fontSize: 11, color: "var(--a)", marginTop: 12, fontWeight: 600 }}>
+                        Levels: {Object.keys(svcLevels[svcId]).filter(k => svcLevels[svcId][k]).map(k => levelLabels[k]).join(" + ")}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
+        </div>
+      )}
+
+      {selectedSvcs.length > 0 && (
+        <div style={{ background: "var(--bg3)", border: "1.5px solid var(--a)", borderRadius: "var(--r)", padding: 24, marginBottom: 28 }}>
+           <div style={{ display: "flex", gap: 16, alignItems: "center", marginBottom: 16 }}>
+             <div style={{ color: "var(--a)" }}>
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                 <line x1="3" y1="9" x2="21" y2="9"></line>
+                 <line x1="9" y1="21" x2="9" y2="9"></line>
+               </svg>
+             </div>
+             <div>
+               <p style={{ fontSize: 14, fontWeight: 700, color: "var(--a)", marginBottom: 2 }}>Grand Total Summary</p>
+               <p style={{ fontSize: 11, color: "var(--mu)" }}>Combined square footage of all selected services</p>
+             </div>
+           </div>
+           
+           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
+             {selectedSvcs.map(id => {
+               const svcLabel = [...CONST_SVC, ...INT_SVC].find(s => s.id === id)?.label || id;
+               const lvls = svcLevels[id] || {};
+               const selectedLvlKeys = Object.keys(lvls).filter(k => lvls[k]);
+               const count = selectedLvlKeys.length;
+               
+               if (count === 0) return null;
+               
+               const area = Math.round(getSvcArea(id));
+               const lvlStr = selectedLvlKeys.map(k => levelLabels[k]).join(" + ");
+               
+               return (
+                 <div key={id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12, borderBottom: "1px dashed var(--border)", paddingBottom: 8 }}>
+                   <span style={{ color: "var(--tx)" }}>{svcLabel} <span style={{ color: "var(--mu)" }}>({lvlStr})</span></span>
+                   <span style={{ fontWeight: 600, color: "var(--tx)" }}>{area.toLocaleString()} {au}</span>
+                 </div>
+               );
+             })}
+           </div>
+           
+           <div style={{ borderTop: "2px solid var(--border)", paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+             <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)", textTransform: "uppercase" }}>Grand Total</p>
+             <p style={{ fontSize: 22, fontWeight: 800, color: "var(--a)" }}>{Math.round(calcGrandTotal()).toLocaleString()} {au}</p>
+           </div>
+        </div>
+      )}
+
+      <div className="wz-f" style={{ marginBottom: 28 }}>
+        <label className="wz-label">LOT SIZE (OPTIONAL, {au.toUpperCase()})</label>
+        <input className="wz-inp" placeholder="e.g. 5000" style={{ maxWidth: 240 }} value={d.lotSize || ""} onChange={e => up("lotSize", e.target.value)} />
       </div>
     </div>
   );
@@ -1035,6 +1299,43 @@ function S4({ d, up, est, lang }) {
                 <p style={{ fontSize: 12, color: "var(--mu)", marginTop: 2 }}>{pkg.sub}</p>
               </div>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function S5({ d, up, lang }) {
+  const isUS = d.region !== "BR";
+  const T = TRANSLATIONS[lang];
+  const SVC_LABELS = lang === "EN" ? {
+    new_construction: "New Construction", addition: "Addition", second_story: "Second Story",
+    garage_only: "Garage", garage_conversion: "Garage Conversion", basement_finishing: "Basement Finishing",
+    deck_covered: "Covered Deck", deck_open: "Open Deck", porch_covered: "Covered Porch", porch_open: "Open Porch",
+    renovation: "Renovation", kitchen_remodel: "Kitchen Remodel", bath_remodel: "Bath Remodel",
+    open_concept: "Open Concept Conversion"
+  } : {
+    new_construction: "Nova Construção", addition: "Ampliação", second_story: "Segundo Pavimento",
+    garage_only: "Garagem", garage_conversion: "Conversão de Garagem", basement_finishing: "Acabamento de Subsolo",
+    deck_covered: "Deck Coberto", deck_open: "Deck Aberto", porch_covered: "Varanda Coberta", porch_open: "Varanda Aberta",
+    renovation: "Reforma", kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro",
+    open_concept: "Conversão de Conceito Aberto"
+  };
+
+  const services = d.services || {};
+  const setSvc = (k) => up("services", { ...services, [k]: !services[k] });
+
+  return (
+    <div className="wz-animate">
+      <Title label={T.selectServices} sub={T.servicesSub} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        {Object.entries(SVC_LABELS).map(([k, label]) => (
+          <div key={k} className={`wz-card ${services[k] ? "active" : ""}`} onClick={() => setSvc(k)} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 18, height: 18, borderRadius: 4, border: "2px solid var(--border2)", background: services[k] ? "var(--a)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {services[k] && <Chk />}
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 500 }}>{label}</span>
           </div>
         ))}
       </div>
