@@ -20,6 +20,29 @@ const EXTRA_RATES = {
   ex_3d_ext: 0.10
 };
 
+const MARKET_DATA = {
+  US: {
+    zipMask: "99999",
+    phoneMask: "+1 (999) 999-9999",
+    country: "USA",
+    zipPlaceholder: "02101",
+    phonePlaceholder: "+1 (000) 000-0000",
+    dimW: "e.g. 31'2\" or 120",
+    dimL: "e.g. 45'0\" or 540",
+    addressLabel: { EN: "Project address in the US", PT: "Endereço do projeto nos EUA" }
+  },
+  BR: {
+    zipMask: "99999-999",
+    phoneMask: "+55 (99) 99999-9999",
+    country: "Brasil",
+    zipPlaceholder: "01310-100",
+    phonePlaceholder: "+55 (00) 00000-0000",
+    dimW: "ex: 10.5",
+    dimL: "ex: 15.5",
+    addressLabel: { EN: "Project address in Brazil", PT: "Endereço do projeto no Brasil" }
+  }
+};
+
 const FIXED_FEES = {
   ex_3d_kitchen: 180,
   ex_3d_bath: 180,
@@ -109,11 +132,10 @@ const TRANSLATIONS = {
     expressTimeline: "Fastest possible turnaround",
     includedFree: "Included — FREE",
     idealFor: "Ideal for:",
-    idealForTitle: "IDEAL FOR",
-    notIncludedTitle: "NOT INCLUDED",
-    whatYouReceiveTitle: "WHAT YOU RECEIVE",
     moreDetails: "More details",
     serviceCustomization: "SERVICE CUSTOMIZATION",
+    summaryTitle: "SUMMARY",
+    note: "Note",
     whatYouReceive: "What you receive",
     roles: { homeowner: "Homeowner", builder: "Builder", architect: "Architect", investor: "Investor", realtor: "Realtor", other: "Other" },
     constructionStructure: "Construction & Structure",
@@ -139,6 +161,52 @@ const TRANSLATIONS = {
       kitchen_remodel: "Focus on kitchen areas", bath_remodel: "Focus on bathroom areas", open_concept: "Remove walls, integrate spaces", other_int: "Other interior services"
     },
     pkgLabels: { as_built_permit: "As-Built & Permit Package", floor_plans_only: "Floor Plans Only", pdf_to_cad: "PDF to CAD", "3d_rendering": "3D Rendering" },
+    price3DExt: "+ $250.00",
+    price3DInt: "+ $180.00",
+    unlockRush: "Please upload the 3 mandatory files above to unlock faster delivery timelines.",
+    checklist: {
+      survey: "Property Survey / Site Plan",
+      photos: "Clear Photos of all sides of the property",
+      measure: "Rough measurements (Sketches or existing plans)",
+      listing: "Current real estate listing (Zillow, Redfin, etc.)",
+      tour: "Matterport or 3D Virtual Tour",
+      reports: "Appraisal or structural reports",
+      recommended: "Recommended",
+      ifAvailable: "If available"
+    },
+    pkgNotIncluded: "WHAT IS NOT INCLUDED",
+    projectEstimate: "Project Estimate",
+    uploadTitle: "Upload Reference Files",
+    uploadHelp: "Please upload any relevant documents such as: Existing Floor Plans, Site Surveys, sketches, or photos of the property. Clear documentation helps us provide a more accurate and faster design service.",
+    dropHere: "Drop here or ",
+    browse: "click to browse",
+    projectIntent: "Project Intent",
+    detected: "Detected",
+    dimInstructions: "Accepted formats: 10'1\", 5'-10\", 6'3 1/4\", 180. Please do not use periods (.) or commas (,).",
+    goals: {
+      permit: "Building Permit Only",
+      construction: "Construction Documentation",
+      investment: "Investment / Flip",
+      personal: "Personal Residence"
+    },
+    svcDescs: {
+      new_construction: "Building a brand new house from the foundation up on an empty lot or after a full demolition.",
+      addition: "Expanding the home's footprint horizontally by adding new rooms outward.",
+      second_story: "Expanding vertically by removing the roof and adding a full new level.",
+      garage_only: "Building a brand new detached or attached garage.",
+      garage_conversion: "Transforming an existing garage into a livable space (office, game room, or ADU).",
+      basement_finishing: "Turning an unfinished, concrete basement into a fully insulated and usable living area.",
+      deck_covered: "An outdoor wooden or composite platform featuring a permanent roof structure.",
+      deck_open: "A classic outdoor platform without a roof.",
+      porch_covered: "A porch with a solid floor and a permanent roof.",
+      porch_open: "A porch fully enclosed with insect screens for comfortable summer use.",
+      renovation: "General updating of the home's interior or exterior without adding new square footage.",
+      other_const: "Other construction services not listed.",
+      kitchen_remodel: "Full kitchen update including new cabinets, islands, countertops, and appliances.",
+      bath_remodel: "Full bathroom update including walk-in showers, new vanities, and tiling.",
+      open_concept: "Removing structural or non-structural walls to integrate the kitchen, dining, and living areas.",
+      other_int: "Other interior services not listed."
+    },
     program: {
       living: "Living & Social",
       bed: "Bedrooms & Sleeping",
@@ -169,6 +237,7 @@ const TRANSLATIONS = {
     addLevelsFloors: "Add Levels / Floors",
     propertyTypeLabel: "Property Type",
     lotSizeLabel: "Lot Size",
+    grandTotalArea: "Grand Total Area",
     pkgTitles: {
       as_built_permit: "As-Built Drawings & Permit Packages",
       floor_plans_only: "Floor Plans Only",
@@ -197,21 +266,32 @@ const TRANSLATIONS = {
       floor_plans_only: {
         tag: "LOW COMPLEXITY",
         summary: "A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans.",
-        whatYouReceive: ["Fundamental Spatial Layouts", "Dimensioned Floor Plans"],
+        whatYouReceive: [
+          { title: "Fundamental Spatial Layouts", desc: "Basic interior walls, doors, and room identification." },
+          { title: "Dimensioned Floor Plans", desc: "Precise measurements of all interior spaces and structural elements." }
+        ],
         notIncluded: ["Exterior Design", "3D Renderings", "Building Permits", "Structural Engineering"],
         idealFor: ["Initial Planning", "Cosmetic Renovations", "Concept Only"]
       },
       pdf_to_cad: {
         tag: "PRECISION",
         summary: "Professional conversion of existing PDF drawings into editable CAD (DWG) format.",
-        whatYouReceive: ["Fully Editable CAD Files", "Accurate Scaling", "Layer Organization"],
+        whatYouReceive: [
+          { title: "Fully Editable CAD Files", desc: "Standard DWG format compatible with all major CAD software." },
+          { title: "Accurate Scaling", desc: "Verification and adjustment to ensure real-world precision." },
+          { title: "Layer Organization", desc: "Structured layers for walls, dimensions, and annotations." }
+        ],
         notIncluded: ["Architectural Design", "Code Review", "Field Measurements", "3D Modeling"],
         idealFor: ["Digital Archiving", "Renovation Base", "Contractors"]
       },
       "3d_rendering": {
         tag: "VISUALIZATION",
         summary: "The \"photo\" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.",
-        whatYouReceive: ["Photorealistic Images", "Material Visualization", "Atmospheric Lighting"],
+        whatYouReceive: [
+          { title: "Photorealistic Images", desc: "High-resolution 3D renders with realistic materials and environments." },
+          { title: "Material Visualization", desc: "See your choices for siding, roofing, and windows in context." },
+          { title: "Atmospheric Lighting", desc: "Natural and artificial lighting simulation for a realistic feel." }
+        ],
         notIncluded: ["Technical Blueprints", "Structural Engineering", "Interior Design Specification", "Revisions to the Core Design"],
         idealFor: ["Visualizing the Final Result", "Selling the Property", "Deciding Finishes"]
       }
@@ -344,6 +424,50 @@ const TRANSLATIONS = {
       kitchen_remodel: "Foco em áreas de cozinha", bath_remodel: "Foco em áreas de banheiro", open_concept: "Remover paredes, integrar espaços", other_int: "Outros serviços de interior"
     },
     pkgLabels: { as_built_permit: "Pacote de Levantamento e Prefeitura", floor_plans_only: "Apenas Plantas Baixas", pdf_to_cad: "PDF para CAD", "3d_rendering": "Renderização 3D" },
+    unlockRush: "Por favor, faça o upload dos 3 arquivos obrigatórios acima para desbloquear prazos de entrega mais rápidos.",
+    checklist: {
+      survey: "Levantamento Topográfico / Site Plan",
+      photos: "Fotos claras de todos os lados da propriedade",
+      measure: "Medidas básicas (Croquis ou plantas existentes)",
+      listing: "Anúncio imobiliário atual (Zillow, Redfin, etc.)",
+      tour: "Matterport ou Tour Virtual 3D",
+      reports: "Laudos de avaliação ou estruturais",
+      recommended: "Recomendado",
+      ifAvailable: "Se disponível"
+    },
+    pkgNotIncluded: "O QUE NÃO ESTÁ INCLUSO",
+    projectEstimate: "Estimativa do Projeto",
+    uploadTitle: "Upload de Referências",
+    uploadHelp: "Por favor, envie documentos relevantes como: Plantas Existentes, Levantamentos, croquis ou fotos da propriedade. Documentação clara nos ajuda a fornecer um serviço de design mais preciso e rápido.",
+    dropHere: "Arraste ou ",
+    browse: "clique para carregar",
+    projectIntent: "Intuito do Projeto",
+    detected: "Detectado",
+    dimInstructions: "Formatos aceitos: 10.5 ou 10,5. Use ponto ou vírgula para decimais.",
+    goals: {
+      permit: "Apenas Aprovação Legal",
+      construction: "Documentação de Construção",
+      investment: "Investimento / Flip",
+      personal: "Residência Pessoal"
+    },
+    svcDescs: {
+      new_construction: "Construção de uma casa nova do zero em um lote vazio ou após demolição total.",
+      addition: "Expansão horizontal da residência, adicionando novos cômodos para fora.",
+      second_story: "Expansão vertical removendo o telhado e adicionando um novo pavimento completo.",
+      garage_only: "Construção de uma garagem nova, isolada ou anexa.",
+      garage_conversion: "Transformação de uma garagem existente em área habitável (escritório, lazer ou ADU).",
+      basement_finishing: "Transformação de um subsolo inacabado em área de estar isolada e utilizável.",
+      deck_covered: "Plataforma externa de madeira ou composto com estrutura de telhado permanente.",
+      deck_open: "Plataforma externa clássica sem telhado.",
+      porch_covered: "Varanda com piso sólido e telhado permanente.",
+      porch_open: "Varanda totalmente fechada com telas contra insetos.",
+      renovation: "Atualização geral do interior ou exterior da casa sem adicionar nova metragem.",
+      other_const: "Outros serviços de construção não listados.",
+      kitchen_remodel: "Atualização completa da cozinha, incluindo armários, ilhas e eletrodomésticos.",
+      bath_remodel: "Atualização completa de banheiro, incluindo boxes e novos revestimentos.",
+      open_concept: "Remoção de paredes estruturais ou não para integrar cozinha, jantar e estar.",
+      other_int: "Outros serviços de interior não listados."
+    },
     program: {
       living: "Social e Estar",
       bed: "Quartos e Dormitórios",
@@ -374,6 +498,7 @@ const TRANSLATIONS = {
     addLevelsFloors: "Adicionar Níveis / Andares",
     propertyTypeLabel: "Tipo de Propriedade",
     lotSizeLabel: "Tamanho do Lote",
+    grandTotalArea: "Área Total Geral",
     pkgTitles: {
       as_built_permit: "Desenhos As-Built e Pacotes de Prefeitura",
       floor_plans_only: "Apenas Plantas Baixas",
@@ -402,21 +527,32 @@ const TRANSLATIONS = {
       floor_plans_only: {
         tag: "BAIXA COMPLEXIDADE",
         summary: "Um serviço simplificado que entrega layouts espaciais fundamentais e plantas baixas dimensionadas.",
-        whatYouReceive: [{ title: "Layouts Espaciais Fundamentais", desc: "" }, { title: "Plantas Baixas Dimensionadas", desc: "" }],
+        whatYouReceive: [
+          { title: "Layouts Espaciais Fundamentais", desc: "Paredes internas básicas, portas e identificação de cômodos." },
+          { title: "Plantas Baixas Dimensionadas", desc: "Medições precisas de todos os espaços internos e elementos estruturais." }
+        ],
         notIncluded: ["Design Exterior", "Renderizações 3D", "Aprovação de Prefeitura", "Engenharia Estrutural"],
         idealFor: ["Planejamento Inicial", "Reformas Estéticas", "Apenas Conceito"]
       },
       pdf_to_cad: {
         tag: "PRECISÃO",
         summary: "Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável.",
-        whatYouReceive: [{ title: "Arquivos CAD Totalmente Editáveis", desc: "" }, { title: "Escalonamento Preciso", desc: "" }, { title: "Organização de Camadas", desc: "" }],
+        whatYouReceive: [
+          { title: "Arquivos CAD Totalmente Editáveis", desc: "Formato DWG padrão compatível com os principais softwares CAD." },
+          { title: "Escalonamento Preciso", desc: "Verificação e ajuste para garantir precisão no mundo real." },
+          { title: "Organização de Camadas", desc: "Camadas estruturadas para paredes, dimensões e anotações." }
+        ],
         notIncluded: ["Design Arquitetônico", "Revisão de Código", "Medições de Campo", "Modelagem 3D"],
         idealFor: ["Arquivamento Digital", "Base para Reforma", "Empreiteiros"]
       },
       "3d_rendering": {
         tag: "VISUALIZAÇÃO",
         summary: "A \"foto\" do futuro. Este serviço fornece imagens de alta qualidade que dão vida ao seu projeto com texturas, iluminação e cores realistas.",
-        whatYouReceive: [{ title: "Imagens Fotorrealistas", desc: "" }, { title: "Visualização de Materiais", desc: "" }, { title: "Iluminação Atmosférica", desc: "" }],
+        whatYouReceive: [
+          { title: "Imagens Fotorrealistas", desc: "Renders 3D de alta resolução com materiais e ambientes realistas." },
+          { title: "Visualização de Materiais", desc: "Veja suas escolhas de revestimento, telhado e janelas em contexto." },
+          { title: "Iluminação Atmosférica", desc: "Simulação de iluminação natural e artificial para um toque realista." }
+        ],
         notIncluded: ["Plantas Técnicas", "Engenharia Estrutural", "Especificação de Design de Interiores", "Revisões no Design Principal"],
         idealFor: ["Visualizar o Resultado Final", "Venda do Imóvel", "Decisão de Acabamentos"]
       }
@@ -895,27 +1031,23 @@ function Title({ label, sub }) {
 /* ═══ MAIN WIZARD ═══ */
 export default function EstimateWizard() {
   const navigate = useNavigate();
-  const { lang, toggleLang, theme, toggleTheme } = useAppContext();
-  const [step, setStep] = useState(0);
+  const { 
+    lang, theme, 
+    wizardStep: step, setWizardStep: setStep,
+    wizardData: data, setWizardData: setData,
+    resetWizard
+  } = useAppContext();
+
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const T = TRANSLATIONS[lang];
   const STEPS = lang === "EN" ? STEPS_EN : STEPS_PT;
-  const [data, setData] = useState({
-    region: "US",
-    levels: { ground: true },
-    rooms: { ...ROOM_DEF },
-    services: {},
-    dims: {},
-    dimExtras: [],
-    uploads: {},
-    pkgExtras: {},
-  });
+  
   const topRef = useRef(null);
 
   const up = useCallback((key, val) => {
     setData(prev => ({ ...prev, [key]: val }));
-  }, []);
+  }, [setData]);
 
   const est = calcEst(data, lang, step);
 
@@ -1032,7 +1164,7 @@ export default function EstimateWizard() {
             <div className={`wz-sidebar-mobile ${drawerOpen ? "open" : ""}`}>
               <div className="wz-drawer-handle" onClick={() => setDrawerOpen(!drawerOpen)} />
               <div className="wz-drawer-header" onClick={() => setDrawerOpen(!drawerOpen)}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{lang === "EN" ? "Project Estimate" : "Estimativa do Projeto"}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{T.projectEstimate}</span>
                 <span style={{ fontSize: 18, color: "var(--a)" }}>{drawerOpen ? "↓" : "↑"}</span>
               </div>
               <Sidebar est={est} lang={lang} data={data} step={step} />
@@ -1126,12 +1258,9 @@ function Sidebar({ est, lang, data, step: currentStep }) {
             ))}
             {data?.goal && (
               <div style={{ display: "flex", flexDirection: "column", gap: 4, padding: "8px 0", borderTop: "1px solid rgba(255,255,255,0.05)", marginTop: 4 }}>
-                <span style={{ fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "var(--dm)" }}>Project Intent</span>
+                <span style={{ fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "var(--dm)" }}>{T.projectIntent}</span>
                 <span style={{ fontSize: 10, color: "var(--tx)", fontWeight: "600" }}>
-                  {data.goal === "permit" ? (lang === "EN" ? "Building Permit Only" : "Apenas Aprovação Legal") :
-                    data.goal === "construction" ? (lang === "EN" ? "Construction Documentation" : "Documentação de Construção") :
-                      data.goal === "investment" ? (lang === "EN" ? "Investment / Flip" : "Investimento / Flip") :
-                        data.goal === "personal" ? (lang === "EN" ? "Personal Residence" : "Residência Pessoal") : data.goal}
+                  {T.goals[data.goal] || data.goal}
                 </span>
               </div>
             )}
@@ -1160,8 +1289,9 @@ function S1({ d, up, lang }) {
   const touch = (k) => setTouch(prev => ({ ...prev, [k]: true }));
   const ferr = (k, val) => !!(touched[k] && !val);
 
+  const market = MARKET_DATA[d.region] || MARKET_DATA.US;
   const mapsUrl = () => {
-    const addr = encodeURIComponent(`${d.street || ""}, ${d.city || ""}, ${d.state || ""} ${d.zip || ""}${isUS ? ", USA" : ", Brasil"}`);
+    const addr = encodeURIComponent(`${d.street || ""}, ${d.city || ""}, ${d.state || ""} ${d.zip || ""}, ${market.country}`);
     return `https://maps.google.com/maps?q=${addr}&output=embed&z=15`;
   };
 
@@ -1187,7 +1317,7 @@ function S1({ d, up, lang }) {
           <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "18px 0" }}>
             <div style={{ height: 1, flex: 1, background: "var(--border)" }} />
             <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--dm)" }}>
-              {isUS ? "Project address in the US" : "Endereço do projeto no Brasil"}
+              {market.addressLabel[lang]}
             </span>
             <div style={{ height: 1, flex: 1, background: "var(--border)" }} />
           </div>
@@ -1221,7 +1351,7 @@ function S1({ d, up, lang }) {
 
           <div className="wz-f">
             <label className="wz-label">{T.zipCode} <span style={{ color: "var(--rd)" }}>*</span></label>
-            <InputMask mask={isUS ? "99999" : "99999-999"} className={`wz-inp ${ferr("zip", d.zip) ? "inp-err" : ""}`} placeholder={isUS ? "02101" : "01310-100"} style={{ maxWidth: 200 }}
+            <InputMask mask={market.zipMask} className={`wz-inp ${ferr("zip", d.zip) ? "inp-err" : ""}`} placeholder={market.zipPlaceholder} style={{ maxWidth: 200 }}
               value={d.zip || ""} onChange={e => { up("zip", e.target.value); up("mapConfirmed", false); }} onBlur={() => touch("zip")} />
           </div>
 
@@ -1273,7 +1403,7 @@ function S2({ d, up, lang }) {
         </div>
         <div className="wz-f" style={{ maxWidth: 320 }}>
           <label className="wz-label">{T.phone} <span style={{ color: "var(--rd)" }}>*</span></label>
-          <InputMask mask={isUS ? "+1 (999) 999-9999" : "+55 (99) 99999-9999"} maskChar={null} className={`wz-inp ${ferr("phone", d.phone) ? "inp-err" : ""}`} placeholder={isUS ? "+1 (000) 000-0000" : "+55 (00) 00000-0000"}
+          <InputMask mask={MARKET_DATA[d.region]?.phoneMask || MARKET_DATA.US.phoneMask} maskChar={null} className={`wz-inp ${ferr("phone", d.phone) ? "inp-err" : ""}`} placeholder={MARKET_DATA[d.region]?.phonePlaceholder}
             value={d.phone || ""} onChange={e => up("phone", e.target.value)} onBlur={() => touch("phone")} />
         </div>
       </div>
@@ -1357,25 +1487,25 @@ function S3({ d, up, lang }) {
   const [hoverId, setHoverId] = useState(null);
 
   const CONST_SVC = [
-    { id: "new_construction", pricingGroup: "multi-level", icon: "🏗️", label: T.svcLabels.new_construction, sub: T.svcSubs.new_construction, desc: "Building a brand new house from the foundation up on an empty lot or after a full demolition." },
-    { id: "addition", pricingGroup: "multi-level", icon: "➕", label: T.svcLabels.addition, sub: T.svcSubs.addition, desc: "Expanding the home's footprint horizontally by adding new rooms outward." },
-    { id: "second_story", pricingGroup: "single-level", icon: "🏢", label: T.svcLabels.second_story, sub: T.svcSubs.second_story, desc: "Expanding vertically by removing the roof and adding a full new level." },
-    { id: "garage_only", pricingGroup: "multi-level", icon: "🚗", label: T.svcLabels.garage_only, sub: T.svcSubs.garage_only, desc: "Building a brand new detached or attached garage." },
-    { id: "garage_conversion", pricingGroup: "multi-level", icon: "🔑", label: T.svcLabels.garage_conversion, sub: T.svcSubs.garage_conversion, desc: "Transforming an existing garage into a livable space (office, game room, or ADU)." },
-    { id: "basement_finishing", pricingGroup: "single-level", icon: "⛏️", label: T.svcLabels.basement_finishing, sub: T.svcSubs.basement_finishing, desc: "Turning an unfinished, concrete basement into a fully insulated and usable living area." },
-    { id: "deck_covered", pricingGroup: "single-level", icon: "🏕️", label: T.svcLabels.deck_covered, sub: T.svcSubs.deck_covered, desc: "An outdoor wooden or composite platform featuring a permanent roof structure." },
-    { id: "deck_open", pricingGroup: "single-level", icon: "☀️", label: T.svcLabels.deck_open, sub: T.svcSubs.deck_open, desc: "A classic outdoor platform without a roof." },
-    { id: "porch_covered", pricingGroup: "single-level", icon: "🏡", label: T.svcLabels.porch_covered, sub: T.svcSubs.porch_covered, desc: "A porch with a solid floor and a permanent roof." },
-    { id: "porch_open", pricingGroup: "single-level", icon: "🌿", label: T.svcLabels.porch_open, sub: T.svcSubs.porch_open, desc: "A porch fully enclosed with insect screens for comfortable summer use." },
-    { id: "renovation", pricingGroup: "multi-level", icon: "🔨", label: T.svcLabels.renovation, sub: T.svcSubs.renovation, desc: "General updating of the home's interior or exterior without adding new square footage." },
-    { id: "other_const", pricingGroup: "single-level", icon: "✏️", label: T.svcLabels.other_const, sub: T.svcSubs.other_const, desc: "Other construction services not listed." },
+    { id: "new_construction", pricingGroup: "multi-level", icon: "🏗️", label: T.svcLabels.new_construction, sub: T.svcSubs.new_construction, desc: T.svcDescs.new_construction },
+    { id: "addition", pricingGroup: "multi-level", icon: "➕", label: T.svcLabels.addition, sub: T.svcSubs.addition, desc: T.svcDescs.addition },
+    { id: "second_story", pricingGroup: "single-level", icon: "🏢", label: T.svcLabels.second_story, sub: T.svcSubs.second_story, desc: T.svcDescs.second_story },
+    { id: "garage_only", pricingGroup: "multi-level", icon: "🚗", label: T.svcLabels.garage_only, sub: T.svcSubs.garage_only, desc: T.svcDescs.garage_only },
+    { id: "garage_conversion", pricingGroup: "multi-level", icon: "🔑", label: T.svcLabels.garage_conversion, sub: T.svcSubs.garage_conversion, desc: T.svcDescs.garage_conversion },
+    { id: "basement_finishing", pricingGroup: "single-level", icon: "⛏️", label: T.svcLabels.basement_finishing, sub: T.svcSubs.basement_finishing, desc: T.svcDescs.basement_finishing },
+    { id: "deck_covered", pricingGroup: "single-level", icon: "🏕️", label: T.svcLabels.deck_covered, sub: T.svcSubs.deck_covered, desc: T.svcDescs.deck_covered },
+    { id: "deck_open", pricingGroup: "single-level", icon: "☀️", label: T.svcLabels.deck_open, sub: T.svcSubs.deck_open, desc: T.svcDescs.deck_open },
+    { id: "porch_covered", pricingGroup: "single-level", icon: "🏡", label: T.svcLabels.porch_covered, sub: T.svcSubs.porch_covered, desc: T.svcDescs.porch_covered },
+    { id: "porch_open", pricingGroup: "single-level", icon: "🌿", label: T.svcLabels.porch_open, sub: T.svcSubs.porch_open, desc: T.svcDescs.porch_open },
+    { id: "renovation", pricingGroup: "multi-level", icon: "🔨", label: T.svcLabels.renovation, sub: T.svcSubs.renovation, desc: T.svcDescs.renovation },
+    { id: "other_const", pricingGroup: "single-level", icon: "✏️", label: T.svcLabels.other_const, sub: T.svcSubs.other_const, desc: T.svcDescs.other_const },
   ];
 
   const INT_SVC = [
-    { id: "kitchen_remodel", pricingGroup: "multi-level", icon: "🍳", label: T.svcLabels.kitchen_remodel, sub: T.svcSubs.kitchen_remodel, desc: "Full kitchen update including new cabinets, islands, countertops, and appliances." },
-    { id: "bath_remodel", pricingGroup: "multi-level", icon: "🛁", label: T.svcLabels.bath_remodel, sub: T.svcSubs.bath_remodel, desc: "Full bathroom update including walk-in showers, new vanities, and tiling." },
-    { id: "open_concept", pricingGroup: "multi-level", icon: "🗂️", label: T.svcLabels.open_concept, sub: T.svcSubs.open_concept, desc: "Removing structural or non-structural walls to integrate the kitchen, dining, and living areas." },
-    { id: "other_int", pricingGroup: "single-level", icon: "✏️", label: T.svcLabels.other_int, sub: T.svcSubs.other_int, desc: "Other interior services not listed." },
+    { id: "kitchen_remodel", pricingGroup: "multi-level", icon: "🍳", label: T.svcLabels.kitchen_remodel, sub: T.svcSubs.kitchen_remodel, desc: T.svcDescs.kitchen_remodel },
+    { id: "bath_remodel", pricingGroup: "multi-level", icon: "🛁", label: T.svcLabels.bath_remodel, sub: T.svcSubs.bath_remodel, desc: T.svcDescs.bath_remodel },
+    { id: "open_concept", pricingGroup: "multi-level", icon: "🗂️", label: T.svcLabels.open_concept, sub: T.svcSubs.open_concept, desc: T.svcDescs.open_concept },
+    { id: "other_int", pricingGroup: "single-level", icon: "✏️", label: T.svcLabels.other_int, sub: T.svcSubs.other_int, desc: T.svcDescs.other_int },
   ];
 
   const services = d.services || {};
@@ -1519,16 +1649,16 @@ function S3({ d, up, lang }) {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 10, alignItems: "start", marginBottom: 20 }}>
                     <div className="wz-f">
                       <label className="wz-label">{T.width} ({unit})</label>
-                      <input className="wz-inp" placeholder={isUS ? "e.g. 31'2\" or 120" : "ex: 10.5"} value={wVal} onChange={e => setDim(svcId, "w", e.target.value)} onKeyDown={onDimKeyDown} />
-                      {isUS && wVal && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {fmtInches(wi)}</p>}
-                      {isUS && <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 4, lineHeight: 1.3 }}>Accepted formats: 10'1", 5'-10", 6'3 1/4", 180. Please do not use periods (.) or commas (,).</p>}
+                      <input className="wz-inp" placeholder={MARKET_DATA[d.region]?.dimW} value={wVal} onChange={e => setDim(svcId, "w", e.target.value)} onKeyDown={onDimKeyDown} />
+                      {wVal && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {isUS ? fmtInches(wi) : wi + " m"}</p>}
+                      <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 4, lineHeight: 1.3 }}>{T.dimInstructions}</p>
                     </div>
                     <div style={{ fontSize: 20, color: "var(--dm)", marginTop: 28 }}>×</div>
                     <div className="wz-f">
                       <label className="wz-label">{T.length} ({unit})</label>
-                      <input className="wz-inp" placeholder={isUS ? "e.g. 45'0\" or 540" : "ex: 15.5"} value={lVal} onChange={e => setDim(svcId, "l", e.target.value)} onKeyDown={onDimKeyDown} />
-                      {isUS && lVal && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {fmtInches(li)}</p>}
-                      {isUS && <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 4, lineHeight: 1.3 }}>Accepted formats: 10'1", 5'-10", 6'3 1/4", 180. Please do not use periods (.) or commas (,).</p>}
+                      <input className="wz-inp" placeholder={MARKET_DATA[d.region]?.dimL} value={lVal} onChange={e => setDim(svcId, "l", e.target.value)} onKeyDown={onDimKeyDown} />
+                      {lVal && <p style={{ fontSize: 10, color: "var(--a)", marginTop: 4, fontFamily: "var(--font-mono)" }}>{T.detected}: {isUS ? fmtInches(li) : li + " m"}</p>}
+                      <p style={{ fontSize: 10, color: "var(--mu)", marginTop: 4, lineHeight: 1.3 }}>{T.dimInstructions}</p>
                     </div>
                   </div>
 
@@ -1569,6 +1699,18 @@ function S3({ d, up, lang }) {
                 </div>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {selectedSvcs.length > 0 && (
+        <div className="wz-card active" style={{ padding: 20, marginTop: 24, background: "rgba(100, 108, 255, 0.05)", borderColor: "var(--a)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase", marginBottom: 4 }}>{T.grandTotalArea}</p>
+              <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--tx)" }}>{Math.round(est.totalArea)} <span style={{ fontSize: 14, fontWeight: 500, color: "var(--mu)" }}>{au}</span></h3>
+            </div>
+            <div style={{ fontSize: 32 }}>📏</div>
           </div>
         </div>
       )}
@@ -1665,10 +1807,10 @@ function S4({ d, up, est, lang }) {
       extras: [
         {
           group: T.pkgExtras.groups.modules_3d, items: [
-            { id: "ex_3d_ext", label: T.pkgExtras.items.ex_3d_ext.label, price: isUS ? "+ $250.00" : "+ R$2300", desc: T.pkgExtras.items.ex_3d_ext.desc },
-            { id: "ex_3d_kitchen", label: T.pkgExtras.items.ex_3d_kitchen.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_kitchen.desc },
-            { id: "ex_3d_bath", label: T.pkgExtras.items.ex_3d_bath.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_bath.desc },
-            { id: "ex_3d_laundry", label: T.pkgExtras.items.ex_3d_laundry.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_laundry.desc }
+            { id: "ex_3d_ext", label: T.pkgExtras.items.ex_3d_ext.label, price: T.price3DExt, desc: T.pkgExtras.items.ex_3d_ext.desc },
+            { id: "ex_3d_kitchen", label: T.pkgExtras.items.ex_3d_kitchen.label, price: T.price3DInt, desc: T.pkgExtras.items.ex_3d_kitchen.desc },
+            { id: "ex_3d_bath", label: T.pkgExtras.items.ex_3d_bath.label, price: T.price3DInt, desc: T.pkgExtras.items.ex_3d_bath.desc },
+            { id: "ex_3d_laundry", label: T.pkgExtras.items.ex_3d_laundry.label, price: T.price3DInt, desc: T.pkgExtras.items.ex_3d_laundry.desc }
           ]
         }
       ]
@@ -1748,7 +1890,7 @@ function S4({ d, up, est, lang }) {
 
                         {pkg.details.notIncluded && (
                           <div style={{ marginBottom: 16 }}>
-                            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--rd)", marginBottom: 10, textTransform: "uppercase" }}>WHAT IS NOT INCLUDED</p>
+                            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--rd)", marginBottom: 10, textTransform: "uppercase" }}>{T.pkgNotIncluded}</p>
                             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                               {pkg.details.notIncluded.map((it, idx) => (
                                 <div key={idx} style={{ display: "flex", gap: 8, alignItems: "start" }}>
@@ -1782,10 +1924,10 @@ function S4({ d, up, est, lang }) {
                     </div>
                   )}
 
-                  {isActive && pkg.details.extras && (
+                  {(isActive || isDetOpen) && pkg.extras && (
                     <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
                       <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", color: "var(--dm)", marginBottom: 16, textTransform: "uppercase" }}>{T.serviceCustomization}</p>
-                      {pkg.details.extras.map(group => (
+                      {pkg.extras.map(group => (
                         <div key={group.group} style={{ marginBottom: 20 }}>
                           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 10, textTransform: "uppercase" }}>{group.group}</p>
                           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -2016,7 +2158,7 @@ function S7({ d, up, lang }) {
   const cats = [
     {
       id: "inspiration",
-      label: isUS ? "Inspiration Images" : "Imagens de Inspiração",
+      label: lang === "EN" ? "Inspiration Images" : "Imagens de Inspiração",
       icon: "🖼️",
       types: "JPG · PNG · GIF · WEBP · max 100MB",
       accept: ".jpg,.jpeg,.png,.gif,.webp",
@@ -2024,7 +2166,7 @@ function S7({ d, up, lang }) {
     },
     {
       id: "videos",
-      label: isUS ? "Videos" : "Vídeos",
+      label: lang === "EN" ? "Videos" : "Vídeos",
       icon: "🎥",
       types: "MP4 · MOV · WEBM · max 100MB",
       accept: ".mp4,.mov,.webm",
@@ -2032,7 +2174,7 @@ function S7({ d, up, lang }) {
     },
     {
       id: "documents",
-      label: isUS ? "Technical Documents" : "Documentos Técnicos",
+      label: lang === "EN" ? "Technical Documents" : "Documentos Técnicos",
       icon: "📋",
       types: "PDF · DOC · DWG · DXF · max 100MB",
       accept: ".pdf,.doc,.docx,.dwg,.dxf",
@@ -2040,7 +2182,7 @@ function S7({ d, up, lang }) {
     },
     {
       id: "other",
-      label: isUS ? "Other Files" : "Outros Arquivos",
+      label: lang === "EN" ? "Other Files" : "Outros Arquivos",
       icon: "📎",
       types: "Any file type · max 100MB",
       accept: "*",
@@ -2052,17 +2194,13 @@ function S7({ d, up, lang }) {
 
   return (
     <div className="wz-animate">
-      <Title label={isUS ? "Upload Reference Files" : "Upload de Referências"} sub={isUS ? "Upload by category — up to 100MB per file." : "Upload por categoria — até 100MB por arquivo."} />
+      <Title label={T.uploadTitle} sub={T.uploadSub} />
 
       {/* Info Alert */}
       <div style={{ background: "rgba(99, 102, 241, 0.1)", border: "1px solid rgba(99, 102, 241, 0.2)", borderRadius: "12px", padding: "20px", display: "flex", gap: "16px", marginBottom: "32px" }}>
         <div style={{ color: "#818cf8", fontSize: "20px" }}>ⓘ</div>
         <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--mu)" }}>
-          {isUS ? (
-            <>Please upload any relevant documents such as: Existing Floor Plans, Site Surveys, sketches, or photos of the property. <strong>Clear documentation helps us provide a more accurate and faster design service.</strong></>
-          ) : (
-            <>Por favor, envie documentos relevantes como: Plantas Existentes, Levantamentos, croquis ou fotos da propriedade. <strong>Documentação clara nos ajuda a fornecer um serviço de design mais preciso e rápido.</strong></>
-          )}
+          {T.uploadHelp}
         </p>
       </div>
 
@@ -2082,8 +2220,7 @@ function S7({ d, up, lang }) {
               <div className="wz-drop" style={{ padding: "32px 16px", background: "rgba(255,255,255,0.01)" }}>
                 <div style={{ marginBottom: "12px", color: "var(--mu)", fontSize: "24px", opacity: 0.8 }}>☁️</div>
                 <p style={{ fontSize: "13px", color: "var(--mu)" }}>
-                  {isUS ? "Drop here or " : "Arraste ou "}
-                  <span style={{ color: cat.color, fontWeight: "700", cursor: "pointer" }}>{isUS ? "browse" : "procurar"}</span>
+                  {T.dropHere} <span style={{ color: cat.color, fontWeight: "700", cursor: "pointer" }}>{T.browse}</span>
                 </p>
                 <input type="file" multiple accept={cat.accept} style={{ display: "none" }} />
               </div>
@@ -2101,12 +2238,12 @@ function S8({ d, up, lang }) {
   const fileRefs = useRef({});
 
   const checklist = [
-    { id: "chk_survey", label: isUS ? "Property Survey / Site Plan" : "Levantamento Topográfico / Site Plan", required: true },
-    { id: "chk_photos", label: isUS ? "Clear Photos of all sides of the property" : "Fotos claras de todos os lados da propriedade", required: true },
-    { id: "chk_measure", label: isUS ? "Rough measurements (Sketches or existing plans)" : "Medidas básicas (Croquis ou plantas existentes)", required: true },
-    { id: "chk_listing", label: isUS ? "Current real estate listing (Zillow, Redfin, etc.)" : "Anúncio imobiliário atual (Zillow, Redfin, etc.)", sub: isUS ? "Recommended" : "Recomendado" },
-    { id: "chk_matter", label: isUS ? "Matterport or 3D Virtual Tour" : "Matterport ou Tour Virtual 3D", sub: isUS ? "If available" : "Se disponível" },
-    { id: "chk_reports", label: isUS ? "Appraisal or structural reports" : "Laudos de avaliação ou estruturais", sub: isUS ? "If available" : "Se disponível" },
+    { id: "chk_survey", label: T.checklist.survey, required: true },
+    { id: "chk_photos", label: T.checklist.photos, required: true },
+    { id: "chk_measure", label: T.checklist.measure, required: true },
+    { id: "chk_listing", label: T.checklist.listing, sub: T.checklist.recommended },
+    { id: "chk_matter", label: T.checklist.tour, sub: T.checklist.ifAvailable },
+    { id: "chk_reports", label: T.checklist.reports, sub: T.checklist.ifAvailable },
   ];
 
   const requiredCount = 3; // First 3 are mandatory
@@ -2122,25 +2259,25 @@ function S8({ d, up, lang }) {
   };
 
   const handleLockedClick = () => {
-    setFeedback(isUS ? "Please upload the 3 mandatory files above to unlock faster delivery timelines." : "Por favor, faça o upload dos 3 arquivos obrigatórios acima para desbloquear prazos de entrega mais rápidos.");
+    setFeedback(T.unlockRush);
     setTimeout(() => setFeedback(""), 4000);
   };
 
   const options = [
     {
       id: "standard",
-      label: isUS ? "Standard Delivery" : "Entrega Padrão",
-      sub: isUS ? "Included in base price — no additional charge." : "Incluído no preço base — sem custo adicional.",
+      label: T.standardDelivery,
+      sub: lang === "EN" ? "Included in base price — no additional charge." : "Incluído no preço base — sem custo adicional.",
       icon: "📦",
       fee: "FREE",
       locked: false
     },
     {
       id: "rush",
-      label: isUS ? "Rush Delivery" : "Entrega Prioritária",
+      label: T.rushDelivery,
       tag: "+40%",
-      sub: isUS ? "+40% on subtotal. Studio will contact you to confirm exact timeline." : "+40% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
-      days: isUS ? "8–16 Business Days (depends on project size)." : "8–16 Dias Úteis (depende do tamanho do projeto).",
+      sub: lang === "EN" ? "+40% on subtotal. Studio will contact you to confirm exact timeline." : "+40% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
+      days: lang === "EN" ? "8–16 Business Days (depends on project size)." : "8–16 Dias Úteis (depende do tamanho do projeto).",
       icon: "🔒",
       fee: "+40%",
       locked: !isUnlocked
