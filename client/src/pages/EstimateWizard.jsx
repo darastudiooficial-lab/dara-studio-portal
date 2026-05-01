@@ -1188,16 +1188,24 @@ export default function EstimateWizard() {
   const navigate = useNavigate();
   const { 
     lang, theme, 
-    wizardStep: step, setWizardStep: setStep,
+    wizardStep: contextStep, setWizardStep: setStep,
     wizardData: data, setWizardData: setData,
     resetWizard
   } = useAppContext();
+
+  const [isInitialized, setIsInitialized] = useState(false);
+  useEffect(() => {
+    resetWizard();
+    setIsInitialized(true);
+  }, []);
+
+  const step = isInitialized ? contextStep : 0;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submissionType, setSubmissionType] = useState(null); // 'save' or 'accept'
 
-  const T = TRANSLATIONS[lang];
+  const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const STEPS = lang === "EN" ? STEPS_EN : STEPS_PT;
   
   const topRef = useRef(null);
