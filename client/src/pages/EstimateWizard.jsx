@@ -1144,7 +1144,7 @@ export default function EstimateWizard() {
           <div className="wz-animate" key={step}>
             {step === 0 && <S1 d={data} up={up} lang={lang} />}
             {step === 1 && <S2 d={data} up={up} lang={lang} />}
-            {step === 2 && <S3 d={data} up={up} lang={lang} />}
+            {step === 2 && <S3 d={data} up={up} est={est} lang={lang} />}
             {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
             {step === 4 && <S6 d={data} up={up} lang={lang} />}
             {step === 5 && <S7 d={data} up={up} lang={lang} />}
@@ -1479,7 +1479,7 @@ function S2({ d, up, lang }) {
   );
 }
 
-function S3({ d, up, lang }) {
+function S3({ d, up, est, lang }) {
   const isUS = d.region !== "BR";
   const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const unit = isUS ? "ft" : "m";
@@ -2233,6 +2233,7 @@ function S7({ d, up, lang }) {
 }
 
 function S8({ d, up, lang }) {
+  const T = TRANSLATIONS[lang];
   const isUS = d.region !== "BR";
   const [feedback, setFeedback] = useState("");
   const fileRefs = useRef({});
