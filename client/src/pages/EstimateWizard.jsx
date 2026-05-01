@@ -581,8 +581,8 @@ function calcEst(d, lang = "EN", step) {
   // Calculate current extra rate per sqft
   let currentExtraPerSqft = 0;
   if (pkg === "as_built_permit") {
-    Object.keys(EXTRA_RATES).forEach(key => {
-      if (pkgExtras[key]) currentExtraPerSqft += EXTRA_RATES[key];
+    Object.keys(EXTRA_RATES || {}).forEach(key => {
+      if (pkgExtras[key]) currentExtraPerSqft += (EXTRA_RATES[key] || 0);
     });
   }
 
@@ -635,9 +635,9 @@ function calcEst(d, lang = "EN", step) {
       });
 
       // Per-sqft Extras
-      Object.keys(EXTRA_RATES).forEach(key => {
+      Object.keys(EXTRA_RATES || {}).forEach(key => {
         if (pkgExtras[key]) {
-          const extraCost = totalBaseArea * EXTRA_RATES[key] * currencyMult;
+          const extraCost = totalBaseArea * (EXTRA_RATES[key] || 0) * currencyMult;
           cost += extraCost;
           const labels = {
             ex_arch_design: lang === "EN" ? "Architectural Design Detail" : "Design Arquitetônico",
@@ -651,9 +651,9 @@ function calcEst(d, lang = "EN", step) {
         }
       });
       // Fixed Fee Extras (Interiors)
-      Object.keys(FIXED_FEES).forEach(key => {
+      Object.keys(FIXED_FEES || {}).forEach(key => {
         if (pkgExtras[key]) {
-          const fee = FIXED_FEES[key] * currencyMult;
+          const fee = (FIXED_FEES[key] || 0) * currencyMult;
           cost += fee;
           const labels = {
             ex_3d_kitchen: lang === "EN" ? "3D Kitchen Design" : "Design 3D de Cozinha",
