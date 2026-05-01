@@ -1083,7 +1083,7 @@ export default function EstimateWizard() {
       return !!data.propertyType;
     }
     if (step === 4) {
-      return !!data.goal;
+      return true;
     }
     return true; // Steps 6, 7 are optional
   };
