@@ -886,22 +886,6 @@ export default function EstimateWizard() {
   };
 
   const next = () => {
-    if (step === 2) {
-      // Step 3 (Project Details) transition: Sanitize dimensions
-      const isUS = data.region !== "BR";
-      const sanitizedDims = { ...data.dims };
-      Object.keys(data.services || {}).forEach(id => {
-        if (data.services[id] && sanitizedDims[id]) {
-          const w = sanitizedDims[id].w?.toString().trim().replace(",", ".");
-          const l = sanitizedDims[id].l?.toString().trim().replace(",", ".");
-          sanitizedDims[id] = {
-            w: parseDim(w, isUS).toString(),
-            l: parseDim(l, isUS).toString(),
-          };
-        }
-      });
-      up("dims", sanitizedDims);
-    }
     if (step < STEPS.length - 1 && canGo()) {
       setStep(s => s + 1);
       topRef.current?.scrollIntoView({ behavior: "smooth" });
