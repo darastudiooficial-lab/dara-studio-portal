@@ -2604,6 +2604,7 @@ function S8({ d, up, lang }) {
 }
 
 function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
+  const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const isUS = d.region !== "BR";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -2638,7 +2639,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       setSubmitted(true);
     } catch (err) {
       console.error(err);
-      setError(isUS ? "Submission failed. Please try again." : "Falha no envio. Tente novamente.");
+      setError(T.review.errorOccurred);
     } finally {
       setLoading(false);
     }
@@ -2659,7 +2660,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           <h3 style={{ fontSize: "16px", fontWeight: "600", color: "var(--tx)" }}>{title}</h3>
         </div>
         <button onClick={() => setStep(step)} style={{ background: "none", border: "none", color: "#6366f1", fontSize: "12px", fontWeight: "600", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}>
-          Edit <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          {T.review.edit} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
         </button>
       </div>
       <div>{children}</div>
@@ -2701,19 +2702,19 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       <Section icon="🏗️" title={T.review.project} step={2}>
         <ReviewRow label={T.review.propType} value={T.propertyTypes[d.propertyType]?.label || d.propertyType} />
-        <ReviewRow label={T.review.levels} value={est.lvNames.join(" + ") || "—"} />
-        <ReviewRow label={T.review.services} value={est.selectedSvcNames.join(", ") || "—"} />
+        <ReviewRow label={T.review.levels} value={(est?.lvNames || []).join(" + ") || "—"} />
+        <ReviewRow label={T.review.services} value={(est?.selectedSvcNames || []).join(", ") || "—"} />
         <div style={{ marginTop: "16px" }}>
           <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.dimensions}</p>
-          <ReviewRow label={T.review.totalArea} value={`${Math.round(est.totalArea).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
+          <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
         </div>
       </Section>
 
       <Section icon="📋" title={T.review.summary} step={3}>
-        <ReviewRow label={T.review.totalArea} value={`${Math.round(est.totalArea).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
+        <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
         <div style={{ marginTop: "12px", padding: "12px", background: "rgba(255,255,255,0.01)", borderRadius: "8px" }}>
           <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.selectedSvcs}</p>
-          {est.bd.map((it, i) => (
+          {(est?.bd || []).map((it, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", padding: "4px 0" }}>
               <span style={{ color: "var(--mu)" }}>{it.l}</span>
               <span style={{ fontWeight: "600", color: "var(--tx)" }}>{it.v}</span>
