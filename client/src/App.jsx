@@ -14,7 +14,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage        from "./pages/LandingPage";
 import EstimateWizard     from "./pages/EstimateWizard";
 import NotFound           from "./pages/NotFound";
-import PortalPlaceholder  from "./pages/PortalPlaceholder";
+import ClientPortal       from "./pages/ClientPortal";
+import { AppProvider }    from "./context/AppContext";
 
 /* ── Admin bridge: redireciona para o HTML standalone ── */
 function AdminRedirect() {
@@ -33,24 +34,28 @@ function AdminRedirect() {
 ══════════════════════════════════════════════════════════ */
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* ── Públicas ── */}
-        <Route path="/"          element={<LandingPage />} />
-        <Route path="/estimate"  element={<EstimateWizard />} />
-        <Route path="/estimate/*" element={<EstimateWizard />} />
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* ── Públicas ── */}
+          <Route path="/"          element={<LandingPage />} />
+          <Route path="/estimate"  element={<EstimateWizard />} />
+          <Route path="/estimate/*" element={<EstimateWizard />} />
 
-        {/* ── Admin (HTML standalone) ── */}
-        <Route path="/admin"     element={<AdminRedirect />} />
-        <Route path="/admin/*"   element={<AdminRedirect />} />
+          {/* ── Admin (HTML standalone) ── */}
+          <Route path="/admin"     element={<AdminRedirect />} />
+          <Route path="/admin/*"   element={<AdminRedirect />} />
 
-        {/* ── Portal do Cliente ── */}
-        <Route path="/portal"    element={<PortalPlaceholder />} />
-        <Route path="/portal/*"  element={<PortalPlaceholder />} />
+          {/* ── Portal do Cliente ── */}
+          <Route path="/login"     element={<ClientPortal />} />
+          <Route path="/login/*"   element={<ClientPortal />} />
+          <Route path="/portal"    element={<ClientPortal />} />
+          <Route path="/portal/*"  element={<ClientPortal />} />
 
-        {/* ── Fallback ── */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+          {/* ── Fallback ── */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   );
 }

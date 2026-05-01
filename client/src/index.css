@@ -90,15 +90,18 @@ html, body, #root {
 
 /* ── Clickable card ── */
 .wz-card {
+  min-height: 44px; /* Apple/Android recommended touch target */
   padding: 16px 20px;
   background: var(--bg3); border: 1.5px solid var(--border);
   border-radius: var(--r); cursor: pointer;
   transition: all .2s; -webkit-user-select: none; user-select: none;
+  display: flex; flex-direction: column; justify-content: center;
 }
 .wz-card:hover { border-color: var(--border2); background: var(--bg2) }
 .wz-card.active {
-  border-color: var(--a); background: var(--a-dim);
-  box-shadow: 0 0 0 1px var(--a), 0 0 20px var(--a-glow);
+  border-color: var(--a); 
+  background: var(--a-dim);
+  box-shadow: 0 0 24px var(--a-glow);
 }
 
 /* ── Big toggle cards ── */
@@ -160,19 +163,22 @@ html, body, #root {
 
 /* ── Buttons ── */
 .wz-btn-primary {
+  min-height: 44px; min-width: 44px;
   padding: 12px 28px; border-radius: var(--r-sm);
   background: var(--a); border: none; color: #fff;
   font-family: var(--font-sans); font-size: 14px; font-weight: 600;
   cursor: pointer; transition: all .18s;
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
 }
 .wz-btn-primary:hover { background: #4f46e5; transform: translateY(-1px); box-shadow: 0 8px 24px var(--a-glow) }
 .wz-btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none }
 .wz-btn-ghost {
+  min-height: 44px; min-width: 44px;
   padding: 12px 28px; border-radius: var(--r-sm);
   background: transparent; border: 1.5px solid var(--border2); color: var(--mu);
   font-family: var(--font-sans); font-size: 14px; font-weight: 500;
   cursor: pointer; transition: all .18s;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 .wz-btn-ghost:hover { border-color: var(--a); color: var(--tx) }
 
@@ -202,9 +208,16 @@ html, body, #root {
 
 /* ── Sidebar estimate ── */
 .wz-sidebar {
-  position: sticky; top: 24px;
+  position: sticky; top: 32px;
   background: var(--bg2); border: 1.5px solid var(--border);
-  border-radius: var(--r); padding: 22px; display: flex; flex-direction: column; gap: 20px;
+  border-radius: var(--r); padding: 24px; display: flex; flex-direction: column; gap: 24px;
+  max-height: calc(100vh - 64px); overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 768px) {
+  .wz-sidebar {
+    position: relative; top: 0; border: none; padding: 0; background: transparent; max-height: none; overflow: visible;
+  }
 }
 
 /* ── Confidence bar ── */
@@ -231,6 +244,92 @@ html, body, #root {
   to   { opacity: 1; transform: translateY(0) }
 }
 .wz-animate { animation: wz-in .3s ease both }
+
+/* ── Responsive Layout Engine ── */
+.wz-main-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .wz-main-layout.has-sidebar {
+    grid-template-columns: 1fr 340px;
+  }
+}
+
+.wz-grid-adaptive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* ── Fluid Typography ── */
+.wz-title-premium {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--tx);
+  line-height: 1.2;
+}
+
+/* ── Mobile Drawer ── */
+@media (max-width: 768px) {
+  .wz-sidebar-mobile {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: var(--bg2);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border2);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -12px 48px rgba(0,0,0,0.6);
+    transform: translateY(calc(100% - 68px));
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    padding: 0 20px 32px;
+  }
+  .wz-sidebar-mobile.open {
+    transform: translateY(0);
+  }
+  .wz-drawer-handle {
+    width: 40px; height: 4px;
+    background: var(--border2);
+    border-radius: 2px;
+    margin: 12px auto;
+    cursor: pointer;
+  }
+  .wz-drawer-header {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 769px) {
+  .wz-drawer-handle, .wz-drawer-header {
+    display: none;
+  }
+  .wz-sidebar-mobile {
+    position: relative;
+    transform: none;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    z-index: 1;
+  }
+}
+
+/* ── Media Responsiveness ── */
+.wz-img-resp, .wz-icon-resp {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 
 /* ═══════════════════════════════════════════════════════════════

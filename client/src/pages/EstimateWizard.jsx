@@ -19,11 +19,6 @@ const EXTRA_RATES = {
   ex_code_comp: 0.05,
   ex_3d_ext: 0.10
 };
-const FIXED_FEES = {
-  ex_3d_kitchen: 180,
-  ex_3d_bath: 180,
-  ex_3d_laundry: 180
-};
 
 const TRANSLATIONS = {
   EN: {
@@ -127,6 +122,16 @@ const TRANSLATIONS = {
       deck_covered: "Deck with roof structure", deck_open: "Deck without roof", porch_covered: "Porch with roof", porch_open: "Open or screened porch",
       renovation: "General remodel", other_const: "Other construction services",
       kitchen_remodel: "Focus on kitchen areas", bath_remodel: "Focus on bathroom areas", open_concept: "Remove walls, integrate spaces", other_int: "Other interior services"
+    },
+    pkgLabels: { as_built_permit: "As-Built & Permit Package", floor_plans_only: "Floor Plans Only", pdf_to_cad: "PDF to CAD", "3d_rendering": "3D Rendering" },
+    program: {
+      living: "Living & Social",
+      bed: "Bedrooms & Sleeping",
+      kitchen: "Kitchen & Dining",
+      bath: "Bathrooms & Laundry",
+      work: "Working & Storage",
+      leisure: "Entertainment & Outdoor",
+      tech: "Utilities & Tech"
     },
     roomLabels: {
       bedrooms: "Bedrooms", bathrooms: "Bathrooms", halfBaths: "Half Baths",
@@ -262,6 +267,16 @@ const TRANSLATIONS = {
       deck_covered: "Deck com estrutura de telhado", deck_open: "Deck sem telhado", porch_covered: "Varanda com telhado", porch_open: "Varanda aberta",
       renovation: "Reforma geral", other_const: "Outros serviços de construção",
       kitchen_remodel: "Foco em áreas de cozinha", bath_remodel: "Foco em áreas de banheiro", open_concept: "Remover paredes, integrar espaços", other_int: "Outros serviços de interior"
+    },
+    pkgLabels: { as_built_permit: "Pacote de Levantamento e Prefeitura", floor_plans_only: "Apenas Plantas Baixas", pdf_to_cad: "PDF para CAD", "3d_rendering": "Renderização 3D" },
+    program: {
+      living: "Social e Estar",
+      bed: "Quartos e Dormitórios",
+      kitchen: "Cozinha e Jantar",
+      bath: "Banheiros e Lavanderia",
+      work: "Trabalho e Armazenamento",
+      leisure: "Lazer e Externo",
+      tech: "Utilidades e Técnica"
     },
     roomLabels: {
       bedrooms: "Quartos", bathrooms: "Banheiros", halfBaths: "Lavabos",
