@@ -1241,7 +1241,7 @@ export default function EstimateWizard() {
     return true; // Steps 6, 7 are optional
   };
 
-  const next = () => {
+  const handleNext = () => {
     if (step < STEPS.length - 1 && canGo()) {
       setStep(s => s + 1);
       topRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1312,7 +1312,7 @@ export default function EstimateWizard() {
                 {step === 4 && <S6 d={data} up={up} lang={lang} />}
                 {step === 5 && <S7 d={data} up={up} lang={lang} />}
                 {step === 6 && <S8 d={data} up={up} lang={lang} />}
-                {step === 7 && <S9 d={data} est={est} lang={lang} setSubmitted={setSubmitted} setSubmissionType={setSubmissionType} />}
+                {step === 7 && <S9 d={data} est={est} setStep={setStep} lang={lang} setSubmitted={setSubmitted} setSubmissionType={setSubmissionType} />}
               </>
             )}
 
@@ -1320,7 +1320,7 @@ export default function EstimateWizard() {
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
                 <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? "hidden" : "visible" }}>{T.back}</button>
                 {step < STEPS.length - 1 && (
-                  <button className="wz-btn-primary" onClick={next} disabled={!canGo()}>{T.continue}</button>
+                  <button className="wz-btn-primary" onClick={handleNext} disabled={!canGo()}>{T.continue}</button>
                 )}
               </div>
             )}
@@ -2678,11 +2678,11 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       <Section icon="🏗️" title={T.review.project} step={2}>
         <ReviewRow label={T.review.propType} value={T.propertyTypes[d.propertyType]?.label || d.propertyType} />
-        <ReviewRow label={T.review.levels} value={d.levels === "single" ? T.review.groundFloor : T.review.multipleFloors} />
-        <ReviewRow label={T.review.services} value={T.svcLabels[d.service] || d.service} />
+        <ReviewRow label={T.review.levels} value={est.lvNames.join(" + ") || "—"} />
+        <ReviewRow label={T.review.services} value={est.selectedSvcNames.join(", ") || "—"} />
         <div style={{ marginTop: "16px" }}>
           <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.dimensions}</p>
-          <ReviewRow label={T.svcLabels[d.service] || d.service} value={`${d.area || 0} ${isUS ? "sqft" : "m²"}`} />
+          <ReviewRow label={T.review.totalArea} value={`${Math.round(est.totalArea).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
         </div>
       </Section>
 
