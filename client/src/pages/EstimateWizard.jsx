@@ -20,6 +20,12 @@ const EXTRA_RATES = {
   ex_3d_ext: 0.10
 };
 
+const FIXED_FEES = {
+  ex_3d_kitchen: 180,
+  ex_3d_bath: 180,
+  ex_3d_laundry: 180
+};
+
 const TRANSLATIONS = {
   EN: {
     backToSite: "← Back to Site",
@@ -116,6 +122,11 @@ const TRANSLATIONS = {
       renovation: "Renovations & Remodeling", other_const: "Other Construction",
       kitchen_remodel: "Kitchen Remodel", bath_remodel: "Bath Remodel", open_concept: "Open Concept Conversion", other_int: "Other Interior"
     },
+    propertyTypes: {
+      single_family: { label: "Single Family Home", sub: "One family" },
+      multi_family: { label: "Multi-Family", sub: "Duplex, Triplex…" },
+      adu: { label: "ADU", sub: "Accessory Dwelling Unit" }
+    },
     svcSubs: {
       new_construction: "Complete project from scratch", addition: "New bedroom, wing or garage", second_story: "Build a new upper floor",
       garage_only: "Standalone garage project", garage_conversion: "Garage → livable area / ADU", basement_finishing: "Remodel and finish a basement",
@@ -150,21 +161,45 @@ const TRANSLATIONS = {
       leisure: "Entertainment & Outdoor",
       tech: "Utilities & Tech"
     },
-    grandTotalSummary: "Grand Total Summary",
-    grandTotalSub: "Combined square footage of all selected services",
-    singleLevel: "Single Level",
-    addLevelsLabel: "+ Add Levels / Floors",
-    acceptedFormats: "Accepted: 10'1\", 5'-10\", 180. Dots (.) and commas (,) allowed for decimals.",
-    grandTotal: "Grand Total",
-    levelsLabel: "Levels",
-    constructionStructure: "CONSTRUCTION & STRUCTURE",
-    interiors: "INTERIORS",
-    projectDimensions: "PROJECT DIMENSIONS",
-    addLevelsFloors: "+ Add Levels / Floors",
-    grandTotalSummaryTitle: "Grand Total Summary",
-    combinedSqft: "Combined square footage of all selected services",
-    propertyTypeLabel: "PROPERTY TYPE",
-    typeOfService: "TYPE OF SERVICE"
+    projectDimensions: "Project Dimensions",
+    addLevelsFloors: "Add Levels / Floors",
+    propertyTypeLabel: "Property Type",
+    lotSizeLabel: "Lot Size",
+    pkgTitles: {
+      as_built_permit: "As-Built Drawings & Permit Packages",
+      floor_plans_only: "Floor Plans Only",
+      pdf_to_cad: "PDF to CAD Conversion",
+      "3d_rendering": "3D Realistic Rendering"
+    },
+    pkgSubs: {
+      as_built_permit: "Comprehensive package including all floor levels, design extras, and 3D visualization.",
+      floor_plans_only: "Detailed 2D architectural drawings of your existing space.",
+      pdf_to_cad: "High-precision conversion of your existing PDF plans into professional CAD format.",
+      "3d_rendering": "Breathtaking photorealistic visualizations of your architectural project."
+    },
+    pkgDetails: {
+      as_built_permit: {
+        summary: "Comprehensive architectural package tailored to your needs. From essential municipal documentation to full executive design, including 3D visualization and technical detailing.",
+        whatYouReceive: [
+          { title: "Basic Permit Set (Fundamental)", desc: "Essential set including Existing/Demolition/Proposed plans, 2 Sections, 4 Elevations, and Roof Plan." },
+          { title: "Design & Space Planning (Optional)", desc: "Aesthetic development, optimal room flow analysis, and micro-level interior layout." },
+          { title: "Technical Construction Set (Optional)", desc: "Framing plans (pre-dimensioning), construction details, and schedules for the builder." },
+          { title: "3D Visualization (Optional)", desc: "High-fidelity exterior rendering to see the final result before construction." },
+          { title: "Existing Conditions / History", desc: "Detailed digital documentation of the property's current state and historical records." }
+        ],
+        notIncluded: ["Material Procurement", "Landscape Design", "Cabinetry Shop Drawings"],
+        idealFor: ["Homeowners needing permits", "Complex Projects", "Professional Approval"]
+      },
+      floor_plans_only: {
+        tag: "LOW COMPLEXITY",
+        summary: "A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans.",
+        whatYouReceive: ["Fundamental Spatial Layouts", "Dimensioned Floor Plans"],
+        notIncluded: ["Exterior Design", "3D Renderings", "Building Permits", "Structural Engineering"],
+        idealFor: ["Initial Planning", "Cosmetic Renovations", "Concept Only"]
+      },
+      pdf_to_cad: { tag: "PRECISION", summary: "Professional conversion of existing PDF drawings into editable CAD (DWG) format." },
+      "3d_rendering": { tag: "VISUALIZATION", summary: "High-fidelity realistic imagery for your future project." }
+    }
   },
   PT: {
     backToSite: "← Voltar ao Site",
@@ -261,6 +296,11 @@ const TRANSLATIONS = {
       renovation: "Reformas e Remodelações", other_const: "Outra Construção",
       kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro", open_concept: "Conversão de Conceito Aberto", other_int: "Outro Interior"
     },
+    propertyTypes: {
+      single_family: { label: "Residencial Unifamiliar", sub: "Uma família" },
+      multi_family: { label: "Multifamiliar", sub: "Duplex, Triplex…" },
+      adu: { label: "ADU", sub: "Unidade Acessória" }
+    },
     svcSubs: {
       new_construction: "Projeto completo do zero", addition: "Novo quarto, anexo ou garagem", second_story: "Construir um novo andar superior",
       garage_only: "Projeto de garagem independente", garage_conversion: "Garagem → área habitável / ADU", basement_finishing: "Remodelar e finalizar um subsolo",
@@ -295,21 +335,45 @@ const TRANSLATIONS = {
       leisure: "Lazer e Externo",
       tech: "Utilidades e Técnica"
     },
-    grandTotalSummary: "Resumo do Total Geral",
-    grandTotalSub: "Área total combinada de todos os serviços selecionados",
-    singleLevel: "Nível Único",
-    addLevelsLabel: "+ Adicionar Níveis / Andares",
-    acceptedFormats: "Aceito: 10'1\", 5'-10\", 180. Pontos (.) e vírgulas (,) permitidos para decimais.",
-    grandTotal: "Total Geral",
-    levelsLabel: "Níveis",
-    constructionStructure: "CONSTRUÇÃO E ESTRUTURA",
-    interiors: "INTERIORES",
-    projectDimensions: "DIMENSÕES DO PROJETO",
-    addLevelsFloors: "+ Adicionar Níveis / Andares",
-    grandTotalSummaryTitle: "Resumo do Total Geral",
-    combinedSqft: "Área total combinada de todos os serviços selecionados",
-    propertyTypeLabel: "TIPO DE PROPRIEDADE",
-    typeOfService: "TIPO DE SERVIÇO"
+    projectDimensions: "Dimensões do Projeto",
+    addLevelsFloors: "Adicionar Níveis / Andares",
+    propertyTypeLabel: "Tipo de Propriedade",
+    lotSizeLabel: "Tamanho do Lote",
+    pkgTitles: {
+      as_built_permit: "Desenhos As-Built e Pacotes de Prefeitura",
+      floor_plans_only: "Apenas Plantas Baixas",
+      pdf_to_cad: "Conversão de PDF para CAD",
+      "3d_rendering": "Renderização 3D Realista"
+    },
+    pkgSubs: {
+      as_built_permit: "Pacote completo incluindo todos os níveis, extras de design e visualização 3D.",
+      floor_plans_only: "Desenhos arquitetônicos 2D detalhados do seu espaço existente.",
+      pdf_to_cad: "Conversão de alta precisão de seus planos PDF em formato CAD profissional.",
+      "3d_rendering": "Visualizações fotorrealistas impressionantes do seu projeto arquitetônico."
+    },
+    pkgDetails: {
+      as_built_permit: {
+        summary: "Pacote arquitetônico abrangente adaptado às suas necessidades. Da documentação municipal essencial ao design executivo completo.",
+        whatYouReceive: [
+          { title: "Conjunto Básico de Permissão", desc: "Plano essencial incluindo plantas Existente/Demolição/Proposto, cortes, fachadas e telhado." },
+          { title: "Design e Planejamento de Espaço (Opcional)", desc: "Desenvolvimento estético e análise de fluxo otimizada." },
+          { title: "Conjunto Técnico de Construção (Opcional)", desc: "Planos de estrutura e detalhes para o construtor." },
+          { title: "Visualização 3D (Opcional)", desc: "Renderização externa de alta fidelidade." },
+          { title: "Histórico / Existente", desc: "Documentação digital do estado atual e registros históricos da propriedade." }
+        ],
+        notIncluded: ["Compra de Materiais", "Paisagismo", "Desenhos de Marcenaria"],
+        idealFor: ["Proprietários que precisam de aprovação", "Projetos Complexos", "Aprovação Profissional"]
+      },
+      floor_plans_only: {
+        tag: "BAIXA COMPLEXIDADE",
+        summary: "Um serviço simplificado que entrega layouts espaciais fundamentais e plantas baixas dimensionadas.",
+        whatYouReceive: ["Layouts Espaciais Fundamentais", "Plantas Baixas Dimensionadas"],
+        notIncluded: ["Design Exterior", "Renderizações 3D", "Aprovação de Prefeitura", "Engenharia Estrutural"],
+        idealFor: ["Planejamento Inicial", "Reformas Estéticas", "Apenas Conceito"]
+      },
+      pdf_to_cad: { tag: "PRECISÃO", summary: "Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável." },
+      "3d_rendering": { tag: "VISUALIZAÇÃO", summary: "Imagens realistas de alta fidelidade para o seu futuro projeto." }
+    }
   }
 };
 
@@ -502,19 +566,7 @@ function calcEst(d, lang = "EN", step) {
   const fmt = (n) => sym + Math.round(n).toLocaleString(isUS ? "en-US" : "pt-BR");
   const fmtEx = (n) => sym + n.toLocaleString(isUS ? "en-US" : "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  const SVC_LABELS = lang === "EN" ? {
-    new_construction: "New Construction", addition: "Addition", second_story: "Second Story",
-    garage_only: "Garage", garage_conversion: "Garage Conversion", basement_finishing: "Basement Finishing",
-    deck_covered: "Covered Deck", deck_open: "Open Deck", porch_covered: "Covered Porch", porch_open: "Open Porch",
-    renovation: "Renovation", kitchen_remodel: "Kitchen Remodel", bath_remodel: "Bath Remodel",
-    open_concept: "Open Concept Conversion", other_const: "Other Construction", other_int: "Other Interior"
-  } : {
-    new_construction: "Nova Construção", addition: "Ampliação", second_story: "Segundo Pavimento",
-    garage_only: "Garagem", garage_conversion: "Conversão de Garagem", basement_finishing: "Acabamento de Subsolo",
-    deck_covered: "Deck Coberto", deck_open: "Deck Aberto", porch_covered: "Varanda Coberta", porch_open: "Varanda Aberta",
-    renovation: "Reforma", kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro",
-    open_concept: "Conversão de Conceito Aberto", other_const: "Outra Construção", other_int: "Outro Interior"
-  };
+  const SVC_LABELS = T.svcLabels || {};
 
   const dims = d.dims || {};
   const dimExtras = d.dimExtras || [];
@@ -803,6 +855,7 @@ export default function EstimateWizard() {
       return !!(data.name && data.email && data.phone && data.role);
     }
     if (step === 2) {
+      const isUS = data.region !== "BR";
       const selectedSvcs = Object.keys(data.services || {}).filter(k => data.services[k]);
       if (selectedSvcs.length === 0) return false;
 
@@ -1287,7 +1340,11 @@ function S3({ d, up, lang }) {
   };
 
   const selectedSvcs = Object.keys(services).filter(k => services[k]);
-  const onDimKeyDown = (e) => { if (e.key === "." || e.key === ",") e.preventDefault(); };
+  const onDimKeyDown = (e) => {
+    // No modo US, bloquear ponto/vírgula (usa formato 10'6")
+    // No modo BR, permitir vírgula e ponto para decimais
+    if (isUS && (e.key === "." || e.key === ",")) e.preventDefault();
+  };
 
   const levelLabels = {
     main: T.groundFloor,
@@ -1338,9 +1395,9 @@ function S3({ d, up, lang }) {
       <p className="wz-label" style={{ marginBottom: 12 }}>{T.propertyTypeLabel || "PROPERTY TYPE"}</p>
       <div className="wz-grid-adaptive" style={{ marginBottom: 20 }}>
         {[
-          { id: "single_family", icon: "🏠", label: isUS ? "Single Family Home" : "Residencial Unifamiliar", sub: isUS ? "One family" : "Uma família" },
-          { id: "multi_family", icon: "🏘️", label: isUS ? "Multi-Family" : "Multifamiliar", sub: isUS ? "Duplex, Triplex…" : "Duplex, Triplex…" },
-          { id: "adu", icon: "🛖", label: "ADU", sub: isUS ? "Accessory Dwelling Unit" : "Unidade Acessória" },
+          { id: "single_family", icon: "🏠", label: T.propertyTypes.single_family.label, sub: T.propertyTypes.single_family.sub },
+          { id: "multi_family", icon: "🏘️", label: T.propertyTypes.multi_family.label, sub: T.propertyTypes.multi_family.sub },
+          { id: "adu", icon: "🛖", label: T.propertyTypes.adu.label, sub: T.propertyTypes.adu.sub },
         ].map(pt => (
           <div key={pt.id} className={`wz-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "18px 10px" }}>
             <div style={{ fontSize: 28, marginBottom: 8 }}>{pt.icon}</div>
@@ -1417,8 +1474,8 @@ function S3({ d, up, lang }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {selectedSvcs.map(svcId => {
               const svcLabel = [...CONST_SVC, ...INT_SVC].find(s => s.id === svcId)?.label || svcId;
-              const wVal = d.dims[svcId]?.w || "";
-              const lVal = d.dims[svcId]?.l || "";
+              const wVal = dims[svcId]?.w || "";
+              const lVal = dims[svcId]?.l || "";
               const wi = parseDim(wVal, isUS);
               const li = parseDim(lVal, isUS);
               const a = isUS ? (wi * li / 144) : (wi * li);
@@ -1427,7 +1484,7 @@ function S3({ d, up, lang }) {
                 <div key={svcId} style={{ background: "var(--bg3)", padding: 20, borderRadius: "var(--r)", border: "1.5px solid var(--border)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase" }}>{svcLabel}</p>
-                    {a > 0 && <div style={{ background: "rgba(100, 108, 255, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(a)} {au}</div>}
+                    {getSvcArea(svcId) > 0 && <div style={{ background: "rgba(100, 108, 255, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(getSvcArea(svcId))} {au}</div>}
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 10, alignItems: "start", marginBottom: 20 }}>
                     <div className="wz-f">
@@ -1489,7 +1546,7 @@ function S3({ d, up, lang }) {
       {/* Removed Redundant Summary Panel as it is now in the Sidebar */}
 
       <div className="wz-f" style={{ marginBottom: 28 }}>
-        <label className="wz-label">{T.lotSizeLabel || (lang === 'PT' ? 'TAMANHO DO LOTE' : 'LOT SIZE')} (OPTIONAL, {au.toUpperCase()})</label>
+        <label className="wz-label">{T.lotSizeLabel} (OPTIONAL, {au.toUpperCase()})</label>
         <input className="wz-inp" placeholder="e.g. 5000" style={{ maxWidth: 240 }} value={d.lotSize || ""} onChange={e => up("lotSize", e.target.value)} />
       </div>
     </div>
@@ -1529,30 +1586,17 @@ function S4({ d, up, est, lang }) {
     {
       id: "as_built_permit",
       icon: "🏛️",
-      title: isUS ? "As-Built Drawings & Permit Packages" : "Desenhos As-Built e Pacotes de Permissão",
-      subtitle: isUS ? "Customize your drawing set based on your project's needs." : "Personalize seu conjunto de desenhos de acordo com as necessidades do seu projeto.",
+      title: T.pkgTitles.as_built_permit,
+      subtitle: T.pkgSubs.as_built_permit,
       tag: "HIGH COMPLEXITY",
       tagColor: "rgba(245, 158, 11, 0.15)",
       tagTextCol: "#F59E0B",
-      desc: "Customize your drawing set based on your project's needs. Comprehensive package including all floor levels, design extras, and 3D visualization.",
+      desc: T.pkgSubs.as_built_permit,
       details: {
-        summary: "Comprehensive architectural package tailored to your needs. From essential municipal documentation to full executive design, including 3D visualization and technical detailing.",
-        whatYouReceiveItems: [
-          { title: "Basic Permit Set (Fundamental)", desc: "Essential set including Existing/Demolition/Proposed plans, 2 Sections, 4 Elevations, and Roof Plan." },
-          { title: "Design & Space Planning (Optional)", desc: "Aesthetic development, optimal room flow analysis, and micro-level interior layout." },
-          { title: "Technical Construction Set (Optional)", desc: "Framing plans (pre-dimensioning), construction details, and schedules for the builder. Reduz desperdício de material e tempo de obra." },
-          { title: "3D Visualization (Optional)", desc: "High-fidelity exterior rendering to see the final result before construction." }
-        ],
-        notIncluded: [
-          "Material Procurement: We do not handle the purchase or delivery of construction materials.",
-          "Landscape Design: Detailed outdoor greenery and garden planning are not included.",
-          "Cabinetry Shop Drawings: Does not include millwork fabrication drawings (only layout/design)."
-        ],
-        idealFor: [
-          "Homeowners: Anyone who needs to build, remodel, or obtain a building permit.",
-          "Complex Projects: Full-scale renovations in Dover, Weston, and surrounding areas.",
-          "Professional Approval: Streamlining the municipal code review process."
-        ],
+        summary: T.pkgDetails.as_built_permit.summary,
+        whatYouReceiveItems: T.pkgDetails.as_built_permit.whatYouReceive,
+        notIncluded: T.pkgDetails.as_built_permit.notIncluded,
+        idealFor: T.pkgDetails.as_built_permit.idealFor,
         extras: [
           {
             group: "DESIGN EXTRAS", items: [
@@ -1582,37 +1626,25 @@ function S4({ d, up, est, lang }) {
       id: "floor_plans_only",
       icon: "📐",
       title: isUS ? "Floor Plans Only" : "Apenas Plantas Baixas",
-      tag: isUS ? "LOW COMPLEXITY" : "BAIXA COMPLEXIDADE",
+      tag: T.pkgDetails.floor_plans_only.tag,
       tagColor: "rgba(59, 130, 246, 0.15)",
       tagTextCol: "#60A5FA",
-      desc: isUS ? "Essential spatial layouts and dimensioned floor plans. Does not include exterior design or 3D renderings." : "Layouts espaciais essenciais e plantas baixas dimensionadas. Não inclui design exterior ou renderizações 3D.",
+      desc: T.pkgSubs.floor_plans_only,
       details: {
-        summary: "A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans. This is the functional \"skeleton\" of your project, focusing on internal organization.",
-        whatYouReceiveItems: [
-          { title: "Fundamental Spatial Layouts", desc: "Basic organization and distribution of rooms and internal spaces." },
-          { title: "Dimensioned Floor Plans", desc: "Technical drawings showing precise measurements and dimensions of walls and openings." }
-        ],
-        notIncluded: [
-          "Exterior Design: No elevations (fachadas) or roof plans.",
-          "3D Renderings: No three-dimensional images or realistic visualizations.",
-          "Building Permits: Does not include documentation or technical notes for municipal approval.",
-          "Structural Engineering: No load calculations or framing details."
-        ],
-        idealFor: [
-          "Initial Planning: Clients who want to decide on a layout before hiring engineers.",
-          "Cosmetic Renovations: Aesthetic updates that do not require structural changes.",
-          "Concept Only: When you don't yet need a full set of documents for legal permit."
-        ]
+        summary: T.pkgDetails.floor_plans_only.summary,
+        whatYouReceiveItems: T.pkgDetails.floor_plans_only.whatYouReceive.map(t => ({ title: t, desc: "" })),
+        notIncluded: T.pkgDetails.floor_plans_only.notIncluded,
+        idealFor: T.pkgDetails.floor_plans_only.idealFor,
       }
     },
     {
       id: "3d_rendering",
       icon: "🎨",
-      title: "3D Realistic Rendering",
-      tag: "VISUALIZATION",
+      title: T.pkgTitles["3d_rendering"],
+      tag: T.pkgDetails["3d_rendering"].tag,
       tagColor: "rgba(139, 92, 246, 0.15)",
       tagTextCol: "#A78BFA",
-      desc: "The \"photo\" of the future.",
+      desc: T.pkgDetails["3d_rendering"].summary,
       details: {
         summary: "The \"photo\" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.",
         whatYouReceiveItems: [
@@ -1646,13 +1678,13 @@ function S4({ d, up, est, lang }) {
     {
       id: "pdf_to_cad",
       icon: "💻",
-      title: "PDF to CAD Conversion",
-      tag: "DRAFTING ONLY",
+      title: T.pkgTitles.pdf_to_cad,
+      tag: T.pkgDetails.pdf_to_cad.tag,
       tagColor: "rgba(245, 158, 11, 0.15)",
       tagTextCol: "#F59E0B",
-      desc: "Convert existing PDF blueprints or hand-drawn sketches into fully editable digital CAD files.",
+      desc: T.pkgSubs.pdf_to_cad,
       details: {
-        summary: "Technical drafting service to convert existing PDF blueprints, hand-drawn sketches, or old plans into fully editable and scaled digital CAD (.dwg) files. This service is purely focused on digitization and does not include new design work.",
+        summary: T.pkgDetails.pdf_to_cad.summary,
         whatYouReceiveItems: [
           { title: "Fully Editable CAD Files", desc: "Your existing documentation converted into professional .dwg format." },
           { title: "Accurate Scaling", desc: "Conversion of old plans or sketches into precise, scaled digital drawings." },
