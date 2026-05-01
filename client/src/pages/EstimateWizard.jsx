@@ -20,6 +20,12 @@ const EXTRA_RATES = {
   ex_3d_ext: 0.10
 };
 
+const FIXED_FEES = {
+  ex_3d_kitchen: 180,
+  ex_3d_bath: 180,
+  ex_3d_laundry: 180
+};
+
 const MARKET_DATA = {
   US: {
     zipMask: "99999",
@@ -41,12 +47,6 @@ const MARKET_DATA = {
     dimL: "ex: 15.5",
     addressLabel: { EN: "Project address in Brazil", PT: "Endereço do projeto no Brasil" }
   }
-};
-
-const FIXED_FEES = {
-  ex_3d_kitchen: 180,
-  ex_3d_bath: 180,
-  ex_3d_laundry: 180
 };
 
 const TRANSLATIONS = {
