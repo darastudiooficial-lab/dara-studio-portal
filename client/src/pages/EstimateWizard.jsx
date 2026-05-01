@@ -383,7 +383,9 @@ const TRANSLATIONS = {
       secureNotice: "Secure payment via Stripe or Bank Transfer",
       saveLater: "💾 Save for Later",
       emailEstimate: "Just email me this estimate for now",
-      redirectNotice: "You will be redirected to our secure client portal to finalize your order."
+      redirectNotice: "You will be redirected to our secure client portal to finalize your order.",
+      resetButton: "↻ Reset",
+      resetConfirm: "Reset all progress and start over?"
     }
   },
   PT: {
@@ -719,7 +721,9 @@ const TRANSLATIONS = {
       secureNotice: "Pagamento seguro via Stripe ou Transferência Bancária",
       saveLater: "💾 Salvar para Depois",
       emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
-      redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido."
+      redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido.",
+      resetButton: "↻ Recomeçar",
+      resetConfirm: "Recomeçar do zero? Todos os dados serão perdidos."
     }
   }
 };
@@ -1269,6 +1273,15 @@ export default function EstimateWizard() {
                 {T.backToSite}
               </button>
               <div style={{ height: 20, width: 1, background: "var(--border)" }} />
+              {step > 0 && (
+                <button 
+                  className="wz-btn-ghost" 
+                  onClick={() => window.confirm(T.review.resetConfirm) && resetWizard()}
+                  style={{ padding: "4px 8px", fontSize: 11, color: "var(--mu)" }}
+                >
+                  {T.review.resetButton}
+                </button>
+              )}
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--a)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontFamily: "var(--font-serif)", fontSize: 14, color: "#fff", fontStyle: "italic" }}>D</span>
