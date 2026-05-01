@@ -314,6 +314,54 @@ const TRANSLATIONS = {
         ex_3d_bath: { label: "3D Bathroom Design", desc: "Detailed 3D rendering of your primary bathroom." },
         ex_3d_laundry: { label: "3D Laundry Design", desc: "Functional and aesthetic visualization of the laundry space." }
       }
+    },
+    review: {
+      client: "Client",
+      location: "Location",
+      project: "Project",
+      summary: "Final Summary",
+      documentation: "Documentation",
+      name: "Name",
+      email: "Email",
+      phone: "Phone",
+      role: "Role",
+      address: "Address",
+      region: "Region",
+      regionUS: "United States",
+      regionBR: "Brazil",
+      propType: "Property Type",
+      levels: "Levels",
+      services: "Services",
+      dimensions: "DIMENSIONS",
+      totalArea: "Total Square Footage",
+      selectedSvcs: "SELECTED SERVICES",
+      timeline: "Estimated Timeline",
+      docsVerified: "Documents successfully verified.",
+      noDocs: "No documents attached",
+      edit: "Edit",
+      builderDiscount: "Professional Builder? Register your firm below to unlock a 10% volume discount on all future permit sets in MA.",
+      title: "Review your brief.",
+      sub: "Verify every detail before submitting. Click any section to edit.",
+      groundFloor: "Ground Floor",
+      multipleFloors: "Multiple Floors",
+      days510: "5–10 Business Days",
+      days816: "8–16 Business Days",
+      timelineStandard: "Standard (Contact Studio)",
+      errorOccurred: "An error occurred. Please try again.",
+      whatNext: "WHAT HAPPENS NEXT",
+      nextSteps: [
+        { title: "Estimate Review", desc: "Our team reviews your brief within 24 hours." },
+        { title: "Formal Quote", desc: "You receive a detailed, no-surprise proposal." }
+      ],
+      legalTitle: "IMPORTANT LEGAL DISCLAIMER",
+      legalBody: "This estimate is strictly for initial design and drafting services. It DOES NOT INCLUDE professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record to review, certify, and stamp the final drawings for municipal approval.",
+      agreementBody: "The value above is an estimate based on the information provided. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.",
+      processing: "⌛ Processing...",
+      payRetainer: "🛡️ Pay Retainer & Start Project",
+      secureNotice: "Secure payment via Stripe or Bank Transfer",
+      saveLater: "💾 Save for Later",
+      emailEstimate: "Just email me this estimate for now",
+      redirectNotice: "You will be redirected to our secure client portal to finalize your order."
     }
   },
   PT: {
@@ -580,7 +628,55 @@ const TRANSLATIONS = {
     notIncludedTitle: "NÃO INCLUSO",
     idealForTitle: "IDEAL PARA",
     serviceCustomization: "CUSTOMIZAÇÃO DE SERVIÇOS",
-    summaryTitle: "RESUMO"
+    summaryTitle: "RESUMO",
+    review: {
+      client: "Cliente",
+      location: "Localização",
+      project: "Projeto",
+      summary: "Resumo Final",
+      documentation: "Documentação",
+      name: "Nome",
+      email: "E-mail",
+      phone: "Telefone",
+      role: "Papel",
+      address: "Endereço",
+      region: "Região",
+      regionUS: "Estados Unidos",
+      regionBR: "Brasil",
+      propType: "Tipo de Propriedade",
+      levels: "Níveis",
+      services: "Serviços",
+      dimensions: "DIMENSÕES",
+      totalArea: "Área Total",
+      selectedSvcs: "SERVIÇOS SELECIONADOS",
+      timeline: "Cronograma Estimado",
+      docsVerified: "Documentos verificados com sucesso.",
+      noDocs: "Nenhum documento anexado",
+      edit: "Editar",
+      builderDiscount: "Construtor Profissional? Registre sua empresa abaixo para desbloquear um desconto de volume de 10% em todos os futuros conjuntos de licenças em MA.",
+      title: "Revise seu resumo.",
+      sub: "Verifique todos os detalhes antes de enviar. Clique em qualquer seção para editar.",
+      groundFloor: "Térreo",
+      multipleFloors: "Múltiplos Andares",
+      days510: "5–10 Dias Úteis",
+      days816: "8–16 Dias Úteis",
+      timelineStandard: "Padrão (Contate o Studio)",
+      errorOccurred: "Ocorreu um erro. Tente novamente.",
+      whatNext: "PRÓXIMOS PASSOS",
+      nextSteps: [
+        { title: "Revisão da Estimativa", desc: "Nossa equipe revisa seu resumo em até 24 horas." },
+        { title: "Cotação Formal", desc: "Você recebe uma proposta detalhada e sem surpresas." }
+      ],
+      legalTitle: "AVISO LEGAL IMPORTANTE",
+      legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para a submissão de licenças de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado para revisar, certificar e carimbar os desenhos finais para aprovação municipal.",
+      agreementBody: "O valor acima é uma estimativa baseada nas informações fornecidas. A taxa final será confirmada após nossa equipe revisar seu resumo. Ao prosseguir, você concorda em receber uma proposta formal.",
+      processing: "⌛ Processando...",
+      payRetainer: "🛡️ Pagar Sinal e Iniciar Projeto",
+      secureNotice: "Pagamento seguro via Stripe ou Transferência Bancária",
+      saveLater: "💾 Salvar para Depois",
+      emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
+      redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido."
+    }
   }
 };
 
@@ -1039,6 +1135,8 @@ export default function EstimateWizard() {
   } = useAppContext();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submissionType, setSubmissionType] = useState(null); // 'save' or 'accept'
 
   const T = TRANSLATIONS[lang];
   const STEPS = lang === "EN" ? STEPS_EN : STEPS_PT;
@@ -1141,23 +1239,36 @@ export default function EstimateWizard() {
       {/* ── Main Content ── */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "36px 20px 100px" }}>
         <div className={`wz-main-layout ${step >= 2 ? "has-sidebar" : ""}`}>
-          <div className="wz-animate" key={step}>
-            {step === 0 && <S1 d={data} up={up} lang={lang} />}
-            {step === 1 && <S2 d={data} up={up} lang={lang} />}
-            {step === 2 && <S3 d={data} up={up} est={est} lang={lang} />}
-            {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
-            {step === 4 && <S6 d={data} up={up} lang={lang} />}
-            {step === 5 && <S7 d={data} up={up} lang={lang} />}
-            {step === 6 && <S8 d={data} up={up} lang={lang} />}
-            {step === 7 && <S9 d={data} est={est} lang={lang} />}
+          <div className="wz-animate" key={submitted ? "success" : step}>
+            {submitted ? (
+              <SuccessScreen
+                type={submissionType}
+                lang={lang}
+                onBack={() => setSubmitted(false)}
+                navigate={navigate}
+                T={T}
+              />
+            ) : (
+              <>
+                {step === 0 && <S1 d={data} up={up} lang={lang} />}
+                {step === 1 && <S2 d={data} up={up} lang={lang} />}
+                {step === 2 && <S3 d={data} up={up} est={est} lang={lang} />}
+                {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
+                {step === 4 && <S6 d={data} up={up} lang={lang} />}
+                {step === 5 && <S7 d={data} up={up} lang={lang} />}
+                {step === 6 && <S8 d={data} up={up} lang={lang} />}
+                {step === 7 && <S9 d={data} est={est} lang={lang} setSubmitted={setSubmitted} setSubmissionType={setSubmissionType} />}
+              </>
+            )}
 
-            {/* Navigation */}
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
-              <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? "hidden" : "visible" }}>{T.back}</button>
-              {step < STEPS.length - 1 && (
-                <button className="wz-btn-primary" onClick={next} disabled={!canGo()}>{T.continue}</button>
-              )}
-            </div>
+            {!submitted && (
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
+                <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? "hidden" : "visible" }}>{T.back}</button>
+                {step < STEPS.length - 1 && (
+                  <button className="wz-btn-primary" onClick={next} disabled={!canGo()}>{T.continue}</button>
+                )}
+              </div>
+            )}
           </div>
 
           {step >= 2 && (
@@ -2413,28 +2524,23 @@ function S8({ d, up, lang }) {
   );
 }
 
-function S9({ d, est, setStep, lang }) {
+function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   const isUS = d.region !== "BR";
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
+  const handleAction = async (type) => {
     setLoading(true);
     setError("");
     try {
-      // Profile marking for CRM
-      const profileType = d.role || "unknown";
-      const crmUrl = `https://crm.darastudio.com/leads?source=wizard&profile=${profileType}&name=${encodeURIComponent(d.name || "")}&email=${encodeURIComponent(d.email || "")}`;
-
-      // In a real scenario, we might post to our backend first
-      // For now, we simulate the submission and redirect
-      setTimeout(() => {
-        navigate("/portal");
-      }, 1000);
+      // Simulate submission delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setSubmissionType(type);
+      setSubmitted(true);
     } catch (err) {
       console.error(err);
       setError(isUS ? "An error occurred. Please try again." : "Ocorreu um erro. Tente novamente.");
+    } finally {
       setLoading(false);
     }
   };
@@ -2463,47 +2569,51 @@ function S9({ d, est, setStep, lang }) {
 
   return (
     <div className="wz-animate">
+      {error && (
+        <div style={{ padding: "12px", background: "rgba(239,68,68,0.1)", border: "1px solid var(--rd)", color: "var(--rd)", fontSize: 13, borderRadius: "6px", marginBottom: 24 }}>
+          {error}
+        </div>
+      )}
+
       {d.role === "builder" && (
         <div style={{ background: "rgba(0, 128, 128, 0.1)", border: "2px solid #008080", padding: "20px 24px", borderRadius: "12px", marginBottom: "32px", boxShadow: "0 8px 32px rgba(0, 128, 128, 0.15)" }}>
           <p style={{ fontSize: "15px", fontWeight: "700", color: "#008080", lineHeight: "1.4" }}>
-            {isUS
-              ? "Professional Builder? Register your firm below to unlock a 10% volume discount on all future permit sets in MA."
-              : "Construtor Profissional? Registre sua empresa abaixo para desbloquear um desconto de volume de 10% em todos os futuros conjuntos de licenças em MA."}
+            {T.review.builderDiscount}
           </p>
         </div>
       )}
 
-      <Title label={isUS ? "Review your brief." : "Revise seu resumo."} sub={isUS ? "Verify every detail before submitting. Click any section to edit." : "Verifique cada detalhe antes de enviar. Clique em qualquer seção para editar."} />
+      <Title label={T.review.title} sub={T.review.sub} />
 
 
       <div className="wz-grid-adaptive" style={{ marginBottom: 40, gap: 20 }}>
-        <Section icon="👤" title="Client" step={1}>
-          <ReviewRow label="Name" value={d.name} />
-          <ReviewRow label="Email" value={d.email} />
-          <ReviewRow label="Phone" value={d.phone} />
-          <ReviewRow label="Role" value={d.role} />
+        <Section icon="👤" title={T.review.client} step={1}>
+          <ReviewRow label={T.review.name} value={d.name} />
+          <ReviewRow label={T.review.email} value={d.email} />
+          <ReviewRow label={T.review.phone} value={d.phone} />
+          <ReviewRow label={T.review.role} value={T.roles[d.role] || d.role} />
         </Section>
 
-        <Section icon="📍" title="Location" step={0}>
-          <ReviewRow label="Address" value={d.street} />
-          <ReviewRow label="Region" value={d.region === "BR" ? "Brazil" : "United States"} />
+        <Section icon="📍" title={T.review.location} step={0}>
+          <ReviewRow label={T.review.address} value={d.street} />
+          <ReviewRow label={T.review.region} value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
         </Section>
       </div>
 
-      <Section icon="🏗️" title="Project" step={2}>
-        <ReviewRow label="Property Type" value={d.propertyType} />
-        <ReviewRow label="Levels" value={d.levels === "single" ? "Ground Floor" : "Multiple Floors"} />
-        <ReviewRow label="Services" value={d.service} />
+      <Section icon="🏗️" title={T.review.project} step={2}>
+        <ReviewRow label={T.review.propType} value={T.propertyTypes[d.propertyType]?.label || d.propertyType} />
+        <ReviewRow label={T.review.levels} value={d.levels === "single" ? T.review.groundFloor : T.review.multipleFloors} />
+        <ReviewRow label={T.review.services} value={T.svcLabels[d.service] || d.service} />
         <div style={{ marginTop: "16px" }}>
-          <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>DIMENSIONS</p>
-          <ReviewRow label={d.service} value={`${d.area || 0} sqft`} />
+          <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.dimensions}</p>
+          <ReviewRow label={T.svcLabels[d.service] || d.service} value={`${d.area || 0} ${isUS ? "sqft" : "m²"}`} />
         </div>
       </Section>
 
-      <Section icon="📋" title={isUS ? "Final Summary" : "Resumo Final"} step={3}>
-        <ReviewRow label={isUS ? "Total Square Footage" : "Área Total"} value={`${Math.round(est.totalArea).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
+      <Section icon="📋" title={T.review.summary} step={3}>
+        <ReviewRow label={T.review.totalArea} value={`${Math.round(est.totalArea).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
         <div style={{ marginTop: "12px", padding: "12px", background: "rgba(255,255,255,0.01)", borderRadius: "8px" }}>
-          <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{isUS ? "SELECTED SERVICES" : "SERVIÇOS SELECIONADOS"}</p>
+          <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.selectedSvcs}</p>
           {est.bd.map((it, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", padding: "4px 0" }}>
               <span style={{ color: "var(--mu)" }}>{it.l}</span>
@@ -2513,37 +2623,32 @@ function S9({ d, est, setStep, lang }) {
         </div>
         <div style={{ marginTop: "12px" }}>
           <ReviewRow
-            label={isUS ? "Estimated Timeline" : "Cronograma Estimado"}
-            value={d.rush === "express" ? (isUS ? "5–10 Business Days" : "5–10 Dias Úteis") :
-              d.rush === "rush" ? (isUS ? "8–16 Business Days" : "8–16 Dias Úteis") :
-                (isUS ? "Standard (Contact Studio)" : "Padrão (Contate o Studio)")}
+            label={T.review.timeline}
+            value={d.rush === "express" ? T.review.days510 :
+              d.rush === "rush" ? T.review.days816 :
+                T.review.timelineStandard}
           />
         </div>
       </Section>
 
-      <Section icon="📂" title="Documentation" step={5}>
+      <Section icon="📂" title={T.review.documentation} step={5}>
         <p style={{ fontSize: "13px", color: "var(--dm)", fontStyle: "italic" }}>
-          {Object.keys(d).some(k => k.startsWith('chk_') && d[k]) ? "Documents successfully verified." : "No documents attached"}
+          {Object.keys(d).some(k => k.startsWith('chk_') && d[k]) ? T.review.docsVerified : T.review.noDocs}
         </p>
       </Section>
 
       <div style={{ marginTop: "48px", marginBottom: "48px" }}>
-        <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "24px" }}>WHAT HAPPENS NEXT</h3>
+        <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "24px" }}>{T.review.whatNext}</h3>
         <div className="wz-grid-adaptive" style={{ gap: "24px" }}>
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #6366f1", display: "flex", alignItems: "center", justifyContent: "center", color: "#6366f1", fontSize: "14px", fontWeight: "700", flexShrink: 0 }}>01</div>
-            <div>
-              <h4 style={{ fontSize: "15px", fontWeight: "600", color: "var(--tx)", marginBottom: "4px" }}>Estimate Review</h4>
-              <p style={{ fontSize: "13px", color: "var(--mu)" }}>Our team reviews your brief within 24 hours.</p>
+          {(T.review.nextSteps || []).map((s, idx) => (
+            <div key={idx} style={{ display: "flex", gap: 20 }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #6366f1", display: "flex", alignItems: "center", justifyContent: "center", color: "#6366f1", fontSize: "14px", fontWeight: "700", flexShrink: 0 }}>0{idx + 1}</div>
+              <div>
+                <h4 style={{ fontSize: "15px", fontWeight: "600", color: "var(--tx)", marginBottom: "4px" }}>{s.title}</h4>
+                <p style={{ fontSize: "13px", color: "var(--mu)" }}>{s.desc}</p>
+              </div>
             </div>
-          </div>
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #6366f1", display: "flex", alignItems: "center", justifyContent: "center", color: "#6366f1", fontSize: "14px", fontWeight: "700", flexShrink: 0 }}>02</div>
-            <div>
-              <h4 style={{ fontSize: "15px", fontWeight: "600", color: "var(--tx)", marginBottom: "4px" }}>Formal Quote</h4>
-              <p style={{ fontSize: "13px", color: "var(--mu)" }}>You receive a detailed, no-surprise proposal.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -2551,10 +2656,10 @@ function S9({ d, est, setStep, lang }) {
       <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid #ef444466", borderRadius: "12px", padding: "24px", marginBottom: "20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
           <span style={{ color: "#f59e0b" }}>⚠️</span>
-          <h4 style={{ fontSize: "12px", fontWeight: "700", color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".05em" }}>IMPORTANT LEGAL DISCLAIMER</h4>
+          <h4 style={{ fontSize: "12px", fontWeight: "700", color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".05em" }}>{T.review.legalTitle}</h4>
         </div>
         <p style={{ fontSize: "12px", color: "var(--mu)", lineHeight: "1.8" }}>
-          This estimate is strictly for initial design and drafting services. It <strong>DOES NOT INCLUDE</strong> professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record to review, certify, and stamp the final drawings for municipal approval.
+          {T.review.legalBody}
         </p>
       </div>
 
@@ -2562,38 +2667,85 @@ function S9({ d, est, setStep, lang }) {
       <div style={{ background: "rgba(239, 68, 68, 0.03)", border: "1px solid #ef444444", borderRadius: "12px", padding: "20px", marginBottom: "40px", display: "flex", gap: "16px" }}>
         <span style={{ color: "#ef4444", marginTop: "2px" }}>⚠️</span>
         <p style={{ fontSize: "13px", color: "#ef4444", lineHeight: "1.5" }}>
-          The value above is an estimate based on the information provided. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.
+          {T.review.agreementBody}
         </p>
       </div>
 
       {/* Final Action Buttons */}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px", alignItems: "center" }}>
-        {error && (
-          <div style={{ width: "100%", padding: "12px", background: "rgba(239,68,68,0.1)", border: "1px solid var(--rd)", color: "var(--rd)", fontSize: 13, borderRadius: "6px", marginBottom: 16 }}>
-            {error}
-          </div>
-        )}
-
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button className="wz-btn-primary" onClick={handleSubmit} disabled={loading} style={{ width: "100%", height: "56px", fontSize: "16px", opacity: loading ? 0.7 : 1, background: "var(--a)", boxShadow: "0 0 32px var(--a-glow)" }}>
-            {loading ? (isUS ? "⌛ Processing..." : "⌛ Processando...") : (isUS ? "🛡️ Pay Retainer & Start Project" : "🛡️ Pagar Sinal e Iniciar Projeto")}
+          <button className="wz-btn-primary" onClick={() => handleAction('accept')} disabled={loading} style={{ width: "100%", height: "56px", fontSize: "16px", opacity: loading ? 0.7 : 1, background: "var(--a)", boxShadow: "0 0 32px var(--a-glow)" }}>
+            {loading ? T.review.processing : T.review.payRetainer}
           </button>
-          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "12px" }}>{isUS ? "Secure payment via Stripe or Bank Transfer" : "Pagamento seguro via Stripe ou Transferência"}</p>
+          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "12px" }}>{T.review.secureNotice}</p>
         </div>
 
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button className="wz-btn-ghost" style={{ width: "100%", height: "56px", fontSize: "15px" }}>
-            💾 Save for Later
+          <button className="wz-btn-ghost" onClick={() => handleAction('save')} disabled={loading} style={{ width: "100%", height: "56px", fontSize: "15px" }}>
+            {T.review.saveLater}
           </button>
-          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "12px" }}>Just email me this estimate for now</p>
+          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "12px" }}>{T.review.emailEstimate}</p>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "12px" }}>
           <span style={{ fontSize: "12px", color: "#f59e0b" }}>🔒</span>
-          <p style={{ fontSize: "11px", color: "var(--dm)" }}>You will be redirected to our secure client portal to finalize your order.</p>
+          <p style={{ fontSize: "11px", color: "var(--dm)" }}>{T.review.redirectNotice}</p>
         </div>
       </div>
     </div>
   );
 }
 
+function SuccessScreen({ type, lang, onBack, navigate, T }) {
+  const isUS = lang === "EN";
+  const isSave = type === "save";
+
+  return (
+    <div className="wz-animate" style={{ textAlign: "center", maxWidth: 600, margin: "0 auto", padding: "40px 0" }}>
+      <div style={{ marginBottom: 32, borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.3)", border: "1px solid var(--border)" }}>
+        <img src="/admin-portal/studio-interior.png" alt="Studio Interior" style={{ width: "100%", height: 300, objectFit: "cover" }} />
+      </div>
+
+      <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 32, fontStyle: "italic", marginBottom: 16, color: "var(--tx)" }}>
+        {isSave 
+          ? (isUS ? "Your project is safe with us" : "Seu projeto está seguro conosco")
+          : (isUS ? "The first step toward your new space has been taken" : "O primeiro passo para o seu novo espaço foi dado")}
+      </h2>
+
+      {isSave ? (
+        <p style={{ color: "var(--mu)", fontSize: 16, marginBottom: 40, lineHeight: 1.6 }}>
+          {isUS 
+            ? "We've saved your estimate details. You can come back at any time to complete your project brief." 
+            : "Salvamos os detalhes da sua estimativa. Você pode voltar a qualquer momento para completar o seu resumo do projeto."}
+        </p>
+      ) : (
+        <div style={{ textAlign: "left", background: "var(--bg1)", padding: 32, borderRadius: 16, border: "1px solid var(--border)", marginBottom: 40 }}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 24 }}>{T.review.whatNext}</h3>
+          <div style={{ display: "grid", gap: 24 }}>
+            {(T.review.nextSteps || []).map((s, idx) => (
+              <div key={idx} style={{ display: "flex", gap: 20 }}>
+                <div style={{ width: 32, height: 32, borderRadius: "50%", border: "2px solid var(--a)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--a)", fontSize: 13, fontWeight: 700, flexShrink: 0 }}>0{idx + 1}</div>
+                <div>
+                  <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--tx)", marginBottom: 4 }}>{s.title}</h4>
+                  <p style={{ fontSize: 13, color: "var(--mu)" }}>{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {isSave ? (
+          <button className="wz-btn-primary" onClick={onBack} style={{ width: "100%", height: 56 }}>
+            {isUS ? "Back to Review" : "Voltar para Revisão"}
+          </button>
+        ) : (
+          <button className="wz-btn-primary" onClick={() => navigate("/portal")} style={{ width: "100%", height: 56 }}>
+            {isUS ? "Go to Client Portal" : "Ir para o Portal do Cliente"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
