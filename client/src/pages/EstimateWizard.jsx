@@ -109,7 +109,11 @@ const TRANSLATIONS = {
     expressTimeline: "Fastest possible turnaround",
     includedFree: "Included — FREE",
     idealFor: "Ideal for:",
+    idealForTitle: "IDEAL FOR",
+    notIncludedTitle: "NOT INCLUDED",
+    whatYouReceiveTitle: "WHAT YOU RECEIVE",
     moreDetails: "More details",
+    serviceCustomization: "SERVICE CUSTOMIZATION",
     whatYouReceive: "What you receive",
     roles: { homeowner: "Homeowner", builder: "Builder", architect: "Architect", investor: "Investor", realtor: "Realtor", other: "Other" },
     constructionStructure: "Construction & Structure",
@@ -197,8 +201,39 @@ const TRANSLATIONS = {
         notIncluded: ["Exterior Design", "3D Renderings", "Building Permits", "Structural Engineering"],
         idealFor: ["Initial Planning", "Cosmetic Renovations", "Concept Only"]
       },
-      pdf_to_cad: { tag: "PRECISION", summary: "Professional conversion of existing PDF drawings into editable CAD (DWG) format." },
-      "3d_rendering": { tag: "VISUALIZATION", summary: "High-fidelity realistic imagery for your future project." }
+      pdf_to_cad: {
+        tag: "PRECISION",
+        summary: "Professional conversion of existing PDF drawings into editable CAD (DWG) format.",
+        whatYouReceive: ["Fully Editable CAD Files", "Accurate Scaling", "Layer Organization"],
+        notIncluded: ["Architectural Design", "Code Review", "Field Measurements", "3D Modeling"],
+        idealFor: ["Digital Archiving", "Renovation Base", "Contractors"]
+      },
+      "3d_rendering": {
+        tag: "VISUALIZATION",
+        summary: "The \"photo\" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.",
+        whatYouReceive: ["Photorealistic Images", "Material Visualization", "Atmospheric Lighting"],
+        notIncluded: ["Technical Blueprints", "Structural Engineering", "Interior Design Specification", "Revisions to the Core Design"],
+        idealFor: ["Visualizing the Final Result", "Selling the Property", "Deciding Finishes"]
+      }
+    },
+    pkgExtras: {
+      groups: {
+        design: "DESIGN EXTRAS",
+        technical: "TECHNICAL & CONSTRUCTION",
+        visualization: "3D VISUALIZATION & SPECIFIC ROOMS",
+        modules_3d: "3D VISUALIZATION MODULES"
+      },
+      items: {
+        ex_arch_design: { label: "Architectural Design Detail", desc: "Focuses on the conceptual and aesthetic development of your project. Includes exterior elevations, structural style, and overall look and feel." },
+        ex_space_plan: { label: "Space Planning", desc: "Macro-level design focusing on the optimal arrangement of walls, doors, and room flows. We analyze the best way to utilize the square footage for functionality and movement." },
+        ex_interior_lay: { label: "Interior Layout", desc: "Micro-level design detailing the placement of furniture, custom cabinetry (like kitchen or bathroom vanities), appliances, and specific fixtures within the defined spaces." },
+        ex_const_detail: { label: "Construction Detailing & Framing", desc: "Technical framing plans (pre-dimensioning), essential construction details, and schedules (doors/windows). This module provides the necessary information for your builder to execute the project accurately, reducing material waste and construction time." },
+        ex_code_comp: { label: "Code Compliance & Technical Notes", desc: "Detailed municipal code citations, safety notes, and professional annotations required to streamline the permit approval process and ensure legal compliance." },
+        ex_3d_ext: { label: "3D Exterior Rendering", desc: "High-fidelity 3D visualization of the exterior architecture." },
+        ex_3d_kitchen: { label: "3D Kitchen Design", desc: "Photorealistic visualization of your kitchen with materials and lighting." },
+        ex_3d_bath: { label: "3D Bathroom Design", desc: "Detailed 3D rendering of your primary bathroom." },
+        ex_3d_laundry: { label: "3D Laundry Design", desc: "Functional and aesthetic visualization of the laundry space." }
+      }
     }
   },
   PT: {
@@ -367,13 +402,49 @@ const TRANSLATIONS = {
       floor_plans_only: {
         tag: "BAIXA COMPLEXIDADE",
         summary: "Um serviço simplificado que entrega layouts espaciais fundamentais e plantas baixas dimensionadas.",
-        whatYouReceive: ["Layouts Espaciais Fundamentais", "Plantas Baixas Dimensionadas"],
+        whatYouReceive: [{ title: "Layouts Espaciais Fundamentais", desc: "" }, { title: "Plantas Baixas Dimensionadas", desc: "" }],
         notIncluded: ["Design Exterior", "Renderizações 3D", "Aprovação de Prefeitura", "Engenharia Estrutural"],
         idealFor: ["Planejamento Inicial", "Reformas Estéticas", "Apenas Conceito"]
       },
-      pdf_to_cad: { tag: "PRECISÃO", summary: "Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável." },
-      "3d_rendering": { tag: "VISUALIZAÇÃO", summary: "Imagens realistas de alta fidelidade para o seu futuro projeto." }
-    }
+      pdf_to_cad: {
+        tag: "PRECISÃO",
+        summary: "Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável.",
+        whatYouReceive: [{ title: "Arquivos CAD Totalmente Editáveis", desc: "" }, { title: "Escalonamento Preciso", desc: "" }, { title: "Organização de Camadas", desc: "" }],
+        notIncluded: ["Design Arquitetônico", "Revisão de Código", "Medições de Campo", "Modelagem 3D"],
+        idealFor: ["Arquivamento Digital", "Base para Reforma", "Empreiteiros"]
+      },
+      "3d_rendering": {
+        tag: "VISUALIZAÇÃO",
+        summary: "A \"foto\" do futuro. Este serviço fornece imagens de alta qualidade que dão vida ao seu projeto com texturas, iluminação e cores realistas.",
+        whatYouReceive: [{ title: "Imagens Fotorrealistas", desc: "" }, { title: "Visualização de Materiais", desc: "" }, { title: "Iluminação Atmosférica", desc: "" }],
+        notIncluded: ["Plantas Técnicas", "Engenharia Estrutural", "Especificação de Design de Interiores", "Revisões no Design Principal"],
+        idealFor: ["Visualizar o Resultado Final", "Venda do Imóvel", "Decisão de Acabamentos"]
+      }
+    },
+    pkgExtras: {
+      groups: {
+        design: "EXTRAS DE DESIGN",
+        technical: "TÉCNICO E CONSTRUÇÃO",
+        visualization: "VISUALIZAÇÃO 3D E CÔMODOS ESPECÍFICOS",
+        modules_3d: "MÓDULOS DE VISUALIZAÇÃO 3D"
+      },
+      items: {
+        ex_arch_design: { label: "Detalhamento de Design Arquitetônico", desc: "Foca no desenvolvimento conceitual e estético do seu projeto. Inclui fachadas externas, estilo estrutural e aparência geral." },
+        ex_space_plan: { label: "Planejamento de Espaço", desc: "Design em nível macro com foco no arranjo ideal de paredes, portas e fluxos entre cômodos. Analisamos a melhor maneira de utilizar a metragem quadrada para funcionalidade e movimentação." },
+        ex_interior_lay: { label: "Layout de Interiores", desc: "Design em nível micro detalhando o posicionamento de móveis, marcenaria sob medida (como armários de cozinha ou banheiro), eletrodomésticos e luminárias específicas dentro dos espaços definidos." },
+        ex_const_detail: { label: "Detalhamento de Construção e Estrutura", desc: "Plantas técnicas de estrutura (pré-dimensionamento), detalhes construtivos essenciais e tabelas (portas/janelas). Este módulo fornece as informações necessárias para o seu construtor executar o projeto com precisão, reduzindo desperdício de materiais e tempo de obra." },
+        ex_code_comp: { label: "Conformidade Técnica e Notas", desc: "Citações detalhadas de códigos municipais, notas de segurança e anotações profissionais necessárias para agilizar o processo de aprovação de alvarás e garantir a conformidade legal." },
+        ex_3d_ext: { label: "Renderização 3D Exterior", desc: "Visualização 3D de alta fidelidade da arquitetura externa." },
+        ex_3d_kitchen: { label: "Design 3D de Cozinha", desc: "Visualização fotorrealista da sua cozinha com materiais e iluminação." },
+        ex_3d_bath: { label: "Design 3D de Banheiro", desc: "Renderização 3D detalhada do seu banheiro principal." },
+        ex_3d_laundry: { label: "Design 3D de Lavanderia", desc: "Visualização funcional e estética da área de serviço." }
+      }
+    },
+    whatYouReceiveTitle: "O QUE VOCÊ RECEBE",
+    notIncludedTitle: "NÃO INCLUSO",
+    idealForTitle: "IDEAL PARA",
+    serviceCustomization: "CUSTOMIZAÇÃO DE SERVIÇOS",
+    summaryTitle: "RESUMO"
   }
 };
 
@@ -1044,7 +1115,7 @@ function Sidebar({ est, lang, data, step: currentStep }) {
         <div style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: "var(--r-sm)", overflow: "hidden", marginBottom: 14 }}>
           {/* Detailed breakdown blocks would go here, simplified for space */}
           <div style={{ padding: "10px 12px", borderBottom: "1px solid var(--border)", background: "rgba(255,255,255,0.02)" }}>
-            <span style={{ fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "var(--mu)" }}>{T.summary}</span>
+            <span style={{ fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "var(--mu)" }}>{T.summaryTitle}</span>
           </div>
           <div style={{ padding: "8px 12px" }}>
             {bd.map((it, i) => (
@@ -1353,26 +1424,6 @@ function S3({ d, up, lang }) {
     return baseArea * (count === 0 ? 1 : count); // Default to 1x if 0 selected for rendering intermediate, but validation requires >0
   };
 
-  const calcGrandTotal = () => {
-    let sum = 0;
-    selectedSvcs.forEach(id => {
-      const wVal = dims[id]?.w || "";
-      const lVal = dims[id]?.l || "";
-      const wi = parseDim(wVal, isUS);
-      const li = parseDim(lVal, isUS);
-      const baseArea = isUS ? (wi * li / 144) : (wi * li);
-
-      if (NO_FLOOR_MULT.includes(id)) {
-        sum += baseArea;
-      } else {
-        const lvls = svcLevels[id] || {};
-        const count = Object.values(lvls).filter(Boolean).length;
-        if (count > 0) sum += baseArea * count;
-      }
-    });
-    return sum;
-  };
-
   return (
     <div className="wz-animate">
       <Title label={T.tellAboutProject} sub={T.projectSub} />
@@ -1413,11 +1464,6 @@ function S3({ d, up, lang }) {
               <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
               <p style={{ fontSize: 12, fontWeight: 700, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
               <p style={{ fontSize: 10, color: "var(--dm)", lineHeight: 1.3 }}>{svc.sub}</p>
-              {svc.seal && (
-                <div style={{ marginTop: 8, padding: "4px 6px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid #10b981", borderRadius: "4px" }}>
-                  <p style={{ fontSize: "8px", fontWeight: "700", color: "#10b981", textTransform: "uppercase", letterSpacing: "0.02em" }}>{svc.seal}</p>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -1463,7 +1509,6 @@ function S3({ d, up, lang }) {
               const lVal = dims[svcId]?.l || "";
               const wi = parseDim(wVal, isUS);
               const li = parseDim(lVal, isUS);
-              const a = isUS ? (wi * li / 144) : (wi * li);
 
               return (
                 <div key={svcId} style={{ background: "var(--bg3)", padding: 20, borderRadius: "var(--r)", border: "1.5px solid var(--border)" }}>
@@ -1528,8 +1573,6 @@ function S3({ d, up, lang }) {
         </div>
       )}
 
-      {/* Removed Redundant Summary Panel as it is now in the Sidebar */}
-
       <div className="wz-f" style={{ marginBottom: 28 }}>
         <label className="wz-label">{T.lotSizeLabel} (OPTIONAL, {au.toUpperCase()})</label>
         <input className="wz-inp" placeholder="e.g. 5000" style={{ maxWidth: 240 }} value={d.lotSize || ""} onChange={e => up("lotSize", e.target.value)} />
@@ -1546,7 +1589,6 @@ function S4({ d, up, est, lang }) {
 
   const toggleDet = (id, e) => {
     e.stopPropagation();
-    // Exclusive toggle: only one "More details" open at a time
     setOpenDet(p => ({ [id]: !p[id] }));
   };
 
@@ -1557,7 +1599,6 @@ function S4({ d, up, est, lang }) {
 
   const setPkg = (id) => {
     up("deliveryPkg", id);
-    // Auto-collapse others when switching
     setOpenDet({});
   };
 
@@ -1577,50 +1618,40 @@ function S4({ d, up, est, lang }) {
       tagColor: "rgba(245, 158, 11, 0.15)",
       tagTextCol: "#F59E0B",
       desc: T.pkgSubs.as_built_permit,
-      details: {
-        summary: T.pkgDetails.as_built_permit.summary,
-        whatYouReceiveItems: T.pkgDetails.as_built_permit.whatYouReceive,
-        notIncluded: T.pkgDetails.as_built_permit.notIncluded,
-        idealFor: T.pkgDetails.as_built_permit.idealFor,
-        extras: [
-          {
-            group: "DESIGN EXTRAS", items: [
-              { id: "ex_arch_design", label: "Architectural Design Detail", price: "+ $0.15 / sqft", desc: "Focuses on the conceptual and aesthetic development of your project. Includes exterior elevations, structural style, and overall look and feel.", isIncluded: false },
-              { id: "ex_space_plan", label: "Space Planning", price: "+ $0.15 / sqft", desc: "Macro-level design focusing on the optimal arrangement of walls, doors, and room flows. We analyze the best way to utilize the square footage for functionality and movement.", isIncluded: false },
-              { id: "ex_interior_lay", label: "Interior Layout", price: "+ $0.10 / sqft", desc: "Micro-level design detailing the placement of furniture, custom cabinetry (like kitchen or bathroom vanities), appliances, and specific fixtures within the defined spaces.", isIncluded: false }
-            ]
-          },
-          {
-            group: "TECHNICAL & CONSTRUCTION", items: [
-              { id: "ex_const_detail", label: "Construction Detailing & Framing", price: "+ $0.20 / sqft", desc: "Technical framing plans (pre-dimensioning), essential construction details, and schedules (doors/windows). This module provides the necessary information for your builder to execute the project accurately, reducing material waste and construction time.", isIncluded: false },
-              { id: "ex_code_comp", label: "Code Compliance & Technical Notes", price: "+ $0.05 / sqft", desc: "Detailed municipal code citations, safety notes, and professional annotations required to streamline the permit approval process and ensure legal compliance.", isIncluded: false }
-            ]
-          },
-          {
-            group: "3D VISUALIZATION & SPECIFIC ROOMS", items: [
-              { id: "ex_3d_ext", label: "3D Exterior Rendering", price: "+ $0.10 / sqft", desc: "High-fidelity 3D visualization of the exterior architecture.", isIncluded: false },
-              { id: "ex_3d_kitchen", label: "3D Kitchen Design", price: "+ $180.00", isIncluded: false },
-              { id: "ex_3d_bath", label: "3D Bathroom Design", price: "+ $180.00", isIncluded: false },
-              { id: "ex_3d_laundry", label: "3D Laundry Design", price: "+ $180.00", isIncluded: false }
-            ]
-          }
-        ]
-      }
+      details: T.pkgDetails.as_built_permit,
+      extras: [
+        {
+          group: T.pkgExtras.groups.design, items: [
+            { id: "ex_arch_design", label: T.pkgExtras.items.ex_arch_design.label, price: isUS ? "+ $0.15 / sqft" : "+ R$1.40 / m²", desc: T.pkgExtras.items.ex_arch_design.desc },
+            { id: "ex_space_plan", label: T.pkgExtras.items.ex_space_plan.label, price: isUS ? "+ $0.15 / sqft" : "+ R$1.40 / m²", desc: T.pkgExtras.items.ex_space_plan.desc },
+            { id: "ex_interior_lay", label: T.pkgExtras.items.ex_interior_lay.label, price: isUS ? "+ $0.10 / sqft" : "+ R$0.95 / m²", desc: T.pkgExtras.items.ex_interior_lay.desc }
+          ]
+        },
+        {
+          group: T.pkgExtras.groups.technical, items: [
+            { id: "ex_const_detail", label: T.pkgExtras.items.ex_const_detail.label, price: isUS ? "+ $0.20 / sqft" : "+ R$1.90 / m²", desc: T.pkgExtras.items.ex_const_detail.desc },
+            { id: "ex_code_comp", label: T.pkgExtras.items.ex_code_comp.label, price: isUS ? "+ $0.05 / sqft" : "+ R$0.45 / m²", desc: T.pkgExtras.items.ex_code_comp.desc }
+          ]
+        },
+        {
+          group: T.pkgExtras.groups.visualization, items: [
+            { id: "ex_3d_ext", label: T.pkgExtras.items.ex_3d_ext.label, price: isUS ? "+ $0.10 / sqft" : "+ R$0.95 / m²", desc: T.pkgExtras.items.ex_3d_ext.desc },
+            { id: "ex_3d_kitchen", label: T.pkgExtras.items.ex_3d_kitchen.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_kitchen.desc },
+            { id: "ex_3d_bath", label: T.pkgExtras.items.ex_3d_bath.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_bath.desc },
+            { id: "ex_3d_laundry", label: T.pkgExtras.items.ex_3d_laundry.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_laundry.desc }
+          ]
+        }
+      ]
     },
     {
       id: "floor_plans_only",
       icon: "📐",
-      title: isUS ? "Floor Plans Only" : "Apenas Plantas Baixas",
+      title: T.pkgTitles.floor_plans_only,
       tag: T.pkgDetails.floor_plans_only.tag,
       tagColor: "rgba(59, 130, 246, 0.15)",
       tagTextCol: "#60A5FA",
       desc: T.pkgSubs.floor_plans_only,
-      details: {
-        summary: T.pkgDetails.floor_plans_only.summary,
-        whatYouReceiveItems: T.pkgDetails.floor_plans_only.whatYouReceive.map(t => ({ title: t, desc: "" })),
-        notIncluded: T.pkgDetails.floor_plans_only.notIncluded,
-        idealFor: T.pkgDetails.floor_plans_only.idealFor,
-      }
+      details: T.pkgDetails.floor_plans_only
     },
     {
       id: "3d_rendering",
@@ -1630,35 +1661,17 @@ function S4({ d, up, est, lang }) {
       tagColor: "rgba(139, 92, 246, 0.15)",
       tagTextCol: "#A78BFA",
       desc: T.pkgDetails["3d_rendering"].summary,
-      details: {
-        summary: "The \"photo\" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.",
-        whatYouReceiveItems: [
-          { title: "Photorealistic Images", desc: "High-resolution renderings that simulate real-world materials and environmental lighting." },
-          { title: "Material Visualization", desc: "Clear representation of textures, finishes, and color palettes applied to the design." },
-          { title: "Atmospheric Lighting", desc: "Realistic sun studies or artificial lighting setups to showcase the project at different times of day." }
-        ],
-        notIncluded: [
-          "Technical Blueprints: No floor plans, sections, or elevations for construction or permits.",
-          "Structural Engineering: No technical details regarding the building's integrity or framing.",
-          "Interior Design Specification: While we visualize materials, this does not include a full procurement list or furniture shopping links.",
-          "Revisions to the Core Design: Renderings are based on a pre-approved layout; major architectural changes are handled in the design phase."
-        ],
-        idealFor: [
-          "Visualizing the Final Result: Seeing exactly how your space will look before any construction begins.",
-          "Selling the Property: Creating high-impact marketing materials to attract buyers or investors.",
-          "Deciding Finishes: Testing different colors and materials in a realistic environment to ensure the perfect choice."
-        ],
-        extras: [
-          {
-            group: "3D VISUALIZATION MODULES", items: [
-              { id: "ex_3d_ext", label: "3D Exterior Rendering", price: "+ $250.00", desc: "High-fidelity 3D visualization of the exterior architecture.", isIncluded: false },
-              { id: "ex_3d_kitchen", label: "3D Kitchen Design", price: "+ $180.00", desc: "Photorealistic visualization of your kitchen with materials and lighting.", isIncluded: false },
-              { id: "ex_3d_bath", label: "3D Bathroom Design", price: "+ $180.00", desc: "Detailed 3D rendering of your primary bathroom.", isIncluded: false },
-              { id: "ex_3d_laundry", label: "3D Laundry Design", price: "+ $180.00", desc: "Functional and aesthetic visualization of the laundry space.", isIncluded: false }
-            ]
-          }
-        ]
-      }
+      details: T.pkgDetails["3d_rendering"],
+      extras: [
+        {
+          group: T.pkgExtras.groups.modules_3d, items: [
+            { id: "ex_3d_ext", label: T.pkgExtras.items.ex_3d_ext.label, price: isUS ? "+ $250.00" : "+ R$2300", desc: T.pkgExtras.items.ex_3d_ext.desc },
+            { id: "ex_3d_kitchen", label: T.pkgExtras.items.ex_3d_kitchen.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_kitchen.desc },
+            { id: "ex_3d_bath", label: T.pkgExtras.items.ex_3d_bath.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_bath.desc },
+            { id: "ex_3d_laundry", label: T.pkgExtras.items.ex_3d_laundry.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_laundry.desc }
+          ]
+        }
+      ]
     },
     {
       id: "pdf_to_cad",
@@ -1668,25 +1681,7 @@ function S4({ d, up, est, lang }) {
       tagColor: "rgba(245, 158, 11, 0.15)",
       tagTextCol: "#F59E0B",
       desc: T.pkgSubs.pdf_to_cad,
-      details: {
-        summary: T.pkgDetails.pdf_to_cad.summary,
-        whatYouReceiveItems: [
-          { title: "Fully Editable CAD Files", desc: "Your existing documentation converted into professional .dwg format." },
-          { title: "Accurate Scaling", desc: "Conversion of old plans or sketches into precise, scaled digital drawings." },
-          { title: "Layer Organization", desc: "Standard CAD layering for easy future editing by architects or engineers." }
-        ],
-        notIncluded: [
-          "Architectural Design: No changes or improvements to the original layout.",
-          "Code Review: No verification if the old plans meet current municipal building codes.",
-          "Field Measurements: Based strictly on the documents provided by the client.",
-          "3D Modeling: This is a 2D technical drafting service only."
-        ],
-        idealFor: [
-          "Digital Archiving: Clients who have old paper plans and need them digitized for safe keeping.",
-          "Renovation Base: Providing a digital starting point for future architectural projects.",
-          "Contractors: Professionals who need a clean digital file from a hard copy to perform their own take-offs."
-        ]
-      }
+      details: T.pkgDetails.pdf_to_cad
     }
   ];
 
@@ -1725,7 +1720,7 @@ function S4({ d, up, est, lang }) {
                     onClick={(e) => toggleDet(pkg.id, e)}
                     style={{ fontSize: 12, color: "var(--a)", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 4, userSelect: "none" }}
                   >
-                    {T.moreDetails || "More details"} <span style={{ transform: isDetOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 10, display: "inline-block" }}>▼</span>
+                    {T.moreDetails} <span style={{ transform: isDetOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 10, display: "inline-block" }}>▼</span>
                   </div>
 
                   {isDetOpen && pkg.details && (
@@ -1733,27 +1728,23 @@ function S4({ d, up, est, lang }) {
                       <div style={{ background: "rgba(255,255,255,0.03)", padding: 16, borderRadius: "var(--r)", marginBottom: 16 }}>
                         {pkg.details.summary && (
                           <div style={{ marginBottom: 20 }}>
-                            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 8, textTransform: "uppercase" }}>SUMMARY</p>
+                            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 8, textTransform: "uppercase" }}>{T.summaryTitle}</p>
                             <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5 }}>{pkg.details.summary}</p>
                           </div>
                         )}
 
-                        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 12, textTransform: "uppercase" }}>WHAT YOU RECEIVE</p>
+                        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 12, textTransform: "uppercase" }}>{T.whatYouReceiveTitle}</p>
 
-                        {pkg.details.whatYouReceiveItems ? (
-                          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
-                            {pkg.details.whatYouReceiveItems.map((item, idx) => (
-                              <div key={idx} style={{ background: "rgba(0,0,0,0.15)", padding: 12, borderRadius: "6px", borderLeft: "3px solid var(--a)" }}>
-                                <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5 }}>
-                                  <span style={{ fontWeight: 700, color: "var(--a)" }}>{item.title}: </span>
-                                  <span style={{ color: "var(--mu)" }}>{item.desc}</span>
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5, marginBottom: 12 }}>{pkg.details.whatYouReceive}</p>
-                        )}
+                        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
+                          {pkg.details.whatYouReceive.map((item, idx) => (
+                            <div key={idx} style={{ background: "rgba(0,0,0,0.15)", padding: 12, borderRadius: "6px", borderLeft: "3px solid var(--a)" }}>
+                              <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5 }}>
+                                <span style={{ fontWeight: 700, color: "var(--a)" }}>{item.title}: </span>
+                                <span style={{ color: "var(--mu)" }}>{item.desc}</span>
+                              </p>
+                            </div>
+                          ))}
+                        </div>
 
                         {pkg.details.notIncluded && (
                           <div style={{ marginBottom: 16 }}>
@@ -1770,7 +1761,7 @@ function S4({ d, up, est, lang }) {
                         )}
 
                         <div>
-                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--gn)", marginBottom: 10, textTransform: "uppercase" }}>IDEAL FOR</p>
+                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--gn)", marginBottom: 10, textTransform: "uppercase" }}>{T.idealForTitle}</p>
                           {Array.isArray(pkg.details.idealFor) ? (
                             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                               {pkg.details.idealFor.map((it, idx) => (
@@ -1793,7 +1784,7 @@ function S4({ d, up, est, lang }) {
 
                   {isActive && pkg.details.extras && (
                     <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
-                      <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", color: "var(--dm)", marginBottom: 16, textTransform: "uppercase" }}>SERVICE CUSTOMIZATION</p>
+                      <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", color: "var(--dm)", marginBottom: 16, textTransform: "uppercase" }}>{T.serviceCustomization}</p>
                       {pkg.details.extras.map(group => (
                         <div key={group.group} style={{ marginBottom: 20 }}>
                           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 10, textTransform: "uppercase" }}>{group.group}</p>
@@ -1823,7 +1814,7 @@ function S4({ d, up, est, lang }) {
                                         onClick={(e) => toggleEx(item.id, e)}
                                         style={{ fontSize: 11, color: "var(--a)", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 4, userSelect: "none", marginBottom: isExOpen ? 8 : 0 }}
                                       >
-                                        More details <span style={{ transform: isExOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 9, display: "inline-block" }}>▼</span>
+                                        {T.moreDetails} <span style={{ transform: isExOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 9, display: "inline-block" }}>▼</span>
                                       </div>
                                       {isExOpen && (
                                         <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.5, background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: "6px", marginTop: 8, borderLeft: "2px solid var(--a)" }}>
