@@ -481,7 +481,7 @@ function fmtInches(totalInches) {
 
 function calcEst(d, lang = "EN", step) {
   const isUS = d.region !== "BR";
-  const T = TRANSLATIONS[lang];
+  const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const BRL = 9.5;
   const sym = isUS ? "$" : "R$";
   const fmt = (n) => sym + Math.round(n).toLocaleString(isUS ? "en-US" : "pt-BR");
@@ -1227,7 +1227,7 @@ function S2({ d, up, lang }) {
 
 function S3({ d, up, lang }) {
   const isUS = d.region !== "BR";
-  const T = TRANSLATIONS[lang];
+  const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const unit = isUS ? "ft" : "m";
   const au = isUS ? "sqft" : "m²";
   const [hoverId, setHoverId] = useState(null);
