@@ -174,7 +174,22 @@ const TRANSLATIONS = {
       recommended: "Recommended",
       ifAvailable: "If available"
     },
+    unlockRushAlert: "Confirm the 3 required documents above to unlock Rush and Express delivery options.",
     pkgNotIncluded: "WHAT IS NOT INCLUDED",
+    speeds: {
+      standard: {
+        sub: "Included in base price — no additional charge.",
+        days: "Standard turnaround"
+      },
+      rush: {
+        sub: "+40% on subtotal. Studio will contact you to confirm exact timeline.",
+        days: "8–16 Business Days (depends on project size)."
+      },
+      express: {
+        sub: "+60% on subtotal. Studio will contact you to confirm exact timeline.",
+        days: "5–10 Business Days (depends on project size)."
+      }
+    },
     projectEstimate: "Project Estimate",
     uploadTitle: "Upload Reference Files",
     uploadHelp: "Please upload any relevant documents such as: Existing Floor Plans, Site Surveys, sketches, or photos of the property. Clear documentation helps us provide a more accurate and faster design service.",
@@ -183,6 +198,13 @@ const TRANSLATIONS = {
     projectIntent: "Project Intent",
     detected: "Detected",
     dimInstructions: "Accepted formats: 10'1\", 5'-10\", 6'3 1/4\", 180. Please do not use periods (.) or commas (,).",
+    rushFeesTitle: "Rush Fees & Delivery",
+    rushFeesSub: "Confirm your documents to unlock faster delivery options.",
+    docChecklist: "DOCUMENT CHECKLIST",
+    requiredRemaining: "required remaining",
+    required: "Required",
+    uploaded: "Uploaded",
+    uploadAction: "+ Upload",
     goals: {
       permit: "Building Permit Only",
       construction: "Construction Documentation",
@@ -483,7 +505,22 @@ const TRANSLATIONS = {
       recommended: "Recomendado",
       ifAvailable: "Se disponível"
     },
+    unlockRushAlert: "Confirme os 3 documentos obrigatórios acima para desbloquear as opções Rush e Express.",
     pkgNotIncluded: "O QUE NÃO ESTÁ INCLUSO",
+    speeds: {
+      standard: {
+        sub: "Incluído no preço base — sem custo adicional.",
+        days: "Prazo padrão"
+      },
+      rush: {
+        sub: "+40% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
+        days: "8–16 Dias Úteis (depende do tamanho do projeto)."
+      },
+      express: {
+        sub: "+60% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
+        days: "5–10 Dias Úteis (depende do tamanho do projeto)."
+      }
+    },
     projectEstimate: "Estimativa do Projeto",
     uploadTitle: "Upload de Referências",
     uploadHelp: "Por favor, envie documentos relevantes como: Plantas Existentes, Levantamentos, croquis ou fotos da propriedade. Documentação clara nos ajuda a fornecer um serviço de design mais preciso e rápido.",
@@ -492,6 +529,13 @@ const TRANSLATIONS = {
     projectIntent: "Intuito do Projeto",
     detected: "Detectado",
     dimInstructions: "Formatos aceitos: 10.5 ou 10,5. Use ponto ou vírgula para decimais.",
+    rushFeesTitle: "Taxas de Urgência & Entrega",
+    rushFeesSub: "Confirme seus documentos para desbloquear opções de entrega mais rápidas.",
+    docChecklist: "CHECKLIST DE DOCUMENTOS",
+    requiredRemaining: "obrigatórios restantes",
+    required: "Obrigatório",
+    uploaded: "Enviado",
+    uploadAction: "+ Enviar",
     goals: {
       permit: "Apenas Aprovação Legal",
       construction: "Documentação de Construção",
@@ -1075,7 +1119,18 @@ function calcEst(d, lang = "EN", step) {
     });
   }
 
-  const lo = cost, hi = cost * 1.10;
+  let multiplier = 1.0;
+  if (d.rush === "rush") multiplier = 1.4;
+  if (d.rush === "express") multiplier = 1.6;
+
+  const lo = cost * multiplier, hi = (cost * multiplier) * 1.10;
+
+  if (multiplier > 1) {
+    const feeLabel = d.rush === "rush" ? T.rushDelivery : T.expressDelivery;
+    const feeAmount = cost * (multiplier - 1);
+    bd.push({ l: feeLabel, v: fmtR(feeAmount), block: "extra" });
+  }
+
   const selectedSvcNames = selectedSvcs.map(k => SVC_LABELS[k]);
   const lvNames = [];
   const allLvls = new Set();
@@ -2379,7 +2434,8 @@ function S8({ d, up, lang }) {
     {
       id: "standard",
       label: T.standardDelivery,
-      sub: lang === "EN" ? "Included in base price — no additional charge." : "Incluído no preço base — sem custo adicional.",
+      sub: T.speeds.standard.sub,
+      days: T.speeds.standard.days,
       icon: "📦",
       fee: "FREE",
       locked: false
@@ -2388,18 +2444,18 @@ function S8({ d, up, lang }) {
       id: "rush",
       label: T.rushDelivery,
       tag: "+40%",
-      sub: lang === "EN" ? "+40% on subtotal. Studio will contact you to confirm exact timeline." : "+40% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
-      days: lang === "EN" ? "8–16 Business Days (depends on project size)." : "8–16 Dias Úteis (depende do tamanho do projeto).",
+      sub: T.speeds.rush.sub,
+      days: T.speeds.rush.days,
       icon: "🔒",
       fee: "+40%",
       locked: !isUnlocked
     },
     {
       id: "express",
-      label: isUS ? "Express Delivery" : "Entrega Expressa",
+      label: T.expressDelivery,
       tag: "+60%",
-      sub: isUS ? "+60% on subtotal. Studio will contact you to confirm exact timeline." : "+60% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
-      days: isUS ? "5–10 Business Days (depends on project size)." : "5–10 Dias Úteis (depende do tamanho do projeto).",
+      sub: T.speeds.express.sub,
+      days: T.speeds.express.days,
       icon: "🔒",
       fee: "+60%",
       locked: !isUnlocked
@@ -2408,13 +2464,13 @@ function S8({ d, up, lang }) {
 
   return (
     <div className="wz-animate">
-      <Title label={isUS ? "Rush Fees & Delivery" : "Taxas de Urgência & Entrega"} sub={isUS ? "Confirm your documents to unlock faster delivery options." : "Confirme seus documentos para desbloquear opções de entrega mais rápidas."} />
+      <Title label={T.rushFeesTitle || T.deliverySpeed} sub={T.rushFeesSub || T.speedSub} />
 
       {/* Checklist Box */}
       <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginBottom: "24px" }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".1em", color: "var(--mu)", textTransform: "uppercase" }}>{isUS ? "DOCUMENT CHECKLIST" : "CHECKLIST DE DOCUMENTOS"}</h3>
-          <span style={{ fontSize: "11px", color: "var(--dm)" }}>{remaining} {isUS ? "required remaining" : "obrigatórios restantes"}</span>
+          <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".1em", color: "var(--mu)", textTransform: "uppercase" }}>{T.docChecklist}</h3>
+          <span style={{ fontSize: "11px", color: "var(--dm)" }}>{remaining} {T.requiredRemaining}</span>
         </div>
         <div>
           {checklist.map((item, idx) => {
@@ -2437,13 +2493,13 @@ function S8({ d, up, lang }) {
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  {idx < 3 && !isDone && <span style={{ fontSize: "11px", fontWeight: "700", color: "#ef4444", textTransform: "uppercase" }}>{isUS ? "Required" : "Obrigatório"}</span>}
+                  {idx < 3 && !isDone && <span style={{ fontSize: "11px", fontWeight: "700", color: "#ef4444", textTransform: "uppercase" }}>{T.required}</span>}
                   <button
                     className="wz-btn-ghost"
                     onClick={() => fileRefs.current[item.id]?.click()}
                     style={{ padding: "6px 12px", fontSize: "11px", height: "auto", borderColor: isDone ? "var(--gn)" : "var(--border2)", color: isDone ? "var(--gn)" : "var(--mu)" }}
                   >
-                    {isDone ? (isUS ? "Uploaded" : "Enviado") : (isUS ? "+ Upload" : "+ Enviar")}
+                    {isDone ? T.uploaded : T.uploadAction}
                   </button>
                   <input type="file" ref={el => fileRefs.current[item.id] = el} style={{ display: "none" }} onChange={(e) => handleFileChange(item.id, e)} />
                 </div>
@@ -2470,7 +2526,7 @@ function S8({ d, up, lang }) {
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
           <p style={{ fontSize: "14px", color: "#ef4444", fontWeight: "400", lineHeight: "1.4", opacity: 0.9 }}>
-            {isUS ? "Confirm the 3 required documents above to unlock Rush and Express delivery options." : "Confirme os 3 documentos obrigatórios acima para desbloquear as opções Rush e Express."}
+            {T.unlockRushAlert}
           </p>
         </div>
       )}
@@ -2533,13 +2589,33 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
     setLoading(true);
     setError("");
     try {
-      // Simulate submission delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const endpoint = type === "accept" ? "/api/accept" : "/api/leads";
+      const payload = {
+        name: d.name,
+        email: d.email,
+        phone: d.phone,
+        project: est.projectTitle,
+        estimate: `${est.lo} – ${est.hi}`,
+        pkg: est.pkgName,
+        delivery: d.rush || "standard",
+        lang,
+        region: d.region
+      };
+
+      const res = await fetch(`http://localhost:5000${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error(json.error || "Submission failed");
+
       setSubmissionType(type);
       setSubmitted(true);
     } catch (err) {
       console.error(err);
-      setError(isUS ? "An error occurred. Please try again." : "Ocorreu um erro. Tente novamente.");
+      setError(isUS ? "Submission failed. Please try again." : "Falha no envio. Tente novamente.");
     } finally {
       setLoading(false);
     }
