@@ -1733,6 +1733,8 @@ function S3({ d, up, est, lang }) {
     return baseArea * (count === 0 ? 1 : count); // Default to 1x if 0 selected for rendering intermediate, but validation requires >0
   };
 
+  const grandTotalArea = selectedSvcs.reduce((sum, svcId) => sum + getSvcArea(svcId), 0);
+
   return (
     <div className="wz-animate">
       <Title label={T.tellAboutProject} sub={T.projectSub} />
@@ -1887,7 +1889,7 @@ function S3({ d, up, est, lang }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
               <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase", marginBottom: 4 }}>{T.grandTotalArea}</p>
-              <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--tx)" }}>{Math.round(est.totalArea)} <span style={{ fontSize: 14, fontWeight: 500, color: "var(--mu)" }}>{au}</span></h3>
+              <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--tx)" }}>{Math.round(grandTotalArea)} <span style={{ fontSize: 14, fontWeight: 500, color: "var(--mu)" }}>{au}</span></h3>
             </div>
             <div style={{ fontSize: 32 }}>📏</div>
           </div>
