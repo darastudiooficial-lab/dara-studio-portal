@@ -565,6 +565,7 @@ function calcEst(d, lang = "EN", step) {
   const sym = isUS ? "$" : "R$";
   const fmt = (n) => sym + Math.round(n).toLocaleString(isUS ? "en-US" : "pt-BR");
   const fmtEx = (n) => sym + n.toLocaleString(isUS ? "en-US" : "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fmtR = (v) => `${fmtEx(v)} – ${fmtEx(v * 1.10)}`;
 
   const SVC_LABELS = T.svcLabels || {};
 
@@ -663,13 +664,13 @@ function calcEst(d, lang = "EN", step) {
       cost = (totalBaseArea * rate) + flatFee;
 
       bd.push({
-        l: lang === "EN" ? `Floor Plans ($0.55/${isUS ? "sqft" : "m²"})` : `Plantas Baixas ($0.55/${isUS ? "sqft" : "m²"})`,
-        v: fmt(totalBaseArea * rate),
+        l: lang === "EN" ? "Floor Plans" : "Plantas Baixas",
+        v: fmtR(totalBaseArea * rate),
         block: "arch"
       });
       bd.push({
         l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
-        v: "+" + fmt(flatFee),
+        v: fmtR(flatFee),
         block: "svc"
       });
     } else {
@@ -694,8 +695,8 @@ function calcEst(d, lang = "EN", step) {
                 (lvlKey === "attic") ? T.attic : lvlKey;
 
           bd.push({
-            l: `${blk.label}: ${lvlName} (${Math.round(blk.area)} ${isUS ? "sqft" : "m²"})`,
-            v: fmt(lvlCost),
+            l: `${blk.label}: ${lvlName}`,
+            v: fmtR(lvlCost),
             block: "arch"
           });
         });
@@ -714,7 +715,7 @@ function calcEst(d, lang = "EN", step) {
             ex_code_comp: lang === "EN" ? "Code Compliance" : "Conformidade Técnica",
             ex_3d_ext: lang === "EN" ? "3D Exterior Rendering" : "Renderização 3D Exterior"
           };
-          bd.push({ l: labels[key] || key, v: fmt(extraCost), block: "extra" });
+          bd.push({ l: labels[key] || key, v: fmtR(extraCost), block: "extra" });
         }
       });
       // Fixed Fee Extras (Interiors)
@@ -727,7 +728,7 @@ function calcEst(d, lang = "EN", step) {
             ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
             ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
           };
-          bd.push({ l: labels[key] || key, v: "+" + fmt(fee), block: "extra" });
+          bd.push({ l: labels[key] || key, v: fmtR(fee), block: "extra" });
         }
       });
     }
@@ -738,13 +739,13 @@ function calcEst(d, lang = "EN", step) {
     cost = (totalBaseArea * rate) + flatFee;
 
     bd.push({
-      l: lang === "EN" ? `PDF to CAD ($0.30/${isUS ? "sqft" : "m²"})` : `PDF para CAD ($0.30/${isUS ? "sqft" : "m²"})`,
-      v: fmt(totalBaseArea * rate),
+      l: lang === "EN" ? "PDF to CAD Conversion" : "Conversão de PDF para CAD",
+      v: fmtR(totalBaseArea * rate),
       block: "arch"
     });
     bd.push({
       l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
-      v: "+" + fmt(flatFee),
+      v: fmtR(flatFee),
       block: "svc"
     });
   } else if (pkg === "3d_rendering") {
@@ -766,12 +767,12 @@ function calcEst(d, lang = "EN", step) {
           ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
           ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
         };
-        bd.push({ l: labels[key] || key, v: "+" + fmt(fee), block: "extra" });
+        bd.push({ l: labels[key] || key, v: fmtR(fee), block: "extra" });
       }
     });
   }
 
-  const lo = cost * 0.95, hi = cost * 1.05;
+  const lo = cost, hi = cost * 1.10;
   const selectedSvcNames = selectedSvcs.map(k => SVC_LABELS[k]);
   const lvNames = [];
   const allLvls = new Set();
