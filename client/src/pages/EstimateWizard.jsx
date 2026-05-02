@@ -378,9 +378,10 @@ const TRANSLATIONS = {
       legalBody: "This estimate is strictly for initial design and drafting services. It DOES NOT INCLUDE professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record to review, certify, and stamp the final drawings for municipal approval.",
       agreementBody: "The value above is an estimate based on the information provided. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.",
       processing: "⌛ Processing...",
-      payRetainer: "🛡️ Pay Retainer & Start Project",
+      payRetainer: "Confirm & Start My Project",
       secureNotice: "Secure payment via Stripe or Bank Transfer",
       saveLater: "💾 Save for Later",
+      saveLaterPDF: "You'll receive a PDF with your full brief and estimated fees — no commitment required",
       emailEstimate: "Just email me this estimate for now",
       redirectNotice: "You will be redirected to our secure client portal to finalize your order.",
       resetButton: "↻ Reset",
@@ -715,9 +716,10 @@ const TRANSLATIONS = {
       legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para a submissão de licenças de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado para revisar, certificar e carimbar os desenhos finais para aprovação municipal.",
       agreementBody: "O valor acima é uma estimativa baseada nas informações fornecidas. A taxa final será confirmada após nossa equipe revisar seu resumo. Ao prosseguir, você concorda em receber uma proposta formal.",
       processing: "⌛ Processando...",
-      payRetainer: "🛡️ Pagar Sinal e Iniciar Projeto",
+      payRetainer: "Confirmar e Iniciar Meu Projeto",
       secureNotice: "Pagamento seguro via Stripe ou Transferência Bancária",
       saveLater: "💾 Salvar para Depois",
+      saveLaterPDF: "Você receberá um PDF com seu brief completo e taxas estimadas — sem compromisso.",
       emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
       redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido.",
       resetButton: "↻ Recomeçar",
@@ -2759,10 +2761,10 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
     }
   };
 
-  const ReviewRow = ({ label, value }) => (
+  const ReviewRow = ({ label, value, highlight }) => (
     <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 0", borderBottom: "1px solid var(--border)" }}>
       <span style={{ fontSize: "12px", color: "var(--dm)", textTransform: "capitalize" }}>{label}</span>
-      <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--tx)", textAlign: "right" }}>{value || "—"}</span>
+      <span style={{ fontSize: highlight ? "18px" : "13px", fontWeight: highlight ? "700" : "600", color: highlight ? "#c8c0ff" : "var(--tx)", textAlign: "right" }}>{value || "—"}</span>
     </div>
   );
 
@@ -2820,12 +2822,12 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         <ReviewRow label={T.review.services} value={(est?.selectedSvcNames || []).join(", ") || "—"} />
         <div style={{ marginTop: "16px" }}>
           <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.dimensions}</p>
-          <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
+          <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} highlight />
         </div>
       </Section>
 
       <Section icon="📋" title={T.review.summary} step={3}>
-        <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
+        <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} highlight />
         <div style={{ marginTop: "12px", padding: "12px", background: "var(--cb)", borderRadius: "8px" }}>
           <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.selectedSvcs}</p>
           {(est?.bd || []).map((it, i) => (
@@ -2952,7 +2954,9 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           <button className="wz-btn-ghost" onClick={() => handleAction('save')} disabled={loading} style={{ width: "100%", height: "56px", fontSize: "15px" }}>
             {T.review.saveLater}
           </button>
-          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "12px" }}>{T.review.emailEstimate}</p>
+          <p style={{ fontSize: "11px", color: "var(--mu)", marginTop: "12px", maxWidth: "400px", margin: "12px auto 0", lineHeight: "1.5" }}>
+            {T.review.saveLaterPDF}
+          </p>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "12px" }}>
