@@ -169,7 +169,6 @@ export default function ClientPortal() {
   const { lang, theme } = useAppContext();
   const isUS = lang === 'EN';
   const T = I18N[lang];
-  const userName = S.role === 'admin' ? 'Daniela' : S.role === 'freelancer' ? 'Carlos' : 'Jackson';
 
   const [S, setS] = useState({
     loggedIn: false,
@@ -185,6 +184,8 @@ export default function ClientPortal() {
     ltab: 'in',
     showPw: false,
   });
+
+  const userName = S.role === 'admin' ? 'Daniela' : S.role === 'freelancer' ? 'Carlos' : 'Jackson';
 
   useEffect(() => {
     if (S.redirecting) {
