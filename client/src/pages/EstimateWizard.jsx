@@ -384,9 +384,7 @@ const TRANSLATIONS = {
       saveLaterNote: "You'll receive a PDF with your full brief and estimated fees — no commitment required.",
       backButton: "← Back",
       emailEstimate: "Just email me this estimate for now",
-      redirectNotice: "You will be redirected to our secure client portal to finalize your order.",
-      resetButton: "↻ Reset",
-      resetConfirm: "Reset all progress and start over?"
+      redirectNotice: "You will be redirected to our secure client portal to finalize your order."
     }
   },
   PT: {
@@ -723,9 +721,7 @@ const TRANSLATIONS = {
       saveLaterNote: "Você receberá um PDF com seu briefing completo e estimativas — sem compromisso.",
       backButton: "← Voltar",
       emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
-      redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido.",
-      resetButton: "↻ Recomeçar",
-      resetConfirm: "Recomeçar do zero? Todos os dados serão perdidos."
+      redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido."
     }
   }
 };
@@ -1300,15 +1296,6 @@ export default function EstimateWizard() {
                 {T.backToSite}
               </button>
               <div style={{ height: 20, width: 1, background: "var(--border)" }} />
-              {step > 0 && (
-                <button 
-                  className="wz-btn-ghost" 
-                  onClick={() => window.confirm(T.review.resetConfirm) && resetWizard()}
-                  style={{ padding: "4px 8px", fontSize: 11, color: "var(--mu)" }}
-                >
-                  {T.review.resetButton}
-                </button>
-              )}
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--a)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontFamily: "var(--font-serif)", fontSize: 14, color: "#fff", fontStyle: "italic" }}>D</span>
@@ -2990,6 +2977,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
   const { theme } = useAppContext();
   const isDark = theme === "dark";
   const [vis, setVis] = useState(false);
+  const [waLoading, setWaLoading] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setVis(true), 60);
@@ -3107,8 +3095,16 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
             <button className="wz-btn-primary" onClick={onBack} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 10 }}>
               {isUS ? "← Back to Review" : "← Voltar para o Review"}
             </button>
-            <button className="wz-btn-ghost" onClick={() => navigate("/")} style={{ width: "100%", padding: "13px", borderRadius: 11 }}>
-              {isUS ? "Talk to the team →" : "Falar com a equipe →"}
+            <button 
+              className="wz-btn-ghost" 
+              disabled={waLoading}
+              onClick={() => {
+                setWaLoading(true);
+                window.location.href = "https://wa.me/5548996503350";
+              }} 
+              style={{ width: "100%", padding: "13px", borderRadius: 11 }}
+            >
+              {waLoading ? T.review.processing : (isUS ? "Talk to the team →" : "Falar com a equipe →")}
             </button>
           </div>
         </div>
@@ -3191,7 +3187,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
 
         {/* CTAs */}
         <div style={f(480)}>
-          <button className="wz-btn-primary" onClick={() => navigate("/client/portal")} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 8 }}>
+          <button className="wz-btn-primary" onClick={() => navigate("/login")} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 8 }}>
             {isUS ? "Access my Client Portal →" : "Acessar meu Portal do Cliente →"}
           </button>
           <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 11px" }}>{isUS ? "Track your project's progress in real-time" : "Acompanhe o progresso do seu projeto em tempo real"}</p>
