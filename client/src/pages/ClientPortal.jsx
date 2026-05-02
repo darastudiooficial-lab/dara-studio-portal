@@ -344,7 +344,6 @@ export default function ClientPortal() {
   }
 
   const roleTitle = S.role === 'admin' ? T.role_admin : S.role === 'freelancer' ? T.role_freelancer : T.role_client;
-  const userName = S.role === 'admin' ? 'Daniela' : 'Jackson';
 
   return (
     <div id="layout" className={theme}>
