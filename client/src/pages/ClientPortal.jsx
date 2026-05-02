@@ -169,7 +169,6 @@ export default function ClientPortal() {
   const { lang, theme } = useAppContext();
   const isUS = lang === 'EN';
   const T = I18N[lang];
-  const userName = S.role === 'admin' ? 'Daniela' : S.role === 'freelancer' ? 'Carlos' : 'Jackson';
 
   const [S, setS] = useState({
     loggedIn: false,
@@ -195,7 +194,7 @@ export default function ClientPortal() {
     setS(prev => ({ ...prev, busy: true }));
     setTimeout(() => {
       setS(prev => ({ ...prev, loggedIn: true, busy: false }));
-    }, 2000);
+    }, 800);
   };
 
   if (S.splash) {
@@ -225,30 +224,6 @@ export default function ClientPortal() {
       { v: 'freelancer', ico: 'briefcase', lbl: T.freelancer, badge: { txt: 'PRO', cls: 'free' } },
       { v: 'admin', ico: 'shield', lbl: T.admin, badge: { txt: 'ADM', cls: 'admin' } },
     ];
-
-    if (S.busy) {
-      return (
-        <div id="redirect-screen">
-          <div className="rs-content">
-            <div className="rs-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--a)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <h2 className="rs-title">{lang === 'PT' ? 'Bem-vindo' : 'Welcome'}, {userName}!</h2>
-            <div className="rs-sub">
-              {S.role === 'admin' ? 'ADMIN PORTAL' : S.role === 'freelancer' ? 'COLLABORATOR PORTAL' : 'CLIENT PORTAL'} / REDIRECTING
-            </div>
-            <div className="rs-dots">
-              <span>.</span><span>.</span><span>.</span>
-            </div>
-          </div>
-          <button className="back-to-site" style={{ position: 'fixed', bottom: 30, left: 30 }} onClick={() => setS(prev => ({ ...prev, busy: false }))}>
-            <Icon name="back" size={12} /> {T.backToSite}
-          </button>
-        </div>
-      );
-    }
 
     return (
       <div id="login-screen">
@@ -339,6 +314,7 @@ export default function ClientPortal() {
   }
 
   const roleTitle = S.role === 'admin' ? T.role_admin : S.role === 'freelancer' ? T.role_freelancer : T.role_client;
+  const userName = S.role === 'admin' ? 'Daniela' : 'Jackson';
 
   return (
     <div id="layout" className={theme}>
