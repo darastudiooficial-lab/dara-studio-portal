@@ -375,7 +375,7 @@ const TRANSLATIONS = {
         { title: "Formal Quote", desc: "You receive a detailed, no-surprise proposal." }
       ],
       legalTitle: "IMPORTANT LEGAL DISCLAIMER",
-      legalBody: "This estimate is strictly for initial design and drafting services. It DOES NOT INCLUDE professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record to review, certify, and stamp the final drawings for municipal approval.",
+      legalBody: "This estimate is strictly for initial design and drafting services. It DOES NOT INCLUDE professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record.",
       agreementBody: "The value above is an estimate based on the information provided. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.",
       processing: "⌛ Processing...",
       payRetainer: "Confirm & Start My Project",
@@ -713,7 +713,7 @@ const TRANSLATIONS = {
         { title: "Cotação Formal", desc: "Você recebe uma proposta detalhada e sem surpresas." }
       ],
       legalTitle: "AVISO LEGAL IMPORTANTE",
-      legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para a submissão de licenças de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado para revisar, certificar e carimbar os desenhos finais para aprovação municipal.",
+      legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para a submissão de licenças de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado.",
       agreementBody: "O valor acima é uma estimativa baseada nas informações fornecidas. A taxa final será confirmada após nossa equipe revisar seu resumo. Ao prosseguir, você concorda em receber uma proposta formal.",
       processing: "⌛ Processando...",
       payRetainer: "Confirmar e Iniciar Meu Projeto",
@@ -2934,9 +2934,9 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       </div>
 
       {/* Agreement Box */}
-      <div style={{ background: "rgba(239, 68, 68, 0.03)", border: "1px solid rgba(239, 68, 68, 0.12)", borderRadius: "12px", padding: "16px 20px", marginBottom: "40px", display: "flex", gap: "12px", alignItems: "center" }}>
-        <span style={{ color: "#ef4444", fontSize: "14px" }}>⚠️</span>
-        <p style={{ fontSize: "13px", color: "rgba(239, 68, 68, 0.8)", lineHeight: "1.5" }}>
+      <div style={{ background: "rgba(245, 158, 11, 0.03)", border: "1px solid rgba(245, 158, 11, 0.12)", borderRadius: "12px", padding: "16px 20px", marginBottom: "40px", display: "flex", gap: "12px", alignItems: "center" }}>
+        <span style={{ color: "#f59e0b", fontSize: "14px" }}>⚠️</span>
+        <p style={{ fontSize: "13px", color: "rgba(245, 158, 11, 0.8)", lineHeight: "1.5" }}>
           {T.review.agreementBody}
         </p>
       </div>
