@@ -380,8 +380,8 @@ const TRANSLATIONS = {
       processing: "⌛ Processing...",
       payRetainer: "Confirm & Start My Project",
       secureNotice: "Secure payment via Stripe or Bank Transfer",
-      saveLater: "💾 Save for Later",
-      saveLaterPDF: "You'll receive a PDF with your full brief and estimated fees — no commitment required",
+      saveLater: "Save for Later — Send me this estimate",
+      saveLaterPDF: "You'll receive a PDF with your full brief and estimated fees — no commitment required.",
       emailEstimate: "Just email me this estimate for now",
       redirectNotice: "You will be redirected to our secure client portal to finalize your order.",
       resetButton: "↻ Reset",
@@ -718,7 +718,7 @@ const TRANSLATIONS = {
       processing: "⌛ Processando...",
       payRetainer: "Confirmar e Iniciar Meu Projeto",
       secureNotice: "Pagamento seguro via Stripe ou Transferência Bancária",
-      saveLater: "💾 Salvar para Depois",
+      saveLater: "Salvar para Depois — Envie-me esta estimativa",
       saveLaterPDF: "Você receberá um PDF com seu brief completo e taxas estimadas — sem compromisso.",
       emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
       redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido.",
@@ -2909,13 +2909,13 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       <div style={{ marginTop: "48px", marginBottom: "48px" }}>
         <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "24px" }}>{T.review.whatNext}</h3>
-        <div className="wz-grid-adaptive" style={{ gap: "24px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           {(T.review.nextSteps || []).map((s, idx) => (
-            <div key={idx} style={{ display: "flex", gap: 20 }}>
-              <div style={{ width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #6366f1", display: "flex", alignItems: "center", justifyContent: "center", color: "#6366f1", fontSize: "14px", fontWeight: "700", flexShrink: 0 }}>0{idx + 1}</div>
+            <div key={idx} style={{ display: "flex", gap: 16, alignItems: "center" }}>
+              <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "1px solid rgba(99,102,241,0.4)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--mu)", fontSize: "12px", fontWeight: "600", flexShrink: 0 }}>0{idx + 1}</div>
               <div>
-                <h4 style={{ fontSize: "15px", fontWeight: "600", color: "var(--tx)", marginBottom: "4px" }}>{s.title}</h4>
-                <p style={{ fontSize: "13px", color: "var(--mu)" }}>{s.desc}</p>
+                <h4 style={{ fontSize: "15px", fontWeight: "600", color: "var(--tx)" }}>{s.title}</h4>
+                <p style={{ fontSize: "13px", color: "var(--dm)" }}>{s.desc}</p>
               </div>
             </div>
           ))}
@@ -2923,45 +2923,40 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       </div>
 
       {/* Legal Disclaimer */}
-      <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid #ef444466", borderRadius: "12px", padding: "24px", marginBottom: "20px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-          <span style={{ color: "#f59e0b" }}>⚠️</span>
-          <h4 style={{ fontSize: "12px", fontWeight: "700", color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".05em" }}>{T.review.legalTitle}</h4>
+      <div style={{ background: "rgba(245, 158, 11, 0.03)", border: "1px solid rgba(245, 158, 11, 0.15)", borderRadius: "12px", padding: "20px 24px", marginBottom: "16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+          <span style={{ color: "#f59e0b", fontSize: "14px" }}>⚠️</span>
+          <h4 style={{ fontSize: "11px", fontWeight: "700", color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".08em" }}>{T.review.legalTitle}</h4>
         </div>
-        <p style={{ fontSize: "12px", color: "var(--mu)", lineHeight: "1.8" }}>
+        <p style={{ fontSize: "12px", color: "rgba(245, 158, 11, 0.7)", lineHeight: "1.7" }}>
           {T.review.legalBody}
         </p>
       </div>
 
       {/* Agreement Box */}
-      <div style={{ background: "rgba(239, 68, 68, 0.03)", border: "1px solid #ef444444", borderRadius: "12px", padding: "20px", marginBottom: "40px", display: "flex", gap: "16px" }}>
-        <span style={{ color: "#ef4444", marginTop: "2px" }}>⚠️</span>
-        <p style={{ fontSize: "13px", color: "#ef4444", lineHeight: "1.5" }}>
+      <div style={{ background: "rgba(239, 68, 68, 0.03)", border: "1px solid rgba(239, 68, 68, 0.12)", borderRadius: "12px", padding: "16px 20px", marginBottom: "40px", display: "flex", gap: "12px", alignItems: "center" }}>
+        <span style={{ color: "#ef4444", fontSize: "14px" }}>⚠️</span>
+        <p style={{ fontSize: "13px", color: "rgba(239, 68, 68, 0.8)", lineHeight: "1.5" }}>
           {T.review.agreementBody}
         </p>
       </div>
 
       {/* Final Action Buttons */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "24px", alignItems: "center" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center" }}>
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button className="wz-btn-primary" onClick={() => handleAction('accept')} disabled={loading} style={{ width: "100%", height: "56px", fontSize: "16px", opacity: loading ? 0.7 : 1, background: "var(--a)", boxShadow: "0 0 32px var(--a-glow)" }}>
-            {loading ? T.review.processing : T.review.payRetainer}
+          <button className="wz-btn-primary" onClick={() => handleAction('accept')} disabled={loading} style={{ width: "100%", height: "60px", fontSize: "17px", fontWeight: "700", opacity: loading ? 0.7 : 1, background: "#6366f1", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+            {loading ? T.review.processing : <><span style={{ fontSize: "18px" }}>🔓</span> {T.review.payRetainer}</>}
           </button>
-          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "12px" }}>{T.review.secureNotice}</p>
+          <p style={{ fontSize: "12px", color: "var(--dm)", marginTop: "14px" }}>{T.review.secureNotice}</p>
         </div>
 
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button className="wz-btn-ghost" onClick={() => handleAction('save')} disabled={loading} style={{ width: "100%", height: "56px", fontSize: "15px" }}>
-            {T.review.saveLater}
+          <button className="wz-btn-ghost" onClick={() => handleAction('save')} disabled={loading} style={{ width: "100%", height: "60px", fontSize: "15px", borderRadius: "12px", border: "1px solid var(--border2)", background: "rgba(255,255,255,0.01)", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+            <span style={{ fontSize: "16px" }}>🔖</span> {T.review.saveLater}
           </button>
-          <p style={{ fontSize: "11px", color: "var(--mu)", marginTop: "12px", maxWidth: "400px", margin: "12px auto 0", lineHeight: "1.5" }}>
+          <p style={{ fontSize: "12px", color: "var(--dm)", marginTop: "16px", maxWidth: "500px", margin: "16px auto 0", lineHeight: "1.5" }}>
             {T.review.saveLaterPDF}
           </p>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "12px" }}>
-          <span style={{ fontSize: "12px", color: "#f59e0b" }}>🔒</span>
-          <p style={{ fontSize: "11px", color: "var(--dm)" }}>{T.review.redirectNotice}</p>
         </div>
       </div>
     </div>
