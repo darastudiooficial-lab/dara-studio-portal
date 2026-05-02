@@ -2931,77 +2931,50 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       {/* Final Action Buttons */}
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px" }}>
-        <div style={{ width: "100%" }}>
-          <button 
-            className="wz-btn-primary" 
-            onClick={() => handleAction('accept')} 
-            disabled={loading} 
-            style={{ 
-              width: "100%", 
-              padding: "15px", 
-              fontSize: "14px", 
-              fontWeight: "700", 
-              background: "linear-gradient(135deg, #5B52E8, #7B6CF8)", 
-              border: "none",
-              borderRadius: "11px", 
-              color: "#fff",
-              cursor: "pointer",
-              display: "flex", 
-              alignItems: "center", 
-              justifyContent: "center", 
-              gap: "10px",
-              boxShadow: "0 4px 12px rgba(91, 82, 232, 0.2)"
-            }}
-          >
-            {loading ? T.review.processing : T.review.payRetainer}
-          </button>
-          <p style={{ fontSize: "11px", color: "var(--mu)", marginTop: "10px", textAlign: "center" }}>{T.review.secureNotice}</p>
-        </div>
-
-        <div style={{ width: "100%" }}>
-          <button 
-            className="wz-btn-ghost" 
-            onClick={() => handleAction('save')} 
-            disabled={loading} 
-            style={{ 
-              width: "100%", 
-              padding: "13px", 
-              fontSize: "13px", 
-              borderRadius: "11px", 
-              border: "1.5px solid rgba(255,255,255,0.08)", 
-              background: "rgba(255,255,255,0.03)", 
-              color: "#8080b0",
-              cursor: "pointer",
-              display: "flex", 
-              alignItems: "center", 
-              justifyContent: "center", 
-              gap: "10px" 
-            }}
-          >
-            {T.review.saveLater}
-          </button>
-          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "10px", textAlign: "center" }}>
-            {T.review.saveLaterNote}
-          </p>
-        </div>
-      </div>
-
-        <button 
-          onClick={() => setStep(6)} 
-          style={{ 
-            background: "none", 
-            border: "none", 
-            color: "#4a4a6a", 
-            cursor: "pointer", 
-            fontSize: "12px", 
-            display: "flex", 
-            alignItems: "center", 
-            gap: "6px",
-            padding: "8px 0"
-          }}
-        >
+        <button onClick={() => handleAction("accept")} disabled={loading} style={{
+          width: "100%",
+          padding: "15px",
+          background: "linear-gradient(135deg, #5B52E8, #7B6CF8)",
+          border: "none",
+          borderRadius: 11,
+          cursor: "pointer",
+          fontSize: 14,
+          fontWeight: 700,
+          color: "#fff",
+          marginBottom: 9
+        }}>
+          {loading ? T.review.processing : T.review.payRetainer}
+        </button>
+        <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 13px" }}>
+          {T.review.secureNotice}
+        </p>
+        <button onClick={() => handleAction("save")} disabled={loading} style={{
+          width: "100%",
+          padding: "13px",
+          background: "rgba(255,255,255,0.03)",
+          border: "1.5px solid rgba(255,255,255,0.08)",
+          borderRadius: 11,
+          cursor: "pointer",
+          fontSize: 13,
+          color: "#8080b0",
+          marginBottom: 6
+        }}>
+          {T.review.saveLater}
+        </button>
+        <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 18px" }}>
+          {T.review.saveLaterNote}
+        </p>
+        <button onClick={() => setStep(6)} style={{
+          background: "none",
+          border: "none",
+          color: "#4a4a6a",
+          cursor: "pointer",
+          fontSize: 12,
+          padding: 0
+        }}>
           {T.review.backButton}
         </button>
+      </div>
       </div>
 
       <div style={{ width: 320, flexShrink: 0, position: "sticky", top: 100 }}>
