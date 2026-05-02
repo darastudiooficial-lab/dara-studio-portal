@@ -2946,7 +2946,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           color: "#8080b0",
           marginBottom: 6
         }}>
-          {T.review.saveLater}
+          {loading ? T.review.processing : T.review.saveLater}
         </button>
         <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 18px" }}>
           {T.review.saveLaterNote}
