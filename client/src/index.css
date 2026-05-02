@@ -7,21 +7,24 @@
 
 /* ── Design Tokens ── */
 :root {
-  --bg0:    #090910;
-  --bg1:    #0f0f1a;
-  --bg2:    #14141f;
-  --bg3:    #1a1a28;
-  --border: rgba(255,255,255,.08);
+  /* Dark Theme (Default) */
+  --bg0:    #0F1035; /* bg-main */
+  --bg1:    #1A1B41; /* bg-card */
+  --bg2:    #1E1E4A; 
+  --bg3:    #242455;
+  --tx:     #F0F2F9; /* text-primary */
+  --mu:     #7077A1; /* text-secondary */
+  --dm:     #424769; /* accent */
+  --border: #2D3250; /* border */
   --border2:rgba(255,255,255,.14);
-  --a:      #6366f1;
+  --a:      #6366f1; /* Keeping brand indigo as main accent */
   --a-dim:  rgba(99,102,241,.18);
   --a-glow: rgba(99,102,241,.35);
-  --tx:     #f0eff8;
-  --mu:     #9896b8;
-  --dm:     #5c5a7a;
   --gn:     #10b981;
   --am:     #f59e0b;
   --rd:     #ef4444;
+  --cb:     rgba(255,255,255,0.04);
+  
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono:  'DM Mono', monospace;
   --font-sans:  'DM Sans', system-ui, sans-serif;
@@ -31,17 +34,18 @@
 }
 
 .light {
-  --bg0:    #f8f9fc;
-  --bg1:    #ffffff;
-  --bg2:    #f1f5f9;
-  --bg3:    #e2e8f0;
-  --border: rgba(0,0,0,.08);
+  --bg0:    #F0F2F9; /* bg-main */
+  --bg1:    #FFFFFF; /* bg-card */
+  --bg2:    #E5E8F3;
+  --bg3:    #DCDFE9;
+  --tx:     #2D3250; /* text-primary */
+  --mu:     #676F9D; /* text-secondary */
+  --dm:     #7077A1; /* accent */
+  --border: #DCDFE9; /* border */
   --border2:rgba(0,0,0,.14);
-  --tx:     #0f172a;
-  --mu:     #475569;
-  --dm:     #94a3b8;
   --a-dim:  rgba(99,102,241,.12);
   --a-glow: rgba(99,102,241,.15);
+  --cb:     rgba(0,0,0,0.05);
 }
 
 html, body, #root {
@@ -372,7 +376,7 @@ html, body, #root {
 .lp-nav {
   display: flex; align-items: center; justify-content: space-between;
   padding: 22px 48px;
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid var(--border);
 }
 @media(max-width: 640px) { .lp-nav { padding: 18px 24px } }
 
@@ -390,7 +394,7 @@ html, body, #root {
 .lp-nav-login {
   font-size: 13px; color: var(--mu); text-decoration: none;
   padding: 8px 16px; border-radius: 8px;
-  border: 1.5px solid rgba(255,255,255,.08);
+  border: 1.5px solid var(--border);
   transition: all .18s; cursor: pointer;
   background: none; font-family: inherit;
 }
@@ -451,7 +455,7 @@ html, body, #root {
 .lp-btn-secondary {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 15px 32px; background: transparent;
-  border: 1.5px solid rgba(255,255,255,.12); border-radius: 10px;
+  border: 1.5px solid var(--border); border-radius: 10px;
   color: #c4c2dc; font-family: var(--font-sans); font-size: 15px;
   font-weight: 500; cursor: pointer; transition: all .2s; text-decoration: none;
 }
@@ -467,11 +471,11 @@ html, body, #root {
   animation: lp-fade-up .6s .55s both;
 }
 .lp-proof-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--dm); }
-.lp-proof-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.08); }
+.lp-proof-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--cb); }
 
 /* Services strip */
 .lp-services {
-  border-top: 1px solid rgba(255,255,255,.05);
+  border-top: 1px solid var(--border);
   padding: 32px 48px; display: flex; align-items: center;
   justify-content: center; gap: 0; flex-wrap: wrap;
   animation: lp-fade-up .6s .65s both;
@@ -479,7 +483,7 @@ html, body, #root {
 .lp-service-item {
   padding: 10px 24px; font-size: 12px; color: var(--dm);
   letter-spacing: .04em; text-transform: uppercase; font-weight: 500;
-  border-right: 1px solid rgba(255,255,255,.06);
+  border-right: 1px solid var(--border);
 }
 .lp-service-item:last-child { border-right: none }
 @media(max-width: 640px) {

@@ -116,7 +116,6 @@ const TRANSLATIONS = {
     confidence: "Estimate Confidence",
     approxEstimate: "*Approximate estimate. Final pricing confirmed upon project review.",
     enterDims: "Enter dimensions and select project type to see your estimate.",
-    detected: "Detected",
     customArea: "Custom Area",
     totalArea: "Total Area",
     selectLevels: "Select levels below",
@@ -454,7 +453,6 @@ const TRANSLATIONS = {
     confidence: "Confiança da Estimativa",
     approxEstimate: "*Estimativa aproximada. Preço final confirmado após revisão do projeto.",
     enterDims: "Insira as dimensões e selecione o tipo de projeto para ver sua estimativa.",
-    detected: "Detectado",
     customArea: "Área Personalizada",
     totalArea: "Área Total",
     selectLevels: "Selecione os níveis abaixo",
@@ -916,7 +914,7 @@ function calcEst(d, lang = "EN", step) {
   const sym = isUS ? "$" : "R$";
   const fmt = (n) => sym + Math.round(n).toLocaleString(isUS ? "en-US" : "pt-BR");
   const fmtEx = (n) => sym + n.toLocaleString(isUS ? "en-US" : "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const fmtR = (v) => `${fmtEx(v)} – ${fmtEx(v * 1.10)}`;
+  const fmtR = (v) => `${fmt(v)} – ${fmt(v * 1.10)}`;
 
   const SVC_LABELS = T.svcLabels || {};
 
@@ -950,11 +948,11 @@ function calcEst(d, lang = "EN", step) {
   }
 
   const totalBaseArea = areaBlocks.reduce((s, b) => s + b.area, 0);
-  const lv = d.levels || {};
-  const mainFloors = (lv.ground ? 1 : 0) + (lv.second ? 1 : 0);
-  const mainFactor = mainFloors > 0 ? mainFloors : 1;
-  const lvFactor = mainFactor + (lv.basement ? 1 : 0) + (lv.attic ? 1 : 0);
-  const totalArea = totalBaseArea * lvFactor;
+  const totalArea = areaBlocks.reduce((sum, blk) => {
+    const lvls = (d.svcLevels && blk.svcId && d.svcLevels[blk.svcId]) ? d.svcLevels[blk.svcId] : d.levels || {};
+    const count = blk.noMult ? 1 : Object.values(lvls).filter(Boolean).length;
+    return sum + (blk.area * (count || 1));
+  }, 0);
 
   const pkg = d.deliveryPkg || "";
   const pkgExtras = d.pkgExtras || {};
@@ -966,7 +964,7 @@ function calcEst(d, lang = "EN", step) {
 
   if (!pkg || totalBaseArea <= 0) {
     const bd0 = [];
-    if (totalBaseArea > 0) bd0.push({ l: T.totalArea, v: Math.round(totalBaseArea).toLocaleString() + " " + (isUS ? "sqft" : "m²") });
+    if (totalArea > 0) bd0.push({ l: T.totalArea, v: Math.round(totalArea).toLocaleString() + " " + (isUS ? "sqft" : "m²") });
     const PROP_SHORT0 = lang === "EN" ? { single_family: "Single Family", multi_family: "Multi-Family", adu: "ADU" } : { single_family: "Residencial", multi_family: "Multifamiliar", adu: "ADU" };
     const primarySvc0 = selectedSvcs.map(k => SVC_LABELS[k])[0] || "";
     const propShort0 = PROP_SHORT0[d.propertyType] || d.propertyType || "";
@@ -1127,11 +1125,11 @@ function calcEst(d, lang = "EN", step) {
   if (d.rush === "rush") multiplier = 1.4;
   if (d.rush === "express") multiplier = 1.6;
 
-  const lo = cost * multiplier, hi = (cost * multiplier) * 1.10;
+  const lo = Math.round(cost * multiplier), hi = Math.round((cost * multiplier) * 1.10);
 
   if (multiplier > 1) {
     const feeLabel = d.rush === "rush" ? T.rushDelivery : T.expressDelivery;
-    const feeAmount = cost * (multiplier - 1);
+    const feeAmount = Math.round(cost * (multiplier - 1));
     bd.push({ l: feeLabel, v: fmtR(feeAmount), block: "extra" });
   }
 
@@ -1155,7 +1153,7 @@ function calcEst(d, lang = "EN", step) {
   const propShort = PROP_SHORT[d.propertyType] || d.propertyType || "";
   const projectTitle = primarySvc && propShort ? `${primarySvc} — ${propShort}` : primarySvc || propShort || "";
 
-  return { lo: fmtEx(lo), hi: fmtEx(hi), conf, bd, totalArea: totalBaseArea, baseArea: totalBaseArea, noPkg: false, pkgName, areaBlocks, selectedSvcNames, lvNames, projectTitle };
+  return { lo: fmt(lo), hi: fmt(hi), conf, bd, totalArea: totalArea, baseArea: totalBaseArea, noPkg: false, pkgName, areaBlocks, selectedSvcNames, lvNames, projectTitle };
 }
 
 
@@ -1194,6 +1192,23 @@ export default function EstimateWizard() {
   } = useAppContext();
 
   const [isInitialized, setIsInitialized] = useState(false);
+  useEffect(() => {
+    // Strip actual File objects from uploads before saving to localStorage
+    const cleanData = { ...data };
+    if (cleanData.uploads) {
+      const cleanUploads = {};
+      Object.keys(cleanData.uploads).forEach(catId => {
+        cleanUploads[catId] = cleanData.uploads[catId].map(f => ({
+          name: f.name,
+          size: f.size,
+          type: f.type
+        }));
+      });
+      cleanData.uploads = cleanUploads;
+    }
+    localStorage.setItem("dara-wizard-data", JSON.stringify(cleanData));
+  }, [data]);
+
   useEffect(() => {
     resetWizard();
     setIsInitialized(true);
@@ -2234,7 +2249,7 @@ function S5_Specs({ d, up, lang }) {
           </button>
         </div>
         {showDetails && (
-          <div className="wz-animate" style={{ marginTop: "16px", padding: "16px", background: "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+          <div className="wz-animate" style={{ marginTop: "16px", padding: "16px", background: "var(--cb)", borderRadius: "8px", border: "1px solid var(--border)" }}>
             <p style={{ fontSize: "13px", color: "var(--mu)", lineHeight: "1.6", marginBottom: "12px" }}>
               <strong>{isUS ? "Technical Alignment:" : "Alinhamento Técnico:"}</strong> {isUS ? "This stage ensures that our design team understands the physical and legal constraints of your property." : "Esta etapa garante que nossa equipe de design entenda as restrições físicas e legais de sua propriedade."}
             </p>
@@ -2343,6 +2358,8 @@ function S6({ d, up, lang }) {
 function S7({ d, up, lang }) {
   const isUS = d.region !== "BR";
   const T = TRANSLATIONS[lang];
+  const fileRefs = useRef({});
+  const [dragging, setDragging] = useState(null);
 
   const cats = [
     {
@@ -2381,6 +2398,18 @@ function S7({ d, up, lang }) {
 
   const uploads = d.uploads || {};
 
+  const handleFiles = (catId, files) => {
+    if (!files || files.length === 0) return;
+    const current = uploads[catId] || [];
+    const newFiles = Array.from(files).map(f => ({
+      name: f.name,
+      size: f.size,
+      type: f.type,
+      lastModified: f.lastModified
+    }));
+    up("uploads", { ...uploads, [catId]: [...current, ...newFiles] });
+  };
+
   return (
     <div className="wz-animate">
       <Title label={T.uploadTitle} sub={T.uploadSub} />
@@ -2393,26 +2422,108 @@ function S7({ d, up, lang }) {
         </p>
       </div>
 
-      <div className="wz-grid-adaptive" style={{ gap: "20px" }}>
+      <div className="wz-grid-adaptive" style={{ gap: "24px" }}>
         {cats.map(cat => (
-          <div key={cat.id} style={{ background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden" }}>
-            <div style={{ padding: "20px", borderBottom: "1px solid var(--border)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <span style={{ fontSize: "24px" }}>{cat.icon}</span>
+          <div key={cat.id} style={{ 
+            background: "var(--bg1)", 
+            border: "1.5px solid var(--border)", 
+            borderRadius: "20px", 
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            transition: "all .3s ease"
+          }} className="wz-card-premium">
+            <div style={{ padding: "24px", background: "var(--cb)", borderBottom: "1.5px solid var(--border)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <div style={{ 
+                  width: "48px", 
+                  height: "48px", 
+                  borderRadius: "14px", 
+                  background: cat.color + "15", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  fontSize: "24px"
+                }}>
+                  {cat.icon}
+                </div>
                 <div>
-                  <h3 style={{ fontSize: "16px", fontWeight: "600", color: "var(--tx)" }}>{cat.label}</h3>
-                  <p style={{ fontSize: "10px", color: "var(--dm)", letterSpacing: ".05em", marginTop: "2px" }}>{cat.types}</p>
+                  <h3 style={{ fontSize: "16px", fontWeight: "700", color: "var(--tx)", letterSpacing: "-0.01em" }}>{cat.label}</h3>
+                  <p style={{ fontSize: "10px", color: "var(--dm)", textTransform: "uppercase", letterSpacing: ".1em", marginTop: "4px" }}>{cat.types}</p>
                 </div>
               </div>
             </div>
-            <div style={{ padding: "20px" }}>
-              <div className="wz-drop" style={{ padding: "32px 16px", background: "rgba(255,255,255,0.01)" }}>
-                <div style={{ marginBottom: "12px", color: "var(--mu)", fontSize: "24px", opacity: 0.8 }}>☁️</div>
-                <p style={{ fontSize: "13px", color: "var(--mu)" }}>
-                  {T.dropHere} <span style={{ color: cat.color, fontWeight: "700", cursor: "pointer" }}>{T.browse}</span>
+
+            <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column" }}>
+              <div 
+                className={`wz-drop ${dragging === cat.id ? "dragging" : ""}`} 
+                style={{ 
+                  flex: 1,
+                  padding: "40px 20px", 
+                  background: dragging === cat.id ? "var(--a-dim)" : "var(--cb)",
+                  border: "2px dashed var(--border)",
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  cursor: "pointer",
+                  transition: "all .2s ease"
+                }}
+                onDragOver={e => { e.preventDefault(); setDragging(cat.id); }}
+                onDragLeave={() => setDragging(null)}
+                onDrop={e => { e.preventDefault(); setDragging(null); handleFiles(cat.id, e.dataTransfer.files); }}
+                onClick={() => fileRefs.current[cat.id]?.click()}
+              >
+                <div style={{ 
+                  width: "40px", 
+                  height: "40px", 
+                  borderRadius: "50%", 
+                  background: "var(--bg2)", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  marginBottom: "16px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+                }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--a)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <p style={{ fontSize: "14px", color: "var(--mu)", fontWeight: "500", maxWidth: "160px", lineHeight: "1.4" }}>
+                  {T.dropHere} <span style={{ color: "var(--a)", fontWeight: "700" }}>{T.browse}</span>
                 </p>
-                <input type="file" multiple accept={cat.accept} style={{ display: "none" }} />
+                <input 
+                  type="file" 
+                  multiple 
+                  accept={cat.accept} 
+                  ref={el => fileRefs.current[cat.id] = el}
+                  style={{ display: "none" }} 
+                  onChange={e => handleFiles(cat.id, e.target.files)}
+                />
               </div>
+
+              {uploads[cat.id] && uploads[cat.id].length > 0 && (
+                <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", textTransform: "uppercase", letterSpacing: ".1em" }}>{T.uploadedFiles || "Uploaded Files"}</p>
+                  {uploads[cat.id].map((f, i) => (
+                    <div key={i} style={{ 
+                      display: "flex", 
+                      justifyContent: "space-between", 
+                      alignItems: "center", 
+                      padding: "10px 14px", 
+                      background: "var(--bg2)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "10px"
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", overflow: "hidden" }}>
+                        <div style={{ color: "var(--gn)", fontSize: "14px" }}>✓</div>
+                        <span style={{ fontSize: "12px", color: "var(--tx)", fontWeight: "600", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f.name}</span>
+                      </div>
+                      <span style={{ fontSize: "10px", color: "var(--dm)", fontFamily: "var(--font-mono)" }}>{(f.size / 1024 / 1024).toFixed(1)}MB</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -2443,7 +2554,10 @@ function S8({ d, up, lang }) {
 
   const handleFileChange = (id, e) => {
     if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
       up(id, true);
+      const currentRushFiles = d.rushFiles || {};
+      up("rushFiles", { ...currentRushFiles, [id]: file.name });
       setFeedback("");
     }
   };
@@ -2490,7 +2604,7 @@ function S8({ d, up, lang }) {
       <Title label={T.rushFeesTitle || T.deliverySpeed} sub={T.rushFeesSub || T.speedSub} />
 
       {/* Checklist Box */}
-      <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginBottom: "24px" }}>
+      <div style={{ background: "var(--cb)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginBottom: "24px" }}>
         <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".1em", color: "var(--mu)", textTransform: "uppercase" }}>{T.docChecklist}</h3>
           <span style={{ fontSize: "11px", color: "var(--dm)" }}>{remaining} {T.requiredRemaining}</span>
@@ -2626,7 +2740,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         region: d.region
       };
 
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -2646,14 +2760,14 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   };
 
   const ReviewRow = ({ label, value }) => (
-    <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
+    <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 0", borderBottom: "1px solid var(--border)" }}>
       <span style={{ fontSize: "12px", color: "var(--dm)", textTransform: "capitalize" }}>{label}</span>
       <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--tx)", textAlign: "right" }}>{value || "—"}</span>
     </div>
   );
 
   const Section = ({ icon, title, step, children }) => (
-    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: "12px", padding: "20px", marginBottom: "16px" }}>
+    <div style={{ background: "var(--cb)", border: "1px solid var(--border)", borderRadius: "12px", padding: "20px", marginBottom: "16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <span style={{ fontSize: "18px" }}>{icon}</span>
@@ -2712,7 +2826,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       <Section icon="📋" title={T.review.summary} step={3}>
         <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} />
-        <div style={{ marginTop: "12px", padding: "12px", background: "rgba(255,255,255,0.01)", borderRadius: "8px" }}>
+        <div style={{ marginTop: "12px", padding: "12px", background: "var(--cb)", borderRadius: "8px" }}>
           <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.selectedSvcs}</p>
           {(est?.bd || []).map((it, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", padding: "4px 0" }}>
@@ -2732,9 +2846,63 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       </Section>
 
       <Section icon="📂" title={T.review.documentation} step={5}>
-        <p style={{ fontSize: "13px", color: "var(--dm)", fontStyle: "italic" }}>
-          {Object.keys(d).some(k => k.startsWith('chk_') && d[k]) ? T.review.docsVerified : T.review.noDocs}
-        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {/* Reference Files from S7 */}
+          {d.uploads && Object.keys(d.uploads).some(k => d.uploads[k]?.length > 0) ? (
+            Object.keys(d.uploads).map(catId => {
+              const files = d.uploads[catId];
+              if (!files || files.length === 0) return null;
+              const catLabels = {
+                inspiration: lang === "EN" ? "Inspiration Images" : "Imagens de Inspiração",
+                videos: lang === "EN" ? "Videos" : "Vídeos",
+                documents: lang === "EN" ? "Technical Documents" : "Documentos Técnicos",
+                other: lang === "EN" ? "Other Files" : "Outros Arquivos"
+              };
+              return (
+                <div key={catId}>
+                  <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>📁 {catLabels[catId] || catId}</p>
+                  <div style={{ paddingLeft: "12px", borderLeft: "1.5px solid var(--border2)" }}>
+                    {files.map((f, i) => (
+                      <div key={i} style={{ fontSize: "12px", color: "var(--tx)", padding: "4px 0", display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span style={{ color: "var(--gn)" }}>📄</span>
+                        <span>{f.name}</span>
+                        <span style={{ fontSize: "10px", color: "var(--dm)" }}>({(f.size / 1024 / 1024).toFixed(1)}MB)</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })
+          ) : null}
+
+          {/* Rush Files from S8 */}
+          {d.rushFiles && Object.keys(d.rushFiles).length > 0 ? (
+            <div>
+              <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>📁 {lang === "EN" ? "Technical Requirements" : "Requisitos Técnicos"}</p>
+              <div style={{ paddingLeft: "12px", borderLeft: "1.5px solid var(--border2)" }}>
+                {checklist.map(item => {
+                  const fileName = d.rushFiles[item.id];
+                  if (!fileName) return null;
+                  return (
+                    <div key={item.id} style={{ fontSize: "12px", color: "var(--tx)", padding: "4px 0", display: "flex", flexDirection: "column", gap: "2px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span style={{ color: "var(--gn)" }}>📄</span>
+                        <span style={{ fontWeight: "600" }}>{item.label}:</span>
+                        <span>{fileName}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
+          {!Object.keys(d.uploads || {}).some(k => d.uploads[k]?.length > 0) && !Object.keys(d.rushFiles || {}).length > 0 && (
+            <p style={{ fontSize: "13px", color: "var(--dm)", fontStyle: "italic" }}>
+              {T.review.noDocs}
+            </p>
+          )}
+        </div>
       </Section>
 
       <div style={{ marginTop: "48px", marginBottom: "48px" }}>
