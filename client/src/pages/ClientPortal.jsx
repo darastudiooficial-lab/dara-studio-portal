@@ -64,15 +64,15 @@ const I18N = {
     createAccount: 'Criar Conta',
     login: 'Entrar',
     client: 'Cliente',
-    freelancer: 'Freelancer',
+    freelancer: 'Colaborador',
     admin: 'Admin',
     status_waiting: 'Aguardando Cliente',
     status_on_track: 'Em Andamento',
     status_attention: 'Atenção / Atrasado',
     status_completed: 'Entregue',
     role_client: 'Portal do Cliente',
-    role_freelancer: 'Hub do Freelancer',
-    role_admin: 'Painel Administrativo',
+    role_freelancer: 'Portal do Colaborador',
+    role_admin: 'Portal do Admin',
     total_budget: 'Orçamento Total',
     total_paid: 'Total Pago',
     balance_due: 'Saldo Devedor',
@@ -108,15 +108,15 @@ const I18N = {
     createAccount: 'Create Account',
     login: 'Sign In',
     client: 'Client',
-    freelancer: 'Freelancer',
+    freelancer: 'Collaborator',
     admin: 'Admin',
     status_waiting: 'Awaiting Client',
     status_on_track: 'On Track',
     status_attention: 'Attention / Late',
     status_completed: 'Delivered',
     role_client: 'Client Portal',
-    role_freelancer: 'Freelancer Hub',
-    role_admin: 'Admin Dashboard',
+    role_freelancer: 'Collaborator Portal',
+    role_admin: 'Admin Portal',
     total_budget: 'Total Budget',
     total_paid: 'Total Paid',
     balance_due: 'Balance Due',
@@ -237,7 +237,10 @@ export default function ClientPortal() {
               <div className="lw-tag">DRAFTING & 3D SUPPORT</div>
             </div>
           </div>
-          <h1 className="login-h1">{lang === 'PT' ? 'Portal' : 'Client'}<br />{lang === 'PT' ? 'do' : ''} <em>{lang === 'PT' ? 'Cliente' : 'Portal'}</em></h1>
+          <h1 className="login-h1">
+            {lang === 'PT' ? 'Portal' : (S.role === 'admin' ? 'Admin' : S.role === 'freelancer' ? 'Collaborator' : 'Client')}<br />
+            {lang === 'PT' ? 'do' : ''} <em>{lang === 'PT' ? (S.role === 'admin' ? 'Admin' : S.role === 'freelancer' ? 'Colaborador' : 'Cliente') : 'Portal'}</em>
+          </h1>
           <div className="login-line"></div>
           <p className="login-sub">{T.loginSub}</p>
 
