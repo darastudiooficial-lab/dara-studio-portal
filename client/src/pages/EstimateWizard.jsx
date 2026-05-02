@@ -2923,20 +2923,20 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       </div>
 
       {/* Legal Disclaimer */}
-      <div style={{ background: "rgba(245, 158, 11, 0.03)", border: "1px solid rgba(245, 158, 11, 0.15)", borderRadius: "12px", padding: "20px 24px", marginBottom: "16px" }}>
+      <div style={{ background: "var(--bg1)", border: "1px solid var(--a-dim)", borderRadius: "12px", padding: "20px 24px", marginBottom: "16px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-          <span style={{ color: "#f59e0b", fontSize: "14px" }}>⚠️</span>
-          <h4 style={{ fontSize: "11px", fontWeight: "700", color: "#f59e0b", textTransform: "uppercase", letterSpacing: ".08em" }}>{T.review.legalTitle}</h4>
+          <span style={{ color: "var(--am)", fontSize: "14px" }}>⚠️</span>
+          <h4 style={{ fontSize: "11px", fontWeight: "700", color: "var(--am)", textTransform: "uppercase", letterSpacing: ".08em" }}>{T.review.legalTitle}</h4>
         </div>
-        <p style={{ fontSize: "12px", color: "rgba(245, 158, 11, 0.7)", lineHeight: "1.7" }}>
+        <p style={{ fontSize: "12px", color: "var(--tx)", lineHeight: "1.7", opacity: 0.9 }}>
           {T.review.legalBody}
         </p>
       </div>
 
       {/* Agreement Box */}
-      <div style={{ background: "rgba(245, 158, 11, 0.03)", border: "1px solid rgba(245, 158, 11, 0.12)", borderRadius: "12px", padding: "16px 20px", marginBottom: "40px", display: "flex", gap: "12px", alignItems: "center" }}>
-        <span style={{ color: "#f59e0b", fontSize: "14px" }}>⚠️</span>
-        <p style={{ fontSize: "13px", color: "rgba(245, 158, 11, 0.8)", lineHeight: "1.5" }}>
+      <div style={{ background: "var(--bg1)", border: "1px solid var(--a-dim)", borderRadius: "12px", padding: "16px 20px", marginBottom: "40px", display: "flex", gap: "12px", alignItems: "center" }}>
+        <span style={{ color: "var(--am)", fontSize: "14px" }}>⚠️</span>
+        <p style={{ fontSize: "13px", color: "var(--tx)", lineHeight: "1.5", opacity: 0.9 }}>
           {T.review.agreementBody}
         </p>
       </div>
