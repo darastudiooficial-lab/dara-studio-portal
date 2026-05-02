@@ -14,6 +14,7 @@ require("dotenv").config();
 const express    = require("express");
 const nodemailer = require("nodemailer");
 const cors       = require("cors");
+const path       = require("path");
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
@@ -267,5 +268,13 @@ app.post("/api/accept", async (req, res) => {
 
 /* ── Health check ── */
 app.get("/health", (_req, res) => res.json({ status: "ok", smtp: "gmail:465", user: GMAIL_USER, port: PORT }));
+
+/* ── Serve Static Files (Production) ── */
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+/* ── SPA Catch-all (React Router) ── */
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
 
 app.listen(PORT, () => console.log(`[DARA Server] http://localhost:${PORT}`));

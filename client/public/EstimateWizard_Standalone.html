@@ -137,6 +137,17 @@
 
         .wz-grid-adaptive { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
 
+        .wz-drop {
+            border: 2px dashed var(--border); border-radius: var(--r-sm);
+            padding: 32px 16px; text-align: center; cursor: pointer;
+            transition: all .2s; background: rgba(255,255,255,0.01);
+            position: relative;
+        }
+        .wz-drop:hover, .wz-drop.dragging {
+            border-color: var(--a); background: var(--a-dim);
+            box-shadow: 0 0 0 1px var(--a);
+        }
+
         /* Custom styles for standalone */
         #root { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         .top-bar { padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
@@ -160,10 +171,11 @@
                 confidence: "Estimate Confidence",
                 approxEstimate: "*Approximate estimate.",
                 totalArea: "Total Area",
-                groundFloor: "Ground Floor",
-                secondFloor: "2nd Floor",
-                basement: "Basement",
-                attic: "Attic",
+                uploadTitle: "Upload Reference Files",
+                uploadSub: "Upload by category — up to 100MB per file.",
+                uploadHelp: "Please upload any relevant documents such as: Existing Floor Plans, Site Surveys, sketches, or photos of the property. Clear documentation helps us provide a more accurate and faster design service.",
+                dropHere: "Drop here or ",
+                browse: "click to browse",
                 whereProject: "Where is your project located?",
                 locationSub: "This helps us apply the correct codes and regulations.",
                 streetAddress: "Street Address",
@@ -182,17 +194,6 @@
                     single_family: { label: "Single Family Home" },
                     multi_family: { label: "Multi-Family" },
                     adu: { label: "ADU" }
-                },
-                review: {
-                    title: "Review your brief.",
-                    sub: "Verify details before submitting.",
-                    client: "Client",
-                    location: "Location",
-                    project: "Project",
-                    summary: "Final Summary",
-                    edit: "Edit",
-                    payRetainer: "🛡️ Pay Retainer & Start Project",
-                    saveLater: "💾 Save for Later"
                 }
             },
             PT: {
@@ -205,10 +206,11 @@
                 confidence: "Confiança da Estimativa",
                 approxEstimate: "*Estimativa aproximada.",
                 totalArea: "Área Total",
-                groundFloor: "Térreo",
-                secondFloor: "2º Pavimento",
-                basement: "Subsolo",
-                attic: "Sótão",
+                uploadTitle: "Upload de Arquivos de Referência",
+                uploadSub: "Faça o upload por categoria — até 100MB por arquivo.",
+                uploadHelp: "Por favor, faça o upload de quaisquer documentos relevantes, tais como: Plantas Existentes, Levantamentos de Terreno, esboços ou fotos da propriedade. Uma documentação clara nos ajuda a fornecer um serviço de design mais preciso e rápido.",
+                dropHere: "Arraste aqui ou ",
+                browse: "clique para procurar",
                 whereProject: "Onde seu projeto está localizado?",
                 locationSub: "Isso nos ajuda a aplicar os códigos e regulamentos corretos.",
                 streetAddress: "Endereço",
@@ -222,28 +224,17 @@
                 email: "E-mail",
                 phone: "Telefone",
                 whoAreYou: "Quem é você?",
-                roles: { homeowner: "Proprietário", builder: "Construtor", other: "Outro" },
+                roles: { homeowner: "Proprietário", builder: "Construtor", outro: "Outro" },
                 propertyTypes: {
                     single_family: { label: "Residencial Unifamiliar" },
                     multi_family: { label: "Multifamiliar" },
                     adu: { label: "ADU" }
-                },
-                review: {
-                    title: "Revise seu resumo.",
-                    sub: "Verifique os detalhes antes de enviar.",
-                    client: "Cliente",
-                    location: "Localização",
-                    project: "Projeto",
-                    summary: "Resumo Final",
-                    edit: "Editar",
-                    payRetainer: "🛡️ Pagar Sinal e Iniciar Projeto",
-                    saveLater: "💾 Salvar para Depois"
                 }
             }
         };
 
-        const STEPS_EN = ["Location", "About You", "Project", "Scope", "Review"];
-        const STEPS_PT = ["Localização", "Sobre Você", "Projeto", "Escopo", "Revisão"];
+        const STEPS_EN = ["Location", "About You", "Project", "Scope", "Files", "Review"];
+        const STEPS_PT = ["Localização", "Sobre Você", "Projeto", "Escopo", "Arquivos", "Revisão"];
 
         // ── Components ──
         function Title({ label, sub }) {
@@ -277,7 +268,6 @@
             );
         }
 
-        // ── Step Components ──
         function S1({ d, up, T }) {
             return (
                 <div className="wz-animate">
@@ -322,17 +312,92 @@
             );
         }
 
+        function S6({ d, up, T, lang }) {
+            const cats = [
+                { id: "inspiration", label: lang === "EN" ? "Inspiration Images" : "Imagens de Inspiração", icon: "🖼️", types: "JPG · PNG · GIF · WEBP · max 100MB", color: "#6366f1", accept: "image/*" },
+                { id: "videos", label: lang === "EN" ? "Videos" : "Vídeos", icon: "🎥", types: "MP4 · MOV · WEBM · max 100MB", color: "#d946ef", accept: "video/*" },
+                { id: "documents", label: lang === "EN" ? "Technical Documents" : "Documentos Técnicos", icon: "📋", types: "PDF · DOC · DWG · DXF · max 100MB", color: "#f59e0b", accept: ".pdf,.doc,.docx,.dwg,.dxf" },
+                { id: "other", label: lang === "EN" ? "Other Files" : "Outros Arquivos", icon: "📎", types: "Any file type · max 100MB", color: "#10b981", accept: "*" },
+            ];
+
+            const uploads = d.uploads || {};
+
+            const handleFiles = (catId, files) => {
+                const existing = uploads[catId] || [];
+                const newFiles = Array.from(files).map(f => ({ name: f.name, size: f.size }));
+                up('uploads', { ...uploads, [catId]: [...existing, ...newFiles] });
+            };
+
+            return (
+                <div className="wz-animate">
+                    <Title label={T.uploadTitle} sub={T.uploadSub} />
+                    <div style={{ background: "rgba(99, 102, 241, 0.1)", border: "1px solid rgba(99, 102, 241, 0.2)", borderRadius: "12px", padding: "20px", display: "flex", gap: "16px", marginBottom: "32px" }}>
+                        <div style={{ color: "#818cf8", fontSize: "20px" }}>ⓘ</div>
+                        <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--mu)" }}>{T.uploadHelp}</p>
+                    </div>
+                    <div className="wz-grid-adaptive" style={{ gap: "20px" }}>
+                        {cats.map(cat => (
+                            <DropZone key={cat.id} cat={cat} T={T} onFiles={files => handleFiles(cat.id, files)} currentFiles={uploads[cat.id] || []} />
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function DropZone({ cat, T, onFiles, currentFiles }) {
+            const fileRef = useRef(null);
+            const [isDragging, setIsDragging] = useState(false);
+
+            return (
+                <div style={{ background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden" }}>
+                    <div style={{ padding: "20px", borderBottom: "1px solid var(--border)" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                            <span style={{ fontSize: "24px" }}>{cat.icon}</span>
+                            <div>
+                                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "var(--tx)" }}>{cat.label}</h3>
+                                <p style={{ fontSize: "10px", color: "var(--dm)", letterSpacing: ".05em", marginTop: "2px" }}>{cat.types}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ padding: "20px" }}>
+                        <div 
+                            className={`wz-drop ${isDragging ? 'dragging' : ''}`}
+                            onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
+                            onDragLeave={() => setIsDragging(false)}
+                            onDrop={e => { e.preventDefault(); setIsDragging(false); onFiles(e.dataTransfer.files); }}
+                            onClick={() => fileRef.current.click()}
+                        >
+                            <div style={{ marginBottom: "12px", color: "var(--mu)", fontSize: "24px", opacity: 0.8 }}>☁️</div>
+                            <p style={{ fontSize: "13px", color: "var(--mu)" }}>
+                                {T.dropHere} <span style={{ color: cat.color, fontWeight: "700" }}>{T.browse}</span>
+                            </p>
+                            <input type="file" multiple accept={cat.accept} ref={fileRef} style={{ display: "none" }} onChange={e => onFiles(e.target.files)} />
+                        </div>
+                        {currentFiles.length > 0 && (
+                            <div style={{ marginTop: 12 }}>
+                                {currentFiles.map((f, i) => (
+                                    <div key={i} style={{ fontSize: 11, color: "var(--gn)", padding: "4px 0", display: "flex", justifyContent: "space-between" }}>
+                                        <span>✓ {f.name}</span>
+                                        <span style={{ opacity: 0.6 }}>{(f.size / 1024 / 1024).toFixed(2)}MB</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
         // ── Main App ──
         function EstimateWizard() {
             const [lang, setLang] = useState("EN");
             const [step, setStep] = useState(0);
-            const [data, setData] = useState({});
+            const [data, setData] = useState({ uploads: {} });
             
             const T = TRANSLATIONS[lang];
             const STEPS = lang === "EN" ? STEPS_EN : STEPS_PT;
 
             const up = (key, val) => setData(prev => ({ ...prev, [key]: val }));
-
             const next = () => step < STEPS.length - 1 && setStep(s => s + 1);
             const prev = () => step > 0 && setStep(s => s - 1);
 
@@ -359,7 +424,8 @@
                         <div>
                             {step === 0 && <S1 d={data} up={up} T={T} />}
                             {step === 1 && <S2 d={data} up={up} T={T} />}
-                            {step > 1 && <div className="wz-animate"><Title label="Prototyping Step..." sub="The full logic is being loaded." /></div>}
+                            {step === 4 && <S6 d={data} up={up} T={T} lang={lang} />}
+                            {(step !== 0 && step !== 1 && step !== 4) && <div className="wz-animate"><Title label="Prototyping Step..." sub="The full logic is being loaded for this stage." /></div>}
                             
                             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 40, paddingTop: 20, borderTop: "1px solid var(--border)" }}>
                                 <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? 'hidden' : 'visible' }}>{T.back}</button>

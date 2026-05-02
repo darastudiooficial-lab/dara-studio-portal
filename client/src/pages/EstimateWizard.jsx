@@ -374,14 +374,15 @@ const TRANSLATIONS = {
         { title: "Estimate Review", desc: "Our team reviews your brief within 24 hours." },
         { title: "Formal Quote", desc: "You receive a detailed, no-surprise proposal." }
       ],
-      legalTitle: "IMPORTANT LEGAL DISCLAIMER",
+      legalTitle: "⚠ IMPORTANT LEGAL DISCLAIMER",
       legalBody: "This estimate is strictly for initial design and drafting services. It DOES NOT INCLUDE professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record.",
-      agreementBody: "The value above is an estimate based on the information provided. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.",
+      agreementBody: "⚠ The value above is an estimate. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.",
       processing: "⌛ Processing...",
-      payRetainer: "Confirm & Start My Project",
+      payRetainer: "🔒 Confirm & Start My Project",
       secureNotice: "Secure payment via Stripe or Bank Transfer",
-      saveLater: "Save for Later — Send me this estimate",
-      saveLaterPDF: "You'll receive a PDF with your full brief and estimated fees — no commitment required.",
+      saveLater: "🔖 Save for Later — Send me this estimate",
+      saveLaterNote: "You'll receive a PDF with your full brief and estimated fees — no commitment required.",
+      backButton: "← Back",
       emailEstimate: "Just email me this estimate for now",
       redirectNotice: "You will be redirected to our secure client portal to finalize your order.",
       resetButton: "↻ Reset",
@@ -709,17 +710,18 @@ const TRANSLATIONS = {
       errorOccurred: "Ocorreu um erro. Tente novamente.",
       whatNext: "PRÓXIMOS PASSOS",
       nextSteps: [
-        { title: "Revisão da Estimativa", desc: "Nossa equipe revisa seu resumo em até 24 horas." },
-        { title: "Cotação Formal", desc: "Você recebe uma proposta detalhada e sem surpresas." }
+        { title: "Revisão da Estimativa", desc: "Nossa equipe revisa seu pedido em até 24 horas." },
+        { title: "Proposta Formal", desc: "Você recebe uma proposta detalhada, sem surpresas." }
       ],
-      legalTitle: "AVISO LEGAL IMPORTANTE",
-      legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para a submissão de licenças de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado.",
-      agreementBody: "O valor acima é uma estimativa baseada nas informações fornecidas. A taxa final será confirmada após nossa equipe revisar seu resumo. Ao prosseguir, você concorda em receber uma proposta formal.",
+      legalTitle: "⚠ AVISO LEGAL IMPORTANTE",
+      legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para submissão de alvará de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado.",
+      agreementBody: "⚠ O valor acima é uma estimativa. A taxa final será confirmada após nossa equipe revisar seu briefing. Ao prosseguir, você concorda em receber uma proposta formal.",
       processing: "⌛ Processando...",
-      payRetainer: "Confirmar e Iniciar Meu Projeto",
+      payRetainer: "🔒 Confirmar e Iniciar Meu Projeto",
       secureNotice: "Pagamento seguro via Stripe ou Transferência Bancária",
-      saveLater: "Salvar para Depois — Envie-me esta estimativa",
-      saveLaterPDF: "Você receberá um PDF com seu brief completo e taxas estimadas — sem compromisso.",
+      saveLater: "🔖 Salvar para Depois — Enviar essa estimativa",
+      saveLaterNote: "Você receberá um PDF com seu briefing completo e estimativas — sem compromisso.",
+      backButton: "← Voltar",
       emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
       redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido.",
       resetButton: "↻ Recomeçar",
@@ -1329,9 +1331,8 @@ export default function EstimateWizard() {
         </div>
       </div>
 
-      {/* ── Main Content ── */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "36px 20px 100px" }}>
-        <div className={`wz-main-layout ${step >= 2 ? "has-sidebar" : ""}`}>
+        <div className={`wz-main-layout ${step >= 2 && step < 7 && !submitted ? "has-sidebar" : ""}`}>
           <div className="wz-animate" key={submitted ? "success" : step}>
             {submitted ? (
               <SuccessScreen
@@ -1340,6 +1341,8 @@ export default function EstimateWizard() {
                 onBack={() => setSubmitted(false)}
                 navigate={navigate}
                 T={T}
+                est={est}
+                d={data}
               />
             ) : (
               <>
@@ -1364,7 +1367,7 @@ export default function EstimateWizard() {
             )}
           </div>
 
-          {step >= 2 && (
+          {step >= 2 && step < 7 && !submitted && (
             <div className={`wz-sidebar-mobile ${drawerOpen ? "open" : ""}`}>
               <div className="wz-drawer-handle" onClick={() => setDrawerOpen(!drawerOpen)} />
               <div className="wz-drawer-header" onClick={() => setDrawerOpen(!drawerOpen)}>
@@ -2764,92 +2767,65 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   };
 
   const ReviewRow = ({ label, value, highlight }) => (
-    <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 0", borderBottom: "1px solid var(--border)" }}>
-      <span style={{ fontSize: "12px", color: "var(--dm)", textTransform: "capitalize" }}>{label}</span>
-      <span style={{ fontSize: highlight ? "18px" : "13px", fontWeight: highlight ? "700" : "600", color: highlight ? "#c8c0ff" : "var(--tx)", textAlign: "right" }}>{value || "—"}</span>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: "1px solid var(--border)" }}>
+      <span style={{ fontSize: "12px", color: "var(--dm)" }}>{label}</span>
+      <span style={{ fontSize: highlight ? "14px" : "12px", fontWeight: highlight ? "600" : "400", color: highlight ? "#c8c0ff" : "var(--tx)", textAlign: "right" }}>{value || "—"}</span>
     </div>
   );
 
-  const Section = ({ icon, title, step, children }) => (
-    <div style={{ background: "var(--cb)", border: "1px solid var(--border)", borderRadius: "12px", padding: "20px", marginBottom: "16px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <span style={{ fontSize: "18px" }}>{icon}</span>
-          <h3 style={{ fontSize: "16px", fontWeight: "600", color: "var(--tx)" }}>{title}</h3>
+  const SectionCard = ({ icon, title, step, children }) => (
+    <div style={{ background: "var(--cb)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px", marginBottom: "12px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span style={{ fontSize: "15px" }}>{icon}</span>
+          <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--tx)" }}>{title}</span>
         </div>
-        <button onClick={() => setStep(step)} style={{ background: "none", border: "none", color: "#6366f1", fontSize: "12px", fontWeight: "600", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}>
-          {T.review.edit} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-        </button>
+        <button onClick={() => setStep(step)} style={{ background: "none", border: "none", color: "var(--a)", cursor: "pointer", fontSize: "12px", padding: 0 }}>{T.review.edit} ↗</button>
       </div>
-      <div>{children}</div>
+      {children}
     </div>
   );
 
   return (
-    <div className="wz-animate">
-      {error && (
-        <div style={{ padding: "12px", background: "rgba(239,68,68,0.1)", border: "1px solid var(--rd)", color: "var(--rd)", fontSize: 13, borderRadius: "6px", marginBottom: 24 }}>
-          {error}
+    <div className="wz-animate" style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <h1 style={{ fontFamily: "var(--font-serif)", fontSize: "25px", color: "var(--tx)", margin: "0 0 4px", fontWeight: "400", fontStyle: "italic" }}>{T.reviewEstimate}</h1>
+        <p style={{ fontSize: "12px", color: "var(--mu)", margin: "0 0 16px" }}>{T.reviewSub}</p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+          <SectionCard icon="👤" title={T.review.client} step={1}>
+            <ReviewRow label={T.review.name} value={d.name} />
+            <ReviewRow label={T.review.email} value={d.email} />
+            <ReviewRow label={T.review.phone} value={d.phone} />
+            <ReviewRow label={T.review.role} value={T.roles[d.role] || d.role} />
+          </SectionCard>
+
+          <SectionCard icon="📍" title={T.review.location} step={0}>
+            <ReviewRow label={T.review.address} value={d.address} />
+            <ReviewRow label="Region" value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
+          </SectionCard>
         </div>
-      )}
 
-      {d.role === "builder" && (
-        <div style={{ background: "rgba(0, 128, 128, 0.1)", border: "2px solid #008080", padding: "20px 24px", borderRadius: "12px", marginBottom: "32px", boxShadow: "0 8px 32px rgba(0, 128, 128, 0.15)" }}>
-          <p style={{ fontSize: "15px", fontWeight: "700", color: "#008080", lineHeight: "1.4" }}>
-            {T.review.builderDiscount}
-          </p>
-        </div>
-      )}
+        <SectionCard icon="🏛" title={T.yourProject} step={2}>
+          <ReviewRow label={T.propType} value={d.propertyType ? T.propertyTypes[d.propertyType]?.label : ""} />
+          <ReviewRow label={T.levels} value={(est?.lvNames || []).join(" + ")} />
+          <ReviewRow label={T.typeOfService} value={(est?.selectedSvcNames || []).join(", ")} />
+          <div style={{ padding: "7px 0 5px", borderBottom: "1px solid var(--border)" }}>
+            <span style={{ fontSize: "9px", letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase" }}>{T.review.dimensions}</span>
+          </div>
+          <ReviewRow label={T.review.totalArea} value={est.totalArea} highlight />
+        </SectionCard>
 
-      <Title label={T.review.title} sub={T.review.sub} />
+        <SectionCard icon="📋" title={T.review.summary} step={3}>
+          <ReviewRow label={T.review.totalArea} value={est.totalArea} />
+          <div style={{ padding: "7px 0 5px", borderBottom: "1px solid var(--border)" }}>
+            <span style={{ fontSize: "9px", letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase" }}>{T.review.selectedSvcs}</span>
+          </div>
+          {(est.bd || []).filter(i => i.block !== "extra").map((i, idx) => <ReviewRow key={idx} label={i.l} value={i.v} />)}
+          <ReviewRow label={T.review.timeline} value={d.rush === "express" ? T.review.days510 : d.rush === "rush" ? T.review.days816 : T.review.timelineStandard} />
+        </SectionCard>
 
-
-      <div className="wz-grid-adaptive" style={{ marginBottom: 40, gap: 20 }}>
-        <Section icon="👤" title={T.review.client} step={1}>
-          <ReviewRow label={T.review.name} value={d.name} />
-          <ReviewRow label={T.review.email} value={d.email} />
-          <ReviewRow label={T.review.phone} value={d.phone} />
-          <ReviewRow label={T.review.role} value={T.roles[d.role] || d.role} />
-        </Section>
-
-        <Section icon="📍" title={T.review.location} step={0}>
-          <ReviewRow label={T.review.address} value={d.street} />
-          <ReviewRow label={T.review.region} value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
-        </Section>
-      </div>
-
-      <Section icon="🏗️" title={T.review.project} step={2}>
-        <ReviewRow label={T.review.propType} value={T.propertyTypes[d.propertyType]?.label || d.propertyType} />
-        <ReviewRow label={T.review.levels} value={(est?.lvNames || []).join(" + ") || "—"} />
-        <ReviewRow label={T.review.services} value={(est?.selectedSvcNames || []).join(", ") || "—"} />
-        <div style={{ marginTop: "16px" }}>
-          <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.dimensions}</p>
-          <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} highlight />
-        </div>
-      </Section>
-
-      <Section icon="📋" title={T.review.summary} step={3}>
-        <ReviewRow label={T.review.totalArea} value={`${Math.round(est?.totalArea || 0).toLocaleString()} ${isUS ? "sqft" : "m²"}`} highlight />
-        <div style={{ marginTop: "12px", padding: "12px", background: "var(--cb)", borderRadius: "8px" }}>
-          <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>{T.review.selectedSvcs}</p>
-          {(est?.bd || []).map((it, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", padding: "4px 0" }}>
-              <span style={{ color: "var(--mu)" }}>{it.l}</span>
-              <span style={{ fontWeight: "600", color: "var(--tx)" }}>{it.v}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: "12px" }}>
-          <ReviewRow
-            label={T.review.timeline}
-            value={d.rush === "express" ? T.review.days510 :
-              d.rush === "rush" ? T.review.days816 :
-                T.review.timelineStandard}
-          />
-        </div>
-      </Section>
-
-      <Section icon="📂" title={T.review.documentation} step={5}>
+      <SectionCard icon="📂" title={T.review.documentation} step={5}>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {/* Reference Files from S7 */}
           {d.uploads && Object.keys(d.uploads).some(k => d.uploads[k]?.length > 0) ? (
@@ -2907,17 +2883,17 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
             </p>
           )}
         </div>
-      </Section>
+      </SectionCard>
 
-      <div style={{ marginTop: "48px", marginBottom: "48px" }}>
-        <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "24px" }}>{T.review.whatNext}</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+      <div style={{ marginTop: "40px", marginBottom: "40px" }}>
+        <h3 style={{ fontSize: "10px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "20px" }}>{T.review.whatNext}</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
           {(T.review.nextSteps || []).map((s, idx) => (
-            <div key={idx} style={{ display: "flex", gap: 16, alignItems: "center" }}>
-              <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "1px solid rgba(99,102,241,0.4)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--mu)", fontSize: "12px", fontWeight: "600", flexShrink: 0 }}>0{idx + 1}</div>
+            <div key={idx} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
+              <div style={{ width: "27px", height: "27px", borderRadius: "50%", border: "1.5px solid rgba(91,82,232,0.4)", display: "flex", alignItems: "center", justifyContent: "center", color: "#6a6aaa", fontSize: "10px", fontWeight: "700", flexShrink: 0 }}>0{idx + 1}</div>
               <div>
-                <h4 style={{ fontSize: "15px", fontWeight: "600", color: "var(--tx)" }}>{s.title}</h4>
-                <p style={{ fontSize: "13px", color: "var(--dm)" }}>{s.desc}</p>
+                <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#b8b8d0", marginBottom: "4px" }}>{s.title}</h4>
+                <p style={{ fontSize: "11px", color: "#4a4a6a", lineHeight: "1.5" }}>{s.desc}</p>
               </div>
             </div>
           ))}
@@ -2926,110 +2902,332 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       {/* Legal Disclaimer */}
       <div style={{ 
-        background: isDark ? "rgba(245, 158, 11, 0.04)" : "rgba(245, 158, 11, 0.08)", 
-        border: `1px solid ${isDark ? "rgba(245, 158, 11, 0.15)" : "rgba(245, 158, 11, 0.2)"}`, 
-        borderRadius: "12px", 
-        padding: "20px 24px", 
-        marginBottom: "16px" 
+        background: "rgba(255,180,0,0.07)", 
+        border: "1px solid rgba(255,180,0,0.17)", 
+        borderRadius: "9px", 
+        padding: "13px", 
+        marginBottom: "9px" 
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-          <span style={{ color: "var(--am)", fontSize: "14px" }}>⚠️</span>
-          <h4 style={{ fontSize: "11px", fontWeight: "700", color: "var(--am)", textTransform: "uppercase", letterSpacing: ".08em" }}>{T.review.legalTitle}</h4>
-        </div>
-        <p style={{ fontSize: "12px", color: isDark ? "var(--tx)" : "#92400e", lineHeight: "1.7", opacity: isDark ? 0.9 : 1 }}>
+        <h4 style={{ fontSize: "10px", fontWeight: "700", color: "#b08020", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px", display: "flex", alignItems: "center", gap: "6px" }}>
+          {T.review.legalTitle}
+        </h4>
+        <p style={{ fontSize: "11px", color: "#806010", lineHeight: "1.6", margin: 0 }}>
           {T.review.legalBody}
         </p>
       </div>
 
       {/* Agreement Box */}
       <div style={{ 
-        background: isDark ? "rgba(245, 158, 11, 0.04)" : "rgba(245, 158, 11, 0.08)", 
-        border: `1px solid ${isDark ? "rgba(245, 158, 11, 0.15)" : "rgba(245, 158, 11, 0.2)"}`, 
-        borderRadius: "12px", 
-        padding: "16px 20px", 
-        marginBottom: "40px", 
-        display: "flex", 
-        gap: "12px", 
-        alignItems: "center" 
+        background: "rgba(255,120,0,0.06)", 
+        border: "1px solid rgba(255,120,0,0.16)", 
+        borderRadius: "9px", 
+        padding: "10px 13px", 
+        marginBottom: "18px"
       }}>
-        <span style={{ color: "var(--am)", fontSize: "14px" }}>⚠️</span>
-        <p style={{ fontSize: "13px", color: isDark ? "var(--tx)" : "#92400e", lineHeight: "1.5", opacity: isDark ? 0.9 : 1 }}>
+        <p style={{ fontSize: "11px", color: "#904010", lineHeight: "1.6", margin: 0 }}>
           {T.review.agreementBody}
         </p>
       </div>
 
       {/* Final Action Buttons */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center" }}>
-        <div style={{ width: "100%", textAlign: "center" }}>
-          <button className="wz-btn-primary" onClick={() => handleAction('accept')} disabled={loading} style={{ width: "100%", height: "60px", fontSize: "17px", fontWeight: "700", opacity: loading ? 0.7 : 1, background: "#6366f1", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
-            {loading ? T.review.processing : <><span style={{ fontSize: "18px" }}>🔓</span> {T.review.payRetainer}</>}
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px" }}>
+        <div style={{ width: "100%" }}>
+          <button 
+            className="wz-btn-primary" 
+            onClick={() => handleAction('accept')} 
+            disabled={loading} 
+            style={{ 
+              width: "100%", 
+              padding: "15px", 
+              fontSize: "14px", 
+              fontWeight: "700", 
+              background: "linear-gradient(135deg, #5B52E8, #7B6CF8)", 
+              border: "none",
+              borderRadius: "11px", 
+              color: "#fff",
+              cursor: "pointer",
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+              gap: "10px",
+              boxShadow: "0 4px 12px rgba(91, 82, 232, 0.2)"
+            }}
+          >
+            {loading ? T.review.processing : T.review.payRetainer}
           </button>
-          <p style={{ fontSize: "12px", color: "var(--dm)", marginTop: "14px" }}>{T.review.secureNotice}</p>
+          <p style={{ fontSize: "11px", color: "var(--mu)", marginTop: "10px", textAlign: "center" }}>{T.review.secureNotice}</p>
         </div>
 
-        <div style={{ width: "100%", textAlign: "center" }}>
-          <button className="wz-btn-ghost" onClick={() => handleAction('save')} disabled={loading} style={{ width: "100%", height: "60px", fontSize: "15px", borderRadius: "12px", border: "1px solid var(--border2)", background: "rgba(255,255,255,0.01)", display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
-            <span style={{ fontSize: "16px" }}>🔖</span> {T.review.saveLater}
+        <div style={{ width: "100%" }}>
+          <button 
+            className="wz-btn-ghost" 
+            onClick={() => handleAction('save')} 
+            disabled={loading} 
+            style={{ 
+              width: "100%", 
+              padding: "13px", 
+              fontSize: "13px", 
+              borderRadius: "11px", 
+              border: "1.5px solid rgba(255,255,255,0.08)", 
+              background: "rgba(255,255,255,0.03)", 
+              color: "#8080b0",
+              cursor: "pointer",
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+              gap: "10px" 
+            }}
+          >
+            {T.review.saveLater}
           </button>
-          <p style={{ fontSize: "12px", color: "var(--dm)", marginTop: "16px", maxWidth: "500px", margin: "16px auto 0", lineHeight: "1.5" }}>
-            {T.review.saveLaterPDF}
+          <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "10px", textAlign: "center" }}>
+            {T.review.saveLaterNote}
           </p>
         </div>
+      </div>
+
+        <button 
+          onClick={() => setStep(6)} 
+          style={{ 
+            background: "none", 
+            border: "none", 
+            color: "#4a4a6a", 
+            cursor: "pointer", 
+            fontSize: "12px", 
+            display: "flex", 
+            alignItems: "center", 
+            gap: "6px",
+            padding: "8px 0"
+          }}
+        >
+          {T.review.backButton}
+        </button>
+      </div>
+
+      <div style={{ width: 320, flexShrink: 0, position: "sticky", top: 100 }}>
+        <Sidebar est={est} lang={lang} data={d} step={7} />
       </div>
     </div>
   );
 }
 
-function SuccessScreen({ type, lang, onBack, navigate, T }) {
+function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
   const isUS = lang === "EN";
   const isSave = type === "save";
+  const { theme } = useAppContext();
+  const isDark = theme === "dark";
+  const [vis, setVis] = useState(false);
 
-  return (
-    <div className="wz-animate" style={{ textAlign: "center", maxWidth: 600, margin: "0 auto", padding: "40px 0" }}>
-      <div style={{ marginBottom: 32, borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.3)", border: "1px solid var(--border)" }}>
-        <img src="/admin-portal/studio-interior.png" alt="Studio Interior" style={{ width: "100%", height: 300, objectFit: "cover" }} />
+  useEffect(() => {
+    const t = setTimeout(() => setVis(true), 60);
+    return () => clearTimeout(t);
+  }, []);
+
+  const f = (delay) => ({
+    opacity: vis ? 1 : 0,
+    transform: vis ? "translateY(0)" : "translateY(18px)",
+    transition: `opacity 0.55s ${delay}ms, transform 0.55s ${delay}ms`
+  });
+
+  const count = Math.floor(Math.random() * 500) + 120;
+
+  const sidebarContent = (
+    <div style={{ width: 295, flexShrink: 0, background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 16, padding: 20, alignSelf: "flex-start" }}>
+      <div style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--dm)", marginBottom: 13, textTransform: "uppercase" }}>{T.estimatedFee}</div>
+      <div style={{ background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 9, padding: "10px 13px", marginBottom: 11 }}>
+        <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--a)", textTransform: "uppercase", marginBottom: 3 }}>{T.yourProject}</div>
+        <div style={{ fontSize: 13, color: "var(--a)", fontStyle: "italic", fontFamily: "var(--font-serif)" }}>{est.projectTitle}</div>
       </div>
+      <div style={{ background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 9, padding: 13, marginBottom: 11 }}>
+        <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 6 }}>{est.pkgName}</div>
+        <div style={{ fontSize: 22, fontWeight: 700, color: "var(--tx)", fontFamily: "var(--font-serif)" }}>{est.lo} – {est.hi}</div>
+        <div style={{ fontSize: 10, color: "var(--dm)", marginTop: 3 }}>{T.approxEstimate}</div>
+      </div>
+      <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: 9, padding: 13, marginBottom: 13 }}>
+        <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 9 }}>{T.summaryTitle}</div>
+        {(est.bd || []).map((item, idx) => (
+          <div key={idx} style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 11, color: "var(--mu)" }}>{item.l}</span>
+            <span style={{ fontSize: 11, color: "var(--tx)" }}>{item.v}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+        <span style={{ fontSize: 11, color: "var(--mu)" }}>{T.confidence}</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color: "var(--gn)" }}>{est.conf}%</span>
+      </div>
+      <div style={{ height: 4, background: "var(--border)", borderRadius: 4 }}>
+        <div style={{ width: `${est.conf}%`, height: "100%", background: "var(--gn)", borderRadius: 4 }} />
+      </div>
+    </div>
+  );
 
-      <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 32, fontStyle: "italic", marginBottom: 16, color: "var(--tx)" }}>
-        {isSave 
-          ? (isUS ? "Your project is safe with us" : "Seu projeto está seguro conosco")
-          : (isUS ? "The first step toward your new space has been taken" : "O primeiro passo para o seu novo espaço foi dado")}
-      </h2>
+  if (isSave) {
+    return (
+      <div style={{ display: "flex", gap: 32, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Project badge */}
+          <div style={{ ...f(0), background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 12, padding: "13px 17px", marginBottom: 36, display: "flex", alignItems: "center", gap: 13 }}>
+            <div style={{ width: 44, height: 44, borderRadius: 10, background: "var(--a-dim)", border: "1px solid var(--a-glow)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, flexShrink: 0 }}>🏛</div>
+            <div>
+              <div style={{ fontSize: 11, color: "var(--dm)", marginBottom: 2 }}>DARA Studio · Studio Interior</div>
+              <div style={{ fontSize: 13, color: "var(--a)", fontFamily: "var(--font-serif)", fontStyle: "italic" }}>{est.projectTitle} · {est.totalArea}</div>
+            </div>
+          </div>
 
-      {isSave ? (
-        <p style={{ color: "var(--mu)", fontSize: 16, marginBottom: 40, lineHeight: 1.6 }}>
-          {isUS 
-            ? "We've saved your estimate details. You can come back at any time to complete your project brief." 
-            : "Salvamos os detalhes da sua estimativa. Você pode voltar a qualquer momento para completar o seu resumo do projeto."}
-        </p>
-      ) : (
-        <div style={{ textAlign: "left", background: "var(--bg1)", padding: 32, borderRadius: 16, border: "1px solid var(--border)", marginBottom: 40 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 24 }}>{T.review.whatNext}</h3>
-          <div style={{ display: "grid", gap: 24 }}>
-            {(T.review.nextSteps || []).map((s, idx) => (
-              <div key={idx} style={{ display: "flex", gap: 20 }}>
-                <div style={{ width: 32, height: 32, borderRadius: "50%", border: "2px solid var(--a)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--a)", fontSize: 13, fontWeight: 700, flexShrink: 0 }}>0{idx + 1}</div>
-                <div>
-                  <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--tx)", marginBottom: 4 }}>{s.title}</h4>
-                  <p style={{ fontSize: 13, color: "var(--mu)" }}>{s.desc}</p>
-                </div>
+          {/* Icon */}
+          <div style={{ ...f(80), display: "flex", justifyContent: "center", marginBottom: 22 }}>
+            <div style={{ width: 62, height: 62, borderRadius: "50%", background: "rgba(16,185,129,0.09)", border: "1.5px solid rgba(16,185,129,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M5 14L11 20L23 8" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+          </div>
+
+          {/* Headline */}
+          <div style={{ ...f(160), textAlign: "center", marginBottom: 18 }}>
+            <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 28, color: "var(--tx)", fontStyle: "italic", fontWeight: 400, margin: "0 0 12px", lineHeight: 1.35 }}>
+              {isUS ? "Your project is safe with us." : "Seu projeto está seguro conosco."}
+            </h2>
+            <p style={{ fontSize: 14, color: "var(--mu)", maxWidth: 400, margin: "0 auto", lineHeight: 1.8 }}>
+              {isUS ? "Every detail you shared is preserved and waiting." : "Cada detalhe que você compartilhou está preservado e à espera."}{" "}
+              <span style={{ color: "var(--a)" }}>{isUS ? "When the moment is right, we'll be here — brief in hand, ready to begin." : "Quando o momento for certo, estaremos aqui — brief em mãos, prontos para começar."}</span>
+            </p>
+          </div>
+
+          {/* Quote */}
+          <div style={{ ...f(240), borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "18px 0", marginBottom: 24, textAlign: "center" }}>
+            <p style={{ fontFamily: "var(--font-serif)", fontSize: 14, fontStyle: "italic", color: "var(--mu)", lineHeight: 1.8, margin: "0 auto", maxWidth: 400 }}>
+              {isUS ? '"Great spaces don\'t happen overnight —' : '"Grandes espaços não acontecem da noite para o dia —'} {" "}
+              <span style={{ color: "var(--a)" }}>{isUS ? 'they begin with a single decision to start."' : 'eles começam com uma única decisão de iniciar."'}</span>
+            </p>
+            <p style={{ fontSize: 11, color: "var(--dm)", margin: "6px 0 0" }}>— DARA Studio</p>
+          </div>
+
+          {/* Inbox card */}
+          <div style={{ ...f(320), background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 11, padding: "15px 18px", marginBottom: 22, display: "flex", gap: 11, alignItems: "flex-start" }}>
+            <div style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, flexShrink: 0 }}>📩</div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--a)", marginBottom: 4 }}>{isUS ? "Check your inbox" : "Verifique seu e-mail"}</div>
+              <div style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.65, opacity: 0.8 }}>
+                {isUS ? "A detailed PDF with your full brief, selected services and estimated fees has been sent to" : "Um PDF detalhado com seu brief completo, serviços selecionados e taxas estimadas foi enviado para"}{" "}
+                <span style={{ color: "var(--a)", fontWeight: 500 }}>{d.email}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Tranquility cards */}
+          <div style={{ ...f(400), background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 11, padding: "15px 18px", marginBottom: 28 }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 13 }}>{isUS ? "While you think..." : "Enquanto você pensa..."}</div>
+            {[
+              { icon: "🔒", text: isUS ? "Your brief is safely stored — access anytime." : "Seu briefing está salvo com segurança — acesse a qualquer momento." },
+              { icon: "📅", text: isUS ? "Our schedule is flexible. You choose when to start." : "Nossa agenda é flexível. Você escolhe quando começar." },
+              { icon: "💬", text: isUS ? "Questions? Our team responds in less than 24h." : "Dúvidas? Nossa equipe responde em menos de 24h." },
+            ].map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 2 ? 10 : 0 }}>
+                <span style={{ fontSize: 14, flexShrink: 0 }}>{item.icon}</span>
+                <span style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.6 }}>{item.text}</span>
               </div>
             ))}
           </div>
-        </div>
-      )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {isSave ? (
-          <button className="wz-btn-primary" onClick={onBack} style={{ width: "100%", height: 56 }}>
-            {isUS ? "Back to Review" : "Voltar para Revisão"}
-          </button>
-        ) : (
-          <button className="wz-btn-primary" onClick={() => navigate("/portal")} style={{ width: "100%", height: 56 }}>
-            {isUS ? "Go to Client Portal" : "Ir para o Portal do Cliente"}
-          </button>
-        )}
+          {/* CTAs */}
+          <div style={f(480)}>
+            <button className="wz-btn-primary" onClick={onBack} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 10 }}>
+              {isUS ? "← Back to Review" : "← Voltar para o Review"}
+            </button>
+            <button className="wz-btn-ghost" onClick={() => navigate("/")} style={{ width: "100%", padding: "13px", borderRadius: 11 }}>
+              {isUS ? "Talk to the team →" : "Falar com a equipe →"}
+            </button>
+          </div>
+        </div>
+        {sidebarContent}
       </div>
+    );
+  }
+
+  // Pay / Start Screen
+  return (
+    <div style={{ display: "flex", gap: 32, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {/* Project badge */}
+        <div style={{ ...f(0), background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 12, padding: "13px 17px", marginBottom: 24, display: "flex", alignItems: "center", gap: 13 }}>
+          <div style={{ width: 44, height: 44, borderRadius: 10, background: "var(--a-dim)", border: "1px solid var(--a-glow)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, flexShrink: 0 }}>🏛</div>
+          <div>
+            <div style={{ fontSize: 11, color: "var(--dm)", marginBottom: 2 }}>DARA Studio · Studio Interior</div>
+            <div style={{ fontSize: 13, color: "var(--a)", fontFamily: "var(--font-serif)", fontStyle: "italic" }}>{est.projectTitle} · {est.totalArea}</div>
+          </div>
+        </div>
+
+        {/* Project Counter */}
+        <div style={{ ...f(80), marginBottom: 22 }}>
+          <div style={{ display: "inline-flex", alignItems: "baseline", gap: 7, background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 9, padding: "8px 15px" }}>
+            <span style={{ fontSize: 11, color: "var(--mu)", letterSpacing: "0.06em", textTransform: "uppercase" }}>{isUS ? "Project" : "Projeto"}</span>
+            <span style={{ fontSize: 22, fontWeight: 700, color: "var(--a)", fontFamily: "var(--font-serif)" }}>#{count.toString().padStart(3, "0")}</span>
+            <span style={{ fontSize: 11, color: "var(--dm)" }}>{isUS ? "added to DARA portfolio" : "adicionado ao portfólio DARA"}</span>
+          </div>
+        </div>
+
+        {/* Headline */}
+        <div style={{ ...f(160), marginBottom: 16 }}>
+          <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 26, color: "var(--tx)", fontStyle: "italic", fontWeight: 400, margin: "0 0 13px", lineHeight: 1.35 }}>
+            {isUS ? "The first stroke of your new chapter has been drawn." : "O primeiro traço do seu novo capítulo foi desenhado."}
+          </h2>
+          <p style={{ fontSize: 14, color: "var(--mu)", lineHeight: 1.8, margin: 0 }}>
+            {isUS ? "Your brief is with our team. In the next steps, we will transform every detail you entrusted to us into" : "Seu briefing está com nossa equipe. Nos próximos passos, vamos transformar cada detalhe que você nos confiou em"}{" "}
+            <span style={{ color: "var(--a)" }}>{isUS ? "plans that move and spaces that last." : "plantas que emocionam e espaços que duram."}</span>
+          </p>
+        </div>
+
+        {/* Anchor Quote */}
+        <div style={{ ...f(240), borderLeft: "2px solid var(--a)", paddingLeft: 16, marginBottom: 26 }}>
+          <p style={{ fontFamily: "var(--font-serif)", fontSize: 14, fontStyle: "italic", color: "var(--mu)", lineHeight: 1.8, margin: "0 0 5px" }}>
+            {isUS ? '"You are not just building a house —' : '"Você não está apenas construindo uma casa —'} {" "}
+            <span style={{ color: "var(--a)" }}>{isUS ? "you are creating the place where your story will happen.\"" : "você está criando o lugar onde a sua história vai acontecer.\""}</span>
+          </p>
+          <span style={{ fontSize: 11, color: "var(--dm)" }}>— DARA Studio</span>
+        </div>
+
+        {/* Roadmap */}
+        <div style={{ ...f(320), background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 12, padding: 20, marginBottom: 24 }}>
+          <div style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--a)", textTransform: "uppercase", marginBottom: 18 }}>{T.review.whatNext}</div>
+          {(T.review.nextSteps || []).map((s, i) => (
+            <div key={i} style={{ display: "flex", gap: 13, alignItems: "flex-start", marginBottom: i < 2 ? 16 : 0 }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{ width: 32, height: 32, borderRadius: "50%", border: "1.5px solid var(--a-glow)", color: "var(--a)", background: "var(--a-dim)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, flexShrink: 0 }}>0{i+1}</div>
+                {i < 2 && <div style={{ width: 1, height: 16, background: "var(--border)", marginTop: 3 }} />}
+              </div>
+              <div style={{ paddingTop: 5 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: "var(--tx)", marginBottom: 3 }}>{s.title}</div>
+                <div style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.6 }}>{s.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Social proof */}
+        <div style={{ ...f(400), background: "rgba(16,185,129,0.04)", border: "1px solid rgba(16,185,129,0.11)", borderRadius: 11, padding: "14px 18px", marginBottom: 26, display: "flex", gap: 11, alignItems: "flex-start" }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>⭐</span>
+          <div>
+            <p style={{ fontSize: 13, color: "var(--mu)", fontStyle: "italic", lineHeight: 1.7, margin: "0 0 5px" }}>
+              {isUS 
+                ? '"DARA transformed my vision into a plan in less than a week. The precision and care for every detail surprised me from the first contact."' 
+                : '"A DARA transformou minha visão em planta em menos de uma semana. A precisão e o cuidado com cada detalhe me surpreenderam desde o primeiro contato."'}
+            </p>
+            <span style={{ fontSize: 11, color: "var(--dm)" }}>— {isUS ? "Verified Client · Miami, FL · New Construction" : "Cliente verificado · Miami, FL · New Construction"}</span>
+          </div>
+        </div>
+
+        {/* CTAs */}
+        <div style={f(480)}>
+          <button className="wz-btn-primary" onClick={() => navigate("/client/portal")} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 8 }}>
+            {isUS ? "Access my Client Portal →" : "Acessar meu Portal do Cliente →"}
+          </button>
+          <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 11px" }}>{isUS ? "Track your project's progress in real-time" : "Acompanhe o progresso do seu projeto em tempo real"}</p>
+          <button className="wz-btn-ghost" onClick={onBack} style={{ width: "100%", padding: "13px", borderRadius: 11 }}>
+            {isUS ? "← Back to Review" : "← Voltar para o Review"}
+          </button>
+        </div>
+      </div>
+      {sidebarContent}
     </div>
   );
 }
