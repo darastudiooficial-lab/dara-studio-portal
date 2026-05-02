@@ -35,10 +35,13 @@ const INVOICES = [
 const I18N = {
   PT: {
     dashboard: 'Dashboard',
-    projects: 'Projetos',
-    invoices: 'Financeiro',
+    projects: 'Meus Projetos',
+    invoices: 'Finance Overview',
+    calendar: 'Calendário',
+    notifications: 'Notificações',
     documents: 'Documentos',
-    logout: 'Sair',
+    logout: 'Sign Out',
+    settings: 'Configurações',
     welcomeBack: 'Bem-vindo de volta',
     activeProjects: 'Projetos Ativos',
     paid: 'Pago',
@@ -75,13 +78,18 @@ const I18N = {
     total_budget: 'Orçamento Total',
     total_paid: 'Total Pago',
     balance_due: 'Saldo Devedor',
+    fin_progress: 'Progresso Financeiro',
+    view_all: 'Ver todos →',
   },
   EN: {
     dashboard: 'Dashboard',
-    projects: 'Projects',
-    invoices: 'Finances',
+    projects: 'My Projects',
+    invoices: 'Finance Overview',
+    calendar: 'Calendar',
+    notifications: 'Notifications',
     documents: 'Documents',
     logout: 'Sign Out',
+    settings: 'Settings',
     welcomeBack: 'Welcome back',
     activeProjects: 'Active Projects',
     paid: 'Paid',
@@ -118,6 +126,8 @@ const I18N = {
     total_budget: 'Total Budget',
     total_paid: 'Total Paid',
     balance_due: 'Balance Due',
+    fin_progress: 'Financial Progress',
+    view_all: 'View all →',
   }
 };
 
@@ -354,33 +364,51 @@ export default function ClientPortal() {
           {!S.sbCol && (
             <div className="sb-text">
               <div className="sb-name">DARA STUDIO</div>
-              <div className="sb-tag">SUPPORT PORTAL</div>
+              <div className="sb-tag">PORTAL DO CLIENTE</div>
             </div>
           )}
           <button className="sb-toggle" onClick={() => setS(prev => ({ ...prev, sbCol: !prev.sbCol }))}><Icon name="menu" /></button>
         </div>
 
+        {!S.sbCol && (
+          <div className="sb-user-profile">
+            <div className="sb-user-avatar">{userName.split(' ').map(n => n[0]).join('')}</div>
+            <div className="sb-user-info">
+              <div className="sb-user-name">{userName} {S.role !== 'admin' && 'Da Silva'}</div>
+              <div className="sb-user-role-tag">{T[S.role]}</div>
+            </div>
+          </div>
+        )}
+
         <nav className="sb-nav">
+          {!S.sbCol && <div className="sb-nav-group">{lang === 'PT' ? 'PRINCIPAL' : 'MAIN'}</div>}
           <button className={`nav-item ${S.page === 'dashboard' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'dashboard' }))}>
             <Icon name="home" /> <span className="nav-lbl">{T.dashboard}</span>
           </button>
           <button className={`nav-item ${S.page === 'projects' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'projects' }))}>
             <Icon name="folder" /> <span className="nav-lbl">{T.projects}</span>
           </button>
-          {S.role !== 'freelancer' && (
-            <button className={`nav-item ${S.page === 'invoices' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'invoices' }))}>
-              <Icon name="rcpt" /> <span className="nav-lbl">{T.invoices}</span>
-            </button>
-          )}
-          <button className={`nav-item ${S.page === 'docs' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'docs' }))}>
-            <Icon name="file" /> <span className="nav-lbl">{T.documents}</span>
+          <button className={`nav-item ${S.page === 'invoices' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'invoices' }))}>
+            <Icon name="rcpt" /> <span className="nav-lbl">{T.invoices}</span>
+            <span className="nav-badge">4</span>
+          </button>
+          <button className={`nav-item ${S.page === 'calendar' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'calendar' }))}>
+            <Icon name="cal" /> <span className="nav-lbl">{T.calendar}</span>
+          </button>
+          <button className={`nav-item ${S.page === 'notifications' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'notifications' }))}>
+            <Icon name="eye" /> <span className="nav-lbl">{T.notifications}</span>
           </button>
         </nav>
 
         <div className="sb-bot">
-          <div className={`sb-role-badge ${S.role}`} style={{ marginBottom: 12 }}>{S.role.toUpperCase()}</div>
-          <button className="nav-item" onClick={() => setS(prev => ({ ...prev, loggedIn: false }))}>
+          <button className="nav-item">
+            <Icon name="shield" /> <span className="nav-lbl">{T.settings}</span>
+          </button>
+          <button className="nav-item sign-out-btn" onClick={() => setS(prev => ({ ...prev, loggedIn: false }))}>
             <Icon name="out" /> <span className="nav-lbl">{T.logout}</span>
+          </button>
+          <button className="nav-item back-btn" onClick={() => navigate('/')}>
+            <Icon name="back" /> <span className="nav-lbl">{T.backToSite}</span>
           </button>
         </div>
       </aside>
@@ -388,90 +416,116 @@ export default function ClientPortal() {
       <main className="main">
         <header className="topbar">
           <div className="tb-brand">
-            <strong>{roleTitle}</strong>
+            <span style={{ opacity: 0.5 }}>DARA Studio</span> <span style={{ margin: '0 8px', opacity: 0.3 }}>|</span> <span>Client Portal</span>
           </div>
           <div className="tb-right" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <GlobalControls />
-            <button className="dara-back-pill" onClick={() => navigate('/')}><Icon name="back" /> {T.backToSite}</button>
-            <div className="tb-avatar">{userName[0]}</div>
+            <div className="tb-icons">
+               <button className="tb-icon-btn"><Icon name="eye" size={18} /></button>
+               <div className="tb-avatar">{userName[0]}</div>
+            </div>
           </div>
         </header>
 
         <div className="page">
           <div className="page-anim">
-            <h1 className="page-title">{T.welcomeBack}, {userName}</h1>
-            <p className="page-sub">{isUS ? 'Here is what is happening with your projects today.' : 'Aqui está o que está acontecendo com seus projetos hoje.'}</p>
-
             {S.page === 'dashboard' && (
               <>
+                <h1 className="page-title">{T.welcomeBack}, {userName.split(' ')[0]}</h1>
+                <p className="page-sub">{isUS ? 'Seus projetos e pendências de hoje' : 'Seus projetos e pendências de hoje'}</p>
+
                 <div className="kpi-grid">
                   <div className="kpi">
-                    <div className="kpi-label"><Icon name="folder" size={12} color="var(--a)" /> {T.activeProjects}</div>
-                    <div className="kpi-val">{ALL_PROJECTS.length}</div>
+                    <div className="kpi-label"><Icon name="folder" size={12} /> {T.activeProjects}</div>
+                    <div className="kpi-val">2</div>
+                    <div className="kpi-trend pos">+1 {isUS ? 'this month' : 'este mês'}</div>
                   </div>
-                  {S.role !== 'freelancer' && (
-                    <div className="kpi">
-                      <div className="kpi-label"><Icon name="rcpt" size={12} color="#f59e0b" /> {T.pendingInvoices}</div>
-                      <div className="kpi-val">2</div>
-                    </div>
-                  )}
                   <div className="kpi">
-                    <div className="kpi-label"><Icon name="cal" size={12} color="#10b981" /> {isUS ? 'Next Delivery' : 'Próxima Entrega'}</div>
-                    <div className="kpi-val" style={{ fontSize: 16, marginTop: 8 }}>15/04/2026</div>
+                    <div className="kpi-label"><Icon name="rcpt" size={12} /> {T.pendingInvoices}</div>
+                    <div className="kpi-val">4</div>
+                    <div className="kpi-trend neg">{isUS ? 'Due in 10 days' : 'Vence em 10 dias'}</div>
+                  </div>
+                  <div className="kpi">
+                    <div className="kpi-label"><Icon name="rcpt" size={12} /> {fmt(0, isUS).split('0')[0]} {isUS ? 'Total Paid' : 'Total Pago'}</div>
+                    <div className="kpi-val">{fmt(2500, isUS)}</div>
+                    <div className="kpi-trend">{isUS ? 'Balance:' : 'Saldo:'} {fmt(11477, isUS)}</div>
                   </div>
                 </div>
 
-                <div className="card-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '20px' }}>
-                  <div>
+                <div className="dashboard-content">
+                  <div className="dash-col-left">
                     <div className="sec-header">
                       <h3>{T.recentProjects}</h3>
-                      <button className="btn-link" onClick={() => setS(prev => ({ ...prev, page: 'projects' }))}>{isUS ? 'View All' : 'Ver Todos'}</button>
+                      <button className="btn-link" onClick={() => setS(prev => ({ ...prev, page: 'projects' }))}>{T.view_all}</button>
                     </div>
-                    {ALL_PROJECTS.map(p => (
-                      <div key={p.id} className="card card-click" style={{ marginBottom: '12px', padding: '16px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                          <div>
-                            <div className="ptbl-code">{p.code}</div>
-                            <strong style={{ fontSize: 15 }}>{p.address}</strong>
-                            <div className="ptbl-city">{p.city}</div>
+                    
+                    <div className="project-list">
+                      {ALL_PROJECTS.slice(0, 2).map(p => (
+                        <div key={p.id} className="card project-card">
+                          <div className="p-card-top">
+                            <div>
+                              <strong className="p-card-title">{p.address}</strong>
+                              <div className="p-card-sub">{p.service}</div>
+                              <div className="p-card-stage">{p.stage}</div>
+                            </div>
+                            <Badge status={p.status} lang={lang} />
                           </div>
-                          <Badge status={p.status} lang={lang} />
-                        </div>
-                        <div className="prog" style={{ marginTop: '14px' }}>
-                          <div className="prog-bar" style={{ width: `${p.progress}%`, background: 'var(--a)', height: '4px' }}></div>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
-                          <span style={{ fontSize: 10, color: 'var(--dm)' }}>{p.stage}</span>
-                          <span style={{ fontSize: 10, color: 'var(--mu)', fontWeight: 600 }}>{p.progress}%</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div>
-                    <div className="sec-header">
-                      <h3>{T.recentActivity}</h3>
-                    </div>
-                    <div className="card" style={{ padding: '12px' }}>
-                      {ACTIVITY.map(a => (
-                        <div key={a.id} className="log-row">
-                          <div className="noti-ico" style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lav)', display: 'flex', alignItems: 'center', justifyCenter: 'center', fontSize: 12, flexShrink: 0 }}>{a.ico}</div>
-                          <div className="log-line">
-                            <div className="log-desc" style={{ fontSize: 12, color: 'var(--tx)' }}>{a.text}</div>
-                            <div className="log-ts" style={{ fontSize: 10, color: 'var(--dm)' }}>{a.time}</div>
+                          <div className="p-card-progress">
+                            <div className="prog-track">
+                              <div className="prog-fill" style={{ width: `${p.progress}%` }}></div>
+                            </div>
+                            <span className="prog-pct">{p.progress}%</span>
                           </div>
-                          {a.unread && <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--a)' }}></div>}
+                          {p.pending && (
+                            <div className="p-card-alert">
+                              {p.pending}
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
+                  </div>
 
-                    {S.role === 'cliente' && (
-                      <div className="card" style={{ marginTop: 20, background: 'var(--a-dim)', borderColor: 'var(--a-glow)', padding: 20 }}>
-                        <h4 style={{ color: 'var(--a)', marginBottom: 8 }}>{isUS ? 'Need help?' : 'Precisa de ajuda?'}</h4>
-                        <p style={{ fontSize: 12, color: 'var(--mu)', lineHeight: 1.5 }}>{isUS ? 'Schedule a technical meeting with our team to discuss your project updates.' : 'Agende uma reunião técnica com nossa equipe para discutir as atualizações do seu projeto.'}</p>
-                        <button className="btn" style={{ marginTop: 12, width: '100%', justifyContent: 'center' }}>{isUS ? 'Schedule Call' : 'Agendar Chamada'}</button>
-                      </div>
-                    )}
+                  <div className="dash-col-right">
+                    <div className="sec-header">
+                      <h3>{T.fin_progress}</h3>
+                    </div>
+                    <div className="card chart-card">
+                       <div className="chart-legend">
+                          <div className="leg-item"><span className="dot dot-pago"></span> {T.paid}</div>
+                          <div className="leg-item"><span className="dot dot-pendente"></span> {lang === 'PT' ? 'Pendente' : 'Pending'}</div>
+                       </div>
+                       <div className="chart-placeholder">
+                          <svg width="100%" height="160" viewBox="0 0 400 160" preserveAspectRatio="none">
+                             <path d="M0 140 L80 110 L160 120 L240 125 L320 115 L400 60" fill="none" stroke="#10b981" strokeWidth="3" strokeLinecap="round" />
+                             <circle cx="0" cy="140" r="4" fill="#10b981" />
+                             <circle cx="80" cy="110" r="4" fill="#10b981" />
+                             <circle cx="160" cy="120" r="4" fill="#10b981" />
+                             <circle cx="240" cy="125" r="4" fill="#10b981" />
+                             <circle cx="320" cy="115" r="4" fill="#10b981" />
+                             <circle cx="400" cy="60" r="4" fill="#10b981" />
+                             <line x1="0" y1="50" x2="400" y2="50" stroke="#6366f1" strokeWidth="2" strokeDasharray="4 4" />
+                          </svg>
+                          <div className="chart-labels">
+                             <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div className="sec-header" style={{ marginTop: 24 }}>
+                      <h3>{T.recentActivity}</h3>
+                    </div>
+                    <div className="card activity-card">
+                      {ACTIVITY.slice(0, 3).map(a => (
+                        <div key={a.id} className="activity-item">
+                          <div className="act-ico">{a.ico}</div>
+                          <div className="act-info">
+                            <div className="act-text">{a.text}</div>
+                            <div className="act-time">{a.time}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </>
