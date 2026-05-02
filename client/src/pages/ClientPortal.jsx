@@ -180,9 +180,17 @@ export default function ClientPortal() {
     em: '',
     pw: '',
     splash: true,
+    redirecting: false,
     ltab: 'in',
     showPw: false,
   });
+
+  useEffect(() => {
+    if (S.redirecting) {
+      const timer = setTimeout(() => setS(prev => ({ ...prev, redirecting: false })), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [S.redirecting]);
 
   useEffect(() => {
     const timer = setTimeout(() => setS(prev => ({ ...prev, splash: false })), 2000);
@@ -193,9 +201,30 @@ export default function ClientPortal() {
     e.preventDefault();
     setS(prev => ({ ...prev, busy: true }));
     setTimeout(() => {
-      setS(prev => ({ ...prev, loggedIn: true, busy: false }));
+      setS(prev => ({ ...prev, loggedIn: true, busy: false, redirecting: true }));
     }, 800);
   };
+
+  if (S.redirecting) {
+    return (
+      <div id="redirect-screen">
+        <div className="rs-content">
+          <div className="rs-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--a)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h2 className="rs-title">{lang === 'PT' ? 'Bem-vindo' : 'Welcome'}, {userName}!</h2>
+          <div className="rs-sub">
+            {S.role === 'admin' ? 'ADMIN PORTAL' : S.role === 'freelancer' ? 'COLLABORATOR PORTAL' : 'CLIENT PORTAL'} / REDIRECTING
+          </div>
+          <div className="rs-dots">
+            <span>.</span><span>.</span><span>.</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (S.splash) {
     return (
