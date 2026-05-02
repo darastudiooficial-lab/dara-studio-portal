@@ -57,7 +57,6 @@ const I18N = {
     entering: 'Entrando...',
     googleLogin: 'Entrar com Google',
     or: 'OU',
-    demoMode: 'Modo demonstração — dados fictícios',
     feat1: 'Acompanhe o progresso de cada projeto em tempo real',
     feat2: 'Gerencie faturas e exporte relatórios PDF',
     feat3: 'Calendário de entregas e notificações em tempo real',
@@ -101,7 +100,6 @@ const I18N = {
     entering: 'Signing in...',
     googleLogin: 'Sign in with Google',
     or: 'OR',
-    demoMode: 'Demo mode — dummy data',
     feat1: 'Track progress of each project in real-time',
     feat2: 'Manage invoices and export PDF reports',
     feat3: 'Delivery calendar and real-time notifications',
@@ -248,7 +246,6 @@ export default function ClientPortal() {
           <div className="feat"><div className="feat-ico"><Icon name="rcpt" size={13} color="#6366f1" /></div><p className="feat-txt">{T.feat2}</p></div>
           <div className="feat"><div className="feat-ico"><Icon name="cal" size={13} color="#6366f1" /></div><p className="feat-txt">{T.feat3}</p></div>
 
-          <div className="demo-badge"><div className="demo-dot"></div>{T.demoMode}</div>
         </div>
 
         <div className="login-card">
