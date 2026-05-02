@@ -2714,11 +2714,11 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   const isDark = theme === "dark";
   const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const isUS = d.region !== "BR";
-  const [loading, setLoading] = useState(false);
+  const [loadingType, setLoadingType] = useState(null);
   const [error, setError] = useState("");
 
   const handleAction = async (type) => {
-    setLoading(true);
+    setLoadingType(type);
     setError("");
     try {
       const endpoint = type === "accept" ? "/api/accept" : "/api/leads";
@@ -2749,7 +2749,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       console.error(err);
       setError(T.review.errorOccurred);
     } finally {
-      setLoading(false);
+      setLoadingType(null);
     }
   };
 
@@ -2918,7 +2918,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       {/* Final Action Buttons */}
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px" }}>
-        <button onClick={() => handleAction("accept")} disabled={loading} style={{
+        <button onClick={() => handleAction("accept")} disabled={!!loadingType} style={{
           width: "100%",
           padding: "15px",
           background: "linear-gradient(135deg, #5B52E8, #7B6CF8)",
@@ -2930,12 +2930,12 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           color: "#fff",
           marginBottom: 9
         }}>
-          {loading ? T.review.processing : T.review.payRetainer}
+          {loadingType === "accept" ? T.review.processing : T.review.payRetainer}
         </button>
         <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 13px" }}>
           {T.review.secureNotice}
         </p>
-        <button onClick={() => handleAction("save")} disabled={loading} style={{
+        <button onClick={() => handleAction("save")} disabled={!!loadingType} style={{
           width: "100%",
           padding: "13px",
           background: "rgba(255,255,255,0.03)",
@@ -2946,7 +2946,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           color: "#8080b0",
           marginBottom: 6
         }}>
-          {loading ? T.review.processing : T.review.saveLater}
+          {loadingType === "save" ? T.review.processing : T.review.saveLater}
         </button>
         <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 18px" }}>
           {T.review.saveLaterNote}
