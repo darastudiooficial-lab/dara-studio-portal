@@ -24,6 +24,15 @@ const ACTIVITY = [
   { id: 4, text: 'Projeto 99 Commonwealth Ave — status: Atenção', time: '3d atrás', ico: '!', unread: false },
 ];
 
+const NOTIFICATIONS_DATA = [
+  { id: 1, title: 'REV00 visualizada pelo cliente', sub: 'Jackson baixou DARA-0010_REV00.zip', date: '18/03/2026 14:32', type: 'view', unread: true },
+  { id: 2, title: 'Fatura INV-2026-002 vence em 10 dias', sub: 'Valor $1.400 — projeto 88 Dover St', date: '17/03/2026 09:00', type: 'invoice', unread: true },
+  { id: 3, title: 'Novo ticket aberto por Maria Silva', sub: 'TKT-001 — Revisão de planta Hampton Rd', date: '16/03/2026 17:02', type: 'ticket', unread: false },
+  { id: 4, title: 'Upload de comprovante pendente', sub: 'Jackson enviou comprovante fase 1', date: '14/03/2026 18:42', type: 'upload', unread: false },
+  { id: 5, title: 'Novo lead cadastrado', sub: 'Amara Diallo — Diallo Properties', date: '21/03/2026 10:00', type: 'lead', unread: true },
+  { id: 6, title: 'Projeto 99 Commonwealth em Atenção', sub: 'Status alterado pelo Admin', date: '13/03/2026 12:30', type: 'alert', unread: false },
+];
+
 const INVOICES = [
   { id: 'INV-2026-003', project: '41 Bowdoin Ave', client: 'Jackson Da Silva', amount: 2718, entry: 1359, entryPct: 50, paid: 0, status: 'pending', due: '15/04/2026', issued: '20/03/2026', phase: 'Conceptual Design' },
   { id: 'INV-2026-002', project: '88 Dover St', client: 'Jackson Da Silva', amount: 4200, entry: 2100, entryPct: 50, paid: 2100, status: 'pending', due: '30/03/2026', issued: '14/03/2026', phase: 'Drafting & Coord.' },
@@ -80,6 +89,102 @@ const I18N = {
     balance_due: 'Saldo Devedor',
     fin_progress: 'Progresso Financeiro',
     view_all: 'Ver todos →',
+    project_mgmt: 'Gestão de Projetos',
+    require_attention: 'requerem atenção',
+    projects_found: 'projetos',
+    all: 'Todos',
+    col_project: 'PROJETO',
+    col_service: 'SERVIÇO',
+    col_stage: 'STAGE',
+    col_progress: 'PROGRESSO',
+    col_status: 'STATUS',
+    col_due: 'VENCIMENTO',
+    col_budget: 'ORÇAMENTO',
+    fin_ov: 'Finance Overview',
+    fin_sub: 'Receitas, pagamentos e previsões',
+    total_rec: 'TOTAL RECEBIDO',
+    rec_month: 'RECEITA DO MÊS',
+    bal_pend: 'SALDO PENDENTE',
+    inv_paid: 'FATURAS PAGAS',
+    net_rev: 'NET REVENUE',
+    forecast: 'PREVISÃO DE RECEITA',
+    pend_pay: 'Pagamentos Pendentes',
+    pend_entry: 'Entradas Pendentes',
+    rec_rate: 'Taxa de Recebimento',
+    monthly_rev: 'Receita Mensal',
+    last_6: 'Últimos 6 meses - valores recebidos',
+    pend_inv: 'Faturas Pendentes',
+    rec_pay: 'Pagamentos Recentes',
+    method: 'MÉTODO',
+    gross: 'GROSS',
+    fee: 'FEE (GATEWAY)',
+    net: 'NET',
+    remind: 'Lembrete',
+    total_gross: 'TOTAL GROSS',
+    total_fees: 'TOTAL FEES',
+    eff_rate: 'EFFECTIVE RATE',
+    of: 'de',
+    open_inv: 'faturas em aberto',
+    issued: 'emitidas',
+    after_fees: 'após taxas de gateway',
+    export: 'Exportar',
+    cal_ov: 'Calendário',
+    cal_sub: 'Entregas, vencimentos e reuniões',
+    proj_deliveries: 'ENTREGAS DE PROJETOS',
+    month_meetings: 'REUNIÕES DO MÊS',
+    active_projs: 'PROJETOS ATIVOS',
+    scheduled: 'Agendadas',
+    realized: 'Realizadas',
+    completion_rate: 'Taxa de realização',
+    completed_f: 'concluídas',
+    march_events: 'Eventos de Março',
+    next_due: 'Próximo vencimento',
+    week: 'Semana',
+    days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    unread_count: 'não lidas',
+    mark_all_read: 'Marcar todas como lidas',
+    settings_desc: 'Gerencie sua conta, segurança e preferências do portal',
+    account: 'Conta',
+    security: 'Segurança',
+    acc_info: 'Informações Pessoais',
+    acc_desc: 'Gerencie seus dados de contato',
+    company_details: 'Informações da Empresa',
+    company_desc: 'Dados corporativos e logomarca',
+    tax_id: 'CNPJ / EIN',
+    address: 'Endereço',
+    website: 'Site / Portfolio',
+    save_changes: 'Salvar Alterações',
+    full_name: 'NOME COMPLETO',
+    email: 'E-MAIL',
+    phone: 'TELEFONE',
+    company: 'EMPRESA',
+    portal_lang: 'IDIOMA DO PORTAL',
+    visual_theme: 'TEMA VISUAL',
+    save_changes: 'Salvar Alterações',
+    curr_pw: 'SENHA ATUAL',
+    new_pw: 'NOVA SENHA',
+    conf_pw: 'CONFIRMAR NOVA SENHA',
+    add_sec: 'Segurança Adicional',
+    two_fa: 'Autenticação em duas etapas',
+    two_fa_desc: 'Receba um código por e-mail ao fazer login',
+    session_alerts: 'Alertas de sessão',
+    session_alerts_desc: 'Notifique-me ao acessar de um novo dispositivo',
+    cancel: 'Cancelar',
+    save_pw: 'Salvar Senha',
+    portal_alerts: 'ALERTAS DO PORTAL',
+    new_inv_alert: 'Novas faturas e vencimentos',
+    new_inv_desc: 'Notificar quando uma fatura for gerada ou próxima ao vencimento',
+    msg_chat_alert: 'Mensagens e chat de projeto',
+    msg_chat_desc: 'Notificar ao receber mensagem no chat de um projeto',
+    work_upd_alert: 'Atualizações de obra',
+    work_upd_desc: 'Notificar quando o Admin ou Freela publicar uma atualização',
+    tkt_resp_alert: 'Tickets e respostas',
+    tkt_resp_desc: 'Notificar ao abrir ou receber resposta em um ticket',
+    comm: 'COMUNICAÇÃO',
+    news_alert: 'Novidades e conteúdo DARA',
+    news_desc: 'Receber e-mails sobre novos serviços e atualizações do portal',
+    save_pref: 'Salvar Preferências',
   },
   EN: {
     dashboard: 'Dashboard',
@@ -128,6 +233,103 @@ const I18N = {
     balance_due: 'Balance Due',
     fin_progress: 'Financial Progress',
     view_all: 'View all →',
+    project_mgmt: 'Project Management',
+    require_attention: 'require attention',
+    projects_found: 'projects',
+    all: 'All',
+    col_project: 'PROJECT',
+    col_service: 'SERVICE',
+    col_stage: 'STAGE',
+    col_progress: 'PROGRESSO',
+    col_status: 'STATUS',
+    col_due: 'DUE DATE',
+    col_budget: 'BUDGET',
+    fin_ov: 'Finance Overview',
+    fin_sub: 'Revenue, payments and forecasts',
+    total_rec: 'TOTAL RECEIVED',
+    rec_month: 'MONTH REVENUE',
+    bal_pend: 'PENDING BALANCE',
+    inv_paid: 'PAID INVOICES',
+    net_rev: 'NET REVENUE',
+    forecast: 'REVENUE FORECAST',
+    pend_pay: 'Pending Payments',
+    pend_entry: 'Pending Entries',
+    rec_rate: 'Collection Rate',
+    monthly_rev: 'Monthly Revenue',
+    last_6: 'Last 6 months - received values',
+    pend_inv: 'Pending Invoices',
+    rec_pay: 'Recent Payments',
+    method: 'METHOD',
+    gross: 'GROSS',
+    fee: 'FEE (GATEWAY)',
+    net: 'NET',
+    remind: 'Remind',
+    total_gross: 'TOTAL GROSS',
+    total_fees: 'TOTAL FEES',
+    eff_rate: 'EFFECTIVE RATE',
+    of: 'of',
+    open_inv: 'open invoices',
+    issued: 'issued',
+    after_fees: 'after gateway fees',
+    export: 'Export',
+    cal_ov: 'Calendar',
+    cal_sub: 'Deliveries, deadlines and meetings',
+    proj_deliveries: 'PROJECT DELIVERIES',
+    month_meetings: 'MONTH MEETINGS',
+    active_projs: 'ACTIVE PROJECTS',
+    scheduled: 'Scheduled',
+    realized: 'Realized',
+    completion_rate: 'Completion rate',
+    completed_f: 'completed',
+    march_events: 'March Events',
+    next_due: 'Next due date',
+    week: 'Week',
+    days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    unread_count: 'unread',
+    mark_all_read: 'Mark all as read',
+    settings_desc: 'Manage your account, security and portal preferences',
+    account: 'Account',
+    security: 'Security',
+    acc_info: 'Account Information',
+    acc_desc: 'Your portal profile data',
+    full_name: 'FULL NAME',
+    email: 'E-MAIL',
+    phone: 'PHONE',
+    company: 'COMPANY',
+    portal_lang: 'PORTAL LANGUAGE',
+    visual_theme: 'VISUAL THEME',
+    save_changes: 'Save Changes',
+    curr_pw: 'CURRENT PASSWORD',
+    new_pw: 'NEW PASSWORD',
+    conf_pw: 'CONFIRM NEW PASSWORD',
+    add_sec: 'Additional Security',
+    two_fa: 'Two-factor authentication',
+    two_fa_desc: 'Receive a code by email when logging in',
+    session_alerts: 'Session alerts',
+    session_alerts_desc: 'Notify me when accessing from a new device',
+    cancel: 'Cancel',
+    save_pw: 'Save Password',
+    portal_alerts: 'PORTAL ALERTS',
+    new_inv_alert: 'New invoices and due dates',
+    new_inv_desc: 'Notify when an invoice is generated or near due date',
+    msg_chat_alert: 'Messages and project chat',
+    msg_chat_desc: 'Notify when receiving a message in a project chat',
+    work_upd_alert: 'Project updates',
+    work_upd_desc: 'Notify when Admin or Freelancer posts an update',
+    tkt_resp_alert: 'Tickets and replies',
+    tkt_resp_desc: 'Notify when opening or receiving a reply in a ticket',
+    comm: 'COMMUNICATION',
+    news_alert: 'DARA news and content',
+    news_desc: 'Receive emails about new services and portal updates',
+    acc_info: 'Personal Information',
+    acc_desc: 'Manage your contact details',
+    company_details: 'Company Information',
+    company_desc: 'Corporate data and brand logo',
+    tax_id: 'Tax ID (CNPJ/EIN)',
+    address: 'Address',
+    website: 'Website / Portfolio',
+    save_changes: 'Save Changes',
   }
 };
 
@@ -143,6 +345,7 @@ const PATHS = {
   briefcase: 'M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8z M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2',
   shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
   eye: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 12m-3 0a3 3 0 1 0 6 0 3 3 0 0 0-6 0',
+  bell: 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0',
   file: 'M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z M13 2v7h7',
 };
 
@@ -193,6 +396,14 @@ export default function ClientPortal() {
     redirecting: false,
     ltab: 'in',
     showPw: false,
+    filter: 'all',
+    settingsTab: 'account',
+    showNotif: false,
+    company: 'Jack General Services Inc.',
+    profilePic: null,
+    taxId: '12.345.678/0001-90',
+    address: '41 Bowdoin Ave, Boston, MA',
+    website: 'www.jackservices.com',
   });
 
   const userName = S.role === 'admin' ? 'Daniela' : S.role === 'freelancer' ? 'Carlos' : 'Jackson';
@@ -360,7 +571,7 @@ export default function ClientPortal() {
     <div id="layout" className={theme}>
       <aside className={`sidebar ${S.sbCol ? 'col' : ''}`}>
         <div className="sb-head">
-          <div className="sb-logo">D</div>
+          <div className="sb-logo" onClick={() => setS(prev => ({ ...prev, sbCol: false }))} style={{ cursor: 'pointer' }}>D</div>
           {!S.sbCol && (
             <div className="sb-text">
               <div className="sb-name">DARA STUDIO</div>
@@ -372,12 +583,20 @@ export default function ClientPortal() {
 
         {!S.sbCol && (
           <div className="sb-user-profile">
-            <div className="sb-user-avatar">{userName.split(' ').map(n => n[0]).join('')}</div>
+            <div className="sb-user-avatar">
+              {S.profilePic ? <img src={S.profilePic} alt="User" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} /> : userName.split(' ').map(n => n[0]).join('')}
+            </div>
             <div className="sb-user-info">
               <div className="sb-user-name">{userName} {S.role !== 'admin' && 'Da Silva'}</div>
-              <div className="sb-user-role-tag">{T[S.role]}</div>
+              <div className="sb-user-role-tag">{S.company}</div>
             </div>
           </div>
+        )}
+
+        {!S.sbCol && (
+          <button className="sb-wizard-btn" onClick={() => navigate('/wizard')}>
+            <Icon name="briefcase" size={14} /> <span>{lang === 'PT' ? 'Novo Orçamento' : 'New Estimate'}</span>
+          </button>
         )}
 
         <nav className="sb-nav">
@@ -396,12 +615,12 @@ export default function ClientPortal() {
             <Icon name="cal" /> <span className="nav-lbl">{T.calendar}</span>
           </button>
           <button className={`nav-item ${S.page === 'notifications' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'notifications' }))}>
-            <Icon name="eye" /> <span className="nav-lbl">{T.notifications}</span>
+            <Icon name="bell" /> <span className="nav-lbl">{T.notifications}</span>
           </button>
         </nav>
 
         <div className="sb-bot">
-          <button className="nav-item">
+          <button className={`nav-item ${S.page === 'settings' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, page: 'settings' }))}>
             <Icon name="shield" /> <span className="nav-lbl">{T.settings}</span>
           </button>
           <button className="nav-item sign-out-btn" onClick={() => setS(prev => ({ ...prev, loggedIn: false }))}>
@@ -421,8 +640,38 @@ export default function ClientPortal() {
           <div className="tb-right" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <GlobalControls />
             <div className="tb-icons">
-               <button className="tb-icon-btn"><Icon name="eye" size={18} /></button>
-               <div className="tb-avatar">{userName[0]}</div>
+               <button className="tb-icon-btn" onClick={() => setS(prev => ({ ...prev, showNotif: !prev.showNotif }))}>
+                 <Icon name="bell" size={18} />
+                 <span className="tb-ndot"></span>
+               </button>
+               <div className="tb-avatar" onClick={() => setS(prev => ({ ...prev, page: 'settings', settingsTab: 'account' }))} style={{ cursor: 'pointer', overflow: 'hidden' }}>
+                 {S.profilePic ? <img src={S.profilePic} alt="User" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : userName[0]}
+               </div>
+
+               {S.showNotif && (
+                 <div className="notif-panel">
+                    <div className="notif-head">
+                       <span>{T.notifications}</span>
+                       <button className="notif-close" onClick={() => setS(prev => ({ ...prev, showNotif: false }))}>×</button>
+                    </div>
+                    <div className="notif-body" style={{ maxHeight: 350, overflowY: 'auto' }}>
+                       {NOTIFICATIONS_DATA.slice(0, 5).map(n => (
+                         <div key={n.id} className={`notif-item ${n.unread ? 'unread' : ''}`}>
+                            <div className="notif-ico"><Icon name="bell" size={12} /></div>
+                            <div className="notif-info">
+                               <div className="notif-title" style={{ fontSize: 12, fontWeight: 600 }}>{n.title}</div>
+                               <div className="notif-sub" style={{ fontSize: 10, opacity: 0.7 }}>{n.date}</div>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
+                    <button className="notif-mark" onClick={() => {
+                      setS(prev => ({ ...prev, page: 'notifications', showNotif: false }));
+                    }}>
+                       {lang === 'PT' ? 'Ver mais' : 'See more'} →
+                    </button>
+                 </div>
+               )}
             </div>
           </div>
         </header>
@@ -533,84 +782,655 @@ export default function ClientPortal() {
 
             {S.page === 'invoices' && (
               <div className="anim">
-                <div className="fin-kpi-grid">
-                  <div className="fin-kpi">
-                    <div className="fin-kpi-label">{T.total_budget}</div>
-                    <div className="fin-kpi-val">{fmt(12500, isUS)}</div>
+                <h1 className="page-title">{T.fin_ov}</h1>
+                <p className="page-sub">{T.fin_sub}</p>
+
+                <div className="fin-kpi-row">
+                  <div className="card kpi-fin">
+                    <div className="kpi-label"><Icon name="home" size={12} /> {T.total_rec}</div>
+                    <div className="kpi-val">{fmt(5400, isUS)}</div>
+                    <div className="kpi-sub">{T.of} {fmt(13977, isUS)} contratados</div>
                   </div>
-                  <div className="fin-kpi">
-                    <div className="fin-kpi-label">{T.total_paid}</div>
-                    <div className="fin-kpi-val" style={{ color: 'var(--gn)' }}>{fmt(8200, isUS)}</div>
+                  <div className="card kpi-fin">
+                    <div className="kpi-label"><Icon name="cal" size={12} /> {T.rec_month}</div>
+                    <div className="kpi-val" style={{ color: '#10b981' }}>{fmt(3600, isUS)}</div>
+                    <div className="kpi-sub">Março 2026</div>
                   </div>
-                  <div className="fin-kpi">
-                    <div className="fin-kpi-label">{T.balance_due}</div>
-                    <div className="fin-kpi-val" style={{ color: 'var(--rd)' }}>{fmt(4300, isUS)}</div>
+                  <div className="card kpi-fin">
+                    <div className="kpi-label"><Icon name="rcpt" size={12} /> {T.bal_pend}</div>
+                    <div className="kpi-val" style={{ color: '#f59e0b' }}>{fmt(8577, isUS)}</div>
+                    <div className="kpi-sub">4 {T.open_inv}</div>
+                  </div>
+                  <div className="card kpi-fin">
+                    <div className="kpi-label"><Icon name="eye" size={12} /> {T.inv_paid}</div>
+                    <div className="kpi-val">2</div>
+                    <div className="kpi-sub">{T.of} 6 {T.issued}</div>
+                  </div>
+                  <div className="card kpi-fin">
+                    <div className="kpi-label"><Icon name="shield" size={12} /> {T.net_rev}</div>
+                    <div className="kpi-val" style={{ color: '#10b981' }}>{fmt(5088.39, isUS)}</div>
+                    <div className="kpi-sub">{T.after_fees}</div>
                   </div>
                 </div>
 
-                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                  <table className="fin-table">
+                <div className="fin-mid-grid">
+                   <div className="card fin-forecast-card">
+                      <div className="f-head">{T.forecast}</div>
+                      <div className="f-val">{fmt(8577, isUS)}</div>
+                      <div className="f-details">
+                         <div className="f-row"><span>{T.pend_pay}</span> <strong>4 faturas</strong></div>
+                         <div className="f-row"><span>{T.pend_entry}</span> <strong>{fmt(4938, isUS)}</strong></div>
+                         <div className="f-row"><span>{T.rec_rate}</span> <strong>39%</strong></div>
+                      </div>
+                   </div>
+                   <div className="card fin-chart-card">
+                      <div className="sec-header">
+                        <h3>{T.monthly_rev}</h3>
+                        <p style={{ fontSize: 10, color: 'var(--mu)' }}>{T.last_6}</p>
+                      </div>
+                      <div className="chart-placeholder-large">
+                         <div className="chart-bars">
+                            {[40, 60, 30, 80, 50, 90].map((h, i) => (
+                              <div key={i} className="chart-bar-group">
+                                <div className="c-bar" style={{ height: `${h}%` }}></div>
+                              </div>
+                            ))}
+                         </div>
+                         <div className="chart-labels">
+                            <span>Out</span><span>Nov</span><span>Dez</span><span>Jan</span><span>Fev</span><span>Mar</span>
+                         </div>
+                         <div className="chart-legend-fin">
+                            <div className="leg-item"><span className="dot dot-pago"></span> Recebido</div>
+                            <div className="leg-item"><span className="dot dot-pendente"></span> Mês atual</div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+
+                <div className="sec-header-fin">
+                  <h3><span style={{ color: '#f59e0b' }}>⚠</span> {T.pend_inv} <span className="sec-count">4</span></h3>
+                  <button className="btn-o btn-sm"><Icon name="out" size={12} /> {T.export}</button>
+                </div>
+                <div className="card pj-table-wrap">
+                  <table className="pj-table">
                     <thead>
                       <tr>
-                        <th>Invoice</th>
-                        <th>Project</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Due Date</th>
-                        <th></th>
+                        <th>FATURA</th>
+                        <th>PROJETO / CLIENTE</th>
+                        <th>VALOR TOTAL</th>
+                        <th>ENTRADA</th>
+                        <th>PAGO</th>
+                        <th>SALDO</th>
+                        <th>STATUS</th>
+                        <th>AÇÕES</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {INVOICES.map(inv => (
+                      {INVOICES.filter(i => i.status !== 'paid').map(inv => (
                         <tr key={inv.id}>
-                          <td style={{ fontWeight: 600 }}>{inv.id}</td>
-                          <td>{inv.project}</td>
-                          <td>{fmt(inv.amount, isUS)}</td>
+                          <td style={{ color: 'var(--a)', fontWeight: 600 }}>{inv.id}</td>
                           <td>
-                            <span className={`badge ${inv.status}`} style={{ background: inv.status === 'paid' ? 'var(--gnb)' : 'var(--amb)', color: inv.status === 'paid' ? 'var(--gn)' : 'var(--am)' }}>
-                              {inv.status.toUpperCase()}
-                            </span>
+                            <div className="pj-name">{inv.project}</div>
+                            <div className="pj-city">{inv.client}</div>
                           </td>
-                          <td>{inv.due}</td>
-                          <td style={{ textAlign: 'right' }}>
-                            <button className="fin-action-btn"><Icon name="eye" size={14} /></button>
+                          <td>
+                             <div className="pj-name">{fmt(inv.amount, isUS)}</div>
+                             <div className="pj-city">{inv.phase}</div>
+                          </td>
+                          <td><span className="fin-entry-badge">{fmt(inv.entry, isUS)} — {inv.entryPct}%</span></td>
+                          <td style={{ color: '#10b981', fontWeight: 600 }}>{fmt(inv.paid, isUS)}</td>
+                          <td style={{ color: '#dc2626', fontWeight: 600 }}>{fmt(inv.amount - inv.paid, isUS)}</td>
+                          <td><span className="fin-status-pend">{lang === 'PT' ? 'Pendente' : 'Pending'}</span></td>
+                          <td>
+                             <div className="fin-actions">
+                                <button className="btn-o btn-xs"><Icon name="file" size={12} /> PDF</button>
+                                <button className="btn-o btn-xs"><Icon name="eye" size={12} /> {T.remind}</button>
+                             </div>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
+
+                <div className="sec-header-fin" style={{ marginTop: 32 }}>
+                  <h3><span style={{ color: '#10b981' }}>✓</span> {T.rec_pay} <span className="sec-count">4</span></h3>
+                  <div className="sec-right-btns">
+                     <span className="unit-eco">Unit Economics: Taxa calculada automaticamente</span>
+                     <button className="btn-o btn-sm"><Icon name="out" size={12} /> {T.export}</button>
+                  </div>
+                </div>
+                <div className="card pj-table-wrap">
+                  <table className="pj-table">
+                    <thead>
+                      <tr>
+                        <th>FATURA</th>
+                        <th>PROJETO / CLIENTE</th>
+                        <th>{T.method}</th>
+                        <th>DATA</th>
+                        <th>{T.gross}</th>
+                        <th>{T.fee}</th>
+                        <th>{T.net}</th>
+                        <th>AÇÕES</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {INVOICES.filter(i => i.status === 'paid').map(inv => (
+                        <tr key={inv.id}>
+                          <td style={{ color: 'var(--a)', fontWeight: 600 }}>{inv.id}</td>
+                          <td>
+                            <div className="pj-name">{inv.project}</div>
+                            <div className="pj-city">{inv.client}</div>
+                          </td>
+                          <td><span className="method-badge">Stripe</span></td>
+                          <td>{inv.issued}</td>
+                          <td style={{ fontWeight: 600 }}>{fmt(inv.amount, isUS)}</td>
+                          <td style={{ color: '#dc2626' }}>
+                             <div>-{fmt(inv.amount * 0.03, isUS)}</div>
+                             <div style={{ fontSize: 9, opacity: 0.6 }}>3.00% fee</div>
+                          </td>
+                          <td style={{ fontWeight: 700 }}>{fmt(inv.amount * 0.97, isUS)}</td>
+                          <td><button className="btn-o btn-xs"><Icon name="file" size={12} /> PDF</button></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                       <tr className="fin-table-footer">
+                          <td>{T.total_gross}<br/><strong>{fmt(5400, isUS)}</strong></td>
+                          <td>{T.total_fees}<br/><strong style={{ color: '#dc2626' }}>{fmt(311.61, isUS)}</strong></td>
+                          <td>{T.net_rev}<br/><strong style={{ color: '#10b981' }}>{fmt(5088.39, isUS)}</strong></td>
+                          <td>{T.eff_rate}<br/><strong>5.77%</strong></td>
+                          <td colSpan={4}></td>
+                       </tr>
+                    </tfoot>
+                  </table>
+                </div>
               </div>
             )}
 
-            {S.page === 'projects' && (
+            {S.page === 'calendar' && (
               <div className="anim">
-                <div className="card-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20 }}>
-                  {ALL_PROJECTS.map(p => (
-                    <div key={p.id} className="card" style={{ padding: 20 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-                        <Badge status={p.status} lang={lang} />
-                        <span style={{ fontSize: 10, color: 'var(--dm)', fontWeight: 700 }}>{p.code}</span>
-                      </div>
-                      <h3 style={{ fontSize: 18, marginBottom: 4 }}>{p.address}</h3>
-                      <p style={{ fontSize: 12, color: 'var(--mu)', marginBottom: 16 }}>{p.service}</p>
+                <h1 className="page-title">{T.cal_ov}</h1>
+                <p className="page-sub">{T.cal_sub}</p>
 
-                      <div style={{ background: 'var(--lav)', borderRadius: 8, padding: 12, marginBottom: 16 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 6 }}>
-                          <span>{isUS ? 'Current Stage' : 'Etapa Atual'}</span>
-                          <span style={{ fontWeight: 600, color: 'var(--a)' }}>{p.stage}</span>
-                        </div>
-                        <div className="prog"><div className="prog-bar" style={{ width: `${p.progress}%`, background: 'var(--a)' }}></div></div>
-                      </div>
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ fontSize: 11, color: 'var(--dm)' }}>
-                          {isUS ? 'Updated' : 'Atualizado'}: {p.updatedAt}
-                        </div>
-                        <button className="btn-o" style={{ padding: '6px 12px', fontSize: 12 }}>{isUS ? 'Details' : 'Detalhes'}</button>
+                <div className="cal-top-grid">
+                  <div className="card cal-stat-card">
+                    <div className="kpi-label"><Icon name="folder" size={12} /> {T.proj_deliveries}</div>
+                    <div className="cal-stat-main">
+                      <div className="cal-stat-val">10</div>
+                      <div className="cal-bars">
+                        {[1, 3, 2, 4].map((v, i) => (
+                          <div key={i} className="cal-bar-row">
+                             <span className="cal-bar-lbl">{T.week} {i+1}</span>
+                             <div className="cal-bar-track"><div className="cal-bar-fill" style={{ width: `${v*25}%` }}></div></div>
+                             <span className="cal-bar-num">{v}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
+                  </div>
+
+                  <div className="card cal-stat-card">
+                    <div className="kpi-label"><Icon name="cal" size={12} /> {T.month_meetings}</div>
+                    <div className="cal-stat-main">
+                      <div className="cal-meet-nums">
+                         <div className="meet-n"><strong>6</strong> <span>{T.scheduled}</span></div>
+                         <div className="meet-n"><strong>4</strong> <span style={{ color: '#10b981' }}>{T.realized}</span></div>
+                      </div>
+                      <div className="cal-meet-progress">
+                         <div className="meet-prog-lbl">{T.completion_rate}</div>
+                         <div className="cal-bar-track" style={{ height: 6 }}><div className="cal-bar-fill" style={{ width: '67%', background: '#10b981' }}></div></div>
+                         <div className="meet-prog-pct">67% {T.completed_f}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="card cal-stat-card">
+                    <div className="kpi-label"><Icon name="folder" size={12} /> {T.active_projs}</div>
+                    <div className="cal-stat-main">
+                      <div className="cal-stat-val">3</div>
+                      <div className="cal-bars">
+                         <div className="cal-bar-row">
+                            <span className="cal-bar-lbl">DARA-0010</span>
+                            <div className="cal-bar-track"><div className="cal-bar-fill" style={{ width: '6%', background: '#6366f1' }}></div></div>
+                            <span className="cal-bar-num">6%</span>
+                         </div>
+                         <div className="cal-bar-row">
+                            <span className="cal-bar-lbl">DARA-0008</span>
+                            <div className="cal-bar-track"><div className="cal-bar-fill" style={{ width: '50%', background: '#818cf8' }}></div></div>
+                            <span className="cal-bar-num">50%</span>
+                         </div>
+                         <div className="cal-bar-row">
+                            <span className="cal-bar-lbl">DARA-0012</span>
+                            <div className="cal-bar-track"><div className="cal-bar-fill" style={{ width: '25%', background: '#f59e0b' }}></div></div>
+                            <span className="cal-bar-num">25%</span>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="cal-main-wrap">
+                   <div className="card cal-grid-card">
+                      <div className="cal-header">
+                         <button className="cal-nav-btn"><Icon name="back" size={12} /></button>
+                         <h2 className="cal-month-title">{T.months[2]} 2026</h2>
+                         <button className="cal-nav-btn" style={{ transform: 'rotate(180deg)' }}><Icon name="back" size={12} /></button>
+                      </div>
+                      <div className="cal-grid">
+                         <div className="cal-days-head">
+                            {T.days.map(d => <div key={d}>{d}</div>)}
+                         </div>
+                         <div className="cal-days-grid">
+                            {Array.from({ length: 31 }).map((_, i) => {
+                               const day = i + 1;
+                               const hasEvent = [15, 20, 28, 30].includes(day);
+                               const dotColor = (day === 28 || day === 30) ? '#dc2626' : '#6366f1';
+                               return (
+                                 <div key={day} className={`cal-day ${hasEvent ? 'has-event' : ''}`}>
+                                    <span className="day-num">{day}</span>
+                                    {hasEvent && <span className="day-dot" style={{ background: dotColor }}></span>}
+                                 </div>
+                               );
+                            })}
+                         </div>
+                      </div>
+                   </div>
+
+                   <div className="cal-sidebar">
+                      <div className="card cal-events-card">
+                         <h3 className="cal-side-title">{T.march_events}</h3>
+                         <div className="cal-event-list">
+                            <div className="cal-ev-item">
+                               <div className="ev-date">15</div>
+                               <div className="ev-info">Vencimento INV-2026-003</div>
+                            </div>
+                            <div className="cal-ev-item">
+                               <div className="ev-date">20</div>
+                               <div className="ev-info">Reunião 88 Dover St</div>
+                            </div>
+                            <div className="cal-ev-item">
+                               <div className="ev-date">28</div>
+                               <div className="ev-info">Entrega 99 Commonwealth</div>
+                            </div>
+                            <div className="cal-ev-item">
+                               <div className="ev-date">30</div>
+                               <div className="ev-info">Vencimento INV-2026-002</div>
+                            </div>
+                         </div>
+                      </div>
+
+                      <div className="card cal-next-card">
+                         <div className="next-label">{T.next_due}</div>
+                         <div className="next-date">15 de Abril</div>
+                         <div className="next-info">INV-2026-003 • {fmt(1359, isUS)}</div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            )}
+
+            {S.page === 'projects' && (() => {
+              const pCount = ALL_PROJECTS.length;
+              const attCount = ALL_PROJECTS.filter(p => p.status === 'attention').length;
+              const filtered = S.filter === 'all' ? ALL_PROJECTS : ALL_PROJECTS.filter(p => p.status === S.filter);
+
+              const tabs = [
+                { id: 'all', lbl: T.all, count: ALL_PROJECTS.length },
+                { id: 'on_track', lbl: T.status_on_track, count: ALL_PROJECTS.filter(p => p.status === 'on_track').length },
+                { id: 'waiting', lbl: T.status_waiting, count: ALL_PROJECTS.filter(p => p.status === 'waiting').length },
+                { id: 'attention', lbl: T.status_attention, count: ALL_PROJECTS.filter(p => p.status === 'attention').length },
+                { id: 'completed', lbl: T.status_completed, count: ALL_PROJECTS.filter(p => p.status === 'completed').length },
+              ];
+
+              return (
+                <div className="anim">
+                  <h1 className="page-title">{T.project_mgmt}</h1>
+                  <p className="page-sub">{pCount} {T.projects_found} — {attCount} {T.require_attention}</p>
+
+                  <div className="tab-strip">
+                    {tabs.map(tab => (
+                      <button 
+                        key={tab.id} 
+                        className={`tab-item ${S.filter === tab.id ? 'act' : ''}`}
+                        onClick={() => setS(prev => ({ ...prev, filter: tab.id }))}
+                      >
+                        {tab.id !== 'all' && <span className={`tab-dot dot-${tab.id}`}></span>}
+                        {tab.lbl} <span className="tab-count">{tab.count}</span>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="card pj-table-wrap">
+                    <table className="pj-table">
+                      <thead>
+                        <tr>
+                          <th>{T.col_project}</th>
+                          <th>{T.col_service}</th>
+                          <th>{T.col_stage}</th>
+                          <th>{T.col_progress}</th>
+                          <th>{T.col_status}</th>
+                          <th>{T.col_due}</th>
+                          <th>{T.col_budget}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filtered.map(p => (
+                          <tr key={p.id}>
+                            <td>
+                              <div className="pj-info">
+                                <div className="pj-code">{p.code}</div>
+                                <div className="pj-name">{p.address}</div>
+                                <div className="pj-city">{p.city}</div>
+                                {p.pending && (
+                                  <div className="pj-alert-min">
+                                    <Icon name="eye" size={10} /> {p.pending}
+                                  </div>
+                                )}
+                              </div>
+                            </td>
+                            <td className="pj-srv">{p.service}</td>
+                            <td className="pj-stg">{p.stage}</td>
+                            <td>
+                              <div className="pj-prog-cell">
+                                <div className="prog-track">
+                                  <div className="prog-fill" style={{ width: `${p.progress}%`, background: p.status === 'attention' ? 'var(--rd)' : 'var(--a)' }}></div>
+                                </div>
+                                <span className="prog-pct">{p.progress}%</span>
+                              </div>
+                            </td>
+                            <td><Badge status={p.status} lang={lang} /></td>
+                            <td>
+                              <div className={`pj-due ${p.status === 'attention' || p.status === 'waiting' ? 'warn' : ''}`}>
+                                {(p.status === 'attention' || p.status === 'waiting') && <span>⚠</span>} {p.due}
+                              </div>
+                            </td>
+                            <td>
+                              <div className="pj-budget">
+                                <div className="bud-val">{fmt(p.budget, isUS)}</div>
+                                <div className="bud-date">{p.updatedAt}</div>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {S.page === 'notifications' && (
+              <div className="anim">
+                <div className="sec-header-fin">
+                  <div>
+                    <h1 className="page-title">{T.notifications}</h1>
+                    <p className="page-sub">3 {T.unread_count}</p>
+                  </div>
+                  <button className="btn-o btn-sm" style={{ borderRadius: 20 }}>{T.mark_all_read}</button>
+                </div>
+
+                <div className="notif-list">
+                  {NOTIFICATIONS_DATA.map(n => (
+                    <div key={n.id} className={`notif-card ${n.unread ? 'unread' : ''}`}>
+                      <div className="notif-left">
+                        {n.unread && <span className="notif-unread-dot"></span>}
+                        <div className={`notif-ico-box type-${n.type}`}>
+                           <Icon name={
+                             n.type === 'view' ? 'eye' : 
+                             n.type === 'invoice' ? 'rcpt' : 
+                             n.type === 'ticket' ? 'folder' : 
+                             n.type === 'upload' ? 'out' : 
+                             n.type === 'lead' ? 'shield' : 'eye'
+                           } size={14} />
+                        </div>
+                        <div className="notif-content">
+                           <div className="notif-title">{n.title}</div>
+                           <div className="notif-sub">{n.sub}</div>
+                        </div>
+                      </div>
+                      <div className="notif-date">{n.date}</div>
+                    </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {S.page === 'settings' && (
+              <div className="anim">
+                <h1 className="page-title">{T.settings}</h1>
+                <p className="page-sub">{T.settings_desc}</p>
+
+                <div className="settings-wrap">
+                  <aside className="settings-nav">
+                    <button className={`st-nav-item ${S.settingsTab === 'account' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, settingsTab: 'account' }))}>
+                      <Icon name="eye" size={14} /> {T.account}
+                    </button>
+                    <button className={`st-nav-item ${S.settingsTab === 'security' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, settingsTab: 'security' }))}>
+                      <Icon name="shield" size={14} /> {T.security}
+                    </button>
+                    <button className={`st-nav-item ${S.settingsTab === 'notifications' ? 'act' : ''}`} onClick={() => setS(prev => ({ ...prev, settingsTab: 'notifications' }))}>
+                      <Icon name="bell" size={14} /> {T.notifications}
+                    </button>
+                  </aside>
+
+                  <main className="settings-content">
+                    {S.settingsTab === 'account' && (
+                      <div className="card st-card anim">
+                        <div className="st-head">
+                          <div className="st-profile-upload">
+                             <div className="st-avatar-large">
+                                {S.profilePic ? <img src={S.profilePic} alt="Profile" /> : <Icon name="user" size={24} />}
+                                <label className="st-upload-overlay">
+                                   <Icon name="folder" size={14} color="#fff" />
+                                   <input type="file" hidden accept="image/*" onChange={(e) => {
+                                      const file = e.target.files[0];
+                                      if (file) {
+                                         const url = URL.createObjectURL(file);
+                                         setS(prev => ({ ...prev, profilePic: url }));
+                                      }
+                                   }} />
+                                </label>
+                             </div>
+                          </div>
+                          <div>
+                            <h3>{T.acc_info}</h3>
+                            <p>{T.acc_desc}</p>
+                          </div>
+                        </div>
+                        <div className="st-form-grid">
+                          <div className="st-field">
+                            <label>{T.full_name}</label>
+                            <input type="text" defaultValue="Jackson Da Silva" />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.email}</label>
+                            <input type="email" defaultValue="joao@darastudio.com" />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.phone}</label>
+                            <input type="text" defaultValue="+1 (617) 775-0179" />
+                          </div>
+                        </div>
+
+                        <div className="st-divider"></div>
+
+                        <div className="st-head" style={{ marginTop: 24 }}>
+                           <div className="st-profile-upload">
+                              <div className="st-avatar-large">
+                                 {S.profilePic ? <img src={S.profilePic} alt="Logo" /> : <Icon name="briefcase" size={24} />}
+                                 <label className="st-upload-overlay">
+                                    <Icon name="folder" size={14} color="#fff" />
+                                    <input type="file" hidden accept="image/*" onChange={(e) => {
+                                       const file = e.target.files[0];
+                                       if (file) {
+                                          const url = URL.createObjectURL(file);
+                                          setS(prev => ({ ...prev, profilePic: url }));
+                                       }
+                                    }} />
+                                 </label>
+                              </div>
+                           </div>
+                           <div>
+                             <h3>{T.company_details}</h3>
+                             <p>{T.company_desc}</p>
+                           </div>
+                        </div>
+
+                        <div className="st-form-grid">
+                          <div className="st-field">
+                            <label>{T.company}</label>
+                            <input type="text" value={S.company} onChange={e => setS(prev => ({ ...prev, company: e.target.value }))} />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.tax_id}</label>
+                            <input type="text" value={S.taxId} onChange={e => setS(prev => ({ ...prev, taxId: e.target.value }))} />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.address}</label>
+                            <input type="text" value={S.address} onChange={e => setS(prev => ({ ...prev, address: e.target.value }))} />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.website}</label>
+                            <input type="text" value={S.website} onChange={e => setS(prev => ({ ...prev, website: e.target.value }))} />
+                          </div>
+                        </div>
+                        
+                        <div className="st-footer">
+                          <button className="btn-p">{T.save_changes}</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {S.settingsTab === 'security' && (
+                      <div className="card st-card anim">
+                        <div className="st-head">
+                          <div className="st-ico-box"><Icon name="shield" size={16} /></div>
+                          <div>
+                            <h3>{T.security}</h3>
+                            <p>{lang === 'PT' ? 'Gerencie sua senha e acesso' : 'Manage your password and access'}</p>
+                          </div>
+                        </div>
+                        <div className="st-form-stack">
+                          <div className="st-field">
+                            <label>{T.curr_pw}</label>
+                            <input type="password" placeholder="••••••••" />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.new_pw}</label>
+                            <input type="password" placeholder={lang === 'PT' ? 'Mínimo 8 caracteres' : 'Minimum 8 characters'} />
+                          </div>
+                          <div className="st-field">
+                            <label>{T.conf_pw}</label>
+                            <input type="password" placeholder={lang === 'PT' ? 'Repita a nova senha' : 'Repeat new password'} />
+                          </div>
+                        </div>
+
+                        <div className="st-sec-box">
+                           <h4>{T.add_sec}</h4>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.two_fa}</strong>
+                                 <span>{T.two_fa_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.session_alerts}</strong>
+                                 <span>{T.session_alerts_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" defaultChecked />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                        </div>
+
+                        <div className="st-footer-dual">
+                          <button className="btn-o">{T.cancel}</button>
+                          <button className="btn-p">{T.save_pw}</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {S.settingsTab === 'notifications' && (
+                      <div className="card st-card anim">
+                        <div className="st-head">
+                          <div className="st-ico-box"><Icon name="bell" size={16} /></div>
+                          <div>
+                            <h3>{T.notifications}</h3>
+                            <p>{lang === 'PT' ? 'Controle o que você recebe e como' : 'Control what you receive and how'}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="st-sec-box">
+                           <h4>{T.portal_alerts}</h4>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.new_inv_alert}</strong>
+                                 <span>{T.new_inv_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" defaultChecked />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.msg_chat_alert}</strong>
+                                 <span>{T.msg_chat_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" defaultChecked />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.work_upd_alert}</strong>
+                                 <span>{T.work_upd_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.tkt_resp_alert}</strong>
+                                 <span>{T.tkt_resp_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" defaultChecked />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                        </div>
+
+                        <div className="st-sec-box">
+                           <h4>{T.comm}</h4>
+                           <div className="st-switch-item">
+                              <div className="sw-info">
+                                 <strong>{T.news_alert}</strong>
+                                 <span>{T.news_desc}</span>
+                              </div>
+                              <label className="switch">
+                                 <input type="checkbox" />
+                                 <span className="slider"></span>
+                              </label>
+                           </div>
+                        </div>
+
+                        <div className="st-footer">
+                          <button className="btn-p">{T.save_pref}</button>
+                        </div>
+                      </div>
+                    )}
+                  </main>
                 </div>
               </div>
             )}

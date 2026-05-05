@@ -1193,24 +1193,6 @@ export default function EstimateWizard() {
 
   const [isInitialized, setIsInitialized] = useState(false);
   useEffect(() => {
-    // Strip actual File objects from uploads before saving to localStorage
-    const cleanData = { ...data };
-    if (cleanData.uploads) {
-      const cleanUploads = {};
-      Object.keys(cleanData.uploads).forEach(catId => {
-        cleanUploads[catId] = cleanData.uploads[catId].map(f => ({
-          name: f.name,
-          size: f.size,
-          type: f.type
-        }));
-      });
-      cleanData.uploads = cleanUploads;
-    }
-    localStorage.setItem("dara-wizard-data", JSON.stringify(cleanData));
-  }, [data]);
-
-  useEffect(() => {
-    resetWizard();
     setIsInitialized(true);
   }, []);
 
@@ -2348,7 +2330,6 @@ function S6({ d, up, lang }) {
 }
 
 function S7({ d, up, lang }) {
-  const isUS = d.region !== "BR";
   const T = TRANSLATIONS[lang];
   const fileRefs = useRef({});
   const [dragging, setDragging] = useState(null);
@@ -2397,19 +2378,26 @@ function S7({ d, up, lang }) {
       name: f.name,
       size: f.size,
       type: f.type,
-      lastModified: f.lastModified
+      id: Math.random().toString(36).substr(2, 9), // Unique ID for deletion
+      at: new Date().toISOString()
     }));
     up("uploads", { ...uploads, [catId]: [...current, ...newFiles] });
+  };
+
+  const removeFile = (catId, fileId) => {
+    const current = uploads[catId] || [];
+    up("uploads", { ...uploads, [catId]: current.filter(f => f.id !== fileId) });
   };
 
   return (
     <div className="wz-animate">
       <Title label={T.uploadTitle} sub={T.uploadSub} />
 
-      {/* Info Alert */}
-      <div style={{ background: "rgba(99, 102, 241, 0.1)", border: "1px solid rgba(99, 102, 241, 0.2)", borderRadius: "12px", padding: "20px", display: "flex", gap: "16px", marginBottom: "32px" }}>
-        <div style={{ color: "#818cf8", fontSize: "20px" }}>ⓘ</div>
-        <p style={{ fontSize: "14px", lineHeight: "1.6", color: "var(--mu)" }}>
+      <div style={{ background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px 20px", display: "flex", gap: "16px", marginBottom: "32px", alignItems: "center" }}>
+        <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--a-dim)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--a)", flexShrink: 0 }}>
+          <InfoIcon />
+        </div>
+        <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--mu)" }}>
           {T.uploadHelp}
         </p>
       </div>
@@ -2419,42 +2407,29 @@ function S7({ d, up, lang }) {
           <div key={cat.id} style={{ 
             background: "var(--bg1)", 
             border: "1.5px solid var(--border)", 
-            borderRadius: "20px", 
+            borderRadius: "16px", 
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            transition: "all .3s ease"
-          }} className="wz-card-premium">
-            <div style={{ padding: "24px", background: "var(--cb)", borderBottom: "1.5px solid var(--border)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ 
-                  width: "48px", 
-                  height: "48px", 
-                  borderRadius: "14px", 
-                  background: cat.color + "15", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center",
-                  fontSize: "24px"
-                }}>
-                  {cat.icon}
-                </div>
-                <div>
-                  <h3 style={{ fontSize: "16px", fontWeight: "700", color: "var(--tx)", letterSpacing: "-0.01em" }}>{cat.label}</h3>
-                  <p style={{ fontSize: "10px", color: "var(--dm)", textTransform: "uppercase", letterSpacing: ".1em", marginTop: "4px" }}>{cat.types}</p>
-                </div>
+            transition: "all .2s ease"
+          }}>
+            <div style={{ padding: "16px 20px", background: "var(--cb)", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <span style={{ fontSize: "18px" }}>{cat.icon}</span>
+                <span style={{ fontSize: "14px", fontWeight: "700", color: "var(--tx)" }}>{cat.label}</span>
               </div>
+              <span style={{ fontSize: "9px", color: "var(--dm)", textTransform: "uppercase", letterSpacing: ".05em" }}>{cat.types.split(' · ')[0]}</span>
             </div>
 
-            <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column" }}>
+            <div style={{ padding: "20px" }}>
               <div 
                 className={`wz-drop ${dragging === cat.id ? "dragging" : ""}`} 
                 style={{ 
-                  flex: 1,
-                  padding: "40px 20px", 
-                  background: dragging === cat.id ? "var(--a-dim)" : "var(--cb)",
-                  border: "2px dashed var(--border)",
-                  borderRadius: "16px",
+                  padding: "32px 16px", 
+                  background: dragging === cat.id ? "var(--a-dim)" : "rgba(255,255,255,0.02)",
+                  border: "2px dashed",
+                  borderColor: dragging === cat.id ? "var(--a)" : "var(--border2)",
+                  borderRadius: "12px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -2468,21 +2443,11 @@ function S7({ d, up, lang }) {
                 onDrop={e => { e.preventDefault(); setDragging(null); handleFiles(cat.id, e.dataTransfer.files); }}
                 onClick={() => fileRefs.current[cat.id]?.click()}
               >
-                <div style={{ 
-                  width: "40px", 
-                  height: "40px", 
-                  borderRadius: "50%", 
-                  background: "var(--bg2)", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center",
-                  marginBottom: "16px",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
-                }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--a)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <div style={{ color: "var(--a)", marginBottom: "12px", opacity: 0.8 }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                 </div>
-                <p style={{ fontSize: "14px", color: "var(--mu)", fontWeight: "500", maxWidth: "160px", lineHeight: "1.4" }}>
-                  {T.dropHere} <span style={{ color: "var(--a)", fontWeight: "700" }}>{T.browse}</span>
+                <p style={{ fontSize: "13px", color: "var(--mu)" }}>
+                  {T.dropHere} <span style={{ color: "var(--a)", fontWeight: "600" }}>{T.browse}</span>
                 </p>
                 <input 
                   type="file" 
@@ -2495,23 +2460,24 @@ function S7({ d, up, lang }) {
               </div>
 
               {uploads[cat.id] && uploads[cat.id].length > 0 && (
-                <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--dm)", textTransform: "uppercase", letterSpacing: ".1em" }}>{T.uploadedFiles || "Uploaded Files"}</p>
+                <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
                   {uploads[cat.id].map((f, i) => (
-                    <div key={i} style={{ 
-                      display: "flex", 
-                      justifyContent: "space-between", 
-                      alignItems: "center", 
-                      padding: "10px 14px", 
-                      background: "var(--bg2)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "10px"
-                    }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px", overflow: "hidden" }}>
-                        <div style={{ color: "var(--gn)", fontSize: "14px" }}>✓</div>
-                        <span style={{ fontSize: "12px", color: "var(--tx)", fontWeight: "600", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f.name}</span>
+                    <div key={f.id || i} className="doc-row" style={{ padding: "10px 12px", background: "rgba(255,255,255,0.03)", borderColor: "var(--border2)" }}>
+                      <div className="doc-ico pdf" style={{ width: 32, height: 32, fontSize: 14 }}>
+                        {cat.id === "inspiration" ? "🖼️" : cat.id === "videos" ? "🎥" : "📄"}
                       </div>
-                      <span style={{ fontSize: "10px", color: "var(--dm)", fontFamily: "var(--font-mono)" }}>{(f.size / 1024 / 1024).toFixed(1)}MB</span>
+                      <div className="doc-meta">
+                        <p className="doc-name" style={{ fontSize: 12 }}>{f.name}</p>
+                        <p className="doc-info" style={{ fontSize: 10 }}>{(f.size / 1024 / 1024).toFixed(1)}MB</p>
+                      </div>
+                      <button 
+                        className="doc-btn" 
+                        style={{ color: "var(--rd)", width: 28, height: 28 }} 
+                        onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
+                        data-tip={lang === "EN" ? "Remove" : "Remover"}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -2526,9 +2492,8 @@ function S7({ d, up, lang }) {
 
 function S8({ d, up, lang }) {
   const T = TRANSLATIONS[lang];
-  const isUS = d.region !== "BR";
-  const [feedback, setFeedback] = useState("");
   const fileRefs = useRef({});
+  const [feedback, setFeedback] = useState("");
 
   const checklist = [
     { id: "chk_survey", label: T.checklist.survey, required: true },
@@ -2539,7 +2504,7 @@ function S8({ d, up, lang }) {
     { id: "chk_reports", label: T.checklist.reports, sub: T.checklist.ifAvailable },
   ];
 
-  const requiredCount = 3; // First 3 are mandatory
+  const requiredCount = 3; 
   const completedRequired = checklist.slice(0, 3).filter(c => d[c.id]).length;
   const remaining = requiredCount - completedRequired;
   const isUnlocked = remaining === 0;
@@ -2547,11 +2512,20 @@ function S8({ d, up, lang }) {
   const handleFileChange = (id, e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      // Save metadata only
       up(id, true);
       const currentRushFiles = d.rushFiles || {};
-      up("rushFiles", { ...currentRushFiles, [id]: file.name });
+      up("rushFiles", { ...currentRushFiles, [id]: { name: file.name, size: file.size, at: new Date().toISOString() } });
       setFeedback("");
     }
+  };
+
+  const removeRushFile = (id) => {
+    up(id, false);
+    const currentRushFiles = d.rushFiles || {};
+    const next = { ...currentRushFiles };
+    delete next[id];
+    up("rushFiles", next);
   };
 
   const handleLockedClick = () => {
@@ -2575,7 +2549,7 @@ function S8({ d, up, lang }) {
       tag: "+40%",
       sub: T.speeds.rush.sub,
       days: T.speeds.rush.days,
-      icon: "🔒",
+      icon: "⚡",
       fee: "+40%",
       locked: !isUnlocked
     },
@@ -2585,7 +2559,7 @@ function S8({ d, up, lang }) {
       tag: "+60%",
       sub: T.speeds.express.sub,
       days: T.speeds.express.days,
-      icon: "🔒",
+      icon: "🔥",
       fee: "+60%",
       locked: !isUnlocked
     },
@@ -2595,41 +2569,66 @@ function S8({ d, up, lang }) {
     <div className="wz-animate">
       <Title label={T.rushFeesTitle || T.deliverySpeed} sub={T.rushFeesSub || T.speedSub} />
 
-      {/* Checklist Box */}
-      <div style={{ background: "var(--cb)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginBottom: "24px" }}>
-        <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden", marginBottom: "32px" }}>
+        <div style={{ padding: "16px 20px", background: "var(--cb)", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".1em", color: "var(--mu)", textTransform: "uppercase" }}>{T.docChecklist}</h3>
-          <span style={{ fontSize: "11px", color: "var(--dm)" }}>{remaining} {T.requiredRemaining}</span>
+          <span style={{ fontSize: "11px", fontWeight: "600", color: isUnlocked ? "var(--gn)" : "var(--am)" }}>
+            {isUnlocked ? "✓ " + (lang === "EN" ? "All required docs ready" : "Documentos prontos") : `${remaining} ${T.requiredRemaining}`}
+          </span>
         </div>
-        <div>
+        <div style={{ padding: "8px 0" }}>
           {checklist.map((item, idx) => {
-            const isDone = !!d[item.id];
+            const fileData = d.rushFiles?.[item.id];
+            const isDone = !!fileData;
             return (
-              <div key={item.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: idx < checklist.length - 1 ? "1px solid var(--border)" : "none" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+              <div key={item.id} className="doc-row" style={{ 
+                margin: "4px 12px", 
+                padding: "10px 16px", 
+                background: isDone ? "rgba(22,163,74,0.03)" : "rgba(255,255,255,0.02)",
+                borderColor: isDone ? "rgba(22,163,74,0.2)" : "var(--border2)"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "14px", flex: 1 }}>
                   <div style={{
-                    width: "18px", height: "18px", borderRadius: "4px",
+                    width: "20px", height: "20px", borderRadius: "6px",
                     border: `1.5px solid ${isDone ? "var(--gn)" : "var(--border2)"}`,
                     background: isDone ? "var(--gn)" : "transparent",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    transition: "all .2s"
+                    transition: "all .2s", color: "#fff"
                   }}>
                     {isDone && <Chk />}
                   </div>
-                  <div>
-                    <p style={{ fontSize: "14px", fontWeight: "500", color: isDone ? "var(--tx)" : "var(--mu)" }}>{item.label}</p>
-                    {item.sub && <p style={{ fontSize: "11px", color: "var(--dm)", marginTop: "2px" }}>{item.sub}</p>}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ fontSize: "13px", fontWeight: "600", color: isDone ? "var(--tx)" : "var(--mu)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {item.label}
+                    </p>
+                    {isDone ? (
+                      <p style={{ fontSize: "10px", color: "var(--gn)", marginTop: "1px" }}>{fileData.name}</p>
+                    ) : (
+                      item.sub && <p style={{ fontSize: "10px", color: "var(--dm)", marginTop: "1px" }}>{item.sub}</p>
+                    )}
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                  {idx < 3 && !isDone && <span style={{ fontSize: "11px", fontWeight: "700", color: "#ef4444", textTransform: "uppercase" }}>{T.required}</span>}
-                  <button
-                    className="wz-btn-ghost"
-                    onClick={() => fileRefs.current[item.id]?.click()}
-                    style={{ padding: "6px 12px", fontSize: "11px", height: "auto", borderColor: isDone ? "var(--gn)" : "var(--border2)", color: isDone ? "var(--gn)" : "var(--mu)" }}
-                  >
-                    {isDone ? T.uploaded : T.uploadAction}
-                  </button>
+                
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  {!isDone && idx < 3 && <span style={{ fontSize: "9px", fontWeight: "700", color: "var(--rd)", textTransform: "uppercase", letterSpacing: ".05em" }}>{T.required}</span>}
+                  
+                  {isDone ? (
+                    <button 
+                      className="doc-btn" 
+                      onClick={() => removeRushFile(item.id)}
+                      style={{ color: "var(--rd)", width: 30, height: 30 }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                    </button>
+                  ) : (
+                    <button
+                      className="wz-btn-ghost"
+                      onClick={() => fileRefs.current[item.id]?.click()}
+                      style={{ padding: "6px 12px", fontSize: "11px", height: "auto", borderRadius: "8px", border: "1px solid var(--border2)" }}
+                    >
+                      {T.uploadAction}
+                    </button>
+                  )}
                   <input type="file" ref={el => fileRefs.current[item.id] = el} style={{ display: "none" }} onChange={(e) => handleFileChange(item.id, e)} />
                 </div>
               </div>
@@ -2638,36 +2637,31 @@ function S8({ d, up, lang }) {
         </div>
       </div>
 
-      {/* Red Alert Card (Exact Match) */}
       {!isUnlocked && (
         <div style={{
-          background: "rgba(239, 68, 68, 0.02)",
-          border: "1px solid rgba(239, 68, 68, 0.25)",
+          background: "rgba(239, 68, 68, 0.05)",
+          border: "1px solid rgba(239, 68, 68, 0.2)",
           borderRadius: "12px",
-          padding: "18px 24px",
+          padding: "16px 20px",
           display: "flex",
           alignItems: "center",
           gap: "16px",
           marginBottom: "32px"
         }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <p style={{ fontSize: "14px", color: "#ef4444", fontWeight: "400", lineHeight: "1.4", opacity: 0.9 }}>
+          <div style={{ fontSize: "20px" }}>🔒</div>
+          <p style={{ fontSize: "13px", color: "#ef4444", fontWeight: "500", lineHeight: "1.4" }}>
             {T.unlockRushAlert}
           </p>
         </div>
       )}
 
-      {/* Feedback message (floating if trying to click locked) */}
       {feedback && (
         <div className="wz-animate" style={{ background: "rgba(239, 68, 68, 0.1)", border: "1px solid #ef4444", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#ef4444", fontSize: "13px", fontWeight: "500" }}>
           ⚠️ {feedback}
         </div>
       )}
 
-      <p style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".1em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "16px" }}>SELECT DELIVERY TIMELINE</p>
+      <p style={{ fontSize: "10px", fontWeight: "700", letterSpacing: ".12em", color: "var(--dm)", textTransform: "uppercase", marginBottom: "16px" }}>{lang === "EN" ? "Select Delivery Timeline" : "Selecione o Prazo de Entrega"}</p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
         {options.map(opt => {
@@ -2678,27 +2672,34 @@ function S8({ d, up, lang }) {
               className={`wz-card ${isSelected ? "active" : ""} ${opt.locked ? "locked" : ""}`}
               onClick={() => opt.locked ? handleLockedClick() : up("rush", opt.id)}
               style={{
-                padding: "24px",
-                opacity: opt.locked ? 0.3 : 1,
+                padding: "20px 24px",
+                opacity: opt.locked ? 0.4 : 1,
                 cursor: opt.locked ? "not-allowed" : "pointer",
-                filter: opt.locked ? "grayscale(1) brightness(0.7)" : "none",
                 position: "relative",
-                transition: "all .4s ease"
+                transition: "all .3s ease",
+                borderColor: isSelected ? "var(--a)" : "var(--border)"
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                {opt.locked ? (
-                  <div style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyItems: "center", fontSize: 24, color: "#d97706" }}>🔒</div>
-                ) : (
-                  <div style={{ fontSize: "32px" }}>{opt.icon}</div>
-                )}
+                <div style={{ 
+                  width: 48, height: 48, borderRadius: 12, 
+                  background: isSelected ? "var(--a-dim)" : "var(--bg2)", 
+                  display: "flex", alignItems: "center", justifyContent: "center", 
+                  fontSize: 24, border: "1px solid", 
+                  borderColor: isSelected ? "var(--a-glow)" : "var(--border2)" 
+                }}>
+                  {opt.locked ? "🔒" : opt.icon}
+                </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
-                    <h4 style={{ fontSize: "18px", fontWeight: "600", color: opt.locked ? "var(--mu)" : "var(--tx)" }}>{opt.label}</h4>
-                    {opt.tag && <span style={{ background: "rgba(255,255,255,0.05)", padding: "2px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: "700", color: "var(--dm)" }}>{opt.tag}</span>}
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "2px" }}>
+                    <h4 style={{ fontSize: "16px", fontWeight: "700", color: isSelected ? "var(--a)" : "var(--tx)" }}>{opt.label}</h4>
+                    {opt.tag && <span style={{ background: isSelected ? "var(--a)" : "rgba(255,255,255,0.05)", padding: "2px 8px", borderRadius: "5px", fontSize: "10px", fontWeight: "800", color: isSelected ? "#fff" : "var(--dm)" }}>{opt.tag}</span>}
                   </div>
-                  <p style={{ fontSize: "14px", color: "var(--mu)", marginBottom: opt.days ? "8px" : 0 }}>{opt.sub}</p>
-                  {opt.days && <p style={{ fontSize: "13px", color: "#818cf8", fontStyle: "italic" }}>{opt.days}</p>}
+                  <p style={{ fontSize: "13px", color: "var(--mu)" }}>{opt.sub}</p>
+                  {opt.days && <p style={{ fontSize: "12px", color: isSelected ? "var(--a)" : "var(--dm)", fontWeight: "600", marginTop: "4px" }}>{opt.days}</p>}
+                </div>
+                <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid", borderColor: isSelected ? "var(--a)" : "var(--border2)", background: isSelected ? "var(--a)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {isSelected && <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#fff" }} />}
                 </div>
               </div>
             </div>
@@ -2813,7 +2814,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         </SectionCard>
 
       <SectionCard icon="📂" title={T.review.documentation} step={5}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {/* Reference Files from S7 */}
           {d.uploads && Object.keys(d.uploads).some(k => d.uploads[k]?.length > 0) ? (
             Object.keys(d.uploads).map(catId => {
@@ -2828,12 +2829,16 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
               return (
                 <div key={catId}>
                   <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>📁 {catLabels[catId] || catId}</p>
-                  <div style={{ paddingLeft: "12px", borderLeft: "1.5px solid var(--border2)" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                     {files.map((f, i) => (
-                      <div key={i} style={{ fontSize: "12px", color: "var(--tx)", padding: "4px 0", display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span style={{ color: "var(--gn)" }}>📄</span>
-                        <span>{f.name}</span>
-                        <span style={{ fontSize: "10px", color: "var(--dm)" }}>({(f.size / 1024 / 1024).toFixed(1)}MB)</span>
+                      <div key={f.id || i} className="doc-row" style={{ padding: "8px 12px", background: "rgba(255,255,255,0.02)", borderColor: "var(--border2)" }}>
+                        <div className="doc-ico pdf" style={{ width: 24, height: 24, fontSize: 11 }}>
+                           {catId === "inspiration" ? "🖼️" : catId === "videos" ? "🎥" : "📄"}
+                        </div>
+                        <div className="doc-meta">
+                          <p className="doc-name" style={{ fontSize: 11 }}>{f.name}</p>
+                        </div>
+                        <span style={{ fontSize: "9px", color: "var(--dm)" }}>{(f.size / 1024 / 1024).toFixed(1)}MB</span>
                       </div>
                     ))}
                   </div>
@@ -2846,16 +2851,18 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           {d.rushFiles && Object.keys(d.rushFiles).length > 0 ? (
             <div>
               <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>📁 {lang === "EN" ? "Technical Requirements" : "Requisitos Técnicos"}</p>
-              <div style={{ paddingLeft: "12px", borderLeft: "1.5px solid var(--border2)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 {checklist.map(item => {
-                  const fileName = d.rushFiles[item.id];
-                  if (!fileName) return null;
+                  const fileData = d.rushFiles[item.id];
+                  if (!fileData) return null;
                   return (
-                    <div key={item.id} style={{ fontSize: "12px", color: "var(--tx)", padding: "4px 0", display: "flex", flexDirection: "column", gap: "2px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span style={{ color: "var(--gn)" }}>📄</span>
-                        <span style={{ fontWeight: "600" }}>{item.label}:</span>
-                        <span>{fileName}</span>
+                    <div key={item.id} className="doc-row" style={{ padding: "8px 12px", background: "rgba(255,255,255,0.02)", borderColor: "var(--border2)" }}>
+                      <div className="doc-ico pdf" style={{ width: 24, height: 24, fontSize: 11 }}>📄</div>
+                      <div className="doc-meta">
+                        <p className="doc-name" style={{ fontSize: 11 }}>
+                          <span style={{ fontWeight: "700", color: "var(--mu)", marginRight: "6px" }}>{item.label}:</span>
+                          {fileData.name}
+                        </p>
                       </div>
                     </div>
                   );

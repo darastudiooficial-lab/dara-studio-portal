@@ -42,7 +42,12 @@ export const AppProvider = ({ children }) => {
   }, [wizardStep]);
 
   useEffect(() => {
-    localStorage.setItem("dara-wizard-data", JSON.stringify(wizardData));
+    // Safety check to ensure we only persist serializable data
+    try {
+      localStorage.setItem("dara-wizard-data", JSON.stringify(wizardData));
+    } catch (e) {
+      console.error("Failed to persist wizard data:", e);
+    }
   }, [wizardData]);
 
   const toggleLang = () => setLang(prev => (prev === "EN" ? "PT" : "EN"));
