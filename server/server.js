@@ -287,4 +287,20 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
+/* --- SERVIR O FRONTEND NO DEPLOY --- */
+
+// 1. Identifica a pasta onde o Vite gera o build (dist)
+const clientPath = path.join(__dirname, "..", "client", "dist");
+
+// 2. Serve os arquivos estáticos (CSS, JS, Imagens)
+app.use(express.static(clientPath));
+
+// 3. Rota curinga para garantir que o React gerencie as páginas
+app.get("*", (req, res) => {
+    // Só envia o index.html se não for uma rota de API (opcional, mas seguro)
+    if (!req.path.startsWith("/api")) {
+        res.sendFile(path.join(clientPath, "index.html"));
+    }
+});
+
 app.listen(PORT, () => console.log(`[DARA Server] http://localhost:${PORT}`));
