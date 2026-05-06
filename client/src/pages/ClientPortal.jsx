@@ -161,7 +161,7 @@ const I18N = {
     company: 'EMPRESA',
     portal_lang: 'IDIOMA DO PORTAL',
     visual_theme: 'TEMA VISUAL',
-    save_changes: 'Salvar Alterações',
+    
     curr_pw: 'SENHA ATUAL',
     new_pw: 'NOVA SENHA',
     conf_pw: 'CONFIRMAR NOVA SENHA',
@@ -300,6 +300,7 @@ const I18N = {
     portal_lang: 'PORTAL LANGUAGE',
     visual_theme: 'VISUAL THEME',
     save_changes: 'Save Changes',
+    
     curr_pw: 'CURRENT PASSWORD',
     new_pw: 'NEW PASSWORD',
     conf_pw: 'CONFIRM NEW PASSWORD',

@@ -1,0 +1,144 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@1&display=swap');
+
+        
+    body { margin:0; padding:0; background-color:#0F1035; color:#F0F2F9; font-family:'DM Sans', sans-serif; }
+    .serif { font-family:'Instrument Serif', serif; font-style:italic; }
+    .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .logo { font-size: 24px; font-weight: bold; margin-bottom: 10px; color: #F0F2F9; }
+    .headline { font-size: 32px; line-height: 1.2; font-weight: 400; margin-bottom: 8px; }
+    .subline { color: #7077A1; font-size: 14px; margin-bottom: 30px; }
+    
+    .card-row { display: flex; gap: 16px; margin-bottom: 30px; }
+    .card { flex: 1; background: #1A1B41; padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); }
+    .card-label { font-size: 10px; font-weight: 700; color: #7077A1; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .card-value { font-size: 13px; line-height: 1.5; margin-bottom: 4px; }
+    
+    .table-container { margin-bottom: 40px; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th { text-align: left; font-size: 11px; color: #7077A1; text-transform: uppercase; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .table td { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.12); font-size: 14px; }
+    .highlight { color: #6366f1; font-weight: 700; }
+    
+    .summary-box { background: #1A1B41; padding: 24px; border-radius: 16px; border: 1px solid #6366f1; margin-bottom: 40px; }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+    .summary-row.total { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 16px; margin-top: 16px; font-size: 18px; font-weight: 700; color: #F0F2F9; }
+    
+    .steps { margin-bottom: 40px; }
+    .step { display: flex; gap: 16px; margin-bottom: 20px; }
+    .step-num { width: 24px; height: 24px; background: #6366f1; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; flex-shrink: 0; }
+    .step-text { font-size: 14px; line-height: 1.5; }
+    .step-title { font-weight: 700; margin-bottom: 4px; display: block; }
+    
+    .disclaimer { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 8px; font-size: 11px; color: #7077A1; line-height: 1.6; }
+    
+    @media (max-width: 600px) {
+      .card-row { flex-direction: column; }
+    }
+  
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="logo">DARA STUDIO</div>
+          <h1 class="headline serif">
+            The first stroke of your new chapter has been drawn
+          </h1>
+          <p class="subline">
+            You are not just building a house — you are creating the place where your story will happen.
+          </p>
+        </div>
+
+        <div class="card-row">
+          <div class="card">
+            <div class="card-label">Client</div>
+            <div class="card-value"><strong>Daniel Rabello</strong></div>
+            <div class="card-value">daniel@example.com</div>
+            <div class="card-value">+55 48 9999-9999</div>
+            <div class="card-value">Owner</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Location</div>
+            <div class="card-value"><strong>123 Ocean Drive, Miami, FL</strong></div>
+            <div class="card-value">United States</div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Project Details</th>
+                <th style="text-align: right;">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Property Type</td>
+                <td style="text-align: right;">Single Family</td>
+              </tr>
+              <tr>
+                <td>Floors</td>
+                <td style="text-align: right;">2</td>
+              </tr>
+              <tr>
+                <td>Type of Service</td>
+                <td style="text-align: right;">Architectural Design</td>
+              </tr>
+              <tr>
+                <td><strong>Total Square Footage</strong></td>
+                <td style="text-align: right;" class="highlight">1800 sqft</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="summary-box">
+          <div class="card-label" style="margin-bottom: 16px;">Final Summary</div>
+          <div class="summary-row">
+            <span>Floor Plans</span>
+            <span>$990.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Minimum Fee Adjustment</span>
+            <span>$200.00</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total Estimated Fee</span>
+            <span>$1,190.00 – $1,309.00</span>
+          </div>
+        </div>
+
+        <div class="steps">
+          <h2 class="card-label" style="margin-bottom: 20px;">What Happens Next</h2>
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-text">
+              <span class="step-title">Estimate Review</span>
+              Our team will review your request to ensure all technical details are aligned.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-text">
+              <span class="step-title">Formal Quote</span>
+              You will receive a formal proposal with the detailed schedule and contract within 2 business days.
+            </div>
+          </div>
+        </div>
+
+        <div class="disclaimer">
+          <strong>Legal Disclaimer:</strong> This document is an estimate based on the information provided. The final value may vary after technical analysis and formal quoting. All prices are in USD unless otherwise specified.
+        </div>
+      </div>
+    </body>
+    </html>
+  

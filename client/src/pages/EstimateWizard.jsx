@@ -2732,7 +2732,11 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         pkg: est.pkgName,
         delivery: d.rush || "standard",
         lang,
-        region: d.region
+        region: d.region,
+        propertyType: d.propertyType,
+        floors: d.levels ? Object.keys(d.levels).filter(k => d.levels[k]).length : 1,
+        totalSqft: est.baseArea || 1800,
+        address: d.address || "TBD"
       };
 
       const res = await fetch(endpoint, {

@@ -209,6 +209,8 @@ app.post("/api/leads", async (req, res) => {
 /* ─────────────────────────────────────────────
    POST /api/accept  —  Scenario B: Accept
 ───────────────────────────────────────────── */
+const { daraConfirmationEmail } = require("./templates/confirmation");
+
 app.post("/api/accept", async (req, res) => {
   try {
     req_fields(req.body, ["name","email","project","estimate"]);
@@ -216,88 +218,91 @@ app.post("/api/accept", async (req, res) => {
       name, email, phone = "—",
       project, estimate,
       pkg = "—", delivery = "Standard",
-      lang = "en", region = "US"
+      lang = "en", region = "US",
+      propertyType = "Single Family", floors = "1",
+      totalSqft = 1800, address = "TBD"
     } = req.body;
 
-    const first  = name.split(" ")[0];
-    const isPT   = lang === "pt";
-    const isBR   = region === "BR";
-    const unit   = isBR ? "m²" : "sqft";
-    const cur    = isBR ? "R$" : "$";
-    const portal = process.env.ADMIN_PORTAL_URL || "https://portal.darastudio.com/signup";
+    const isPT = lang === "pt";
+    const isBR = region === "BR";
+    const cur  = isBR ? "R$" : "$";
+    
+    // Pricing Breakdown Logic (Synced with Wizard)
+    const currencyMult = isBR ? 5.2 : 1; // Example BRL rate if not in env
+    const floorPlansValue = totalSqft * 0.55 * currencyMult;
+    const minAdjustment = 200 * currencyMult;
+    
+    const fmt = (v) => cur + Number(v).toLocaleString(isBR ? "pt-BR" : "en-US", { minimumFractionDigits: 2 });
 
-    /* — Welcome email — */
-    const welcomeHtml = daraEmail({
-      headline: isPT ? `Tudo certo, ${first}! 🥳` : `You're all set, ${first}! 🥳`,
-      bodyHtml: `
-        <p>${isPT?"Sua proposta para":"Your proposal for"}
-          <strong style="color:#fff">${project}</strong> ${isPT?"foi aceita.":"has been accepted."}</p>
-        <p style="font-size:11px;color:rgba(255,255,255,.35);margin-top:4px">
-          ${isBR?"Brasil":"United States"} &middot; ${unit} &middot; ${cur}</p>
-        <div class="est-box">
-          <p class="est-label">${isPT?"Taxa Total Estimada":"Total Estimated Fee"}</p>
-          <p class="est-value">${estimate}</p>
-        </div>
-        <p style="color:rgba(255,255,255,.45);font-size:12px">
-          ${isPT?"Uma proposta detalhada seguirá em até 2 dias úteis."
-                :"A detailed proposal will follow within 2 business days."}</p>`,
-      ctaUrl:   portal,
-      ctaLabel: isPT ? "Criar Conta / Entrar" : "Create Account / Sign In",
-    });
+    const confirmationData = {
+      client: { name, email, phone, role: "Homeowner" },
+      location: { address, region: isBR ? "Brasil" : "United States" },
+      project: { propertyType, floors, serviceType: pkg, sqft: totalSqft },
+      summary: {
+        floorPlans: fmt(floorPlansValue),
+        minFee: fmt(minAdjustment),
+        total: estimate // Range string from wizard
+      },
+      lang: isPT ? "PT" : "EN"
+    };
+
+    const welcomeHtml = daraConfirmationEmail(confirmationData);
+
+    // Generate PDF Buffer
+    const { generateProjectPDF } = require("./utils/pdfGenerator");
+    let pdfBuffer = null;
+    try {
+      pdfBuffer = await generateProjectPDF(confirmationData);
+    } catch (pdfErr) {
+      console.error("PDF Generation failed, sending email without attachment:", pdfErr.message);
+    }
 
     /* — Admin email — */
     const adminHtml = daraEmail({
-      headline: `✅ New Lead (Pending Payment) — ${name}`,
+      headline: `✅ Project Confirmed — ${name}`,
       bodyHtml: `
-        <div class="row"><span>Status</span><span>✅ Pending Payment</span></div>
-        <div class="row"><span>Name</span><span>${name}</span></div>
-        <div class="row"><span>Email</span><span><a href="mailto:${email}" style="color:#D4AF37">${email}</a></span></div>
-        <div class="row"><span>Phone</span><span>${phone}</span></div>
-        <div class="row"><span>Lang / Region</span><span>${lang.toUpperCase()} / ${region}</span></div>
-        <div class="est-box" style="margin-top:16px">
-          <p class="est-label">${project}</p><p class="est-value">${estimate}</p>
-        </div>
-        <div class="row"><span>Package</span><span>${pkg}</span></div>
-        <div class="row"><span>Delivery</span><span>${delivery}</span></div>
-        <div class="row"><span>Accepted</span><span>${new Date().toLocaleString("en-US")}</span></div>`,
-      ctaUrl:   process.env.ADMIN_PORTAL_URL || "https://portal.darastudio.com",
-      ctaLabel: "View in Admin Portal",
+        <div class="row"><span>Status</span><span>CONFIRMED</span></div>
+        <div class="row"><span>Project</span><span>${project}</span></div>
+        <div class="row"><span>Estimate</span><span>${estimate}</span></div>
+        <div class="row"><span>Sqft</span><span>${totalSqft}</span></div>
+        <div class="row"><span>Address</span><span>${address}</span></div>
+        <div class="row"><span>Client</span><span>${name} (${email})</span></div>`
     });
 
+    const attachments = [];
+    if (pdfBuffer) {
+      attachments.push({
+        filename: `DARA_Project_Estimate_${name.replace(/\s+/g, '_')}.pdf`,
+        content: pdfBuffer
+      });
+    }
+
     await Promise.all([
-      sendMail({ to: email,      subject: isPT ? "Bem-vindo à DARA Studio 🎉" : "Welcome to DARA Studio — Project Confirmed 🎉", html: welcomeHtml }),
-      sendMail({ to: GMAIL_USER, subject: `[Lead] Pending Payment — ${name}`,                                                     html: adminHtml }),
+      sendMail({ 
+        to: email, 
+        subject: isPT ? "Confirmação de Projeto — DARA Studio" : "Project Confirmation — DARA Studio", 
+        html: welcomeHtml,
+        attachments
+      }),
+      sendMail({ to: GMAIL_USER, subject: `[Confirmed] ${project} — ${name}`, html: adminHtml }),
     ]);
 
-    res.json({ ok: true, redirect: portal });
+    res.json({ ok: true });
   } catch (err) {
     console.error("[/api/accept]", err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
 });
 
+
 /* ── Health check ── */
 app.get("/health", (_req, res) => res.json({ status: "ok", smtp: "gmail:465", user: GMAIL_USER, port: PORT }));
 
-/* ── Serve Static Files (Production) ── */
-app.use(express.static(path.join(__dirname, "../client/dist")));
-
-/* ── SPA Catch-all (React Router) ── */
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
-
 /* --- SERVIR O FRONTEND NO DEPLOY --- */
-
-// 1. Identifica a pasta onde o Vite gera o build (dist)
 const clientPath = path.join(__dirname, "..", "client", "dist");
-
-// 2. Serve os arquivos estáticos (CSS, JS, Imagens)
 app.use(express.static(clientPath));
 
-// 3. Rota curinga para garantir que o React gerencie as páginas
 app.get("*", (req, res) => {
-    // Só envia o index.html se não for uma rota de API (opcional, mas seguro)
     if (!req.path.startsWith("/api")) {
         res.sendFile(path.join(clientPath, "index.html"));
     }

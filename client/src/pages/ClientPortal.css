@@ -130,6 +130,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .sb-toggle{margin-left:auto;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.3);padding:4px;display:flex;flex-shrink:0;border-radius:6px;transition:all .15s}
 .sb-toggle:hover{color:rgba(255,255,255,.65);background:rgba(255,255,255,.06)}
 .sb-nav{flex:1;padding:4px 8px;display:flex;flex-direction:column;gap:1px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent}
+.sb-nav::-webkit-scrollbar{width:4px}
+.sb-nav::-webkit-scrollbar-track{background:transparent}
+.sb-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px}
+
 .sb-sect{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:.12em;font-weight:700;padding:14px 12px 4px;white-space:nowrap;overflow:hidden;transition:opacity .2s}
 .sidebar.col .sb-sect{opacity:0}
 .nav-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border:none;border-radius:9px;width:100%;text-align:left;cursor:pointer;background:none;color:rgba(255,255,255,.38);font-family:'DM Sans',inherit;font-size:13px;font-weight:400;transition:all .18s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;white-space:nowrap}
@@ -800,6 +804,10 @@ svg.ic{display:inline-block;vertical-align:middle;flex-shrink:0}
 .rv-phase-tabs{
   display:flex;gap:4px;padding:10px 16px;border-bottom:1px solid var(--cb);
   overflow-x:auto;flex-shrink:0;scrollbar-width:none;
+}
+.rv-phase-tabs::-webkit-scrollbar { display: none; }
+/* rest */
+
 }
 .rv-phase-tab{
   padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;
