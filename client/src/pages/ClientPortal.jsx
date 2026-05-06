@@ -299,7 +299,7 @@ const I18N = {
     company: 'COMPANY',
     portal_lang: 'PORTAL LANGUAGE',
     visual_theme: 'VISUAL THEME',
-    save_changes: 'Save Changes',
+    
     curr_pw: 'CURRENT PASSWORD',
     new_pw: 'NEW PASSWORD',
     conf_pw: 'CONFIRM NEW PASSWORD',
