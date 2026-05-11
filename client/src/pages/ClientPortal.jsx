@@ -500,15 +500,13 @@ export default function ClientPortal() {
         .eq('client_id', user.id);
       
       if (!error && data) {
-        setS(prev => ({ ...prev, projects: data.length > 0 ? data : ALL_PROJECTS }));
+        setS(prev => ({ ...prev, projects: data }));
         // Default to the first project for the dashboard
-        if (data.length > 0 && !S.realtimeProject) {
+        if (data.length > 0) {
           setS(prev => ({ ...prev, realtimeProject: data[0] }));
-        } else if (data.length === 0) {
-          setS(prev => ({ ...prev, realtimeProject: ALL_PROJECTS[0] }));
         }
       } else {
-        setS(prev => ({ ...prev, projects: ALL_PROJECTS, realtimeProject: ALL_PROJECTS[0] }));
+        setS(prev => ({ ...prev, projects: [], realtimeProject: null }));
       }
     };
 
