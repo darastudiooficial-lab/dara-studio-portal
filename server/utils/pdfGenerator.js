@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const { daraConfirmationPDF } = require('../templates/confirmation');
+const { daraConfirmationPDF, daraDraftPDF } = require('../templates/confirmation');
 
 /**
  * Generate a Project Confirmation PDF using Puppeteer
@@ -7,33 +7,34 @@ const { daraConfirmationPDF } = require('../templates/confirmation');
  * @returns {Promise<Buffer>} - PDF buffer
  */
 async function generateProjectPDF(data) {
+  return _generate(daraConfirmationPDF(data));
+}
+
+/**
+ * Generate a Project Draft PDF using Puppeteer
+ * @param {Object} data - Draft data
+ * @returns {Promise<Buffer>} - PDF buffer
+ */
+async function generateDraftPDF(data) {
+  return _generate(daraDraftPDF(data));
+}
+
+async function _generate(html) {
   let browser;
   try {
-    const html = daraConfirmationPDF(data);
-    
     browser = await puppeteer.launch({
       headless: 'new',
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     
     const page = await browser.newPage();
-    
-    // Set HTML content
     await page.setContent(html, { waitUntil: 'networkidle0' });
     
-    // Generate PDF
-    const pdfBuffer = await page.pdf({
+    return await page.pdf({
       format: 'A4',
       printBackground: true,
-      margin: {
-        top: '0mm',
-        right: '0mm',
-        bottom: '0mm',
-        left: '0mm'
-      }
+      margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
     });
-    
-    return pdfBuffer;
   } catch (err) {
     console.error('[pdfGenerator] Error:', err.message);
     throw err;
@@ -42,4 +43,4 @@ async function generateProjectPDF(data) {
   }
 }
 
-module.exports = { generateProjectPDF };
+module.exports = { generateProjectPDF, generateDraftPDF };

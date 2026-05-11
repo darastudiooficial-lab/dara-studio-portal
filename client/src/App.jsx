@@ -1,61 +1,59 @@
-/**
- * App.jsx  —  DARA Studio · Roteamento Principal
- * ──────────────────────────────────────────────
- * Estrutura de rotas:
- *
- *   /                   → LandingPage   (público)
- *   /estimate           → EstimateWizard (público)
- *   /admin/*            → AdminPortal   (redirect para HTML standalone)
- *   /portal/*           → ClientPortal  (placeholder)
- *   *                   → NotFound
- */
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AppProvider } from './context/AppContext';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import LandingPage from './pages/LandingPage';
+import EstimateWizard from './pages/EstimateWizard';
+import Login from './pages/Login';
+import ClientPortal from './pages/ClientPortal';
+import AdminPortal from './pages/AdminPortal';
+import CollaboratorPortal from './pages/CollaboratorPortal';
+import BackgroundOrbs from './components/BackgroundOrbs';
+import './index.css';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage        from "./pages/LandingPage";
-import EstimateWizard     from "./pages/EstimateWizard";
-import NotFound           from "./pages/NotFound";
-import ClientPortal       from "./pages/ClientPortal";
-import { AppProvider }    from "./context/AppContext";
-
-/* ── Admin bridge: redireciona para o HTML standalone ── */
-function AdminRedirect() {
-  if (typeof window !== "undefined") {
-    window.location.replace("/admin-portal/index.html");
-  }
-  return (
-    <div className="page-center">
-      <p style={{ color: "var(--mu)", fontSize: 14 }}>Redirecting to Admin Portal…</p>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════
-   ROOT ROUTER
-══════════════════════════════════════════════════════════ */
-export default function App() {
+function App() {
   return (
     <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* ── Públicas ── */}
-          <Route path="/"          element={<LandingPage />} />
-          <Route path="/estimate"  element={<EstimateWizard />} />
-          <Route path="/estimate/*" element={<EstimateWizard />} />
+      <AuthProvider>
+        <BackgroundOrbs />
 
-          {/* ── Admin (HTML standalone) ── */}
-          <Route path="/admin"     element={<AdminRedirect />} />
-          <Route path="/admin/*"   element={<AdminRedirect />} />
+        <Router>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/estimate" element={<EstimateWizard />} />
+            <Route path="/login" element={<Login />} />
 
-          {/* ── Portal do Cliente ── */}
-          <Route path="/login"     element={<ClientPortal />} />
-          <Route path="/login/*"   element={<ClientPortal />} />
-          <Route path="/portal"    element={<ClientPortal />} />
-          <Route path="/portal/*"  element={<ClientPortal />} />
+            {/* Client Portal - Role based guard */}
+            <Route path="/portal/*" element={
+              <ProtectedRoute allowedRoles={['client', 'admin']} portalType="client">
+                <ClientPortal />
+              </ProtectedRoute>
+            } />
 
-          {/* ── Fallback ── */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+            {/* Admin Portal - Only for admins */}
+            <Route path="/admin/*" element={
+              <ProtectedRoute allowedRoles={['admin']} portalType="admin">
+                <AdminPortal />
+              </ProtectedRoute>
+            } />
+
+            {/* Collaborator Portal - Collaborators and Admins */}
+            <Route path="/collaborator/*" element={
+              <ProtectedRoute allowedRoles={['collaborator', 'admin']} portalType="collaborator">
+                <CollaboratorPortal />
+              </ProtectedRoute>
+            } />
+
+            {/* Default fallback */}
+            <Route path="*" element={<Navigate to="/login?portal=client" replace />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </AppProvider>
+
   );
 }
+
+export default App;

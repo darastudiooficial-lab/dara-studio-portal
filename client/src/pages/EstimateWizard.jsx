@@ -1,8 +1,10 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient";
 import { useAppContext } from "../context/AppContext";
 import GlobalControls from "../components/GlobalControls";
 import InputMask from "react-input-mask";
+import BackgroundOrbs from "../components/BackgroundOrbs";
 
 /* ═══ CONSTANTS ═══ */
 const STEPS_EN = ["Location", "About You", "Project", "Scope", "Program", "Files", "Rush", "Review"];
@@ -51,6 +53,10 @@ const MARKET_DATA = {
 
 const TRANSLATIONS = {
   EN: {
+    uploadError: "Upload failed. Please try again.",
+    uploadSuccess: "File uploaded successfully.",
+    rushUnlockReq: "Please upload your project survey and technical documents in Step 6 to unlock Rush delivery.",
+    // ... existing
     backToSite: "← Back to Site",
     step: "Step",
     of: "of",
@@ -195,6 +201,7 @@ const TRANSLATIONS = {
     dropHere: "Drop here or ",
     browse: "click to browse",
     projectIntent: "Project Intent",
+    uploadLaterNote: "You can send your files later — we'll remind you by email.",
     detected: "Detected",
     dimInstructions: "Accepted formats: 10'1\", 5'-10\", 6'3 1/4\", 180. Please do not use periods (.) or commas (,).",
     rushFeesTitle: "Rush Fees & Delivery",
@@ -587,6 +594,7 @@ const TRANSLATIONS = {
       tech: "Utilidades e Técnica"
     },
     projectDimensions: "Dimensões do Projeto",
+    uploadLaterNote: "Você pode enviar seus arquivos depois — vamos te lembrar por e-mail.",
     addLevelsFloors: "Adicionar Níveis / Andares",
     propertyTypeLabel: "Tipo de Propriedade",
     lotSizeLabel: "Tamanho do Lote",
@@ -962,15 +970,18 @@ function calcEst(d, lang = "EN", step) {
   const currentStepNum = step ?? 3;
   const conf = Math.min(((currentStepNum + 1) / 8) * 100, 100);
 
-  if (!pkg || totalBaseArea <= 0) {
-    const bd0 = [];
-    if (totalArea > 0) bd0.push({ l: T.totalArea, v: Math.round(totalArea).toLocaleString() + " " + (isUS ? "sqft" : "m²") });
+  // If no package selected, we assume 'as_built_permit' for initial estimation purposes
+  const effectivePkg = pkg || "as_built_permit";
+  const isInitialEstimate = !pkg;
+
+  if (totalBaseArea <= 0) {
     const PROP_SHORT0 = lang === "EN" ? { single_family: "Single Family", multi_family: "Multi-Family", adu: "ADU" } : { single_family: "Residencial", multi_family: "Multifamiliar", adu: "ADU" };
     const primarySvc0 = selectedSvcs.map(k => SVC_LABELS[k])[0] || "";
     const propShort0 = PROP_SHORT0[d.propertyType] || d.propertyType || "";
     const projectTitle0 = primarySvc0 && propShort0 ? `${primarySvc0} — ${propShort0}` : primarySvc0 || propShort0 || "";
+    
     return { 
-      lo: "--", hi: "--", conf, bd: bd0, 
+      lo: "--", hi: "--", conf, bd: [], 
       totalArea: 0, baseArea: 0, noPkg: true, 
       areaBlocks, projectTitle: projectTitle0,
       pkgName: "", selectedSvcNames: [], lvNames: [] 
@@ -993,17 +1004,17 @@ function calcEst(d, lang = "EN", step) {
     "3d_rendering": "Renderização 3D Realista"
   };
 
-  pkgName = PKG_LABELS[pkg] || pkg;
+  pkgName = PKG_LABELS[effectivePkg] || effectivePkg;
 
   // Calculate current extra rate per sqft
   let currentExtraPerSqft = 0;
-  if (pkg === "as_built_permit") {
+  if (effectivePkg === "as_built_permit") {
     Object.keys(EXTRA_RATES || {}).forEach(key => {
       if (pkgExtras[key]) currentExtraPerSqft += (EXTRA_RATES[key] || 0);
     });
   }
 
-  if (pkg === "as_built_permit" || pkg === "floor_plans_only") {
+  if (effectivePkg === "as_built_permit" || effectivePkg === "floor_plans_only") {
     const currencyMult = isUS ? 1 : BRL;
     let totalCapReduction = 0;
 
@@ -1081,7 +1092,7 @@ function calcEst(d, lang = "EN", step) {
         }
       });
     }
-  } else if (pkg === "pdf_to_cad") {
+  } else if (effectivePkg === "pdf_to_cad") {
     const currencyMult = isUS ? 1 : BRL;
     const rate = 0.30 * currencyMult;
     const flatFee = 100 * currencyMult;
@@ -1097,7 +1108,7 @@ function calcEst(d, lang = "EN", step) {
       v: fmtR(flatFee),
       block: "svc"
     });
-  } else if (pkg === "3d_rendering") {
+  } else if (effectivePkg === "3d_rendering") {
     const currencyMult = isUS ? 1 : BRL;
     // Standalone 3D Rendering Package uses fixed fees: $250 Ext, $180 Int
     const standalone3D = {
@@ -1153,7 +1164,18 @@ function calcEst(d, lang = "EN", step) {
   const propShort = PROP_SHORT[d.propertyType] || d.propertyType || "";
   const projectTitle = primarySvc && propShort ? `${primarySvc} — ${propShort}` : primarySvc || propShort || "";
 
-  return { lo: fmt(lo), hi: fmt(hi), conf, bd, totalArea: totalArea, baseArea: totalBaseArea, noPkg: false, pkgName, areaBlocks, selectedSvcNames, lvNames, projectTitle };
+  const prefix = isInitialEstimate ? (lang === "EN" ? "Starting from " : "A partir de ") : "";
+
+  return { 
+    lo: prefix + fmt(lo), 
+    hi: prefix + fmt(hi), 
+    conf, bd, 
+    totalArea: totalArea, 
+    baseArea: totalBaseArea, 
+    noPkg: isInitialEstimate, 
+    pkgName: isInitialEstimate ? (lang === "EN" ? "Estimated Base" : "Base Estimada") : pkgName, 
+    areaBlocks, selectedSvcNames, lvNames, projectTitle 
+  };
 }
 
 
@@ -1193,29 +1215,33 @@ export default function EstimateWizard() {
 
   const [isInitialized, setIsInitialized] = useState(false);
   useEffect(() => {
+    resetWizard();
     setIsInitialized(true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const step = isInitialized ? contextStep : 0;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submissionType, setSubmissionType] = useState(null); // 'save' or 'accept'
+  const [uploading, setUploading] = useState({}); // { [fileId]: progress }
 
-  const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
-  const STEPS = lang === "EN" ? STEPS_EN : STEPS_PT;
+  const T = (lang && TRANSLATIONS[lang]) || TRANSLATIONS.EN;
+  const STEPS = lang === "PT" ? STEPS_PT : STEPS_EN;
   
   const topRef = useRef(null);
 
   const up = useCallback((key, val) => {
-    setData(prev => ({ ...prev, [key]: val }));
+    if (setData) setData(prev => ({ ...prev, [key]: val }));
   }, [setData]);
 
-  const est = calcEst(data, lang, step);
+  const est = calcEst(data || {}, lang || "EN", step || 0);
 
   // Validation
   const canGo = () => {
-    if (step === 0) return !!(data.region && data.street && data.city && data.state && data.zip && data.mapConfirmed);
+    if (!data) return false;
+    if (step === 0) return !!(data.region && data.street && data.city && data.state && data.zip);
+
     if (step === 1) {
       // Basic info is enough to proceed, company info is optional for the wizard flow
       return !!(data.name && data.email && data.phone && data.role);
@@ -1242,7 +1268,7 @@ export default function EstimateWizard() {
       });
       if (!allDimsFilled) return false;
 
-      return !!data.propertyType;
+      return !!data.propertyType && allDimsFilled;
     }
     if (step === 4) {
       return true;
@@ -1270,82 +1296,69 @@ export default function EstimateWizard() {
   return (
     <div className={`wz-root ${theme}`} style={{ minHeight: "100dvh", background: "var(--bg0)", color: "var(--tx)" }}>
       {/* ── Top Bar ── */}
-      <div ref={topRef} style={{ borderBottom: "1px solid var(--border)", padding: "16px 0", background: "var(--bg1)", position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(12px)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-              <button onClick={() => navigate("/")} style={{ background: "none", border: "none", color: "var(--mu)", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, padding: "4px 8px", borderRadius: "6px" }} onMouseEnter={e => e.target.style.color = "var(--tx)"} onMouseLeave={e => e.target.style.color = "var(--mu)"}>
-                {T.backToSite}
-              </button>
-              <div style={{ height: 20, width: 1, background: "var(--border)" }} />
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--a)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontFamily: "var(--font-serif)", fontSize: 14, color: "#fff", fontStyle: "italic" }}>D</span>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 32px', borderBottom: '1px solid var(--border)', background: 'var(--bg2)', position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(12px)' }}>
+          <div className="lp-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+            <div className="lp-logo-mark">D</div>
+            <div className="lp-logo-text" style={{ fontStyle: 'italic', fontWeight: 'bold' }}>DARA STUDIO</div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <GlobalControls />
+            <button className="lp-nav-login" style={{ animation: 'spLogoGlow 3s infinite' }} onClick={() => navigate('/')}>{T.backToSite}</button>
+          </div>
+      </header>
+
+      <div id="layout" className={theme === 'dark' ? 'dark' : ''}>
+        <BackgroundOrbs />
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "36px 20px 100px" }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto 48px' }}>
+            <Stepper cur={step} steps={STEPS} />
+          </div>
+          <div className={`wz-main-layout ${step >= 2 && step < 7 && !submitted ? "has-sidebar" : ""}`}>
+            <div className="wz-animate" key={submitted ? "success" : step}>
+              {submitted ? (
+                <SuccessScreen
+                  type={submissionType}
+                  lang={lang}
+                  onBack={() => setSubmitted(false)}
+                  navigate={navigate}
+                  T={T}
+                  est={est}
+                  d={data}
+                />
+              ) : (
+                <>
+                  {step === 0 && <S1 d={data} up={up} lang={lang} />}
+                  {step === 1 && <S2 d={data} up={up} lang={lang} />}
+                  {step === 2 && <S3 d={data} up={up} est={est} lang={lang} />}
+                  {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
+                  {step === 4 && <S6 d={data} up={up} lang={lang} />}
+                  {step === 5 && <S7 d={data} up={up} lang={lang} setUploading={setUploading} uploading={uploading} />}
+                  {step === 6 && <S8 d={data} up={up} lang={lang} setUploading={setUploading} uploading={uploading} />}
+                  {step === 7 && <S9 d={data} est={est} setStep={setStep} lang={lang} setSubmitted={setSubmitted} setSubmissionType={setSubmissionType} setUploading={setUploading} />}
+                </>
+              )}
+
+              {!submitted && (
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
+                  <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? "hidden" : "visible" }}>{T.back}</button>
+                  {step < STEPS.length - 1 && (
+                    <button className="wz-btn-primary" style={{ animation: 'spLogoGlow 3s infinite' }} onClick={handleNext} disabled={!canGo()}>{T.continue}</button>
+                  )}
                 </div>
-                <span style={{ fontFamily: "var(--font-serif)", fontSize: 15, fontStyle: "italic" }}>DARA Studio</span>
-              </div>
+              )}
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-              {/* Theme & Lang Toggles */}
-              <GlobalControls />
-
-              <div style={{ textAlign: "right" }}>
-                <span style={{ fontSize: 11, color: "var(--dm)", display: "block" }}>{(T && T.step) || "Step"} {step + 1} {(T && T.of) || "of"} {(STEPS && STEPS.length) || 0}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, color: "var(--a)" }}>— {(STEPS && STEPS[step]) || ""}</span>
-              </div>
-            </div>
-          </div>
-          <Stepper cur={step} steps={STEPS} />
-        </div>
-      </div>
-
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "36px 20px 100px" }}>
-        <div className={`wz-main-layout ${step >= 2 && step < 7 && !submitted ? "has-sidebar" : ""}`}>
-          <div className="wz-animate" key={submitted ? "success" : step}>
-            {submitted ? (
-              <SuccessScreen
-                type={submissionType}
-                lang={lang}
-                onBack={() => setSubmitted(false)}
-                navigate={navigate}
-                T={T}
-                est={est}
-                d={data}
-              />
-            ) : (
-              <>
-                {step === 0 && <S1 d={data} up={up} lang={lang} />}
-                {step === 1 && <S2 d={data} up={up} lang={lang} />}
-                {step === 2 && <S3 d={data} up={up} est={est} lang={lang} />}
-                {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
-                {step === 4 && <S6 d={data} up={up} lang={lang} />}
-                {step === 5 && <S7 d={data} up={up} lang={lang} />}
-                {step === 6 && <S8 d={data} up={up} lang={lang} />}
-                {step === 7 && <S9 d={data} est={est} setStep={setStep} lang={lang} setSubmitted={setSubmitted} setSubmissionType={setSubmissionType} />}
-              </>
-            )}
-
-            {!submitted && (
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
-                <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? "hidden" : "visible" }}>{T.back}</button>
-                {step < STEPS.length - 1 && (
-                  <button className="wz-btn-primary" onClick={handleNext} disabled={!canGo()}>{T.continue}</button>
-                )}
+            {step >= 2 && step < 7 && !submitted && (
+              <div className={`wz-sidebar-mobile ${drawerOpen ? "open" : ""}`}>
+                <div className="wz-drawer-handle" onClick={() => setDrawerOpen(!drawerOpen)} />
+                <div className="wz-drawer-header" onClick={() => setDrawerOpen(!drawerOpen)}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{T.projectEstimate}</span>
+                  <span style={{ fontSize: 18, color: "var(--a)" }}>{drawerOpen ? "↓" : "↑"}</span>
+                </div>
+                <Sidebar est={est} lang={lang} data={data} step={step} />
               </div>
             )}
           </div>
-
-          {step >= 2 && step < 7 && !submitted && (
-            <div className={`wz-sidebar-mobile ${drawerOpen ? "open" : ""}`}>
-              <div className="wz-drawer-handle" onClick={() => setDrawerOpen(!drawerOpen)} />
-              <div className="wz-drawer-header" onClick={() => setDrawerOpen(!drawerOpen)}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{T.projectEstimate}</span>
-                <span style={{ fontSize: 18, color: "var(--a)" }}>{drawerOpen ? "↓" : "↑"}</span>
-              </div>
-              <Sidebar est={est} lang={lang} data={data} step={step} />
-            </div>
-          )}
         </div>
       </div>
     </div>
@@ -1353,27 +1366,31 @@ export default function EstimateWizard() {
 }
 
 /* ── SUB-COMPONENTS ── */
-function Stepper({ cur, steps }) {
+function Stepper({ cur }) {
+  const step = cur + 1; // Convert 0-indexed cur to 1-indexed step (1-8)
   return (
-    <div className="wz-stepper">
-      {steps && steps.map((lbl, i) => {
-        const st = i < cur ? "done" : i === cur ? "active" : "future";
-        return (
-          <div key={i} style={{ display: "flex", alignItems: "center", flex: i < steps.length - 1 ? "1" : "none" }}>
-            <div className={`wz-step-dot ${st}`}>
-              {st === "done" ? <Chk /> : i + 1}
-            </div>
-            {i < steps.length - 1 && (
-              <div className="wz-step-line">
-                <div className="wz-step-line-fill" style={{ width: i < cur ? "100%" : "0%" }} />
-              </div>
-            )}
-          </div>
-        );
-      })}
+    <div style={{display:'flex',alignItems:'center',gap:4,marginBottom:32,padding:'0 24px'}}>
+      {[1,2,3,4,5,6,7,8].map(n => (
+        <div key={n} style={{ display: 'flex', alignItems: 'center', flex: n < 8 ? 1 : 'none' }}>
+          <div style={{
+            width:28,height:28,borderRadius:'50%',
+            display:'flex',alignItems:'center',justifyContent:'center',
+            fontSize:11,fontWeight:700,flexShrink:0,
+            background: step>=n ? 'var(--accent)' : 'rgba(99,102,241,0.12)',
+            color: step>=n ? '#fff' : 'rgba(255,255,255,0.3)',
+            boxShadow: step===n ? '0 0 0 4px rgba(99,102,241,0.25),0 0 16px rgba(99,102,241,0.4)' : 'none',
+            transition:'all 0.3s cubic-bezier(.22,.68,0,1.15)'
+          }}>{step>n ? '✓' : n}</div>
+          {n< 8 && <div style={{flex:1,height:2,borderRadius:2, marginLeft: 4,
+            background:step>n ? 'var(--accent)' : 'rgba(99,102,241,0.15)',
+            transition:'background 0.4s'
+          }}/>}
+        </div>
+      ))}
     </div>
   );
 }
+
 
 function Sidebar({ est, lang, data, step: currentStep }) {
   const { 
@@ -1449,7 +1466,7 @@ function Sidebar({ est, lang, data, step: currentStep }) {
           <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)", flex: 1 }}>{T.confidence}</span>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: col, fontWeight: 700 }}>{conf}%</span>
         </div>
-        <div className="wz-conf-track"><div className="wz-conf-fill" style={{ width: `${conf}%`, background: currentStep === 4 ? "#CCFF00" : col }} /></div>
+        <div className="wz-conf-track"><div className="wz-conf-fill" style={{ width: `${conf}%`, background: currentStep === 4 ? "#CCFF00" : col, backgroundSize: '200% auto', animation: 'spShimmer 3s linear infinite' }} /></div>
       </div>
     </div>
   );
@@ -2329,7 +2346,7 @@ function S6({ d, up, lang }) {
   );
 }
 
-function S7({ d, up, lang }) {
+function S7({ d, up, lang, setUploading, uploading }) {
   const T = TRANSLATIONS[lang];
   const fileRefs = useRef({});
   const [dragging, setDragging] = useState(null);
@@ -2371,17 +2388,64 @@ function S7({ d, up, lang }) {
 
   const uploads = d.uploads || {};
 
-  const handleFiles = (catId, files) => {
+  const handleFiles = async (catId, files) => {
     if (!files || files.length === 0) return;
+    
+    // Ensure we have a persistent project ID for this session
+    let projectId = d.projectId;
+    if (!projectId) {
+      projectId = crypto.randomUUID();
+      up("projectId", projectId);
+    }
+
     const current = uploads[catId] || [];
-    const newFiles = Array.from(files).map(f => ({
-      name: f.name,
-      size: f.size,
-      type: f.type,
-      id: Math.random().toString(36).substr(2, 9), // Unique ID for deletion
-      at: new Date().toISOString()
-    }));
-    up("uploads", { ...uploads, [catId]: [...current, ...newFiles] });
+    
+    for (const f of Array.from(files)) {
+      const fileId = Math.random().toString(36).substr(2, 9);
+      // Map frontend catId to storage category
+      const category = catId === 'videos' ? 'video' : (catId === 'documents' ? 'technical' : catId);
+      const path = `${projectId}/${category}/${Date.now()}_${f.name}`;
+      
+      setUploading(prev => ({ ...prev, [fileId]: 0 }));
+      
+      try {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('project-files')
+          .upload(path, f, {
+            onUploadProgress: (progress) => {
+              const pct = (progress.loaded / progress.total) * 100;
+              setUploading(prev => ({ ...prev, [fileId]: Math.round(pct) }));
+            }
+          });
+
+        if (uploadError) throw uploadError;
+
+        const newFile = {
+          id: fileId,
+          name: f.name,
+          size: f.size,
+          category: category,
+          url: uploadData.path, // path in bucket
+          at: new Date().toISOString()
+        };
+
+        // Update local state (metadata is sent to server on final submit)
+        const updatedUploads = { ...uploads, [catId]: [...(uploads[catId] || []), newFile] };
+        up("uploads", updatedUploads);
+
+      } catch (err) {
+        console.error("Upload Error:", err);
+        alert(lang === 'EN' 
+          ? `Error: ${err.message || 'Upload failed'}` 
+          : `Erro: ${err.message || 'Falha no upload'}`);
+      } finally {
+        setUploading(prev => {
+          const n = { ...prev };
+          delete n[fileId];
+          return n;
+        });
+      }
+    }
   };
 
   const removeFile = (catId, fileId) => {
@@ -2397,9 +2461,14 @@ function S7({ d, up, lang }) {
         <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--a-dim)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--a)", flexShrink: 0 }}>
           <InfoIcon />
         </div>
-        <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--mu)" }}>
-          {T.uploadHelp}
-        </p>
+        <div>
+          <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--mu)", marginBottom: "4px" }}>
+            {T.uploadHelp}
+          </p>
+          <p style={{ fontSize: "12px", color: "var(--a)", fontWeight: "500", opacity: 0.9 }}>
+            ✨ {T.uploadLaterNote}
+          </p>
+        </div>
       </div>
 
       <div className="wz-grid-adaptive" style={{ gap: "24px" }}>
@@ -2470,14 +2539,24 @@ function S7({ d, up, lang }) {
                         <p className="doc-name" style={{ fontSize: 12 }}>{f.name}</p>
                         <p className="doc-info" style={{ fontSize: 10 }}>{(f.size / 1024 / 1024).toFixed(1)}MB</p>
                       </div>
-                      <button 
-                        className="doc-btn" 
-                        style={{ color: "var(--rd)", width: 28, height: 28 }} 
-                        onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
-                        data-tip={lang === "EN" ? "Remove" : "Remover"}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                      </button>
+                      
+                      {uploading[f.id] !== undefined ? (
+                        <div style={{ width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <svg width="24" height="24" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3" />
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="var(--a)" strokeWidth="3" strokeDasharray="62.8" strokeDashoffset={62.8 - (62.8 * uploading[f.id]) / 100} style={{ transition: 'stroke-dashoffset 0.3s' }} />
+                          </svg>
+                        </div>
+                      ) : (
+                        <button 
+                          className="doc-btn" 
+                          style={{ color: "var(--rd)", width: 28, height: 28 }} 
+                          onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
+                          data-tip={lang === "EN" ? "Remove" : "Remover"}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -2490,7 +2569,7 @@ function S7({ d, up, lang }) {
   );
 }
 
-function S8({ d, up, lang }) {
+function S8({ d, up, lang, setUploading, uploading }) {
   const T = TRANSLATIONS[lang];
   const fileRefs = useRef({});
   const [feedback, setFeedback] = useState("");
@@ -2504,19 +2583,62 @@ function S8({ d, up, lang }) {
     { id: "chk_reports", label: T.checklist.reports, sub: T.checklist.ifAvailable },
   ];
 
+  const hasFilesFromStep6 = Object.values(d.uploads || {}).some(arr => arr.length > 0);
   const requiredCount = 3; 
-  const completedRequired = checklist.slice(0, 3).filter(c => d[c.id]).length;
-  const remaining = requiredCount - completedRequired;
-  const isUnlocked = remaining === 0;
+  const completedRequired = checklist.slice(0, 3).filter(c => !!d.rushFiles?.[c.id]).length;
+  const remaining = Math.max(0, requiredCount - completedRequired);
+  
+  const isUnlocked = hasFilesFromStep6 || (remaining === 0);
 
-  const handleFileChange = (id, e) => {
+  const handleFileChange = async (id, e) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      // Save metadata only
-      up(id, true);
-      const currentRushFiles = d.rushFiles || {};
-      up("rushFiles", { ...currentRushFiles, [id]: { name: file.name, size: file.size, at: new Date().toISOString() } });
-      setFeedback("");
+      const f = e.target.files[0];
+      const fileId = `rush_${id}`;
+      
+      let projectId = d.projectId;
+      if (!projectId) {
+        projectId = crypto.randomUUID();
+        up("projectId", projectId);
+      }
+
+      const path = `${projectId}/rush/${Date.now()}_${f.name}`;
+      
+      setUploading(prev => ({ ...prev, [fileId]: 0 }));
+      
+      try {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('project-files')
+          .upload(path, f, {
+            onUploadProgress: (progress) => {
+              const pct = (progress.loaded / progress.total) * 100;
+              setUploading(prev => ({ ...prev, [fileId]: Math.round(pct) }));
+            }
+          });
+
+        if (uploadError) throw uploadError;
+
+        const currentRushFiles = d.rushFiles || {};
+        up("rushFiles", { 
+          ...currentRushFiles, 
+          [id]: { 
+            name: f.name, 
+            size: f.size, 
+            url: uploadData.path, 
+            category: 'rush',
+            at: new Date().toISOString() 
+          } 
+        });
+        setFeedback("");
+      } catch (err) {
+        console.error(err);
+        alert(lang === 'EN' ? `Upload failed: ${err.message}` : `Falha no upload: ${err.message}`);
+      } finally {
+        setUploading(prev => {
+          const n = { ...prev };
+          delete n[fileId];
+          return n;
+        });
+      }
     }
   };
 
@@ -2718,12 +2840,51 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   const [loadingType, setLoadingType] = useState(null);
   const [error, setError] = useState("");
 
+  const EstimateGuarantee = () => {
+    const guarantee = isUS 
+      ? "Your estimate won't vary more than 15% upon final review."
+      : "Sua estimativa não variará mais do que 15% após a revisão final.";
+    
+    return (
+      <div style={{ 
+        background: isDark ? "rgba(16, 185, 129, 0.04)" : "rgba(16, 185, 129, 0.08)", 
+        border: "1.5px solid rgba(16, 185, 129, 0.2)", 
+        borderRadius: "14px", 
+        padding: "20px", 
+        marginBottom: "24px" 
+      }}>
+        <div style={{ display: "flex", gap: "16px", alignItems: "center", marginBottom: "16px" }}>
+          <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <div style={{ flex: 1 }}>
+            <h4 style={{ fontSize: "14px", fontWeight: "600", color: isDark ? "#34d399" : "#065f46", margin: "0 0 8px", lineHeight: 1.4 }}>{guarantee}</h4>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ flex: 1, height: "6px", background: "rgba(16, 185, 129, 0.15)", borderRadius: "3px", overflow: "hidden" }}>
+                <div style={{ width: `${est.conf}%`, height: "100%", background: "#10b981", borderRadius: "3px", boxShadow: "0 0 8px rgba(16, 185, 129, 0.4)", backgroundSize: '200% auto', animation: 'spShimmer 2s linear infinite' }} />
+              </div>
+              <span style={{ fontSize: "10px", fontWeight: "800", color: "#10b981", letterSpacing: "0.05em" }}>{est.conf}% {isUS ? "CONFIDENCE" : "CONFIANÇA"}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{ borderTop: "1px solid rgba(16, 185, 129, 0.1)", paddingTop: "12px" }}>
+          <p style={{ fontSize: "10px", color: "var(--dm)", lineHeight: "1.6", margin: 0, opacity: 0.8 }}>
+            <strong style={{ color: "var(--mu)" }}>{T.review.legalTitle}:</strong> {T.review.legalBody}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   const handleAction = async (type) => {
     setLoadingType(type);
     setError("");
     try {
       const endpoint = type === "accept" ? "/api/accept" : "/api/leads";
       const payload = {
+        id: d.projectId, // Send the pre-generated ID
         name: d.name,
         email: d.email,
         phone: d.phone,
@@ -2736,7 +2897,8 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         propertyType: d.propertyType,
         floors: d.levels ? Object.keys(d.levels).filter(k => d.levels[k]).length : 1,
         totalSqft: est.baseArea || 1800,
-        address: d.address || "TBD"
+        address: d.address || "TBD",
+        ...d // Spread other data
       };
 
       const res = await fetch(endpoint, {
@@ -2747,6 +2909,37 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Submission failed");
+
+      // SAVE FILE METADATA TO DB
+      if (json.projectId) {
+        const allFiles = [];
+        
+        // Standard uploads
+        Object.values(d.uploads || {}).forEach(catFiles => {
+          catFiles.forEach(f => {
+            allFiles.push({
+              project_id: json.projectId,
+              name: f.name,
+              url: f.url,
+              type: f.category.charAt(0).toUpperCase() + f.category.slice(1)
+            });
+          });
+        });
+
+        // Rush files
+        Object.values(d.rushFiles || {}).forEach(f => {
+          allFiles.push({
+            project_id: json.projectId,
+            name: f.name,
+            url: f.url,
+            type: 'Technical' // Map rush to Technical type in DB
+          });
+        });
+
+        if (allFiles.length > 0) {
+          await supabase.from('files').insert(allFiles);
+        }
+      }
 
       setSubmissionType(type);
       setSubmitted(true);
@@ -2898,21 +3091,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         </div>
       </div>
 
-      {/* Legal Disclaimer */}
-      <div style={{ 
-        background: "rgba(255,180,0,0.07)", 
-        border: "1px solid rgba(255,180,0,0.17)", 
-        borderRadius: "9px", 
-        padding: "13px", 
-        marginBottom: "9px" 
-      }}>
-        <h4 style={{ fontSize: "10px", fontWeight: "700", color: "#b08020", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px", display: "flex", alignItems: "center", gap: "6px" }}>
-          {T.review.legalTitle}
-        </h4>
-        <p style={{ fontSize: "11px", color: "#806010", lineHeight: "1.6", margin: 0 }}>
-          {T.review.legalBody}
-        </p>
-      </div>
+      <EstimateGuarantee />
 
       {/* Agreement Box */}
       <div style={{ 
@@ -2939,7 +3118,8 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           fontSize: 14,
           fontWeight: 700,
           color: "#fff",
-          marginBottom: 9
+          marginBottom: 9,
+          animation: 'spLogoGlow 3s infinite'
         }}>
           {loadingType === "accept" ? T.review.processing : T.review.payRetainer}
         </button>
@@ -2955,7 +3135,8 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           cursor: "pointer",
           fontSize: 13,
           color: "#8080b0",
-          marginBottom: 6
+          marginBottom: 6,
+          animation: 'spLogoGlow 3s infinite'
         }}>
           {loadingType === "save" ? T.review.processing : T.review.saveLater}
         </button>
@@ -3038,6 +3219,18 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
     return (
       <div style={{ display: "flex", gap: 32, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ flex: 1, minWidth: 0 }}>
+                  {/* Real progress bar per file */}
+                  {Object.entries(uploading).map(([id, pct]) => (
+                    <div key={id} style={{ width: '100%', marginTop: '12px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', marginBottom: '4px' }}>
+                        <span>Uploading...</span>
+                        <span>{pct}%</span>
+                      </div>
+                      <div style={{ height: '4px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${pct}%`, background: 'var(--a)', transition: 'width 0.2s' }}></div>
+                      </div>
+                    </div>
+                  ))}
           {/* Project badge */}
           <div style={{ ...f(0), background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 12, padding: "13px 17px", marginBottom: 36, display: "flex", alignItems: "center", gap: 13 }}>
             <div style={{ width: 44, height: 44, borderRadius: 10, background: "var(--a-dim)", border: "1px solid var(--a-glow)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, flexShrink: 0 }}>🏛</div>
@@ -3198,7 +3391,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
 
         {/* CTAs */}
         <div style={f(480)}>
-          <button className="wz-btn-primary" onClick={() => navigate("/login")} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 8 }}>
+          <button className="wz-btn-primary" onClick={() => { resetWizard(); navigate("/login"); }} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 8, animation: 'spLogoGlow 3s infinite' }}>
             {isUS ? "Access my Client Portal →" : "Acessar meu Portal do Cliente →"}
           </button>
           <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 11px" }}>{isUS ? "Track your project's progress in real-time" : "Acompanhe o progresso do seu projeto em tempo real"}</p>

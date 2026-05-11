@@ -8,23 +8,18 @@ export const AppProvider = ({ children }) => {
   const [lang, setLang] = useState(localStorage.getItem("dara-lang") || "EN");
   const [theme, setTheme] = useState(localStorage.getItem("dara-theme") || "dark");
 
-  // Wizard state persistence
-  const [wizardStep, setWizardStep] = useState(() => {
-    return parseInt(localStorage.getItem("dara-wizard-step") || "0", 10);
-  });
+  // Wizard state (starts fresh each session)
+  const [wizardStep, setWizardStep] = useState(0);
 
-  const [wizardData, setWizardData] = useState(() => {
-    const saved = localStorage.getItem("dara-wizard-data");
-    return saved ? JSON.parse(saved) : {
-      region: "US",
-      levels: { ground: true },
-      rooms: {},
-      services: {},
-      dims: {},
-      dimExtras: [],
-      uploads: {},
-      pkgExtras: {},
-    };
+  const [wizardData, setWizardData] = useState({
+    region: "US",
+    levels: { ground: true },
+    rooms: {},
+    services: {},
+    dims: {},
+    dimExtras: [],
+    uploads: {},
+    pkgExtras: {},
   });
 
   useEffect(() => {
@@ -37,18 +32,20 @@ export const AppProvider = ({ children }) => {
     document.body.className = theme;
   }, [theme]);
 
+  // No persistence for wizard state as per requirement to start fresh
+  /* 
   useEffect(() => {
     localStorage.setItem("dara-wizard-step", wizardStep.toString());
   }, [wizardStep]);
 
   useEffect(() => {
-    // Safety check to ensure we only persist serializable data
     try {
       localStorage.setItem("dara-wizard-data", JSON.stringify(wizardData));
     } catch (e) {
       console.error("Failed to persist wizard data:", e);
     }
   }, [wizardData]);
+  */
 
   const toggleLang = () => setLang(prev => (prev === "EN" ? "PT" : "EN"));
   const toggleTheme = () => setTheme(prev => (prev === "dark" ? "light" : "dark"));
