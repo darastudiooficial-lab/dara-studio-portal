@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
+import GlassToggle from './GlassToggle';
 
 export default function GlobalControls({ style = {} }) {
   const { lang, toggleLang, theme, toggleTheme } = useAppContext();
@@ -19,42 +20,13 @@ export default function GlobalControls({ style = {} }) {
   }, []);
 
   return (
-    <div style={{ 
-      display: "flex", 
-      alignItems: "center", 
-      gap: 10, 
-      background: "var(--bg3)", 
-      padding: "4px 8px", 
-      borderRadius: "24px", 
-      border: "1px solid var(--border)",
-      backdropFilter: "blur(8px)",
-      zIndex: 1000,
-      ...style 
-    }}>
-      <button 
-        onClick={toggleTheme} 
-        className="dark-toggle"
-        title={theme === "dark" ? "Modo Claro" : "Modo Escuro"}
+    <div style={{ zIndex: 1000, ...style }}>
+      <GlassToggle 
+        onThemeToggle={toggleTheme} 
+        onLangToggle={toggleLang} 
+        currentLang={lang} 
+        isDark={theme === "dark"} 
       />
-      <div style={{ width: 1, height: 14, background: "var(--border)" }} />
-      <button 
-        onClick={toggleLang} 
-        style={{ 
-          background: "none", 
-          border: "none", 
-          color: "var(--tx)", 
-          fontSize: 11, 
-          fontWeight: 800, 
-          cursor: "pointer",
-          padding: "4px 6px",
-          minWidth: 28,
-          textAlign: "center",
-          fontFamily: "var(--font-sans)"
-        }}
-        title="Alterar Idioma"
-      >
-        {lang.toUpperCase()}
-      </button>
     </div>
   );
 }

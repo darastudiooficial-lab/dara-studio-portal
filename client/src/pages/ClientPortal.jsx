@@ -81,7 +81,7 @@ const I18N = {
   PT: {
     dashboard: 'Dashboard',
     projects: 'Meus Projetos',
-    invoices: 'Finance Overview',
+    support: 'Technical Support',
     calendar: 'Calendário',
     notifications: 'Notificações',
     documents: 'Documentos',
@@ -91,7 +91,7 @@ const I18N = {
     welcomeBackSub: 'Acompanhe cada detalhe da transformação do seu espaço em tempo real.',
     activeProjects: 'Projetos Ativos',
     paid: 'Pago',
-    pendingInvoices: 'Faturas Pendentes',
+    pendingInvoices: 'Tickets Abertos',
     recentProjects: 'Projetos Recentes',
     recentActivity: 'Atividade Recente',
     backToSite: 'Voltar ao Site',
@@ -122,10 +122,10 @@ const I18N = {
     role_client: 'Portal do Cliente',
     role_freelancer: 'Portal do Colaborador',
     role_admin: 'Portal do Admin',
-    total_budget: 'Orçamento Total',
-    total_paid: 'Total Pago',
-    balance_due: 'Saldo Devedor',
-    fin_progress: 'Progresso Financeiro',
+    total_budget: 'Área do Terreno',
+    total_paid: 'Área Construída',
+    balance_due: 'Taxa de Ocupação',
+    fin_progress: 'Precisão Técnica',
     view_all: 'Ver todos →',
     project_mgmt: 'Gestão de Projetos',
     require_attention: 'requerem atenção',
@@ -138,8 +138,8 @@ const I18N = {
     col_status: 'STATUS',
     col_due: 'VENCIMENTO',
     col_budget: 'ORÇAMENTO',
-    fin_ov: 'Finance Overview',
-    fin_sub: 'Receitas, pagamentos e previsões',
+    fin_ov: 'Technical Support',
+    fin_sub: 'Tire suas dúvidas e veja o histórico',
     total_rec: 'TOTAL RECEBIDO',
     rec_month: 'RECEITA DO MÊS',
     bal_pend: 'SALDO PENDENTE',
@@ -151,7 +151,7 @@ const I18N = {
     rec_rate: 'Taxa de Recebimento',
     monthly_rev: 'Receita Mensal',
     last_6: 'Últimos 6 meses - valores recebidos',
-    pend_inv: 'Faturas Pendentes',
+    pend_inv: 'Tickets Abertos',
     rec_pay: 'Pagamentos Recentes',
     method: 'MÉTODO',
     gross: 'GROSS',
@@ -228,7 +228,7 @@ const I18N = {
   EN: {
     dashboard: 'Dashboard',
     projects: 'My Projects',
-    invoices: 'Finance Overview',
+    support: 'Technical Support',
     calendar: 'Calendar',
     notifications: 'Notifications',
     documents: 'Documents',
@@ -285,7 +285,7 @@ const I18N = {
     col_status: 'STATUS',
     col_due: 'DUE DATE',
     col_budget: 'BUDGET',
-    fin_ov: 'Finance Overview',
+    fin_ov: 'Technical Support',
     fin_sub: 'Revenue, payments and forecasts',
     total_rec: 'TOTAL RECEIVED',
     rec_month: 'MONTH REVENUE',
@@ -945,7 +945,7 @@ export default function ClientPortal() {
                     </div>
                  </div>
                  <div className="card fin-kpi-card" style={{ background: 'var(--bg3)', padding: '24px', borderRadius: '16px', border: '1px solid var(--br)' }}>
-                    <div className="kpi-label" style={{ fontSize: '10px', fontWeight: '700', color: 'var(--a)', textTransform: 'uppercase', marginBottom: '16px' }}>Status Financeiro</div>
+                    <div className="kpi-label" style={{ fontSize: '10px', fontWeight: '700', color: 'var(--a)', textTransform: 'uppercase', marginBottom: '16px' }}>Status Suporte</div>
                     <div className="kpi-val" style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>{fmt(14000, isUS)}</div>
                     <div className="kpi-sub" style={{ fontSize: '12px', opacity: 0.6 }}>Total em projetos ativos</div>
                  </div>

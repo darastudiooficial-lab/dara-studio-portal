@@ -66,6 +66,11 @@ async function sendMailHelper(to, subject, html, type, metadata = {}) {
 }
 
 
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ ok: true, timestamp: new Date().toISOString() });
+});
+
 // ══ ENDPOINTS ══
 
 // POST /api/leads - New submission from Step 8 (Save for Later)

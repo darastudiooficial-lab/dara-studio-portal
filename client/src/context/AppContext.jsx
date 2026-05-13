@@ -7,6 +7,9 @@ export const useAppContext = () => useContext(AppContext);
 export const AppProvider = ({ children }) => {
   const [lang, setLang] = useState(localStorage.getItem("dara-lang") || "EN");
   const [theme, setTheme] = useState(localStorage.getItem("dara-theme") || "dark");
+  const [isEstimateModalOpen, setIsEstimateModalOpen] = useState(false);
+  const [isVeraOpen, setIsVeraOpen] = useState(false);
+  const [veraMessage, setVeraMessage] = useState("");
 
   // Wizard state (starts fresh each session)
   const [wizardStep, setWizardStep] = useState(0);
@@ -49,6 +52,14 @@ export const AppProvider = ({ children }) => {
 
   const toggleLang = () => setLang(prev => (prev === "EN" ? "PT" : "EN"));
   const toggleTheme = () => setTheme(prev => (prev === "dark" ? "light" : "dark"));
+  const openEstimateModal = () => setIsEstimateModalOpen(true);
+  const closeEstimateModal = () => setIsEstimateModalOpen(false);
+  
+  const openVera = (customMessage = "") => {
+    setIsVeraOpen(true);
+    if (customMessage) setVeraMessage(customMessage);
+  };
+  const closeVera = () => setIsVeraOpen(false);
 
   const resetWizard = () => {
     setWizardStep(0);
@@ -71,6 +82,8 @@ export const AppProvider = ({ children }) => {
       lang, setLang, 
       theme, setTheme, 
       toggleLang, toggleTheme,
+      isEstimateModalOpen, openEstimateModal, closeEstimateModal,
+      isVeraOpen, openVera, closeVera, veraMessage, setVeraMessage,
       wizardStep, setWizardStep,
       wizardData, setWizardData,
       resetWizard
