@@ -92,8 +92,8 @@ input, select, textarea, .lp-btn, .back-to-site-btn, .glass-toggle, .pill-button
 /* Glassmorphism Utilities */
 .glass-premium {
   background: var(--glass-bg);
-  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
   border: 1px solid var(--glass-border);
 }
 
@@ -245,6 +245,7 @@ a {
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -363,6 +364,7 @@ a {
   border-radius: 9999px;
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
 
@@ -424,21 +426,49 @@ a {
 }
 
 .btn-glow {
-  background: linear-gradient(135deg, var(--color-neon-purple), #EC4899);
-  color: #fff;
-  height: var(--btn-height); /* Altura padronizada mestre */
+  background: linear-gradient(to right, #7B1FA2, #E91E63) !important;
+  color: #ffffff !important;
+  height: var(--btn-height);
   padding: 0 32px;
   border-radius: 999px;
   font-size: 15px;
   font-weight: 700;
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 25px rgba(123, 31, 162, 0.5);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(25deg);
+  animation: btn-glimmer 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes btn-glimmer {
+  0% { left: -150%; }
+  30% { left: 150%; }
+  100% { left: 150%; }
 }
 
 .btn-glow:hover {
@@ -448,14 +478,15 @@ a {
 
 .glass-pill {
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   color: var(--text-color);
-  height: var(--btn-height); /* Altura padronizada mestre */
-  padding: 0 32px; /* Padding aumentado para evitar parecer comprimido */
+  height: var(--btn-height);
+  padding: 0 32px;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 600;
-  backdrop-filter: blur(8px);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -505,6 +536,19 @@ a {
   margin: 0 !important;
   padding: 0 !important;
   opacity: 0.7;
+}
+
+.trust-link {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.trust-link:hover {
+  opacity: 1 !important;
+  color: var(--brand-purple);
+  text-shadow: 0 0 10px rgba(123, 31, 162, 0.3);
 }
 
 .trust-item {
@@ -563,6 +607,7 @@ a {
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
   background: rgba(2, 2, 3, 0.95);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 12px 16px;
@@ -613,6 +658,7 @@ a {
   border-radius: 999px;
   border: 1px solid var(--glass-border);
   white-space: nowrap;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   opacity: 0.8;
   display: flex;
@@ -629,6 +675,7 @@ a {
 .new-footer {
   width: 100%;
   background: var(--footer-bg) !important;
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--glass-border);
   padding: 40px 60px 30px;
@@ -877,6 +924,7 @@ a {
   min-height: 500px;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-radius: 24px;
   padding: 32px;
@@ -915,6 +963,7 @@ a {
   cursor: pointer;
   z-index: 10;
   transition: all 0.4s ease;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -1108,6 +1157,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -1122,3 +1172,55 @@ a {
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* ── Véra Assistant Refinements ── */
+.vera-trigger-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vera-tooltip {
+  position: absolute;
+  right: 80px;
+  background: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(123, 31, 162, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.vera-trigger-container:hover .vera-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.vera-trigger {
+  animation: vera-pulse 3s infinite !important;
+}
+
+@keyframes vera-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(123, 31, 162, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(123, 31, 162, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(123, 31, 162, 0);
+  }
+}
