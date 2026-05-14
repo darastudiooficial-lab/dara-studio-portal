@@ -3,9 +3,29 @@ import { Link } from 'react-router-dom';
 import DaraLogo from './DaraLogo';
 import { useAppContext } from '../context/AppContext';
 
+const FOOTER_CONTENT = {
+  EN: {
+    address: "SC, Brazil · Remote Support Worldwide",
+    drafting: "Architectural Production & CAD Drafting",
+    copyright: "WORLDWIDE ARCHITECTURAL PRODUCTION & SUPPORT",
+    legal: "All technical documentation and design assets are the exclusive property of DARA Studio. Original content is protected under international intellectual property laws for the benefit of our global partners.",
+    ipNotice: "INTELLECTUAL PROPERTY NOTICE →",
+    confidentiality: "Confidentiality and data protection for all projects. Technical data is processed following strict security protocols to ensure your architectural assets are safe.",
+  },
+  PT: {
+    address: "SC, Brasil · Suporte Remoto Mundial",
+    drafting: "Produção Arquitetônica e Desenho CAD",
+    copyright: "PRODUÇÃO E SUPORTE ARQUITETÔNICO MUNDIAL",
+    legal: "Toda a documentação técnica e ativos de design são propriedade exclusiva da DARA Studio. O conteúdo original é protegido por leis internacionais de propriedade intelectual para o benefício de nossos parceiros globais.",
+    ipNotice: "AVISO DE PROPRIEDADE INTELECTUAL →",
+    confidentiality: "Confidencialidade e proteção de dados para todos os projetos. Dados técnicos são processados seguindo protocolos rigorosos de segurança para garantir que seus ativos arquitetônicos estejam seguros.",
+  }
+};
+
 export default function Footer() {
   const { lang } = useAppContext();
-  const year = 2028; // As per the reference image
+  const T = FOOTER_CONTENT[lang] || FOOTER_CONTENT.EN;
+  const year = 2026;
 
   return (
     <footer className="new-footer animate-float-up delay-500">
@@ -17,8 +37,8 @@ export default function Footer() {
             <span className="footer-logo-text">DARA<strong>Studio</strong></span>
           </div>
           <p className="footer-address">
-            SC, Brazil · Remote Support Worldwide<br />
-            Architectural Production & CAD Drafting
+            {T.address}<br />
+            {T.drafting}
           </p>
           <div className="footer-social-simple">
             <a href="https://wa.me/5548991234567" target="_blank" rel="noreferrer" className="footer-social-link">
@@ -36,20 +56,20 @@ export default function Footer() {
         {/* Zone 2 — Center: Copyright + Legal */}
         <div className="footer-zone zone-center">
           <p className="footer-copyright-main">
-            © {year} DARA STUDIO · PREMIUM ARCHITECTURAL SUPPORT
+            © {year} DARA STUDIO · {T.copyright}
           </p>
           <p className="footer-legal">
-            All drawings and technical documentation are produced for the exclusive use of DARA Studio's clients and partners. Intellectual property rights apply to all original design content.
+            {T.legal}
           </p>
         </div>
 
         {/* Zone 3 — Right: IP Notice Link + Description + Email */}
         <div className="footer-zone zone-right">
           <Link to="/ip-notice" className="footer-ip-notice-link">
-            INTELLECTUAL PROPERTY NOTICE →
+            {T.ipNotice}
           </Link>
           <p className="footer-ip-notice-small">
-            Confidentiality and data protection for all projects. Technical data is processed following strict security protocols to ensure your architectural assets are safe.
+            {T.confidentiality}
           </p>
           <a href="mailto:darastudiooficial@gmail.com" className="footer-email-link">
             darastudiooficial@gmail.com

@@ -7,7 +7,7 @@ const NAV_TRANSLATIONS = {
   EN: {
     portal: "Client Portal",
     nav: [
-      { label: "Expertise", path: "/services" },
+      { label: "What We Do", path: "/services" },
       { label: "Portfolio", path: "/portfolio" },
       { label: "Team", path: "/team" },
       { label: "Methodology", path: "/process" },
@@ -17,10 +17,10 @@ const NAV_TRANSLATIONS = {
   PT: {
     portal: "Portal do Cliente",
     nav: [
-      { label: "Expertise", path: "/services" },
+      { label: "Especialização", path: "/services" },
       { label: "Portfólio", path: "/portfolio" },
       { label: "Equipe", path: "/team" },
-      { label: "Metodologia", path: "/process" },
+      { label: "Como Funciona", path: "/process" },
       { label: "Aviso de IP", path: "/ip-notice" },
     ]
   }
@@ -65,7 +65,7 @@ export default function Navbar() {
             className="pill-button back-to-site-btn" 
             onClick={() => navigate("/")}
           >
-            ← {lang === 'EN' ? 'BACK TO SITE' : 'VOLTAR AO SITE'}
+            ← {lang === 'EN' ? 'Back to Site' : 'Voltar ao Site'}
           </button>
         )}
 

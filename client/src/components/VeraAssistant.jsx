@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { Sparkles } from 'lucide-react';
 
 export default function VeraAssistant() {
   const { lang, setLang, theme, isVeraOpen, openVera, closeVera, veraMessage } = useAppContext();
@@ -39,28 +40,30 @@ export default function VeraAssistant() {
     <div className="vera-assistant-wrapper" style={{ position: 'fixed', bottom: '30px', right: '30px', zIndex: 9999 }}>
       {/* Floating Button / Avatar */}
       {!isVeraOpen && (
-        <button 
-          onClick={toggleAssistant}
-          style={{
-            width: '64px', height: '64px', borderRadius: '50%', 
-            background: 'linear-gradient(135deg, var(--brand-purple), var(--brand-pink))',
-            border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px var(--neon-glow)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-            visibility: 'visible', opacity: 1,
-            padding: '2px'
-          }}
-          className="vera-trigger animate-bounce-subtle"
-        >
-          <img 
-            src="/assets/vera-avatar.png" 
-            alt="VÉRA AI"
-            style={{ 
-              width: '100%', height: '100%', borderRadius: '50%', 
-              objectFit: 'cover', border: '1px solid var(--color-neon-purple)' 
-            }} 
-          />
-        </button>
+        <div className="vera-trigger-container">
+          <span className="vera-tooltip">DARA AI · Online</span>
+          <button 
+            onClick={toggleAssistant}
+            style={{
+              width: '64px', height: '64px', borderRadius: '50%', 
+              background: 'linear-gradient(135deg, var(--brand-purple), var(--brand-pink))',
+              border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px var(--neon-glow)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              padding: '2px', overflow: 'hidden'
+            }}
+            className="vera-trigger animate-bounce-subtle"
+          >
+            <img 
+              src="/assets/vera-avatar.png" 
+              alt="VÉRA AI"
+              style={{ 
+                width: '100%', height: '100%', borderRadius: '50%', 
+                objectFit: 'cover', border: '1px solid rgba(255,255,255,0.2)' 
+              }} 
+            />
+          </button>
+        </div>
       )}
 
       {/* Assistant Window */}

@@ -34,80 +34,131 @@ const SERVICES_DATA = [
     id: "drafting",
     icon: <Icons.Drafting />,
     isUS: true,
-    title: { EN: "Architectural Drafting", PT: "Desenho Arquitetônico" },
+    title: { EN: "Full Construction Documentation", PT: "Documentação Técnica Completa (CDs)" },
     desc: { 
-      EN: "Floor plans, elevations, sections, and full construction document sets aligned with U.S. (IRC/IBC) and Brazilian (NBR) codes.",
-      PT: "Plantas, fachadas, cortes e conjuntos completos de documentos de construção alinhados com as normas dos EUA (IRC/IBC) e Brasil (NBR)."
+      EN: "Convert your schematic designs into comprehensive, permit-ready sets. We handle the heavy lifting of technical drafting so your team can focus on design and client relations.",
+      PT: "Converta seus designs esquemáticos em conjuntos completos prontos para aprovação. Lidamos com o trabalho pesado do desenho técnico para que sua equipe foque no design e no cliente."
     },
     list: {
-      EN: ["Permit Sets (US/BR)", "Construction Documentation", "Code Compliance Review", "Layer Standardization"],
-      PT: ["Projetos de Aprovação (EUA/BR)", "Documentação Executiva", "Revisão de Normas Técnicas", "Padronização de Layers"]
+      EN: ["Redlining & Markups Integration", "Sheet Setup & Title Blocks", "Chief Architect 3D-to-2D Workflow", "Permit-Ready Sets"],
+      PT: ["Integração de Redlining & Markups", "Configuração de Pranchas e Selos", "Workflow Chief Architect 3D-para-2D", "Conjuntos Prontos para Aprovação"]
+    },
+    output: "Output: DWG, PDF",
+    tools: "Chief Architect Expert",
+    deliverables: {
+      EN: "High-precision technical sets synced with 3D model.",
+      PT: "Conjuntos técnicos de alta precisão sincronizados com modelo 3D."
     }
+  },
+  {
+    id: "permit_processing",
+    icon: <Icons.OfficeSupport />,
+    isUS: true,
+    title: { EN: "Permit Processing Support", PT: "Suporte para Aprovação Municipal" },
+    desc: { 
+      EN: "Zoning & Building Code Review. We ensure every drawing complies with local IBC/IRC standards to minimize RFIs and speed up approvals.",
+      PT: "Revisão de Zoneamento e Códigos de Construção. Garantimos que cada desenho cumpra as normas locais IBC/IRC para minimizar RFIs e agilizar aprovações."
+    },
+    list: {
+      EN: ["IBC/IRC Compliance Review", "Zoning Analysis Support", "RFI Mitigation Strategy", "ADA Accessibility Check"],
+      PT: ["Revisão de Conformidade IBC/IRC", "Suporte a Análise de Zoneamento", "Estratégia de Mitigação de RFI", "Verificação de Acessibilidade ADA"]
+    },
+    output: "Standards: IBC, IRC, ADA"
   },
   {
     id: "wood_frame",
     icon: <Icons.WoodFrame />,
     isUS: true,
-    title: { EN: "Wood Frame Design", PT: "Design de Wood Frame" },
+    title: { EN: "Wood Framing Support", PT: "Suporte em Wood Framing" },
     desc: { 
-      EN: "Specialized framing layouts and load-path documentation for residential wood construction — builder-ready and engineer-coordinated.",
-      PT: "Layouts de estrutura e documentação de caminho de carga para construção residencial em madeira — pronto para o construtor."
+      EN: "We offer technical support for framing layouts and basic structural pre-dimensioning. Our focus is providing the graphic foundation needed to facilitate final detailing by licensed professionals.",
+      PT: "Oferecemos suporte técnico para o desenvolvimento de plantas de framing e pré-dimensionamento estrutural básico. Nosso foco é fornecer o embasamento gráfico necessário para facilitar o detalhamento final por profissionais licenciados."
     },
     list: {
-      EN: ["Wall Framing Layouts", "Floor Joist Systems", "Load-Path Detailing", "US Standard Coordination"],
-      PT: ["Layouts de Paredes", "Sistemas de Vigas de Piso", "Detalhamento de Carga", "Coordenação Padrão EUA"]
+      EN: ["Framing Layouts (Wall/Floor)", "Preliminary Member Sizing", "3D Framing Visualization", "Documentation Support"],
+      PT: ["Layouts de Framing (Parede/Piso)", "Pré-dimensionamento Preliminar", "Visualização 3D de Framing", "Suporte em Documentação"]
+    },
+    output: "Output: DWG, PDF",
+    tools: "Chief Architect · AutoCAD",
+    deliverables: {
+      EN: "3D Framing Models, Basic Layouts & Graphic Support.",
+      PT: "Modelos 3D de Framing, Layouts Básicos e Suporte Gráfico."
+    },
+    disclaimer: {
+      EN: "⚠️ IMPORTANT: All technical drawings must be reviewed and signed by a local licensed professional (RA/P.E.) before construction.",
+      PT: "⚠️ IMPORTANTE: É obrigatório que todos os desenhos sejam revisados e assinados por um profissional local licenciado antes da construção."
     }
   },
   {
     id: "pdf_cad",
     icon: <Icons.PdfCad />,
-    title: { EN: "PDF to CAD Conversion", PT: "Conversão de PDF para CAD" },
+    title: { EN: "Precision CAD Conversion", PT: "Conversão CAD de Precisão" },
     desc: { 
-      EN: "We convert PDF drawings, images, or legacy files into organized, high-precision technical CAD files.",
-      PT: "Convertemos desenhos em PDF, imagens ou arquivos antigos em arquivos CAD técnicos organizados e de alta precisão."
+      EN: "Transform static PDF plans, sketches, or legacy blueprints into fully editable, high-precision CAD files. All projects are modeled in Chief Architect to ensure spatial integrity before final export.",
+      PT: "Transforme plantas estáticas em PDF, esboços ou projetos antigos em arquivos CAD totalmente editáveis e de alta precisão. Projetos modelados integralmente em Chief Architect, garantindo integridade espacial antes da exportação final."
     },
     list: {
-      EN: ["Vectorization", "Project Scaling", "Layer Organization", "File Cleanup"],
-      PT: ["Vetorização", "Escalonamento de Projeto", "Organização de Camadas", "Limpeza de Arquivos"]
+      EN: ["Custom Layer Mapping", "True-Scale Accuracy", "Block & Attribute Creation", "Dynamic Lineweight Setup"],
+      PT: ["Mapeamento de Camadas Customizado", "Acurácia de Escala Real (1:1)", "Criação de Blocos e Atributos", "Configuração de Espessura de Linha Dinâmica"]
+    },
+    output: "Output: .DWG, .PDF",
+    deliverables: {
+      EN: "100% Manual Drafting | Intelligent CAD Conversion on Demand.",
+      PT: "Redesenho 100% Manual | Conversão inteligente para CAD sob demanda."
     }
   },
   {
     id: "redrawing",
     icon: <Icons.Redrawing />,
-    title: { EN: "Redrawing & Production", PT: "Redesenho e Produção" },
+    title: { EN: "Design Development & Production", PT: "Desenho e Produção Técnica" },
     desc: { 
-      EN: "High-precision adjustments following international standards. Floor plans, sections, and professional layer organization.",
-      PT: "Ajustes de alta precisão seguindo padrões internacionais. Plantas, cortes e organização profissional de layers."
+      EN: "Elevate your design sketches into high-performance technical sets. We provide seamless production support, ensuring your architectural intent is matched with rigorous international standards and professional documentation logic.",
+      PT: "Eleve seus esboços de design para conjuntos técnicos de alta performance. Oferecemos suporte de produção contínuo, garantindo que sua intenção arquitetônica seja acompanhada por rigorosos padrões internacionais."
     },
     list: {
-      EN: ["Technical Precision", "International Standards", "Layer Organization", "Detailing Support"],
-      PT: ["Precisão Técnica", "Padrões Internacionais", "Organização de Layers", "Suporte a Detalhamento"]
+      EN: ["International Standards Compliance", "Advanced Layer Organization", "As-Built Documentation", "Annotative Detailing Support", "Revision & Markup Integration"],
+      PT: ["Conformidade com Padrões Internacionais", "Organização de Camadas Avançada", "Documentação As-Built", "Suporte a Detalhamento Anotativo", "Integração de Revisões e Markups"]
+    },
+    output: "Output: .DWG, .PDF",
+    deliverables: {
+      EN: "White-Label Ready | Cloud-Integrated Workflow",
+      PT: "Pronto para White-Label | Fluxo em Nuvem"
     }
   },
   {
     id: "office_support",
     icon: <Icons.OfficeSupport />,
-    title: { EN: "Architecture Office Support", PT: "Suporte a Escritórios" },
+    title: { EN: "High-Performance Back-Office Support", PT: "Suporte Back-Office de Alta Performance" },
     desc: { 
-      EN: "Scale your firm’s production without expanding your local team. Technical revisions and layout modeling on demand.",
-      PT: "Escale a produção do seu escritório sem expandir sua equipe local. Revisões técnicas e modelagem de layout sob demanda."
+      EN: "Scale your firm’s production capacity without the overhead of expanding your local team. We act as your dedicated technical back-office, handling high-volume drafting and complex revisions so you can focus on winning new contracts and managing client relationships.",
+      PT: "Escale a capacidade de produção do seu escritório sem os custos fixos de expandir sua equipe local. Atuamos como seu back-office técnico dedicado, lidando com grandes volumes de desenho e revisões complexas."
     },
     list: {
-      EN: ["Production Scaling", "On-Demand Support", "Technical Revisions", "Layout Modeling"],
-      PT: ["Escala de Produção", "Suporte Sob Demanda", "Revisões Técnicas", "Modelagem de Layout"]
+      EN: ["Agile Revision Cycles", "Capacity on Demand", "Standardized Workflows", "Complex Layout Modeling", "Project Documentation Management"],
+      PT: ["Ciclos de Revisão Ágeis", "Capacidade Sob Demanda", "Fluxos de Trabalho Padronizados", "Modelagem de Layouts Complexos", "Gestão de Documentação de Projeto"]
+    },
+    output: "Consultative Extension",
+    deliverables: {
+      EN: "White-Label Integration | Time-Zone Advantage",
+      PT: "Integração White-Label | Vantagem de Fuso Horário"
     }
   },
   {
     id: "viz",
     icon: <Icons.Viz />,
-    title: { EN: "3D Visualization & Concept", PT: "Visualização 3D e Conceito" },
+    title: { EN: "High-End 3D Visualization", PT: "Visualização 3D de Alto Padrão" },
     desc: { 
-      EN: "High-quality visual studies for client presentations and municipal submissions. Precision modeling for design refinement.",
-      PT: "Estudos visuais de alta qualidade para apresentações e aprovações. Modelagem de precisão para refinamento de design."
+      EN: "Bring your architectural concepts to life with immersive 3D visualizations. We combine precise technical modeling with advanced Generative AI to deliver high-fidelity renders with faster turnaround times and photographic realism.",
+      PT: "Dê vida aos seus conceitos arquitetônicos com visualizações 3D imersivas. Combinamos modelagem técnica precisa com IA Generativa para entregas mais rápidas e realismo fotográfico."
     },
     list: {
-      EN: ["Visual Studies", "Client Presentations", "Design Refinement", "Precision Modeling"],
-      PT: ["Estudos Visuais", "Apresentações", "Refinamento de Design", "Modelagem de Precisão"]
+      EN: ["Photorealistic Rendering", "IA-Enhanced Rendering", "Conceptual Massing Studies", "BIM-Integrated Modeling", "Material & Texture Refinement"],
+      PT: ["Renderização Fotorrealista", "Renderização Otimizada por IA", "Estudos Volumétricos Conceituais", "Modelagem Integrada ao BIM", "Refinamento de Materiais e Texturas"]
+    },
+    output: "Output: JPG, MP4, PDF",
+    deliverables: {
+      EN: "4K Still Renders | AI-Powered Excellence | Board-Ready Assets",
+      PT: "Renders 4K | Excelência Otimizada por IA | Ativos para Reunião"
     }
   }
 ];
@@ -134,6 +185,13 @@ export default function Services() {
     }
   };
 
+  const scrollToIdx = (idx) => {
+    if (scrollRef.current) {
+      const cardWidth = 420;
+      scrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+    }
+  };
+
   const handleStartProject = () => {
     const msg = lang === 'EN'
       ? "Hi! I'm VÉRA. I can help you with a quick estimate for your project. What are we drafting today?"
@@ -148,14 +206,21 @@ export default function Services() {
       <main className="independent-page">
         {/* Header Section */}
         <header className="services-header-premium animate-float-up">
-          <span className="services-tagline">What We Do</span>
           <h1 className="services-main-title">
-            {lang === "EN" ? "Specialized Technical Support" : "Suporte Técnico Especializado"}
+            {lang === "EN" ? (
+              <>
+                <span className="title-white">Specialized</span> <span className="title-gradient-italic">Technical Support</span>
+              </>
+            ) : (
+              <>
+                <span className="title-gradient-italic">Suporte Técnico</span> <span className="title-white">Especializado</span>
+              </>
+            )}
           </h1>
-          <p className="service-desc" style={{ maxWidth: '650px', margin: '0 auto', fontSize: '16px', opacity: 0.8 }}>
+          <p className="service-desc" style={{ maxWidth: '1150px', margin: '0 auto', fontSize: '15px', opacity: 0.8, lineHeight: '1.4' }}>
             {lang === "EN" 
-              ? "DA·RA acts as a high-performance technical extension for architecture and engineering firms, transforming complex project demands into precision deliverables."
-              : "A DA·RA atua como uma extensão técnica de alta performance para escritórios de arquitetura e engenharia, transformando demandas complexas em entregas de precisão."}
+              ? "DARA Studio acts as a high-performance technical extension for architecture and engineering firms worldwide, transforming complex project demands into precision, professional-ready deliverables."
+              : "DARA Studio atua como uma extensão técnica de alta performance para escritórios de arquitetura e engenharia em todo o mundo, transformando demandas complexas de projetos em entregas precisas e prontas para uso profissional."}
           </p>
         </header>
 
@@ -191,8 +256,36 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                <button className="lp-btn-secondary" onClick={handleStartProject} style={{ marginTop: '20px', width: '100%', fontSize: '12px' }}>
-                  {lang === 'EN' ? 'ORDER NOW' : 'PEDIR AGORA'}
+
+                {service.output && (
+                  <div className="service-output-badge">
+                    {service.output}
+                  </div>
+                )}
+
+                {(service.tools || service.deliverables) && (
+                  <div className="service-footer-info">
+                    {service.tools && (
+                      <div className="service-extra-info">
+                        <span className="info-label">{lang === 'EN' ? 'Compatible with:' : 'Compatível com:'}</span> {service.tools}
+                      </div>
+                    )}
+                    {service.deliverables && (
+                      <div className="service-extra-info">
+                        <span className="info-label">{lang === 'EN' ? 'Deliverables:' : 'Entregas:'}</span> {service.deliverables[lang]}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {service.disclaimer && (
+                  <div className="service-disclaimer">
+                    {service.disclaimer[lang]}
+                  </div>
+                )}
+
+                <button className="btn-glow" onClick={handleStartProject} style={{ marginTop: '20px', width: '100%' }}>
+                  {lang === 'EN' ? 'START YOUR PROJECT' : 'INICIAR PROJETO'}
                 </button>
               </div>
             ))}
@@ -201,6 +294,17 @@ export default function Services() {
           <button className="carousel-arrow right" onClick={() => scroll('right')}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
+
+          {/* Pagination Dots */}
+          <div className="carousel-dots">
+            {SERVICES_DATA.map((_, idx) => (
+              <div 
+                key={idx} 
+                className={`dot ${activeIdx === idx ? 'active' : ''}`}
+                onClick={() => scrollToIdx(idx)}
+              />
+            ))}
+          </div>
         </div>
 
       </main>
