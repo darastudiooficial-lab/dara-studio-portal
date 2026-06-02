@@ -19,21 +19,19 @@ const GlassToggle = ({ onThemeToggle, onLangToggle, currentLang, isDark }) => {
         </motion.div>
       </div>
 
-      {/* Toggle de Idioma (PT/EN) - Baseado na image_38ec26.png */}
+      {/* Toggle de Idioma (PT/EN) */}
       <div 
         onClick={onLangToggle}
         className="relative w-24 h-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-full cursor-pointer p-1 flex items-center shadow-lg"
       >
         <motion.div 
           animate={{ x: currentLang === 'PT' ? 0 : 52 }}
-          className="absolute w-10 h-8 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center font-bold text-xs text-white z-10"
-        >
-          {currentLang}
-        </motion.div>
+          className="absolute w-10 h-8 bg-purple-500/80 backdrop-blur-xl border border-purple-400/50 rounded-full z-0"
+        />
         
-        <div className="flex w-full justify-around text-[10px] font-bold text-slate-500 select-none">
-          <span>PT</span>
-          <span>EN</span>
+        <div className="absolute inset-0 flex w-full justify-around items-center text-[11px] font-bold select-none z-10">
+          <span className={currentLang === 'PT' ? 'text-white' : 'text-slate-400'}>PT</span>
+          <span className={currentLang === 'EN' ? 'text-white' : 'text-slate-400'}>EN</span>
         </div>
       </div>
 

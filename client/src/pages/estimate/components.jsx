@@ -94,9 +94,9 @@ export function Counter({ value, onChange, min = 0, max = 20 }) {
 
 export function SectionTitle({ label, sub }) {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 24, fontWeight: 400, fontStyle: "italic", color: "var(--tx)", marginBottom: 6 }}>{label}</h2>
-      {sub && <p style={{ fontSize: 13, color: "var(--mu)", lineHeight: 1.6 }}>{sub}</p>}
+    <div className="page-header-premium" style={{ margin: '0 auto 32px', textAlign: 'center' }}>
+      <h2 className="page-main-title" style={{ fontSize: '28px' }}>{label}</h2>
+      {sub && <p className="page-subtitle-standard" style={{ fontSize: '14px' }}>{sub}</p>}
     </div>
   );
 }

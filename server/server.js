@@ -8,7 +8,7 @@ const {
   daraSaveForLaterEmail, 
   daraInternalLeadAlertEmail 
 } = require('./templates/confirmation');
-require('dotenv').config();
+require('./envConfig');
 
 
 const app = express();
@@ -80,7 +80,7 @@ app.post('/api/leads', async (req, res) => {
     
     // 1. Insert into leads
     const { data: lead, error } = await supabase.from('leads').insert([{
-      name, email, phone, project_title: project, estimate_range: estimate, metadata: req.body
+      email, raw_data: req.body, status: 'raw'
     }]).select().single();
 
     if (error) throw error;
@@ -151,12 +151,8 @@ app.post('/api/accept', async (req, res) => {
     // 4. Create Project linked to client
     const { data: proj, error: projError } = await supabase.from('projects').insert([{
       client_id: clientId,
-      title: project,
-      status: 'waiting',
-      estimate_range: estimate,
-      package_type: pkg,
-      delivery_speed: delivery,
-      metadata: req.body
+      status: 'pending',
+      wizard_data: req.body
     }]).select().single();
 
     if (projError) throw projError;

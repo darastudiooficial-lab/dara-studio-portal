@@ -6,6 +6,7 @@ import GlobalControls from '../components/GlobalControls';
 import Icon from '../components/Icon';
 import Chat from '../components/Chat';
 import SplashScreen from '../components/SplashScreen';
+import BuildersAdmin from '../components/BuildersAdmin';
 import BackgroundOrbs from '../components/BackgroundOrbs';
 import { 
   Chart as ChartJS, 
@@ -37,7 +38,7 @@ ChartJS.register(
 );
 
 const AdminPortal = () => {
-  const { theme } = useAppContext();
+  const { theme, lang } = useAppContext();
   const [ready, setReady] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
   const { logout } = useAuth();
@@ -47,6 +48,7 @@ const AdminPortal = () => {
   const [inviteEmail, setInviteEmail] = useState('');
   const [isInviting, setIsInviting] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [leads, setLeads] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [projectFiles, setProjectFiles] = useState([]);
   const [loadingFiles, setLoadingFiles] = useState(false);
@@ -54,7 +56,17 @@ const AdminPortal = () => {
   useEffect(() => {
     fetchUsers();
     fetchProjects();
+    fetchLeads();
   }, []);
+
+  const fetchLeads = async () => {
+    const { data, error } = await supabase
+      .from('leads')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error) setLeads(data);
+  };
 
   const fetchProjects = async () => {
     const { data, error } = await supabase
@@ -131,11 +143,38 @@ const AdminPortal = () => {
     
     setIsInviting(true);
     setTimeout(() => {
-      alert(`Invitation sent to ${inviteEmail} (Simulated)`);
+      alert(lang === 'EN' ? `Invitation sent to ${inviteEmail} (Simulated)` : `Convite enviado para ${inviteEmail} (Simulado)`);
       setInviteEmail('');
       setIsInviting(false);
     }, 1000);
   };
+
+  const T = {
+    EN: {
+      title: "Mastering the Vision.",
+      subtitle: "Administrative management, leads, and global project control.",
+      dashboard: "Dashboard",
+      leads: "Lead Manager",
+      projects: "Project Control",
+      assets: "Asset Library",
+      users: "User Control",
+      builders: "Builders Hub",
+      chat: "System Chat",
+      signOut: "Sign Out"
+    },
+    PT: {
+      title: "Dominando a Visão.",
+      subtitle: "Gestão administrativa, leads e controle global de projetos.",
+      dashboard: "Painel",
+      leads: "Gestor de Leads",
+      projects: "Controle de Projetos",
+      assets: "Biblioteca de Ativos",
+      users: "Controle de Usuários",
+      builders: "Builders Hub",
+      chat: "Chat do Sistema",
+      signOut: "Sair"
+    }
+  }[lang];
 
   const updateProjectField = async (projectId, field, value) => {
     const { error } = await supabase
@@ -168,27 +207,30 @@ const AdminPortal = () => {
         </div>
         <nav className="sb-nav">
           <button className={`nav-item ${activeTab === 'dashboard' ? 'act' : ''}`} onClick={() => setActiveTab('dashboard')}>
-            <Icon name="home" size={16} /> <span className="nav-lbl">Dashboard</span>
+            <Icon name="home" size={16} /> <span className="nav-lbl">{T.dashboard}</span>
           </button>
           <button className={`nav-item ${activeTab === 'leads' ? 'act' : ''}`} onClick={() => setActiveTab('leads')}>
-            <Icon name="user" size={16} /> <span className="nav-lbl">Lead Manager</span>
+            <Icon name="user" size={16} /> <span className="nav-lbl">{T.leads}</span>
           </button>
           <button className={`nav-item ${activeTab === 'projects' ? 'act' : ''}`} onClick={() => setActiveTab('projects')}>
-            <Icon name="briefcase" size={16} /> <span className="nav-lbl">Project Control</span>
+            <Icon name="briefcase" size={16} /> <span className="nav-lbl">{T.projects}</span>
           </button>
           <button className={`nav-item ${activeTab === 'assets' ? 'act' : ''}`} onClick={() => setActiveTab('assets')}>
-            <Icon name="folder" size={16} /> <span className="nav-lbl">Asset Library</span>
+            <Icon name="folder" size={16} /> <span className="nav-lbl">{T.assets}</span>
           </button>
           <button className={`nav-item ${activeTab === 'users' ? 'act' : ''}`} onClick={() => setActiveTab('users')}>
-            <Icon name="shield" size={16} /> <span className="nav-lbl">User Control</span>
+            <Icon name="shield" size={16} /> <span className="nav-lbl">{T.users}</span>
+          </button>
+          <button className={`nav-item ${activeTab === 'builders' ? 'act' : ''}`} onClick={() => setActiveTab('builders')}>
+            <Icon name="briefcase" size={16} /> <span className="nav-lbl">{T.builders}</span>
           </button>
           <button className={`nav-item ${activeTab === 'chat' ? 'act' : ''}`} onClick={() => setActiveTab('chat')}>
-            <Icon name="chat" size={16} /> <span className="nav-lbl">System Chat</span>
+            <Icon name="chat" size={16} /> <span className="nav-lbl">{T.chat}</span>
           </button>
         </nav>
         <div className="sb-bot">
-          <button className="nav-item" onClick={logout}>
-            <Icon name="out" size={16} /> <span className="nav-lbl">Sign Out</span>
+          <button className="nav-item" onClick={() => window.location.href = '/logout'}>
+            <Icon name="out" size={16} /> <span className="nav-lbl">{T.signOut}</span>
           </button>
         </div>
       </aside>
@@ -202,10 +244,10 @@ const AdminPortal = () => {
           </div>
         </header>
 
-        <div className="page-content" style={{ padding: '40px' }}>
-          <div className="admin-header" style={{ marginBottom: '48px' }}>
-            <h1 className="page-title" style={{ fontSize: '32px', fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--a)' }}>Mastering the Vision.</h1>
-            <p className="page-sub" style={{ opacity: 0.5 }}>Gestão administrativa, leads e controle global de projetos.</p>
+        <div className="page">
+          <div className="admin-header">
+            <h1 className="page-title">{T.title}</h1>
+            <p className="page-sub">{T.subtitle}</p>
           </div>
 
           {activeTab === 'dashboard' && (
@@ -239,7 +281,7 @@ const AdminPortal = () => {
 
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '48px' }}>
                 <div className="card" style={{ padding: '24px', background: 'var(--bg1)', border: '1px solid var(--border)', borderRadius: '12px' }}>
-                  <h3 style={{ fontSize: '14px', fontWeight: '700', color: 'var(--mu)', textTransform: 'uppercase', marginBottom: '24px' }}>Lead Volume (7 Days)</h3>
+                  <h3 style={{ fontSize: '14px', fontWeight: '700', color: 'var(--mu)', textTransform: 'uppercase', marginBottom: '24px' }}>{lang === 'EN' ? 'Lead Volume (7 Days)' : 'Volume de Leads (7 Dias)'}</h3>
                   <div style={{ height: '300px' }}>
                     <Bar 
                       data={{
@@ -251,7 +293,7 @@ const AdminPortal = () => {
                   </div>
                 </div>
                 <div className="card" style={{ padding: '24px', background: 'var(--bg1)', border: '1px solid var(--border)', borderRadius: '12px' }}>
-                  <h3 style={{ fontSize: '14px', fontWeight: '700', color: 'var(--mu)', textTransform: 'uppercase', marginBottom: '24px' }}>Project Status</h3>
+                  <h3 style={{ fontSize: '14px', fontWeight: '700', color: 'var(--mu)', textTransform: 'uppercase', marginBottom: '24px' }}>{lang === 'EN' ? 'Project Status' : 'Status do Projeto'}</h3>
                   <div style={{ height: '300px' }}>
                     <Doughnut 
                       data={{
@@ -278,7 +320,11 @@ const AdminPortal = () => {
               <div className="card" style={{ overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead style={{ background: 'rgba(255,255,255,0.03)', fontSize: '10px', textTransform: 'uppercase' }}>
-                    <tr><th style={{ padding: '16px 20px' }}>Name</th><th style={{ padding: '16px 20px' }}>Role</th><th style={{ padding: '16px 20px' }}>Actions</th></tr>
+                    <tr>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Name' : 'Nome'}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Role' : 'Função'}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Actions' : 'Ações'}</th>
+                    </tr>
                   </thead>
                   <tbody>
                     {users.map(u => (
@@ -304,7 +350,11 @@ const AdminPortal = () => {
               <div className="card" style={{ overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead style={{ background: 'rgba(255,255,255,0.03)', fontSize: '10px', textTransform: 'uppercase' }}>
-                    <tr><th style={{ padding: '16px 20px' }}>Project</th><th style={{ padding: '16px 20px' }}>Status</th><th style={{ padding: '16px 20px' }}>Actions</th></tr>
+                    <tr>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Project' : 'Projeto'}</th>
+                      <th style={{ padding: '16px 20px' }}>Status</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Actions' : 'Ações'}</th>
+                    </tr>
                   </thead>
                   <tbody>
                     {projects.map(p => (
@@ -326,23 +376,24 @@ const AdminPortal = () => {
               <div className="card" style={{ overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                   <thead style={{ background: 'rgba(255,255,255,0.03)', fontSize: '10px', textTransform: 'uppercase' }}>
-                    <tr><th style={{ padding: '16px 20px' }}>Contact</th><th style={{ padding: '16px 20px' }}>Project Type</th><th style={{ padding: '16px 20px' }}>Date</th><th style={{ padding: '16px 20px' }}>Status</th></tr>
+                    <tr>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Contact' : 'Contato'}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Project Type' : 'Tipo'}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Date' : 'Data'}</th>
+                      <th style={{ padding: '16px 20px' }}>Status</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    {[
-                      { id: 1, name: 'Amara Diallo', email: 'amara@diallo.com', type: 'New Construction', date: '21/03/2026', status: 'New' },
-                      { id: 2, name: 'Robert Chen', email: 'robert@chen.com', type: 'Landscape Design', date: '20/03/2026', status: 'In Review' },
-                      { id: 3, name: 'Maria Silva', email: 'maria@gmail.com', type: 'Interior Design', date: '19/03/2026', status: 'Contacted' }
-                    ].map(l => (
+                    {leads.map(l => (
                       <tr key={l.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                         <td style={{ padding: '16px 20px' }}>
-                          <div style={{ fontWeight: '600' }}>{l.name}</div>
+                          <div style={{ fontWeight: '600' }}>{l.raw_data?.name || l.email}</div>
                           <div style={{ fontSize: '11px', opacity: 0.5 }}>{l.email}</div>
                         </td>
-                        <td style={{ padding: '16px 20px' }}>{l.type}</td>
-                        <td style={{ padding: '16px 20px' }}>{l.date}</td>
+                        <td style={{ padding: '16px 20px' }}>{l.raw_data?.project || 'N/A'}</td>
+                        <td style={{ padding: '16px 20px' }}>{new Date(l.created_at).toLocaleDateString()}</td>
                         <td style={{ padding: '16px 20px' }}>
-                          <span style={{ fontSize: '10px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#818cf8' }}>{l.status}</span>
+                          <span style={{ fontSize: '10px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#818cf8', textTransform: 'capitalize' }}>{l.status}</span>
                         </td>
                       </tr>
                     ))}
@@ -366,6 +417,13 @@ const AdminPortal = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {activeTab === 'builders' && (
+            <div className="admin-section">
+              <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '32px' }}>Builders Hub — Content Manager</h3>
+              <BuildersAdmin />
             </div>
           )}
 

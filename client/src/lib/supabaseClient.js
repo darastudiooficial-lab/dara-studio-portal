@@ -1,18 +1,28 @@
 // MOCKED FOR SCREENSHOTS
 const mockPromise = (data = []) => {
-  const p = Promise.resolve({ data, error: null });
-  const chain = () => p;
-  p.eq = chain;
-  p.select = chain;
-  p.single = chain;
-  p.order = chain;
-  p.limit = chain;
-  p.insert = chain;
-  p.update = chain;
-  p.delete = chain;
-  p.then = (onRes) => Promise.resolve({ data, error: null }).then(onRes);
-  p.catch = (onErr) => Promise.resolve({ data, error: null }).catch(onErr);
-  return p;
+  let isSingle = false;
+  const self = {
+    eq: () => self,
+    select: () => self,
+    single: () => {
+      isSingle = true;
+      return self;
+    },
+    order: () => self,
+    limit: () => self,
+    insert: () => self,
+    update: () => self,
+    delete: () => self,
+    then: (onRes) => {
+      const resolvedData = isSingle && Array.isArray(data) ? data[0] : data;
+      return Promise.resolve({ data: resolvedData, error: null }).then(onRes);
+    },
+    catch: (onErr) => {
+      const resolvedData = isSingle && Array.isArray(data) ? data[0] : data;
+      return Promise.resolve({ data: resolvedData, error: null }).catch(onErr);
+    }
+  };
+  return self;
 };
 
 export const supabase = {

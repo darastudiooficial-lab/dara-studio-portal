@@ -93,7 +93,7 @@ const CollaboratorPortal = () => {
           </button>
         </nav>
         <div className="sb-bot">
-          <button className="nav-item sign-out-btn" onClick={logout}><Icon name="out" /> <span className="nav-lbl">Sign Out</span></button>
+          <button className="nav-item sign-out-btn" onClick={() => window.location.href = '/logout'}><Icon name="out" /> <span className="nav-lbl">Sign Out</span></button>
         </div>
       </aside>
 
@@ -106,11 +106,11 @@ const CollaboratorPortal = () => {
           </div>
         </header>
 
-        <div className="page-content" style={{ padding: '40px' }}>
-          <h1 className="page-title" style={{ fontSize: '28px', fontFamily: 'var(--font-serif)', fontStyle: 'italic', marginBottom: '8px' }}>
+        <div className="page">
+          <h1 className="page-title">
             {profile?.full_name?.split(' ')[0]}, Excellence in every detail.
           </h1>
-          <p className="page-sub" style={{ opacity: 0.5, marginBottom: '40px' }}>
+          <p className="page-sub">
             {profile?.role === 'admin' ? 'Studio Management & Control' : 'Acesso técnico para parceiros e execução de obras DARA Studio.'}
           </p>
 

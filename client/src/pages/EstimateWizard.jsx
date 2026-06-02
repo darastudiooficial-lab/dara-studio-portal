@@ -1196,9 +1196,9 @@ const InfoIcon = () => (
 /* ═══ UI COMPONENTS ═══ */
 function Title({ label, sub }) {
   return (
-    <div style={{ marginBottom: 32 }}>
-      <h2 className="wz-title-premium" style={{ marginBottom: 8 }}>{label}</h2>
-      {sub && <p style={{ fontSize: 15, color: "var(--mu)", lineHeight: 1.6, fontWeight: 300 }}>{sub}</p>}
+    <div className="page-header-premium" style={{ marginBottom: 32, marginTop: 0 }}>
+      <h1 className="page-main-title" style={{ fontSize: '32px' }}>{label}</h1>
+      {sub && <p className="page-subtitle-standard" style={{ fontSize: '15px' }}>{sub}</p>}
     </div>
   );
 }
@@ -1296,20 +1296,20 @@ export default function EstimateWizard() {
   return (
     <div className={`wz-root ${theme}`} style={{ minHeight: "100dvh", background: "var(--bg0)", color: "var(--tx)" }}>
       {/* ── Top Bar ── */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 32px', borderBottom: '1px solid var(--border)', background: 'var(--bg2)', position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(12px)' }}>
-          <div className="lp-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-            <div className="lp-logo-mark">D</div>
-            <div className="lp-logo-text" style={{ fontStyle: 'italic', fontWeight: 'bold' }}>DARA STUDIO</div>
+      <header className="header-nav" style={{ position: 'sticky', top: 0, background: 'var(--bg-primary)', borderBottom: '1px solid var(--glass-border)', height: '80px', padding: '0 48px' }}>
+          <div className="header-logo" onClick={() => navigate('/')}>
+            <div className="lp-logo-mark" style={{ width: '32px', height: '32px', fontSize: '18px' }}>D</div>
+            <div className="header-logo-text" style={{ fontSize: '18px', fontWeight: 'bold' }}>DARA STUDIO</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <GlobalControls />
-            <button className="lp-nav-login" style={{ animation: 'spLogoGlow 3s infinite' }} onClick={() => navigate('/')}>{T.backToSite}</button>
+            <button className="pill-button back-to-site-btn" onClick={() => navigate('/')}>{T.backToSite}</button>
           </div>
       </header>
 
       <div id="layout" className={theme === 'dark' ? 'dark' : ''}>
         <BackgroundOrbs />
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "36px 20px 100px" }}>
+        <div className="independent-page" style={{ padding: "60px 20px 100px" }}>
           <div style={{ maxWidth: '800px', margin: '0 auto 48px' }}>
             <Stepper cur={step} steps={STEPS} />
           </div>
@@ -1491,19 +1491,7 @@ function S1({ d, up, lang }) {
   return (
     <div className="wz-animate">
       <Title label={T.whereProject} sub={T.locationSub} />
-
-      <div className="wz-grid-adaptive" style={{ marginBottom: d.region ? 24 : 0 }}>
-        {[
-          { id: "US", flag: "🇺🇸", title: "US", sub: "USD · sqft" },
-          { id: "BR", flag: "🇧🇷", title: "BR", sub: "BRL · m²" }
-        ].map(o => (
-          <div key={o.id} className={`wz-toggle ${d.region === o.id ? "active" : ""}`} onClick={() => { up("region", o.id); up("mapConfirmed", false); }}>
-            <div style={{ fontSize: 32, marginBottom: 8 }}>{o.flag}</div>
-            <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "var(--font-mono)" }}>{o.title}</div>
-            <div style={{ fontSize: 12, color: "var(--mu)", marginTop: 4 }}>{o.sub}</div>
-          </div>
-        ))}
-      </div>
+      {/* Region locked to US by default */}
 
       {d.region && (
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>

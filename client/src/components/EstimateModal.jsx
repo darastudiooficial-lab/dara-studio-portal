@@ -43,22 +43,12 @@ export default function EstimateModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="modal-overlay animate-fade-in" onClick={onClose} style={{
-      position: 'fixed', inset: 0, zIndex: 1000,
-      background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(10px)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px'
-    }}>
-      <div className="modal-content glass-premium animate-scale-up" onClick={e => e.stopPropagation()} style={{
-        width: '100%', maxWidth: '500px', borderRadius: '24px', padding: '40px',
-        position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)'
-      }}>
-        <button onClick={onClose} style={{
-          position: 'absolute', top: '20px', right: '20px', background: 'none', border: 'none',
-          color: 'var(--text-color)', fontSize: '24px', cursor: 'pointer', opacity: 0.5
-        }}>×</button>
+    <div className="modal-overlay animate-fade-in" onClick={onClose}>
+      <div className="modal-content glass-premium animate-scale-up" onClick={e => e.stopPropagation()}>
+        <button className="modal-close-btn" onClick={onClose}>×</button>
 
-        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '28px', marginBottom: '8px' }}>{T.title}</h2>
-        <p style={{ fontSize: '14px', opacity: 0.6, marginBottom: '32px' }}>{T.subtitle}</p>
+        <h2 className="modal-title">{T.title}</h2>
+        <p className="modal-subtitle">{T.subtitle}</p>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="form-group">

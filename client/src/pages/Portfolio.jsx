@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import BackButton from '../components/BackButton';
 import { useAppContext } from '../context/AppContext';
+import PageTransition from '../components/PageTransition';
 
 const PORTFOLIO_ITEMS = [
   { img: "/portfolio/p1.png", cat: "Residential", title: "Modern Glass Villa" },
@@ -17,43 +17,27 @@ export default function Portfolio() {
   const { lang } = useAppContext();
 
   return (
+    <PageTransition variant="default">
     <div className="lp-root">
       <Navbar />
       <main className="independent-page">
-        <BackButton />
-        <section className="portfolio-page-header" style={{ marginBottom: 60 }}>
-          <span style={{ fontSize: 11, color: "var(--a)", fontWeight: 700, letterSpacing: ".2em", textTransform: "uppercase" }}>Work</span>
-          <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 56, color: "#fff", lineHeight: 1.1, marginTop: 12 }}>
-            {lang === "EN" ? "Featured Projects" : "Projetos em Destaque"}
-          </h2>
-          <p style={{ color: "#9896b8", fontSize: 16, marginTop: 16, maxWidth: 600 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', padding: '40px 20px' }} className="animate-float-up">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '24px', opacity: 0.8 }}>
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <h1 className="page-main-title" style={{ fontSize: '32px', marginBottom: '16px' }}>
+            {lang === "EN" ? "Under Construction" : "Em Construção"}
+          </h1>
+          <p className="page-subtitle-standard" style={{ maxWidth: '500px', margin: '0 auto', opacity: 0.6 }}>
             {lang === "EN" 
-              ? "A selection of our latest architectural visualizations and technical drafting projects."
-              : "Uma seleção de nossas últimas visualizações arquitetônicas e projetos de desenho técnico."}
+              ? "We are currently curating our best projects. Please check back soon." 
+              : "Estamos atualmente organizando nossos melhores projetos. Volte em breve."}
           </p>
-        </section>
-
-        <section className="portfolio-strip" style={{ padding: 0, border: 'none' }}>
-          <div className="portfolio-grid" style={{ gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))' }}>
-            {PORTFOLIO_ITEMS.map((item, i) => (
-              <div key={i} className="portfolio-card" style={{ borderRadius: 24 }}>
-                <img src={item.img} alt={item.title} className="portfolio-img" />
-                <div className="portfolio-overlay" style={{ borderRadius: 24 }}>
-                  <span className="portfolio-cat">{item.cat}</span>
-                  <h3 className="portfolio-title">{item.title}</h3>
-                  <button className="portfolio-btn">
-                    View Project
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        </div>
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 }

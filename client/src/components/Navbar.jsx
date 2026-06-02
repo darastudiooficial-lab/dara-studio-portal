@@ -2,15 +2,16 @@ import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import DaraLogo from './DaraLogo';
 import { useAppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 
 const NAV_TRANSLATIONS = {
   EN: {
     portal: "Client Portal",
     nav: [
       { label: "What We Do", path: "/services" },
+      { label: "How We Work", path: "/how-we-work" },
       { label: "Portfolio", path: "/portfolio" },
       { label: "Team", path: "/team" },
-      { label: "Methodology", path: "/process" },
       { label: "IP Notice", path: "/ip-notice" },
     ]
   },
@@ -18,9 +19,9 @@ const NAV_TRANSLATIONS = {
     portal: "Portal do Cliente",
     nav: [
       { label: "Especialização", path: "/services" },
+      { label: "Como Trabalhamos", path: "/how-we-work" },
       { label: "Portfólio", path: "/portfolio" },
       { label: "Equipe", path: "/team" },
-      { label: "Como Funciona", path: "/process" },
       { label: "Aviso de IP", path: "/ip-notice" },
     ]
   }
@@ -30,7 +31,12 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { lang, setLang, theme, toggleTheme } = useAppContext();
+  const { user, profile, logout } = useAuth();
   const T = NAV_TRANSLATIONS[lang];
+
+  const portalPath = profile?.role === 'admin' 
+    ? '/admin' 
+    : (profile?.role === 'collaborator' ? '/collaborator' : '/portal');
 
   const isSubPage = location.pathname !== "/";
 
@@ -47,15 +53,36 @@ export default function Navbar() {
 
       {/* Menu centralizado — Glass Nav Links */}
       <nav className="header-center-nav">
-        {T.nav.map((item) => (
-          <Link
-            key={item.label}
-            to={item.path}
-            className="glass-nav-link"
-          >
-            {item.label}
-          </Link>
-        ))}
+        {T.nav.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <Link
+              key={item.label}
+              to={item.path}
+              className={`glass-nav-link ${isActive ? 'active' : ''}`}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+
+        {/* Builders Hub Dropdown */}
+        <div className="nav-dropdown" style={{ position: 'relative', zIndex: 100 }}>
+          <span className={`glass-nav-link dropdown-trigger ${["/interior-reference", "/code-inspector", "/field-guide"].includes(location.pathname) ? "active" : ""}`}>
+            {lang === 'EN' ? 'Builders Hub' : 'Central do Construtor'} <span style={{ fontSize: '9px', marginLeft: '4px', opacity: 0.8 }}>▼</span>
+          </span>
+          <div className="dropdown-content">
+            <Link to="/interior-reference" className="dropdown-item">
+              {lang === 'EN' ? 'Interior Reference Guide' : 'Guia de Referência de Interiores'}
+            </Link>
+            <Link to="/code-inspector" className="dropdown-item">
+              {lang === 'EN' ? 'Code Inspector v4' : 'Inspetor de Código v4'}
+            </Link>
+            <Link to="/field-guide" className="dropdown-item">
+              {lang === 'EN' ? 'MA Code Field Guide' : 'Guia de Campo (MA Code)'}
+            </Link>
+          </div>
+        </div>
       </nav>
 
       <div className="header-actions">
@@ -97,11 +124,23 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* Botão Client Portal */}
-        <Link to="/login" className="pill-button client-portal-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          {T.portal}
-        </Link>
+        {/* Authentication State Portal Actions */}
+        {user ? (
+          <>
+            <Link to={portalPath} className="pill-button client-portal-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              {lang === 'EN' ? 'My Portal' : 'Meu Portal'}
+            </Link>
+            <Link to="/logout" className="pill-button logout-btn">
+              {lang === 'EN' ? 'Sign Out' : 'Sair'}
+            </Link>
+          </>
+        ) : (
+          <Link to="/login" className="pill-button client-portal-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            {T.portal}
+          </Link>
+        )}
       </div>
     </header>
   );

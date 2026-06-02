@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import BackButton from '../components/BackButton';
 import { useAppContext } from '../context/AppContext';
+import PageTransition from '../components/PageTransition';
 
 const TEAM_MEMBERS = [
   {
@@ -38,28 +38,27 @@ export default function Team() {
   const { lang } = useAppContext();
 
   return (
+    <PageTransition variant="default">
     <div className="lp-root">
       <Navbar />
       <main className="independent-page">
-        <BackButton />
-        <section className="team-section" style={{ padding: 0, border: 'none' }}>
-          <div className="team-header">
-            <span style={{ fontSize: 11, color: "var(--a)", fontWeight: 700, letterSpacing: ".2em", textTransform: "uppercase" }}>Collective</span>
-            <h2 style={{ marginTop: 12 }}>{lang === "EN" ? "The Team Behind Your Project" : "A Equipe por Trás do Seu Projeto"}</h2>
-          </div>
-          <div className="team-grid">
-            {TEAM_MEMBERS.map((m, i) => (
-              <div key={i} className="team-card">
-                <div className="team-avatar">{m.avatar}</div>
-                <h3 className="team-name">{m.name}</h3>
-                <span className="team-role">{m.role[lang]}</span>
-                <p className="team-bio">{m.bio[lang]}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', padding: '40px 20px' }} className="animate-float-up">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '24px', opacity: 0.8 }}>
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <h1 className="page-main-title" style={{ fontSize: '32px', marginBottom: '16px' }}>
+            {lang === "EN" ? "Under Construction" : "Em Construção"}
+          </h1>
+          <p className="page-subtitle-standard" style={{ maxWidth: '500px', margin: '0 auto', opacity: 0.6 }}>
+            {lang === "EN" 
+              ? "We are building an amazing team page. Information will be available soon." 
+              : "Estamos montando uma página de equipe incrível. As informações estarão disponíveis em breve."}
+          </p>
+        </div>
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 }

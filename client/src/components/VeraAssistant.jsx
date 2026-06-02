@@ -5,6 +5,27 @@ import { Sparkles } from 'lucide-react';
 export default function VeraAssistant() {
   const { lang, setLang, theme, isVeraOpen, openVera, closeVera, veraMessage } = useAppContext();
   const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
+
+  const handleSend = () => {
+    if (!inputMessage.trim()) return;
+    
+    // Add user message
+    const newMessages = [...messages, { id: Date.now(), text: inputMessage, sender: 'user' }];
+    setMessages(newMessages);
+    setInputMessage("");
+
+    // Simulate VÉRA response
+    setTimeout(() => {
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        text: lang === 'EN' 
+          ? "I am currently in presentation mode. My AI core will be connected in a future update." 
+          : "No momento, estou em modo de apresentação. Meu núcleo de IA será conectado em uma atualização futura.", 
+        sender: 'vera' 
+      }]);
+    }, 1000);
+  };
 
   const T = {
     EN: {
@@ -147,13 +168,18 @@ export default function VeraAssistant() {
             <div style={{ position: 'relative' }}>
               <input 
                 type="text" 
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder={T.input}
                 style={{
                   width: '100%', height: '40px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--glass-border)',
                   borderRadius: '20px', padding: '0 45px 0 15px', color: 'inherit', fontSize: '12px', outline: 'none'
                 }}
               />
-              <button style={{
+              <button 
+                onClick={handleSend}
+                style={{
                 position: 'absolute', right: '5px', top: '5px', width: '30px', height: '30px',
                 borderRadius: '50%', background: 'var(--brand-purple)', border: 'none', color: '#fff',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'

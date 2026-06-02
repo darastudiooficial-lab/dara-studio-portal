@@ -52,8 +52,8 @@
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;scroll-behavior:smooth}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100dvh;transition:background .3s,color .3s}
-#root{display:flex;flex-direction:column;min-height:100dvh}
+body{font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif; background:var(--bg); color:var(--tx); min-height:100dvh; transition:background .3s, color .3s; line-height: 1.5;}
+#root{display:flex; flex-direction:column; min-height:100dvh}
 
 /* ══ SPLASH ══ */
 #splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -201,9 +201,18 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 
 /* â•â• MAIN â•â• */
 .main{flex:1;overflow:auto;min-width:0;display:flex;flex-direction:column;background:var(--bg)}
-.page{padding:24px 24px 60px;flex:1}
-.page-title{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;margin-bottom:4px;color:var(--tx)}
-.page-sub{font-size:12px;color:var(--mu);margin-bottom:22px}
+.page{
+  padding: 40px; 
+  flex: 1; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  width: 100%;
+}
+
+.page-title{font-family: var(--font-serif); font-size: 32px; font-weight: 400; font-style: italic; margin-bottom: 8px; color: var(--tx); line-height: 1.2;}
+
+.page-sub{font-size: 15px; color: var(--mu); margin-bottom: 32px; line-height: 1.4;}
+
 
 /* â•â• CARDS â•â• */
 .card{background:rgba(20, 20, 25, 0.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255, 255, 255, 0.1);border-radius:16px;padding:18px 22px;transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.5)}

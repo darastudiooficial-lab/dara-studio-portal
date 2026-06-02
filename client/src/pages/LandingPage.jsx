@@ -4,6 +4,7 @@ import DaraLogo from "../components/DaraLogo";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useAppContext } from "../context/AppContext";
+import PageTransition from "../components/PageTransition";
 
 const CONTENT = {
   EN: {
@@ -92,6 +93,7 @@ export default function LandingPage() {
   }, []);
 
   return (
+    <PageTransition variant="default">
     <div className="landing-wrapper">
       {/* Custom Cursor */}
       <div 
@@ -128,7 +130,7 @@ export default function LandingPage() {
 
         {/* Ações Principais (Botões Pill-shaped) */}
         <div className="action-buttons animate-float-up delay-400">
-          <button className="btn-glow" onClick={openEstimateModal}>
+          <button className="btn-glow" onClick={() => navigate("/estimate")}>
             {T.getEstimate} &rarr;
           </button>
 
@@ -200,5 +202,6 @@ export default function LandingPage() {
 
       <Footer />
     </div>
+    </PageTransition>
   );
 }

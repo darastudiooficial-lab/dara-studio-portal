@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const SplashScreen = ({ portalName, onComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
   const [isGone, setIsGone] = useState(false);
+
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     // Total duration ~3.5s
@@ -12,14 +17,14 @@ const SplashScreen = ({ portalName, onComplete }) => {
 
     const goneTimer = setTimeout(() => {
       setIsGone(true);
-      if (onComplete) onComplete();
+      if (onCompleteRef.current) onCompleteRef.current();
     }, 3500);
 
     return () => {
       clearTimeout(exitTimer);
       clearTimeout(goneTimer);
     };
-  }, [onComplete]);
+  }, []);
 
   if (isGone) return null;
 

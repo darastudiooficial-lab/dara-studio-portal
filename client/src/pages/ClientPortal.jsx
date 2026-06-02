@@ -475,7 +475,7 @@ export default function ClientPortal() {
   const isPT = lang === 'PT';
   const isUS = lang === 'EN';
   const T = I18N[lang];
-  const userName = profile?.full_name || user?.email?.split('@')[0];
+  const userName = profile?.full_name || user?.email?.split('@')[0] || '';
   const unreadCount = NOTIFICATIONS_DATA.filter(n => n.unread).length;
 
   const [S, setS] = useState({

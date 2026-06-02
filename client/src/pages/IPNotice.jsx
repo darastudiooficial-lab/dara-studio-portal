@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAppContext } from '../context/AppContext';
+import PageTransition from '../components/PageTransition';
 
 // Minimalist Legal Icons
 const LegalIcons = {
@@ -165,6 +166,7 @@ export default function IPNotice() {
   };
 
   return (
+    <PageTransition variant="default">
     <div className="lp-root services-page-root">
       <Navbar />
       <main className="independent-page" style={{ 
@@ -177,8 +179,8 @@ export default function IPNotice() {
         overflowX: 'hidden'
       }}>
         {/* Header Section */}
-        <header className="services-header-premium animate-float-up" style={{ paddingBottom: '0px' }}>
-          <h1 className="services-main-title" style={{ marginBottom: '8px', fontSize: 'clamp(2rem, 5vh, 3.5rem)' }}>
+        <header className="page-header-premium animate-float-up">
+          <h1 className="page-main-title">
             {lang === "EN" ? (
               <>
                 <span className="title-white">Copyright &</span> <span className="title-gradient-italic">IP Notice</span>
@@ -189,13 +191,13 @@ export default function IPNotice() {
               </>
             )}
           </h1>
-          <p className="service-desc" style={{ maxWidth: '1150px', margin: '0 auto -90px', fontSize: '15px', opacity: 0.8, lineHeight: '1.4', position: 'relative', zIndex: 5 }}>
+          <p className="page-subtitle-standard">
             {T.subtitle}
           </p>
         </header>
 
         {/* Legal Carousel */}
-        <div className="services-carousel-wrap" style={{ marginTop: '-60px', paddingTop: '0', paddingBottom: '0' }}>
+        <div className="services-carousel-wrap">
           <button className="carousel-arrow left" onClick={() => scroll('left')} style={{ opacity: activeIdx === 0 ? 0.3 : 1 }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
@@ -214,7 +216,7 @@ export default function IPNotice() {
                   animationDelay: `${(idx + 1) * 50}ms`
                 }}
               >
-                <span className="service-badge-us" style={{ background: 'linear-gradient(135deg, #0f172a, #1e293b)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <span className="service-badge-us">
                   {section.badge}
                 </span>
 
@@ -222,7 +224,6 @@ export default function IPNotice() {
                   {section.icon}
                 </div>
                 <h3 className="service-title" style={{ lineHeight: '1.2' }}>
-                  <span style={{ opacity: 0.5, marginRight: '8px', fontFamily: 'var(--font-sans)', fontWeight: 400 }}>{section.number}.</span>
                   {section.title}
                 </h3>
                 <p className="service-desc">{section.content}</p>
@@ -238,13 +239,7 @@ export default function IPNotice() {
                   </ul>
                 )}
 
-                <button 
-                  className="btn-legal-static" 
-                  onClick={() => handleLegalConsult(section.title)}
-                  style={{ marginTop: '20px', width: '100%' }}
-                >
-                  {section.btnLabel}
-                </button>
+
               </div>
             ))}
           </div>
@@ -255,16 +250,17 @@ export default function IPNotice() {
         </div>
 
         {/* Federal Warning Box */}
-        <div style={{ maxWidth: '800px', margin: '-120px auto 20px', width: '100%', padding: '0 24px', zIndex: 20, position: 'relative' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto 40px', width: '100%', padding: '0 60px', zIndex: 20, position: 'relative' }}>
           <div style={{
-            background: 'var(--glass-bg)',
+            background: 'rgba(233, 30, 99, 0.08)',
             backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(123, 31, 162, 0.3)',
+            border: '1px solid rgba(233, 30, 99, 0.2)',
             padding: '16px 40px',
-            borderRadius: '20px',
+            borderRadius: '99px',
             display: 'flex',
             gap: '24px',
             alignItems: 'center',
+            justifyContent: 'center',
             boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
           }}>
             <span style={{ fontSize: '28px', color: '#e91e63', filter: 'drop-shadow(0 0 10px rgba(233, 30, 99, 0.4))' }}>
@@ -278,15 +274,7 @@ export default function IPNotice() {
               fontStyle: 'italic',
               opacity: 0.85
             }}>
-              <span style={{ 
-                color: 'var(--brand-purple)', 
-                fontWeight: '800', 
-                fontStyle: 'normal',
-                textTransform: 'uppercase',
-                marginRight: '12px',
-                letterSpacing: '0.1em',
-                fontFamily: 'var(--font-sans)'
-              }}>
+              <span style={{ color: '#E91E63', fontWeight: '800', fontStyle: 'normal', textTransform: 'uppercase', marginRight: '12px', letterSpacing: '0.1em' }}>
                 {lang === "EN" ? "FEDERAL LAW:" : "LEI FEDERAL:"}
               </span>
               
@@ -310,5 +298,6 @@ export default function IPNotice() {
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 }

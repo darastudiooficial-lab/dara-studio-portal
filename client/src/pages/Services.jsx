@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAppContext } from '../context/AppContext';
+import PageTransition from "../components/PageTransition";
 
 // Icons using SVG for stability
 const Icons = {
@@ -33,21 +34,37 @@ const SERVICES_DATA = [
   {
     id: "drafting",
     icon: <Icons.Drafting />,
-    isUS: true,
+    badge: { EN: "HIGH COMPLEXITY", PT: "ALTA COMPLEXIDADE" },
     title: { EN: "Full Construction Documentation", PT: "Documentação Técnica Completa (CDs)" },
     desc: { 
-      EN: "Convert your schematic designs into comprehensive, permit-ready sets. We handle the heavy lifting of technical drafting so your team can focus on design and client relations.",
-      PT: "Converta seus designs esquemáticos em conjuntos completos prontos para aprovação. Lidamos com o trabalho pesado do desenho técnico para que sua equipe foque no design e no cliente."
+      EN: "Convert your schematic designs into comprehensive, permit-ready sets. This package includes all floor levels, design extras, and 3D visualization (exterior).",
+      PT: "Converta seus designs esquemáticos em conjuntos completos prontos para aprovação. Este pacote inclui todas as plantas, extras de design e visualização 3D (externa)."
     },
     list: {
-      EN: ["Redlining & Markups Integration", "Sheet Setup & Title Blocks", "Chief Architect 3D-to-2D Workflow", "Permit-Ready Sets"],
-      PT: ["Integração de Redlining & Markups", "Configuração de Pranchas e Selos", "Workflow Chief Architect 3D-para-2D", "Conjuntos Prontos para Aprovação"]
+      EN: [
+        "Architectural Design & Space Planning",
+        "Construction Detailing & Framing",
+        "Code Compliance & Technical Notes",
+        "3D Exterior Rendering",
+        "Redlining & Markups Integration"
+      ],
+      PT: [
+        "Design Arquitetônico e Planejamento de Espaço",
+        "Detalhamento Construtivo & Framing",
+        "Conformidade com Código & Notas Técnicas",
+        "Renderização 3D Exterior",
+        "Integração de Redlining & Markups"
+      ]
     },
     output: "Output: DWG, PDF",
     tools: "Chief Architect Expert",
     deliverables: {
       EN: "High-precision technical sets synced with 3D model.",
       PT: "Conjuntos técnicos de alta precisão sincronizados com modelo 3D."
+    },
+    disclaimer: {
+      EN: "Optional 3D interior views: $150–$200 per room | $150 per revision round post-delivery.",
+      PT: "Opcional (Imagens 3D interiores): $150–$200 por ambiente | $150 por rodada de revisão pós-entrega."
     }
   },
   {
@@ -92,37 +109,69 @@ const SERVICES_DATA = [
   {
     id: "pdf_cad",
     icon: <Icons.PdfCad />,
+    badge: { EN: "PRECISION", PT: "PRECISÃO" },
     title: { EN: "Precision CAD Conversion", PT: "Conversão CAD de Precisão" },
     desc: { 
       EN: "Transform static PDF plans, sketches, or legacy blueprints into fully editable, high-precision CAD files. All projects are modeled in Chief Architect to ensure spatial integrity before final export.",
       PT: "Transforme plantas estáticas em PDF, esboços ou projetos antigos em arquivos CAD totalmente editáveis e de alta precisão. Projetos modelados integralmente em Chief Architect, garantindo integridade espacial antes da exportação final."
     },
     list: {
-      EN: ["Custom Layer Mapping", "True-Scale Accuracy", "Block & Attribute Creation", "Dynamic Lineweight Setup"],
-      PT: ["Mapeamento de Camadas Customizado", "Acurácia de Escala Real (1:1)", "Criação de Blocos e Atributos", "Configuração de Espessura de Linha Dinâmica"]
+      EN: [
+        "Fully Editable CAD Files (DWG)",
+        "True-Scale Accuracy & Verification",
+        "Custom Layer Mapping & Structuring",
+        "Block & Attribute Creation",
+        "Ideal for Digital Archiving & Contractors"
+      ],
+      PT: [
+        "Arquivos CAD Totalmente Editáveis (DWG)",
+        "Escala e Verificação Precisas (1:1)",
+        "Mapeamento e Estruturação de Camadas",
+        "Criação de Blocos e Atributos",
+        "Ideal para Arquivamento Digital e Empreiteiros"
+      ]
     },
     output: "Output: .DWG, .PDF",
     deliverables: {
       EN: "100% Manual Drafting | Intelligent CAD Conversion on Demand.",
       PT: "Redesenho 100% Manual | Conversão inteligente para CAD sob demanda."
+    },
+    disclaimer: {
+      EN: "Not included: Architectural Design, Code Review, Field Measurements, 3D Modeling.",
+      PT: "Não incluso: Design Arquitetônico, Revisão de Códigos, Medições no Local, Modelagem 3D."
     }
   },
   {
     id: "redrawing",
     icon: <Icons.Redrawing />,
-    title: { EN: "Design Development & Production", PT: "Desenho e Produção Técnica" },
+    badge: { EN: "LOW COMPLEXITY", PT: "BAIXA COMPLEXIDADE" },
+    title: { EN: "Design Development & Floor Plans", PT: "Desenho e Plantas Baixas" },
     desc: { 
-      EN: "Elevate your design sketches into high-performance technical sets. We provide seamless production support, ensuring your architectural intent is matched with rigorous international standards and professional documentation logic.",
-      PT: "Eleve seus esboços de design para conjuntos técnicos de alta performance. Oferecemos suporte de produção contínuo, garantindo que sua intenção arquitetônica seja acompanhada por rigorosos padrões internacionais."
+      EN: "Elevate your design sketches into high-performance technical sets. A streamlined service delivering fundamental interior spatial layouts, dimensioned floor plans, and production support.",
+      PT: "Eleve seus esboços de design para conjuntos técnicos de alta performance. Um serviço otimizado que entrega layouts espaciais fundamentais, plantas dimensionadas e suporte de produção."
     },
     list: {
-      EN: ["International Standards Compliance", "Advanced Layer Organization", "As-Built Documentation", "Annotative Detailing Support", "Revision & Markup Integration"],
-      PT: ["Conformidade com Padrões Internacionais", "Organização de Camadas Avançada", "Documentação As-Built", "Suporte a Detalhamento Anotativo", "Integração de Revisões e Markups"]
+      EN: [
+        "Fundamental Spatial Layouts & Floor Plans",
+        "Advanced Layer Organization",
+        "Initial Planning & Concept",
+        "Revision & Markup Integration"
+      ],
+      PT: [
+        "Layouts Espaciais Fundamentais e Plantas Baixas",
+        "Organização de Camadas Avançada",
+        "Planejamento Inicial e Conceito",
+        "Integração de Revisões e Markups"
+      ]
     },
     output: "Output: .DWG, .PDF",
     deliverables: {
       EN: "White-Label Ready | Cloud-Integrated Workflow",
       PT: "Pronto para White-Label | Fluxo em Nuvem"
+    },
+    disclaimer: {
+      EN: "Not included: Exterior Design, 3D Renderings, Building Permits, Structural Engineering.",
+      PT: "Não incluso: Design Exterior, Renders 3D, Aprovação em Prefeitura, Engenharia Estrutural."
     }
   },
   {
@@ -146,21 +195,38 @@ const SERVICES_DATA = [
   {
     id: "viz",
     icon: <Icons.Viz />,
+    badge: { EN: "VISUALIZATION", PT: "VISUALIZAÇÃO" },
     title: { EN: "High-End 3D Visualization", PT: "Visualização 3D de Alto Padrão" },
     desc: { 
       EN: "Bring your architectural concepts to life with immersive 3D visualizations. We combine precise technical modeling with advanced Generative AI to deliver high-fidelity renders with faster turnaround times and photographic realism.",
       PT: "Dê vida aos seus conceitos arquitetônicos com visualizações 3D imersivas. Combinamos modelagem técnica precisa com IA Generativa para entregas mais rápidas e realismo fotográfico."
     },
     list: {
-      EN: ["Photorealistic Rendering", "IA-Enhanced Rendering", "Conceptual Massing Studies", "BIM-Integrated Modeling", "Material & Texture Refinement"],
-      PT: ["Renderização Fotorrealista", "Renderização Otimizada por IA", "Estudos Volumétricos Conceituais", "Modelagem Integrada ao BIM", "Refinamento de Materiais e Texturas"]
+      EN: [
+        "Photorealistic & AI-Enhanced Rendering",
+        "BIM-Integrated Modeling & Massing",
+        "3D Exterior Rendering: + $250.00", 
+        "3D Kitchen Design: + $180.00", 
+        "3D Bathroom Design: + $180.00", 
+        "3D Laundry Design: + $180.00",
+        "Other rooms: + $180.00 per room"
+      ],
+      PT: [
+        "Renderização Fotorrealista Otimizada por IA",
+        "Modelagem Integrada ao BIM e Volumetria",
+        "Render 3D Exterior: + $250.00", 
+        "Design 3D Cozinha: + $180.00", 
+        "Design 3D Banheiro Principal: + $180.00", 
+        "Design 3D Lavanderia: + $180.00",
+        "Demais ambientes: + $180.00 por ambiente"
+      ]
     },
     output: "Output: JPG, MP4, PDF",
     deliverables: {
       EN: "4K Still Renders | AI-Powered Excellence | Board-Ready Assets",
       PT: "Renders 4K | Excelência Otimizada por IA | Ativos para Reunião"
     }
-  }
+  },
 ];
 
 export default function Services() {
@@ -200,13 +266,14 @@ export default function Services() {
   };
 
   return (
+    <PageTransition variant="default">
     <div className="lp-root services-page-root">
       <Navbar />
       
       <main className="independent-page">
         {/* Header Section */}
-        <header className="services-header-premium animate-float-up">
-          <h1 className="services-main-title">
+        <header className="page-header-premium animate-float-up">
+          <h1 className="page-main-title">
             {lang === "EN" ? (
               <>
                 <span className="title-white">Specialized</span> <span className="title-gradient-italic">Technical Support</span>
@@ -217,7 +284,7 @@ export default function Services() {
               </>
             )}
           </h1>
-          <p className="service-desc" style={{ maxWidth: '1150px', margin: '0 auto', fontSize: '15px', opacity: 0.8, lineHeight: '1.4' }}>
+          <p className="page-subtitle-standard">
             {lang === "EN" 
               ? "DARA Studio acts as a high-performance technical extension for architecture and engineering firms worldwide, transforming complex project demands into precision, professional-ready deliverables."
               : "DARA Studio atua como uma extensão técnica de alta performance para escritórios de arquitetura e engenharia em todo o mundo, transformando demandas complexas de projetos em entregas precisas e prontas para uso profissional."}
@@ -241,7 +308,8 @@ export default function Services() {
                 className={`service-card-premium animate-float-up ${activeIdx === idx ? 'active' : ''}`}
                 style={{ animationDelay: `${(idx + 1) * 50}ms` }}
               >
-                {service.isUS && <span className="service-badge-us">US Standard</span>}
+                {service.badge && <span className="service-badge-us">{service.badge[lang]}</span>}
+                {!service.badge && service.isUS && <span className="service-badge-us">US Standard</span>}
                 <div className="service-icon-box">
                   {service.icon}
                 </div>
@@ -283,10 +351,6 @@ export default function Services() {
                     {service.disclaimer[lang]}
                   </div>
                 )}
-
-                <button className="btn-glow" onClick={handleStartProject} style={{ marginTop: '20px', width: '100%' }}>
-                  {lang === 'EN' ? 'START YOUR PROJECT' : 'INICIAR PROJETO'}
-                </button>
               </div>
             ))}
           </div>
@@ -295,20 +359,11 @@ export default function Services() {
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
 
-          {/* Pagination Dots */}
-          <div className="carousel-dots">
-            {SERVICES_DATA.map((_, idx) => (
-              <div 
-                key={idx} 
-                className={`dot ${activeIdx === idx ? 'active' : ''}`}
-                onClick={() => scrollToIdx(idx)}
-              />
-            ))}
-          </div>
         </div>
 
       </main>
       <Footer />
     </div>
+    </PageTransition>
   );
 }

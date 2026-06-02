@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { useAppContext } from '../context/AppContext';
 import GlobalControls from '../components/GlobalControls';
 import Icon from '../components/Icon';
 import BackgroundOrbs from '../components/BackgroundOrbs';
+import PageTransition from '../components/PageTransition';
 
 const PORTAL_DATA = {
   client: {
@@ -22,10 +23,10 @@ const PORTAL_DATA = {
       title: "Bem-vindo ao seu Santuário.",
       subtitle: "Acompanhe cada detalhe da transformação do seu espaço em tempo real.",
       features: [
-        { icon: 'rcpt', label: 'Project Status', desc: 'Cronograma detalhado e próximas etapas.' },
-        { icon: 'image', label: 'Selection Gallery', desc: 'Escolha de materiais, texturas e acabamentos.' },
-        { icon: 'dollar', label: 'Financial Hub', desc: 'Visualização de orçamentos e cronograma de pagamentos.' },
-        { icon: 'chat', label: 'Direct Chat', desc: 'Canal direto com sua equipe de design.' }
+        { icon: 'rcpt', label: 'Status do Projeto', desc: 'Cronograma detalhado e próximas etapas.' },
+        { icon: 'image', label: 'Galeria de Seleções', desc: 'Escolha de materiais, texturas e acabamentos.' },
+        { icon: 'dollar', label: 'Painel Financeiro', desc: 'Visualização de orçamentos e cronograma de pagamentos.' },
+        { icon: 'chat', label: 'Chat Direto', desc: 'Canal direto com sua equipe de design.' }
       ]
     }
   },
@@ -44,10 +45,10 @@ const PORTAL_DATA = {
       title: "Excelência em cada detalhe.",
       subtitle: "Acesso técnico para parceiros e execução de obras DARA Studio.",
       features: [
-        { icon: 'layers', label: 'Technical Drawings', desc: 'Acesso a plantas, cortes e detalhamentos técnicos.' },
-        { icon: 'rcpt', label: 'Task Management', desc: 'Lista de entregas e prazos da obra.' },
-        { icon: 'folder', label: 'Material Specs', desc: 'Especificações técnicas completas dos fornecedores.' },
-        { icon: 'cal', label: 'Site Logs', desc: 'Registro de vistorias e diário de obra.' }
+        { icon: 'layers', label: 'Desenhos Técnicos', desc: 'Acesso a plantas, cortes e detalhamentos técnicos.' },
+        { icon: 'rcpt', label: 'Gestão de Tarefas', desc: 'Lista de entregas e prazos da obra.' },
+        { icon: 'folder', label: 'Especificações', desc: 'Especificações técnicas completas dos fornecedores.' },
+        { icon: 'cal', label: 'Diário de Obra', desc: 'Registro de vistorias e diário de obra.' }
       ]
     }
   },
@@ -63,13 +64,13 @@ const PORTAL_DATA = {
       ]
     },
     PT: {
-      title: "Mastering the Vision.",
+      title: "Dominando a Visão.",
       subtitle: "Gestão administrativa, leads e controle global de projetos.",
       features: [
-        { icon: 'chart', label: 'Dashboard', desc: 'Visão geral de novos orçamentos e projetos ativos.' },
-        { icon: 'layers', label: 'Asset Library', desc: 'Gestão de blocos 3D, texturas e portfólio.' },
-        { icon: 'target', label: 'Lead Manager', desc: 'Controle dos contatos recebidos pelo site.' },
-        { icon: 'users', label: 'User Control', desc: 'Gestão de acessos para clientes e parceiros.' }
+        { icon: 'chart', label: 'Painel Principal', desc: 'Visão geral de novos orçamentos e projetos ativos.' },
+        { icon: 'layers', label: 'Biblioteca de Ativos', desc: 'Gestão de blocos 3D, texturas e portfólio.' },
+        { icon: 'target', label: 'Gestor de Leads', desc: 'Controle dos contatos recebidos pelo site.' },
+        { icon: 'users', label: 'Controle de Usuários', desc: 'Gestão de acessos para clientes e parceiros.' }
       ]
     }
   }
@@ -78,6 +79,7 @@ const PORTAL_DATA = {
 const Login = () => {
   const { lang, theme } = useAppContext();
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const portalType = searchParams.get('portal') || 'client';
   
@@ -119,15 +121,29 @@ const Login = () => {
     setLoading(true);
     setError('');
     
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data: authData, error } = await supabase.auth.signInWithPassword({ email, password });
     
     if (error) {
       setError(T.error);
       setLoading(false);
     } else {
-      // Redirect based on portal type or profile
-      const redirectPath = portalType === 'admin' ? '/admin' : (portalType === 'collaborator' ? '/collaborator' : '/portal');
-      navigate(redirectPath);
+      // Fetch the profile role to redirect correctly based on real database record
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', authData.user.id)
+        .single();
+      
+      const role = profileData?.role || 'client';
+      
+      // Redirect to the original destination if available, otherwise to their role-specific portal
+      const from = location.state?.from?.pathname;
+      if (from) {
+        navigate(from, { replace: true });
+      } else {
+        const redirectPath = role === 'admin' ? '/admin' : (role === 'collaborator' ? '/collaborator' : '/portal');
+        navigate(redirectPath, { replace: true });
+      }
     }
   };
 
@@ -140,6 +156,7 @@ const Login = () => {
   };
 
   return (
+    <PageTransition variant="portal">
     <div className={`login-root ${theme}`} style={{ 
       minHeight: '100vh', 
       display: 'flex', 
@@ -148,7 +165,6 @@ const Login = () => {
       position: 'relative',
       overflow: 'hidden' 
     }}>
-      <BackgroundOrbs />
       <div style={{
         position:'fixed',inset:0,zIndex:0,
         background:'radial-gradient(ellipse 70% 60% at 15% 50%,rgba(99,102,241,0.15) 0%,transparent 70%),radial-gradient(ellipse 45% 55% at 85% 25%,rgba(167,139,250,0.1) 0%,transparent 70%)',
@@ -194,7 +210,7 @@ const Login = () => {
       </div>
 
       {/* Right side - Form */}
-      <div style={{ width: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 1, paddingRight: '5%' }}>
+      <div style={{ width: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 10, paddingRight: '5%', pointerEvents: 'auto' }}>
         <div style={{ position: 'absolute', top: '40px', right: '40px' }}>
           <GlobalControls />
         </div>
@@ -272,6 +288,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 };
 
