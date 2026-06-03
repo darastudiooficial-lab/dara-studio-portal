@@ -44,6 +44,12 @@ const Icons = {
   ChevronDown: () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   ),
+  XIcon: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  ),
+  Star: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  ),
 };
 
 /* ── Data ── */
@@ -112,194 +118,139 @@ const STEPS = [
       PT: "Nosso compromisso não termina com a entrega dos desenhos. Permanecemos disponíveis para responder perguntas da sua equipe de obra, esclarecer a intenção do design e coordenar com engenheiros licenciados quando modificações estruturais exigem carimbo profissional. Seja para explicar um detalhe ao seu empreiteiro ou fazer ajustes menores durante a construção, estamos aqui para garantir a execução tranquila do projeto, da documentação até a conclusão."
     }
   },
-];
-
-/* ── Steps Group B (after scope cards) ── */
-const STEPS_B = [
   {
     num: 6,
     icon: <Icons.Package />,
-    title: { EN: "Available Formats", PT: "Formatos Disponíveis" },
-    summary: { EN: "Drawings delivered in industry-standard digital formats.", PT: "Desenhos entregues em formatos digitais padrão da indústria." },
-    badges: ["PDF", "DWG (AutoCAD)", "Chief Architect (.plan)"],
-    body: {
-      EN: "All deliverables are provided in high-resolution PDF for easy viewing and printing, plus native DWG files for full CAD compatibility. If your project was modeled in Chief Architect, you'll also receive the native .plan file. Additional format exports (DXF, SKP, etc.) are available upon request.",
-      PT: "Todas as entregas são fornecidas em PDF de alta resolução para fácil visualização e impressão, além de arquivos DWG nativos para total compatibilidade CAD. Se seu projeto foi modelado em Chief Architect, você também receberá o arquivo .plan nativo. Exportações adicionais (DXF, SKP, etc.) estão disponíveis mediante solicitação."
-    }
+    iconColor: "#10b981",
+    iconBg: "rgba(16, 185, 129, 0.1)",
+    listIconColor: "#10b981",
+    title: { EN: "What's Included", PT: "O Que Está Incluído" },
+    summary: { EN: "Depending on the selected package, deliverables may include:", PT: "Dependendo do pacote selecionado, as entregas podem incluir:" },
+    list: {
+      EN: [
+        "Architectural floor plans & Exterior elevations",
+        "Basic building sections & Interior layout planning",
+        "Kitchen and bathroom layouts",
+        "Fixture and equipment placement",
+        "Door and window schedules",
+        "Dimensioned construction drawings",
+        "3D visualization (if included)"
+      ],
+      PT: [
+        "Plantas baixas arquitetônicas & Elevações externas",
+        "Cortes básicos do edifício & Planejamento de layout",
+        "Layouts de cozinha e banheiro",
+        "Posicionamento de equipamentos e fixtures",
+        "Tabelas de portas e janelas",
+        "Desenhos de construção dimensionados",
+        "Visualização 3D (se inclusa)"
+      ]
+    },
+    note: { EN: "All drawings are prepared in accordance with standard U.S. residential drafting practices.", PT: "Todos os desenhos são preparados de acordo com práticas padrão de desenho residencial dos EUA." }
   },
   {
     num: 7,
-    icon: <Icons.Clock />,
-    title: { EN: "Realistic Timelines", PT: "Prazos Realistas" },
-    summary: { EN: "We commit to deadlines we can deliver — no false promises.", PT: "Nos comprometemos com prazos que podemos cumprir — sem falsas promessas." },
+    icon: <Icons.XIcon />,
+    iconColor: "#E91E63",
+    iconBg: "rgba(233, 30, 99, 0.1)",
+    listIconColor: "#E91E63",
+    listIcon: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+    title: { EN: "What's Not Included", PT: "O Que Não Está Incluído" },
+    summary: { EN: "To maintain clarity and compliance, the following are not part of our scope:", PT: "Para manter clareza e conformidade, os seguintes não fazem parte do nosso escopo:" },
+    list: {
+      EN: [
+        "Structural engineering calculations",
+        "Engineer stamp or sealed drawings",
+        "Full electrical, plumbing & HVAC design",
+        "Site surveys or topographic mapping",
+        "Soil testing or geotechnical reports",
+        "Energy compliance reports",
+        "In-person site visits or inspections"
+      ],
+      PT: [
+        "Cálculos de engenharia estrutural",
+        "Carimbo de engenheiro ou desenhos selados",
+        "Projeto elétrico, hidráulico e HVAC completo",
+        "Levantamentos topográficos",
+        "Ensaios de solo ou relatórios geotécnicos",
+        "Relatórios de conformidade energética",
+        "Visitas presenciais ao local ou inspeções"
+      ]
+    },
+    note: { EN: "When required, licensed professionals must be hired locally by the client.", PT: "Quando necessário, profissionais licenciados devem ser contratados localmente pelo cliente." }
+  },
+  {
+    num: 8,
+    icon: <Icons.Shield />,
+    title: { EN: "Compliance & Responsibility", PT: "Conformidade e Responsabilidade" },
+    summary: { EN: "Our drawings are intended for design development and permit documentation support.", PT: "Nossos desenhos são destinados ao desenvolvimento do projeto e suporte à documentação de alvará." },
     body: {
-      EN: "Our timelines are calculated based on real production capacity and project complexity. We don't promise unrealistic turnarounds to win projects. If we say 25–30 business days, that's a commitment backed by our production workflow. Rush delivery options are available for time-sensitive projects with adjusted pricing communicated upfront.",
-      PT: "Nossos prazos são calculados com base na capacidade real de produção e complexidade do projeto. Não prometemos prazos irreais para ganhar projetos. Se dizemos 25–30 dias úteis, é um compromisso respaldado pelo nosso fluxo de produção. Opções de entrega urgente estão disponíveis para projetos sensíveis ao tempo com preços ajustados comunicados antecipadamente."
+      EN: "Final approval is subject to review by local authorities and licensed engineers, when required by state or municipal regulations.",
+      PT: "A aprovação final está sujeita à revisão por autoridades locais e engenheiros licenciados, quando exigido pelas regulamentações estaduais ou municipais."
+    },
+    list: {
+      EN: [
+        "Hiring licensed structural engineers (if required)",
+        "Coordinating required technical reports",
+        "Verifying local zoning and code restrictions"
+      ],
+      PT: [
+        "Contratar engenheiros estruturais licenciados (se exigido)",
+        "Coordenar relatórios técnicos necessários",
+        "Verificar restrições de zoneamento e código local"
+      ]
+    },
+    note: { EN: "We design in alignment with U.S. standards; final compliance depends on local jurisdiction.", PT: "Projetamos em alinhamento com padrões dos EUA; a conformidade final depende da jurisdição local." }
+  },
+  {
+    num: 9,
+    icon: <Icons.MessageCircle />,
+    title: { EN: "Meetings & Communication", PT: "Reuniões e Comunicação" },
+    summary: { EN: "DA·RA Studio operates 100% remotely with a structured digital workflow.", PT: "O DA·RA Studio opera 100% remotamente com um fluxo de trabalho digital estruturado." },
+    body: {
+      EN: "We do not offer video calls or in-person meetings. All project coordination is handled exclusively via WhatsApp and our Client Portal.",
+      PT: "Não oferecemos chamadas de vídeo ou reuniões presenciais. Toda a coordenação do projeto é feita exclusivamente via WhatsApp e nosso Portal do Cliente."
+    },
+    list: {
+      EN: [
+        "Full online project management",
+        "Direct communication via WhatsApp during business hours",
+        "Continuous updates throughout each phase",
+        "Client portal access for files, timelines, and invoices"
+      ],
+      PT: [
+        "Gestão de projeto totalmente online",
+        "Comunicação direta via WhatsApp em horário comercial",
+        "Atualizações contínuas em cada fase",
+        "Acesso ao portal para arquivos, prazos e faturas"
+      ]
     }
   },
-
-];
-
-/* ── Scope Cards Data ── */
-const SCOPE_INCLUDED = {
-  EN: {
-    title: "What's Included",
-    desc: "Our services focus on architectural design development and drawing documentation. Depending on the selected package, deliverables may include:",
-    items: [
-      "Architectural floor plans",
-      "Exterior elevations",
-      "Basic building sections",
-      "Interior layout planning",
-      "Kitchen and bathroom layouts",
-      "Fixture and equipment placement",
-      "Door and window schedules",
-      "Dimensioned construction drawings (for permit submission when applicable)",
-      "3D visualization (if included in selected package)",
-    ],
-    note: "All drawings are prepared in accordance with standard U.S. residential drafting practices."
-  },
-  PT: {
-    title: "O Que Está Incluído",
-    desc: "Nossos serviços focam no desenvolvimento de design arquitetônico e documentação de desenhos. Dependendo do pacote selecionado, as entregas podem incluir:",
-    items: [
-      "Plantas baixas arquitetônicas",
-      "Elevações externas",
-      "Cortes básicos do edifício",
-      "Planejamento de layout interno",
-      "Layouts de cozinha e banheiro",
-      "Posicionamento de equipamentos e fixtures",
-      "Tabelas de portas e janelas",
-      "Desenhos de construção dimensionados (para submissão de alvará quando aplicável)",
-      "Visualização 3D (se inclusa no pacote selecionado)",
-    ],
-    note: "Todos os desenhos são preparados de acordo com práticas padrão de desenho residencial dos EUA."
-  }
-};
-
-const SCOPE_NOT_INCLUDED = {
-  EN: {
-    title: "What's Not Included",
-    desc: "To maintain clarity and compliance, the following services are not part of our scope unless explicitly contracted:",
-    items: [
-      "Structural engineering calculations",
-      "Engineer stamp or sealed drawings",
-      "Load diagrams or structural reinforcement detailing",
-      "Full electrical system design",
-      "Full plumbing system design (we indicate fixture locations only)",
-      "Mechanical / HVAC design",
-      "Site surveys, plot plans, or topographic mapping",
-      "Soil testing or geotechnical reports",
-      "Energy compliance reports (HERS, blower door, etc.)",
-      "In-person site visits or inspections",
-      "Material procurement or interior décor shopping lists",
-    ],
-    note: "When required, licensed professionals must be hired locally by the client."
-  },
-  PT: {
-    title: "O Que Não Está Incluído",
-    desc: "Para manter clareza e conformidade, os seguintes serviços não fazem parte do nosso escopo, salvo contratação explícita:",
-    items: [
-      "Cálculos de engenharia estrutural",
-      "Carimbo de engenheiro ou desenhos selados",
-      "Diagramas de carga ou detalhamento de reforço estrutural",
-      "Projeto elétrico completo",
-      "Projeto hidráulico completo (indicamos apenas localização de fixtures)",
-      "Projeto mecânico / HVAC",
-      "Levantamentos topográficos ou plantas de situação",
-      "Ensaios de solo ou relatórios geotécnicos",
-      "Relatórios de conformidade energética (HERS, blower door, etc.)",
-      "Visitas presenciais ao local ou inspeções",
-      "Compra de materiais ou listas de decoração de interiores",
-    ],
-    note: "Quando necessário, profissionais licenciados devem ser contratados localmente pelo cliente."
-  }
-};
-
-const WHY_DARA = [
-  { 
-    title: { EN: "Code-conscious documentation", PT: "Documentação voltada a normas" }, 
-    desc: { EN: "All drawings aligned with IRC, IBC, and NBR standards.", PT: "Todos os desenhos alinhados com as normas IRC, IBC e NBR." } 
-  },
-  { 
-    title: { EN: "Builder-friendly drawing sets", PT: "Projetos focados na execução" }, 
-    desc: { EN: "Practical, clear, and ready for the job site.", PT: "Práticos, claros e prontos para a obra." } 
-  },
-  { 
-    title: { EN: "Efficient turnaround", PT: "Prazos de entrega eficientes" }, 
-    desc: { EN: "Structured workflow with defined delivery milestones.", PT: "Fluxo de trabalho estruturado com marcos de entrega definidos." } 
-  },
-  { 
-    title: { EN: "Clear scope and professional boundaries", PT: "Escopo e limites profissionais claros" }, 
-    desc: { EN: "No surprises — you know exactly what's included.", PT: "Sem surpresas — você sabe exatamente o que está incluído." } 
-  },
-  { 
-    title: { EN: "Trusted by developers and construction teams", PT: "Aprovado por incorporadores e construtores" }, 
-    desc: { EN: "Serving clients across the United States and Brazil.", PT: "Atendendo clientes em todos os Estados Unidos e Brasil." } 
-  },
-  { 
-    title: { EN: "Remote-first digital workflow", PT: "Fluxo de trabalho 100% remoto" }, 
-    desc: { EN: "All coordination via WhatsApp and our client portal.", PT: "Toda a coordenação é feita via WhatsApp e portal do cliente." } 
+  {
+    num: 10,
+    icon: <Icons.Star />,
+    title: { EN: "Why DA·RA Studio", PT: "Por que o DA·RA Studio" },
+    summary: { EN: "We serve clients across the United States and Brazil with precision and speed.", PT: "Atendemos clientes nos Estados Unidos e Brasil com precisão e velocidade." },
+    list: {
+      EN: [
+        "Code-conscious documentation (IRC, IBC, NBR)",
+        "Builder-friendly drawing sets",
+        "Efficient turnaround with defined milestones",
+        "Clear scope and professional boundaries",
+        "Trusted by developers and construction teams",
+        "Remote-first digital workflow"
+      ],
+      PT: [
+        "Documentação voltada a normas (IRC, IBC, NBR)",
+        "Projetos focados na execução",
+        "Prazos de entrega eficientes",
+        "Escopo e limites profissionais claros",
+        "Aprovado por incorporadores e construtores",
+        "Fluxo de trabalho 100% remoto"
+      ]
+    }
   }
 ];
-
-/* ── Scope Section ── */
-function ScopeSection({ data, type, lang }) {
-  const isIncluded = type === 'included';
-  const iconColor = isIncluded ? 'var(--color-neon-purple)' : '#E91E63';
-  const bgBox = isIncluded ? 'rgba(123, 31, 162, 0.05)' : 'rgba(233, 30, 99, 0.05)';
-  const borderBox = isIncluded ? 'rgba(123, 31, 162, 0.2)' : 'rgba(233, 30, 99, 0.2)';
-  const borderLine = isIncluded ? 'rgba(123, 31, 162, 0.15)' : 'rgba(233, 30, 99, 0.15)';
-
-  return (
-    <div className="animate-float-up" style={{ width: '100%', margin: '0' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-        <span style={{ color: iconColor }}>
-          {isIncluded ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          )}
-        </span>
-        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', color: '#FFFFFF', margin: 0, fontWeight: 400 }}>
-          {data.title}
-        </h3>
-      </div>
-      
-      <p style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '15px', marginBottom: '16px', lineHeight: '1.6' }}>
-        {data.desc}
-      </p>
-
-      <div style={{ background: bgBox, border: `1px solid ${borderBox}`, borderRadius: '8px', marginBottom: '16px' }}>
-        <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column' }}>
-          {data.items.map((item, i, arr) => (
-            <li key={i} style={{ 
-              padding: '14px 16px', 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '12px', 
-              fontSize: '14px', 
-              color: 'var(--text-color)', 
-              opacity: 0.9, 
-              lineHeight: '1.4',
-              borderBottom: i < arr.length - 1 ? `1px solid ${borderLine}` : 'none'
-            }}>
-              {isIncluded ? (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
-              ) : (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              )}
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <p style={{ fontStyle: 'italic', margin: '0', opacity: 0.5, fontSize: '14px', lineHeight: '1.6', color: 'var(--text-color)' }}>
-        {data.note}
-      </p>
-    </div>
-  );
-}
 
 /* ── Page ── */
 export default function HowWeWork() {
@@ -376,7 +327,13 @@ export default function HowWeWork() {
                   className={`service-card-premium animate-float-up ${activeIdx === idx ? 'active' : ''}`}
                   style={{ animationDelay: `${(idx + 1) * 50}ms` }}
                 >
-                  <div className="service-icon-box">
+                  <div 
+                    className="service-icon-box"
+                    style={{ 
+                      color: step.iconColor || 'var(--color-neon-purple)',
+                      background: step.iconBg || 'rgba(123, 31, 162, 0.1)'
+                    }}
+                  >
                     {step.icon}
                   </div>
                   <h3 className="service-title">
@@ -384,15 +341,19 @@ export default function HowWeWork() {
                   </h3>
                   <p className="service-desc">{step.summary[lang]}</p>
                   
-                  <p className="service-desc" style={{ marginTop: '-8px' }}>
-                    {step.body[lang]}
-                  </p>
+                  {step.body && (
+                    <p className="service-desc" style={{ marginTop: '-8px' }}>
+                      {step.body[lang]}
+                    </p>
+                  )}
 
                   {step.list && (
                     <ul className="service-list">
                       {step.list[lang].map((item, i) => (
                         <li key={i} className="service-list-item">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || "var(--color-neon-purple)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            {step.listIcon || <polyline points="20 6 9 17 4 12"/>}
+                          </svg>
                           {item}
                         </li>
                       ))}
@@ -406,10 +367,8 @@ export default function HowWeWork() {
                   )}
 
                   {step.note && (
-                    <div className="service-footer-info" style={{ marginTop: !step.badge ? 'auto' : '0' }}>
-                      <div className="service-extra-info" style={{ fontStyle: 'italic' }}>
-                        {step.note[lang]}
-                      </div>
+                    <div className="service-disclaimer" style={{ marginTop: !step.badge ? 'auto' : '6px' }}>
+                      {step.note[lang]}
                     </div>
                   )}
                 </div>
@@ -417,141 +376,13 @@ export default function HowWeWork() {
             </div>
           </div>
 
-          {/* Scope Sections — What's Included / Not Included */}
-          <div className="hww-scope-section animate-float-up" style={{ animationDelay: '200ms', margin: '80px auto 0', maxWidth: '860px' }}>
-            <ScopeSection data={SCOPE_INCLUDED[lang]} type="included" lang={lang} />
-            <ScopeSection data={SCOPE_NOT_INCLUDED[lang]} type="excluded" lang={lang} />
-          </div>
-
-          {/* Compliance & Responsibility (Standalone) */}
-          <div className="animate-float-up" style={{ animationDelay: '270ms', width: '100%', maxWidth: '860px', margin: '80px auto 0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ color: 'var(--color-neon-purple)' }}><Icons.Shield /></span>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', color: '#FFFFFF', margin: 0, fontWeight: 400 }}>
-                {lang === 'EN' ? "Compliance & Responsibility" : "Conformidade e Responsabilidade"}
-              </h3>
-            </div>
-            
-            <p style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '15px', marginBottom: '16px', lineHeight: '1.6' }}>
-              {lang === 'EN' 
-                ? "Our drawings are intended for design development and permit documentation support. Final approval is subject to review by local authorities and licensed engineers, when required by state or municipal regulations." 
-                : "Nossos desenhos são destinados ao desenvolvimento do projeto e suporte à documentação de alvará. A aprovação final está sujeita à revisão por autoridades locais e engenheiros licenciados, quando exigido pelas regulamentações estaduais ou municipais."}
-            </p>
-
-            <div style={{ background: 'rgba(123, 31, 162, 0.05)', border: '1px solid rgba(123, 31, 162, 0.2)', borderRadius: '8px', marginBottom: '16px' }}>
-              <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(123, 31, 162, 0.2)', fontWeight: '700', fontSize: '14px', color: 'var(--color-neon-purple)' }}>
-                {lang === 'EN' ? "The client is responsible for:" : "O cliente é responsável por:"}
-              </div>
-              <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column' }}>
-                {[
-                  lang === 'EN' ? "Hiring licensed structural engineers (if required)" : "Contratar engenheiros estruturais licenciados (se exigido)",
-                  lang === 'EN' ? "Coordinating required technical reports" : "Coordenar relatórios técnicos necessários",
-                  lang === 'EN' ? "Verifying local zoning and code restrictions" : "Verificar restrições de zoneamento e código local"
-                ].map((item, i, arr) => (
-                  <li key={i} style={{ 
-                    padding: '14px 16px', 
-                    display: 'flex', 
-                    alignItems: 'flex-start', 
-                    gap: '12px', 
-                    fontSize: '14px', 
-                    color: 'var(--text-color)', 
-                    opacity: 0.9, 
-                    lineHeight: '1.4',
-                    borderBottom: i < arr.length - 1 ? '1px solid rgba(123, 31, 162, 0.15)' : 'none'
-                  }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <p style={{ fontStyle: 'italic', margin: '0 0 32px 0', opacity: 0.5, fontSize: '14px', lineHeight: '1.6', color: 'var(--text-color)' }}>
-              {lang === 'EN' 
-                ? "We design in alignment with U.S. residential construction standards; however, final compliance depends on local jurisdiction requirements." 
-                : "Projetamos em alinhamento com os padrões de construção residencial dos EUA; no entanto, a conformidade final depende dos requisitos da jurisdição local."}
-            </p>
-          </div>
-
-          {/* Meetings & Communication (Standalone) */}
-          <div className="animate-float-up" style={{ animationDelay: '280ms', width: '100%', maxWidth: '860px', margin: '80px auto 0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ color: 'var(--color-neon-purple)' }}><Icons.MessageCircle /></span>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', color: '#FFFFFF', margin: 0, fontWeight: 400 }}>
-                {lang === 'EN' ? "Meetings & Communication" : "Reuniões e Comunicação"}
-              </h3>
-            </div>
-            
-            <p style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '15px', marginBottom: '16px', lineHeight: '1.6' }}>
-              {lang === 'EN' ? "DA·RA Studio operates 100% remotely with a structured digital workflow." : "O DA·RA Studio opera 100% remotamente com um fluxo de trabalho digital estruturado."}
-            </p>
-
-            <div style={{ background: 'rgba(123, 31, 162, 0.08)', border: '1px solid rgba(123, 31, 162, 0.15)', borderRadius: '8px', padding: '16px 20px', display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '2px', flexShrink: 0 }}>
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                <line x1="1" y1="1" x2="23" y2="23" />
-              </svg>
-              <p style={{ margin: 0, color: 'var(--text-color)', fontSize: '14px', lineHeight: '1.5', opacity: 0.9 }}>
-                {lang === 'EN' ? "We do not offer video calls or in-person meetings. All project coordination is handled exclusively via WhatsApp and our Client Portal." : "Não oferecemos chamadas de vídeo ou reuniões presenciais. Toda a coordenação do projeto é feita exclusivamente via WhatsApp e nosso Portal do Cliente."}
-              </p>
-            </div>
-
-            <div style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '20px' }}>
-              <div className="hww-comm-grid">
-                {[
-                  lang === 'EN' ? "Full online project management" : "Gestão de projeto totalmente online",
-                  lang === 'EN' ? "Direct communication via WhatsApp during business hours" : "Comunicação direta via WhatsApp em horário comercial",
-                  lang === 'EN' ? "Continuous updates throughout each phase" : "Atualizações contínuas em cada fase",
-                  lang === 'EN' ? "Client portal access for files, timelines, and invoices" : "Acesso ao portal do cliente para arquivos, prazos e faturas"
-                ].map((item, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
-                    <span style={{ fontSize: '14px', color: 'var(--text-color)', opacity: 0.9, lineHeight: '1.4' }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-color)', opacity: 0.5, fontStyle: 'italic' }}>
-                {lang === 'EN' ? "We have proudly supported builders and investors across multiple U.S. states." : "Apoiamos com orgulho construtores e investidores em vários estados dos EUA."}
-              </p>
-            </div>
-          </div>
-
-          {/* Why DARA Studio */}
-          <div className="animate-float-up" style={{ animationDelay: '290ms', width: '100%', maxWidth: '860px', margin: '80px auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <span style={{ color: 'var(--color-neon-purple)' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </span>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', color: '#FFFFFF', margin: 0, fontWeight: 400 }}>
-                Why DA·RA Studio
-              </h3>
-            </div>
-
-            <div style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '20px' }}>
-              <div className="hww-comm-grid" style={{ marginBottom: 0 }}>
-                {WHY_DARA.map((item, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
-                    <div>
-                      <span style={{ fontSize: '14px', color: 'var(--text-color)', opacity: 0.9, lineHeight: '1.4', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}>
-                        {item.title[lang]}
-                      </span>
-                      <span style={{ fontSize: '13px', color: 'var(--text-color)', opacity: 0.6, lineHeight: '1.4' }}>
-                        {item.desc[lang]}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* CTA */}
-          <div className="hww-cta-section animate-float-up" style={{ animationDelay: '300ms', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '80px', padding: '40px 20px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '24px', maxWidth: '860px', margin: '0 auto 80px' }}>
+
+          <div className="hww-cta-section animate-float-up" style={{ animationDelay: '300ms', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', maxWidth: '860px', margin: '48px auto 0' }}>
             <h2 className="page-main-title" style={{ fontSize: '36px', marginBottom: '16px' }}>
               {lang === 'EN' ? 'Request a Free Quote' : 'Solicite um Orçamento Gratuito'}
             </h2>
-            <p className="page-subtitle-standard" style={{ marginBottom: '32px', maxWidth: '600px' }}>
+            <p className="page-subtitle-standard" style={{ marginBottom: '24px', maxWidth: '600px' }}>
               {lang === 'EN' 
                 ? 'Tell us about your project. Receive a personalized proposal within 2–3 business days.' 
                 : 'Fale-nos sobre o seu projeto. Receba uma proposta personalizada em 2 a 3 dias úteis.'}
@@ -564,8 +395,8 @@ export default function HowWeWork() {
               <a href={`https://wa.me/5548996503350?text=${encodeURIComponent(lang === 'EN' ? "Hi DA·RA Studio! I would like to request a free quote." : "Olá DA·RA Studio! Gostaria de solicitar um orçamento gratuito.")}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                 <button style={{ 
                   background: 'transparent', 
-                  border: '1px solid rgba(255,255,255,0.2)', 
-                  color: '#FFFFFF', 
+                  border: '1px solid #25D366', 
+                  color: '#25D366', 
                   padding: '14px 28px', 
                   borderRadius: '100px', 
                   display: 'flex', 
@@ -577,8 +408,8 @@ export default function HowWeWork() {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease'
                 }}
-                onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--color-neon-purple)'; e.currentTarget.style.color = 'var(--color-neon-purple)'; }}
-                onMouseOut={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = '#FFFFFF'; }}
+                onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(37, 211, 102, 0.1)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; }}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   WHATSAPP

@@ -505,10 +505,10 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   gap: 24px; /* Reduzi o gap para aproximar os elementos */
-  padding: 60px 24px 40px;
+  padding: 20px 24px 40px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -2112,5 +2112,87 @@ a {
     flex-direction: column;
     align-items: flex-end;
     gap: 6px;
+  }
+}
+
+/* ── How We Work Premium Redesign Grids ── */
+.hww-scope-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.hww-bento-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+.hww-bento-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 32px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+[data-theme='light'] .hww-bento-card {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.hww-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.hww-feature-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.hww-feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-neon-purple);
+  box-shadow: 0 8px 30px rgba(123, 31, 162, 0.1);
+}
+
+[data-theme='light'] .hww-feature-card {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .hww-feature-card:hover {
+  border-color: var(--color-neon-purple);
+  background: rgba(123, 31, 162, 0.03);
+}
+
+@media (max-width: 900px) {
+  .hww-scope-grid,
+  .hww-bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .hww-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .hww-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .hww-bento-card {
+    padding: 24px;
   }
 }
