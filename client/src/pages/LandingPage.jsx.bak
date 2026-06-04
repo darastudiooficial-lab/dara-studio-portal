@@ -58,7 +58,7 @@ const CONTENT = {
 };
 
 export default function LandingPage() {
-  const { lang } = useAppContext();
+  const { lang, theme, openEstimateModal } = useAppContext();
   const T = CONTENT[lang] || CONTENT.EN;
   const navigate = useNavigate();
   const cursorRef = useRef(null);

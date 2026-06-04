@@ -1,8 +1,9 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { useAppContext } from "../context/AppContext";
-import GlobalControls from "../components/GlobalControls";
+import { useAuth } from "../context/AuthContext";
+import DaraLogo from "../components/DaraLogo";
 import InputMask from "react-input-mask";
 import BackgroundOrbs from "../components/BackgroundOrbs";
 
@@ -12,7 +13,7 @@ const STEPS_PT = ["Localização", "Sobre Você", "Projeto", "Escopo", "Programa
 
 /* ═══ PRICING CONSTANTS ═══ */
 const BASE_RATE_MAIN = 1.40;
-const BASE_RATE_SUB = 0.80;
+const BASE_RATE_SUB = 0.30;
 const EXTRA_RATES = {
   ex_arch_design: 0.15,
   ex_space_plan: 0.15,
@@ -23,9 +24,9 @@ const EXTRA_RATES = {
 };
 
 const FIXED_FEES = {
-  ex_3d_kitchen: 180,
-  ex_3d_bath: 180,
-  ex_3d_laundry: 180
+  ex_3d_kitchen: 150,
+  ex_3d_bath: 150,
+  ex_3d_laundry: 150
 };
 
 const MARKET_DATA = {
@@ -166,8 +167,8 @@ const TRANSLATIONS = {
       kitchen_remodel: "Focus on kitchen areas", bath_remodel: "Focus on bathroom areas", open_concept: "Remove walls, integrate spaces", other_int: "Other interior services"
     },
     pkgLabels: { as_built_permit: "As-Built & Permit Package", floor_plans_only: "Floor Plans Only", pdf_to_cad: "PDF to CAD", "3d_rendering": "3D Rendering" },
-    price3DExt: "+ $250.00",
-    price3DInt: "+ $180.00",
+    price3DExt: "+ $250 - $300",
+    price3DInt: "+ $150 - $200",
     unlockRush: "Please upload the 3 mandatory files above to unlock faster delivery timelines.",
     checklist: {
       survey: "Property Survey / Site Plan",
@@ -806,7 +807,7 @@ const BR_STATES = [
 ];
 
 const COMMON_CITIES = {
-  US: ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte", "San Francisco", "Indianapolis", "Seattle", "Denver", "Washington", "Boston", "El Paso", "Nashville", "Detroit", "Oklahoma City", "Portland", "Las Vegas", "Memphis", "Louisville", "Baltimore", "Milwaukee", "Albuquerque", "Tucson", "Fresno", "Sacramento", "Mesa", "Kansas City", "Atlanta", "Long Beach", "Omaha", "Raleigh", "Colorado Springs", "Miami", "Virginia Beach", "Oakland", "Minneapolis", "Tulsa", "Arlington", "New Orleans", "Wichita"],
+  US: ["Abington","Acton","Acushnet","Adams","Agawam","Alford","Amesbury","Amherst","Andover","Aquinnah","Arlington","Ashburnham","Ashby","Ashfield","Ashland","Athol","Attleboro","Auburn","Avon","Ayer","Barnstable","Barre","Becket","Belchertown","Bellingham","Belmont","Berkley","Berlin","Bernardston","Beverly","Billerica","Blackstone","Blandford","Bolton","Boston","Bourne","Boxborough","Boxford","Boylston","Braintree","Brewster","Bridgewater","Brimfield","Brockton","Brookfield","Brookline","Buckland","Burlington","Cambridge","Canton","Carlisle","Carver","Charlemont","Charlton","Chatham","Chelmsford","Chelsea","Cheshire","Chester","Chesterfield","Chicopee","Chilmark","Clarksburg","Clinton","Cohasset","Colrain","Concord","Conway","Cummington","Dalton","Danvers","Dartmouth","Dedham","Deerfield","Dennis","Dighton","Douglas","Dover","Dracut","Dudley","Dunstable","Duxbury","East Bridgewater","East Brookfield","East Longmeadow","Eastham","Easthampton","Easton","Edgartown","Egremont","Erving","Essex","Everett","Fairhaven","Fall River","Falmouth","Fitchburg","Florida","Foxborough","Framingham","Franklin","Freetown","Gardner","Georgetown","Gill","Gloucester","Goshen","Gosnold","Grafton","Granby","Granville","Great Barrington","Greenfield","Groton","Groveland","Hadley","Halifax","Hamilton","Hampden","Hancock","Hanover","Hanson","Hardwick","Harvard","Harwich","Hatfield","Haverhill","Hawley","Heath","Hingham","Hinsdale","Holbrook","Holden","Holland","Holliston","Holyoke","Hopedale","Hopkinton","Hubbardston","Hudson","Hull","Huntington","Ipswich","Kingston","Lakeville","Lancaster","Lanesborough","Lawrence","Lee","Leicester","Lenox","Leominster","Leverett","Lexington","Leyden","Lincoln","Littleton","Longmeadow","Lowell","Ludlow","Lunenburg","Lynn","Lynnfield","Malden","Manchester-by-the-Sea","Mansfield","Marblehead","Marion","Marlborough","Marshfield","Mashpee","Mattapoisett","Maynard","Medfield","Medford","Medway","Melrose","Mendon","Merrimac","Methuen","Middleborough","Middlefield","Middleton","Milford","Millbury","Millis","Millville","Milton","Monroe","Monson","Montague","Monterey","Montgomery","Mount Washington","Nahant","Nantucket","Natick","Needham","New Ashford","New Bedford","New Braintree","New Marlborough","New Salem","Newbury","Newburyport","Newton","Norfolk","North Adams","North Andover","North Attleborough","North Brookfield","North Reading","Northampton","Northborough","Northbridge","Northfield","Norton","Norwell","Norwood","Oak Bluffs","Oakham","Orange","Orleans","Otis","Oxford","Palmer","Paxton","Peabody","Pelham","Pembroke","Pepperell","Peru","Petersham","Phillipston","Pittsfield","Plainfield","Plainville","Plymouth","Plympton","Princeton","Provincetown","Quincy","Randolph","Raynham","Reading","Rehoboth","Revere","Richmond","Rochester","Rockland","Rockport","Rowe","Rowley","Royalston","Russell","Rutland","Salem","Salisbury","Sandisfield","Sandwich","Saugus","Savoy","Scituate","Seekonk","Sharon","Sheffield","Shelburne","Sherborn","Shirley","Shrewsbury","Shutesbury","Somerset","Somerville","South Hadley","Southampton","Southborough","Southbridge","Southwick","Spencer","Springfield","Sterling","Stockbridge","Stoneham","Stoughton","Stow","Sturbridge","Sudbury","Sunderland","Sutton","Swampscott","Swansea","Taunton","Templeton","Tewksbury","Tisbury","Tolland","Topsfield","Townsend","Truro","Tyngsborough","Tyringham","Upton","Uxbridge","Wakefield","Wales","Walpole","Waltham","Ware","Wareham","Warren","Warwick","Washington","Watertown","Wayland","Webster","Wellesley","Wellfleet","Wendall","Wenham","West Boylston","West Bridgewater","West Brookfield","West Newbury","West Springfield","West Tisbury","Westborough","Westfield","Westford","Westhampton","Westminster","Weston","Westport","Westwood","Weymouth","Whately","Whitman","Wilbraham","Williamsburg","Williamstown","Wilmington","Winchendon","Winchester","Windsor","Winthrop","Woburn","Worcester","Worthington","Wrentham","Yarmouth"],
   BR: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Goiânia", "Belém", "Porto Alegre", "Guarulhos", "Campinas", "São Luís", "São Gonçalo", "Maceió", "Duque de Caxias", "Natal", "Campo Grande", "Teresina", "São Bernardo do Campo", "Nova Iguaçu", "João Pessoa", "Santo André", "São José dos Campos", "Jaboatão dos Guararapes", "Ribeirão Preto", "Uberlândia", "Contagem", "Sorocaba", "Aracaju", "Feira de Santana", "Cuiabá", "Joinville", "Juiz de Fora", "Londrina", "Aparecida de Goiânia", "Ananindeua", "Porto Velho", "Serra", "Niterói", "Belford Roxo", "Caxias do Sul", "Campos dos Goytacazes", "Macapá", "Florianópolis", "Vila Velha", "Mauá", "São João de Meriti"]
 };
 
@@ -1020,19 +1021,30 @@ function calcEst(d, lang = "EN", step) {
 
     if (pkg === "floor_plans_only") {
       const rate = 0.55 * currencyMult;
-      const flatFee = 200 * currencyMult;
-      cost = (totalBaseArea * rate) + flatFee;
+      const minFee = 200 * currencyMult;
+      const calculatedCost = totalBaseArea * rate;
+      
+      cost = calculatedCost;
+      let adjustment = 0;
+      
+      if (calculatedCost < minFee) {
+          adjustment = minFee - calculatedCost;
+          cost = minFee;
+      }
 
       bd.push({
         l: lang === "EN" ? "Floor Plans" : "Plantas Baixas",
-        v: fmtR(totalBaseArea * rate),
+        v: fmtR(calculatedCost),
         block: "arch"
       });
-      bd.push({
-        l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
-        v: fmtR(flatFee),
-        block: "svc"
-      });
+      
+      if (adjustment > 0) {
+        bd.push({
+          l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
+          v: fmtR(adjustment),
+          block: "svc"
+        });
+      }
     } else {
       // As-Built & Permit Package
       areaBlocks.forEach(blk => {
@@ -1088,34 +1100,49 @@ function calcEst(d, lang = "EN", step) {
             ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
             ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
           };
-          bd.push({ l: labels[key] || key, v: fmtR(fee), block: "extra" });
+          let customVal = fmtR(fee);
+          if (key === "ex_3d_kitchen" || key === "ex_3d_bath" || key === "ex_3d_laundry") {
+            customVal = isUS ? "$150 - $200" : "R$1.500 - R$2.000";
+          }
+          bd.push({ l: labels[key] || key, v: customVal, block: "extra" });
         }
       });
     }
   } else if (effectivePkg === "pdf_to_cad") {
     const currencyMult = isUS ? 1 : BRL;
     const rate = 0.30 * currencyMult;
-    const flatFee = 100 * currencyMult;
-    cost = (totalBaseArea * rate) + flatFee;
+    const minFee = 100 * currencyMult;
+    const calculatedCost = totalBaseArea * rate;
+    
+    cost = calculatedCost;
+    let adjustment = 0;
+    
+    if (calculatedCost < minFee) {
+        adjustment = minFee - calculatedCost;
+        cost = minFee;
+    }
 
     bd.push({
       l: lang === "EN" ? "PDF to CAD Conversion" : "Conversão de PDF para CAD",
-      v: fmtR(totalBaseArea * rate),
+      v: fmtR(calculatedCost),
       block: "arch"
     });
-    bd.push({
-      l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
-      v: fmtR(flatFee),
-      block: "svc"
-    });
+    
+    if (adjustment > 0) {
+      bd.push({
+        l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
+        v: fmtR(adjustment),
+        block: "svc"
+      });
+    }
   } else if (effectivePkg === "3d_rendering") {
     const currencyMult = isUS ? 1 : BRL;
     // Standalone 3D Rendering Package uses fixed fees: $250 Ext, $180 Int
     const standalone3D = {
       ex_3d_ext: 250,
-      ex_3d_kitchen: 180,
-      ex_3d_bath: 180,
-      ex_3d_laundry: 180
+      ex_3d_kitchen: 150,
+      ex_3d_bath: 150,
+      ex_3d_laundry: 150
     };
     Object.keys(standalone3D).forEach(key => {
       if (pkgExtras[key]) {
@@ -1127,7 +1154,10 @@ function calcEst(d, lang = "EN", step) {
           ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
           ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
         };
-        bd.push({ l: labels[key] || key, v: fmtR(fee), block: "extra" });
+        let customVal = fmtR(fee);
+        if (key === "ex_3d_ext") customVal = isUS ? "$250 - $300" : "R$2.500 - R$3.000";
+        if (key === "ex_3d_kitchen" || key === "ex_3d_bath" || key === "ex_3d_laundry") customVal = isUS ? "$150 - $200" : "R$1.500 - R$2.000";
+        bd.push({ l: labels[key] || key, v: customVal, block: "extra" });
       }
     });
   }
@@ -1195,9 +1225,23 @@ const InfoIcon = () => (
 
 /* ═══ UI COMPONENTS ═══ */
 function Title({ label, sub }) {
+  const formatLabel = (txt) => {
+    if (!txt) return null;
+    const words = txt.split(" ");
+    if (words.length <= 1) return txt;
+    const splitIndex = Math.ceil(words.length / 2);
+    const firstPart = words.slice(0, splitIndex).join(" ");
+    const secondPart = words.slice(splitIndex).join(" ");
+    return (
+      <>
+        {firstPart} <em className="title-gradient-italic">{secondPart}</em>
+      </>
+    );
+  };
+
   return (
     <div className="page-header-premium" style={{ marginBottom: 32, marginTop: 0 }}>
-      <h1 className="page-main-title" style={{ fontSize: '32px' }}>{label}</h1>
+      <h1 className="page-main-title" style={{ fontSize: '32px' }}>{formatLabel(label)}</h1>
       {sub && <p className="page-subtitle-standard" style={{ fontSize: '15px' }}>{sub}</p>}
     </div>
   );
@@ -1207,11 +1251,12 @@ function Title({ label, sub }) {
 export default function EstimateWizard() {
   const navigate = useNavigate();
   const { 
-    lang, theme, 
+    lang, setLang, theme, toggleTheme,
     wizardStep: contextStep, setWizardStep: setStep,
     wizardData: data, setWizardData: setData,
     resetWizard
   } = useAppContext();
+  const { user, profile } = useAuth();
 
   const [isInitialized, setIsInitialized] = useState(false);
   useEffect(() => {
@@ -1297,22 +1342,54 @@ export default function EstimateWizard() {
     <div className={`wz-root ${theme}`} style={{ minHeight: "100dvh", background: "var(--bg0)", color: "var(--tx)" }}>
       {/* ── Top Bar ── */}
       <header className="header-nav" style={{ position: 'sticky', top: 0, background: 'var(--bg-primary)', borderBottom: '1px solid var(--glass-border)', height: '80px', padding: '0 48px' }}>
-          <div className="header-logo" onClick={() => navigate('/')}>
-            <div className="lp-logo-mark" style={{ width: '32px', height: '32px', fontSize: '18px' }}>D</div>
-            <div className="header-logo-text" style={{ fontSize: '18px', fontWeight: 'bold' }}>DARA STUDIO</div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <GlobalControls />
-            <button className="pill-button back-to-site-btn" onClick={() => navigate('/')}>{T.backToSite}</button>
+          <Link to="/" className="header-logo">
+            <div className="lp-logo-mark">
+              <DaraLogo size={24} />
+            </div>
+            <span className="header-logo-text">
+              <strong>DARA</strong><em>Studio</em>
+            </span>
+          </Link>
+
+          <div className="header-actions">
+            <div className="pill-button lang-toggle">
+              <span className={lang === 'EN' ? 'active' : 'inactive'} onClick={() => setLang('EN')}>EN</span>
+              <span className="divider">|</span>
+              <span className={lang === 'PT' ? 'active' : 'inactive'} onClick={() => setLang('PT')}>PT</span>
+            </div>
+
+            <button className="pill-button theme-toggle" onClick={toggleTheme}>
+              <div className="theme-icon-aura">
+                {theme === 'dark' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="half-moon-sun"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="half-moon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                )}
+              </div>
+            </button>
+
+            {user ? (
+              <>
+                <Link to={profile?.role === 'admin' ? '/admin' : (profile?.role === 'collaborator' ? '/collaborator' : '/portal')} className="pill-button client-portal-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  {lang === 'EN' ? 'My Portal' : 'Meu Portal'}
+                </Link>
+                <Link to="/logout" className="pill-button logout-btn">
+                  {lang === 'EN' ? 'Sign Out' : 'Sair'}
+                </Link>
+              </>
+            ) : (
+              <button className="pill-button back-to-site-btn" onClick={() => navigate('/')}>
+                {T.backToSite}
+              </button>
+            )}
           </div>
       </header>
 
       <div id="layout" className={theme === 'dark' ? 'dark' : ''}>
         <BackgroundOrbs />
-        <div className="independent-page" style={{ padding: "60px 20px 100px" }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto 48px' }}>
-            <Stepper cur={step} steps={STEPS} />
-          </div>
+        <div className="independent-page" style={{ padding: "40px 20px 40px" }}>
+
           <div className={`wz-main-layout ${step >= 2 && step < 7 && !submitted ? "has-sidebar" : ""}`}>
             <div className="wz-animate" key={submitted ? "success" : step}>
               {submitted ? (
@@ -1339,10 +1416,18 @@ export default function EstimateWizard() {
               )}
 
               {!submitted && (
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32, paddingTop: 24, borderTop: "1px solid var(--border)" }}>
                   <button className="wz-btn-ghost" onClick={prev} style={{ visibility: step === 0 ? "hidden" : "visible" }}>{T.back}</button>
-                  {step < STEPS.length - 1 && (
-                    <button className="wz-btn-primary" style={{ animation: 'spLogoGlow 3s infinite' }} onClick={handleNext} disabled={!canGo()}>{T.continue}</button>
+                  
+                  {/* Stepper no meio */}
+                  <div style={{ display: 'flex', justifyContent: 'center', flex: 1 }}>
+                    <Stepper cur={step} />
+                  </div>
+
+                  {step < STEPS.length - 1 ? (
+                    <button className="wz-btn-primary" onClick={handleNext} disabled={!canGo()}>{T.continue}</button>
+                  ) : (
+                    <div style={{ width: 140 }}></div> /* Placeholder to keep stepper centered */
                   )}
                 </div>
               )}
@@ -1351,8 +1436,8 @@ export default function EstimateWizard() {
             {step >= 2 && step < 7 && !submitted && (
               <div className={`wz-sidebar-mobile ${drawerOpen ? "open" : ""}`}>
                 <div className="wz-drawer-handle" onClick={() => setDrawerOpen(!drawerOpen)} />
-                <div className="wz-drawer-header" onClick={() => setDrawerOpen(!drawerOpen)}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{T.projectEstimate}</span>
+                <div className="wz-drawer-header" onClick={() => setDrawerOpen(!drawerOpen)} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", marginTop: "14px" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)" }}>{T.projectEstimate}</span>
                   <span style={{ fontSize: 18, color: "var(--a)" }}>{drawerOpen ? "↓" : "↑"}</span>
                 </div>
                 <Sidebar est={est} lang={lang} data={data} step={step} />
@@ -1367,24 +1452,31 @@ export default function EstimateWizard() {
 
 /* ── SUB-COMPONENTS ── */
 function Stepper({ cur }) {
-  const step = cur + 1; // Convert 0-indexed cur to 1-indexed step (1-8)
+  const currentStepNum = cur + 1;
   return (
-    <div style={{display:'flex',alignItems:'center',gap:4,marginBottom:32,padding:'0 24px'}}>
-      {[1,2,3,4,5,6,7,8].map(n => (
-        <div key={n} style={{ display: 'flex', alignItems: 'center', flex: n < 8 ? 1 : 'none' }}>
-          <div style={{
-            width:28,height:28,borderRadius:'50%',
-            display:'flex',alignItems:'center',justifyContent:'center',
-            fontSize:11,fontWeight:700,flexShrink:0,
-            background: step>=n ? 'var(--accent)' : 'rgba(99,102,241,0.12)',
-            color: step>=n ? '#fff' : 'rgba(255,255,255,0.3)',
-            boxShadow: step===n ? '0 0 0 4px rgba(99,102,241,0.25),0 0 16px rgba(99,102,241,0.4)' : 'none',
-            transition:'all 0.3s cubic-bezier(.22,.68,0,1.15)'
-          }}>{step>n ? '✓' : n}</div>
-          {n< 8 && <div style={{flex:1,height:2,borderRadius:2, marginLeft: 4,
-            background:step>n ? 'var(--accent)' : 'rgba(99,102,241,0.15)',
-            transition:'background 0.4s'
-          }}/>}
+    <div className="wz-stepper-pill" style={{ padding: '8px 24px', gap: '8px' }}>
+      {[1,2,3,4,5,6,7,8].map((n, i) => (
+        <div key={n} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{
+            fontSize: 16,
+            fontWeight: 800,
+            display: 'inline-block',
+            background: 'linear-gradient(to right, #9C27B0, #E91E63)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            opacity: currentStepNum >= n ? 1 : 0.3,
+            transition: 'opacity 0.3s ease'
+          }}>
+            {n}
+          </span>
+          {i < 7 && (
+            <span style={{ 
+              color: 'var(--tx)', 
+              opacity: 0.3, 
+              fontSize: 16,
+              fontWeight: 800 
+            }}>·</span>
+          )}
         </div>
       ))}
     </div>
@@ -1410,21 +1502,21 @@ function Sidebar({ est, lang, data, step: currentStep }) {
     return "#008080";
   };
   const col = getConfCol(conf);
-  const hasEstimate = lo && lo !== "--";
+  const hasEstimate = lo && lo !== "--" && currentStep >= 3 && !!data?.deliveryPkg;
   const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
 
   return (
     <div className="wz-sidebar">
-      <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--dm)", marginBottom: 12 }}>{T.estimatedFee}</p>
+      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.estimatedFee}</p>
 
       {projectTitle && (
-        <div style={{ marginBottom: 12, padding: "12px 16px", background: "var(--a-dim)", border: "1.5px solid var(--a-glow)", borderRadius: "var(--r-sm)" }}>
+        <div style={{ marginBottom: 12, padding: "12px 16px", background: "var(--a-dim)", border: "1.5px solid var(--a-glow)", borderRadius: 16 }}>
           <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--a)", marginBottom: 4 }}>{T.yourProject}</p>
           <p style={{ fontFamily: "var(--font-serif)", fontSize: 16, fontStyle: "italic", color: "var(--a)", lineHeight: 1.3 }}>{projectTitle}</p>
         </div>
       )}
 
-      <div style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: "var(--r-sm)", padding: "16px", marginBottom: 12 }}>
+      <div style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: 16, padding: "16px", marginBottom: 12 }}>
         {hasEstimate ? (
           <div>
             {pkgName && <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--a)", marginBottom: 4 }}>{pkgName}</p>}
@@ -1437,15 +1529,15 @@ function Sidebar({ est, lang, data, step: currentStep }) {
       </div>
 
       {hasEstimate && (
-        <div style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: "var(--r-sm)", overflow: "hidden", marginBottom: 14 }}>
+        <div style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: 16, overflow: "hidden", marginBottom: 14 }}>
           {/* Detailed breakdown blocks would go here, simplified for space */}
           <div style={{ padding: "10px 12px", borderBottom: "1px solid var(--border)", background: "rgba(255,255,255,0.02)" }}>
-            <span style={{ fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "var(--mu)" }}>{T.summaryTitle}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)" }}>{T.summaryTitle}</span>
           </div>
           <div style={{ padding: "8px 12px" }}>
             {bd.map((it, i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: 10, padding: "3px 0" }}>
-                <span style={{ color: "var(--mu)" }}>{it.l}</span>
+                <span style={{ color: "var(--tx)" }}>{it.l}</span>
                 <span style={{ fontFamily: "var(--font-mono)", color: "var(--tx)" }}>{it.v}</span>
               </div>
             ))}
@@ -1495,13 +1587,7 @@ function S1({ d, up, lang }) {
 
       {d.region && (
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "18px 0" }}>
-            <div style={{ height: 1, flex: 1, background: "var(--border)" }} />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--dm)" }}>
-              {market.addressLabel[lang]}
-            </span>
-            <div style={{ height: 1, flex: 1, background: "var(--border)" }} />
-          </div>
+
 
           <div className="wz-f">
             <label className="wz-label">{T.streetAddress} <span style={{ color: "var(--rd)" }}>*</span></label>
@@ -1600,9 +1686,9 @@ function S2({ d, up, lang }) {
       </div>
 
       {d.role && T[d.role + "Msg"] && (
-        <div className="wz-animate" style={{ marginBottom: 24, padding: "12px 16px", background: "rgba(100, 108, 255, 0.08)", border: "1px solid var(--a)", borderRadius: "8px", display: "flex", alignItems: "center", gap: 12 }}>
+        <div className="wz-animate" style={{ marginBottom: 24, padding: "12px 16px", background: "var(--a-dim)", border: "1px solid var(--a)", borderRadius: "999px", display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 20 }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
-          <p style={{ fontSize: 13, color: "var(--tx)", fontWeight: 600, lineHeight: 1.4 }}>
+          <p style={{ fontSize: 13, color: "var(--tx)", fontWeight: 600, lineHeight: 1.4, margin: 0 }}>
             {T[d.role + "Msg"]}
           </p>
         </div>
@@ -1750,15 +1836,15 @@ function S3({ d, up, est, lang }) {
         ].map(pt => (
           <div key={pt.id} className={`wz-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "18px 10px" }}>
             <div style={{ fontSize: 28, marginBottom: 8 }}>{pt.icon}</div>
-            <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 3 }}>{pt.label}</p>
-            <p style={{ fontSize: 10, color: "var(--mu)" }}>{pt.sub}</p>
+            <p style={{ fontSize: 14, fontWeight: 500, marginBottom: 3 }}>{pt.label}</p>
+            <p style={{ fontSize: 11, color: "var(--tx)", fontStyle: "italic", opacity: 0.9 }}>{pt.sub}</p>
           </div>
         ))}
       </div>
 
       <p className="wz-label" style={{ marginBottom: 16 }}>{T.typeOfService}</p>
       <div style={{ marginBottom: 28 }}>
-        <p style={{ fontSize: 10, fontWeight: 700, color: "var(--dm)", letterSpacing: ".08em", marginBottom: 12 }}>{T.constructionStructure}</p>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.constructionStructure}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
           {CONST_SVC.map(svc => (
             <div key={svc.id} className={`wz-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative" }}>
@@ -1769,26 +1855,26 @@ function S3({ d, up, est, lang }) {
               >
                 <InfoIcon />
                 {hoverId === svc.id && (
-                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "var(--bg1)", border: "1px solid var(--border)", color: "var(--tx)", padding: "8px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500, width: "max-content", maxWidth: 200, textAlign: "left", boxShadow: "0 4px 12px rgba(0,0,0,0.5)", pointerEvents: "none" }}>
+                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", color: "var(--tx)", padding: "10px 12px", borderRadius: "2px 6px 6px 2px", fontSize: 11, fontStyle: "italic", opacity: 0.9, width: "max-content", maxWidth: 220, textAlign: "left", boxShadow: "0 8px 24px rgba(0,0,0,0.6)", pointerEvents: "none", zIndex: 20 }}>
                     {svc.desc}
                   </div>
                 )}
               </div>
               <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
-              <p style={{ fontSize: 12, fontWeight: 700, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
-              <p style={{ fontSize: 10, color: "var(--dm)", lineHeight: 1.3 }}>{svc.sub}</p>
+              <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
+              <p style={{ fontSize: 11, color: "var(--tx)", fontStyle: "italic", opacity: 0.9, lineHeight: 1.3 }}>{svc.sub}</p>
             </div>
           ))}
         </div>
 
-        <div style={{ marginBottom: 24, padding: "12px 16px", background: "rgba(16, 185, 129, 0.05)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "8px", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981" }} />
-          <p style={{ fontSize: 11, color: "var(--tx)", fontWeight: 500, lineHeight: 1.4, opacity: 0.9 }}>
+        <div style={{ marginBottom: 24, padding: "12px 16px", background: "rgba(16, 185, 129, 0.05)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "999px", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981", flexShrink: 0 }} />
+          <p style={{ fontSize: 11, color: "var(--tx)", fontWeight: 500, lineHeight: 1.4, opacity: 0.9, margin: 0 }}>
             {T.ircIbcStandardsMsg}
           </p>
         </div>
 
-        <p style={{ fontSize: 10, fontWeight: 700, color: "var(--dm)", letterSpacing: ".08em", marginBottom: 12 }}>{T.interiors}</p>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.interiors}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
           {INT_SVC.map(svc => (
             <div key={svc.id} className={`wz-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative" }}>
@@ -1799,14 +1885,14 @@ function S3({ d, up, est, lang }) {
               >
                 <InfoIcon />
                 {hoverId === svc.id && (
-                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "var(--bg1)", border: "1px solid var(--border)", color: "var(--tx)", padding: "8px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500, width: "max-content", maxWidth: 200, textAlign: "left", boxShadow: "0 4px 12px rgba(0,0,0,0.5)", pointerEvents: "none" }}>
+                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", color: "var(--tx)", padding: "10px 12px", borderRadius: "2px 6px 6px 2px", fontSize: 11, fontStyle: "italic", opacity: 0.9, width: "max-content", maxWidth: 220, textAlign: "left", boxShadow: "0 8px 24px rgba(0,0,0,0.6)", pointerEvents: "none", zIndex: 20 }}>
                     {svc.desc}
                   </div>
                 )}
               </div>
               <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
-              <p style={{ fontSize: 12, fontWeight: 700, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
-              <p style={{ fontSize: 10, color: "var(--dm)", lineHeight: 1.3 }}>{svc.sub}</p>
+              <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
+              <p style={{ fontSize: 11, color: "var(--tx)", fontStyle: "italic", opacity: 0.9, lineHeight: 1.3 }}>{svc.sub}</p>
             </div>
           ))}
         </div>
@@ -1824,7 +1910,7 @@ function S3({ d, up, est, lang }) {
               const li = parseDim(lVal, isUS);
 
               return (
-                <div key={svcId} style={{ background: "var(--bg3)", padding: 20, borderRadius: "var(--r)", border: "1.5px solid var(--border)" }}>
+                <div key={svcId} style={{ background: "var(--bg3)", padding: 20, borderRadius: 16, border: "1.5px solid var(--border)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase" }}>{svcLabel}</p>
                     {getSvcArea(svcId) > 0 && <div style={{ background: "rgba(100, 108, 255, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(getSvcArea(svcId))} {au}</div>}
@@ -1867,7 +1953,7 @@ function S3({ d, up, est, lang }) {
                                 userSelect: "none"
                               }}
                             >
-                              {lvlLbl} {(lvlKey === "attic" || lvlKey === "basement") && <span style={{ opacity: 0.6 }}> (+ {isUS ? "$0.80/sqft" : "R$7.60/m²"})</span>}
+                              {lvlLbl}
                             </div>
                           );
                         })}
@@ -1898,7 +1984,7 @@ function S3({ d, up, est, lang }) {
         </div>
       )}
 
-      <div className="wz-f" style={{ marginBottom: 28 }}>
+      <div className="wz-f" style={{ marginTop: 32, marginBottom: 28 }}>
         <label className="wz-label">{T.lotSizeLabel} (OPTIONAL, {au.toUpperCase()})</label>
         <input className="wz-inp" placeholder="e.g. 5000" style={{ maxWidth: 240 }} value={d.lotSize || ""} onChange={e => up("lotSize", e.target.value)} />
       </div>
@@ -1923,7 +2009,11 @@ function S4({ d, up, est, lang }) {
   };
 
   const setPkg = (id) => {
-    up("deliveryPkg", id);
+    if (d.deliveryPkg === id) {
+      up("deliveryPkg", "");
+    } else {
+      up("deliveryPkg", id);
+    }
     setOpenDet({});
   };
 
@@ -1961,9 +2051,9 @@ function S4({ d, up, est, lang }) {
         {
           group: T.pkgExtras.groups.visualization, items: [
             { id: "ex_3d_ext", label: T.pkgExtras.items.ex_3d_ext.label, price: isUS ? "+ $0.10 / sqft" : "+ R$0.95 / m²", desc: T.pkgExtras.items.ex_3d_ext.desc },
-            { id: "ex_3d_kitchen", label: T.pkgExtras.items.ex_3d_kitchen.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_kitchen.desc },
-            { id: "ex_3d_bath", label: T.pkgExtras.items.ex_3d_bath.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_bath.desc },
-            { id: "ex_3d_laundry", label: T.pkgExtras.items.ex_3d_laundry.label, price: isUS ? "+ $180.00" : "+ R$1700", desc: T.pkgExtras.items.ex_3d_laundry.desc }
+            { id: "ex_3d_kitchen", label: T.pkgExtras.items.ex_3d_kitchen.label, price: isUS ? "+ $150 - $200" : "+ R$1.500 - R$2.000", desc: T.pkgExtras.items.ex_3d_kitchen.desc },
+            { id: "ex_3d_bath", label: T.pkgExtras.items.ex_3d_bath.label, price: isUS ? "+ $150 - $200" : "+ R$1.500 - R$2.000", desc: T.pkgExtras.items.ex_3d_bath.desc },
+            { id: "ex_3d_laundry", label: T.pkgExtras.items.ex_3d_laundry.label, price: isUS ? "+ $150 - $200" : "+ R$1.500 - R$2.000", desc: T.pkgExtras.items.ex_3d_laundry.desc }
           ]
         }
       ]
@@ -2046,60 +2136,59 @@ function S4({ d, up, est, lang }) {
                     style={{ fontSize: 12, color: "var(--a)", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 4, userSelect: "none" }}
                   >
                     {T.moreDetails} <span style={{ transform: isDetOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 10, display: "inline-block" }}>▼</span>
+                    {!isDetOpen && pkg.extras && <span style={{ marginLeft: 8, fontSize: 10, fontWeight: 500, color: "var(--mu)", background: "rgba(255,255,255,0.05)", padding: "2px 6px", borderRadius: 4 }}>{lang === "EN" ? "+ Customizations inside" : "+ Customizações aqui"}</span>}
                   </div>
 
                   {isDetOpen && pkg.details && (
                     <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
-                      <div style={{ background: "rgba(255,255,255,0.03)", padding: 16, borderRadius: "var(--r)", marginBottom: 16 }}>
+                      <div style={{ background: "rgba(255,255,255,0.02)", padding: "20px 24px", borderRadius: "var(--r)", marginBottom: 16, border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: 24 }}>
                         {pkg.details.summary && (
-                          <div style={{ marginBottom: 20 }}>
-                            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 8, textTransform: "uppercase" }}>{T.summaryTitle}</p>
-                            <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5 }}>{pkg.details.summary}</p>
-                          </div>
+                          <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6 }}>{pkg.details.summary}</p>
                         )}
 
-                        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 12, textTransform: "uppercase" }}>{T.whatYouReceiveTitle}</p>
-
-                        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
-                          {pkg.details.whatYouReceive.map((item, idx) => (
-                            <div key={idx} style={{ background: "rgba(0,0,0,0.15)", padding: 12, borderRadius: "6px", borderLeft: "3px solid var(--a)" }}>
-                              <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5 }}>
-                                <span style={{ fontWeight: 700, color: "var(--a)" }}>{item.title}: </span>
-                                <span style={{ color: "var(--mu)" }}>{item.desc}</span>
-                              </p>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 32 }}>
+                          {/* WHAT'S INCLUDED */}
+                          {/* WHAT'S INCLUDED CARD */}
+                          <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "16px", padding: 24 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#10b981" }}>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                              </div>
+                              <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", margin: 0 }}>{lang === "EN" ? "What's Included" : "O Que Está Incluso"}</h3>
                             </div>
-                          ))}
-                        </div>
-
-                        {pkg.details.notIncluded && (
-                          <div style={{ marginBottom: 16 }}>
-                            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--rd)", marginBottom: 10, textTransform: "uppercase" }}>{T.pkgNotIncluded}</p>
-                            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                              {pkg.details.notIncluded.map((it, idx) => (
-                                <div key={idx} style={{ display: "flex", gap: 8, alignItems: "start" }}>
-                                  <span style={{ color: "var(--rd)", fontSize: 12 }}>✕</span>
-                                  <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.4 }}>{it}</p>
-                                </div>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+                              {pkg.details.whatYouReceive.map((item, idx) => (
+                                <li key={idx} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: 10 }}>
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><polyline points="20 6 9 17 4 12"/></svg>
+                                  <span>
+                                    {item.title && item.desc ? (
+                                      <><strong style={{fontWeight:600, color:"var(--tx)"}}>{item.title}:</strong> <span style={{color:"var(--mu)"}}>{item.desc}</span></>
+                                    ) : (
+                                      <span style={{color:"var(--tx)"}}>{item.title || item.desc || item}</span>
+                                    )}
+                                  </span>
+                                </li>
                               ))}
-                            </div>
+                            </ul>
                           </div>
-                        )}
 
-                        <div>
-                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--gn)", marginBottom: 10, textTransform: "uppercase" }}>{T.idealForTitle}</p>
-                          {Array.isArray(pkg.details.idealFor) ? (
-                            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                              {pkg.details.idealFor.map((it, idx) => (
-                                <div key={idx} style={{ display: "flex", gap: 8, alignItems: "start" }}>
-                                  <span style={{ color: "var(--gn)", fontSize: 12 }}>✓</span>
-                                  <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.4 }}>{it}</p>
+                          {/* NOT INCLUDED CARD */}
+                          {pkg.details.notIncluded && (
+                            <div style={{ background: "rgba(233, 30, 99, 0.04)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "16px", padding: 24 }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                                <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(233, 30, 99, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#E91E63" }}>
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                                 </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <div style={{ display: "flex", gap: 6, alignItems: "start" }}>
-                              <span style={{ color: "var(--gn)", fontSize: 14, fontWeight: 700 }}>✓</span>
-                              <p style={{ fontSize: 13, color: "var(--mu)", lineHeight: 1.5 }}>{pkg.details.idealFor}</p>
+                                <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", margin: 0 }}>{lang === "EN" ? "What's Not Included" : "O Que Não Está Incluso"}</h3>
+                              </div>
+                              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+                                {pkg.details.notIncluded.map((it, idx) => (
+                                  <li key={idx} style={{ fontSize: 13, color: "var(--mu)", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: 10 }}>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E91E63" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                    <span>{it}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
                           )}
                         </div>
@@ -2107,7 +2196,7 @@ function S4({ d, up, est, lang }) {
                     </div>
                   )}
 
-                  {(isActive || isDetOpen) && pkg.extras && (
+                  {isDetOpen && pkg.extras && (
                     <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
                       <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", color: "var(--dm)", marginBottom: 16, textTransform: "uppercase" }}>{T.serviceCustomization}</p>
                       {pkg.extras.map(group => (
@@ -2134,18 +2223,10 @@ function S4({ d, up, est, lang }) {
                                   </div>
 
                                   {item.desc && (
-                                    <div style={{ marginTop: 12, marginLeft: 30 }}>
-                                      <div
-                                        onClick={(e) => toggleEx(item.id, e)}
-                                        style={{ fontSize: 11, color: "var(--a)", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 4, userSelect: "none", marginBottom: isExOpen ? 8 : 0 }}
-                                      >
-                                        {T.moreDetails} <span style={{ transform: isExOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 9, display: "inline-block" }}>▼</span>
-                                      </div>
-                                      {isExOpen && (
-                                        <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.5, background: "rgba(255,255,255,0.03)", padding: 12, borderRadius: "6px", marginTop: 8, borderLeft: "2px solid var(--a)" }}>
-                                          {item.desc}
-                                        </p>
-                                      )}
+                                    <div style={{ marginTop: 6, marginLeft: 30 }}>
+                                      <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.4 }}>
+                                        {item.desc}
+                                      </p>
                                     </div>
                                   )}
                                 </div>
@@ -3174,21 +3255,21 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
 
   const sidebarContent = (
     <div style={{ width: 295, flexShrink: 0, background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 16, padding: 20, alignSelf: "flex-start" }}>
-      <div style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--dm)", marginBottom: 13, textTransform: "uppercase" }}>{T.estimatedFee}</div>
-      <div style={{ background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 9, padding: "10px 13px", marginBottom: 11 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", color: "var(--a)", marginBottom: 13, textTransform: "uppercase" }}>{T.estimatedFee}</div>
+      <div style={{ background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 16, padding: "10px 13px", marginBottom: 11 }}>
         <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--a)", textTransform: "uppercase", marginBottom: 3 }}>{T.yourProject}</div>
         <div style={{ fontSize: 13, color: "var(--a)", fontStyle: "italic", fontFamily: "var(--font-serif)" }}>{est.projectTitle}</div>
       </div>
-      <div style={{ background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 9, padding: 13, marginBottom: 11 }}>
+      <div style={{ background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 16, padding: 13, marginBottom: 11 }}>
         <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 6 }}>{est.pkgName}</div>
         <div style={{ fontSize: 22, fontWeight: 700, color: "var(--tx)", fontFamily: "var(--font-serif)" }}>{est.lo} – {est.hi}</div>
         <div style={{ fontSize: 10, color: "var(--dm)", marginTop: 3 }}>{T.approxEstimate}</div>
       </div>
-      <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: 9, padding: 13, marginBottom: 13 }}>
-        <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 9 }}>{T.summaryTitle}</div>
+      <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: 16, padding: 13, marginBottom: 13 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", color: "var(--a)", textTransform: "uppercase", marginBottom: 9 }}>{T.summaryTitle}</div>
         {(est.bd || []).map((item, idx) => (
           <div key={idx} style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 11, color: "var(--mu)" }}>{item.l}</span>
+            <span style={{ fontSize: 11, color: "var(--tx)" }}>{item.l}</span>
             <span style={{ fontSize: 11, color: "var(--tx)" }}>{item.v}</span>
           </div>
         ))}

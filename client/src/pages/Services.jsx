@@ -34,26 +34,28 @@ const SERVICES_DATA = [
   {
     id: "drafting",
     icon: <Icons.Drafting />,
-    badge: { EN: "HIGH COMPLEXITY", PT: "ALTA COMPLEXIDADE" },
-    title: { EN: "Full Construction Documentation", PT: "Documentação Técnica Completa (CDs)" },
+    badge: { EN: "PACKAGE 01 · HIGH COMPLEXITY", PT: "PACOTE 01 · ALTA COMPLEXIDADE" },
+    title: { EN: "As-Built Drawings & Permit Packages", PT: "Desenhos As-Built e Pacotes de Prefeitura" },
     desc: { 
-      EN: "Convert your schematic designs into comprehensive, permit-ready sets. This package includes all floor levels, design extras, and 3D visualization (exterior).",
-      PT: "Converta seus designs esquemáticos em conjuntos completos prontos para aprovação. Este pacote inclui todas as plantas, extras de design e visualização 3D (externa)."
+      EN: "Our most comprehensive package. Covers all project levels, customizable design extras, and includes exterior 3D visualization. Developed for permit submission and full construction execution.",
+      PT: "Nosso pacote mais completo. Cobre todos os níveis do projeto, extras de design personalizáveis e inclui visualização 3D externa. Desenvolvido para submissão de permit e execução completa da construção."
     },
-    list: {
+    bentoExtras: {
       EN: [
-        "Architectural Design & Space Planning",
-        "Construction Detailing & Framing",
-        "Code Compliance & Technical Notes",
-        "3D Exterior Rendering",
-        "Redlining & Markups Integration"
+        { title: "Architectural Detailing", desc: "Conceptual and aesthetic development — exterior elevations, structural style, and overall project appearance." },
+        { title: "Space Planning", desc: "Macro-level design — ideal arrangement of walls, doors, and room flows for maximum functionality." },
+        { title: "Interior Layout", desc: "Micro-level design — positioning of furniture, custom millwork, appliances, and fixtures." },
+        { title: "Construction Detailing & Framing", desc: "Technical framing plans, construction details, and door/window schedules — everything the builder needs for precise execution." },
+        { title: "Code Compliance & Technical Notes", desc: "Municipal code citations, safety notes, and professional annotations to expedite permit approval." },
+        { title: "3D Exterior Render · Included", desc: "High-fidelity exterior 3D visualization included in this package. Interior rooms are charged separately at $150–$200 per room.", highlight: true }
       ],
       PT: [
-        "Design Arquitetônico e Planejamento de Espaço",
-        "Detalhamento Construtivo & Framing",
-        "Conformidade com Código & Notas Técnicas",
-        "Renderização 3D Exterior",
-        "Integração de Redlining & Markups"
+        { title: "Detalhamento Arquitetônico", desc: "Desenvolvimento conceitual e estético — elevações externas, estilo estrutural e aparência geral do projeto." },
+        { title: "Planejamento de Espaço", desc: "Design em nível macro — arranjo ideal de paredes, portas e fluxos de ambientes para máxima funcionalidade." },
+        { title: "Layout de Interiores", desc: "Design em nível micro — posicionamento de móveis, marcenaria personalizada, eletrodomésticos e fixtures." },
+        { title: "Detalhamento Construtivo & Framing", desc: "Plantas de framing técnico, detalhes construtivos e quadro de portas/janelas — tudo que o construtor precisa para executar com precisão." },
+        { title: "Conformidade de Código & Notas Técnicas", desc: "Citações de código municipal, notas de segurança e anotações profissionais para agilizar a aprovação do permit." },
+        { title: "Render 3D Externo · Incluso", desc: "Visualização 3D externa de alta fidelidade incluída neste pacote. Ambientes de interior são cobrados separadamente a $150–$200 por ambiente.", highlight: true }
       ]
     },
     output: "Output: DWG, PDF",
@@ -136,19 +138,19 @@ const SERVICES_DATA = [
       EN: "100% Manual Drafting | Intelligent CAD Conversion on Demand.",
       PT: "Redesenho 100% Manual | Conversão inteligente para CAD sob demanda."
     },
-    disclaimer: {
-      EN: "Not included: Architectural Design, Code Review, Field Measurements, 3D Modeling.",
-      PT: "Não incluso: Design Arquitetônico, Revisão de Códigos, Medições no Local, Modelagem 3D."
+    notIncluded: {
+      EN: ["Architectural Design", "Code Review", "Field Measurements", "3D Modeling"],
+      PT: ["Design Arquitetônico", "Revisão de Códigos", "Medições no Local", "Modelagem 3D"]
     }
   },
   {
     id: "redrawing",
     icon: <Icons.Redrawing />,
-    badge: { EN: "LOW COMPLEXITY", PT: "BAIXA COMPLEXIDADE" },
-    title: { EN: "Design Development & Floor Plans", PT: "Desenho e Plantas Baixas" },
+    badge: { EN: "PACKAGE 02 · LOW COMPLEXITY", PT: "PACOTE 02 · BAIXA COMPLEXIDADE" },
+    title: { EN: "Floor Plans Only", PT: "Apenas Plantas Baixas" },
     desc: { 
-      EN: "Elevate your design sketches into high-performance technical sets. A streamlined service delivering fundamental interior spatial layouts, dimensioned floor plans, and production support.",
-      PT: "Eleve seus esboços de design para conjuntos técnicos de alta performance. Um serviço otimizado que entrega layouts espaciais fundamentais, plantas dimensionadas e suporte de produção."
+      EN: "A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans. Ideal for initial planning and cosmetic remodels where a conceptual drawing is all you need.",
+      PT: "Um serviço direto ao ponto entregando layouts espaciais internos fundamentais e plantas baixas dimensionadas. Ideal para planejamento inicial e reformas cosméticas onde um desenho conceitual é tudo que você precisa."
     },
     list: {
       EN: [
@@ -169,9 +171,9 @@ const SERVICES_DATA = [
       EN: "White-Label Ready | Cloud-Integrated Workflow",
       PT: "Pronto para White-Label | Fluxo em Nuvem"
     },
-    disclaimer: {
-      EN: "Not included: Exterior Design, 3D Renderings, Building Permits, Structural Engineering.",
-      PT: "Não incluso: Design Exterior, Renders 3D, Aprovação em Prefeitura, Engenharia Estrutural."
+    notIncluded: {
+      EN: ["Exterior Design", "3D Renderings", "Building Permits", "Structural Engineering"],
+      PT: ["Design Exterior", "Renders 3D", "Aprovação em Prefeitura", "Engenharia Estrutural"]
     }
   },
   {
@@ -268,6 +270,9 @@ export default function Services() {
   return (
     <PageTransition variant="default">
     <div className="lp-root services-page-root">
+      {/* Brilho radial roxo suave no topo centralizado */}
+      <div className="radial-glow"></div>
+      <div className="radial-glow-navy"></div>
       <Navbar />
       
       <main className="independent-page">
@@ -316,14 +321,63 @@ export default function Services() {
                 <h3 className="service-title">{service.title[lang]}</h3>
                 <p className="service-desc">{service.desc[lang]}</p>
                 
-                <ul className="service-list">
-                  {service.list[lang].map((item, i) => (
-                    <li key={i} className="service-list-item">
-                      <Icons.Check />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {service.bentoExtras ? (
+                  <div style={{ marginTop: 24, marginBottom: 16 }}>
+                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 12, textTransform: "uppercase" }}>
+                      {lang === "EN" ? "DESIGN EXTRAS — CUSTOMIZABLE PER PROJECT" : "EXTRAS DE DESIGN — CUSTOMIZÁVEIS POR PROJETO"}
+                    </p>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+                      {service.bentoExtras[lang].map((bento, idx) => (
+                        <div key={idx} style={{ 
+                          background: bento.highlight ? "rgba(16, 185, 129, 0.04)" : "rgba(255,255,255,0.02)", 
+                          border: bento.highlight ? "1px solid rgba(16, 185, 129, 0.2)" : "1px solid rgba(255,255,255,0.05)", 
+                          borderRadius: "12px", 
+                          padding: 16 
+                        }}>
+                          <h4 style={{ fontSize: 14, fontWeight: 700, color: bento.highlight ? "#10b981" : "#fff", marginBottom: 8, lineHeight: 1.3 }}>{bento.title}</h4>
+                          <p style={{ fontSize: 13, color: bento.highlight ? "#fff" : "var(--mu)", lineHeight: 1.5 }}>{bento.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : service.notIncluded ? (
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 16, marginBottom: 16 }}>
+                    {/* INCLUDED CARD */}
+                    <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "12px", padding: 16 }}>
+                      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#10b981", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}</p>
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                        {service.list[lang].map((item, i) => (
+                          <li key={i} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
+                            <span style={{ color: "#10b981", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* NOT INCLUDED CARD */}
+                    <div style={{ background: "rgba(233, 30, 99, 0.04)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "12px", padding: 16 }}>
+                      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}</p>
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                        {service.notIncluded[lang].map((item, i) => (
+                          <li key={i} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
+                            <span style={{ color: "#E91E63", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <ul className="service-list">
+                    {service.list[lang].map((item, i) => (
+                      <li key={i} className="service-list-item">
+                        <Icons.Check />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 {service.output && (
                   <div className="service-output-badge">

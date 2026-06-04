@@ -19,6 +19,9 @@ export default function Portfolio() {
   return (
     <PageTransition variant="default">
     <div className="lp-root">
+      {/* Brilho radial roxo suave no topo centralizado */}
+      <div className="radial-glow"></div>
+      <div className="radial-glow-navy"></div>
       <Navbar />
       <main className="independent-page">
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', padding: '40px 20px' }} className="animate-float-up">

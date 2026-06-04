@@ -387,6 +387,9 @@ export default function InteriorReference() {
   return (
     <PageTransition variant="default">
     <div className="lp-root">
+      {/* Brilho radial roxo suave no topo centralizado */}
+      <div className="radial-glow"></div>
+      <div className="radial-glow-navy"></div>
       <Navbar />
 
       <main className="independent-page">
