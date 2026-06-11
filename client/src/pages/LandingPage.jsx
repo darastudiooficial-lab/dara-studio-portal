@@ -16,14 +16,17 @@ const CONTENT = {
     ],
     clientPortal: "Client Portal",
     heroBadge: "Architecture · Design · Visualization",
-    heroTitle1: "Elevating",
-    heroTitle2: "Architectural Design",
-    heroSubtitle: "Permit-ready drawings, 3D renders and architectural drafting — delivered with precision for US and Brazilian projects.",
-    getEstimate: "Get an Estimate",
-    accessPortal: "Access Portal",
-    statsRating: "4.9 rating · 120+ projects",
-    statsMarket: "US & BR Standards",
-    statsTurnaround: "7-day turnaround",
+    heroTitle1: "US Construction Standards.",
+    heroTitle2: "Seamless Remote Execution.",
+    heroSubtitle: "We deliver high-precision permit sets, architectural drafting, and detailed construction documentation tailored to US municipal codes. Scale your construction or development pipeline with an agile, dedicated technical partner.",
+    getEstimate: "REQUEST PROPOSAL",
+    accessPortal: "ACCESS PORTAL",
+    statsRating: "Certified Workflow",
+      statsRatingTooltip: "High-end drafting and architectural support for builders and investors.",
+    statsMarket: "US Code Compliance",
+      statsMarketTooltip: "Projects executed strictly under IBC, IRC, and local zoning frameworks.",
+    statsTurnaround: "Turnaround Efficiency",
+      statsTurnaroundTooltip: "Production cycles optimized for 8 to 16 days.",
     softwareChief: "Chief Architect",
     softwareUSCode: "US CODE COMPLIANT",
     softwareUSCodeTooltip: "Projects developed according to IBC, IRC, and local municipal standards for seamless permit approval.",
@@ -40,14 +43,17 @@ const CONTENT = {
     ],
     clientPortal: "Portal do Cliente",
     heroBadge: "Arquitetura · Design · Visualização",
-    heroTitle1: "Elevando",
-    heroTitle2: "Design Arquitetônico",
-    heroSubtitle: "Projetos prontos para aprovação, renders 3D e desenhos técnicos — entregues com precisão para projetos nos EUA e Brasil.",
-    getEstimate: "Solicitar Orçamento",
-    accessPortal: "Acessar Portal",
-    statsRating: "Nota 4.9 · 120+ projetos",
-    statsMarket: "Padrões EUA & BR",
-    statsTurnaround: "Entrega em 7 dias",
+    heroTitle1: "Projetos no Padrão Americano.",
+    heroTitle2: "Execução Remota sem Barreiras.",
+    heroSubtitle: "Desenvolvemos Permit Sets, detalhamentos executivos e documentação técnica de alta precisão para o mercado dos EUA. A união exata entre o rigor dos códigos de construção americanos e a proximidade de um atendimento humanizado e transparente.",
+    getEstimate: "SOLICITAR ORÇAMENTO",
+    accessPortal: "ACESSAR PORTAL",
+    statsRating: "Suporte Credenciado",
+      statsRatingTooltip: "Estrutura técnica sob medida para construtores, empreiteiros e investidores.",
+    statsMarket: "Conformidade de Códigos",
+      statsMarketTooltip: "Projetos alinhados estritamente às normas locais norte-americanas.",
+    statsTurnaround: "Velocidade de Entrega",
+      statsTurnaroundTooltip: "Fluxo de produção calibrado para entregas entre 8 e 16 dias.",
     softwareChief: "Arquiteto Chefe",
     softwareUSCode: "CONFORME CÓDIGOS EUA",
     softwareUSCodeTooltip: "Projetos desenvolvidos de acordo com as normas IBC, IRC e padrões municipais locais para aprovação simplificada de alvarás.",
@@ -147,7 +153,8 @@ export default function LandingPage() {
               target="_blank" 
               rel="noopener noreferrer" 
               className="trust-item trust-link"
-            >
+                title={T.statsRatingTooltip}
+              >
               <span style={{ color: "#fbbf24", fontSize: "14px" }}>⭐</span>
               {T.statsRating}
             </a>
@@ -157,10 +164,10 @@ export default function LandingPage() {
               {T.statsMarket}
             </div>
             <span className="footer-divider">·</span>
-            <div className="trust-item">
-              <span style={{ color: "#f97316", fontSize: "14px" }}>⚡</span>
-              {T.statsTurnaround}
-            </div>
+            <div className="trust-item" title={T.statsTurnaroundTooltip}>
+                <span style={{ color: "#f97316", fontSize: "14px" }}>⚡</span>
+                {T.statsTurnaround}
+              </div>
           </div>
 
           <div className="trust-bar">

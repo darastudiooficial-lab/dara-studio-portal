@@ -8,8 +8,8 @@ import InputMask from "react-input-mask";
 import BackgroundOrbs from "../components/BackgroundOrbs";
 
 /* ═══ CONSTANTS ═══ */
-const STEPS_EN = ["Location", "About You", "Project", "Scope", "Program", "Files", "Rush", "Review"];
-const STEPS_PT = ["Localização", "Sobre Você", "Projeto", "Escopo", "Programa", "Arquivos", "Urgência", "Revisão"];
+const STEPS_EN = ["About You", "Location", "Project", "Scope", "Program", "Files", "Rush", "Review"];
+const STEPS_PT = ["Sobre Você", "Localização", "Projeto", "Escopo", "Programa", "Arquivos", "Urgência", "Revisão"];
 
 /* ═══ PRICING CONSTANTS ═══ */
 const BASE_RATE_MAIN = 1.40;
@@ -39,16 +39,6 @@ const MARKET_DATA = {
     dimW: "e.g. 31'2\" or 120",
     dimL: "e.g. 45'0\" or 540",
     addressLabel: { EN: "Project address in the US", PT: "Endereço do projeto nos EUA" }
-  },
-  BR: {
-    zipMask: "99999-999",
-    phoneMask: "+55 (99) 99999-9999",
-    country: "Brasil",
-    zipPlaceholder: "01310-100",
-    phonePlaceholder: "+55 (00) 00000-0000",
-    dimW: "ex: 10.5",
-    dimL: "ex: 15.5",
-    addressLabel: { EN: "Project address in Brazil", PT: "Endereço do projeto no Brasil" }
   }
 };
 
@@ -65,7 +55,7 @@ const TRANSLATIONS = {
     continue: "Continue →",
     submit: "Submit Request & Access Portal →",
     whereProject: "Where is your project located?",
-    locationSub: "This helps us apply the right codes, rates, and regulations.",
+    locationSub: "This helps us apply the right building codes, fees, and zoning parameters.",
     streetAddress: "Street Address",
     city: "City",
     state: "State",
@@ -74,11 +64,11 @@ const TRANSLATIONS = {
     locationConfirmed: "✓ Location confirmed",
     verifyLocation: "Verify your project is correctly pinned, then confirm.",
     tellAboutYou: "Tell us about you.",
-    aboutYouSub: "We'll use this to personalize your estimate and reach out.",
+    aboutYouSub: "Rest assured, your privacy is guaranteed. We'll use this information exclusively to personalize your estimate.",
     fullName: "Full Name",
     email: "Email",
     phone: "Phone",
-    whoAreYou: "Who are you?",
+    whoAreYou: "What is your profile?",
     homeownerMsg: "Planning your dream home? We're here to help.",
     builderMsg: "We love working with builders! Let’s streamline the design process for your next project.",
     architectMsg: "Let's collaborate on some great designs together.",
@@ -104,8 +94,8 @@ const TRANSLATIONS = {
     levels: "Levels / Floors",
     selectServices: "Select Services",
     servicesSub: "Choose the specific services you need for your project.",
-    deliveryPackage: "Select Your Delivery Package",
-    packageSub: "Choose the scope that best fits your needs.",
+    deliveryPackage: "Choose the right package for you.",
+    packageSub: "Every project is different. Before we build your Estimate, you need to understand what each service covers — so you know exactly what you're getting and what falls outside the scope.",
     programReqs: "Program Requirements",
     programSub: "How many of each space do you need? Start at 0 and add as needed.",
     specialReqs: "Special Requirements (Optional)",
@@ -177,23 +167,58 @@ const TRANSLATIONS = {
       listing: "Current real estate listing (Zillow, Redfin, etc.)",
       tour: "Matterport or 3D Virtual Tour",
       reports: "Appraisal or structural reports",
+      existing_plans: "Existing Floor Plans or Previous Projects",
+      city_notes: "City Notes or Building Department Requirements",
       recommended: "Recommended",
-      ifAvailable: "If available"
+      ifAvailable: "If available",
+      ifApplicable: "If applicable"
+    },
+    stdDeliveryCard: {
+      badge: "STANDARD DELIVERY — INCLUDED",
+      previewTitle: "Design Preview",
+      previewDays: "8–16 Business Days",
+      previewSub: "Initial layout and visual direction delivered for review.",
+      finalTitle: "Final Drawing Set",
+      finalDays: "25–30 Business Days After Approval",
+      finalSub: "Complete architectural drawing package in digital format.",
+      footer: "Timeline starts from receipt of required project information including proposal approval and initial payment."
+    },
+    unlockFast: {
+      title: "Unlock Faster Delivery",
+      desc: "To access Express and Rush delivery options and a more accurate cost estimate, please provide the required documentation listed above.",
     },
     unlockRushAlert: "Confirm the 3 required documents above to unlock Rush and Express delivery options.",
     pkgNotIncluded: "WHAT IS NOT INCLUDED",
     speeds: {
       standard: {
-        sub: "Included in base price — no additional charge.",
-        days: "Standard turnaround"
+        badge: "STANDARD DELIVERY — INCLUDED",
+        previewTitle: "Design Preview",
+        previewDays: "8–16 Business Days",
+        previewSub: "Initial layout and visual direction delivered for review.",
+        finalTitle: "Final Executive Project",
+        finalDays: "25–30 Business Days After Approval",
+        finalSub: "Complete architectural drawing package in digital format.",
+        footer: "Timeline officially starts upon confirmation of initial payment and receipt of all mandatory documentation/briefing."
       },
       rush: {
-        sub: "+40% on subtotal. Studio will contact you to confirm exact timeline.",
-        days: "8–16 Business Days (depends on project size)."
+        badge: "PRIORITY DELIVERY",
+        previewTitle: "Design Preview",
+        previewDays: "5–10 Business Days",
+        previewSub: "Accelerated initial layout and visual direction.",
+        finalTitle: "Final Executive Project",
+        finalDays: "15–20 Business Days",
+        finalSub: "Up to 30% reduction in total development time.",
+        footer: "Exact timeline subject to project complexity and confirmed by Studio within 24h."
       },
       express: {
-        sub: "+60% on subtotal. Studio will contact you to confirm exact timeline.",
-        days: "5–10 Business Days (depends on project size)."
+        badge: "EXPRESS DELIVERY",
+        previewTitle: "Design Preview",
+        previewDays: "3–5 Business Days",
+        previewSub: "Accelerated initial layout.",
+        finalTitle: "Final Executive Project",
+        finalDays: "10–15 Business Days",
+        finalSub: "Maximum priority in the Studio's production queue.",
+        footer: "Immediate availability subject to technical team validation."
       }
     },
     projectEstimate: "Project Estimate",
@@ -246,12 +271,13 @@ const TRANSLATIONS = {
       tech: "Utilities & Tech"
     },
     roomLabels: {
-      bedrooms: "Bedrooms", bathrooms: "Bathrooms", halfBaths: "Half Baths",
+      bedrooms: "Bedrooms", guestRoom: "Guest Room", bathrooms: "Bathrooms", halfBaths: "Half Baths",
       livingRooms: "Living Room", diningRoom: "Dining Room", familyRoom: "Family Room",
-      kitchen: "Kitchen", pantry: "Pantry", laundry: "Laundry",
-      closet: "Walk-in Closet", mudroom: "Mudroom", storage: "Storage / Deposit",
-      office: "Home Office", gym: "Gym", studio: "Studio / Hobby Room",
-      deck: "Covered Deck", porch: "Screened Porch", outdoorKit: "Outdoor Kitchen",
+      kitchen: "Kitchen", kitchenIsland: "Kitchen Island", pantry: "Pantry", laundry: "Laundry",
+      walkInCloset: "Walk-in Closet", linen: "Linen Closet", mudroom: "Mudroom", storage: "Storage / Deposit",
+      office: "Home Office", gym: "Gym", studio: "Studio / Hobby Room", gameRoom: "Game Room",
+      deckCovered: "Covered Deck", deckOpen: "Uncovered Deck", porchCovered: "Covered Porch", porchOpen: "Uncovered Porch",
+      balcony: "Balcony", sunroom: "Sunroom", outdoorKit: "Outdoor Kitchen",
       fireplace: "Fireplace", wineCellar: "Wine Cellar", theater: "Home Theater",
       garageBays: "Garage Bays", mechanical: "Mechanical Room", elevator: "Elevator"
     },
@@ -268,13 +294,13 @@ const TRANSLATIONS = {
     lotSizeLabel: "Lot Size",
     grandTotalArea: "Grand Total Area",
     pkgTitles: {
-      as_built_permit: "As-Built Drawings & Permit Packages",
+      as_built_permit: "As-Built Drawings & Permit Documentation",
       floor_plans_only: "Floor Plans Only",
       pdf_to_cad: "PDF to CAD Conversion",
       "3d_rendering": "3D Realistic Rendering"
     },
     pkgSubs: {
-      as_built_permit: "Comprehensive package including all floor levels, design extras, and 3D visualization.",
+      as_built_permit: "The ultimate end-to-end solution for absolute precision, from survey to permit approval.",
       floor_plans_only: "Detailed 2D architectural drawings of your existing space.",
       pdf_to_cad: "High-precision conversion of your existing PDF plans into professional CAD format.",
       "3d_rendering": "Breathtaking photorealistic visualizations of your architectural project."
@@ -282,6 +308,7 @@ const TRANSLATIONS = {
     pkgDetails: {
       as_built_permit: {
         summary: "Comprehensive architectural package tailored to your needs. From essential municipal documentation to full executive design, including 3D visualization and technical detailing.",
+        whyUs: "We don't just draw lines—we deliver approval-ready precision. Our deep understanding of IRC/IBC codes means faster municipal approvals, fewer revisions, and a design that is builder-ready from day one. You save time, money, and headaches.",
         whatYouReceive: [
           { title: "Basic Permit Set (Fundamental)", desc: "Essential set including Existing/Demolition/Proposed plans, 2 Sections, 4 Elevations, and Roof Plan." },
           { title: "Design & Space Planning (Optional)", desc: "Aesthetic development, optimal room flow analysis, and micro-level interior layout." },
@@ -295,6 +322,7 @@ const TRANSLATIONS = {
       floor_plans_only: {
         tag: "LOW COMPLEXITY",
         summary: "A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans.",
+        whyUs: "Whether you're an investor pitching a layout or a homeowner visualizing a space, our team delivers high-quality, architecturally accurate plans with a turnaround time and aesthetic polish that generic drafting services simply can't match.",
         whatYouReceive: [
           { title: "Fundamental Spatial Layouts", desc: "Basic interior walls, doors, and room identification." },
           { title: "Dimensioned Floor Plans", desc: "Precise measurements of all interior spaces and structural elements." }
@@ -305,6 +333,7 @@ const TRANSLATIONS = {
       pdf_to_cad: {
         tag: "PRECISION",
         summary: "Professional conversion of existing PDF drawings into editable CAD (DWG) format.",
+        whyUs: "Precision is everything. We guarantee millimeter-accurate digital conversions organized in standard architectural layers, ensuring your engineers and builders can hit the ground running without wasting hours fixing messy CAD files.",
         whatYouReceive: [
           { title: "Fully Editable CAD Files", desc: "Standard DWG format compatible with all major CAD software." },
           { title: "Accurate Scaling", desc: "Verification and adjustment to ensure real-world precision." },
@@ -316,6 +345,7 @@ const TRANSLATIONS = {
       "3d_rendering": {
         tag: "VISUALIZATION",
         summary: "The \"photo\" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.",
+        whyUs: "We create emotion. Our 3D artists use cinematic lighting and ultra-realistic textures to craft images that don't just show a building, but sell a lifestyle. Perfect for pre-sales, investor pitches, or making confident finish selections.",
         whatYouReceive: [
           { title: "Photorealistic Images", desc: "High-resolution 3D renders with realistic materials and environments." },
           { title: "Material Visualization", desc: "See your choices for siding, roofing, and windows in context." },
@@ -403,7 +433,7 @@ const TRANSLATIONS = {
     continue: "Continuar →",
     submit: "Enviar Solicitação e Acessar Portal →",
     whereProject: "Onde seu projeto está localizado?",
-    locationSub: "Isso nos ajuda a aplicar os códigos, taxas e regulamentos corretos.",
+    locationSub: "Isso nos ajuda a aplicar os códigos de obras, taxas e parâmetros urbanísticos corretos.",
     streetAddress: "Endereço",
     city: "Cidade",
     state: "Estado",
@@ -412,11 +442,11 @@ const TRANSLATIONS = {
     locationConfirmed: "✓ Localização confirmada",
     verifyLocation: "Verifique se o seu projeto está fixado corretamente e confirme.",
     tellAboutYou: "Conte-nos sobre você.",
-    aboutYouSub: "Usaremos isso para personalizar sua estimativa e entrar em contato.",
+    aboutYouSub: "Garantimos a privacidade dos seus dados. Usaremos estas informações exclusivamente para personalizar sua estimativa.",
     fullName: "Nome Completo",
     email: "E-mail",
     phone: "Telefone",
-    whoAreYou: "Quem é você?",
+    whoAreYou: "Qual é o seu perfil?",
     homeownerMsg: "Planejando a casa dos seus sonhos? Estamos aqui para ajudar.",
     builderMsg: "Adoramos trabalhar com construtores! Vamos otimizar o processo de design para o seu próximo projeto.",
     architectMsg: "Vamos colaborar em grandes projetos juntos.",
@@ -433,8 +463,8 @@ const TRANSLATIONS = {
     bizZip: "CEP",
     bizEmail: "E-mail Comercial",
     bizPhone: "Telefone Comercial",
-    tellAboutProject: "Conte-nos sobre o projeto.",
-    projectSub: "Não se preocupe com a precisão exata — uma estimativa aproximada funciona aqui.",
+    tellAboutProject: "Simule o custo do seu projeto nos EUA.",
+    projectSub: "Obtenha uma estimativa rápida para o desenvolvimento de blueprints e documentação técnica.",
     propType: "Tipo de Propriedade",
     dimensions: "Dimensões do Projeto",
     width: "Largura",
@@ -442,30 +472,30 @@ const TRANSLATIONS = {
     levels: "Níveis / Andares",
     selectServices: "Selecionar Serviços",
     servicesSub: "Escolha os serviços específicos que você precisa para o seu projeto.",
-    deliveryPackage: "Selecione seu Pacote de Entrega",
-    packageSub: "Escolha o escopo que melhor se adapta às suas necessidades.",
-    programReqs: "Requisitos do Programa",
-    programSub: "Quantos de cada espaço você precisa? Comece em 0 e adicione conforme necessário.",
+    deliveryPackage: "Selecione o escopo ideal para a sua demanda.",
+    packageSub: "Defina o nível de documentação técnica, modelagem ou conversão que o seu projeto nos EUA exige para avançar sem erros.",
+    programReqs: "Programa de Necessidades",
+    programSub: "Quantos ambientes a sua obra vai ter? Defina a composição dos espaços abaixo e inicie o seu planejamento.",
     specialReqs: "Requisitos Especiais (Opcional)",
     specialReqsPlaceholder: "Descreva quaisquer requisitos especiais, necessidades de acessibilidade ou notas para a equipe de design…",
     uploadFiles: "Carregar Arquivos de Referência",
-    uploadSub: "Carregar por categoria — até 100MB por arquivo.",
+    uploadSub: "Organize por categoria — máximo de 100MB por arquivo.",
     dragDrop: "Arraste e solte ou clique para carregar",
     deliverySpeed: "Selecione a Velocidade de Entrega",
     speedSub: "Precisa mais rápido? Escolha uma opção de entrega abaixo.",
     reviewEstimate: "Revise sua Estimativa",
     reviewSub: "Verifique todos os detalhes antes de enviar.",
-    estimatedFee: "Taxa de Design Estimada",
+    estimatedFee: "Investimento Estimado em Projeto",
     yourProject: "Seu Projeto",
     summary: "Resumo",
     confidence: "Confiança da Estimativa",
-    approxEstimate: "*Estimativa aproximada. Preço final confirmado após revisão do projeto.",
-    enterDims: "Insira as dimensões e selecione o tipo de projeto para ver sua estimativa.",
+    approxEstimate: "*Estimativa preliminar baseada no escopo inicial. Os valores finais serão consolidados após a validação do briefing e características do terreno/imóvel.",
+    enterDims: "Insira a área em sq ft (pés quadrados) e selecione o tipo de propriedade para ver sua estimativa.",
     customArea: "Área Personalizada",
     totalArea: "Área Total",
     selectLevels: "Selecione os níveis abaixo",
     groundFloor: "Térreo",
-    secondFloor: "2º Pavimento",
+    secondFloor: "Pavimento Superior",
     basement: "Subsolo",
     attic: "Sótão",
     standardDelivery: "Entrega Padrão",
@@ -490,55 +520,90 @@ const TRANSLATIONS = {
       kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro", open_concept: "Conversão de Conceito Aberto", other_int: "Outro Interior"
     },
     propertyTypes: {
-      single_family: { label: "Residencial Unifamiliar", sub: "Uma família" },
-      multi_family: { label: "Multifamiliar", sub: "Duplex, Triplex…" },
-      adu: { label: "ADU", sub: "Unidade Acessória" }
+      single_family: { label: "Residencial Unifamiliar (Single-Family Residential)", sub: "Single-Family Homes. Projetos de casas customizadas e reformas do zero." },
+      multi_family: { label: "Multifamiliar", sub: "Multi-Family. Duplex, townhouses e edifícios residenciais para investimento." },
+      adu: { label: "ADU", sub: "Accessory Dwelling Units. Edículas, guest houses e projetos para gerar renda extra de aluguel." }
     },
     svcSubs: {
-      new_construction: "Projeto completo do zero", addition: "Novo quarto, anexo ou garagem", second_story: "Construir um novo andar superior",
-      garage_only: "Projeto de garagem independente", garage_conversion: "Garagem → área habitável / ADU", basement_finishing: "Remodelar e finalizar um subsolo",
-      deck_covered: "Deck com estrutura de telhado", deck_open: "Deck sem telhado", porch_covered: "Varanda com telhado", porch_open: "Varanda aberta",
-      renovation: "Reforma geral", other_const: "Outros serviços de construção",
-      kitchen_remodel: "Foco em áreas de cozinha", bath_remodel: "Foco em áreas de banheiro", open_concept: "Remover paredes, integrar espaços", other_int: "Outros serviços de interior"
+      new_construction: "New Construction. Blueprints completos para novas propriedades do zero.", addition: "Addition / Extension. Adicione novos quartos, suítes ou anexos à estrutura existente.", second_story: "Second Story Addition. Projetos para construção de novo pavimento superior.",
+      garage_only: "Detached Garage. Projetos de garagens independentes ou oficinas.", garage_conversion: "Garage Conversion. Transforme a garagem existente em área habitável ou ADU legalizada.", basement_finishing: "Basement Finishing. Legalização, divisórias e acabamento completo de subsolos.",
+      deck_covered: "Covered Deck. Projetos de decks de madeira ou composto com cobertura.", deck_open: "Uncovered Deck. Estruturas de decks abertos para lazer.", porch_covered: "Covered Porch / Patio. Extensão de áreas cobertas integradas à casa.", porch_open: "Open Patio / Porch. Projetos de varandas abertas e pavimentação externa.",
+      renovation: "Remodeling & Renovation. Alterações de layout interno, elétrica e hidráulica.", other_const: "Custom Project. Outros tipos de estruturas ou demandas técnicas específicas.",
+      kitchen_remodel: "Kitchen Remodel. Detalhamento de marcenaria, elétrica, hidráulica e novos layouts.", bath_remodel: "Bathroom Remodel. Realocação de shafts, novos layouts e especificações técnicas.", open_concept: "Open Concept Conversion. Remoção de paredes, integração de ambientes e análise estrutural básica.", other_int: "Custom Interior. Projetos de lareiras, closets, home theater ou demandas sob medida."
     },
-    pkgLabels: { as_built_permit: "Pacote de Levantamento e Prefeitura", floor_plans_only: "Apenas Plantas Baixas", pdf_to_cad: "PDF para CAD", "3d_rendering": "Renderização 3D" },
+    pkgLabels: { as_built_permit: "Desenvolvimento de Projeto e Documentação", floor_plans_only: "Apenas Plantas Baixas", pdf_to_cad: "PDF para CAD", "3d_rendering": "Renderização 3D" },
     unlockRush: "Por favor, faça o upload dos 3 arquivos obrigatórios acima para desbloquear prazos de entrega mais rápidos.",
     checklist: {
       survey: "Levantamento Topográfico / Site Plan",
-      photos: "Fotos claras de todos os lados da propriedade",
-      measure: "Medidas básicas (Croquis ou plantas existentes)",
+      photos: "Fotos gerais da propriedade (Fachadas e Entorno)",
+      measure: "Levantamento Existente (As-Built ou croquis com medidas)",
       listing: "Anúncio imobiliário atual (Zillow, Redfin, etc.)",
       tour: "Matterport ou Tour Virtual 3D",
-      reports: "Laudos de avaliação ou estruturais",
+      reports: "Laudos Estruturais ou de Avaliação (Appraisal/Structural Reviews)",
+      existing_plans: "Plantas Existentes ou Projetos Anteriores (Ex: Alvarás Antigos)",
+      city_notes: "Pareceres ou Exigências do Departamento de Obras",
       recommended: "Recomendado",
-      ifAvailable: "Se disponível"
+      ifAvailable: "Se disponível",
+      ifApplicable: "Se houver"
+    },
+    stdDeliveryCard: {
+      badge: "ENTREGA PADRÃO — INCLUSA",
+      previewTitle: "Estudo Preliminar (SD)",
+      previewDays: "8–16 Dias Úteis",
+      previewSub: "Layout inicial e direção visual entregues para revisão.",
+      finalTitle: "Conjunto Técnico Completo (CD)",
+      finalDays: "25–30 Dias Úteis Após Aprovação",
+      finalSub: "Pacote completo de desenho arquitetônico em formato digital.",
+      footer: "O cronograma oficial inicia após a confirmação do pagamento e o recebimento de toda a documentação e briefing obrigatórios."
+    },
+    unlockFast: {
+      title: "Acelere seu Cronograma",
+      desc: "O envio dos documentos obrigatórios garante a precisão técnica da sua estimativa e libera nossas modalidades de entrega prioritária: Express e Rush.",
     },
     unlockRushAlert: "Confirme os 3 documentos obrigatórios acima para desbloquear as opções Rush e Express.",
     pkgNotIncluded: "O QUE NÃO ESTÁ INCLUSO",
     speeds: {
       standard: {
-        sub: "Incluído no preço base — sem custo adicional.",
-        days: "Prazo padrão"
+        badge: "ENTREGA PADRÃO — INCLUSA",
+        previewTitle: "Estudo Preliminar (SD)",
+        previewDays: "8–16 Dias Úteis",
+        previewSub: "Layout inicial e direção visual entregues para revisão.",
+        finalTitle: "Conjunto Técnico Completo (CD)",
+        finalDays: "25–30 Dias Úteis Após Aprovação",
+        finalSub: "Pacote completo de desenho arquitetônico em formato digital.",
+        footer: "O cronograma oficial inicia após a confirmação do pagamento e o recebimento de toda a documentação e briefing obrigatórios."
       },
       rush: {
-        sub: "+40% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
-        days: "8–16 Dias Úteis (depende do tamanho do projeto)."
+        badge: "ENTREGA PRIORITÁRIA",
+        previewTitle: "Estudo Preliminar (SD)",
+        previewDays: "3–5 Dias Úteis",
+        previewSub: "Prioridade no desenvolvimento do layout inicial e direção visual.",
+        finalTitle: "Conjunto Técnico Completo (CD)",
+        finalDays: "15–20 Dias Úteis",
+        finalSub: "Redução de até 30% no prazo final de entrega técnica.",
+        footer: "Prazo exato condicionado à complexidade do projeto e confirmado pelo Studio em até 24h."
       },
       express: {
-        sub: "+60% no subtotal. O Studio entrará em contato para confirmar o cronograma.",
-        days: "5–10 Dias Úteis (depende do tamanho do projeto)."
+        badge: "ENTREGA ULTRA-RÁPIDA (RUSH)",
+        previewTitle: "Estudo Preliminar (SD)",
+        previewDays: "1–2 Dias Úteis",
+        previewSub: "Layout inicial com desenvolvimento acelerado e imediato.",
+        finalTitle: "Conjunto Técnico Completo (CD)",
+        finalDays: "10–15 Dias Úteis",
+        finalSub: "Prioridade máxima e exclusiva na fila de produção do Studio.",
+        footer: "Disponibilidade imediata sujeita a validação da equipe técnica."
       }
     },
     projectEstimate: "Estimativa do Projeto",
-    uploadTitle: "Upload de Referências",
-    uploadHelp: "Por favor, envie documentos relevantes como: Plantas Existentes, Levantamentos, croquis ou fotos da propriedade. Documentação clara nos ajuda a fornecer um serviço de design mais preciso e rápido.",
+    uploadTitle: "Envio de Documentação e Referências",
+    uploadHelp: "Por favor, envie os documentos disponíveis do seu imóvel ou terreno, como: plantas existentes, levantamentos topográficos, croquis ou fotos. Uma documentação inicial completa acelera o desenvolvimento técnico e garante maior precisão à estimativa.",
     dropHere: "Arraste ou ",
     browse: "clique para carregar",
     projectIntent: "Intuito do Projeto",
     detected: "Detectado",
     dimInstructions: "Formatos aceitos: 10.5 ou 10,5. Use ponto ou vírgula para decimais.",
-    rushFeesTitle: "Taxas de Urgência & Entrega",
-    rushFeesSub: "Confirme seus documentos para desbloquear opções de entrega mais rápidas.",
+    rushFeesTitle: "Prazos e Opções de Entrega",
+    rushFeesSub: "Valide sua documentação para liberar cronogramas acelerados (Express e Rush).",
     docChecklist: "CHECKLIST DE DOCUMENTOS",
     requiredRemaining: "obrigatórios restantes",
     required: "Obrigatório",
@@ -578,12 +643,13 @@ const TRANSLATIONS = {
       tech: "Utilidades e Técnica"
     },
     roomLabels: {
-      bedrooms: "Quartos", bathrooms: "Banheiros", halfBaths: "Lavabos",
+      bedrooms: "Quartos", guestRoom: "Quarto de Hóspedes", bathrooms: "Banheiros", halfBaths: "Lavabos",
       livingRooms: "Sala de Estar", diningRoom: "Sala de Jantar", familyRoom: "Sala de TV",
-      kitchen: "Cozinha", pantry: "Despensa", laundry: "Lavanderia",
-      closet: "Closet", mudroom: "Mudroom", storage: "Depósito / Estocagem",
-      office: "Escritório", gym: "Academia", studio: "Ateliê / Hobby",
-      deck: "Deck Coberto", porch: "Varanda com Tela", outdoorKit: "Cozinha Externa",
+      kitchen: "Cozinha", kitchenIsland: "Ilha na Cozinha", pantry: "Despensa", laundry: "Lavanderia",
+      walkInCloset: "Walk-in Closet", linen: "Rouparia", mudroom: "Mudroom", storage: "Depósito / Estocagem",
+      office: "Escritório", gym: "Academia", studio: "Ateliê / Hobby", gameRoom: "Salão de Jogos",
+      deckCovered: "Deck Coberto", deckOpen: "Deck Descoberto", porchCovered: "Porch Coberto", porchOpen: "Porch Descoberto",
+      balcony: "Sacada", sunroom: "Jardim de Inverno / Sunroom", outdoorKit: "Cozinha Externa",
       fireplace: "Lareira", wineCellar: "Adega", theater: "Home Theater",
       garageBays: "Vagas de Garagem", mechanical: "Sala de Máquinas", elevator: "Elevador"
     },
@@ -598,23 +664,24 @@ const TRANSLATIONS = {
     uploadLaterNote: "Você pode enviar seus arquivos depois — vamos te lembrar por e-mail.",
     addLevelsFloors: "Adicionar Níveis / Andares",
     propertyTypeLabel: "Tipo de Propriedade",
-    lotSizeLabel: "Tamanho do Lote",
+    lotSizeLabel: "LOT SIZE - TAMANHO DO LOTE",
     grandTotalArea: "Área Total Geral",
     pkgTitles: {
-      as_built_permit: "Desenhos As-Built e Pacotes de Prefeitura",
+      as_built_permit: "Desenhos As-Built e Documentação para Permit",
       floor_plans_only: "Apenas Plantas Baixas",
       pdf_to_cad: "Conversão de PDF para CAD",
       "3d_rendering": "Renderização 3D Realista"
     },
     pkgSubs: {
-      as_built_permit: "Pacote completo incluindo todos os níveis, extras de design e visualização 3D.",
-      floor_plans_only: "Desenhos arquitetônicos 2D detalhados do seu espaço existente.",
-      pdf_to_cad: "Conversão de alta precisão de seus planos PDF em formato CAD profissional.",
-      "3d_rendering": "Visualizações fotorrealistas impressionantes do seu projeto arquitetônico."
+      as_built_permit: "Conjunto completo de blueprints para aprovação (Permit). Inclui o levantamento das condições existentes (As-Built), plantas de piso, elevações, cortes estruturais e tudo o que a prefeitura (City) exige.",
+      floor_plans_only: "Desenho técnico especializado focado no layout interno. Ideal para estudos preliminares de espaço, zoneamento interno e propostas iniciais de layout em 2D.",
+      pdf_to_cad: "Transformação de plantas antigas, arquivos em PDF ou desenhos escaneados em arquivos DWG/CAD totalmente editáveis, vetorizados e organizados em layers no padrão americano.",
+      "3d_rendering": "Modelagem tridimensional e renders fotorrealistas de alta resolução. Perfeito para construtores e investidores validarem materiais antes da obra ou usarem como material de marketing e vendas."
     },
     pkgDetails: {
       as_built_permit: {
         summary: "Pacote arquitetônico abrangente adaptado às suas necessidades. Da documentação municipal essencial ao design executivo completo.",
+        whyUs: "Não desenhamos apenas linhas — entregamos precisão pronta para aprovação. Nosso profundo conhecimento das normas garante aprovações municipais mais rápidas, menos revisões e um projeto pronto para a obra desde o primeiro dia. Você economiza tempo, dinheiro e dores de cabeça.",
         whatYouReceive: [
           { title: "Conjunto Básico de Permissão", desc: "Plano essencial incluindo plantas Existente/Demolição/Proposto, cortes, fachadas e telhado." },
           { title: "Design e Planejamento de Espaço (Opcional)", desc: "Desenvolvimento estético e análise de fluxo otimizada." },
@@ -626,8 +693,9 @@ const TRANSLATIONS = {
         idealFor: ["Proprietários que precisam de aprovação", "Projetos Complexos", "Aprovação Profissional"]
       },
       floor_plans_only: {
-        tag: "BAIXA COMPLEXIDADE",
+        tag: "SCHEMATIC DESIGN",
         summary: "Um serviço simplificado que entrega layouts espaciais fundamentais e plantas baixas dimensionadas.",
+        whyUs: "Seja você um investidor vendendo uma ideia ou um proprietário visualizando um espaço, nossa equipe entrega plantas arquitetônicas precisas e de alta qualidade, com um prazo e refinamento estético que serviços genéricos de desenho simplesmente não conseguem igualar.",
         whatYouReceive: [
           { title: "Layouts Espaciais Fundamentais", desc: "Paredes internas básicas, portas e identificação de cômodos." },
           { title: "Plantas Baixas Dimensionadas", desc: "Medições precisas de todos os espaços internos e elementos estruturais." }
@@ -636,8 +704,9 @@ const TRANSLATIONS = {
         idealFor: ["Planejamento Inicial", "Reformas Estéticas", "Apenas Conceito"]
       },
       pdf_to_cad: {
-        tag: "PRECISÃO",
+        tag: "CAD CONVERSION",
         summary: "Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável.",
+        whyUs: "A precisão é tudo. Garantimos conversões digitais milimetricamente exatas, organizadas em camadas arquitetônicas padrão, para que seus engenheiros e construtores possam começar a trabalhar imediatamente, sem perder horas arrumando arquivos bagunçados.",
         whatYouReceive: [
           { title: "Arquivos CAD Totalmente Editáveis", desc: "Formato DWG padrão compatível com os principais softwares CAD." },
           { title: "Escalonamento Preciso", desc: "Verificação e ajuste para garantir precisão no mundo real." },
@@ -647,8 +716,9 @@ const TRANSLATIONS = {
         idealFor: ["Arquivamento Digital", "Base para Reforma", "Empreiteiros"]
       },
       "3d_rendering": {
-        tag: "VISUALIZAÇÃO",
-        summary: "A \"foto\" do futuro. Este serviço fornece imagens de alta qualidade que dão vida ao seu projeto com texturas, iluminação e cores realistas.",
+        tag: "3D RENDERING",
+        summary: "Modelagem tridimensional e renders fotorrealistas de alta resolução. Perfeito para construtores e investidores validarem materiais antes da obra ou usarem como material de marketing e vendas.",
+        whyUs: "Nós criamos emoção. Nossos artistas 3D usam iluminação cinematográfica e texturas ultra-realistas para criar imagens que não apenas mostram um edifício, mas vendem um estilo de vida. Perfeito para pré-vendas, apresentações a investidores ou escolhas seguras de acabamentos.",
         whatYouReceive: [
           { title: "Imagens Fotorrealistas", desc: "Renders 3D de alta resolução com materiais e ambientes realistas." },
           { title: "Visualização de Materiais", desc: "Veja suas escolhas de revestimento, telhado e janelas em contexto." },
@@ -666,11 +736,11 @@ const TRANSLATIONS = {
         modules_3d: "MÓDULOS DE VISUALIZAÇÃO 3D"
       },
       items: {
-        ex_arch_design: { label: "Detalhamento de Design Arquitetônico", desc: "Foca no desenvolvimento conceitual e estético do seu projeto. Inclui fachadas externas, estilo estrutural e aparência geral." },
-        ex_space_plan: { label: "Planejamento de Espaço", desc: "Design em nível macro com foco no arranjo ideal de paredes, portas e fluxos entre cômodos. Analisamos a melhor maneira de utilizar a metragem quadrada para funcionalidade e movimentação." },
-        ex_interior_lay: { label: "Layout de Interiores", desc: "Design em nível micro detalhando o posicionamento de móveis, marcenaria sob medida (como armários de cozinha ou banheiro), eletrodomésticos e luminárias específicas dentro dos espaços definidos." },
-        ex_const_detail: { label: "Detalhamento de Construção e Estrutura", desc: "Plantas técnicas de estrutura (pré-dimensionamento), detalhes construtivos essenciais e tabelas (portas/janelas). Este módulo fornece as informações necessárias para o seu construtor executar o projeto com precisão, reduzindo desperdício de materiais e tempo de obra." },
-        ex_code_comp: { label: "Conformidade Técnica e Notas", desc: "Citações detalhadas de códigos municipais, notas de segurança e anotações profissionais necessárias para agilizar o processo de aprovação de alvarás e garantir a conformidade legal." },
+        ex_arch_design: { label: "Detalhamento Arquitetônico Avançado", desc: "Foca no desenvolvimento conceitual e estético do seu projeto. Inclui fachadas externas, estilo estrutural e aparência geral." },
+        ex_space_plan: { label: "Planejamento de Espaço (Macro Design)", desc: "Design em nível macro com foco no arranjo ideal de paredes, portas e fluxos entre cômodos. Analisamos a melhor maneira de utilizar a metragem quadrada para funcionalidade e movimentação." },
+        ex_interior_lay: { label: "Layout de Interiores (Space Planning)", desc: "Design em nível micro detalhando o posicionamento de móveis, marcenaria sob medida (como armários de cozinha ou banheiro), eletrodomésticos e luminárias específicas dentro dos espaços definidos." },
+        ex_const_detail: { label: "Detalhamento Construtivo & Framing", desc: "Plantas técnicas de estrutura (pré-dimensionamento), detalhes construtivos essenciais e tabelas (portas/janelas). Este módulo fornece as informações necessárias para o seu construtor executar o projeto com precisão, reduzindo desperdício de materiais e tempo de obra." },
+        ex_code_comp: { label: "Conformidade com Códigos Municipais (Code Compliance)", desc: "Citações detalhadas de códigos municipais, notas de segurança e anotações profissionais necessárias para agilizar o processo de aprovação de alvarás e garantir a conformidade legal." },
         ex_3d_ext: { label: "Renderização 3D Exterior", desc: "Visualização 3D de alta fidelidade da arquitetura externa." },
         ex_3d_kitchen: { label: "Design 3D de Cozinha", desc: "Visualização fotorrealista da sua cozinha com materiais e iluminação." },
         ex_3d_bath: { label: "Design 3D de Banheiro", desc: "Renderização 3D detalhada do seu banheiro principal." },
@@ -800,31 +870,24 @@ const US_STATES = [
   "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ];
 
-const BR_STATES = [
-  "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão",
-  "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte",
-  "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
-];
-
 const COMMON_CITIES = {
-  US: ["Abington","Acton","Acushnet","Adams","Agawam","Alford","Amesbury","Amherst","Andover","Aquinnah","Arlington","Ashburnham","Ashby","Ashfield","Ashland","Athol","Attleboro","Auburn","Avon","Ayer","Barnstable","Barre","Becket","Belchertown","Bellingham","Belmont","Berkley","Berlin","Bernardston","Beverly","Billerica","Blackstone","Blandford","Bolton","Boston","Bourne","Boxborough","Boxford","Boylston","Braintree","Brewster","Bridgewater","Brimfield","Brockton","Brookfield","Brookline","Buckland","Burlington","Cambridge","Canton","Carlisle","Carver","Charlemont","Charlton","Chatham","Chelmsford","Chelsea","Cheshire","Chester","Chesterfield","Chicopee","Chilmark","Clarksburg","Clinton","Cohasset","Colrain","Concord","Conway","Cummington","Dalton","Danvers","Dartmouth","Dedham","Deerfield","Dennis","Dighton","Douglas","Dover","Dracut","Dudley","Dunstable","Duxbury","East Bridgewater","East Brookfield","East Longmeadow","Eastham","Easthampton","Easton","Edgartown","Egremont","Erving","Essex","Everett","Fairhaven","Fall River","Falmouth","Fitchburg","Florida","Foxborough","Framingham","Franklin","Freetown","Gardner","Georgetown","Gill","Gloucester","Goshen","Gosnold","Grafton","Granby","Granville","Great Barrington","Greenfield","Groton","Groveland","Hadley","Halifax","Hamilton","Hampden","Hancock","Hanover","Hanson","Hardwick","Harvard","Harwich","Hatfield","Haverhill","Hawley","Heath","Hingham","Hinsdale","Holbrook","Holden","Holland","Holliston","Holyoke","Hopedale","Hopkinton","Hubbardston","Hudson","Hull","Huntington","Ipswich","Kingston","Lakeville","Lancaster","Lanesborough","Lawrence","Lee","Leicester","Lenox","Leominster","Leverett","Lexington","Leyden","Lincoln","Littleton","Longmeadow","Lowell","Ludlow","Lunenburg","Lynn","Lynnfield","Malden","Manchester-by-the-Sea","Mansfield","Marblehead","Marion","Marlborough","Marshfield","Mashpee","Mattapoisett","Maynard","Medfield","Medford","Medway","Melrose","Mendon","Merrimac","Methuen","Middleborough","Middlefield","Middleton","Milford","Millbury","Millis","Millville","Milton","Monroe","Monson","Montague","Monterey","Montgomery","Mount Washington","Nahant","Nantucket","Natick","Needham","New Ashford","New Bedford","New Braintree","New Marlborough","New Salem","Newbury","Newburyport","Newton","Norfolk","North Adams","North Andover","North Attleborough","North Brookfield","North Reading","Northampton","Northborough","Northbridge","Northfield","Norton","Norwell","Norwood","Oak Bluffs","Oakham","Orange","Orleans","Otis","Oxford","Palmer","Paxton","Peabody","Pelham","Pembroke","Pepperell","Peru","Petersham","Phillipston","Pittsfield","Plainfield","Plainville","Plymouth","Plympton","Princeton","Provincetown","Quincy","Randolph","Raynham","Reading","Rehoboth","Revere","Richmond","Rochester","Rockland","Rockport","Rowe","Rowley","Royalston","Russell","Rutland","Salem","Salisbury","Sandisfield","Sandwich","Saugus","Savoy","Scituate","Seekonk","Sharon","Sheffield","Shelburne","Sherborn","Shirley","Shrewsbury","Shutesbury","Somerset","Somerville","South Hadley","Southampton","Southborough","Southbridge","Southwick","Spencer","Springfield","Sterling","Stockbridge","Stoneham","Stoughton","Stow","Sturbridge","Sudbury","Sunderland","Sutton","Swampscott","Swansea","Taunton","Templeton","Tewksbury","Tisbury","Tolland","Topsfield","Townsend","Truro","Tyngsborough","Tyringham","Upton","Uxbridge","Wakefield","Wales","Walpole","Waltham","Ware","Wareham","Warren","Warwick","Washington","Watertown","Wayland","Webster","Wellesley","Wellfleet","Wendall","Wenham","West Boylston","West Bridgewater","West Brookfield","West Newbury","West Springfield","West Tisbury","Westborough","Westfield","Westford","Westhampton","Westminster","Weston","Westport","Westwood","Weymouth","Whately","Whitman","Wilbraham","Williamsburg","Williamstown","Wilmington","Winchendon","Winchester","Windsor","Winthrop","Woburn","Worcester","Worthington","Wrentham","Yarmouth"],
-  BR: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Goiânia", "Belém", "Porto Alegre", "Guarulhos", "Campinas", "São Luís", "São Gonçalo", "Maceió", "Duque de Caxias", "Natal", "Campo Grande", "Teresina", "São Bernardo do Campo", "Nova Iguaçu", "João Pessoa", "Santo André", "São José dos Campos", "Jaboatão dos Guararapes", "Ribeirão Preto", "Uberlândia", "Contagem", "Sorocaba", "Aracaju", "Feira de Santana", "Cuiabá", "Joinville", "Juiz de Fora", "Londrina", "Aparecida de Goiânia", "Ananindeua", "Porto Velho", "Serra", "Niterói", "Belford Roxo", "Caxias do Sul", "Campos dos Goytacazes", "Macapá", "Florianópolis", "Vila Velha", "Mauá", "São João de Meriti"]
+  US: ["Abington","Acton","Acushnet","Adams","Agawam","Alford","Amesbury","Amherst","Andover","Aquinnah","Arlington","Ashburnham","Ashby","Ashfield","Ashland","Athol","Attleboro","Auburn","Avon","Ayer","Barnstable","Barre","Becket","Belchertown","Bellingham","Belmont","Berkley","Berlin","Bernardston","Beverly","Billerica","Blackstone","Blandford","Bolton","Boston","Bourne","Boxborough","Boxford","Boylston","Braintree","Brewster","Bridgewater","Brimfield","Brockton","Brookfield","Brookline","Buckland","Burlington","Cambridge","Canton","Carlisle","Carver","Charlemont","Charlton","Chatham","Chelmsford","Chelsea","Cheshire","Chester","Chesterfield","Chicopee","Chilmark","Clarksburg","Clinton","Cohasset","Colrain","Concord","Conway","Cummington","Dalton","Danvers","Dartmouth","Dedham","Deerfield","Dennis","Dighton","Douglas","Dover","Dracut","Dudley","Dunstable","Duxbury","East Bridgewater","East Brookfield","East Longmeadow","Eastham","Easthampton","Easton","Edgartown","Egremont","Erving","Essex","Everett","Fairhaven","Fall River","Falmouth","Fitchburg","Florida","Foxborough","Framingham","Franklin","Freetown","Gardner","Georgetown","Gill","Gloucester","Goshen","Gosnold","Grafton","Granby","Granville","Great Barrington","Greenfield","Groton","Groveland","Hadley","Halifax","Hamilton","Hampden","Hancock","Hanover","Hanson","Hardwick","Harvard","Harwich","Hatfield","Haverhill","Hawley","Heath","Hingham","Hinsdale","Holbrook","Holden","Holland","Holliston","Holyoke","Hopedale","Hopkinton","Hubbardston","Hudson","Hull","Huntington","Ipswich","Kingston","Lakeville","Lancaster","Lanesborough","Lawrence","Lee","Leicester","Lenox","Leominster","Leverett","Lexington","Leyden","Lincoln","Littleton","Longmeadow","Lowell","Ludlow","Lunenburg","Lynn","Lynnfield","Malden","Manchester-by-the-Sea","Mansfield","Marblehead","Marion","Marlborough","Marshfield","Mashpee","Mattapoisett","Maynard","Medfield","Medford","Medway","Melrose","Mendon","Merrimac","Methuen","Middleborough","Middlefield","Middleton","Milford","Millbury","Millis","Millville","Milton","Monroe","Monson","Montague","Monterey","Montgomery","Mount Washington","Nahant","Nantucket","Natick","Needham","New Ashford","New Bedford","New Braintree","New Marlborough","New Salem","Newbury","Newburyport","Newton","Norfolk","North Adams","North Andover","North Attleborough","North Brookfield","North Reading","Northampton","Northborough","Northbridge","Northfield","Norton","Norwell","Norwood","Oak Bluffs","Oakham","Orange","Orleans","Otis","Oxford","Palmer","Paxton","Peabody","Pelham","Pembroke","Pepperell","Peru","Petersham","Phillipston","Pittsfield","Plainfield","Plainville","Plymouth","Plympton","Princeton","Provincetown","Quincy","Randolph","Raynham","Reading","Rehoboth","Revere","Richmond","Rochester","Rockland","Rockport","Rowe","Rowley","Royalston","Russell","Rutland","Salem","Salisbury","Sandisfield","Sandwich","Saugus","Savoy","Scituate","Seekonk","Sharon","Sheffield","Shelburne","Sherborn","Shirley","Shrewsbury","Shutesbury","Somerset","Somerville","South Hadley","Southampton","Southborough","Southbridge","Southwick","Spencer","Springfield","Sterling","Stockbridge","Stoneham","Stoughton","Stow","Sturbridge","Sudbury","Sunderland","Sutton","Swampscott","Swansea","Taunton","Templeton","Tewksbury","Tisbury","Tolland","Topsfield","Townsend","Truro","Tyngsborough","Tyringham","Upton","Uxbridge","Wakefield","Wales","Walpole","Waltham","Ware","Wareham","Warren","Warwick","Washington","Watertown","Wayland","Webster","Wellesley","Wellfleet","Wendall","Wenham","West Boylston","West Bridgewater","West Brookfield","West Newbury","West Springfield","West Tisbury","Westborough","Westfield","Westford","Westhampton","Westminster","Weston","Westport","Westwood","Weymouth","Whately","Whitman","Wilbraham","Williamsburg","Williamstown","Wilmington","Winchendon","Winchester","Windsor","Winthrop","Woburn","Worcester","Worthington","Wrentham","Yarmouth"]
 };
 
 
 const ROLES = [
-  { id: "homeowner", icon: "🏠" },
-  { id: "builder", icon: "🔨" },
-  { id: "architect", icon: "📐" },
-  { id: "investor", icon: "💼" },
-  { id: "realtor", icon: "🤝" },
-  { id: "other", icon: "✨" },
+  { id: "homeowner", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> },
+  { id: "builder", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12h20"/><path d="M12 2a8 8 0 0 0-8 8v2"/><path d="M20 12v-2a8 8 0 0 0-8-8"/></svg> },
+  { id: "architect", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 20L2 20 12 4 22 20z"></path><path d="M12 20L12 12"></path><path d="M8 20L9.5 16"></path><path d="M16 20L14.5 16"></path></svg> },
+  { id: "investor", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 16l2-2 2 2 3-3"/><path d="M16 13h2v2"/></svg> },
+  { id: "realtor", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg> },
 ];
 
 const ROOM_GROUPS = [
   {
     label: "Core Rooms", items: [
       { id: "bedrooms", label: "Bedrooms" },
+      { id: "guestRoom", label: "Guest Room" },
       { id: "bathrooms", label: "Bathrooms" },
       { id: "halfBaths", label: "Half Baths" },
       { id: "livingRooms", label: "Living Room" },
@@ -835,9 +898,11 @@ const ROOM_GROUPS = [
   {
     label: "Kitchen & Service", items: [
       { id: "kitchen", label: "Kitchen" },
+      { id: "kitchenIsland", label: "Kitchen Island" },
       { id: "pantry", label: "Pantry" },
       { id: "laundry", label: "Laundry" },
-      { id: "closet", label: "Walk-in Closet" },
+      { id: "walkInCloset", label: "Walk-in Closet" },
+      { id: "linen", label: "Linen Closet" },
       { id: "mudroom", label: "Mudroom" },
       { id: "storage", label: "Storage / Deposit" },
     ]
@@ -847,12 +912,17 @@ const ROOM_GROUPS = [
       { id: "office", label: "Home Office" },
       { id: "gym", label: "Gym" },
       { id: "studio", label: "Studio / Hobby Room" },
+      { id: "gameRoom", label: "Game Room" },
     ]
   },
   {
     label: "Entertainment & Outdoor", items: [
-      { id: "deck", label: "Covered Deck" },
-      { id: "porch", label: "Screened Porch" },
+      { id: "deckCovered", label: "Covered Deck" },
+      { id: "deckOpen", label: "Uncovered Deck" },
+      { id: "porchCovered", label: "Covered Porch" },
+      { id: "porchOpen", label: "Uncovered Porch" },
+      { id: "balcony", label: "Balcony" },
+      { id: "sunroom", label: "Sunroom" },
       { id: "outdoorKit", label: "Outdoor Kitchen" },
       { id: "fireplace", label: "Fireplace" },
       { id: "wineCellar", label: "Wine Cellar" },
@@ -869,10 +939,12 @@ const ROOM_GROUPS = [
 ];
 
 const ROOM_DEF = {
-  bedrooms: 0, bathrooms: 0, halfBaths: 0, livingRooms: 0, diningRoom: 0, familyRoom: 0,
-  kitchen: 0, pantry: 0, laundry: 0, closet: 0, mudroom: 0, storage: 0,
-  office: 0, gym: 0, studio: 0, deck: 0, porch: 0, outdoorKit: 0,
-  fireplace: 0, wineCellar: 0, theater: 0, garageBays: 0, mechanical: 0, elevator: 0
+  bedrooms: 0, guestRoom: 0, bathrooms: 0, halfBaths: 0, livingRooms: 0, diningRoom: 0, familyRoom: 0,
+  kitchen: 0, kitchenIsland: 0, pantry: 0, laundry: 0, walkInCloset: 0, linen: 0, mudroom: 0, storage: 0,
+  office: 0, gym: 0, studio: 0, gameRoom: 0,
+  deckCovered: 0, deckOpen: 0, porchCovered: 0, porchOpen: 0, balcony: 0, sunroom: 0,
+  outdoorKit: 0, fireplace: 0, wineCellar: 0, theater: 0,
+  garageBays: 0, mechanical: 0, elevator: 0
 };
 
 /* ═══ PRICING ENGINE ═══ */
@@ -922,8 +994,10 @@ function calcEst(d, lang = "EN", step) {
   const BRL = 9.5;
   const sym = isUS ? "$" : "R$";
   const fmt = (n) => sym + Math.round(n).toLocaleString(isUS ? "en-US" : "pt-BR");
-  const fmtEx = (n) => sym + n.toLocaleString(isUS ? "en-US" : "pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const fmtR = (v) => `${fmt(v)} – ${fmt(v * 1.10)}`;
+  const fmtR = (lo, hi) => {
+    if (lo === hi) return fmt(lo);
+    return `${fmt(lo)} – ${fmt(hi)}`;
+  };
 
   const SVC_LABELS = T.svcLabels || {};
 
@@ -966,12 +1040,9 @@ function calcEst(d, lang = "EN", step) {
   const pkg = d.deliveryPkg || "";
   const pkgExtras = d.pkgExtras || {};
 
-  // Confidence logic (Step-based 12.5% per step for 8 steps)
-  // Step 4 = 50%
   const currentStepNum = step ?? 3;
   const conf = Math.min(((currentStepNum + 1) / 8) * 100, 100);
 
-  // If no package selected, we assume 'as_built_permit' for initial estimation purposes
   const effectivePkg = pkg || "as_built_permit";
   const isInitialEstimate = !pkg;
 
@@ -989,175 +1060,201 @@ function calcEst(d, lang = "EN", step) {
     };
   }
 
-  let cost = 0;
+  let loCost = 0;
+  let hiCost = 0;
   const bd = [];
-  let pkgName = "";
-
+  
   const PKG_LABELS = lang === "EN" ? {
     as_built_permit: "As-Built & Permit Package",
     floor_plans_only: "Floor Plans Only",
     pdf_to_cad: "PDF to CAD Conversion",
     "3d_rendering": "3D Realistic Rendering"
   } : {
-    as_built_permit: "Levantamento e Prefeitura",
+    as_built_permit: "Estudos Iniciais e Trâmites Legais",
     floor_plans_only: "Apenas Plantas Baixas",
     pdf_to_cad: "Conversão de PDF para CAD",
     "3d_rendering": "Renderização 3D Realista"
   };
 
-  pkgName = PKG_LABELS[effectivePkg] || effectivePkg;
+  const pkgName = PKG_LABELS[effectivePkg] || effectivePkg;
+  const currencyMult = isUS ? 1 : BRL;
+  const minFee = 150 * currencyMult;
 
-  // Calculate current extra rate per sqft
-  let currentExtraPerSqft = 0;
-  if (effectivePkg === "as_built_permit") {
-    Object.keys(EXTRA_RATES || {}).forEach(key => {
-      if (pkgExtras[key]) currentExtraPerSqft += (EXTRA_RATES[key] || 0);
-    });
-  }
-
-  if (effectivePkg === "as_built_permit" || effectivePkg === "floor_plans_only") {
-    const currencyMult = isUS ? 1 : BRL;
-    let totalCapReduction = 0;
-
-    if (pkg === "floor_plans_only") {
-      const rate = 0.55 * currencyMult;
-      const minFee = 200 * currencyMult;
-      const calculatedCost = totalBaseArea * rate;
-      
-      cost = calculatedCost;
-      let adjustment = 0;
-      
-      if (calculatedCost < minFee) {
-          adjustment = minFee - calculatedCost;
-          cost = minFee;
-      }
-
-      bd.push({
-        l: lang === "EN" ? "Floor Plans" : "Plantas Baixas",
-        v: fmtR(calculatedCost),
-        block: "arch"
-      });
-      
-      if (adjustment > 0) {
-        bd.push({
-          l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
-          v: fmtR(adjustment),
-          block: "svc"
-        });
-      }
-    } else {
-      // As-Built & Permit Package
-      areaBlocks.forEach(blk => {
-        const lvls = (d.svcLevels && blk.svcId && d.svcLevels[blk.svcId]) ? d.svcLevels[blk.svcId] : d.levels || {};
-        const levelsToProcess = blk.noMult ? ["main"] : Object.keys(lvls).filter(k => lvls[k]);
-
-        if (levelsToProcess.length === 0 && !blk.noMult) {
-          levelsToProcess.push("main");
-        }
-
-        levelsToProcess.forEach(lvlKey => {
-          let baseRate = (lvlKey === "attic" || lvlKey === "basement") ? BASE_RATE_SUB : BASE_RATE_MAIN;
-          let finalRate = baseRate * currencyMult;
-          const lvlCost = blk.area * finalRate;
-          cost += lvlCost;
-
-          const lvlName = (lvlKey === "main" || lvlKey === "ground") ? T.groundFloor :
-            (lvlKey === "second") ? T.secondFloor :
-              (lvlKey === "basement") ? T.basement :
-                (lvlKey === "attic") ? T.attic : lvlKey;
-
-          bd.push({
-            l: `${blk.label}: ${lvlName}`,
-            v: fmtR(lvlCost),
-            block: "arch"
-          });
-        });
-      });
-
-      // Per-sqft Extras
-      Object.keys(EXTRA_RATES || {}).forEach(key => {
-        if (pkgExtras[key]) {
-          const extraCost = totalBaseArea * (EXTRA_RATES[key] || 0) * currencyMult;
-          cost += extraCost;
-          const labels = {
-            ex_arch_design: lang === "EN" ? "Architectural Design Detail" : "Design Arquitetônico",
-            ex_space_plan: lang === "EN" ? "Space Planning" : "Planejamento de Espaço",
-            ex_interior_lay: lang === "EN" ? "Interior Layout" : "Layout de Interiores",
-            ex_const_detail: lang === "EN" ? "Construction Detailing" : "Detalhamento Executivo",
-            ex_code_comp: lang === "EN" ? "Code Compliance" : "Conformidade Técnica",
-            ex_3d_ext: lang === "EN" ? "3D Exterior Rendering" : "Renderização 3D Exterior"
-          };
-          bd.push({ l: labels[key] || key, v: fmtR(extraCost), block: "extra" });
-        }
-      });
-      // Fixed Fee Extras (Interiors)
-      Object.keys(FIXED_FEES || {}).forEach(key => {
-        if (pkgExtras[key]) {
-          const fee = (FIXED_FEES[key] || 0) * currencyMult;
-          cost += fee;
-          const labels = {
-            ex_3d_kitchen: lang === "EN" ? "3D Kitchen Design" : "Design 3D de Cozinha",
-            ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
-            ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
-          };
-          let customVal = fmtR(fee);
-          if (key === "ex_3d_kitchen" || key === "ex_3d_bath" || key === "ex_3d_laundry") {
-            customVal = isUS ? "$150 - $200" : "R$1.500 - R$2.000";
-          }
-          bd.push({ l: labels[key] || key, v: customVal, block: "extra" });
-        }
-      });
-    }
-  } else if (effectivePkg === "pdf_to_cad") {
-    const currencyMult = isUS ? 1 : BRL;
-    const rate = 0.30 * currencyMult;
-    const minFee = 100 * currencyMult;
-    const calculatedCost = totalBaseArea * rate;
+  if (effectivePkg === "floor_plans_only") {
+    const rateLo = 0.50 * currencyMult;
+    const rateHi = 0.70 * currencyMult;
     
-    cost = calculatedCost;
-    let adjustment = 0;
+    let calcLo = totalBaseArea * rateLo;
+    let calcHi = totalBaseArea * rateHi;
     
-    if (calculatedCost < minFee) {
-        adjustment = minFee - calculatedCost;
-        cost = minFee;
-    }
+    let adjLo = 0, adjHi = 0;
+    if (calcLo > 0 && calcLo < minFee) { adjLo = minFee - calcLo; calcLo = minFee; }
+    if (calcHi > 0 && calcHi < minFee) { adjHi = minFee - calcHi; calcHi = minFee; }
+    
+    loCost += calcLo;
+    hiCost += calcHi;
 
     bd.push({
-      l: lang === "EN" ? "PDF to CAD Conversion" : "Conversão de PDF para CAD",
-      v: fmtR(calculatedCost),
+      l: lang === "EN" ? "Floor Plans" : "Plantas Baixas",
+      v: fmtR(calcLo - adjLo, calcHi - adjHi),
       block: "arch"
     });
     
-    if (adjustment > 0) {
+    if (adjLo > 0 || adjHi > 0) {
       bd.push({
         l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
-        v: fmtR(adjustment),
+        v: fmtR(adjLo, adjHi),
         block: "svc"
       });
     }
+  } else if (effectivePkg === "pdf_to_cad") {
+    const rateLo = 0.30 * currencyMult;
+    const rateHi = 0.45 * currencyMult;
+    
+    let calcLo = totalBaseArea * rateLo;
+    let calcHi = totalBaseArea * rateHi;
+    
+    let adjLo = 0, adjHi = 0;
+    if (calcLo > 0 && calcLo < minFee) { adjLo = minFee - calcLo; calcLo = minFee; }
+    if (calcHi > 0 && calcHi < minFee) { adjHi = minFee - calcHi; calcHi = minFee; }
+    
+    loCost += calcLo;
+    hiCost += calcHi;
+
+    bd.push({
+      l: lang === "EN" ? "PDF to CAD Conversion" : "Conversão de PDF para CAD",
+      v: fmtR(calcLo - adjLo, calcHi - adjHi),
+      block: "arch"
+    });
+    
+    if (adjLo > 0 || adjHi > 0) {
+      bd.push({
+        l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
+        v: fmtR(adjLo, adjHi),
+        block: "svc"
+      });
+    }
+  } else if (effectivePkg === "as_built_permit") {
+    const rateLo = 1.40 * currencyMult;
+    const rateHi = 1.60 * currencyMult;
+    const subRateLo = 0.30 * currencyMult;
+    const subRateHi = 0.35 * currencyMult;
+    
+    let archLo = 0, archHi = 0;
+    
+    areaBlocks.forEach(blk => {
+      const lvls = (d.svcLevels && blk.svcId && d.svcLevels[blk.svcId]) ? d.svcLevels[blk.svcId] : d.levels || {};
+      const levelsToProcess = blk.noMult ? ["main"] : Object.keys(lvls).filter(k => lvls[k]);
+      if (levelsToProcess.length === 0 && !blk.noMult) levelsToProcess.push("main");
+
+      levelsToProcess.forEach(lvlKey => {
+        const isSub = (lvlKey === "attic" || lvlKey === "basement");
+        const rLo = isSub ? subRateLo : rateLo;
+        const rHi = isSub ? subRateHi : rateHi;
+        
+        const lvlCostLo = blk.area * rLo;
+        const lvlCostHi = blk.area * rHi;
+        archLo += lvlCostLo;
+        archHi += lvlCostHi;
+
+        const lvlName = (lvlKey === "main" || lvlKey === "ground") ? T.groundFloor :
+          (lvlKey === "second") ? T.secondFloor :
+            (lvlKey === "basement") ? T.basement :
+              (lvlKey === "attic") ? T.attic : lvlKey;
+
+        bd.push({
+          l: `${blk.label}: ${lvlName}`,
+          v: fmtR(lvlCostLo, lvlCostHi),
+          block: "arch"
+        });
+      });
+    });
+
+    let adjLo = 0, adjHi = 0;
+    if (archLo > 0 && archLo < minFee) { adjLo = minFee - archLo; archLo = minFee; }
+    if (archHi > 0 && archHi < minFee) { adjHi = minFee - archHi; archHi = minFee; }
+    
+    loCost += archLo;
+    hiCost += archHi;
+    
+    if (adjLo > 0 || adjHi > 0) {
+      bd.push({
+        l: lang === "EN" ? "Minimum Fee Adjustment" : "Ajuste de Taxa Mínima",
+        v: fmtR(adjLo, adjHi),
+        block: "svc"
+      });
+    }
+
+    const EXTRA_RATES_MAP = {
+      ex_arch_design: { lo: 0.10, hi: 0.12 },
+      ex_space_plan: { lo: 0.10, hi: 0.12 },
+      ex_interior_lay: { lo: 0.10, hi: 0.12 },
+      ex_const_detail: { lo: 0.10, hi: 0.12 },
+      ex_code_comp: { lo: 0.05, hi: 0.06 },
+      ex_3d_ext: { lo: 0.05, hi: 0.06 }
+    };
+
+    Object.keys(EXTRA_RATES_MAP).forEach(key => {
+      if (pkgExtras[key]) {
+        const extraRateLo = EXTRA_RATES_MAP[key].lo * currencyMult;
+        const extraRateHi = EXTRA_RATES_MAP[key].hi * currencyMult;
+        const extraCostLo = totalBaseArea * extraRateLo;
+        const extraCostHi = totalBaseArea * extraRateHi;
+        loCost += extraCostLo;
+        hiCost += extraCostHi;
+        const labels = {
+          ex_arch_design: lang === "EN" ? "Architectural Design Detail" : "Detalhamento Arquitetônico Avançado",
+          ex_space_plan: lang === "EN" ? "Space Planning" : "Planejamento de Espaço (Macro Design)",
+          ex_interior_lay: lang === "EN" ? "Interior Layout" : "Layout de Interiores (Micro Design)",
+          ex_const_detail: lang === "EN" ? "Construction Detailing" : "Detalhamento Construtivo & Framing",
+          ex_code_comp: lang === "EN" ? "Code Compliance" : "Conformidade de Códigos e Notas Técnicas",
+          ex_3d_ext: lang === "EN" ? "3D Exterior Rendering" : "Renderização 3D Exterior"
+        };
+        bd.push({ l: labels[key] || key, v: fmtR(extraCostLo, extraCostHi), block: "extra" });
+      }
+    });
+
+    const FIXED_FEES_MAP = {
+      ex_3d_kitchen: { lo: 150, hi: 200 },
+      ex_3d_bath: { lo: 150, hi: 200 },
+      ex_3d_laundry: { lo: 150, hi: 200 }
+    };
+
+    Object.keys(FIXED_FEES_MAP).forEach(key => {
+      if (pkgExtras[key]) {
+        const feeLo = FIXED_FEES_MAP[key].lo * currencyMult;
+        const feeHi = FIXED_FEES_MAP[key].hi * currencyMult;
+        loCost += feeLo;
+        hiCost += feeHi;
+        const labels = {
+          ex_3d_kitchen: lang === "EN" ? "3D Kitchen Design" : "Design 3D de Cozinha",
+          ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
+          ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
+        };
+        bd.push({ l: labels[key] || key, v: fmtR(feeLo, feeHi), block: "extra" });
+      }
+    });
+
   } else if (effectivePkg === "3d_rendering") {
-    const currencyMult = isUS ? 1 : BRL;
-    // Standalone 3D Rendering Package uses fixed fees: $250 Ext, $180 Int
     const standalone3D = {
-      ex_3d_ext: 250,
-      ex_3d_kitchen: 150,
-      ex_3d_bath: 150,
-      ex_3d_laundry: 150
+      ex_3d_ext: { lo: 250, hi: 300 },
+      ex_3d_kitchen: { lo: 150, hi: 200 },
+      ex_3d_bath: { lo: 150, hi: 200 },
+      ex_3d_laundry: { lo: 150, hi: 200 }
     };
     Object.keys(standalone3D).forEach(key => {
       if (pkgExtras[key]) {
-        const fee = standalone3D[key] * currencyMult;
-        cost += fee;
+        const feeLo = standalone3D[key].lo * currencyMult;
+        const feeHi = standalone3D[key].hi * currencyMult;
+        loCost += feeLo;
+        hiCost += feeHi;
         const labels = {
           ex_3d_ext: lang === "EN" ? "3D Exterior Rendering" : "Renderização 3D Exterior",
           ex_3d_kitchen: lang === "EN" ? "3D Kitchen Design" : "Design 3D de Cozinha",
           ex_3d_bath: lang === "EN" ? "3D Bathroom Design" : "Design 3D de Banheiro",
           ex_3d_laundry: lang === "EN" ? "3D Laundry Design" : "Design 3D de Lavanderia"
         };
-        let customVal = fmtR(fee);
-        if (key === "ex_3d_ext") customVal = isUS ? "$250 - $300" : "R$2.500 - R$3.000";
-        if (key === "ex_3d_kitchen" || key === "ex_3d_bath" || key === "ex_3d_laundry") customVal = isUS ? "$150 - $200" : "R$1.500 - R$2.000";
-        bd.push({ l: labels[key] || key, v: customVal, block: "extra" });
+        bd.push({ l: labels[key] || key, v: fmtR(feeLo, feeHi), block: "extra" });
       }
     });
   }
@@ -1166,12 +1263,14 @@ function calcEst(d, lang = "EN", step) {
   if (d.rush === "rush") multiplier = 1.4;
   if (d.rush === "express") multiplier = 1.6;
 
-  const lo = Math.round(cost * multiplier), hi = Math.round((cost * multiplier) * 1.10);
+  const finalLo = Math.round(loCost * multiplier);
+  const finalHi = Math.round(hiCost * multiplier);
 
   if (multiplier > 1) {
     const feeLabel = d.rush === "rush" ? T.rushDelivery : T.expressDelivery;
-    const feeAmount = Math.round(cost * (multiplier - 1));
-    bd.push({ l: feeLabel, v: fmtR(feeAmount), block: "extra" });
+    const rushFeeLo = Math.round(loCost * (multiplier - 1));
+    const rushFeeHi = Math.round(hiCost * (multiplier - 1));
+    bd.push({ l: feeLabel, v: fmtR(rushFeeLo, rushFeeHi), block: "extra" });
   }
 
   const selectedSvcNames = selectedSvcs.map(k => SVC_LABELS[k]);
@@ -1197,8 +1296,8 @@ function calcEst(d, lang = "EN", step) {
   const prefix = isInitialEstimate ? (lang === "EN" ? "Starting from " : "A partir de ") : "";
 
   return { 
-    lo: prefix + fmt(lo), 
-    hi: prefix + fmt(hi), 
+    lo: prefix + fmt(finalLo), 
+    hi: prefix + fmt(finalHi), 
     conf, bd, 
     totalArea: totalArea, 
     baseArea: totalBaseArea, 
@@ -1224,7 +1323,7 @@ const InfoIcon = () => (
 );
 
 /* ═══ UI COMPONENTS ═══ */
-function Title({ label, sub }) {
+function Title({ label, sub, checked }) {
   const formatLabel = (txt) => {
     if (!txt) return null;
     const words = txt.split(" ");
@@ -1240,9 +1339,17 @@ function Title({ label, sub }) {
   };
 
   return (
-    <div className="page-header-premium" style={{ marginBottom: 32, marginTop: 0 }}>
-      <h1 className="page-main-title" style={{ fontSize: '32px' }}>{formatLabel(label)}</h1>
-      {sub && <p className="page-subtitle-standard" style={{ fontSize: '15px' }}>{sub}</p>}
+    <div className="page-header-premium" style={{ marginBottom: 32, marginTop: 0, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "center" }}>
+        <h1 className="page-main-title" style={{ fontSize: '32px', margin: 0, textAlign: "center" }}>{formatLabel(label)}</h1>
+        {checked && (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))", marginTop: 4 }}>
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        )}
+      </div>
+      {sub && <p className="page-subtitle-standard" style={{ fontSize: '15px', marginTop: '8px', textAlign: "center", maxWidth: "600px" }}>{sub}</p>}
     </div>
   );
 }
@@ -1285,12 +1392,12 @@ export default function EstimateWizard() {
   // Validation
   const canGo = () => {
     if (!data) return false;
-    if (step === 0) return !!(data.region && data.street && data.city && data.state && data.zip);
-
-    if (step === 1) {
+    if (step === 0) {
       // Basic info is enough to proceed, company info is optional for the wizard flow
       return !!(data.name && data.email && data.phone && data.role);
     }
+
+    if (step === 1) return !!(data.region && data.street && data.city && data.state && data.zip);
     if (step === 2) {
       const isUS = data.region !== "BR";
       const selectedSvcs = Object.keys(data.services || {}).filter(k => data.services[k]);
@@ -1315,10 +1422,22 @@ export default function EstimateWizard() {
 
       return !!data.propertyType && allDimsFilled;
     }
+    if (step === 3) {
+      if (!data.deliveryPkg) return false;
+      if (data.deliveryPkg === "as_built_permit") {
+        const hasDesignExtra = data.pkgExtras && (
+          data.pkgExtras.ex_arch_design ||
+          data.pkgExtras.ex_space_plan ||
+          data.pkgExtras.ex_interior_lay
+        );
+        if (!hasDesignExtra) return false;
+      }
+      return true;
+    }
     if (step === 4) {
       return true;
     }
-    return true; // Steps 6, 7 are optional
+    return true; // Steps 5, 6 are optional
   };
 
   const handleNext = () => {
@@ -1404,8 +1523,8 @@ export default function EstimateWizard() {
                 />
               ) : (
                 <>
-                  {step === 0 && <S1 d={data} up={up} lang={lang} />}
-                  {step === 1 && <S2 d={data} up={up} lang={lang} />}
+                  {step === 0 && <S2 d={data} up={up} lang={lang} />}
+                  {step === 1 && <S1 d={data} up={up} lang={lang} />}
                   {step === 2 && <S3 d={data} up={up} est={est} lang={lang} />}
                   {step === 3 && <S4 d={data} up={up} est={est} lang={lang} />}
                   {step === 4 && <S6 d={data} up={up} lang={lang} />}
@@ -1461,7 +1580,7 @@ function Stepper({ cur }) {
             fontSize: 16,
             fontWeight: 800,
             display: 'inline-block',
-            background: 'linear-gradient(to right, #9C27B0, #E91E63)',
+            background: 'linear-gradient(to right, #7B1FA2, #E91E63)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             opacity: currentStepNum >= n ? 1 : 0.3,
@@ -1520,8 +1639,8 @@ function Sidebar({ est, lang, data, step: currentStep }) {
         {hasEstimate ? (
           <div>
             {pkgName && <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--a)", marginBottom: 4 }}>{pkgName}</p>}
-            <p style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontStyle: "italic", color: "var(--tx)", marginBottom: 4 }}>{lo} – {hi}</p>
-            <p style={{ fontSize: 10, color: "var(--dm)", lineHeight: 1.5 }}>{T.approxEstimate}</p>
+            <p style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontStyle: "italic", color: "var(--tx)", marginBottom: 4 }}>{lo === hi ? lo : `${lo} – ${hi}`}</p>
+            <p style={{ fontSize: 10, color: "#ffffff", lineHeight: 1.5 }}>{T.approxEstimate}</p>
           </div>
         ) : (
           <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.6 }}>{T.enterDims}</p>
@@ -1580,6 +1699,34 @@ function S1({ d, up, lang }) {
     return `https://maps.google.com/maps?q=${addr}&output=embed&z=15`;
   };
 
+  const handleZipChange = async (val) => {
+    up("zip", val);
+    up("mapConfirmed", false);
+    const cleanZip = val.replace(/\D/g, "");
+    if (d.region === "BR" && cleanZip.length === 8) {
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cleanZip}/json/`);
+        const json = await res.json();
+        if (!json.erro) {
+          if (json.logradouro) up("street", json.logradouro);
+          if (json.localidade) up("city", json.localidade);
+          if (json.uf) up("state", json.uf);
+        }
+      } catch (err) { console.error("CEP fetch error", err); }
+    } else if (d.region === "US" && cleanZip.length === 5) {
+      try {
+        const res = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.places && json.places.length > 0) {
+            up("city", json.places[0]["place name"]);
+            up("state", json.places[0]["state"]);
+          }
+        }
+      } catch (err) { console.error("ZIP fetch error", err); }
+    }
+  };
+
   return (
     <div className="wz-animate">
       <Title label={T.whereProject} sub={T.locationSub} />
@@ -1600,7 +1747,7 @@ function S1({ d, up, lang }) {
               label={T.city}
               placeholder={isUS ? "Boston" : "São Paulo"}
               value={d.city}
-              options={COMMON_CITIES[d.region]}
+              options={COMMON_CITIES[d.region] || []}
               onChange={val => { up("city", val); up("mapConfirmed", false); }}
               error={ferr("city", d.city)}
               onBlur={() => touch("city")}
@@ -1609,7 +1756,7 @@ function S1({ d, up, lang }) {
               label={T.state}
               placeholder={isUS ? "Massachusetts" : "SP"}
               value={d.state}
-              options={d.region === "US" ? US_STATES : BR_STATES}
+              options={d.region === "US" ? US_STATES : []}
               onChange={val => { up("state", val); up("mapConfirmed", false); }}
               error={ferr("state", d.state)}
               onBlur={() => touch("state")}
@@ -1619,20 +1766,20 @@ function S1({ d, up, lang }) {
           <div className="wz-f">
             <label className="wz-label">{T.zipCode} <span style={{ color: "var(--rd)" }}>*</span></label>
             <InputMask mask={market.zipMask} className={`wz-inp ${ferr("zip", d.zip) ? "inp-err" : ""}`} placeholder={market.zipPlaceholder} style={{ maxWidth: 200 }}
-              value={d.zip || ""} onChange={e => { up("zip", e.target.value); up("mapConfirmed", false); }} onBlur={() => touch("zip")} />
+              value={d.zip || ""} onChange={e => handleZipChange(e.target.value)} onBlur={() => touch("zip")} />
           </div>
 
           {allFilled && (
-            <div style={{ marginTop: 18, borderRadius: "var(--r)", overflow: "hidden", border: "1.5px solid var(--a)", boxShadow: "0 0 24px var(--a-glow)" }}>
-              <iframe key={d.street + d.city + d.state + d.zip} src={mapsUrl()} title="Project location" width="100%" height="280" style={{ border: "none", display: "block" }} allowFullScreen loading="lazy" />
-              <div style={{ padding: "12px 16px", background: "var(--bg1)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                <p style={{ fontSize: 11, color: "var(--mu)", flex: 1, lineHeight: 1.5 }}>
+            <div className={`wz-map-container ${d.mapConfirmed ? 'confirmed' : ''}`} style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", border: `1px solid ${d.mapConfirmed ? 'var(--brand-purple)' : 'var(--glass-border)'}`, boxShadow: d.mapConfirmed ? '0 0 32px rgba(123, 31, 162, 0.15)' : 'none', transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+              <iframe key={d.street + d.city + d.state + d.zip} src={mapsUrl()} title="Project location" width="100%" height="320" style={{ border: "none", display: "block" }} allowFullScreen loading="lazy" />
+              <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, borderTop: '1px solid var(--glass-border)' }}>
+                <p style={{ fontSize: 14, color: "var(--text-color)", opacity: 0.85, flex: 1, lineHeight: 1.5, margin: 0, fontWeight: 500 }}>
                   {d.mapConfirmed
-                    ? <span style={{ color: "var(--gn)", fontWeight: 600 }}>{T.locationConfirmed}</span>
+                    ? <span style={{ color: "var(--brand-purple)", fontWeight: 700 }}>{T.locationConfirmed}</span>
                     : T.verifyLocation}
                 </p>
                 {!d.mapConfirmed && (
-                  <button className="wz-btn-primary" style={{ padding: "8px 16px", fontSize: 12 }} onClick={() => up("mapConfirmed", true)}>{T.confirmLocation}</button>
+                  <button className="wz-btn-primary" onClick={() => up("mapConfirmed", true)}>{T.confirmLocation}</button>
                 )}
               </div>
             </div>
@@ -1659,44 +1806,53 @@ function S2({ d, up, lang }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
           <div className="wz-f">
             <label className="wz-label">{T.fullName} <span style={{ color: "var(--rd)" }}>*</span></label>
-            <input className={`wz-inp ${ferr("name", d.name) ? "inp-err" : ""}`} placeholder="Jane Smith"
-              value={d.name || ""} onChange={e => up("name", e.target.value)} onBlur={() => touch("name")} />
+            <div style={{ position: "relative" }}>
+              <input className={`wz-inp ${ferr("name", d.name) ? "inp-err" : ""} ${(d.name?.length > 2) ? "inp-valid" : ""}`} placeholder="Jane Smith"
+                value={d.name || ""} onChange={e => up("name", e.target.value)} onBlur={() => touch("name")} style={{ borderColor: d.name?.length > 2 ? "var(--brand-purple)" : undefined }} />
+              {(d.name?.length > 2) && <div style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", color: "var(--brand-purple)", pointerEvents: "none", display: "flex" }}><Chk /></div>}
+            </div>
           </div>
           <div className="wz-f">
             <label className="wz-label">{T.email} <span style={{ color: "var(--rd)" }}>*</span></label>
-            <input className={`wz-inp ${ferr("email", d.email) ? "inp-err" : ""}`} type="email" placeholder="jane@example.com"
-              value={d.email || ""} onChange={e => up("email", e.target.value)} onBlur={() => touch("email")} />
+            <div style={{ position: "relative" }}>
+              <input className={`wz-inp ${ferr("email", d.email) ? "inp-err" : ""} ${(d.email?.includes('@') && d.email?.includes('.')) ? "inp-valid" : ""}`} type="email" placeholder="jane@example.com"
+                value={d.email || ""} onChange={e => up("email", e.target.value)} onBlur={() => touch("email")} style={{ borderColor: (d.email?.includes('@') && d.email?.includes('.')) ? "var(--brand-purple)" : undefined }} />
+              {(d.email?.includes('@') && d.email?.includes('.')) && <div style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", color: "var(--brand-purple)", pointerEvents: "none", display: "flex" }}><Chk /></div>}
+            </div>
           </div>
         </div>
         <div className="wz-f" style={{ maxWidth: 320 }}>
           <label className="wz-label">{T.phone} <span style={{ color: "var(--rd)" }}>*</span></label>
-          <InputMask mask={MARKET_DATA[d.region]?.phoneMask || MARKET_DATA.US.phoneMask} maskChar={null} className={`wz-inp ${ferr("phone", d.phone) ? "inp-err" : ""}`} placeholder={MARKET_DATA[d.region]?.phonePlaceholder}
-            value={d.phone || ""} onChange={e => up("phone", e.target.value)} onBlur={() => touch("phone")} />
+          <div style={{ position: "relative" }}>
+            <InputMask mask={MARKET_DATA[d.region]?.phoneMask || MARKET_DATA.US.phoneMask} maskChar={null} className={`wz-inp ${ferr("phone", d.phone) ? "inp-err" : ""} ${(d.phone?.replace(/\D/g, '').length >= 10) ? "inp-valid" : ""}`} placeholder={MARKET_DATA[d.region]?.phonePlaceholder}
+              value={d.phone || ""} onChange={e => up("phone", e.target.value)} onBlur={() => touch("phone")} style={{ borderColor: (d.phone?.replace(/\D/g, '').length >= 10) ? "var(--brand-purple)" : undefined }} />
+            {(d.phone?.replace(/\D/g, '').length >= 10) && <div style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", color: "var(--brand-purple)", pointerEvents: "none", display: "flex" }}><Chk /></div>}
+          </div>
         </div>
       </div>
 
-      <p className="wz-label" style={{ marginBottom: 12 }}>{T.whoAreYou} <span style={{ color: "var(--rd)" }}>*</span></p>
-      <div className="wz-grid-adaptive" style={{ marginBottom: 24 }}>
+      <p className="wz-label" style={{ marginBottom: 16 }}>{T.whoAreYou} <span style={{ color: "var(--rd)" }}>*</span></p>
+      <div className="wz-grid-adaptive" style={{ marginBottom: 32 }}>
         {ROLES.map(r => (
-          <div key={r.id} className={`wz-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 10px" }}>
-            <div style={{ fontSize: 24, marginBottom: 8 }}>{r.icon}</div>
-            <div style={{ fontSize: 13, fontWeight: 600 }}>{T.roles[r.id]}</div>
+          <div key={r.id} className={`hww-feature-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.role === r.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.role === r.id ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)" }}>
+            <div style={{ fontSize: 24, marginBottom: 8, filter: d.role === r.id ? "drop-shadow(0 0 12px rgba(123, 31, 162, 0.5))" : "none", transition: "all 0.3s ease", transform: d.role === r.id ? "scale(1.1)" : "scale(1)", color: d.role === r.id ? "var(--brand-purple)" : "var(--mu)" }}>{r.icon}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.03em', color: "var(--text-color)" }}>{T.roles[r.id]}</div>
           </div>
         ))}
       </div>
 
       {d.role && T[d.role + "Msg"] && (
-        <div className="wz-animate" style={{ marginBottom: 24, padding: "12px 16px", background: "var(--a-dim)", border: "1px solid var(--a)", borderRadius: "999px", display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ fontSize: 20 }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
-          <p style={{ fontSize: 13, color: "var(--tx)", fontWeight: 600, lineHeight: 1.4, margin: 0 }}>
+        <div className="wz-animate" style={{ marginBottom: 32, padding: "12px 20px", display: "flex", flexDirection: "row", alignItems: "center", gap: 12, background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "12px" }}>
+          <span style={{ fontSize: 20, filter: "drop-shadow(0 0 12px rgba(123, 31, 162, 0.4))" }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
+          <p style={{ fontSize: 13, color: "var(--text-color)", fontWeight: 600, lineHeight: 1.4, margin: 0, opacity: 0.9 }}>
             {T[d.role + "Msg"]}
           </p>
         </div>
       )}
       {showCo && (
-        <div className="wz-animate" style={{ background: "var(--bg3)", border: "1.5px solid var(--border)", borderRadius: "var(--r)", padding: 24 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 16 }}>{T.companyInfo}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div className="wz-animate hww-bento-card" style={{ padding: 32, gap: 20 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--brand-purple)", margin: 0 }}>{T.companyInfo}</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div className="wz-grid-adaptive">
               <div className="wz-f">
                 <label className="wz-label">{T.bizName} <span style={{ color: "var(--rd)" }}>*</span></label>
@@ -1754,25 +1910,25 @@ function S3({ d, up, est, lang }) {
   const [hoverId, setHoverId] = useState(null);
 
   const CONST_SVC = [
-    { id: "new_construction", pricingGroup: "multi-level", icon: "🏗️", label: T.svcLabels.new_construction, sub: T.svcSubs.new_construction, desc: T.svcDescs.new_construction },
-    { id: "addition", pricingGroup: "multi-level", icon: "➕", label: T.svcLabels.addition, sub: T.svcSubs.addition, desc: T.svcDescs.addition },
-    { id: "second_story", pricingGroup: "single-level", icon: "🏢", label: T.svcLabels.second_story, sub: T.svcSubs.second_story, desc: T.svcDescs.second_story },
-    { id: "garage_only", pricingGroup: "multi-level", icon: "🚗", label: T.svcLabels.garage_only, sub: T.svcSubs.garage_only, desc: T.svcDescs.garage_only },
-    { id: "garage_conversion", pricingGroup: "multi-level", icon: "🔑", label: T.svcLabels.garage_conversion, sub: T.svcSubs.garage_conversion, desc: T.svcDescs.garage_conversion },
-    { id: "basement_finishing", pricingGroup: "single-level", icon: "⛏️", label: T.svcLabels.basement_finishing, sub: T.svcSubs.basement_finishing, desc: T.svcDescs.basement_finishing },
-    { id: "deck_covered", pricingGroup: "single-level", icon: "🏕️", label: T.svcLabels.deck_covered, sub: T.svcSubs.deck_covered, desc: T.svcDescs.deck_covered },
-    { id: "deck_open", pricingGroup: "single-level", icon: "☀️", label: T.svcLabels.deck_open, sub: T.svcSubs.deck_open, desc: T.svcDescs.deck_open },
-    { id: "porch_covered", pricingGroup: "single-level", icon: "🏡", label: T.svcLabels.porch_covered, sub: T.svcSubs.porch_covered, desc: T.svcDescs.porch_covered },
-    { id: "porch_open", pricingGroup: "single-level", icon: "🌿", label: T.svcLabels.porch_open, sub: T.svcSubs.porch_open, desc: T.svcDescs.porch_open },
-    { id: "renovation", pricingGroup: "multi-level", icon: "🔨", label: T.svcLabels.renovation, sub: T.svcSubs.renovation, desc: T.svcDescs.renovation },
-    { id: "other_const", pricingGroup: "single-level", icon: "✏️", label: T.svcLabels.other_const, sub: T.svcSubs.other_const, desc: T.svcDescs.other_const },
+    { id: "new_construction", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="8" width="16" height="14"/><path d="M2 10l10-8 10 8"/><path d="M12 2v6"/><path d="M8 5v3"/><path d="M16 5v3"/></svg>, label: T.svcLabels.new_construction, sub: T.svcSubs.new_construction, desc: T.svcDescs.new_construction },
+    { id: "addition", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21v-9l7-5 7 5v9H3z"/><path d="M17 12l5 3v6h-5" strokeDasharray="2 2"/></svg>, label: T.svcLabels.addition, sub: T.svcSubs.addition, desc: T.svcDescs.addition },
+    { id: "second_story", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 21V11l8-6 8 6v10H4z"/><path d="M4 11h16"/><path d="M12 11V3"/><path d="M9 6l3-3 3 3"/></svg>, label: T.svcLabels.second_story, sub: T.svcSubs.second_story, desc: T.svcDescs.second_story },
+    { id: "garage_only", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 12V6l-6-4-6 4v6"/><path d="M4 16c0-2.2 1.8-4 4-4h8c2.2 0 4 1.8 4 4v4H4v-4z"/><circle cx="7" cy="18" r="1"/><circle cx="17" cy="18" r="1"/></svg>, label: T.svcLabels.garage_only, sub: T.svcSubs.garage_only, desc: T.svcDescs.garage_only },
+    { id: "garage_conversion", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21V9l9-7 9 7v12H3z"/><rect x="6" y="12" width="5" height="9"/><rect x="14" y="12" width="4" height="4"/></svg>, label: T.svcLabels.garage_conversion, sub: T.svcSubs.garage_conversion, desc: T.svcDescs.garage_conversion },
+    { id: "basement_finishing", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 14V9l9-7 9 7v5"/><rect x="3" y="14" width="18" height="7"/><path d="M7 14v7"/><path d="M12 14v7"/><path d="M17 14v7"/></svg>, label: T.svcLabels.basement_finishing, sub: T.svcSubs.basement_finishing, desc: T.svcDescs.basement_finishing },
+    { id: "deck_covered", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 18h16"/><path d="M4 21h16"/><path d="M4 18v-8"/><path d="M20 18v-8"/><path d="M2 10l10-6 10 6H2z"/></svg>, label: T.svcLabels.deck_covered, sub: T.svcSubs.deck_covered, desc: T.svcDescs.deck_covered },
+    { id: "deck_open", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 15h18"/><path d="M3 18h18"/><path d="M3 21h18"/><path d="M6 15v6"/><path d="M12 15v6"/><path d="M18 15v6"/></svg>, label: T.svcLabels.deck_open, sub: T.svcSubs.deck_open, desc: T.svcDescs.deck_open },
+    { id: "porch_covered", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 10l10-6 10 6H2z"/><path d="M6 10v11"/><path d="M18 10v11"/><path d="M3 21h18"/></svg>, label: T.svcLabels.porch_covered, sub: T.svcSubs.porch_covered, desc: T.svcDescs.porch_covered },
+    { id: "porch_open", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 18h16"/><path d="M4 21h16"/><path d="M7 18v-5"/><path d="M17 18v-5"/><path d="M4 13h16"/></svg>, label: T.svcLabels.porch_open, sub: T.svcSubs.porch_open, desc: T.svcDescs.porch_open },
+    { id: "renovation", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 9.5L5 19l-2 2 2-2 9.5-9.5"/><path d="M16 6l2-2 4 4-2 2-4-4z"/><path d="M22 22L12 12"/><path d="M15 15l1.5 1.5"/><path d="M17 17l1.5 1.5"/></svg>, label: T.svcLabels.renovation, sub: T.svcSubs.renovation, desc: T.svcDescs.renovation },
+    { id: "other_const", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l4 18-4-3-4 3 4-18z"/><circle cx="12" cy="12" r="3"/></svg>, label: T.svcLabels.other_const, sub: T.svcSubs.other_const, desc: T.svcDescs.other_const },
   ];
 
   const INT_SVC = [
-    { id: "kitchen_remodel", pricingGroup: "multi-level", icon: "🍳", label: T.svcLabels.kitchen_remodel, sub: T.svcSubs.kitchen_remodel, desc: T.svcDescs.kitchen_remodel },
-    { id: "bath_remodel", pricingGroup: "multi-level", icon: "🛁", label: T.svcLabels.bath_remodel, sub: T.svcSubs.bath_remodel, desc: T.svcDescs.bath_remodel },
-    { id: "open_concept", pricingGroup: "multi-level", icon: "🗂️", label: T.svcLabels.open_concept, sub: T.svcSubs.open_concept, desc: T.svcDescs.open_concept },
-    { id: "other_int", pricingGroup: "single-level", icon: "✏️", label: T.svcLabels.other_int, sub: T.svcSubs.other_int, desc: T.svcDescs.other_int },
+    { id: "kitchen_remodel", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16"/><path d="M12 12v8"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>, label: T.svcLabels.kitchen_remodel, sub: T.svcSubs.kitchen_remodel, desc: T.svcDescs.kitchen_remodel },
+    { id: "bath_remodel", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4a4 4 0 0 0 4 4h4"/><circle cx="18" cy="10" r="2"/><path d="M16 14v1"/><path d="M18 15v1"/><path d="M20 14v1"/></svg>, label: T.svcLabels.bath_remodel, sub: T.svcSubs.bath_remodel, desc: T.svcDescs.bath_remodel },
+    { id: "open_concept", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 4v16" strokeDasharray="2 2"/><path d="M8 12H3m0 0l3-3m-3 3l3 3"/><path d="M16 12h5m0 0l-3-3m3 3l-3 3"/></svg>, label: T.svcLabels.open_concept, sub: T.svcSubs.open_concept, desc: T.svcDescs.open_concept },
+    { id: "other_int", pricingGroup: "single-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M12 18v3"/><path d="M8 21h8"/></svg>, label: T.svcLabels.other_int, sub: T.svcSubs.other_int, desc: T.svcDescs.other_int },
   ];
 
   const services = d.services || {};
@@ -1828,16 +1984,16 @@ function S3({ d, up, est, lang }) {
       <Title label={T.tellAboutProject} sub={T.projectSub} />
 
       <p className="wz-label" style={{ marginBottom: 12 }}>{T.propertyTypeLabel || "PROPERTY TYPE"}</p>
-      <div className="wz-grid-adaptive" style={{ marginBottom: 20 }}>
+      <div className="wz-grid-adaptive" style={{ marginBottom: 32 }}>
         {[
-          { id: "single_family", icon: "🏠", label: T.propertyTypes.single_family.label, sub: T.propertyTypes.single_family.sub },
-          { id: "multi_family", icon: "🏘️", label: T.propertyTypes.multi_family.label, sub: T.propertyTypes.multi_family.sub },
-          { id: "adu", icon: "🛖", label: T.propertyTypes.adu.label, sub: T.propertyTypes.adu.sub },
+          { id: "single_family", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21v-6h6v6"/></svg>, label: T.propertyTypes.single_family.label, sub: T.propertyTypes.single_family.sub },
+          { id: "multi_family", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 21H3"/><path d="M5 21V5l8-3 8 3v16"/><path d="M9 21v-5h6v5"/><path d="M9 9h2"/><path d="M13 9h2"/><path d="M9 13h2"/><path d="M13 13h2"/></svg>, label: T.propertyTypes.multi_family.label, sub: T.propertyTypes.multi_family.sub },
+          { id: "adu", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M6 21V13l6-5 6 5v8"/><path d="M10 21v-4h4v4"/></svg>, label: T.propertyTypes.adu.label, sub: T.propertyTypes.adu.sub },
         ].map(pt => (
-          <div key={pt.id} className={`wz-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "18px 10px" }}>
-            <div style={{ fontSize: 28, marginBottom: 8 }}>{pt.icon}</div>
-            <p style={{ fontSize: 14, fontWeight: 500, marginBottom: 3 }}>{pt.label}</p>
-            <p style={{ fontSize: 11, color: "var(--tx)", fontStyle: "italic", opacity: 0.9 }}>{pt.sub}</p>
+          <div key={pt.id} className={`hww-feature-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.propertyType === pt.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.propertyType === pt.id ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)" }}>
+            <div style={{ fontSize: 24, marginBottom: 8, filter: d.propertyType === pt.id ? "drop-shadow(0 0 12px rgba(123, 31, 162, 0.5))" : "none", transition: "all 0.3s ease", transform: d.propertyType === pt.id ? "scale(1.1)" : "scale(1)" }}>{pt.icon}</div>
+            <p style={{ fontSize: 13, fontWeight: 700, margin: "0 0 4px 0", color: "var(--text-color)" }}>{pt.label}</p>
+            <p style={{ fontSize: 11, color: "var(--text-color)", fontStyle: "italic", opacity: 0.6, margin: 0 }}>{pt.sub}</p>
           </div>
         ))}
       </div>
@@ -1847,22 +2003,13 @@ function S3({ d, up, est, lang }) {
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.constructionStructure}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
           {CONST_SVC.map(svc => (
-            <div key={svc.id} className={`wz-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative" }}>
-              <div
-                onMouseEnter={() => setHoverId(svc.id)}
-                onMouseLeave={() => setHoverId(null)}
-                style={{ position: "absolute", top: 8, right: 8, color: "var(--mu)", cursor: "help", zIndex: 10 }}
-              >
-                <InfoIcon />
-                {hoverId === svc.id && (
-                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", color: "var(--tx)", padding: "10px 12px", borderRadius: "2px 6px 6px 2px", fontSize: 11, fontStyle: "italic", opacity: 0.9, width: "max-content", maxWidth: 220, textAlign: "left", boxShadow: "0 8px 24px rgba(0,0,0,0.6)", pointerEvents: "none", zIndex: 20 }}>
-                    {svc.desc}
-                  </div>
-                )}
+            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(123, 31, 162, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
+              <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, lineHeight: 1.2, color: "#FFFFFF" }}>{svc.label}</p>
+              <p style={{ fontSize: 10, color: "#e2e8f0", lineHeight: 1.3, margin: "0 0 16px 0" }}>{svc.sub}</p>
+              <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                <p style={{ fontSize: 10, color: "var(--dm)", margin: 0, lineHeight: 1.4 }}>{svc.desc || svc.sub}</p>
               </div>
-              <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
-              <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
-              <p style={{ fontSize: 11, color: "var(--tx)", fontStyle: "italic", opacity: 0.9, lineHeight: 1.3 }}>{svc.sub}</p>
             </div>
           ))}
         </div>
@@ -1877,22 +2024,13 @@ function S3({ d, up, est, lang }) {
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.interiors}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
           {INT_SVC.map(svc => (
-            <div key={svc.id} className={`wz-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative" }}>
-              <div
-                onMouseEnter={() => setHoverId(svc.id)}
-                onMouseLeave={() => setHoverId(null)}
-                style={{ position: "absolute", top: 8, right: 8, color: "var(--mu)", cursor: "help", zIndex: 10 }}
-              >
-                <InfoIcon />
-                {hoverId === svc.id && (
-                  <div style={{ position: "absolute", bottom: "100%", left: "50%", transform: "translateX(-50%)", marginBottom: 8, background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", color: "var(--tx)", padding: "10px 12px", borderRadius: "2px 6px 6px 2px", fontSize: 11, fontStyle: "italic", opacity: 0.9, width: "max-content", maxWidth: 220, textAlign: "left", boxShadow: "0 8px 24px rgba(0,0,0,0.6)", pointerEvents: "none", zIndex: 20 }}>
-                    {svc.desc}
-                  </div>
-                )}
+            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(123, 31, 162, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
+              <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, lineHeight: 1.2, color: "#FFFFFF" }}>{svc.label}</p>
+              <p style={{ fontSize: 10, color: "#e2e8f0", lineHeight: 1.3, margin: "0 0 16px 0" }}>{svc.sub}</p>
+              <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                <p style={{ fontSize: 10, color: "var(--dm)", margin: 0, lineHeight: 1.4 }}>{svc.desc || svc.sub}</p>
               </div>
-              <div style={{ fontSize: 22, marginBottom: 8 }}>{svc.icon}</div>
-              <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 4, lineHeight: 1.2 }}>{svc.label}</p>
-              <p style={{ fontSize: 11, color: "var(--tx)", fontStyle: "italic", opacity: 0.9, lineHeight: 1.3 }}>{svc.sub}</p>
             </div>
           ))}
         </div>
@@ -1910,7 +2048,7 @@ function S3({ d, up, est, lang }) {
               const li = parseDim(lVal, isUS);
 
               return (
-                <div key={svcId} style={{ background: "var(--bg3)", padding: 20, borderRadius: 16, border: "1.5px solid var(--border)" }}>
+                <div key={svcId} className="hww-bento-card" style={{ padding: 24, borderRadius: 20, marginBottom: 16 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase" }}>{svcLabel}</p>
                     {getSvcArea(svcId) > 0 && <div style={{ background: "rgba(100, 108, 255, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(getSvcArea(svcId))} {au}</div>}
@@ -1972,17 +2110,6 @@ function S3({ d, up, est, lang }) {
         </div>
       )}
 
-      {selectedSvcs.length > 0 && (
-        <div className="wz-card active" style={{ padding: 20, marginTop: 24, background: "rgba(100, 108, 255, 0.05)", borderColor: "var(--a)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase", marginBottom: 4 }}>{T.grandTotalArea}</p>
-              <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--tx)" }}>{Math.round(grandTotalArea)} <span style={{ fontSize: 14, fontWeight: 500, color: "var(--mu)" }}>{au}</span></h3>
-            </div>
-            <div style={{ fontSize: 32 }}>📏</div>
-          </div>
-        </div>
-      )}
 
       <div className="wz-f" style={{ marginTop: 32, marginBottom: 28 }}>
         <label className="wz-label">{T.lotSizeLabel} (OPTIONAL, {au.toUpperCase()})</label>
@@ -2011,10 +2138,11 @@ function S4({ d, up, est, lang }) {
   const setPkg = (id) => {
     if (d.deliveryPkg === id) {
       up("deliveryPkg", "");
+      setOpenDet({});
     } else {
       up("deliveryPkg", id);
+      setOpenDet({ [id]: true });
     }
-    setOpenDet({});
   };
 
   const togglePkgExtra = (k, isIncluded) => {
@@ -2029,7 +2157,7 @@ function S4({ d, up, est, lang }) {
       icon: "🏛️",
       title: T.pkgTitles.as_built_permit,
       subtitle: T.pkgSubs.as_built_permit,
-      tag: "HIGH COMPLEXITY",
+      tag: "PERMIT SET",
       tagColor: "rgba(245, 158, 11, 0.15)",
       tagTextCol: "#F59E0B",
       desc: T.pkgSubs.as_built_permit,
@@ -2104,144 +2232,154 @@ function S4({ d, up, est, lang }) {
     <div className="wz-animate">
       <Title label={T.deliveryPackage} sub={T.packageSub} />
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 28 }}>
-        {PKG.map(pkg => {
+      <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 28 }}>
+        {PKG.map((pkg, index) => {
           const isActive = d.deliveryPkg === pkg.id;
-          const isDetOpen = openDet[pkg.id];
           return (
             <div
               key={pkg.id}
-              className={`wz-card ${isActive ? "active" : ""}`}
+              className={`hww-bento-card ${isActive ? "active" : ""}`}
               onClick={() => setPkg(pkg.id)}
-              style={{ padding: 20, borderColor: isActive ? "var(--a)" : "var(--border)", transition: "all 0.2s" }}
+              style={{ padding: 0, borderColor: isActive ? "var(--brand-purple)" : "var(--glass-border)", background: isActive ? "linear-gradient(135deg, rgba(123,31,162,0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)", transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)", overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer", boxShadow: isActive ? "0 0 30px rgba(123, 31, 162, 0.15)" : "none" }}
             >
-              <div style={{ display: "flex", gap: 16 }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 24, height: 24, borderRadius: 6, border: "2px solid", borderColor: isActive ? "var(--a)" : "var(--border)", background: isActive ? "var(--a)" : "transparent", marginTop: 4, transition: "all 0.2s" }}>
-                  {isActive && <Chk />}
-                </div>
-                <div style={{ fontSize: 24, marginTop: 2 }}>{pkg.icon}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
-                    <p style={{ fontSize: 16, fontWeight: 700, color: "var(--tx)" }}>{pkg.title}</p>
-                    {pkg.tag && (
-                      <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".05em", background: pkg.tagColor, color: pkg.tagTextCol, padding: "2px 8px", borderRadius: 4 }}>
-                        {pkg.tag}
+              <div style={{ padding: 32 }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 6, border: "2px solid", borderColor: isActive ? "var(--brand-purple)" : "var(--glass-border)", background: isActive ? "var(--brand-purple)" : "transparent", transition: "all 0.2s", marginTop: 4, flexShrink: 0 }}>
+                    {isActive && <Chk />}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: "var(--brand-purple)", background: "rgba(167, 139, 250, 0.05)", border: "1px solid rgba(167, 139, 250, 0.2)", padding: "6px 16px", borderRadius: 100 }}>
+                        <span style={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em" }}>
+                          {lang === "EN" ? `PACKAGE 0${index + 1}` : `PACOTE 0${index + 1}`}
+                        </span>
+                        {" · "}{pkg.title}
                       </span>
+                      {pkg.tag && (
+                        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".05em", color: pkg.tagTextCol, background: pkg.tagColor, padding: "4px 12px", borderRadius: 100, textTransform: "uppercase" }}>
+                          {pkg.tag}
+                        </span>
+                      )}
+                    </div>
+                    <p style={{ fontSize: 13, color: "#ffffff", opacity: 0.9, lineHeight: 1.5, margin: "0 0 0 16px" }}>
+                      {pkg.desc}
+                      <span onClick={(e) => toggleDet(pkg.id, e)} style={{ marginLeft: 8, color: "var(--brand-purple)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
+                        {openDet[pkg.id] ? (lang === "EN" ? "Less details" : "Menos detalhes") : (lang === "EN" ? "More details" : "Mais detalhes")}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {openDet[pkg.id] && (
+                  <>
+                    {/* WHY US / PITCH */}
+                    {pkg.details?.whyUs && (
+                      <div className="wz-animate" style={{ marginTop: 24, padding: "16px 20px", background: "rgba(167, 139, 250, 0.08)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "0 12px 12px 0", display: "flex", gap: 14, alignItems: "flex-start" }}>
+                        <span style={{ fontSize: 24, lineHeight: 1 }}>💡</span>
+                        <p style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
+                          {pkg.details.whyUs}
+                        </p>
+                      </div>
                     )}
-                  </div>
-                  <p style={{ fontSize: 13, color: "var(--mu)", lineHeight: 1.5, marginBottom: 12 }}>{pkg.desc}</p>
 
-                  <div
-                    onClick={(e) => toggleDet(pkg.id, e)}
-                    style={{ fontSize: 12, color: "var(--a)", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 4, userSelect: "none" }}
-                  >
-                    {T.moreDetails} <span style={{ transform: isDetOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: 10, display: "inline-block" }}>▼</span>
-                    {!isDetOpen && pkg.extras && <span style={{ marginLeft: 8, fontSize: 10, fontWeight: 500, color: "var(--mu)", background: "rgba(255,255,255,0.05)", padding: "2px 6px", borderRadius: 4 }}>{lang === "EN" ? "+ Customizations inside" : "+ Customizações aqui"}</span>}
-                  </div>
-
-                  {isDetOpen && pkg.details && (
-                    <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
-                      <div style={{ background: "rgba(255,255,255,0.02)", padding: "20px 24px", borderRadius: "var(--r)", marginBottom: 16, border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: 24 }}>
-                        {pkg.details.summary && (
-                          <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6 }}>{pkg.details.summary}</p>
-                        )}
-
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 32 }}>
-                          {/* WHAT'S INCLUDED */}
-                          {/* WHAT'S INCLUDED CARD */}
-                          <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "16px", padding: 24 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#10b981" }}>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                              </div>
-                              <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", margin: 0 }}>{lang === "EN" ? "What's Included" : "O Que Está Incluso"}</h3>
+                    {/* EXTRAS */}
+                    {pkg.extras && (
+                      <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: 24 }}>
+                        {pkg.extras.map(group => (
+                          <div key={group.group}>
+                            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--brand-purple)", marginBottom: 16, textTransform: "uppercase" }}>{group.group}</p>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
+                              {group.items.map(item => {
+                                 const isChecked = item.isIncluded || d.pkgExtras?.[item.id];
+                                 const cardBorder = isChecked ? (item.isIncluded ? "rgba(16, 185, 129, 0.4)" : "var(--brand-purple)") : "var(--glass-border)";
+                                 const bgCol = isChecked ? "rgba(255,255,255,0.06)" : "var(--glass-bg)";
+                                 
+                                 return (
+                                   <div
+                                     key={item.id}
+                                     style={{ border: "1px solid", borderColor: cardBorder, borderRadius: 12, padding: 16, background: bgCol, cursor: item.isIncluded ? "default" : "pointer", transition: "all 0.2s" }}
+                                     onClick={(e) => { e.stopPropagation(); togglePkgExtra(item.id, item.isIncluded); }}
+                                   >
+                                     <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 6 }}>
+                                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 16, height: 16, borderRadius: 4, border: "1px solid", borderColor: isChecked ? "var(--brand-purple)" : "var(--glass-border)", background: isChecked ? "var(--brand-purple)" : "transparent", transition: "all 0.2s", flexShrink: 0 }}>
+                                            {isChecked && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                                          </div>
+                                          <h4 style={{ fontSize: 13, fontWeight: 500, color: "#ffffff", margin: 0, lineHeight: 1.2 }}>
+                                            {item.label} {item.isIncluded && <span style={{color: "#10b981", fontSize: 11, fontWeight: 700}}>· Included</span>}
+                                          </h4>
+                                       </div>
+                                     </div>
+                                     {item.desc && (
+                                       <p style={{ fontSize: 11, color: "#ffffff", fontStyle: "italic", opacity: 0.9, lineHeight: 1.3, margin: "6px 0 0 26px" }}>
+                                         {item.desc}
+                                       </p>
+                                     )}
+                                   </div>
+                                 )
+                              })}
                             </div>
-                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-                              {pkg.details.whatYouReceive.map((item, idx) => (
-                                <li key={idx} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: 10 }}>
-                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><polyline points="20 6 9 17 4 12"/></svg>
-                                  <span>
-                                    {item.title && item.desc ? (
-                                      <><strong style={{fontWeight:600, color:"var(--tx)"}}>{item.title}:</strong> <span style={{color:"var(--mu)"}}>{item.desc}</span></>
-                                    ) : (
-                                      <span style={{color:"var(--tx)"}}>{item.title || item.desc || item}</span>
-                                    )}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* INCLUSIONS */}
+                    {pkg.details && pkg.details.whatYouReceive && (
+                       <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 32 }}>
+                          <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "12px", padding: 16 }}>
+                             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#10b981", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}</p>
+                             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                               {pkg.details.whatYouReceive.map((item, idx) => (
+                                 <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
+                                    <span style={{ color: "#10b981", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                                    <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                                      {item.title && item.desc ? (
+                                        <>
+                                          <span style={{ fontSize: 13, fontWeight: 500, color: "#ffffff", lineHeight: 1.4 }}>{item.title}</span>
+                                          <span style={{ fontSize: 13, color: "#ffffff", opacity: 0.9, lineHeight: 1.4 }}>{item.desc}</span>
+                                        </>
+                                      ) : (
+                                        <span>{item.title || item.desc || item}</span>
+                                      )}
+                                    </div>
+                                 </li>
+                               ))}
+                             </ul>
                           </div>
 
-                          {/* NOT INCLUDED CARD */}
                           {pkg.details.notIncluded && (
-                            <div style={{ background: "rgba(233, 30, 99, 0.04)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "16px", padding: 24 }}>
-                              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                                <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(233, 30, 99, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#E91E63" }}>
-                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                                </div>
-                                <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", margin: 0 }}>{lang === "EN" ? "What's Not Included" : "O Que Não Está Incluso"}</h3>
-                              </div>
-                              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-                                {pkg.details.notIncluded.map((it, idx) => (
-                                  <li key={idx} style={{ fontSize: 13, color: "var(--mu)", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: 10 }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E91E63" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                                    <span>{it}</span>
-                                  </li>
-                                ))}
-                              </ul>
+                            <div style={{ background: "rgba(233, 30, 99, 0.04)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "12px", padding: 16 }}>
+                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}</p>
+                               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                                 {pkg.details.notIncluded.map((it, idx) => (
+                                   <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
+                                      <span style={{ color: "#E91E63", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                                      <span>{it}</span>
+                                   </li>
+                                 ))}
+                               </ul>
                             </div>
                           )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {isDetOpen && pkg.extras && (
-                    <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
-                      <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".1em", color: "var(--dm)", marginBottom: 16, textTransform: "uppercase" }}>{T.serviceCustomization}</p>
-                      {pkg.extras.map(group => (
-                        <div key={group.group} style={{ marginBottom: 20 }}>
-                          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 10, textTransform: "uppercase" }}>{group.group}</p>
-                          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                            {group.items.map(item => {
-                              const isChecked = item.isIncluded || d.pkgExtras?.[item.id];
-                              const isExOpen = openEx[item.id];
-                              return (
-                                <div
-                                  key={item.id}
-                                  style={{ border: "1px solid var(--border)", borderRadius: "var(--r)", padding: 16, background: isChecked ? "rgba(255,255,255,0.02)" : "transparent", cursor: item.isIncluded ? "default" : "pointer", transition: "all 0.2s" }}
-                                  onClick={() => togglePkgExtra(item.id, item.isIncluded)}
-                                >
-                                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                                      <div style={{ width: 18, height: 18, borderRadius: 4, border: "1.5px solid", borderColor: isChecked ? (item.isIncluded ? "var(--gn)" : "var(--a)") : "var(--border)", background: isChecked ? (item.isIncluded ? "var(--gn)" : "var(--a)") : "transparent", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
-                                        {isChecked && <Chk />}
-                                      </div>
-                                      <span style={{ fontSize: 14, fontWeight: 600, color: "var(--tx)" }}>{item.label}</span>
-                                    </div>
-                                    <span style={{ fontSize: 12, fontWeight: 700, color: item.isIncluded ? "var(--gn)" : "var(--a)" }}>{item.price}</span>
-                                  </div>
-
-                                  {item.desc && (
-                                    <div style={{ marginTop: 6, marginLeft: 30 }}>
-                                      <p style={{ fontSize: 12, color: "var(--mu)", lineHeight: 1.4 }}>
-                                        {item.desc}
-                                      </p>
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                       </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           );
         })}
+      </div>
+
+      <div style={{ background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", padding: "14px 18px", borderRadius: "2px 6px 6px 2px", display: "flex", flexDirection: "column", gap: "12px" }}>
+        <p style={{ fontSize: 13, color: "#ffffff", fontStyle: "italic", opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
+          {lang === "EN" 
+            ? "Click on 'More details' within each package to explore the full scope of included services and available design extras." 
+            : "Clique em 'Mais detalhes' em cada pacote para explorar todo o escopo de serviços inclusos e extras de design disponíveis."}
+        </p>
+        <a href="/services" target="_blank" rel="noopener noreferrer" style={{ alignSelf: "flex-start", fontSize: 12, fontWeight: 700, color: "#111", background: "#FFC107", padding: "6px 14px", borderRadius: 6, textDecoration: "none", textTransform: "uppercase", letterSpacing: ".05em", transition: "all 0.2s" }}>
+          {lang === "EN" ? "View Full Service Catalog" : "Ver Catálogo Completo de Serviços"}
+        </a>
       </div>
     </div>
   );
@@ -2368,30 +2506,39 @@ function S6({ d, up, lang }) {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
         {ROOM_GROUPS.map(g => (
-          <div key={g.label} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden" }}>
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)", background: "rgba(255,255,255,0.02)" }}>
-              <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--tx)" }}>{g.label}</h3>
+          <div key={g.label} className="hww-bento-card" style={{ padding: 0, overflow: "hidden", border: "1px solid var(--glass-border)" }}>
+            <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--glass-border)", background: "var(--glass-bg)" }}>
+              <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".08em", color: "var(--brand-purple)", textTransform: "uppercase", margin: 0 }}>{g.label}</h3>
             </div>
             <div className="wz-grid-adaptive" style={{ gap: 0 }}>
               {g.items.map((item, idx) => {
                 const val = rooms[item.id] || 0;
+                const isActive = val > 0;
                 return (
                   <div key={item.id} style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "16px 20px",
-                    borderBottom: "1px solid var(--border)",
-                    borderRight: "1px solid var(--border)",
-                    minHeight: 56
+                    borderBottom: "1px solid var(--glass-border)",
+                    borderRight: "1px solid var(--glass-border)",
+                    minHeight: 56,
+                    background: isActive ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), transparent)" : "transparent",
+                    transition: "all 0.3s ease"
                   }}>
-                    <span style={{ fontSize: 13, fontWeight: 500, color: val > 0 ? "var(--tx)" : "var(--mu)" }}>
+                    <span style={{ fontSize: 13, fontWeight: isActive ? 600 : 500, color: isActive ? "#ffffff" : "rgba(255,255,255,0.85)" }}>
                       {T.roomLabels[item.id] || item.label}
                     </span>
-                    <div className="wz-counter">
-                      <button className="wz-counter-btn" onClick={() => setR(item.id, Math.max(0, val - 1))}>−</button>
-                      <div className="wz-counter-val">{val}</div>
-                      <button className="wz-counter-btn" onClick={() => setR(item.id, Math.min(20, val + 1))}>+</button>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <button 
+                        onClick={() => setR(item.id, Math.max(0, val - 1))}
+                        style={{ width: 28, height: 28, borderRadius: "50%", background: isActive ? "var(--brand-purple)" : "rgba(255,255,255,0.05)", border: "none", color: isActive ? "#fff" : "var(--tx)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all 0.2s" }}
+                      >−</button>
+                      <div style={{ width: 20, textAlign: "center", fontSize: 14, fontWeight: 700, color: "var(--tx)" }}>{val}</div>
+                      <button 
+                        onClick={() => setR(item.id, Math.min(20, val + 1))}
+                        style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.05)", border: "1px solid var(--glass-border)", color: "var(--tx)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all 0.2s", ":hover": { background: "rgba(255,255,255,0.1)" } }}
+                      >+</button>
                     </div>
                   </div>
                 );
@@ -2402,13 +2549,14 @@ function S6({ d, up, lang }) {
       </div>
 
       <div style={{ marginTop: 40 }}>
-        <p className="wz-label" style={{ fontSize: 10, opacity: 0.8, marginBottom: 12 }}>{T.specialReqs}</p>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--brand-purple)", marginBottom: 12 }}>{T.specialReqs}</p>
         <textarea
-          className="wz-textarea"
           placeholder={T.specialReqsPlaceholder}
-          style={{ background: "#0c0c14", minHeight: 140, borderRadius: "10px" }}
+          style={{ width: "100%", background: "var(--glass-bg)", border: "1px solid var(--glass-border)", minHeight: 140, borderRadius: "16px", padding: 20, color: "var(--tx)", fontSize: 14, lineHeight: 1.5, resize: "vertical", transition: "all 0.3s", outline: "none" }}
           value={d.specialReqs || ""}
           onChange={e => up("specialReqs", e.target.value)}
+          onFocus={e => { e.target.style.borderColor = "var(--brand-purple)"; e.target.style.boxShadow = "0 0 15px rgba(167, 139, 250, 0.1)"; }}
+          onBlur={e => { e.target.style.borderColor = "var(--glass-border)"; e.target.style.boxShadow = "none"; }}
         />
       </div>
     </div>
@@ -2449,7 +2597,7 @@ function S7({ d, up, lang, setUploading, uploading }) {
       id: "other",
       label: lang === "EN" ? "Other Files" : "Outros Arquivos",
       icon: "📎",
-      types: "Any file type · max 100MB",
+      types: lang === "EN" ? "Any file type · max 100MB" : "Qualquer formato · max 100MB",
       accept: "*",
       color: "#10b981"
     },
@@ -2526,113 +2674,118 @@ function S7({ d, up, lang, setUploading, uploading }) {
     <div className="wz-animate">
       <Title label={T.uploadTitle} sub={T.uploadSub} />
 
-      <div style={{ background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px 20px", display: "flex", gap: "16px", marginBottom: "32px", alignItems: "center" }}>
-        <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--a-dim)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--a)", flexShrink: 0 }}>
+      <div style={{ background: "rgba(167, 139, 250, 0.05)", border: "1px solid rgba(167, 139, 250, 0.2)", borderRadius: "16px", padding: "16px 20px", display: "flex", gap: "16px", marginBottom: "32px", alignItems: "center" }}>
+        <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(167, 139, 250, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--brand-purple)", flexShrink: 0 }}>
           <InfoIcon />
         </div>
         <div>
-          <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--mu)", marginBottom: "4px" }}>
+          <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--tx)", opacity: 0.9, marginBottom: "4px" }}>
             {T.uploadHelp}
           </p>
-          <p style={{ fontSize: "12px", color: "var(--a)", fontWeight: "500", opacity: 0.9 }}>
+          <p style={{ fontSize: "12px", color: "var(--brand-purple)", fontWeight: "600" }}>
             ✨ {T.uploadLaterNote}
           </p>
         </div>
       </div>
 
-      <div className="wz-grid-adaptive" style={{ gap: "24px" }}>
-        {cats.map(cat => (
-          <div key={cat.id} style={{ 
-            background: "var(--bg1)", 
-            border: "1.5px solid var(--border)", 
-            borderRadius: "16px", 
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column",
-            transition: "all .2s ease"
-          }}>
-            <div style={{ padding: "16px 20px", background: "var(--cb)", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <span style={{ fontSize: "18px" }}>{cat.icon}</span>
-                <span style={{ fontSize: "14px", fontWeight: "700", color: "var(--tx)" }}>{cat.label}</span>
-              </div>
-              <span style={{ fontSize: "9px", color: "var(--dm)", textTransform: "uppercase", letterSpacing: ".05em" }}>{cat.types.split(' · ')[0]}</span>
-            </div>
-
-            <div style={{ padding: "20px" }}>
-              <div 
-                className={`wz-drop ${dragging === cat.id ? "dragging" : ""}`} 
-                style={{ 
-                  padding: "32px 16px", 
-                  background: dragging === cat.id ? "var(--a-dim)" : "rgba(255,255,255,0.02)",
-                  border: "2px dashed",
-                  borderColor: dragging === cat.id ? "var(--a)" : "var(--border2)",
-                  borderRadius: "12px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
-                  cursor: "pointer",
-                  transition: "all .2s ease"
-                }}
-                onDragOver={e => { e.preventDefault(); setDragging(cat.id); }}
-                onDragLeave={() => setDragging(null)}
-                onDrop={e => { e.preventDefault(); setDragging(null); handleFiles(cat.id, e.dataTransfer.files); }}
-                onClick={() => fileRefs.current[cat.id]?.click()}
-              >
-                <div style={{ color: "var(--a)", marginBottom: "12px", opacity: 0.8 }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                </div>
-                <p style={{ fontSize: "13px", color: "var(--mu)" }}>
-                  {T.dropHere} <span style={{ color: "var(--a)", fontWeight: "600" }}>{T.browse}</span>
-                </p>
-                <input 
-                  type="file" 
-                  multiple 
-                  accept={cat.accept} 
-                  ref={el => fileRefs.current[cat.id] = el}
-                  style={{ display: "none" }} 
-                  onChange={e => handleFiles(cat.id, e.target.files)}
-                />
-              </div>
-
-              {uploads[cat.id] && uploads[cat.id].length > 0 && (
-                <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                  {uploads[cat.id].map((f, i) => (
-                    <div key={f.id || i} className="doc-row" style={{ padding: "10px 12px", background: "rgba(255,255,255,0.03)", borderColor: "var(--border2)" }}>
-                      <div className="doc-ico pdf" style={{ width: 32, height: 32, fontSize: 14 }}>
-                        {cat.id === "inspiration" ? "🖼️" : cat.id === "videos" ? "🎥" : "📄"}
-                      </div>
-                      <div className="doc-meta">
-                        <p className="doc-name" style={{ fontSize: 12 }}>{f.name}</p>
-                        <p className="doc-info" style={{ fontSize: 10 }}>{(f.size / 1024 / 1024).toFixed(1)}MB</p>
-                      </div>
-                      
-                      {uploading[f.id] !== undefined ? (
-                        <div style={{ width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <svg width="24" height="24" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3" />
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="var(--a)" strokeWidth="3" strokeDasharray="62.8" strokeDashoffset={62.8 - (62.8 * uploading[f.id]) / 100} style={{ transition: 'stroke-dashoffset 0.3s' }} />
-                          </svg>
-                        </div>
-                      ) : (
-                        <button 
-                          className="doc-btn" 
-                          style={{ color: "var(--rd)", width: 28, height: 28 }} 
-                          onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
-                          data-tip={lang === "EN" ? "Remove" : "Remover"}
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        </button>
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        {cats.map((cat, idx) => {
+          const catFiles = uploads[cat.id] || [];
+          const isDone = catFiles.length > 0;
+          return (
+            <div key={cat.id} className={`hww-bento-card ${isDone ? "active" : ""}`} style={{
+              padding: 0,
+              borderColor: isDone ? "var(--brand-purple)" : "var(--glass-border)",
+              background: isDone ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
+              transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+              boxShadow: isDone ? "0 0 30px rgba(123, 31, 162, 0.15)" : "none",
+              display: "flex", flexDirection: "column", overflow: "hidden", marginBottom: 16,
+              borderRadius: isDone ? "24px" : "100px"
+            }}>
+              <div style={{ padding: "16px 24px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: "var(--brand-purple)", textTransform: "uppercase", letterSpacing: ".05em" }}>
+                        {cat.label}
+                      </span>
+                      {isDone && (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))" }}>
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
                       )}
                     </div>
-                  ))}
+                    <span style={{ fontSize: 13, color: "var(--tx)", opacity: 0.7, fontStyle: "italic" }}>
+                      {cat.types}
+                    </span>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginLeft: 12 }}>
+                    <button
+                      onClick={() => fileRefs.current[cat.id]?.click()}
+                      style={{ padding: "8px 20px", fontSize: "12px", fontWeight: 600, color: "var(--tx)", background: "rgba(255,255,255,0.05)", borderRadius: "100px", border: "1px solid var(--glass-border)", cursor: "pointer", transition: "all 0.2s" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; e.currentTarget.style.borderColor = "var(--tx)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "var(--glass-border)"; }}
+                    >
+                      {T.uploadAction}
+                    </button>
+                    <input 
+                      type="file" 
+                      multiple 
+                      accept={cat.accept} 
+                      ref={el => fileRefs.current[cat.id] = el}
+                      style={{ position: "absolute", opacity: 0, width: "1px", height: "1px", overflow: "hidden", pointerEvents: "none" }} 
+                      onChange={e => handleFiles(cat.id, e.target.files)}
+                    />
+                  </div>
                 </div>
-              )}
+
+                {isDone && (
+                  <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: "12px" }}>
+                    {catFiles.map((f, i) => {
+                      const ext = f.name.includes('.') ? f.name.split('.').pop().toUpperCase() : 'FILE';
+                      const sizeMB = f.size ? (f.size / (1024 * 1024)).toFixed(2) : "0.00";
+                      return (
+                        <div key={f.id || i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: 4 }}>
+                          <div style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 8 }}>
+                            <p style={{ fontSize: "13px", color: "var(--tx)", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                              <span style={{ fontWeight: 600 }}>{f.name}</span>
+                              <span style={{ color: "var(--mu)", fontStyle: "italic", marginLeft: 8 }}>- {ext} - {sizeMB}MB</span>
+                            </p>
+                          </div>
+                          <button 
+                            style={{ background: "transparent", border: "none", color: "var(--brand-pink)", fontSize: "14px", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s", flexShrink: 0 }}
+                            onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
+                            onMouseOver={e => { e.currentTarget.style.background = "rgba(233, 30, 99, 0.1)"; }}
+                            onMouseOut={e => { e.currentTarget.style.background = "transparent"; }}
+                            title={lang === "EN" ? "Delete file" : "Excluir arquivo"}
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+
+      <div style={{ marginTop: 32 }}>
+        <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".05em", color: "var(--brand-purple)", marginBottom: 12, textTransform: "uppercase" }}>
+          {lang === "EN" ? "REFERENCE LINKS (OPTIONAL)" : "LINKS DE REFERÊNCIA (OPCIONAL)"}
+        </p>
+        <textarea
+          placeholder={lang === "EN" ? "Paste links to Pinterest boards, Zillow listings, or other references..." : "Cole links de painéis do Pinterest, anúncios no Zillow ou outras referências..."}
+          value={d.referenceLinks || ""}
+          onChange={e => up("referenceLinks", e.target.value)}
+          style={{ width: "100%", background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderRadius: "12px", padding: "16px", color: "var(--tx)", fontSize: "13px", minHeight: "80px", resize: "vertical", outline: "none", transition: "all 0.3s" }}
+          onFocus={e => { e.target.style.borderColor = "var(--brand-purple)"; e.target.style.boxShadow = "0 0 15px rgba(167, 139, 250, 0.1)"; }}
+          onBlur={e => { e.target.style.borderColor = "var(--glass-border)"; e.target.style.boxShadow = "none"; }}
+        />
       </div>
     </div>
   );
@@ -2650,26 +2803,34 @@ function S8({ d, up, lang, setUploading, uploading }) {
     { id: "chk_listing", label: T.checklist.listing, sub: T.checklist.recommended },
     { id: "chk_matter", label: T.checklist.tour, sub: T.checklist.ifAvailable },
     { id: "chk_reports", label: T.checklist.reports, sub: T.checklist.ifAvailable },
+    { id: "chk_existing", label: T.checklist.existing_plans, sub: T.checklist.ifApplicable },
+    { id: "chk_notes", label: T.checklist.city_notes, sub: T.checklist.ifApplicable },
   ];
 
   const hasFilesFromStep6 = Object.values(d.uploads || {}).some(arr => arr.length > 0);
   const requiredCount = 3; 
-  const completedRequired = checklist.slice(0, 3).filter(c => !!d.rushFiles?.[c.id]).length;
+  const completedRequired = checklist.slice(0, 3).filter(c => {
+    const data = d.rushFiles?.[c.id];
+    return Array.isArray(data) ? data.length > 0 : !!data;
+  }).length;
   const remaining = Math.max(0, requiredCount - completedRequired);
   
   const isUnlocked = hasFilesFromStep6 || (remaining === 0);
 
   const handleFileChange = async (id, e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const f = e.target.files[0];
-      const fileId = `rush_${id}`;
-      
-      let projectId = d.projectId;
-      if (!projectId) {
-        projectId = crypto.randomUUID();
-        up("projectId", projectId);
-      }
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    let projectId = d.projectId;
+    if (!projectId) {
+      projectId = crypto.randomUUID();
+      up("projectId", projectId);
+    }
 
+    const currentArr = d.rushFiles?.[id] || [];
+    const existing = Array.isArray(currentArr) ? currentArr : (currentArr.name ? [currentArr] : []);
+    
+    for (const f of Array.from(e.target.files)) {
+      const fileId = `rush_${id}_${Math.random().toString(36).substr(2, 9)}`;
       const path = `${projectId}/rush/${Date.now()}_${f.name}`;
       
       setUploading(prev => ({ ...prev, [fileId]: 0 }));
@@ -2686,17 +2847,16 @@ function S8({ d, up, lang, setUploading, uploading }) {
 
         if (uploadError) throw uploadError;
 
-        const currentRushFiles = d.rushFiles || {};
-        up("rushFiles", { 
-          ...currentRushFiles, 
-          [id]: { 
-            name: f.name, 
-            size: f.size, 
-            url: uploadData.path, 
-            category: 'rush',
-            at: new Date().toISOString() 
-          } 
+        existing.push({
+          id: fileId,
+          name: f.name,
+          size: f.size,
+          url: uploadData.path,
+          category: 'rush',
+          at: new Date().toISOString()
         });
+        
+        up("rushFiles", { ...(d.rushFiles || {}), [id]: [...existing] });
         setFeedback("");
       } catch (err) {
         console.error(err);
@@ -2711,12 +2871,23 @@ function S8({ d, up, lang, setUploading, uploading }) {
     }
   };
 
-  const removeRushFile = (id) => {
-    up(id, false);
+  const removeRushFile = (id, fileIdToRemove) => {
     const currentRushFiles = d.rushFiles || {};
-    const next = { ...currentRushFiles };
-    delete next[id];
-    up("rushFiles", next);
+    const existing = currentRushFiles[id];
+    if (Array.isArray(existing)) {
+      const nextArr = existing.filter(f => f.id !== fileIdToRemove);
+      if (nextArr.length === 0) {
+        const next = { ...currentRushFiles };
+        delete next[id];
+        up("rushFiles", next);
+      } else {
+        up("rushFiles", { ...currentRushFiles, [id]: nextArr });
+      }
+    } else {
+       const next = { ...currentRushFiles };
+       delete next[id];
+       up("rushFiles", next);
+    }
   };
 
   const handleLockedClick = () => {
@@ -2727,32 +2898,23 @@ function S8({ d, up, lang, setUploading, uploading }) {
   const options = [
     {
       id: "standard",
-      label: T.standardDelivery,
-      sub: T.speeds.standard.sub,
-      days: T.speeds.standard.days,
-      icon: "📦",
-      fee: "FREE",
-      locked: false
+      icon: "✔️",
+      locked: false,
+      data: T.speeds.standard
     },
     {
       id: "rush",
-      label: T.rushDelivery,
       tag: "+40%",
-      sub: T.speeds.rush.sub,
-      days: T.speeds.rush.days,
-      icon: "⚡",
-      fee: "+40%",
-      locked: !isUnlocked
+      icon: "🕒",
+      locked: !isUnlocked,
+      data: T.speeds.rush
     },
     {
       id: "express",
-      label: T.expressDelivery,
       tag: "+60%",
-      sub: T.speeds.express.sub,
-      days: T.speeds.express.days,
-      icon: "🔥",
-      fee: "+60%",
-      locked: !isUnlocked
+      icon: "⚡",
+      locked: !isUnlocked,
+      data: T.speeds.express
     },
   ];
 
@@ -2760,139 +2922,176 @@ function S8({ d, up, lang, setUploading, uploading }) {
     <div className="wz-animate">
       <Title label={T.rushFeesTitle || T.deliverySpeed} sub={T.rushFeesSub || T.speedSub} />
 
-      <div style={{ background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden", marginBottom: "32px" }}>
-        <div style={{ padding: "16px 20px", background: "var(--cb)", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h3 style={{ fontSize: "11px", fontWeight: "700", letterSpacing: ".1em", color: "var(--mu)", textTransform: "uppercase" }}>{T.docChecklist}</h3>
-          <span style={{ fontSize: "11px", fontWeight: "600", color: isUnlocked ? "var(--gn)" : "var(--am)" }}>
-            {isUnlocked ? "✓ " + (lang === "EN" ? "All required docs ready" : "Documentos prontos") : `${remaining} ${T.requiredRemaining}`}
-          </span>
+      {!isUnlocked && (
+        <div style={{
+          background: "var(--glass-bg)",
+          border: "1px solid var(--glass-border)",
+          borderRadius: "12px",
+          padding: "24px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          gap: "16px",
+          marginBottom: "32px",
+          boxShadow: "0 4px 20px rgba(167, 139, 250, 0.05)"
+        }}>
+          <h4 style={{ fontSize: "16px", fontWeight: "700", color: "var(--brand-purple)", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            {T.unlockFast?.title || (lang === "EN" ? "Unlock Faster Delivery" : "Desbloquear Entrega Mais Rápida")}
+          </h4>
+          <p style={{ fontSize: "14px", color: "var(--tx)", margin: 0, lineHeight: "1.5", maxWidth: "600px", opacity: 0.9 }}>
+            {lang === "EN" 
+              ? "To access Express and Rush delivery options, and receive a more precise cost estimate, please attach the mandatory documentation listed below." 
+              : "Para ter acesso às modalidades de entrega Express e Rush, além de uma estimativa de custos mais precisa, por favor anexe a documentação obrigatória listada abaixo."}
+          </p>
         </div>
-        <div style={{ padding: "8px 0" }}>
+      )}
+
+      <div style={{ marginBottom: "32px", display: "flex", flexDirection: "column", gap: "12px" }}>
           {checklist.map((item, idx) => {
             const fileData = d.rushFiles?.[item.id];
-            const isDone = !!fileData;
+            const fileList = Array.isArray(fileData) ? fileData : (fileData ? [fileData] : []);
+            const isDone = fileList.length > 0;
             return (
-              <div key={item.id} className="doc-row" style={{ 
-                margin: "4px 12px", 
-                padding: "10px 16px", 
-                background: isDone ? "rgba(22,163,74,0.03)" : "rgba(255,255,255,0.02)",
-                borderColor: isDone ? "rgba(22,163,74,0.2)" : "var(--border2)"
+              <div key={item.id} className={`hww-bento-card ${isDone ? "active" : ""}`} style={{
+                padding: 0,
+                borderColor: isDone ? "var(--brand-purple)" : "var(--glass-border)",
+                background: isDone ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
+                transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                boxShadow: isDone ? "0 0 30px rgba(123, 31, 162, 0.15)" : "none",
+                display: "flex", flexDirection: "column", overflow: "hidden", marginBottom: 16,
+                borderRadius: isDone ? "24px" : "100px"
               }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px", flex: 1 }}>
-                  <div style={{
-                    width: "20px", height: "20px", borderRadius: "6px",
-                    border: `1.5px solid ${isDone ? "var(--gn)" : "var(--border2)"}`,
-                    background: isDone ? "var(--gn)" : "transparent",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    transition: "all .2s", color: "#fff"
-                  }}>
-                    {isDone && <Chk />}
+                <div style={{ padding: "16px 24px" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: "var(--brand-purple)", textTransform: "uppercase", letterSpacing: ".05em" }}>
+                          {item.label}
+                        </span>
+                        {isDone && (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))" }}>
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                          </svg>
+                        )}
+                      </div>
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginLeft: 12 }}>
+                      {!isDone && idx < 3 && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--brand-pink)", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(233, 30, 99, 0.1)", padding: "4px 8px", borderRadius: 4 }}>{T.required}</span>}
+                      {!isDone && item.sub && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--tx)", opacity: 0.6, textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(255, 255, 255, 0.05)", padding: "4px 8px", borderRadius: 4 }}>{item.sub}</span>}
+                      
+                      <button
+                        onClick={() => fileRefs.current[item.id]?.click()}
+                        style={{ padding: "8px 20px", fontSize: "12px", fontWeight: 600, color: "var(--tx)", background: "rgba(255,255,255,0.05)", borderRadius: "100px", border: "1px solid var(--glass-border)", cursor: "pointer", transition: "all 0.2s" }}
+                        onMouseOver={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; e.currentTarget.style.borderColor = "var(--tx)"; }}
+                        onMouseOut={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "var(--glass-border)"; }}
+                      >
+                        {T.uploadAction}
+                      </button>
+                      <input type="file" multiple ref={el => fileRefs.current[item.id] = el} style={{ position: "absolute", opacity: 0, width: "1px", height: "1px", overflow: "hidden", pointerEvents: "none" }} onChange={(e) => handleFileChange(item.id, e)} />
+                    </div>
                   </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: "13px", fontWeight: "600", color: isDone ? "var(--tx)" : "var(--mu)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                      {item.label}
-                    </p>
-                    {isDone ? (
-                      <p style={{ fontSize: "10px", color: "var(--gn)", marginTop: "1px" }}>{fileData.name}</p>
-                    ) : (
-                      item.sub && <p style={{ fontSize: "10px", color: "var(--dm)", marginTop: "1px" }}>{item.sub}</p>
-                    )}
-                  </div>
-                </div>
-                
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  {!isDone && idx < 3 && <span style={{ fontSize: "9px", fontWeight: "700", color: "var(--rd)", textTransform: "uppercase", letterSpacing: ".05em" }}>{T.required}</span>}
                   
-                  {isDone ? (
-                    <button 
-                      className="doc-btn" 
-                      onClick={() => removeRushFile(item.id)}
-                      style={{ color: "var(--rd)", width: 30, height: 30 }}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-                    </button>
-                  ) : (
-                    <button
-                      className="wz-btn-ghost"
-                      onClick={() => fileRefs.current[item.id]?.click()}
-                      style={{ padding: "6px 12px", fontSize: "11px", height: "auto", borderRadius: "8px", border: "1px solid var(--border2)" }}
-                    >
-                      {T.uploadAction}
-                    </button>
+                  {isDone && (
+                    <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: "12px" }}>
+                      {fileList.map((f, i) => {
+                        const ext = f.name.includes('.') ? f.name.split('.').pop().toUpperCase() : 'FILE';
+                        const sizeMB = f.size ? (f.size / (1024 * 1024)).toFixed(2) : "0.00";
+                        return (
+                          <div key={f.id || i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: 4 }}>
+                            <div style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 8 }}>
+                              <p style={{ fontSize: "13px", color: "var(--tx)", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                <span style={{ fontWeight: 600 }}>{f.name}</span>
+                                <span style={{ color: "var(--mu)", fontStyle: "italic", marginLeft: 8 }}>
+                                  - {ext} - {sizeMB}MB
+                                </span>
+                              </p>
+                            </div>
+                            <button 
+                              style={{ background: "transparent", border: "none", color: "var(--brand-pink)", fontSize: "14px", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s", flexShrink: 0 }}
+                              onClick={() => removeRushFile(item.id, f.id)}
+                              onMouseOver={e => { e.currentTarget.style.background = "rgba(233, 30, 99, 0.1)"; }}
+                              onMouseOut={e => { e.currentTarget.style.background = "transparent"; }}
+                              title={lang === "EN" ? "Delete file" : "Excluir arquivo"}
+                            >
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
                   )}
-                  <input type="file" ref={el => fileRefs.current[item.id] = el} style={{ display: "none" }} onChange={(e) => handleFileChange(item.id, e)} />
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
 
-      {!isUnlocked && (
-        <div style={{
-          background: "rgba(239, 68, 68, 0.05)",
-          border: "1px solid rgba(239, 68, 68, 0.2)",
-          borderRadius: "12px",
-          padding: "16px 20px",
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-          marginBottom: "32px"
-        }}>
-          <div style={{ fontSize: "20px" }}>🔒</div>
-          <p style={{ fontSize: "13px", color: "#ef4444", fontWeight: "500", lineHeight: "1.4" }}>
-            {T.unlockRushAlert}
-          </p>
-        </div>
-      )}
+      {/* Moved !isUnlocked card to the top */}
 
       {feedback && (
-        <div className="wz-animate" style={{ background: "rgba(239, 68, 68, 0.1)", border: "1px solid #ef4444", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#ef4444", fontSize: "13px", fontWeight: "500" }}>
+        <div className="wz-animate" style={{ background: "rgba(233, 30, 99, 0.1)", border: "1px solid #E91E63", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#E91E63", fontSize: "13px", fontWeight: "500" }}>
           ⚠️ {feedback}
         </div>
       )}
 
-      <p style={{ fontSize: "10px", fontWeight: "700", letterSpacing: ".12em", color: "var(--dm)", textTransform: "uppercase", marginBottom: "16px" }}>{lang === "EN" ? "Select Delivery Timeline" : "Selecione o Prazo de Entrega"}</p>
+      <h3 style={{ fontSize: "16px", fontWeight: "700", letterSpacing: ".05em", color: "var(--brand-purple)", margin: "0 0 16px 0" }}>{lang === "EN" ? "Select Delivery Timeline" : "Selecione o Prazo de Entrega"}</h3>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
         {options.map(opt => {
           const isSelected = d.rush === opt.id;
           return (
             <div
               key={opt.id}
-              className={`wz-card ${isSelected ? "active" : ""} ${opt.locked ? "locked" : ""}`}
+              className="hww-bento-card"
               onClick={() => opt.locked ? handleLockedClick() : up("rush", opt.id)}
               style={{
                 padding: "20px 24px",
-                opacity: opt.locked ? 0.4 : 1,
-                cursor: opt.locked ? "not-allowed" : "pointer",
+                opacity: opt.locked ? 0.6 : 1,
+                cursor: "pointer",
                 position: "relative",
                 transition: "all .3s ease",
-                borderColor: isSelected ? "var(--a)" : "var(--border)"
+                border: "1px solid",
+                borderColor: isSelected ? "var(--brand-purple)" : "var(--glass-border)",
+                background: isSelected ? "rgba(255, 255, 255, 0.03)" : "var(--glass-bg)",
+                boxShadow: isSelected ? "0 4px 30px rgba(167, 139, 250, 0.15)" : "none"
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                <div style={{ 
-                  width: 48, height: 48, borderRadius: 12, 
-                  background: isSelected ? "var(--a-dim)" : "var(--bg2)", 
-                  display: "flex", alignItems: "center", justifyContent: "center", 
-                  fontSize: 24, border: "1px solid", 
-                  borderColor: isSelected ? "var(--a-glow)" : "var(--border2)" 
-                }}>
-                  {opt.locked ? "🔒" : opt.icon}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "2px" }}>
-                    <h4 style={{ fontSize: "16px", fontWeight: "700", color: isSelected ? "var(--a)" : "var(--tx)" }}>{opt.label}</h4>
-                    {opt.tag && <span style={{ background: isSelected ? "var(--a)" : "rgba(255,255,255,0.05)", padding: "2px 8px", borderRadius: "5px", fontSize: "10px", fontWeight: "800", color: isSelected ? "#fff" : "var(--dm)" }}>{opt.tag}</span>}
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "24px", width: "100%", justifyContent: "space-between" }}>
+                <div style={{ flex: "1 1 200px", display: "flex", alignItems: "center", gap: "12px", minWidth: "220px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: isSelected ? "var(--brand-purple)" : "#FFFFFF", margin: 0, textTransform: "uppercase" }}>
+                      {opt.data.badge}
+                    </h4>
+                    {opt.tag && <span style={{ background: isSelected ? "var(--brand-purple)" : "rgba(255,255,255,0.08)", padding: "2px 8px", borderRadius: "100px", fontSize: "10px", fontWeight: "800", color: isSelected ? "#fff" : "var(--mu)", letterSpacing: ".05em" }}>{opt.tag}</span>}
                   </div>
-                  <p style={{ fontSize: "13px", color: "var(--mu)" }}>{opt.sub}</p>
-                  {opt.days && <p style={{ fontSize: "12px", color: isSelected ? "var(--a)" : "var(--dm)", fontWeight: "600", marginTop: "4px" }}>{opt.days}</p>}
                 </div>
-                <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid", borderColor: isSelected ? "var(--a)" : "var(--border2)", background: isSelected ? "var(--a)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {isSelected && <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#fff" }} />}
+
+                <div style={{ flex: "1 1 120px" }}>
+                  <p style={{ fontSize: "14px", fontWeight: "700", color: "var(--brand-purple)", margin: "0 0 4px 0" }}>{opt.data.previewDays}</p>
+                  <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#FFFFFF", margin: "0 0 2px 0" }}>{opt.data.previewTitle}</h4>
+                  <p style={{ fontSize: "11px", color: "#A1A1AA", margin: 0, lineHeight: 1.3 }}>{opt.data.previewSub}</p>
+                </div>
+
+                <div style={{ flex: "1 1 120px" }}>
+                  <p style={{ fontSize: "14px", fontWeight: "700", color: "var(--brand-purple)", margin: "0 0 4px 0" }}>{opt.data.finalDays}</p>
+                  <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#FFFFFF", margin: "0 0 2px 0" }}>{opt.data.finalTitle}</h4>
+                  <p style={{ fontSize: "11px", color: "#A1A1AA", margin: 0, lineHeight: 1.3 }}>{opt.data.finalSub}</p>
+                </div>
+
+                <div style={{ flexShrink: 0, width: 24, height: 24, borderRadius: "50%", border: "2px solid", borderColor: isSelected ? "var(--brand-purple)" : "var(--glass-border)", background: isSelected ? "var(--brand-purple)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
+                  {isSelected && <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#fff" }} />}
                 </div>
               </div>
+              
+              {opt.data.footer && (
+                <div style={{ width: "100%", marginTop: "16px" }}>
+                  <p style={{ fontSize: "11px", fontStyle: "italic", color: "#A1A1AA", margin: 0, borderTop: "1px solid var(--glass-border)", paddingTop: "12px" }}>{opt.data.footer}</p>
+                </div>
+              )}
             </div>
           );
         })}
@@ -2910,7 +3109,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   const [error, setError] = useState("");
 
   const EstimateGuarantee = () => {
-    const guarantee = isUS 
+    const guarantee = lang === "EN" 
       ? "Your estimate won't vary more than 15% upon final review."
       : "Sua estimativa não variará mais do que 15% após a revisão final.";
     
@@ -2922,7 +3121,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         padding: "20px", 
         marginBottom: "24px" 
       }}>
-        <div style={{ display: "flex", gap: "16px", alignItems: "center", marginBottom: "16px" }}>
+        <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
           <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -2934,13 +3133,17 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
               <div style={{ flex: 1, height: "6px", background: "rgba(16, 185, 129, 0.15)", borderRadius: "3px", overflow: "hidden" }}>
                 <div style={{ width: `${est.conf}%`, height: "100%", background: "#10b981", borderRadius: "3px", boxShadow: "0 0 8px rgba(16, 185, 129, 0.4)", backgroundSize: '200% auto', animation: 'spShimmer 2s linear infinite' }} />
               </div>
-              <span style={{ fontSize: "10px", fontWeight: "800", color: "#10b981", letterSpacing: "0.05em" }}>{est.conf}% {isUS ? "CONFIDENCE" : "CONFIANÇA"}</span>
+              <span style={{ fontSize: "10px", fontWeight: "800", color: "#10b981", letterSpacing: "0.05em" }}>{est.conf}% {lang === "EN" ? "CONFIDENCE" : "CONFIANÇA"}</span>
             </div>
           </div>
         </div>
-        <div style={{ borderTop: "1px solid rgba(16, 185, 129, 0.1)", paddingTop: "12px" }}>
-          <p style={{ fontSize: "10px", color: "var(--dm)", lineHeight: "1.6", margin: 0, opacity: 0.8 }}>
-            <strong style={{ color: "var(--mu)" }}>{T.review.legalTitle}:</strong> {T.review.legalBody}
+        
+        <div style={{ marginTop: "20px", padding: "16px", background: "rgba(239, 68, 68, 0.05)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "8px" }}>
+          <p style={{ fontSize: "10px", color: "#fca5a5", fontWeight: "800", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px", margin: 0 }}>
+            [ {lang === "EN" ? "LEGAL DISCLAIMER" : "NOTA LEGAL"} ]
+          </p>
+          <p style={{ fontSize: "11px", color: "#f87171", lineHeight: "1.6", margin: "0", opacity: 0.9 }}>
+            {T.review.legalBody}
           </p>
         </div>
       </div>
@@ -3028,7 +3231,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   );
 
   const SectionCard = ({ icon, title, step, children }) => (
-    <div style={{ background: "var(--cb)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px", marginBottom: "12px" }}>
+    <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(167, 139, 250, 0.2)", borderRadius: "12px", padding: "16px", marginBottom: "12px", boxShadow: "0 4px 20px rgba(167, 139, 250, 0.05)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <span style={{ fontSize: "15px" }}>{icon}</span>
@@ -3056,7 +3259,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
           <SectionCard icon="📍" title={T.review.location} step={0}>
             <ReviewRow label={T.review.address} value={d.address} />
-            <ReviewRow label="Region" value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
+            <ReviewRow label={lang === "EN" ? "Country / State or Jurisdiction" : "País / Estado ou Jurisdição"} value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
           </SectionCard>
         </div>
 
@@ -3071,12 +3274,32 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         </SectionCard>
 
         <SectionCard icon="📋" title={T.review.summary} step={3}>
-          <ReviewRow label={T.review.totalArea} value={est.totalArea} />
-          <div style={{ padding: "7px 0 5px", borderBottom: "1px solid var(--border)" }}>
+          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "8px", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", border: "1px solid var(--glass-border)", marginBottom: "8px" }}>
+            <span style={{ fontSize: "12px", color: "var(--tx)", fontWeight: "500" }}>{T.review.totalArea}</span>
+            <span style={{ fontSize: "14px", fontWeight: "700", color: "var(--tx)" }}>{est.totalArea}</span>
+          </div>
+          
+          <div style={{ padding: "12px 0 8px" }}>
             <span style={{ fontSize: "9px", letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase" }}>{T.review.selectedSvcs}</span>
           </div>
-          {(est.bd || []).filter(i => i.block !== "extra").map((i, idx) => <ReviewRow key={idx} label={i.l} value={i.v} />)}
-          <ReviewRow label={T.review.timeline} value={d.rush === "express" ? T.review.days510 : d.rush === "rush" ? T.review.days816 : T.review.timelineStandard} />
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
+            {(est.bd || []).filter(i => i.block !== "extra").map((i, idx) => (
+              <div key={idx} style={{ background: "rgba(255,255,255,0.03)", borderRadius: "8px", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", border: "1px solid var(--glass-border)" }}>
+                <span style={{ fontSize: "12px", color: "var(--tx)", fontWeight: "500" }}>{i.l}</span>
+                <span style={{ fontSize: "14px", fontWeight: "700", color: "var(--brand-pink)" }}>{i.v}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ padding: "12px 0 8px", borderTop: "1px solid var(--border)" }}>
+            <span style={{ fontSize: "9px", letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase" }}>{T.review.timeline}</span>
+          </div>
+          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "8px", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", border: "1px solid var(--glass-border)" }}>
+            <span style={{ fontSize: "12px", color: "var(--tx)", fontWeight: "500" }}>{lang === "EN" ? "Estimated Timeline" : "Cronograma Estimado"}</span>
+            <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--brand-pink)" }}>
+              {T.speeds[d.rush || "standard"] ? `${T.speeds[d.rush || "standard"].badge.split(" —")[0]} (${T.speeds[d.rush || "standard"].finalDays})` : T.review.timelineStandard}
+            </span>
+          </div>
         </SectionCard>
 
       <SectionCard icon="📂" title={T.review.documentation} step={5}>
@@ -3145,15 +3368,19 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         </div>
       </SectionCard>
 
-      <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-        <h3 style={{ fontSize: "10px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "20px" }}>{T.review.whatNext}</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+      <div style={{ marginTop: "40px", marginBottom: "40px", position: "relative" }}>
+        <h3 style={{ fontSize: "10px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "24px" }}>{T.review.whatNext}</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "32px", position: "relative", marginLeft: "12px" }}>
+          <div style={{ position: "absolute", left: "20px", top: "40px", bottom: "0px", width: "1px", borderLeft: "2px dashed rgba(167, 139, 250, 0.3)", zIndex: 0 }} />
+          
           {(T.review.nextSteps || []).map((s, idx) => (
-            <div key={idx} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
-              <div style={{ width: "27px", height: "27px", borderRadius: "50%", border: "1.5px solid rgba(91,82,232,0.4)", display: "flex", alignItems: "center", justifyContent: "center", color: "#6a6aaa", fontSize: "10px", fontWeight: "700", flexShrink: 0 }}>0{idx + 1}</div>
-              <div>
-                <h4 style={{ fontSize: "12px", fontWeight: "600", color: "#b8b8d0", marginBottom: "4px" }}>{s.title}</h4>
-                <p style={{ fontSize: "11px", color: "#4a4a6a", lineHeight: "1.5" }}>{s.desc}</p>
+            <div key={idx} style={{ display: "flex", gap: "24px", alignItems: "flex-start", position: "relative", zIndex: 1 }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "var(--bg1)", border: "2px solid var(--brand-purple)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0, boxShadow: "0 0 15px rgba(167, 139, 250, 0.2)" }}>
+                {idx === 0 ? "👁️" : "✍️"}
+              </div>
+              <div style={{ paddingTop: "2px" }}>
+                <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#FFFFFF", marginBottom: "6px" }}>{s.title}</h4>
+                <p style={{ fontSize: "12px", color: "#A1A1AA", lineHeight: "1.5", margin: 0 }}>{s.desc}</p>
               </div>
             </div>
           ))}
@@ -3164,13 +3391,13 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
       {/* Agreement Box */}
       <div style={{ 
-        background: "rgba(255,120,0,0.06)", 
-        border: "1px solid rgba(255,120,0,0.16)", 
-        borderRadius: "9px", 
-        padding: "10px 13px", 
-        marginBottom: "18px"
+        background: "rgba(251, 191, 36, 0.05)", 
+        border: "1px solid rgba(251, 191, 36, 0.2)", 
+        borderRadius: "8px", 
+        padding: "16px", 
+        marginBottom: "24px"
       }}>
-        <p style={{ fontSize: "11px", color: "#904010", lineHeight: "1.6", margin: 0 }}>
+        <p style={{ fontSize: "12px", color: "#fcd34d", lineHeight: "1.6", margin: 0, opacity: 0.9 }}>
           {T.review.agreementBody}
         </p>
       </div>
@@ -3179,48 +3406,54 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px" }}>
         <button onClick={() => handleAction("accept")} disabled={!!loadingType} style={{
           width: "100%",
-          padding: "15px",
-          background: "linear-gradient(135deg, #5B52E8, #7B6CF8)",
+          padding: "16px",
+          background: "var(--brand-purple)",
           border: "none",
-          borderRadius: 11,
+          borderRadius: "6px",
           cursor: "pointer",
           fontSize: 14,
           fontWeight: 700,
           color: "#fff",
-          marginBottom: 9,
-          animation: 'spLogoGlow 3s infinite'
+          marginBottom: 4,
+          boxShadow: "0 4px 15px rgba(123, 31, 162, 0.3)",
+          transition: "all 0.2s"
         }}>
-          {loadingType === "accept" ? T.review.processing : T.review.payRetainer}
+          {loadingType === "accept" ? (lang === "EN" ? "Processing..." : "Processando...") : (lang === "EN" ? "🔒 Confirm Scope & Request Proposal" : "🔒 Confirmar Escopo e Solicitar Proposta")}
         </button>
-        <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 13px" }}>
+        <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 24px" }}>
           {T.review.secureNotice}
         </p>
+        
         <button onClick={() => handleAction("save")} disabled={!!loadingType} style={{
           width: "100%",
-          padding: "13px",
-          background: "rgba(255,255,255,0.03)",
-          border: "1.5px solid rgba(255,255,255,0.08)",
-          borderRadius: 11,
+          background: "none",
+          border: "none",
           cursor: "pointer",
           fontSize: 13,
-          color: "#8080b0",
-          marginBottom: 6,
-          animation: 'spLogoGlow 3s infinite'
+          color: "#A1A1AA",
+          fontWeight: "600",
+          textDecoration: "underline",
+          textUnderlineOffset: "4px",
+          marginBottom: 16,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "8px"
         }}>
-          {loadingType === "save" ? T.review.processing : T.review.saveLater}
+          {loadingType === "save" ? (lang === "EN" ? "Processing..." : "Processando...") : (lang === "EN" ? "💾 Save estimate as PDF and email it" : "💾 Salvar estimativa em PDF e enviar por e-mail")}
         </button>
-        <p style={{ fontSize: 11, color: "#3a3a5a", textAlign: "center", margin: "0 0 18px" }}>
-          {T.review.saveLaterNote}
-        </p>
+        
         <button onClick={() => setStep(6)} style={{
           background: "none",
           border: "none",
-          color: "#4a4a6a",
+          color: "var(--mu)",
           cursor: "pointer",
           fontSize: 12,
-          padding: 0
+          padding: 0,
+          textDecoration: "underline",
+          textUnderlineOffset: "4px"
         }}>
-          {T.review.backButton}
+          ← {T.review.backButton}
         </button>
       </div>
       </div>
@@ -3263,7 +3496,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
       <div style={{ background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 16, padding: 13, marginBottom: 11 }}>
         <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 6 }}>{est.pkgName}</div>
         <div style={{ fontSize: 22, fontWeight: 700, color: "var(--tx)", fontFamily: "var(--font-serif)" }}>{est.lo} – {est.hi}</div>
-        <div style={{ fontSize: 10, color: "var(--dm)", marginTop: 3 }}>{T.approxEstimate}</div>
+        <div style={{ fontSize: 10, color: "#ffffff", marginTop: 3 }}>{T.approxEstimate}</div>
       </div>
       <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid var(--border)", borderRadius: 16, padding: 13, marginBottom: 13 }}>
         <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", color: "var(--a)", textTransform: "uppercase", marginBottom: 9 }}>{T.summaryTitle}</div>
@@ -3365,7 +3598,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
 
           {/* CTAs */}
           <div style={f(480)}>
-            <button className="wz-btn-primary" onClick={onBack} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 10 }}>
+            <button className="wz-btn-primary" onClick={onBack} style={{ width: "100%", height: 56, borderRadius: 9999, marginBottom: 10 }}>
               {isUS ? "← Back to Review" : "← Voltar para o Review"}
             </button>
             <button 
@@ -3375,7 +3608,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
                 setWaLoading(true);
                 window.location.href = "https://wa.me/5548996503350";
               }} 
-              style={{ width: "100%", padding: "13px", borderRadius: 11 }}
+              style={{ width: "100%", height: 56, borderRadius: 9999 }}
             >
               {waLoading ? T.review.processing : (isUS ? "Talk to the team →" : "Falar com a equipe →")}
             </button>
@@ -3460,11 +3693,11 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
 
         {/* CTAs */}
         <div style={f(480)}>
-          <button className="wz-btn-primary" onClick={() => { resetWizard(); navigate("/login"); }} style={{ width: "100%", padding: "15px", borderRadius: 11, marginBottom: 8, animation: 'spLogoGlow 3s infinite' }}>
+          <button className="wz-btn-primary" onClick={() => { resetWizard(); navigate("/login"); }} style={{ width: "100%", height: 56, borderRadius: 9999, marginBottom: 8, animation: 'spLogoGlow 3s infinite' }}>
             {isUS ? "Access my Client Portal →" : "Acessar meu Portal do Cliente →"}
           </button>
           <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 11px" }}>{isUS ? "Track your project's progress in real-time" : "Acompanhe o progresso do seu projeto em tempo real"}</p>
-          <button className="wz-btn-ghost" onClick={onBack} style={{ width: "100%", padding: "13px", borderRadius: 11 }}>
+          <button className="wz-btn-ghost" onClick={onBack} style={{ width: "100%", height: 56, borderRadius: 9999 }}>
             {isUS ? "← Back to Review" : "← Voltar para o Review"}
           </button>
         </div>

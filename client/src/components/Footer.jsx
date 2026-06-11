@@ -7,18 +7,18 @@ const FOOTER_CONTENT = {
   EN: {
     address: "SC, Brazil · Remote Support Worldwide",
     drafting: "Architectural Production & CAD Drafting",
-    copyright: "WORLDWIDE ARCHITECTURAL PRODUCTION & SUPPORT",
-    legal: "All technical documentation and design assets are the exclusive property of DARA Studio. Original content is protected under international intellectual property laws for the benefit of our global partners.",
+    copyright: "GLOBAL ARCHITECTURAL PRODUCTION & REMOTE TECHNICAL SUPPORT",
+    legal: "All technical documentation, drafting files, and design assets remain the exclusive intellectual property of DARA Studio and its global partners.",
     ipNotice: "INTELLECTUAL PROPERTY NOTICE →",
-    confidentiality: "Confidentiality and data protection for all projects. Technical data is processed following strict security protocols to ensure your architectural assets are safe.",
+    confidentiality: "Projects are executed under strict data protection protocols and non-disclosure agreements (NDA) to guarantee absolute asset security.",
   },
   PT: {
     address: "SC, Brasil · Suporte Remoto Mundial",
     drafting: "Produção Arquitetônica e Desenho CAD",
-    copyright: "PRODUÇÃO E SUPORTE ARQUITETÔNICO MUNDIAL",
-    legal: "Toda a documentação técnica e ativos de design são propriedade exclusiva da DARA Studio. O conteúdo original é protegido por leis internacionais de propriedade intelectual para o benefício de nossos parceiros globais.",
+    copyright: "PRODUÇÃO ARQUITETÔNICA MUNDIAL E SUPORTE TÉCNICO REMOTO",
+    legal: "Toda a documentação técnica e ativos de design são propriedade exclusiva da DARA Studio e de seus parceiros globais.",
     ipNotice: "AVISO DE PROPRIEDADE INTELECTUAL →",
-    confidentiality: "Confidencialidade e proteção de dados para todos os projetos. Dados técnicos são processados seguindo protocolos rigorosos de segurança para garantir que seus ativos arquitetônicos estejam seguros.",
+    confidentiality: "Nossos processos seguem protocolos rigorosos de segurança de dados e confidencialidade, garantindo total proteção ao patrimônio dos nossos clientes.",
   }
 };
 
@@ -40,6 +40,9 @@ export default function Footer() {
             {T.address}<br />
             {T.drafting}
           </p>
+          <a href="mailto:darastudiooficial@gmail.com" className="footer-email-link">
+            darastudiooficial@gmail.com
+          </a>
           <div className="footer-social-simple">
             <a href="https://wa.me/5548991234567" target="_blank" rel="noreferrer" className="footer-social-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z"></path></svg>
@@ -71,9 +74,6 @@ export default function Footer() {
           <p className="footer-ip-notice-small">
             {T.confidentiality}
           </p>
-          <a href="mailto:darastudiooficial@gmail.com" className="footer-email-link">
-            darastudiooficial@gmail.com
-          </a>
         </div>
       </div>
     </footer>

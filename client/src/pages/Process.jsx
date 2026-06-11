@@ -8,10 +8,10 @@ import PageTransition from '../components/PageTransition';
 const WORKFLOW_STEPS = [
   {
     num: "01",
-    title: { EN: "Proposal Approval", PT: "Aprovação da Proposta" },
+    title: { EN: "Alignment & Commercial Proposal", PT: "Alinhamento & Proposta Comercial" },
     desc: { 
-      EN: "Project scope and pricing are confirmed. Once approved and the initial deposit is made, your project slot is secured in our production schedule.",
-      PT: "Escopo e preços são confirmados. Após a aprovação e o depósito inicial, sua vaga no projeto é garantida em nosso cronograma."
+      EN: "The starting point to turn your vision into reality. We define scope, deadlines, and investment. After signing and the initial deposit, your project slot is secured.",
+      PT: "O ponto de partida para transformar sua visão em realidade. Definimos escopo, prazos e investimento. Após assinatura e o sinal, sua vaga é garantida."
     }
   },
   {

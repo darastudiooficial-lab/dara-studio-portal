@@ -19,7 +19,7 @@
   /* Theme Variables — Default Dark */
   --bg-primary: var(--dark-bg);
   --text-color: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(24, 24, 27, 0.6);
   --glass-border: rgba(255, 255, 255, 0.1);
   --neon-glow: rgba(123, 31, 162, 0.4);
   --nav-link-color: rgba(255, 255, 255, 0.6);
@@ -118,8 +118,8 @@ input, select, textarea, .lp-btn, .back-to-site-btn, .glass-toggle, .pill-button
 /* Glassmorphism Utilities */
 .glass-premium {
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
 }
 
@@ -841,8 +841,8 @@ a {
 .new-footer {
   width: 100%;
   background: var(--footer-bg) !important;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-top: 1px solid var(--glass-border);
   padding: 60px 5% 40px; /* increased padding */
   margin-top: 0;
@@ -884,7 +884,7 @@ a {
   font-size: 10.5px;
   line-height: 1.6;
   color: var(--text-color);
-  opacity: 0.6;
+  opacity: 1;
   letter-spacing: 0.02em;
   margin-bottom: 4px;
 }
@@ -922,7 +922,7 @@ a {
   font-size: 10px;
   line-height: 1.8;
   color: var(--text-color);
-  opacity: 0.5;
+  opacity: 1;
   text-align: center;
   max-width: 580px;
   margin: 0 auto;
@@ -941,14 +941,16 @@ a {
 }
 
 .footer-ip-notice-link:hover {
-  color: var(--color-neon-purple);
+  background: linear-gradient(135deg, #7B1FA2, #E91E63) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
 
 .footer-ip-notice-small {
   font-size: 10px;
   line-height: 1.8;
   color: var(--text-color);
-  opacity: 0.6;
+  opacity: 1;
   text-align: right;
   max-width: 320px;
   margin-bottom: 4px;
@@ -957,7 +959,7 @@ a {
 .footer-email-link {
   font-size: 12px;
   color: #7B1FA2 !important;
-  text-align: right;
+  text-align: left;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -1040,7 +1042,7 @@ a {
 .services-page-root .footer-ip-notice-link,
 .services-page-root .footer-ip-notice-small {
   color: var(--text-color) !important;
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .independent-page {
@@ -1094,8 +1096,8 @@ a {
   min-height: 460px; /* Reduced min-height */
   background: var(--glass-bg);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-radius: 24px;
   padding: 32px !important;
   display: flex;
@@ -1112,9 +1114,9 @@ a {
 
 .service-card-premium.active {
   transform: scale(1.05);
-  border-color: rgba(255, 255, 255, 0.2) !important;
-  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2) !important;
+  border-color: var(--a-glow) !important;
+  background: linear-gradient(180deg, var(--a-dim) 0%, rgba(167, 139, 250, 0.01) 100%);
+  box-shadow: 0 8px 40px rgba(167, 139, 250, 0.1) !important;
   z-index: 2;
 }
 
@@ -1142,8 +1144,8 @@ a {
   cursor: pointer;
   z-index: 10;
   transition: all 0.4s ease;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .carousel-arrow:hover {
@@ -1165,7 +1167,7 @@ a {
 
 .page-main-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 6vw, 3.5rem); /* Dinâmico */
+  font-size: 48px; /* Dinâmico */
   margin-bottom: 12px;
   line-height: 1.1;
   color: var(--text-color);
@@ -1215,7 +1217,7 @@ a {
   font-size: 14px;
   line-height: 1.7;
   color: var(--text-color) !important;
-  opacity: 0.6;
+  opacity: 1;
   margin-bottom: 12px;
   font-family: var(--font-sans);
   letter-spacing: 0.02em;
@@ -1237,7 +1239,7 @@ a {
   font-size: 13px;
   font-family: var(--font-sans);
   color: var(--text-color) !important;
-  opacity: 0.9 !important;
+  opacity: 1 !important;
 }
 
 .service-list-item svg {
@@ -1302,7 +1304,7 @@ a {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  background: linear-gradient(135deg, #7B1FA2, #E91E63);
   color: #FFFFFF !important;
   font-size: 10px;
   font-weight: 800;
@@ -1315,9 +1317,9 @@ a {
 }
 
 [data-theme='light'] .service-badge-us {
-  background: linear-gradient(135deg, #0d47a1, #1976d2);
-  box-shadow: 0 4px 20px rgba(13, 71, 161, 0.15);
-  color: #F8F8F7 !important;
+  background: linear-gradient(135deg, #7B1FA2, #E91E63);
+  box-shadow: 0 4px 20px rgba(123, 31, 162, 0.15);
+  color: #FFFFFF !important;
 }
 
 .back-arrow-btn {
@@ -1372,7 +1374,7 @@ a {
 
 .services-main-title {
   font-family: var(--font-serif);
-  font-size: clamp(32px, 5vw, 48px);
+  font-size: 48px;
   line-height: 1.05;
   margin-bottom: 8px;
   color: var(--text-color) !important;
@@ -1383,7 +1385,7 @@ a {
 }
 
 .title-gradient-italic {
-  background: linear-gradient(to right, #9C27B0, #F06292);
+  background: linear-gradient(to right, #7B1FA2, #E91E63);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1576,7 +1578,7 @@ a {
   align-items: center;
   justify-content: center;
   padding: 8px 20px !important;
-  background: linear-gradient(90deg, #7b1fa2, #e91e63);
+  background: linear-gradient(90deg, #7B1FA2, #E91E63);
   color: #ffffff !important;
   border-radius: 12px;
   font-size: 12px !important;
@@ -1645,8 +1647,8 @@ a {
   inset: 0;
   z-index: 2000;
   background: rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1657,8 +1659,8 @@ a {
   width: 100%;
   max-width: 500px !important; /* Estritamente 500px para evitar quebras */
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
   padding: 40px;
@@ -1729,8 +1731,8 @@ a {
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .hww-accordion-item:hover {
@@ -1971,8 +1973,8 @@ a {
 .hww-scope-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-radius: 24px;
   padding: 32px;
   display: flex;
@@ -2242,8 +2244,8 @@ a {
   font-size: 14px;
   transition: all 0.3s ease;
   width: 100%;
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .wz-inp:focus {
@@ -2495,3 +2497,31 @@ a {
   }
 }
 
+
+.btn-whatsapp-gradient {
+  background: linear-gradient(var(--bg-primary, #09090b), var(--bg-primary, #09090b)) padding-box,
+              linear-gradient(135deg, #7B1FA2, #E91E63) border-box;
+  border: 1px solid transparent;
+  padding: 14px 28px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-whatsapp-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(123, 31, 162, 0.2);
+}
+.btn-whatsapp-gradient svg {
+  stroke: #E91E63;
+}
+.btn-whatsapp-gradient span {
+  background: linear-gradient(135deg, #7B1FA2, #E91E63);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
