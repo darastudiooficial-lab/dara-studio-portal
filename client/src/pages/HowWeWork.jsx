@@ -102,18 +102,73 @@ const STEPS = [
     }
   },
   {
-    num: 2,
+    num: "02",
     icon: <Icons.Eye />,
-    badge: { EN: "8–16 Business Days", PT: "8–16 Dias Úteis" },
-    title: { EN: "Design Preview", PT: "Prévia do Design" },
-    summary: { EN: "Initial layout and visual direction are delivered for review.", PT: "Layout inicial e direção visual são entregues para sua revisão." },
-    note: {
-      EN: "Timeline starts from receipt of required project information, including proposal approval, initial payment, and site or existing residence documentation. Timeline may vary depending on project complexity and availability of required information.",
-      PT: "O prazo começa a partir do recebimento de todas as informações necessárias do projeto, incluindo aprovação da proposta, pagamento inicial e documentação do terreno ou residência existente. O prazo pode variar dependendo da complexidade do projeto e disponibilidade das informações."
-    },
+    title: { EN: "Scope & Estimate", PT: "Escopo & estimate" },
+    summary: { EN: "You receive a comprehensive, itemized estimate.", PT: "Você recebe um estimate detalhado." },
     body: {
-      EN: "Our design team develops the initial conceptual layouts based on your project requirements, site conditions, and design preferences. This includes preliminary floor plans, spatial organization, and overall design direction. You'll receive visual presentations showing how spaces come together and how the design addresses your specific needs. This is your first opportunity to visualize the project concept before we proceed to detailed documentation.",
-      PT: "Nossa equipe de design desenvolve os layouts conceituais iniciais com base nos requisitos do seu projeto, condições do terreno e preferências de design. Isso inclui plantas baixas preliminares, organização espacial e direção geral de design. Você receberá apresentações visuais mostrando como os espaços se integram e como o design atende às suas necessidades específicas. Esta é sua primeira oportunidade de visualizar o conceito do projeto antes de prosseguirmos para a documentação detalhada."
+      EN: "We carefully analyze every piece of data you share to map out the actual structural and architectural needs of the project. Then, we provide a highly transparent proposal specifying the exact scope, clear delivery milestones, and payment terms.",
+      PT: "Analisamos minuciosamente as informações enviadas para mapear as reais necessidades do projeto. Em seguida, estruturamos uma proposta transparente, especificando o escopo exato, cronograma de prazos e as condições de pagamento."
+    },
+    customLists: [
+      {
+        title: { EN: "WHAT YOUR ESTIMATE ALWAYS INCLUDES", PT: "SEU ESTIMATE SEMPRE INCLUI" },
+        boxClass: "service-box-green",
+        titleClass: "service-box-green-title",
+        iconColor: "#10b981",
+        icon: <polyline points="20 6 9 17 4 12"/>,
+        items: {
+          EN: [
+            "Fully dimensioned floor plans with comprehensive technical annotations",
+            "Exterior elevations detailing all four main facades",
+            "Highly detailed cross-sections and structural construction details",
+            "Detailed window and door schedules",
+            "Internal layouts with precise placement for all architectural fixtures and fixed finishes",
+            "3D renderings customized to your selected package",
+            "Wood Framing plans whenever applicable to the project scope",
+            "A clear payment breakdown following our 40 / 40 / 20 milestone structure"
+          ],
+          PT: [
+            "Plantas baixas com dimensionamentos e anotações técnicas",
+            "Elevações externas — as quatro fachadas principais",
+            "Cortes e seções construtivas detalhadas",
+            "Schedules (quadros) de portas e janelas",
+            "Layout interno e posicionamento de fixtures (peças e acabamentos fixos)",
+            "Renders 3D (conforme o pacote selecionado)",
+            "Plantas de Wood Framing (quando aplicável ao escopo)",
+            "Estrutura de pagamento clara — modelo 40 / 40 / 20"
+          ]
+        }
+      },
+      {
+        title: { EN: "SERVICES NOT INCLUDED — REQUIRE SEPARATE CONTRACTS", PT: "SERVIÇOS NÃO INCLUÍDOS — REQUEREM CONTRATOS SEPARADOS" },
+        boxClass: "service-box-red",
+        titleClass: "service-box-red-title",
+        iconColor: "#ef4444",
+        icon: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+        items: {
+          EN: [
+            "Structural engineering calculations and professional engineering stamps (PE Stamp)",
+            "MEP engineering plans covering electrical, plumbing, and HVAC systems",
+            "Boundary and topographical land surveys",
+            "Energy efficiency assessment reports such as HERS rating or Blower Door testing",
+            "On-site technical visits or physical construction inspections",
+            "Native editable project files including .plan from Chief Architect or .dwg, which can be made available upon a separate release fee"
+          ],
+          PT: [
+            "Cálculo estrutural e assinatura/selo de engenharia (PE Stamp)",
+            "Projetos complementares de Engenharia (Elétrico, Hidráulico e HVAC)",
+            "Levantamento topográfico do terreno",
+            "Relatórios de eficiência energética (como HERS rating ou Blower Door test)",
+            "Visitas técnicas presenciais ou inspeções de obra",
+            "Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) — disponíveis mediante taxa de liberação"
+          ]
+        }
+      }
+    ],
+    note: {
+      EN: <><strong>WHY THIS PHASE MATTERS:</strong> The estimate serves as our commercial roadmap and your ultimate consumer protection. It draws a clear line around what is included and what sits outside the scope, alongside the precise cost of each milestone. At DARA Studio, we eliminate verbal agreements by documenting every technical alignment before production begins.</>,
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> O estimate atua como nossa diretriz comercial e a sua segurança. Ele delimita com precisão o que está contemplado e o que está descontinuado do escopo, além do custo de cada fase. No DARA Studio, eliminamos acordos verbais — documentamos cada alinhamento antes de iniciar a produção técnica.</>
     }
   },
   {
@@ -409,6 +464,24 @@ export default function HowWeWork() {
                       ))}
                     </ul>
                   )}
+
+                  {step.customLists && step.customLists.map((clist, i) => (
+                    <div key={i} className={clist.boxClass}>
+                      <h4 className={clist.titleClass}>
+                        {clist.title[lang]}
+                      </h4>
+                      <ul className="service-list" style={{ marginTop: 0 }}>
+                        {clist.items[lang].map((item, j) => (
+                          <li key={j} className="service-list-item">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={clist.iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              {clist.icon}
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
 
                   {step.badge && (
                     <div className="service-output-badge" style={{ marginTop: 'auto' }}>

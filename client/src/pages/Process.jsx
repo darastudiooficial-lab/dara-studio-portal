@@ -52,11 +52,70 @@ const WORKFLOW_STEPS = [
   },
   {
     num: "02",
-    title: { EN: "Design Preview", PT: "Prévia do Design" },
-    badge: { EN: "8–16 Business Days", PT: "8–16 Dias Úteis" },
+    title: { EN: "Scope & Estimate", PT: "Escopo & estimate" },
     desc: { 
-      EN: "Initial layout and visual direction are delivered for review. Timeline: 8–16 business days from receipt of all project information.",
-      PT: "Layout inicial e direção visual são entregues para revisão. Prazo: 8–16 dias úteis após o recebimento de todas as informações."
+      EN: "We carefully analyze every piece of data you share to map out the actual structural and architectural needs of the project. Then, we provide a highly transparent proposal specifying the exact scope, clear delivery milestones, and payment terms.",
+      PT: "Analisamos minuciosamente as informações enviadas para mapear as reais necessidades do projeto. Em seguida, estruturamos uma proposta transparente, especificando o escopo exato, cronograma de prazos e as condições de pagamento."
+    },
+    customLists: [
+      {
+        title: { EN: "WHAT YOUR ESTIMATE ALWAYS INCLUDES", PT: "SEU ESTIMATE SEMPRE INCLUI" },
+        boxClass: "service-box-green",
+        titleClass: "service-box-green-title",
+        iconColor: "#10b981",
+        icon: <polyline points="20 6 9 17 4 12"/>,
+        items: {
+          EN: [
+            "Fully dimensioned floor plans with comprehensive technical annotations",
+            "Exterior elevations detailing all four main facades",
+            "Highly detailed cross-sections and structural construction details",
+            "Detailed window and door schedules",
+            "Internal layouts with precise placement for all architectural fixtures and fixed finishes",
+            "3D renderings customized to your selected package",
+            "Wood Framing plans whenever applicable to the project scope",
+            "A clear payment breakdown following our 40 / 40 / 20 milestone structure"
+          ],
+          PT: [
+            "Plantas baixas com dimensionamentos e anotações técnicas",
+            "Elevações externas — as quatro fachadas principais",
+            "Cortes e seções construtivas detalhadas",
+            "Schedules (quadros) de portas e janelas",
+            "Layout interno e posicionamento de fixtures (peças e acabamentos fixos)",
+            "Renders 3D (conforme o pacote selecionado)",
+            "Plantas de Wood Framing (quando aplicável ao escopo)",
+            "Estrutura de pagamento clara — modelo 40 / 40 / 20"
+          ]
+        }
+      },
+      {
+        title: { EN: "SERVICES NOT INCLUDED — REQUIRE SEPARATE CONTRACTS", PT: "SERVIÇOS NÃO INCLUÍDOS — REQUEREM CONTRATOS SEPARADOS" },
+        boxClass: "service-box-red",
+        titleClass: "service-box-red-title",
+        iconColor: "#ef4444",
+        icon: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+        items: {
+          EN: [
+            "Structural engineering calculations and professional engineering stamps (PE Stamp)",
+            "MEP engineering plans covering electrical, plumbing, and HVAC systems",
+            "Boundary and topographical land surveys",
+            "Energy efficiency assessment reports such as HERS rating or Blower Door testing",
+            "On-site technical visits or physical construction inspections",
+            "Native editable project files including .plan from Chief Architect or .dwg, which can be made available upon a separate release fee"
+          ],
+          PT: [
+            "Cálculo estrutural e assinatura/selo de engenharia (PE Stamp)",
+            "Projetos complementares de Engenharia (Elétrico, Hidráulico e HVAC)",
+            "Levantamento topográfico do terreno",
+            "Relatórios de eficiência energética (como HERS rating ou Blower Door test)",
+            "Visitas técnicas presenciais ou inspeções de obra",
+            "Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) — disponíveis mediante taxa de liberação"
+          ]
+        }
+      }
+    ],
+    note: {
+      EN: <><strong>WHY THIS PHASE MATTERS:</strong> The estimate serves as our commercial roadmap and your ultimate consumer protection. It draws a clear line around what is included and what sits outside the scope, alongside the precise cost of each milestone. At DARA Studio, we eliminate verbal agreements by documenting every technical alignment before production begins.</>,
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> O estimate atua como nossa diretriz comercial e a sua segurança. Ele delimita com precisão o que está contemplado e o que está descontinuado do escopo, além do custo de cada fase. No DARA Studio, eliminamos acordos verbais — documentamos cada alinhamento antes de iniciar a produção técnica.</>
     }
   },
   {
@@ -167,6 +226,24 @@ export default function Process() {
                     ))}
                   </ul>
                 )}
+
+                {step.customLists && step.customLists.map((clist, i) => (
+                  <div key={i} className={clist.boxClass}>
+                    <h4 className={clist.titleClass}>
+                      {clist.title[lang]}
+                    </h4>
+                    <ul className="service-list" style={{ marginTop: 0 }}>
+                      {clist.items[lang].map((item, j) => (
+                        <li key={j} className="service-list-item">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={clist.iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            {clist.icon}
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
 
                 {step.note && (
                   <div className="service-disclaimer" style={{ marginTop: '16px' }}>
