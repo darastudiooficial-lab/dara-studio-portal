@@ -4,8 +4,22 @@ import Footer from '../components/Footer';
 import BackButton from '../components/BackButton';
 import { useAppContext } from '../context/AppContext';
 import PageTransition from '../components/PageTransition';
+import { useNavigate } from 'react-router-dom';
 
 const WORKFLOW_STEPS = [
+  {
+    num: "00",
+    title: { EN: "Solutions & Engagement Model", PT: "Nossos Serviços & Modelos de Engajamento" },
+    desc: {
+      EN: "Select the precise architectural support or documentation package that aligns with your pipeline’s current demand. From high-volume CAD conversions to regulatory Permit Sets and highly detailed executive documentation, our specialized capability acts as an extension of your team. We recommend reviewing our full capabilities under What We Do → Specialization to optimize and calibrate your scope before initiating production.",
+      PT: "Escolha o pacote ou o suporte técnico pontual que melhor atenda ao volume e à velocidade atual da sua empresa. Nosso catálogo completo de soluções — focado em conversões em CAD, aprovação de projetos (Permit Sets) e documentação executiva de alta complexidade — foi estruturado para dar escala à sua operação. Recomendamos consultar nossa matriz técnica na aba What We Do → Especialization para calibrar o escopo ideal antes de iniciar o fluxo de trabalho."
+    },
+    cta: {
+      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
+      label: { EN: "EXPLORE CAPABILITIES & SERVICES", PT: "VER CATÁLOGO DE SERVIÇOS" },
+      path: "/services"
+    }
+  },
   {
     num: "01",
     title: { EN: "Alignment & Commercial Proposal", PT: "Alinhamento & Proposta Comercial" },
@@ -52,6 +66,7 @@ const WORKFLOW_STEPS = [
 
 export default function Process() {
   const { lang } = useAppContext();
+  const navigate = useNavigate();
 
   return (
     <PageTransition variant="default">
@@ -117,6 +132,18 @@ export default function Process() {
                   {step.badge && <span className="timeline-badge">{step.badge[lang]}</span>}
                 </div>
                 <p className="workflow-step-desc">{step.desc[lang]}</p>
+                {step.cta && (
+                  <div style={{ marginTop: '24px', width: '100%' }}>
+                    <button 
+                      className="btn-glow" 
+                      style={{ width: '100%', gap: '8px' }}
+                      onClick={() => navigate(step.cta.path)}
+                    >
+                      {step.cta.icon}
+                      {step.cta.label[lang]}
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
