@@ -732,6 +732,20 @@ const STEPS = [
 ];
 
 /* ── Page ── */
+/* ── Accordion sub-component ── */
+function Accordion({ label, iconColor = 'var(--brand-purple)', children, defaultOpen = false }) {
+  const [open, setOpen] = React.useState(defaultOpen);
+  return (
+    <div className="step-accordion">
+      <button className="step-accordion-trigger" onClick={() => setOpen(o => !o)}>
+        <span className="step-accordion-label" style={{ color: iconColor, opacity: 1 }}>{label}</span>
+        <svg className={`step-accordion-chevron ${open ? 'open' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div className={`step-accordion-body ${open ? 'open' : ''}`}>{children}</div>
+    </div>
+  );
+}
+
 export default function HowWeWork() {
   const { lang, openVera } = useAppContext();
   const navigate = useNavigate();
@@ -740,7 +754,7 @@ export default function HowWeWork() {
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const amount = 420; // card width + gap
+      const amount = 960;
       scrollRef.current.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
     }
   };
@@ -748,15 +762,13 @@ export default function HowWeWork() {
   const handleScroll = () => {
     if (scrollRef.current) {
       const scrollLeft = scrollRef.current.scrollLeft;
-      const cardWidth = 420;
+      const cardWidth = 960;
       const newIdx = Math.round(scrollLeft / cardWidth);
       if (newIdx !== activeIdx) setActiveIdx(newIdx);
     }
   };
 
-  const handleStartProject = () => {
-    navigate('/estimate');
-  };
+  const handleStartProject = () => { navigate('/estimate'); };
 
   return (
     <PageTransition variant="fade">
@@ -814,213 +826,204 @@ export default function HowWeWork() {
               onScroll={handleScroll}
             >
               {STEPS.map((step, idx) => (
-                <div 
-                  key={step.num} 
+                <div
+                  key={step.num}
                   className={`service-card-premium animate-float-up ${activeIdx === idx ? 'active' : ''}`}
-                  style={{ animationDelay: `${(idx + 1) * 50}ms` }}
+                  style={{ animationDelay: `${(idx + 1) * 50}ms`, padding: 0, display: 'flex', flexDirection: 'column', minWidth: '860px', maxWidth: '960px', width: '100%' }}
                 >
-                  <div 
-                    className="service-icon-box"
-                    style={{ 
-                      color: step.iconColor || 'var(--color-neon-purple)',
-                      background: step.iconBg || 'rgba(123, 31, 162, 0.1)'
-                    }}
-                  >
-                    {step.icon}
-                  </div>
-                  <h3 className="service-title">
-                    {step.num}. {step.title[lang]}
-                  </h3>
-                  <p className="service-desc">{step.summary[lang]}</p>
-                  
-                  {step.body && (
-                    <p className="service-desc" style={{ marginTop: '-8px' }}>
-                      {step.body[lang]}
-                    </p>
-                  )}
+                  {/* ── SPLIT BODY ── */}
+                  <div className="step-card-split">
 
-                  {step.list && (
-                    <ul className="service-list">
-                      {step.list[lang].map((item, i) => (
-                        <li key={i} className="service-list-item">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || "var(--color-neon-purple)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            {step.listIcon || <polyline points="20 6 9 17 4 12"/>}
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {step.customLists && step.customLists.map((clist, i) => (
-                    <div key={i} className={clist.boxClass}>
-                      <h4 className={clist.titleClass}>
-                        {clist.title[lang]}
-                      </h4>
-                      <ul className="service-list" style={{ marginTop: 0 }}>
-                        {clist.items[lang].map((item, j) => (
-                          <li key={j} className="service-list-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={clist.iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              {clist.icon}
-                            </svg>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-
-                  {step.badge && (
-                    <div className="service-output-badge" style={{ marginTop: 'auto' }}>
-                      {step.badge[lang]}
-                    </div>
-                  )}
-
-                  {step.note && (
-                    <div className="service-disclaimer" style={{ marginTop: !step.badge && !step.cta ? 'auto' : '6px' }}>
-                      {step.note[lang]}
-                    </div>
-                  )}
-
-                  {step.paymentMethods && (
-                    <div style={{ marginTop: '16px' }}>
-                      <h4 style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--text-color)', opacity: 0.5, marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
-                        {step.paymentMethods.title[lang]}
-                      </h4>
-                      {step.paymentMethods.methods.map((m, i) => (
-                        <div key={i} style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: i < step.paymentMethods.methods.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
-                          <p style={{ fontWeight: 700, fontSize: '14px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span>{m.icon}</span> {m.name[lang]}
+                    {/* LEFT COL — identity + intro + why this matters */}
+                    <div className="step-col-left">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                        <div className="service-icon-box" style={{ color: step.iconColor || 'var(--color-neon-purple)', background: step.iconBg || 'rgba(123,31,162,0.1)', flexShrink: 0 }}>
+                          {step.icon}
+                        </div>
+                        <div>
+                          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.4, fontFamily: 'var(--font-sans)', marginBottom: '2px' }}>
+                            {lang === 'EN' ? 'STEP' : 'ETAPA'} {step.num}
                           </p>
-                          <p style={{ fontSize: '13px', opacity: 0.7, marginBottom: '10px', lineHeight: 1.5 }}>{m.desc[lang]}</p>
-                          {m.details[lang].map((d, j) => (
-                            <p key={j} style={{ fontSize: '12px', opacity: 0.65, lineHeight: 1.6, marginBottom: '4px' }}>{d}</p>
-                          ))}
+                          <h3 className="service-title" style={{ margin: 0 }}>{step.title[lang]}</h3>
                         </div>
-                      ))}
+                      </div>
+
+                      {step.badge && (
+                        <div className="service-output-badge" style={{ alignSelf: 'flex-start' }}>{step.badge[lang]}</div>
+                      )}
+
+                      <p className="service-desc" style={{ margin: 0 }}>{step.summary[lang]}</p>
+
+                      {step.body && (
+                        <p className="service-desc" style={{ margin: 0, opacity: 0.75 }}>{step.body[lang]}</p>
+                      )}
+
+                      {step.note && (
+                        <div className="service-disclaimer" style={{ marginTop: 'auto' }}>{step.note[lang]}</div>
+                      )}
+
+                      {step.planningNote && (
+                        <p style={{ fontSize: '12px', opacity: 0.5, lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)', marginTop: 'auto' }}>
+                          {step.planningNote[lang]}
+                        </p>
+                      )}
+
+                      {step.cta && (
+                        <div style={{ marginTop: 'auto' }}>
+                          <button className="btn-glow" style={{ width: '100%', gap: '8px' }} onClick={() => navigate(step.cta.path)}>
+                            {step.cta.icon}{step.cta.label[lang]}
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  )}
 
-                  {step.revisionSystem && (() => {
-                    const rs = step.revisionSystem;
-                    return (
-                      <div style={{ marginTop: '16px' }}>
-                        {/* Included Rounds */}
-                        <div className="service-box-green">
-                          <h4 className="service-box-green-title">{rs.included.label[lang]}</h4>
-                          <ul className="service-list" style={{ marginTop: 0 }}>
-                            {rs.included.items[lang].map((item, i) => (
-                              <li key={i} className="service-list-item">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    {/* RIGHT COL — dynamic content */}
+                    <div className="step-col-right">
+
+                      {/* Simple list → 2-col grid */}
+                      {step.list && (
+                        <div>
+                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '12px' }}>
+                            {step.summary[lang]}
+                          </p>
+                          <div className="step-item-grid">
+                            {step.list[lang].map((item, i) => (
+                              <div key={i} className="step-item-grid-cell">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || 'var(--color-neon-purple)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                  {step.listIcon || <polyline points="20 6 9 17 4 12"/>}
+                                </svg>
                                 {item}
-                              </li>
+                              </div>
                             ))}
-                          </ul>
-                        </div>
-
-                        {/* Extended Model */}
-                        <div style={{ marginTop: '16px', padding: '20px', borderRadius: '12px', border: '1px solid rgba(123, 31, 162, 0.2)' }}>
-                          <h4 style={{ color: 'var(--brand-purple)', fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
-                            {rs.extended.label[lang]}
-                          </h4>
-                          <ul className="service-list" style={{ marginTop: 0 }}>
-                            {rs.extended.steps[lang].map((step, i) => (
-                              <li key={i} className="service-list-item">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                                {step}
-                              </li>
-                            ))}
-                          </ul>
-                          {rs.extended.example && (
-                            <p style={{ marginTop: '16px', fontSize: '12px', opacity: 0.65, lineHeight: 1.7, fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '14px' }}>
-                              {rs.extended.example[lang]}
-                            </p>
+                          </div>
+                          {step.note && (
+                            <p style={{ marginTop: '14px', fontSize: '11px', opacity: 0.45, lineHeight: 1.6, fontStyle: 'italic' }}>{step.note[lang]}</p>
                           )}
                         </div>
+                      )}
 
-                        {/* Guidelines */}
-                        {rs.guidelines && (
-                          <div className="service-box-red" style={{ border: '1px solid rgba(255, 193, 7, 0.2)' }}>
-                            <h4 style={{ color: '#FFC107', fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
-                              {rs.guidelines.title[lang]}
-                            </h4>
-                            <ul className="service-list" style={{ marginTop: 0 }}>
-                              {rs.guidelines.items[lang].map((item, i) => (
-                                <li key={i} className="service-list-item">
-                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFC107" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                  {item}
-                                </li>
-                              ))}
-                            </ul>
+                      {/* Custom lists (service-box-green / red) */}
+                      {step.customLists && step.customLists.map((clist, i) => (
+                        <div key={i} className={clist.boxClass}>
+                          <h4 className={clist.titleClass}>{clist.title[lang]}</h4>
+                          <div className="step-item-grid">
+                            {clist.items[lang].map((item, j) => (
+                              <div key={j} className="step-item-grid-cell">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={clist.iconColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{clist.icon}</svg>
+                                {item}
+                              </div>
+                            ))}
                           </div>
-                        )}
-                      </div>
-                    );
-                  })()}
+                        </div>
+                      ))}
 
-                  {step.cta && (
-                    <div style={{ marginTop: 'auto', paddingTop: '16px', width: '100%' }}>
-                      <button 
-                        className="btn-glow" 
-                        style={{ width: '100%', gap: '8px' }}
-                        onClick={() => navigate(step.cta.path)}
-                      >
-                        {step.cta.icon}
-                        {step.cta.label[lang]}
-                      </button>
+                      {/* Payment Methods → accordion */}
+                      {step.paymentMethods && (
+                        <div>
+                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '10px' }}>
+                            {step.paymentMethods.title[lang]}
+                          </p>
+                          {step.paymentMethods.methods.map((m, i) => (
+                            <Accordion key={i} label={`${m.icon}  ${m.name[lang]}`} iconColor="rgba(255,255,255,0.6)" defaultOpen={i === 0}>
+                              <p style={{ fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>{m.desc[lang]}</p>
+                              {m.details[lang].map((d, j) => (
+                                <p key={j} style={{ fontSize: '12px', opacity: 0.65, lineHeight: 1.6, marginBottom: '4px' }}>{d}</p>
+                              ))}
+                            </Accordion>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Revision System → accordion */}
+                      {step.revisionSystem && (() => {
+                        const rs = step.revisionSystem;
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {/* Included */}
+                            <Accordion label={rs.included.label[lang]} iconColor="#10b981" defaultOpen={true}>
+                              <div className="step-item-grid">
+                                {rs.included.items[lang].map((item, i) => (
+                                  <div key={i} className="step-item-grid-cell">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    {item}
+                                  </div>
+                                ))}
+                              </div>
+                            </Accordion>
+
+                            {/* Extended */}
+                            <Accordion label={rs.extended.label[lang]} iconColor="var(--brand-purple)">
+                              <ul className="service-list" style={{ marginTop: 0 }}>
+                                {rs.extended.steps[lang].map((s, i) => (
+                                  <li key={i} className="service-list-item">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    {s}
+                                  </li>
+                                ))}
+                              </ul>
+                              {rs.extended.example && (
+                                <p style={{ marginTop: '12px', fontSize: '12px', opacity: 0.6, lineHeight: 1.7, fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '12px' }}>
+                                  {rs.extended.example[lang]}
+                                </p>
+                              )}
+                            </Accordion>
+
+                            {/* Guidelines */}
+                            {rs.guidelines && (
+                              <Accordion label={rs.guidelines.title[lang]} iconColor="#FFC107">
+                                <ul className="service-list" style={{ marginTop: 0 }}>
+                                  {rs.guidelines.items[lang].map((item, i) => (
+                                    <li key={i} className="service-list-item">
+                                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFC107" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                      {item}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </Accordion>
+                            )}
+                          </div>
+                        );
+                      })()}
+
                     </div>
-                  )}
+                  </div>
 
-                  {step.planningNote && (
-                    <p style={{ marginTop: '16px', fontSize: '12px', opacity: 0.55, lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)' }}>
-                      {step.planningNote[lang]}
-                    </p>
-                  )}
-
+                  {/* ── GANTT FOOTER (full-width, Step 05 only) ── */}
                   {step.gantt && (
-                    <div style={{ marginTop: '24px' }}>
-                      <h4 style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-color)', opacity: 0.45, marginBottom: '6px', fontFamily: 'var(--font-sans)' }}>
+                    <div className="step-gantt-footer">
+                      <p style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.4, fontFamily: 'var(--font-sans)', marginBottom: '4px' }}>
                         {lang === 'EN' ? 'PROJECT TIMELINE & OPERATIONAL PIPELINE' : 'LINHA DO TEMPO DO PROJETO & FLUXO OPERACIONAL'}
-                      </h4>
-                      <p style={{ fontSize: '12px', opacity: 0.6, lineHeight: 1.6, marginBottom: '20px' }}>{step.gantt.intro[lang]}</p>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      </p>
+                      <p style={{ fontSize: '12px', opacity: 0.6, lineHeight: 1.5, marginBottom: '0' }}>{step.gantt.intro[lang]}</p>
+                      <div className="step-gantt-phases">
                         {step.gantt.phases.map((phase, i) => (
-                          <div key={i}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>
-                              <span style={{ fontSize: '12px', fontWeight: 600, fontFamily: 'var(--font-sans)' }}>{phase.label[lang]}</span>
-                              <span style={{ fontSize: '11px', opacity: 0.5, marginLeft: '8px', whiteSpace: 'nowrap' }}>{phase.duration[lang]}</span>
-                            </div>
-                            <div style={{ height: '6px', borderRadius: '99px', background: 'rgba(255,255,255,0.07)', overflow: 'hidden' }}>
-                              <div style={{
-                                height: '100%',
+                          <div key={i} className="step-gantt-phase">
+                            <div className="step-gantt-phase-label">{phase.label[lang]}</div>
+                            <div className="step-gantt-phase-bar-track">
+                              <div className="step-gantt-phase-bar-fill" style={{
                                 width: `${phase.progress}%`,
-                                borderRadius: '99px',
                                 background: phase.progress === 100
                                   ? 'linear-gradient(90deg, #7B1FA2, #E91E63)'
-                                  : phase.progress >= 80
-                                  ? 'rgba(123, 31, 162, 0.8)'
-                                  : phase.progress >= 60
-                                  ? 'rgba(123, 31, 162, 0.6)'
-                                  : phase.progress >= 40
-                                  ? 'rgba(123, 31, 162, 0.5)'
-                                  : 'rgba(16, 185, 129, 0.7)',
-                                transition: 'width 0.6s ease'
+                                  : phase.progress >= 80 ? 'rgba(123,31,162,0.85)'
+                                  : phase.progress >= 60 ? 'rgba(123,31,162,0.65)'
+                                  : phase.progress >= 40 ? 'rgba(123,31,162,0.5)'
+                                  : 'rgba(16,185,129,0.75)'
                               }} />
                             </div>
-                            <div style={{ textAlign: 'right', fontSize: '10px', opacity: 0.4, marginTop: '3px' }}>{phase.progress}%</div>
+                            <div className="step-gantt-phase-duration">{phase.duration[lang]} · {phase.progress}%</div>
                           </div>
                         ))}
                       </div>
-                      <p style={{ marginTop: '16px', fontSize: '11px', opacity: 0.5, lineHeight: 1.7, fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '14px' }}>
+                      <p style={{ marginTop: '14px', fontSize: '11px', opacity: 0.45, lineHeight: 1.7, fontStyle: 'italic' }}>
                         {step.gantt.note[lang]}
                       </p>
                     </div>
                   )}
+
                 </div>
               ))}
             </div>
           </div>
-
           {/* CTA */}
 
           <div className="hww-cta-section animate-float-up" style={{ animationDelay: '300ms', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', maxWidth: '860px', margin: '48px auto 0' }}>
