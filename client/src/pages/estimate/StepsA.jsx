@@ -6,13 +6,13 @@ import { SectionTitle, FieldGroup } from "./components";
 export function Step1({ data, update }) {
   const [query, setQuery] = useState("");
   const suggestions = ["Massachusetts", "California", "New York", "Texas", "Florida",
-    "São Paulo", "Rio de Janeiro", "Minas Gerais"].filter(s =>
+    `São Paulo`, "Rio de Janeiro", "Minas Gerais"].filter(s =>
     query.length > 1 && s.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
     <div className="wz-animate">
-      <SectionTitle label="Where is your project located?" sub="This helps us apply the right codes, rates, and regulations." />
+      <SectionTitle label="Where is your project located?" sub={`This helps us apply the right codes, rates, and regulations.`} />
       <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
         {[
           { id: "US", flag: "🇺🇸", title: "US", sub: "USD · sqft" },
@@ -37,7 +37,7 @@ export function Step1({ data, update }) {
           </FieldGroup>
           <FieldGroup style={{ position: "relative" }}>
             <label className="wz-label">{data.region === "BR" ? "State (UF)" : "State"}</label>
-            <input className="wz-inp" placeholder={data.region === "BR" ? "São Paulo" : "Massachusetts"}
+            <input className="wz-inp" placeholder={data.region === "BR" ? `São Paulo` : "Massachusetts"}
               value={query || data.state || ""}
               onChange={e => { setQuery(e.target.value); update("state", e.target.value) }}
             />
@@ -83,7 +83,7 @@ export function Step2({ data, update }) {
 
   return (
     <div className="wz-animate">
-      <SectionTitle label="Tell us about you." sub="We'll use this to personalize your estimate and reach out." />
+      <SectionTitle label="Tell us about you." sub={`We'll use this to personalize your estimate and reach out.`} />
       <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 28 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <FieldGroup>
@@ -148,15 +148,15 @@ export function Step3({ data, update }) {
   const setLevel = (key, val) => update("levels", { ...levels, [key]: val });
 
   const levelOptions = [
-    { key: "ground",   label: "Ground Floor / Main Level", note: "(always included)", locked: true },
-    { key: "second",   label: "2nd Floor", note: "doubles total area" },
+    { key: "ground",   label: `Ground Floor / Main Level`, note: `(always included)`, locked: true },
+    { key: "second",   label: `2nd Floor`, note: `doubles total area` },
     { key: "basement", label: "Basement", note: isUS ? "+$0.80/sqft" : "+R$8/m²" },
     { key: "attic",    label: "Attic",    note: isUS ? "+$0.60/sqft" : "+R$6/m²" },
   ];
 
   return (
     <div className="wz-animate">
-      <SectionTitle label="Tell us about the project." sub="Don't worry about exactness — a rough estimate works here." />
+      <SectionTitle label="Tell us about the project." sub={`Don't worry about exactness — a rough estimate works here.`} />
       <label className="wz-label" style={{ marginBottom: 10 }}>Project Dimensions</label>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
         <FieldGroup style={{ flex: 1 }}>
@@ -246,7 +246,7 @@ export function Step4({ data, update }) {
             Project Description <span style={{ color: "var(--dm)", textTransform: "none", letterSpacing: 0 }}>(optional)</span>
           </label>
           <textarea className="wz-textarea"
-            placeholder="Describe your project goals, any specific requirements, or design preferences..."
+            placeholder={`Describe your project goals, any specific requirements, or design preferences...`}
             value={data.projectDescription || ""}
             onChange={e => update("projectDescription", e.target.value)} />
         </div>

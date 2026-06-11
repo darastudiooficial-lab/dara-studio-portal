@@ -9,23 +9,23 @@ import { useNavigate } from 'react-router-dom';
 const WORKFLOW_STEPS = [
   {
     num: "00",
-    title: { EN: "Solutions & Engagement Model", PT: "Nossos Serviços & Modelos de Engajamento" },
+    title: { EN: `Solutions & Engagement Model`, PT: `Nossos Serviços & Modelos de Engajamento` },
     desc: {
-      EN: "Select the precise architectural support or documentation package that aligns with your pipeline’s current demand. Our specialized capability acts as an extension of your team, whether you need high-volume Chief Architect X17 conversions from PDFs or sketches, regulatory Permit Sets, or highly detailed executive documentation. We recommend reviewing our full capabilities in the Specialization section under the What We Do menu to optimize and calibrate your scope before initiating production.",
-      PT: "Escolha o pacote ou o suporte técnico pontual que melhor atenda ao volume e à velocidade atual da sua empresa. Nosso catálogo completo de soluções foi estruturado para dar escala à sua operação, incluindo desde conversões de arquivos para Chief Architect X17 até a aprovação de projetos como Permit Sets e documentação executiva de alta complexidade. Recomendamos consultar nossa matriz técnica na aba de Especialização dentro do menu What We Do para calibrar o escopo ideal antes de iniciar o fluxo de trabalho."
+      EN: `Select the precise architectural support or documentation package that aligns with your pipeline’s current demand. Our specialized capability acts as an extension of your team, whether you need high-volume Chief Architect X17 conversions from PDFs or sketches, regulatory Permit Sets, or highly detailed executive documentation. We recommend reviewing our full capabilities in the Specialization section under the What We Do menu to optimize and calibrate your scope before initiating production.`,
+      PT: `Escolha o pacote ou o suporte técnico pontual que melhor atenda ao volume e à velocidade atual da sua empresa. Nosso catálogo completo de soluções foi estruturado para dar escala à sua operação, incluindo desde conversões de arquivos para Chief Architect X17 até a aprovação de projetos como Permit Sets e documentação executiva de alta complexidade. Recomendamos consultar nossa matriz técnica na aba de Especialização dentro do menu What We Do para calibrar o escopo ideal antes de iniciar o fluxo de trabalho.`
     },
     cta: {
       icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
-      label: { EN: "EXPLORE CAPABILITIES & SERVICES", PT: "VER CATÁLOGO DE SERVIÇOS" },
+      label: { EN: `EXPLORE CAPABILITIES & SERVICES`, PT: `VER CATÁLOGO DE SERVIÇOS` },
       path: "/services"
     }
   },
   {
     num: "01",
-    title: { EN: "Initial Consultation", PT: "Primeiro Contato" },
+    title: { EN: `Initial Consultation`, PT: `Primeiro Contato` },
     desc: { 
-      EN: "Start with what you have. You don't need a finalized blueprint to get moving. A preliminary sketch, visual references, or a clear objective is more than enough for our team to understand your requirements and build a precise project scope.",
-      PT: "Comece com o que você tem em mãos. Você não precisa chegar com um projeto definitivo ou perfeito para iniciar o fluxo. Um croqui preliminar, referências visuais ou um direcionamento claro já são suficientes para compreendermos a sua demanda e estruturarmos um escopo assertivo."
+      EN: `Start with what you have. You don't need a finalized blueprint to get moving. A preliminary sketch, visual references, or a clear objective is more than enough for our team to understand your requirements and build a precise project scope.`,
+      PT: `Comece com o que você tem em mãos. Você não precisa chegar com um projeto definitivo ou perfeito para iniciar o fluxo. Um croqui preliminar, referências visuais ou um direcionamento claro já são suficientes para compreendermos a sua demanda e estruturarmos um escopo assertivo.`
     },
     list: {
       EN: [
@@ -52,14 +52,14 @@ const WORKFLOW_STEPS = [
   },
   {
     num: "02",
-    title: { EN: "Scope & Estimate", PT: "Escopo & estimate" },
+    title: { EN: `Scope & Estimate`, PT: `Escopo & estimate` },
     desc: { 
-      EN: "We carefully analyze every piece of data you share to map out the actual structural and architectural needs of the project. Then, we provide a highly transparent proposal specifying the exact scope, clear delivery milestones, and payment terms.",
-      PT: "Analisamos minuciosamente as informações enviadas para mapear as reais necessidades do projeto. Em seguida, estruturamos uma proposta transparente, especificando o escopo exato, cronograma de prazos e as condições de pagamento."
+      EN: `We carefully analyze every piece of data you share to map out the actual structural and architectural needs of the project. Then, we provide a highly transparent proposal specifying the exact scope, clear delivery milestones, and payment terms.`,
+      PT: `Analisamos minuciosamente as informações enviadas para mapear as reais necessidades do projeto. Em seguida, estruturamos uma proposta transparente, especificando o escopo exato, cronograma de prazos e as condições de pagamento.`
     },
     customLists: [
       {
-        title: { EN: "WHAT YOUR ESTIMATE ALWAYS INCLUDES", PT: "SEU ESTIMATE SEMPRE INCLUI" },
+        title: { EN: `WHAT YOUR ESTIMATE ALWAYS INCLUDES`, PT: `SEU ESTIMATE SEMPRE INCLUI` },
         boxClass: "service-box-green",
         titleClass: "service-box-green-title",
         iconColor: "#10b981",
@@ -76,19 +76,19 @@ const WORKFLOW_STEPS = [
             "A clear payment breakdown following our 40 / 40 / 20 milestone structure"
           ],
           PT: [
-            "Plantas baixas com dimensionamentos e anotações técnicas",
-            "Elevações externas — as quatro fachadas principais",
-            "Cortes e seções construtivas detalhadas",
+            `Plantas baixas com dimensionamentos e anotações técnicas`,
+            `Elevações externas — as quatro fachadas principais`,
+            `Cortes e seções construtivas detalhadas`,
             "Schedules (quadros) de portas e janelas",
-            "Layout interno e posicionamento de fixtures (peças e acabamentos fixos)",
+            `Layout interno e posicionamento de fixtures (peças e acabamentos fixos)`,
             "Renders 3D (conforme o pacote selecionado)",
-            "Plantas de Wood Framing (quando aplicável ao escopo)",
+            `Plantas de Wood Framing (quando aplicável ao escopo)`,
             "Estrutura de pagamento clara — modelo 40 / 40 / 20"
           ]
         }
       },
       {
-        title: { EN: "SERVICES NOT INCLUDED — REQUIRE SEPARATE CONTRACTS", PT: "SERVIÇOS NÃO INCLUÍDOS — REQUEREM CONTRATOS SEPARADOS" },
+        title: { EN: `SERVICES NOT INCLUDED — REQUIRE SEPARATE CONTRACTS`, PT: `SERVIÇOS NÃO INCLUÍDOS — REQUEREM CONTRATOS SEPARADOS` },
         boxClass: "service-box-red",
         titleClass: "service-box-red-title",
         iconColor: "#ef4444",
@@ -96,19 +96,19 @@ const WORKFLOW_STEPS = [
         items: {
           EN: [
             "Structural engineering calculations and professional engineering stamps (PE Stamp)",
-            "MEP engineering plans covering electrical, plumbing, and HVAC systems",
+            `MEP engineering plans covering electrical, plumbing, and HVAC systems`,
             "Boundary and topographical land surveys",
             "Energy efficiency assessment reports such as HERS rating or Blower Door testing",
             "On-site technical visits or physical construction inspections",
-            "Native editable project files including .plan from Chief Architect or .dwg, which can be made available upon a separate release fee"
+            `Native editable project files including .plan from Chief Architect or .dwg, which can be made available upon a separate release fee`
           ],
           PT: [
-            "Cálculo estrutural e assinatura/selo de engenharia (PE Stamp)",
-            "Projetos complementares de Engenharia (Elétrico, Hidráulico e HVAC)",
-            "Levantamento topográfico do terreno",
-            "Relatórios de eficiência energética (como HERS rating ou Blower Door test)",
-            "Visitas técnicas presenciais ou inspeções de obra",
-            "Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) — disponíveis mediante taxa de liberação"
+            `Cálculo estrutural e assinatura/selo de engenharia (PE Stamp)`,
+            `Projetos complementares de Engenharia (Elétrico, Hidráulico e HVAC)`,
+            `Levantamento topográfico do terreno`,
+            `Relatórios de eficiência energética (como HERS rating ou Blower Door test)`,
+            `Visitas técnicas presenciais ou inspeções de obra`,
+            `Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) — disponíveis mediante taxa de liberação`
           ]
         }
       }
@@ -120,14 +120,14 @@ const WORKFLOW_STEPS = [
   },
   {
     num: "03",
-    title: { EN: "Approval & Activation", PT: "Aprovação & Ativação" },
+    title: { EN: `Approval & Activation`, PT: `Aprovação & Ativação` },
     desc: { 
-      EN: "Once you review and sign the estimate, the initial payment confirmation formalizes the project start date and secures the immediate allocation of our production team.",
-      PT: "Após revisar e assinar o estimate, a confirmação do pagamento inicial formaliza a data de início do projeto e assegura a alocação imediata da nossa equipe de produção."
+      EN: `Once you review and sign the estimate, the initial payment confirmation formalizes the project start date and secures the immediate allocation of our production team.`,
+      PT: `Após revisar e assinar o estimate, a confirmação do pagamento inicial formaliza a data de início do projeto e assegura a alocação imediata da nossa equipe de produção.`
     },
     customLists: [
       {
-        title: { EN: "ACTIVATION CHECKLIST", PT: "CHECKLIST DE ATIVAÇÃO" },
+        title: { EN: `ACTIVATION CHECKLIST`, PT: `CHECKLIST DE ATIVAÇÃO` },
         boxClass: "service-box-green",
         titleClass: "service-box-green-title",
         iconColor: "#10b981",
@@ -140,21 +140,21 @@ const WORKFLOW_STEPS = [
             <>40% — <em>Project Initiation and Conceptual Design</em></>
           ],
           PT: [
-            "Estimate revisado e todos os itens de escopo confirmados por você",
+            `Estimate revisado e todos os itens de escopo confirmados por você`,
             "Estimate assinado digitalmente",
-            "Pagamento inicial de 40% recebido e processado — somente então o projeto é oficialmente agendado",
+            `Pagamento inicial de 40% recebido e processado — somente então o projeto é oficialmente agendado`,
             <>40% — <em>Início do Projeto e Design Conceitual</em></>
           ]
         }
       }
     ],
     paymentMethods: {
-      title: { EN: "PAYMENT METHODS & PROCESSING TIMES", PT: "FORMAS DE PAGAMENTO & PRAZOS DE PROCESSAMENTO" },
+      title: { EN: `PAYMENT METHODS & PROCESSING TIMES`, PT: `FORMAS DE PAGAMENTO & PRAZOS DE PROCESSAMENTO` },
       methods: [
         {
           icon: "💳",
-          name: { EN: "Credit Card via Stripe", PT: "Cartão de Crédito via Stripe" },
-          desc: { EN: "A secure payment link is sent directly with your invoice. All major credit cards are accepted.", PT: "Um link de pagamento seguro é enviado junto com a sua fatura. Aceitamos as principais bandeiras do mercado." },
+          name: { EN: `Credit Card via Stripe`, PT: `Cartão de Crédito via Stripe` },
+          desc: { EN: `A secure payment link is sent directly with your invoice. All major credit cards are accepted.`, PT: `Um link de pagamento seguro é enviado junto com a sua fatura. Aceitamos as principais bandeiras do mercado.` },
           details: {
             EN: [
               <><strong>Fees:</strong> A processing fee of 7.99% is added to the project total.</>,
@@ -168,8 +168,8 @@ const WORKFLOW_STEPS = [
         },
         {
           icon: "🏦",
-          name: { EN: "Wire Transfer / ACH", PT: "Wire Transfer / ACH" },
-          desc: { EN: "No additional processing fees. ACH is available for US bank accounts, and international wire transfers are also accepted.", PT: "Sem taxa adicional de processamento. ACH disponível para contas bancárias nos EUA. Wire internacional também aceito." },
+          name: { EN: `Wire Transfer / ACH`, PT: `Wire Transfer / ACH` },
+          desc: { EN: `No additional processing fees. ACH is available for US bank accounts, and international wire transfers are also accepted.`, PT: `Sem taxa adicional de processamento. ACH disponível para contas bancárias nos EUA. Wire internacional também aceito.` },
           details: {
             EN: [
               <><strong>Processing Window:</strong> Funds are typically received within 2 to 5 business days.</>,
@@ -188,25 +188,25 @@ const WORKFLOW_STEPS = [
       PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Trabalhamos com um número limitado de projetos ativos ao mesmo tempo para garantir o máximo rigor técnico e cumprir cada prazo com precisão. A assinatura isolada não reserva a sua vaga. O projeto só entra na nossa fila de execução quando o pagamento é recebido e processado do nosso lado, independentemente da forma de pagamento escolhida.</>
     },
     planningNote: {
-      EN: "Planning Note: The allocation of your project in our schedule is validated exclusively after the full clearing of funds, not upon the issuance date or proof of transfer. We highly recommend factoring in these processing times when planning your project kickoff.",
-      PT: "Nota de Planejamento: A alocação da sua demanda em nosso cronograma é validada exclusivamente após a compensação integral dos fundos, e não na data de envio do comprovante. Recomendamos considerar os prazos de processamento de cada método ao planejar o início do seu projeto."
+      EN: `Planning Note: The allocation of your project in our schedule is validated exclusively after the full clearing of funds, not upon the issuance date or proof of transfer. We highly recommend factoring in these processing times when planning your project kickoff.`,
+      PT: `Nota de Planejamento: A alocação da sua demanda em nosso cronograma é validada exclusivamente após a compensação integral dos fundos, e não na data de envio do comprovante. Recomendamos considerar os prazos de processamento de cada método ao planejar o início do seu projeto.`
     }
   },
   {
     num: "04",
-    title: { EN: "Final Drawing Set", PT: "Conjunto de Desenhos Final" },
-    badge: { EN: "25–30 Business Days", PT: "25–30 Dias Úteis" },
+    title: { EN: `Final Drawing Set`, PT: `Conjunto de Desenhos Final` },
+    badge: { EN: `25–30 Business Days`, PT: `25–30 Dias Úteis` },
     desc: { 
-      EN: "Complete architectural drawing package delivered digitally in PDF format. Timeline: 25–30 business days after preview approval.",
-      PT: "Pacote completo de desenhos arquitetônicos entregue digitalmente em PDF. Prazo: 25–30 dias úteis após aprovação da prévia."
+      EN: `Complete architectural drawing package delivered digitally in PDF format. Timeline: 25–30 business days after preview approval.`,
+      PT: `Pacote completo de desenhos arquitetônicos entregue digitalmente em PDF. Prazo: 25–30 dias úteis após aprovação da prévia.`
     }
   },
   {
     num: "05",
-    title: { EN: "Ongoing Coordination", PT: "Coordenação Contínua" },
+    title: { EN: `Ongoing Coordination`, PT: `Coordenação Contínua` },
     desc: { 
-      EN: "We remain available via WhatsApp and the client portal to answer questions from your construction team and clarify design intent.",
-      PT: "Permanecemos disponíveis via WhatsApp e portal do cliente para esclarecer dúvidas da sua equipe de obra."
+      EN: `We remain available via WhatsApp and the client portal to answer questions from your construction team and clarify design intent.`,
+      PT: `Permanecemos disponíveis via WhatsApp e portal do cliente para esclarecer dúvidas da sua equipe de obra.`
     }
   }
 ];
@@ -264,7 +264,7 @@ export default function Process() {
             <p style={{ fontSize: '14px', opacity: 0.8, fontStyle: 'italic' }}>
               {lang === "EN" 
                 ? "DA·RA Studio operates 100% remotely. All coordination is handled via WhatsApp and our Client Portal. We do not offer video calls or in-person meetings."
-                : "A DA·RA Studio opera 100% remotamente. Toda a coordenação é feita via WhatsApp e nosso Portal do Cliente. Não oferecemos chamadas de vídeo ou reuniões presenciais."}
+                : `A DA·RA Studio opera 100% remotamente. Toda a coordenação é feita via WhatsApp e nosso Portal do Cliente. Não oferecemos chamadas de vídeo ou reuniões presenciais.`}
             </p>
           </div>
 

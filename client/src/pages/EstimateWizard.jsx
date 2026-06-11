@@ -9,25 +9,10 @@ import BackgroundOrbs from "../components/BackgroundOrbs";
 
 /* ═══ CONSTANTS ═══ */
 const STEPS_EN = ["About You", "Location", "Project", "Scope", "Program", "Files", "Rush", "Review"];
-const STEPS_PT = ["Sobre Você", "Localização", "Projeto", "Escopo", "Programa", "Arquivos", "Urgência", "Revisão"];
+const STEPS_PT = [`Sobre Você`, `Localização`, "Projeto", "Escopo", "Programa", "Arquivos", `Urgência`, `Revisão`];
 
-/* ═══ PRICING CONSTANTS ═══ */
-const BASE_RATE_MAIN = 1.40;
-const BASE_RATE_SUB = 0.30;
-const EXTRA_RATES = {
-  ex_arch_design: 0.15,
-  ex_space_plan: 0.15,
-  ex_interior_lay: 0.10,
-  ex_const_detail: 0.20,
-  ex_code_comp: 0.05,
-  ex_3d_ext: 0.10
-};
 
-const FIXED_FEES = {
-  ex_3d_kitchen: 150,
-  ex_3d_bath: 150,
-  ex_3d_laundry: 150
-};
+/* ═══ MARKET DATA ═══ */
 
 const MARKET_DATA = {
   US: {
@@ -36,9 +21,9 @@ const MARKET_DATA = {
     country: "USA",
     zipPlaceholder: "02101",
     phonePlaceholder: "+1 (000) 000-0000",
-    dimW: "e.g. 31'2\" or 120",
-    dimL: "e.g. 45'0\" or 540",
-    addressLabel: { EN: "Project address in the US", PT: "Endereço do projeto nos EUA" }
+    dimW: `e.g. 31'2" or 120`,
+    dimL: `e.g. 45'0" or 540`,
+    addressLabel: { EN: `Project address in the US`, PT: `Endereço do projeto nos EUA` }
   }
 };
 
@@ -55,25 +40,25 @@ const TRANSLATIONS = {
     continue: "Continue →",
     submit: "Submit Request & Access Portal →",
     whereProject: "Where is your project located?",
-    locationSub: "This helps us apply the right building codes, fees, and zoning parameters.",
+    locationSub: `This helps us apply the right building codes, fees, and zoning parameters.`,
     streetAddress: "Street Address",
     city: "City",
     state: "State",
     zipCode: "ZIP Code",
     confirmLocation: "Confirm Location ✓",
     locationConfirmed: "✓ Location confirmed",
-    verifyLocation: "Verify your project is correctly pinned, then confirm.",
+    verifyLocation: `Verify your project is correctly pinned, then confirm.`,
     tellAboutYou: "Tell us about you.",
-    aboutYouSub: "Rest assured, your privacy is guaranteed. We'll use this information exclusively to personalize your estimate.",
+    aboutYouSub: `Rest assured, your privacy is guaranteed. We'll use this information exclusively to personalize your estimate.`,
     fullName: "Full Name",
     email: "Email",
     phone: "Phone",
     whoAreYou: "What is your profile?",
-    homeownerMsg: "Planning your dream home? We're here to help.",
-    builderMsg: "We love working with builders! Let’s streamline the design process for your next project.",
-    architectMsg: "Let's collaborate on some great designs together.",
-    investorMsg: "Let's optimize your ROI with strategic design solutions.",
-    realtorMsg: "Helping your clients visualize potential? You're in the right place.",
+    homeownerMsg: `Planning your dream home? We're here to help.`,
+    builderMsg: `We love working with builders! Let’s streamline the design process for your next project.`,
+    architectMsg: `Let's collaborate on some great designs together.`,
+    investorMsg: `Let's optimize your ROI with strategic design solutions.`,
+    realtorMsg: `Helping your clients visualize potential? You're in the right place.`,
     otherMsg: "How can we help you transform your space today?",
     ircIbcStandardsMsg: "All designs are developed in accordance with IRC/IBC standards to ensure structural compliance and safety.",
     companyInfo: "Company Information",
@@ -86,7 +71,7 @@ const TRANSLATIONS = {
     bizEmail: "Business Email",
     bizPhone: "Business Phone",
     tellAboutProject: "Tell us about the project.",
-    projectSub: "Don't worry about exactness — a rough estimate works here.",
+    projectSub: `Don't worry about exactness — a rough estimate works here.`,
     propType: "Property Type",
     dimensions: "Project Dimensions",
     width: "Width",
@@ -95,11 +80,11 @@ const TRANSLATIONS = {
     selectServices: "Select Services",
     servicesSub: "Choose the specific services you need for your project.",
     deliveryPackage: "Choose the right package for you.",
-    packageSub: "Every project is different. Before we build your Estimate, you need to understand what each service covers — so you know exactly what you're getting and what falls outside the scope.",
+    packageSub: `Every project is different. Before we build your Estimate, you need to understand what each service covers — so you know exactly what you're getting and what falls outside the scope.`,
     programReqs: "Program Requirements",
     programSub: "How many of each space do you need? Start at 0 and add as needed.",
     specialReqs: "Special Requirements (Optional)",
-    specialReqsPlaceholder: "Describe any special requirements, accessibility needs, or notes for the design team…",
+    specialReqsPlaceholder: `Describe any special requirements, accessibility needs, or notes for the design team…`,
     uploadFiles: "Upload Reference Files",
     uploadSub: "Upload by category — up to 100MB per file.",
     dragDrop: "Drag & drop or click to upload",
@@ -145,16 +130,16 @@ const TRANSLATIONS = {
       kitchen_remodel: "Kitchen Remodel", bath_remodel: "Bath Remodel", open_concept: "Open Concept Conversion", other_int: "Other Interior"
     },
     propertyTypes: {
-      single_family: { label: "Single Family Home", sub: "One family" },
-      multi_family: { label: "Multi-Family", sub: "Duplex, Triplex…" },
+      single_family: { label: `Single Family Home`, sub: "One family" },
+      multi_family: { label: "Multi-Family", sub: `Duplex, Triplex…` },
       adu: { label: "ADU", sub: "Accessory Dwelling Unit" }
     },
     svcSubs: {
-      new_construction: "Complete project from scratch", addition: "New bedroom, wing or garage", second_story: "Build a new upper floor",
+      new_construction: "Complete project from scratch", addition: `New bedroom, wing or garage`, second_story: "Build a new upper floor",
       garage_only: "Standalone garage project", garage_conversion: "Garage → livable area / ADU", basement_finishing: "Remodel and finish a basement",
       deck_covered: "Deck with roof structure", deck_open: "Deck without roof", porch_covered: "Porch with roof", porch_open: "Open or screened porch",
       renovation: "General remodel", other_const: "Other construction services",
-      kitchen_remodel: "Focus on kitchen areas", bath_remodel: "Focus on bathroom areas", open_concept: "Remove walls, integrate spaces", other_int: "Other interior services"
+      kitchen_remodel: "Focus on kitchen areas", bath_remodel: "Focus on bathroom areas", open_concept: `Remove walls, integrate spaces`, other_int: "Other interior services"
     },
     pkgLabels: { as_built_permit: "As-Built & Permit Package", floor_plans_only: "Floor Plans Only", pdf_to_cad: "PDF to CAD", "3d_rendering": "3D Rendering" },
     price3DExt: "+ $250 - $300",
@@ -184,8 +169,8 @@ const TRANSLATIONS = {
       footer: "Timeline starts from receipt of required project information including proposal approval and initial payment."
     },
     unlockFast: {
-      title: "Unlock Faster Delivery",
-      desc: "To access Express and Rush delivery options and a more accurate cost estimate, please provide the required documentation listed above.",
+      title: `Unlock Faster Delivery`,
+      desc: `To access Express and Rush delivery options and a more accurate cost estimate, please provide the required documentation listed above.`,
     },
     unlockRushAlert: "Confirm the 3 required documents above to unlock Rush and Express delivery options.",
     pkgNotIncluded: "WHAT IS NOT INCLUDED",
@@ -217,19 +202,19 @@ const TRANSLATIONS = {
         previewSub: "Accelerated initial layout.",
         finalTitle: "Final Executive Project",
         finalDays: "10–15 Business Days",
-        finalSub: "Maximum priority in the Studio's production queue.",
+        finalSub: `Maximum priority in the Studio's production queue.`,
         footer: "Immediate availability subject to technical team validation."
       }
     },
     projectEstimate: "Project Estimate",
     uploadTitle: "Upload Reference Files",
-    uploadHelp: "Please upload any relevant documents such as: Existing Floor Plans, Site Surveys, sketches, or photos of the property. Clear documentation helps us provide a more accurate and faster design service.",
+    uploadHelp: `Please upload any relevant documents such as: Existing Floor Plans, Site Surveys, sketches, or photos of the property. Clear documentation helps us provide a more accurate and faster design service.`,
     dropHere: "Drop here or ",
     browse: "click to browse",
     projectIntent: "Project Intent",
-    uploadLaterNote: "You can send your files later — we'll remind you by email.",
+    uploadLaterNote: `You can send your files later — we'll remind you by email.`,
     detected: "Detected",
-    dimInstructions: "Accepted formats: 10'1\", 5'-10\", 6'3 1/4\", 180. Please do not use periods (.) or commas (,).",
+    dimInstructions: `Accepted formats: 10'1", 5'-10", 6'3 1/4", 180. Please do not use periods (.) or commas (,).`,
     rushFeesTitle: "Rush Fees & Delivery",
     rushFeesSub: "Confirm your documents to unlock faster delivery options.",
     docChecklist: "DOCUMENT CHECKLIST",
@@ -245,20 +230,20 @@ const TRANSLATIONS = {
     },
     svcDescs: {
       new_construction: "Building a brand new house from the foundation up on an empty lot or after a full demolition.",
-      addition: "Expanding the home's footprint horizontally by adding new rooms outward.",
+      addition: `Expanding the home's footprint horizontally by adding new rooms outward.`,
       second_story: "Expanding vertically by removing the roof and adding a full new level.",
       garage_only: "Building a brand new detached or attached garage.",
       garage_conversion: "Transforming an existing garage into a livable space (office, game room, or ADU).",
-      basement_finishing: "Turning an unfinished, concrete basement into a fully insulated and usable living area.",
+      basement_finishing: `Turning an unfinished, concrete basement into a fully insulated and usable living area.`,
       deck_covered: "An outdoor wooden or composite platform featuring a permanent roof structure.",
       deck_open: "A classic outdoor platform without a roof.",
       porch_covered: "A porch with a solid floor and a permanent roof.",
       porch_open: "A porch fully enclosed with insect screens for comfortable summer use.",
-      renovation: "General updating of the home's interior or exterior without adding new square footage.",
+      renovation: `General updating of the home's interior or exterior without adding new square footage.`,
       other_const: "Other construction services not listed.",
-      kitchen_remodel: "Full kitchen update including new cabinets, islands, countertops, and appliances.",
-      bath_remodel: "Full bathroom update including walk-in showers, new vanities, and tiling.",
-      open_concept: "Removing structural or non-structural walls to integrate the kitchen, dining, and living areas.",
+      kitchen_remodel: `Full kitchen update including new cabinets, islands, countertops, and appliances.`,
+      bath_remodel: `Full bathroom update including walk-in showers, new vanities, and tiling.`,
+      open_concept: `Removing structural or non-structural walls to integrate the kitchen, dining, and living areas.`,
       other_int: "Other interior services not listed."
     },
     program: {
@@ -300,56 +285,56 @@ const TRANSLATIONS = {
       "3d_rendering": "3D Realistic Rendering"
     },
     pkgSubs: {
-      as_built_permit: "The ultimate end-to-end solution for absolute precision, from survey to permit approval.",
+      as_built_permit: `The ultimate end-to-end solution for absolute precision, from survey to permit approval.`,
       floor_plans_only: "Detailed 2D architectural drawings of your existing space.",
       pdf_to_cad: "High-precision conversion of your existing PDF plans into professional CAD format.",
       "3d_rendering": "Breathtaking photorealistic visualizations of your architectural project."
     },
     pkgDetails: {
       as_built_permit: {
-        summary: "Comprehensive architectural package tailored to your needs. From essential municipal documentation to full executive design, including 3D visualization and technical detailing.",
-        whyUs: "We don't just draw lines—we deliver approval-ready precision. Our deep understanding of IRC/IBC codes means faster municipal approvals, fewer revisions, and a design that is builder-ready from day one. You save time, money, and headaches.",
+        summary: `Comprehensive architectural package tailored to your needs. From essential municipal documentation to full executive design, including 3D visualization and technical detailing.`,
+        whyUs: `We don't just draw lines—we deliver approval-ready precision. Our deep understanding of IRC/IBC codes means faster municipal approvals, fewer revisions, and a design that is builder-ready from day one. You save time, money, and headaches.`,
         whatYouReceive: [
-          { title: "Basic Permit Set (Fundamental)", desc: "Essential set including Existing/Demolition/Proposed plans, 2 Sections, 4 Elevations, and Roof Plan." },
-          { title: "Design & Space Planning (Optional)", desc: "Aesthetic development, optimal room flow analysis, and micro-level interior layout." },
-          { title: "Technical Construction Set (Optional)", desc: "Framing plans (pre-dimensioning), construction details, and schedules for the builder." },
-          { title: "3D Visualization (Optional)", desc: "High-fidelity exterior rendering to see the final result before construction." },
-          { title: "Existing Conditions / History", desc: "Detailed digital documentation of the property's current state and historical records." }
+          { title: `Basic Permit Set (Fundamental)`, desc: `Essential set including Existing/Demolition/Proposed plans, 2 Sections, 4 Elevations, and Roof Plan.` },
+          { title: `Design & Space Planning (Optional)`, desc: `Aesthetic development, optimal room flow analysis, and micro-level interior layout.` },
+          { title: `Technical Construction Set (Optional)`, desc: "Framing plans (pre-dimensioning), construction details, and schedules for the builder." },
+          { title: `3D Visualization (Optional)`, desc: "High-fidelity exterior rendering to see the final result before construction." },
+          { title: `Existing Conditions / History`, desc: `Detailed digital documentation of the property's current state and historical records.` }
         ],
         notIncluded: ["Material Procurement", "Landscape Design", "Cabinetry Shop Drawings"],
         idealFor: ["Homeowners needing permits", "Complex Projects", "Professional Approval"]
       },
       floor_plans_only: {
         tag: "LOW COMPLEXITY",
-        summary: "A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans.",
-        whyUs: "Whether you're an investor pitching a layout or a homeowner visualizing a space, our team delivers high-quality, architecturally accurate plans with a turnaround time and aesthetic polish that generic drafting services simply can't match.",
+        summary: `A streamlined service delivering fundamental interior spatial layouts and dimensioned floor plans.`,
+        whyUs: `Whether you're an investor pitching a layout or a homeowner visualizing a space, our team delivers high-quality, architecturally accurate plans with a turnaround time and aesthetic polish that generic drafting services simply can't match.`,
         whatYouReceive: [
-          { title: "Fundamental Spatial Layouts", desc: "Basic interior walls, doors, and room identification." },
-          { title: "Dimensioned Floor Plans", desc: "Precise measurements of all interior spaces and structural elements." }
+          { title: `Fundamental Spatial Layouts`, desc: `Basic interior walls, doors, and room identification.` },
+          { title: `Dimensioned Floor Plans`, desc: "Precise measurements of all interior spaces and structural elements." }
         ],
         notIncluded: ["Exterior Design", "3D Renderings", "Building Permits", "Structural Engineering"],
         idealFor: ["Initial Planning", "Cosmetic Renovations", "Concept Only"]
       },
       pdf_to_cad: {
         tag: "PRECISION",
-        summary: "Professional conversion of existing PDF drawings into editable CAD (DWG) format.",
-        whyUs: "Precision is everything. We guarantee millimeter-accurate digital conversions organized in standard architectural layers, ensuring your engineers and builders can hit the ground running without wasting hours fixing messy CAD files.",
+        summary: `Professional conversion of existing PDF drawings into editable CAD (DWG) format.`,
+        whyUs: `Precision is everything. We guarantee millimeter-accurate digital conversions organized in standard architectural layers, ensuring your engineers and builders can hit the ground running without wasting hours fixing messy CAD files.`,
         whatYouReceive: [
-          { title: "Fully Editable CAD Files", desc: "Standard DWG format compatible with all major CAD software." },
-          { title: "Accurate Scaling", desc: "Verification and adjustment to ensure real-world precision." },
-          { title: "Layer Organization", desc: "Structured layers for walls, dimensions, and annotations." }
+          { title: `Fully Editable CAD Files`, desc: "Standard DWG format compatible with all major CAD software." },
+          { title: `Accurate Scaling`, desc: "Verification and adjustment to ensure real-world precision." },
+          { title: `Layer Organization`, desc: `Structured layers for walls, dimensions, and annotations.` }
         ],
         notIncluded: ["Architectural Design", "Code Review", "Field Measurements", "3D Modeling"],
         idealFor: ["Digital Archiving", "Renovation Base", "Contractors"]
       },
       "3d_rendering": {
         tag: "VISUALIZATION",
-        summary: "The \"photo\" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.",
-        whyUs: "We create emotion. Our 3D artists use cinematic lighting and ultra-realistic textures to craft images that don't just show a building, but sell a lifestyle. Perfect for pre-sales, investor pitches, or making confident finish selections.",
+        summary: `The "photo" of the future. This service provides high-quality imagery that brings your project to life with realistic textures, lighting, and colors.`,
+        whyUs: `We create emotion. Our 3D artists use cinematic lighting and ultra-realistic textures to craft images that don't just show a building, but sell a lifestyle. Perfect for pre-sales, investor pitches, or making confident finish selections.`,
         whatYouReceive: [
-          { title: "Photorealistic Images", desc: "High-resolution 3D renders with realistic materials and environments." },
-          { title: "Material Visualization", desc: "See your choices for siding, roofing, and windows in context." },
-          { title: "Atmospheric Lighting", desc: "Natural and artificial lighting simulation for a realistic feel." }
+          { title: `Photorealistic Images`, desc: "High-resolution 3D renders with realistic materials and environments." },
+          { title: `Material Visualization`, desc: `See your choices for siding, roofing, and windows in context.` },
+          { title: `Atmospheric Lighting`, desc: "Natural and artificial lighting simulation for a realistic feel." }
         ],
         notIncluded: ["Technical Blueprints", "Structural Engineering", "Interior Design Specification", "Revisions to the Core Design"],
         idealFor: ["Visualizing the Final Result", "Selling the Property", "Deciding Finishes"]
@@ -363,22 +348,22 @@ const TRANSLATIONS = {
         modules_3d: "3D VISUALIZATION MODULES"
       },
       items: {
-        ex_arch_design: { label: "Architectural Design Detail", desc: "Focuses on the conceptual and aesthetic development of your project. Includes exterior elevations, structural style, and overall look and feel." },
-        ex_space_plan: { label: "Space Planning", desc: "Macro-level design focusing on the optimal arrangement of walls, doors, and room flows. We analyze the best way to utilize the square footage for functionality and movement." },
-        ex_interior_lay: { label: "Interior Layout", desc: "Micro-level design detailing the placement of furniture, custom cabinetry (like kitchen or bathroom vanities), appliances, and specific fixtures within the defined spaces." },
-        ex_const_detail: { label: "Construction Detailing & Framing", desc: "Technical framing plans (pre-dimensioning), essential construction details, and schedules (doors/windows). This module provides the necessary information for your builder to execute the project accurately, reducing material waste and construction time." },
-        ex_code_comp: { label: "Code Compliance & Technical Notes", desc: "Detailed municipal code citations, safety notes, and professional annotations required to streamline the permit approval process and ensure legal compliance." },
-        ex_3d_ext: { label: "3D Exterior Rendering", desc: "High-fidelity 3D visualization of the exterior architecture." },
-        ex_3d_kitchen: { label: "3D Kitchen Design", desc: "Photorealistic visualization of your kitchen with materials and lighting." },
-        ex_3d_bath: { label: "3D Bathroom Design", desc: "Detailed 3D rendering of your primary bathroom." },
-        ex_3d_laundry: { label: "3D Laundry Design", desc: "Functional and aesthetic visualization of the laundry space." }
+        ex_arch_design: { label: `Architectural Design Detail`, desc: `Focuses on the conceptual and aesthetic development of your project. Includes exterior elevations, structural style, and overall look and feel.` },
+        ex_space_plan: { label: `Space Planning`, desc: `Macro-level design focusing on the optimal arrangement of walls, doors, and room flows. We analyze the best way to utilize the square footage for functionality and movement.` },
+        ex_interior_lay: { label: `Interior Layout`, desc: "Micro-level design detailing the placement of furniture, custom cabinetry (like kitchen or bathroom vanities), appliances, and specific fixtures within the defined spaces." },
+        ex_const_detail: { label: `Construction Detailing & Framing`, desc: "Technical framing plans (pre-dimensioning), essential construction details, and schedules (doors/windows). This module provides the necessary information for your builder to execute the project accurately, reducing material waste and construction time." },
+        ex_code_comp: { label: `Code Compliance & Technical Notes`, desc: `Detailed municipal code citations, safety notes, and professional annotations required to streamline the permit approval process and ensure legal compliance.` },
+        ex_3d_ext: { label: `3D Exterior Rendering`, desc: "High-fidelity 3D visualization of the exterior architecture." },
+        ex_3d_kitchen: { label: `3D Kitchen Design`, desc: "Photorealistic visualization of your kitchen with materials and lighting." },
+        ex_3d_bath: { label: `3D Bathroom Design`, desc: "Detailed 3D rendering of your primary bathroom." },
+        ex_3d_laundry: { label: `3D Laundry Design`, desc: "Functional and aesthetic visualization of the laundry space." }
       }
     },
     review: {
       client: "Client",
       location: "Location",
       project: "Project",
-      summary: "Final Summary",
+      summary: `Final Summary`,
       documentation: "Documentation",
       name: "Name",
       email: "Email",
@@ -399,7 +384,7 @@ const TRANSLATIONS = {
       noDocs: "No documents attached",
       edit: "Edit",
       builderDiscount: "Professional Builder? Register your firm below to unlock a 10% volume discount on all future permit sets in MA.",
-      title: "Review your brief.",
+      title: `Review your brief.`,
       sub: "Verify every detail before submitting. Click any section to edit.",
       groundFloor: "Ground Floor",
       multipleFloors: "Multiple Floors",
@@ -409,17 +394,17 @@ const TRANSLATIONS = {
       errorOccurred: "An error occurred. Please try again.",
       whatNext: "WHAT HAPPENS NEXT",
       nextSteps: [
-        { title: "Estimate Review", desc: "Our team reviews your brief within 24 hours." },
-        { title: "Formal Quote", desc: "You receive a detailed, no-surprise proposal." }
+        { title: `Estimate Review`, desc: "Our team reviews your brief within 24 hours." },
+        { title: `Formal Quote`, desc: `You receive a detailed, no-surprise proposal.` }
       ],
       legalTitle: "⚠ IMPORTANT LEGAL DISCLAIMER",
       legalBody: "This estimate is strictly for initial design and drafting services. It DOES NOT INCLUDE professional engineering seals (PE/SE stamps) or architectural stamps required for building permit submission. The client is solely responsible for retaining and paying a licensed Engineer or Architect of Record.",
-      agreementBody: "⚠ The value above is an estimate. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.",
+      agreementBody: `⚠ The value above is an estimate. The final fee will be confirmed after our team reviews your brief. By proceeding, you agree to receive a formal proposal.`,
       processing: "⌛ Processing...",
       payRetainer: "🔒 Confirm & Start My Project",
       secureNotice: "Secure payment via Stripe or Bank Transfer",
       saveLater: "🔖 Save for Later — Send me this estimate",
-      saveLaterNote: "You'll receive a PDF with your full brief and estimated fees — no commitment required.",
+      saveLaterNote: `You'll receive a PDF with your full brief and estimated fees — no commitment required.`,
       backButton: "← Back",
       emailEstimate: "Just email me this estimate for now",
       redirectNotice: "You will be redirected to our secure client portal to finalize your order."
@@ -431,376 +416,376 @@ const TRANSLATIONS = {
     of: "de",
     back: "← Voltar",
     continue: "Continuar →",
-    submit: "Enviar Solicitação e Acessar Portal →",
-    whereProject: "Onde seu projeto está localizado?",
-    locationSub: "Isso nos ajuda a aplicar os códigos de obras, taxas e parâmetros urbanísticos corretos.",
-    streetAddress: "Endereço",
+    submit: `Enviar Solicitação e Acessar Portal →`,
+    whereProject: `Onde seu projeto está localizado?`,
+    locationSub: `Isso nos ajuda a aplicar os códigos de obras, taxas e parâmetros urbanísticos corretos.`,
+    streetAddress: `Endereço`,
     city: "Cidade",
     state: "Estado",
     zipCode: "CEP",
-    confirmLocation: "Confirmar Localização ✓",
-    locationConfirmed: "✓ Localização confirmada",
-    verifyLocation: "Verifique se o seu projeto está fixado corretamente e confirme.",
-    tellAboutYou: "Conte-nos sobre você.",
-    aboutYouSub: "Garantimos a privacidade dos seus dados. Usaremos estas informações exclusivamente para personalizar sua estimativa.",
+    confirmLocation: `Confirmar Localização ✓`,
+    locationConfirmed: `✓ Localização confirmada`,
+    verifyLocation: `Verifique se o seu projeto está fixado corretamente e confirme.`,
+    tellAboutYou: `Conte-nos sobre você.`,
+    aboutYouSub: `Garantimos a privacidade dos seus dados. Usaremos estas informações exclusivamente para personalizar sua estimativa.`,
     fullName: "Nome Completo",
     email: "E-mail",
     phone: "Telefone",
-    whoAreYou: "Qual é o seu perfil?",
+    whoAreYou: `Qual é o seu perfil?`,
     homeownerMsg: "Planejando a casa dos seus sonhos? Estamos aqui para ajudar.",
-    builderMsg: "Adoramos trabalhar com construtores! Vamos otimizar o processo de design para o seu próximo projeto.",
+    builderMsg: `Adoramos trabalhar com construtores! Vamos otimizar o processo de design para o seu próximo projeto.`,
     architectMsg: "Vamos colaborar em grandes projetos juntos.",
-    investorMsg: "Vamos otimizar seu ROI com soluções de design estratégico.",
-    realtorMsg: "Ajudando seus clientes a visualizar o potencial? Você está no lugar certo.",
-    otherMsg: "Como podemos ajudá-lo a transformar seu espaço hoje?",
-    ircIbcStandardsMsg: "Todos os projetos são desenvolvidos de acordo com as normas IRC/IBC para garantir conformidade estrutural e segurança.",
-    companyInfo: "Informações da Empresa",
+    investorMsg: `Vamos otimizar seu ROI com soluções de design estratégico.`,
+    realtorMsg: `Ajudando seus clientes a visualizar o potencial? Você está no lugar certo.`,
+    otherMsg: `Como podemos ajudá-lo a transformar seu espaço hoje?`,
+    ircIbcStandardsMsg: `Todos os projetos são desenvolvidos de acordo com as normas IRC/IBC para garantir conformidade estrutural e segurança.`,
+    companyInfo: `Informações da Empresa`,
     bizName: "Nome da Empresa",
     website: "Website",
-    bizAddress: "Endereço Comercial",
+    bizAddress: `Endereço Comercial`,
     bizCity: "Cidade",
     bizState: "Estado",
     bizZip: "CEP",
     bizEmail: "E-mail Comercial",
     bizPhone: "Telefone Comercial",
     tellAboutProject: "Simule o custo do seu projeto nos EUA.",
-    projectSub: "Obtenha uma estimativa rápida para o desenvolvimento de blueprints e documentação técnica.",
+    projectSub: `Obtenha uma estimativa rápida para o desenvolvimento de blueprints e documentação técnica.`,
     propType: "Tipo de Propriedade",
-    dimensions: "Dimensões do Projeto",
+    dimensions: `Dimensões do Projeto`,
     width: "Largura",
     length: "Comprimento",
-    levels: "Níveis / Andares",
-    selectServices: "Selecionar Serviços",
-    servicesSub: "Escolha os serviços específicos que você precisa para o seu projeto.",
+    levels: `Níveis / Andares`,
+    selectServices: `Selecionar Serviços`,
+    servicesSub: `Escolha os serviços específicos que você precisa para o seu projeto.`,
     deliveryPackage: "Selecione o escopo ideal para a sua demanda.",
-    packageSub: "Defina o nível de documentação técnica, modelagem ou conversão que o seu projeto nos EUA exige para avançar sem erros.",
+    packageSub: `Defina o nível de documentação técnica, modelagem ou conversão que o seu projeto nos EUA exige para avançar sem erros.`,
     programReqs: "Programa de Necessidades",
-    programSub: "Quantos ambientes a sua obra vai ter? Defina a composição dos espaços abaixo e inicie o seu planejamento.",
+    programSub: `Quantos ambientes a sua obra vai ter? Defina a composição dos espaços abaixo e inicie o seu planejamento.`,
     specialReqs: "Requisitos Especiais (Opcional)",
-    specialReqsPlaceholder: "Descreva quaisquer requisitos especiais, necessidades de acessibilidade ou notas para a equipe de design…",
-    uploadFiles: "Carregar Arquivos de Referência",
-    uploadSub: "Organize por categoria — máximo de 100MB por arquivo.",
+    specialReqsPlaceholder: `Descreva quaisquer requisitos especiais, necessidades de acessibilidade ou notas para a equipe de design…`,
+    uploadFiles: `Carregar Arquivos de Referência`,
+    uploadSub: `Organize por categoria — máximo de 100MB por arquivo.`,
     dragDrop: "Arraste e solte ou clique para carregar",
     deliverySpeed: "Selecione a Velocidade de Entrega",
-    speedSub: "Precisa mais rápido? Escolha uma opção de entrega abaixo.",
+    speedSub: `Precisa mais rápido? Escolha uma opção de entrega abaixo.`,
     reviewEstimate: "Revise sua Estimativa",
     reviewSub: "Verifique todos os detalhes antes de enviar.",
     estimatedFee: "Investimento Estimado em Projeto",
     yourProject: "Seu Projeto",
     summary: "Resumo",
-    confidence: "Confiança da Estimativa",
-    approxEstimate: "*Estimativa preliminar baseada no escopo inicial. Os valores finais serão consolidados após a validação do briefing e características do terreno/imóvel.",
-    enterDims: "Insira a área em sq ft (pés quadrados) e selecione o tipo de propriedade para ver sua estimativa.",
-    customArea: "Área Personalizada",
-    totalArea: "Área Total",
-    selectLevels: "Selecione os níveis abaixo",
-    groundFloor: "Térreo",
+    confidence: `Confiança da Estimativa`,
+    approxEstimate: `*Estimativa preliminar baseada no escopo inicial. Os valores finais serão consolidados após a validação do briefing e características do terreno/imóvel.`,
+    enterDims: `Insira a área em sq ft (pés quadrados) e selecione o tipo de propriedade para ver sua estimativa.`,
+    customArea: `Área Personalizada`,
+    totalArea: `Área Total`,
+    selectLevels: `Selecione os níveis abaixo`,
+    groundFloor: `Térreo`,
     secondFloor: "Pavimento Superior",
     basement: "Subsolo",
-    attic: "Sótão",
-    standardDelivery: "Entrega Padrão",
-    rushDelivery: "Entrega Prioritária",
+    attic: `Sótão`,
+    standardDelivery: `Entrega Padrão`,
+    rushDelivery: `Entrega Prioritária`,
     expressDelivery: "Entrega Expressa",
-    standardTimeline: "Tempo de resposta padrão",
-    rushTimeline: "Agendamento prioritário",
-    expressTimeline: "Resposta mais rápida possível",
-    includedFree: "Incluso — GRÁTIS",
+    standardTimeline: `Tempo de resposta padrão`,
+    rushTimeline: `Agendamento prioritário`,
+    expressTimeline: `Resposta mais rápida possível`,
+    includedFree: `Incluso — GRÁTIS`,
     idealFor: "Ideal para:",
     moreDetails: "Mais detalhes",
-    whatYouReceive: "O que você recebe",
-    roles: { homeowner: "Proprietário", builder: "Construtor", architect: "Arquiteto", investor: "Investidor", realtor: "Corretor", other: "Outro" },
-    constructionStructure: "Construção e Estrutura",
+    whatYouReceive: `O que você recebe`,
+    roles: { homeowner: `Proprietário`, builder: "Construtor", architect: "Arquiteto", investor: "Investidor", realtor: "Corretor", other: "Outro" },
+    constructionStructure: `Construção e Estrutura`,
     interiors: "Interiores",
-    typeOfService: "Tipo de Serviço",
+    typeOfService: `Tipo de Serviço`,
     svcLabels: {
-      new_construction: "Nova Construção", addition: "Ampliação / Extensão", second_story: "Adição de Segundo Pavimento",
-      garage_only: "Apenas Garagem", garage_conversion: "Conversão de Garagem", basement_finishing: "Acabamento de Subsolo",
+      new_construction: `Nova Construção`, addition: `Ampliação / Extensão`, second_story: `Adição de Segundo Pavimento`,
+      garage_only: "Apenas Garagem", garage_conversion: `Conversão de Garagem`, basement_finishing: "Acabamento de Subsolo",
       deck_covered: "Deck Coberto", deck_open: "Deck Aberto", porch_covered: "Varanda Coberta", porch_open: "Varanda Aberta",
-      renovation: "Reformas e Remodelações", other_const: "Outra Construção",
-      kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro", open_concept: "Conversão de Conceito Aberto", other_int: "Outro Interior"
+      renovation: `Reformas e Remodelações`, other_const: `Outra Construção`,
+      kitchen_remodel: "Reforma de Cozinha", bath_remodel: "Reforma de Banheiro", open_concept: `Conversão de Conceito Aberto`, other_int: "Outro Interior"
     },
     propertyTypes: {
-      single_family: { label: "Residencial Unifamiliar (Single-Family Residential)", sub: "Single-Family Homes. Projetos de casas customizadas e reformas do zero." },
-      multi_family: { label: "Multifamiliar", sub: "Multi-Family. Duplex, townhouses e edifícios residenciais para investimento." },
-      adu: { label: "ADU", sub: "Accessory Dwelling Units. Edículas, guest houses e projetos para gerar renda extra de aluguel." }
+      single_family: { label: `Residencial Unifamiliar (Single-Family Residential)`, sub: "Single-Family Homes. Projetos de casas customizadas e reformas do zero." },
+      multi_family: { label: "Multifamiliar", sub: `Multi-Family. Duplex, townhouses e edifícios residenciais para investimento.` },
+      adu: { label: "ADU", sub: `Accessory Dwelling Units. Edículas, guest houses e projetos para gerar renda extra de aluguel.` }
     },
     svcSubs: {
-      new_construction: "New Construction. Blueprints completos para novas propriedades do zero.", addition: "Addition / Extension. Adicione novos quartos, suítes ou anexos à estrutura existente.", second_story: "Second Story Addition. Projetos para construção de novo pavimento superior.",
-      garage_only: "Detached Garage. Projetos de garagens independentes ou oficinas.", garage_conversion: "Garage Conversion. Transforme a garagem existente em área habitável ou ADU legalizada.", basement_finishing: "Basement Finishing. Legalização, divisórias e acabamento completo de subsolos.",
-      deck_covered: "Covered Deck. Projetos de decks de madeira ou composto com cobertura.", deck_open: "Uncovered Deck. Estruturas de decks abertos para lazer.", porch_covered: "Covered Porch / Patio. Extensão de áreas cobertas integradas à casa.", porch_open: "Open Patio / Porch. Projetos de varandas abertas e pavimentação externa.",
-      renovation: "Remodeling & Renovation. Alterações de layout interno, elétrica e hidráulica.", other_const: "Custom Project. Outros tipos de estruturas ou demandas técnicas específicas.",
-      kitchen_remodel: "Kitchen Remodel. Detalhamento de marcenaria, elétrica, hidráulica e novos layouts.", bath_remodel: "Bathroom Remodel. Realocação de shafts, novos layouts e especificações técnicas.", open_concept: "Open Concept Conversion. Remoção de paredes, integração de ambientes e análise estrutural básica.", other_int: "Custom Interior. Projetos de lareiras, closets, home theater ou demandas sob medida."
+      new_construction: "New Construction. Blueprints completos para novas propriedades do zero.", addition: `Addition / Extension. Adicione novos quartos, suítes ou anexos à estrutura existente.`, second_story: `Second Story Addition. Projetos para construção de novo pavimento superior.`,
+      garage_only: "Detached Garage. Projetos de garagens independentes ou oficinas.", garage_conversion: `Garage Conversion. Transforme a garagem existente em área habitável ou ADU legalizada.`, basement_finishing: `Basement Finishing. Legalização, divisórias e acabamento completo de subsolos.`,
+      deck_covered: "Covered Deck. Projetos de decks de madeira ou composto com cobertura.", deck_open: "Uncovered Deck. Estruturas de decks abertos para lazer.", porch_covered: `Covered Porch / Patio. Extensão de áreas cobertas integradas à casa.`, porch_open: `Open Patio / Porch. Projetos de varandas abertas e pavimentação externa.`,
+      renovation: `Remodeling & Renovation. Alterações de layout interno, elétrica e hidráulica.`, other_const: `Custom Project. Outros tipos de estruturas ou demandas técnicas específicas.`,
+      kitchen_remodel: `Kitchen Remodel. Detalhamento de marcenaria, elétrica, hidráulica e novos layouts.`, bath_remodel: `Bathroom Remodel. Realocação de shafts, novos layouts e especificações técnicas.`, open_concept: `Open Concept Conversion. Remoção de paredes, integração de ambientes e análise estrutural básica.`, other_int: `Custom Interior. Projetos de lareiras, closets, home theater ou demandas sob medida.`
     },
-    pkgLabels: { as_built_permit: "Desenvolvimento de Projeto e Documentação", floor_plans_only: "Apenas Plantas Baixas", pdf_to_cad: "PDF para CAD", "3d_rendering": "Renderização 3D" },
-    unlockRush: "Por favor, faça o upload dos 3 arquivos obrigatórios acima para desbloquear prazos de entrega mais rápidos.",
+    pkgLabels: { as_built_permit: `Desenvolvimento de Projeto e Documentação`, floor_plans_only: "Apenas Plantas Baixas", pdf_to_cad: "PDF para CAD", "3d_rendering": `Renderização 3D` },
+    unlockRush: `Por favor, faça o upload dos 3 arquivos obrigatórios acima para desbloquear prazos de entrega mais rápidos.`,
     checklist: {
-      survey: "Levantamento Topográfico / Site Plan",
+      survey: `Levantamento Topográfico / Site Plan`,
       photos: "Fotos gerais da propriedade (Fachadas e Entorno)",
       measure: "Levantamento Existente (As-Built ou croquis com medidas)",
-      listing: "Anúncio imobiliário atual (Zillow, Redfin, etc.)",
+      listing: `Anúncio imobiliário atual (Zillow, Redfin, etc.)`,
       tour: "Matterport ou Tour Virtual 3D",
-      reports: "Laudos Estruturais ou de Avaliação (Appraisal/Structural Reviews)",
-      existing_plans: "Plantas Existentes ou Projetos Anteriores (Ex: Alvarás Antigos)",
-      city_notes: "Pareceres ou Exigências do Departamento de Obras",
+      reports: `Laudos Estruturais ou de Avaliação (Appraisal/Structural Reviews)`,
+      existing_plans: `Plantas Existentes ou Projetos Anteriores (Ex: Alvarás Antigos)`,
+      city_notes: `Pareceres ou Exigências do Departamento de Obras`,
       recommended: "Recomendado",
-      ifAvailable: "Se disponível",
+      ifAvailable: `Se disponível`,
       ifApplicable: "Se houver"
     },
     stdDeliveryCard: {
-      badge: "ENTREGA PADRÃO — INCLUSA",
+      badge: `ENTREGA PADRÃO — INCLUSA`,
       previewTitle: "Estudo Preliminar (SD)",
-      previewDays: "8–16 Dias Úteis",
-      previewSub: "Layout inicial e direção visual entregues para revisão.",
-      finalTitle: "Conjunto Técnico Completo (CD)",
-      finalDays: "25–30 Dias Úteis Após Aprovação",
-      finalSub: "Pacote completo de desenho arquitetônico em formato digital.",
-      footer: "O cronograma oficial inicia após a confirmação do pagamento e o recebimento de toda a documentação e briefing obrigatórios."
+      previewDays: `8–16 Dias Úteis`,
+      previewSub: `Layout inicial e direção visual entregues para revisão.`,
+      finalTitle: `Conjunto Técnico Completo (CD)`,
+      finalDays: `25–30 Dias Úteis Após Aprovação`,
+      finalSub: `Pacote completo de desenho arquitetônico em formato digital.`,
+      footer: `O cronograma oficial inicia após a confirmação do pagamento e o recebimento de toda a documentação e briefing obrigatórios.`
     },
     unlockFast: {
-      title: "Acelere seu Cronograma",
-      desc: "O envio dos documentos obrigatórios garante a precisão técnica da sua estimativa e libera nossas modalidades de entrega prioritária: Express e Rush.",
+      title: `Acelere seu Cronograma`,
+      desc: `O envio dos documentos obrigatórios garante a precisão técnica da sua estimativa e libera nossas modalidades de entrega prioritária: Express e Rush.`,
     },
-    unlockRushAlert: "Confirme os 3 documentos obrigatórios acima para desbloquear as opções Rush e Express.",
-    pkgNotIncluded: "O QUE NÃO ESTÁ INCLUSO",
+    unlockRushAlert: `Confirme os 3 documentos obrigatórios acima para desbloquear as opções Rush e Express.`,
+    pkgNotIncluded: `O QUE NÃO ESTÁ INCLUSO`,
     speeds: {
       standard: {
-        badge: "ENTREGA PADRÃO — INCLUSA",
+        badge: `ENTREGA PADRÃO — INCLUSA`,
         previewTitle: "Estudo Preliminar (SD)",
-        previewDays: "8–16 Dias Úteis",
-        previewSub: "Layout inicial e direção visual entregues para revisão.",
-        finalTitle: "Conjunto Técnico Completo (CD)",
-        finalDays: "25–30 Dias Úteis Após Aprovação",
-        finalSub: "Pacote completo de desenho arquitetônico em formato digital.",
-        footer: "O cronograma oficial inicia após a confirmação do pagamento e o recebimento de toda a documentação e briefing obrigatórios."
+        previewDays: `8–16 Dias Úteis`,
+        previewSub: `Layout inicial e direção visual entregues para revisão.`,
+        finalTitle: `Conjunto Técnico Completo (CD)`,
+        finalDays: `25–30 Dias Úteis Após Aprovação`,
+        finalSub: `Pacote completo de desenho arquitetônico em formato digital.`,
+        footer: `O cronograma oficial inicia após a confirmação do pagamento e o recebimento de toda a documentação e briefing obrigatórios.`
       },
       rush: {
-        badge: "ENTREGA PRIORITÁRIA",
+        badge: `ENTREGA PRIORITÁRIA`,
         previewTitle: "Estudo Preliminar (SD)",
-        previewDays: "3–5 Dias Úteis",
-        previewSub: "Prioridade no desenvolvimento do layout inicial e direção visual.",
-        finalTitle: "Conjunto Técnico Completo (CD)",
-        finalDays: "15–20 Dias Úteis",
-        finalSub: "Redução de até 30% no prazo final de entrega técnica.",
-        footer: "Prazo exato condicionado à complexidade do projeto e confirmado pelo Studio em até 24h."
+        previewDays: `3–5 Dias Úteis`,
+        previewSub: `Prioridade no desenvolvimento do layout inicial e direção visual.`,
+        finalTitle: `Conjunto Técnico Completo (CD)`,
+        finalDays: `15–20 Dias Úteis`,
+        finalSub: `Redução de até 30% no prazo final de entrega técnica.`,
+        footer: `Prazo exato condicionado à complexidade do projeto e confirmado pelo Studio em até 24h.`
       },
       express: {
-        badge: "ENTREGA ULTRA-RÁPIDA (RUSH)",
+        badge: `ENTREGA ULTRA-RÁPIDA (RUSH)`,
         previewTitle: "Estudo Preliminar (SD)",
-        previewDays: "1–2 Dias Úteis",
+        previewDays: `1–2 Dias Úteis`,
         previewSub: "Layout inicial com desenvolvimento acelerado e imediato.",
-        finalTitle: "Conjunto Técnico Completo (CD)",
-        finalDays: "10–15 Dias Úteis",
-        finalSub: "Prioridade máxima e exclusiva na fila de produção do Studio.",
-        footer: "Disponibilidade imediata sujeita a validação da equipe técnica."
+        finalTitle: `Conjunto Técnico Completo (CD)`,
+        finalDays: `10–15 Dias Úteis`,
+        finalSub: `Prioridade máxima e exclusiva na fila de produção do Studio.`,
+        footer: `Disponibilidade imediata sujeita a validação da equipe técnica.`
       }
     },
     projectEstimate: "Estimativa do Projeto",
-    uploadTitle: "Envio de Documentação e Referências",
-    uploadHelp: "Por favor, envie os documentos disponíveis do seu imóvel ou terreno, como: plantas existentes, levantamentos topográficos, croquis ou fotos. Uma documentação inicial completa acelera o desenvolvimento técnico e garante maior precisão à estimativa.",
+    uploadTitle: `Envio de Documentação e Referências`,
+    uploadHelp: `Por favor, envie os documentos disponíveis do seu imóvel ou terreno, como: plantas existentes, levantamentos topográficos, croquis ou fotos. Uma documentação inicial completa acelera o desenvolvimento técnico e garante maior precisão à estimativa.`,
     dropHere: "Arraste ou ",
     browse: "clique para carregar",
     projectIntent: "Intuito do Projeto",
     detected: "Detectado",
-    dimInstructions: "Formatos aceitos: 10.5 ou 10,5. Use ponto ou vírgula para decimais.",
-    rushFeesTitle: "Prazos e Opções de Entrega",
-    rushFeesSub: "Valide sua documentação para liberar cronogramas acelerados (Express e Rush).",
+    dimInstructions: `Formatos aceitos: 10.5 ou 10,5. Use ponto ou vírgula para decimais.`,
+    rushFeesTitle: `Prazos e Opções de Entrega`,
+    rushFeesSub: `Valide sua documentação para liberar cronogramas acelerados (Express e Rush).`,
     docChecklist: "CHECKLIST DE DOCUMENTOS",
-    requiredRemaining: "obrigatórios restantes",
-    required: "Obrigatório",
+    requiredRemaining: `obrigatórios restantes`,
+    required: `Obrigatório`,
     uploaded: "Enviado",
     uploadAction: "+ Enviar",
     goals: {
-      permit: "Apenas Aprovação Legal",
-      construction: "Documentação de Construção",
+      permit: `Apenas Aprovação Legal`,
+      construction: `Documentação de Construção`,
       investment: "Investimento / Flip",
-      personal: "Residência Pessoal"
+      personal: `Residência Pessoal`
     },
     svcDescs: {
-      new_construction: "Construção de uma casa nova do zero em um lote vazio ou após demolição total.",
-      addition: "Expansão horizontal da residência, adicionando novos cômodos para fora.",
-      second_story: "Expansão vertical removendo o telhado e adicionando um novo pavimento completo.",
-      garage_only: "Construção de uma garagem nova, isolada ou anexa.",
-      garage_conversion: "Transformação de uma garagem existente em área habitável (escritório, lazer ou ADU).",
-      basement_finishing: "Transformação de um subsolo inacabado em área de estar isolada e utilizável.",
+      new_construction: `Construção de uma casa nova do zero em um lote vazio ou após demolição total.`,
+      addition: `Expansão horizontal da residência, adicionando novos cômodos para fora.`,
+      second_story: `Expansão vertical removendo o telhado e adicionando um novo pavimento completo.`,
+      garage_only: `Construção de uma garagem nova, isolada ou anexa.`,
+      garage_conversion: `Transformação de uma garagem existente em área habitável (escritório, lazer ou ADU).`,
+      basement_finishing: `Transformação de um subsolo inacabado em área de estar isolada e utilizável.`,
       deck_covered: "Plataforma externa de madeira ou composto com estrutura de telhado permanente.",
-      deck_open: "Plataforma externa clássica sem telhado.",
-      porch_covered: "Varanda com piso sólido e telhado permanente.",
+      deck_open: `Plataforma externa clássica sem telhado.`,
+      porch_covered: `Varanda com piso sólido e telhado permanente.`,
       porch_open: "Varanda totalmente fechada com telas contra insetos.",
-      renovation: "Atualização geral do interior ou exterior da casa sem adicionar nova metragem.",
-      other_const: "Outros serviços de construção não listados.",
-      kitchen_remodel: "Atualização completa da cozinha, incluindo armários, ilhas e eletrodomésticos.",
-      bath_remodel: "Atualização completa de banheiro, incluindo boxes e novos revestimentos.",
-      open_concept: "Remoção de paredes estruturais ou não para integrar cozinha, jantar e estar.",
-      other_int: "Outros serviços de interior não listados."
+      renovation: `Atualização geral do interior ou exterior da casa sem adicionar nova metragem.`,
+      other_const: `Outros serviços de construção não listados.`,
+      kitchen_remodel: `Atualização completa da cozinha, incluindo armários, ilhas e eletrodomésticos.`,
+      bath_remodel: `Atualização completa de banheiro, incluindo boxes e novos revestimentos.`,
+      open_concept: `Remoção de paredes estruturais ou não para integrar cozinha, jantar e estar.`,
+      other_int: `Outros serviços de interior não listados.`
     },
     program: {
       living: "Social e Estar",
-      bed: "Quartos e Dormitórios",
+      bed: `Quartos e Dormitórios`,
       kitchen: "Cozinha e Jantar",
       bath: "Banheiros e Lavanderia",
       work: "Trabalho e Armazenamento",
       leisure: "Lazer e Externo",
-      tech: "Utilidades e Técnica"
+      tech: `Utilidades e Técnica`
     },
     roomLabels: {
-      bedrooms: "Quartos", guestRoom: "Quarto de Hóspedes", bathrooms: "Banheiros", halfBaths: "Lavabos",
+      bedrooms: "Quartos", guestRoom: `Quarto de Hóspedes`, bathrooms: "Banheiros", halfBaths: "Lavabos",
       livingRooms: "Sala de Estar", diningRoom: "Sala de Jantar", familyRoom: "Sala de TV",
       kitchen: "Cozinha", kitchenIsland: "Ilha na Cozinha", pantry: "Despensa", laundry: "Lavanderia",
-      walkInCloset: "Walk-in Closet", linen: "Rouparia", mudroom: "Mudroom", storage: "Depósito / Estocagem",
-      office: "Escritório", gym: "Academia", studio: "Ateliê / Hobby", gameRoom: "Salão de Jogos",
+      walkInCloset: "Walk-in Closet", linen: "Rouparia", mudroom: "Mudroom", storage: `Depósito / Estocagem`,
+      office: `Escritório`, gym: "Academia", studio: `Ateliê / Hobby`, gameRoom: `Salão de Jogos`,
       deckCovered: "Deck Coberto", deckOpen: "Deck Descoberto", porchCovered: "Porch Coberto", porchOpen: "Porch Descoberto",
       balcony: "Sacada", sunroom: "Jardim de Inverno / Sunroom", outdoorKit: "Cozinha Externa",
       fireplace: "Lareira", wineCellar: "Adega", theater: "Home Theater",
-      garageBays: "Vagas de Garagem", mechanical: "Sala de Máquinas", elevator: "Elevador"
+      garageBays: "Vagas de Garagem", mechanical: `Sala de Máquinas`, elevator: "Elevador"
     },
     groupLabels: {
-      core: "Cômodos Principais",
-      service: "Cozinha e Serviço",
+      core: `Cômodos Principais`,
+      service: `Cozinha e Serviço`,
       work: "Trabalho e Bem-Estar",
       leisure: "Lazer e Externo",
-      tech: "Utilidades e Técnica"
+      tech: `Utilidades e Técnica`
     },
-    projectDimensions: "Dimensões do Projeto",
-    uploadLaterNote: "Você pode enviar seus arquivos depois — vamos te lembrar por e-mail.",
-    addLevelsFloors: "Adicionar Níveis / Andares",
+    projectDimensions: `Dimensões do Projeto`,
+    uploadLaterNote: `Você pode enviar seus arquivos depois — vamos te lembrar por e-mail.`,
+    addLevelsFloors: `Adicionar Níveis / Andares`,
     propertyTypeLabel: "Tipo de Propriedade",
     lotSizeLabel: "LOT SIZE - TAMANHO DO LOTE",
-    grandTotalArea: "Área Total Geral",
+    grandTotalArea: `Área Total Geral`,
     pkgTitles: {
-      as_built_permit: "Desenhos As-Built e Documentação para Permit",
+      as_built_permit: `Desenhos As-Built e Documentação para Permit`,
       floor_plans_only: "Apenas Plantas Baixas",
-      pdf_to_cad: "Conversão de PDF para CAD",
-      "3d_rendering": "Renderização 3D Realista"
+      pdf_to_cad: `Conversão de PDF para CAD`,
+      "3d_rendering": `Renderização 3D Realista`
     },
     pkgSubs: {
-      as_built_permit: "Conjunto completo de blueprints para aprovação (Permit). Inclui o levantamento das condições existentes (As-Built), plantas de piso, elevações, cortes estruturais e tudo o que a prefeitura (City) exige.",
-      floor_plans_only: "Desenho técnico especializado focado no layout interno. Ideal para estudos preliminares de espaço, zoneamento interno e propostas iniciais de layout em 2D.",
-      pdf_to_cad: "Transformação de plantas antigas, arquivos em PDF ou desenhos escaneados em arquivos DWG/CAD totalmente editáveis, vetorizados e organizados em layers no padrão americano.",
-      "3d_rendering": "Modelagem tridimensional e renders fotorrealistas de alta resolução. Perfeito para construtores e investidores validarem materiais antes da obra ou usarem como material de marketing e vendas."
+      as_built_permit: `Conjunto completo de blueprints para aprovação (Permit). Inclui o levantamento das condições existentes (As-Built), plantas de piso, elevações, cortes estruturais e tudo o que a prefeitura (City) exige.`,
+      floor_plans_only: `Desenho técnico especializado focado no layout interno. Ideal para estudos preliminares de espaço, zoneamento interno e propostas iniciais de layout em 2D.`,
+      pdf_to_cad: `Transformação de plantas antigas, arquivos em PDF ou desenhos escaneados em arquivos DWG/CAD totalmente editáveis, vetorizados e organizados em layers no padrão americano.`,
+      "3d_rendering": `Modelagem tridimensional e renders fotorrealistas de alta resolução. Perfeito para construtores e investidores validarem materiais antes da obra ou usarem como material de marketing e vendas.`
     },
     pkgDetails: {
       as_built_permit: {
-        summary: "Pacote arquitetônico abrangente adaptado às suas necessidades. Da documentação municipal essencial ao design executivo completo.",
-        whyUs: "Não desenhamos apenas linhas — entregamos precisão pronta para aprovação. Nosso profundo conhecimento das normas garante aprovações municipais mais rápidas, menos revisões e um projeto pronto para a obra desde o primeiro dia. Você economiza tempo, dinheiro e dores de cabeça.",
+        summary: `Pacote arquitetônico abrangente adaptado às suas necessidades. Da documentação municipal essencial ao design executivo completo.`,
+        whyUs: `Não desenhamos apenas linhas — entregamos precisão pronta para aprovação. Nosso profundo conhecimento das normas garante aprovações municipais mais rápidas, menos revisões e um projeto pronto para a obra desde o primeiro dia. Você economiza tempo, dinheiro e dores de cabeça.`,
         whatYouReceive: [
-          { title: "Conjunto Básico de Permissão", desc: "Plano essencial incluindo plantas Existente/Demolição/Proposto, cortes, fachadas e telhado." },
-          { title: "Design e Planejamento de Espaço (Opcional)", desc: "Desenvolvimento estético e análise de fluxo otimizada." },
-          { title: "Conjunto Técnico de Construção (Opcional)", desc: "Planos de estrutura e detalhes para o construtor." },
-          { title: "Visualização 3D (Opcional)", desc: "Renderização externa de alta fidelidade." },
-          { title: "Histórico / Existente", desc: "Documentação digital do estado atual e registros históricos da propriedade." }
+          { title: `Conjunto Básico de Permissão`, desc: `Plano essencial incluindo plantas Existente/Demolição/Proposto, cortes, fachadas e telhado.` },
+          { title: `Design e Planejamento de Espaço (Opcional)`, desc: `Desenvolvimento estético e análise de fluxo otimizada.` },
+          { title: `Conjunto Técnico de Construção (Opcional)`, desc: "Planos de estrutura e detalhes para o construtor." },
+          { title: `Visualização 3D (Opcional)`, desc: `Renderização externa de alta fidelidade.` },
+          { title: `Histórico / Existente`, desc: `Documentação digital do estado atual e registros históricos da propriedade.` }
         ],
         notIncluded: ["Compra de Materiais", "Paisagismo", "Desenhos de Marcenaria"],
-        idealFor: ["Proprietários que precisam de aprovação", "Projetos Complexos", "Aprovação Profissional"]
+        idealFor: [`Proprietários que precisam de aprovação`, "Projetos Complexos", `Aprovação Profissional`]
       },
       floor_plans_only: {
         tag: "SCHEMATIC DESIGN",
-        summary: "Um serviço simplificado que entrega layouts espaciais fundamentais e plantas baixas dimensionadas.",
-        whyUs: "Seja você um investidor vendendo uma ideia ou um proprietário visualizando um espaço, nossa equipe entrega plantas arquitetônicas precisas e de alta qualidade, com um prazo e refinamento estético que serviços genéricos de desenho simplesmente não conseguem igualar.",
+        summary: `Um serviço simplificado que entrega layouts espaciais fundamentais e plantas baixas dimensionadas.`,
+        whyUs: `Seja você um investidor vendendo uma ideia ou um proprietário visualizando um espaço, nossa equipe entrega plantas arquitetônicas precisas e de alta qualidade, com um prazo e refinamento estético que serviços genéricos de desenho simplesmente não conseguem igualar.`,
         whatYouReceive: [
-          { title: "Layouts Espaciais Fundamentais", desc: "Paredes internas básicas, portas e identificação de cômodos." },
-          { title: "Plantas Baixas Dimensionadas", desc: "Medições precisas de todos os espaços internos e elementos estruturais." }
+          { title: `Layouts Espaciais Fundamentais`, desc: `Paredes internas básicas, portas e identificação de cômodos.` },
+          { title: `Plantas Baixas Dimensionadas`, desc: `Medições precisas de todos os espaços internos e elementos estruturais.` }
         ],
-        notIncluded: ["Design Exterior", "Renderizações 3D", "Aprovação de Prefeitura", "Engenharia Estrutural"],
-        idealFor: ["Planejamento Inicial", "Reformas Estéticas", "Apenas Conceito"]
+        notIncluded: ["Design Exterior", `Renderizações 3D`, `Aprovação de Prefeitura`, "Engenharia Estrutural"],
+        idealFor: ["Planejamento Inicial", `Reformas Estéticas`, "Apenas Conceito"]
       },
       pdf_to_cad: {
         tag: "CAD CONVERSION",
-        summary: "Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável.",
-        whyUs: "A precisão é tudo. Garantimos conversões digitais milimetricamente exatas, organizadas em camadas arquitetônicas padrão, para que seus engenheiros e construtores possam começar a trabalhar imediatamente, sem perder horas arrumando arquivos bagunçados.",
+        summary: `Conversão profissional de desenhos PDF existentes para o formato CAD (DWG) editável.`,
+        whyUs: `A precisão é tudo. Garantimos conversões digitais milimetricamente exatas, organizadas em camadas arquitetônicas padrão, para que seus engenheiros e construtores possam começar a trabalhar imediatamente, sem perder horas arrumando arquivos bagunçados.`,
         whatYouReceive: [
-          { title: "Arquivos CAD Totalmente Editáveis", desc: "Formato DWG padrão compatível com os principais softwares CAD." },
-          { title: "Escalonamento Preciso", desc: "Verificação e ajuste para garantir precisão no mundo real." },
-          { title: "Organização de Camadas", desc: "Camadas estruturadas para paredes, dimensões e anotações." }
+          { title: `Arquivos CAD Totalmente Editáveis`, desc: `Formato DWG padrão compatível com os principais softwares CAD.` },
+          { title: `Escalonamento Preciso`, desc: `Verificação e ajuste para garantir precisão no mundo real.` },
+          { title: `Organização de Camadas`, desc: `Camadas estruturadas para paredes, dimensões e anotações.` }
         ],
-        notIncluded: ["Design Arquitetônico", "Revisão de Código", "Medições de Campo", "Modelagem 3D"],
+        notIncluded: [`Design Arquitetônico`, `Revisão de Código`, `Medições de Campo`, "Modelagem 3D"],
         idealFor: ["Arquivamento Digital", "Base para Reforma", "Empreiteiros"]
       },
       "3d_rendering": {
         tag: "3D RENDERING",
-        summary: "Modelagem tridimensional e renders fotorrealistas de alta resolução. Perfeito para construtores e investidores validarem materiais antes da obra ou usarem como material de marketing e vendas.",
-        whyUs: "Nós criamos emoção. Nossos artistas 3D usam iluminação cinematográfica e texturas ultra-realistas para criar imagens que não apenas mostram um edifício, mas vendem um estilo de vida. Perfeito para pré-vendas, apresentações a investidores ou escolhas seguras de acabamentos.",
+        summary: `Modelagem tridimensional e renders fotorrealistas de alta resolução. Perfeito para construtores e investidores validarem materiais antes da obra ou usarem como material de marketing e vendas.`,
+        whyUs: `Nós criamos emoção. Nossos artistas 3D usam iluminação cinematográfica e texturas ultra-realistas para criar imagens que não apenas mostram um edifício, mas vendem um estilo de vida. Perfeito para pré-vendas, apresentações a investidores ou escolhas seguras de acabamentos.`,
         whatYouReceive: [
-          { title: "Imagens Fotorrealistas", desc: "Renders 3D de alta resolução com materiais e ambientes realistas." },
-          { title: "Visualização de Materiais", desc: "Veja suas escolhas de revestimento, telhado e janelas em contexto." },
-          { title: "Iluminação Atmosférica", desc: "Simulação de iluminação natural e artificial para um toque realista." }
+          { title: `Imagens Fotorrealistas`, desc: `Renders 3D de alta resolução com materiais e ambientes realistas.` },
+          { title: `Visualização de Materiais`, desc: `Veja suas escolhas de revestimento, telhado e janelas em contexto.` },
+          { title: `Iluminação Atmosférica`, desc: `Simulação de iluminação natural e artificial para um toque realista.` }
         ],
-        notIncluded: ["Plantas Técnicas", "Engenharia Estrutural", "Especificação de Design de Interiores", "Revisões no Design Principal"],
-        idealFor: ["Visualizar o Resultado Final", "Venda do Imóvel", "Decisão de Acabamentos"]
+        notIncluded: [`Plantas Técnicas`, "Engenharia Estrutural", `Especificação de Design de Interiores`, `Revisões no Design Principal`],
+        idealFor: ["Visualizar o Resultado Final", `Venda do Imóvel`, `Decisão de Acabamentos`]
       }
     },
     pkgExtras: {
       groups: {
         design: "EXTRAS DE DESIGN",
-        technical: "TÉCNICO E CONSTRUÇÃO",
-        visualization: "VISUALIZAÇÃO 3D E CÔMODOS ESPECÍFICOS",
-        modules_3d: "MÓDULOS DE VISUALIZAÇÃO 3D"
+        technical: `TÉCNICO E CONSTRUÇÃO`,
+        visualization: `VISUALIZAÇÃO 3D E CÔMODOS ESPECÍFICOS`,
+        modules_3d: `MÓDULOS DE VISUALIZAÇÃO 3D`
       },
       items: {
-        ex_arch_design: { label: "Detalhamento Arquitetônico Avançado", desc: "Foca no desenvolvimento conceitual e estético do seu projeto. Inclui fachadas externas, estilo estrutural e aparência geral." },
-        ex_space_plan: { label: "Planejamento de Espaço (Macro Design)", desc: "Design em nível macro com foco no arranjo ideal de paredes, portas e fluxos entre cômodos. Analisamos a melhor maneira de utilizar a metragem quadrada para funcionalidade e movimentação." },
-        ex_interior_lay: { label: "Layout de Interiores (Space Planning)", desc: "Design em nível micro detalhando o posicionamento de móveis, marcenaria sob medida (como armários de cozinha ou banheiro), eletrodomésticos e luminárias específicas dentro dos espaços definidos." },
-        ex_const_detail: { label: "Detalhamento Construtivo & Framing", desc: "Plantas técnicas de estrutura (pré-dimensionamento), detalhes construtivos essenciais e tabelas (portas/janelas). Este módulo fornece as informações necessárias para o seu construtor executar o projeto com precisão, reduzindo desperdício de materiais e tempo de obra." },
-        ex_code_comp: { label: "Conformidade com Códigos Municipais (Code Compliance)", desc: "Citações detalhadas de códigos municipais, notas de segurança e anotações profissionais necessárias para agilizar o processo de aprovação de alvarás e garantir a conformidade legal." },
-        ex_3d_ext: { label: "Renderização 3D Exterior", desc: "Visualização 3D de alta fidelidade da arquitetura externa." },
-        ex_3d_kitchen: { label: "Design 3D de Cozinha", desc: "Visualização fotorrealista da sua cozinha com materiais e iluminação." },
-        ex_3d_bath: { label: "Design 3D de Banheiro", desc: "Renderização 3D detalhada do seu banheiro principal." },
-        ex_3d_laundry: { label: "Design 3D de Lavanderia", desc: "Visualização funcional e estética da área de serviço." }
+        ex_arch_design: { label: `Detalhamento Arquitetônico Avançado`, desc: `Foca no desenvolvimento conceitual e estético do seu projeto. Inclui fachadas externas, estilo estrutural e aparência geral.` },
+        ex_space_plan: { label: `Planejamento de Espaço (Macro Design)`, desc: `Design em nível macro com foco no arranjo ideal de paredes, portas e fluxos entre cômodos. Analisamos a melhor maneira de utilizar a metragem quadrada para funcionalidade e movimentação.` },
+        ex_interior_lay: { label: `Layout de Interiores (Space Planning)`, desc: `Design em nível micro detalhando o posicionamento de móveis, marcenaria sob medida (como armários de cozinha ou banheiro), eletrodomésticos e luminárias específicas dentro dos espaços definidos.` },
+        ex_const_detail: { label: `Detalhamento Construtivo & Framing`, desc: `Plantas técnicas de estrutura (pré-dimensionamento), detalhes construtivos essenciais e tabelas (portas/janelas). Este módulo fornece as informações necessárias para o seu construtor executar o projeto com precisão, reduzindo desperdício de materiais e tempo de obra.` },
+        ex_code_comp: { label: `Conformidade com Códigos Municipais (Code Compliance)`, desc: `Citações detalhadas de códigos municipais, notas de segurança e anotações profissionais necessárias para agilizar o processo de aprovação de alvarás e garantir a conformidade legal.` },
+        ex_3d_ext: { label: `Renderização 3D Exterior`, desc: `Visualização 3D de alta fidelidade da arquitetura externa.` },
+        ex_3d_kitchen: { label: `Design 3D de Cozinha`, desc: `Visualização fotorrealista da sua cozinha com materiais e iluminação.` },
+        ex_3d_bath: { label: `Design 3D de Banheiro`, desc: `Renderização 3D detalhada do seu banheiro principal.` },
+        ex_3d_laundry: { label: `Design 3D de Lavanderia`, desc: `Visualização funcional e estética da área de serviço.` }
       }
     },
-    whatYouReceiveTitle: "O QUE VOCÊ RECEBE",
-    notIncludedTitle: "NÃO INCLUSO",
+    whatYouReceiveTitle: `O QUE VOCÊ RECEBE`,
+    notIncludedTitle: `NÃO INCLUSO`,
     idealForTitle: "IDEAL PARA",
-    serviceCustomization: "CUSTOMIZAÇÃO DE SERVIÇOS",
+    serviceCustomization: `CUSTOMIZAÇÃO DE SERVIÇOS`,
     summaryTitle: "RESUMO",
     review: {
       client: "Cliente",
-      location: "Localização",
+      location: `Localização`,
       project: "Projeto",
-      summary: "Resumo Final",
-      documentation: "Documentação",
+      summary: `Resumo Final`,
+      documentation: `Documentação`,
       name: "Nome",
       email: "E-mail",
       phone: "Telefone",
       role: "Papel",
-      address: "Endereço",
-      region: "Região",
+      address: `Endereço`,
+      region: `Região`,
       regionUS: "Estados Unidos",
       regionBR: "Brasil",
       propType: "Tipo de Propriedade",
-      levels: "Níveis",
-      services: "Serviços",
-      dimensions: "DIMENSÕES",
-      totalArea: "Área Total",
-      selectedSvcs: "SERVIÇOS SELECIONADOS",
+      levels: `Níveis`,
+      services: `Serviços`,
+      dimensions: `DIMENSÕES`,
+      totalArea: `Área Total`,
+      selectedSvcs: `SERVIÇOS SELECIONADOS`,
       timeline: "Cronograma Estimado",
       docsVerified: "Documentos verificados com sucesso.",
       noDocs: "Nenhum documento anexado",
       edit: "Editar",
-      builderDiscount: "Construtor Profissional? Registre sua empresa abaixo para desbloquear um desconto de volume de 10% em todos os futuros conjuntos de licenças em MA.",
-      title: "Revise seu resumo.",
-      sub: "Verifique todos os detalhes antes de enviar. Clique em qualquer seção para editar.",
-      groundFloor: "Térreo",
-      multipleFloors: "Múltiplos Andares",
-      days510: "5–10 Dias Úteis",
-      days816: "8–16 Dias Úteis",
-      timelineStandard: "Padrão (Contate o Studio)",
+      builderDiscount: `Construtor Profissional? Registre sua empresa abaixo para desbloquear um desconto de volume de 10% em todos os futuros conjuntos de licenças em MA.`,
+      title: `Revise seu resumo.`,
+      sub: `Verifique todos os detalhes antes de enviar. Clique em qualquer seção para editar.`,
+      groundFloor: `Térreo`,
+      multipleFloors: `Múltiplos Andares`,
+      days510: `5–10 Dias Úteis`,
+      days816: `8–16 Dias Úteis`,
+      timelineStandard: `Padrão (Contate o Studio)`,
       errorOccurred: "Ocorreu um erro. Tente novamente.",
-      whatNext: "PRÓXIMOS PASSOS",
+      whatNext: `PRÓXIMOS PASSOS`,
       nextSteps: [
-        { title: "Revisão da Estimativa", desc: "Nossa equipe revisa seu pedido em até 24 horas." },
-        { title: "Proposta Formal", desc: "Você recebe uma proposta detalhada, sem surpresas." }
+        { title: `Revisão da Estimativa`, desc: `Nossa equipe revisa seu pedido em até 24 horas.` },
+        { title: `Proposta Formal`, desc: `Você recebe uma proposta detalhada, sem surpresas.` }
       ],
       legalTitle: "⚠ AVISO LEGAL IMPORTANTE",
-      legalBody: "Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para submissão de alvará de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado.",
-      agreementBody: "⚠ O valor acima é uma estimativa. A taxa final será confirmada após nossa equipe revisar seu briefing. Ao prosseguir, você concorda em receber uma proposta formal.",
+      legalBody: `Esta estimativa é estritamente para serviços iniciais de design e desenho. NÃO INCLUI selos de engenharia profissional (carimbos PE/SE) ou carimbos arquitetônicos necessários para submissão de alvará de construção. O cliente é o único responsável por contratar e pagar um Engenheiro ou Arquiteto de Registro licenciado.`,
+      agreementBody: `⚠ O valor acima é uma estimativa. A taxa final será confirmada após nossa equipe revisar seu briefing. Ao prosseguir, você concorda em receber uma proposta formal.`,
       processing: "⌛ Processando...",
       payRetainer: "🔒 Confirmar e Iniciar Meu Projeto",
-      secureNotice: "Pagamento seguro via Stripe ou Transferência Bancária",
+      secureNotice: `Pagamento seguro via Stripe ou Transferência Bancária`,
       saveLater: "🔖 Salvar para Depois — Enviar essa estimativa",
-      saveLaterNote: "Você receberá um PDF com seu briefing completo e estimativas — sem compromisso.",
+      saveLaterNote: `Você receberá um PDF com seu briefing completo e estimativas — sem compromisso.`,
       backButton: "← Voltar",
       emailEstimate: "Apenas me envie esta estimativa por e-mail por enquanto",
-      redirectNotice: "Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido."
+      redirectNotice: `Você será redirecionado para nosso portal de cliente seguro para finalizar seu pedido.`
     }
   }
 };
@@ -885,54 +870,54 @@ const ROLES = [
 
 const ROOM_GROUPS = [
   {
-    label: "Core Rooms", items: [
+    label: `Core Rooms`, items: [
       { id: "bedrooms", label: "Bedrooms" },
-      { id: "guestRoom", label: "Guest Room" },
+      { id: "guestRoom", label: `Guest Room` },
       { id: "bathrooms", label: "Bathrooms" },
-      { id: "halfBaths", label: "Half Baths" },
-      { id: "livingRooms", label: "Living Room" },
-      { id: "diningRoom", label: "Dining Room" },
-      { id: "familyRoom", label: "Family Room" },
+      { id: "halfBaths", label: `Half Baths` },
+      { id: "livingRooms", label: `Living Room` },
+      { id: "diningRoom", label: `Dining Room` },
+      { id: "familyRoom", label: `Family Room` },
     ]
   },
   {
-    label: "Kitchen & Service", items: [
+    label: `Kitchen & Service`, items: [
       { id: "kitchen", label: "Kitchen" },
-      { id: "kitchenIsland", label: "Kitchen Island" },
+      { id: "kitchenIsland", label: `Kitchen Island` },
       { id: "pantry", label: "Pantry" },
       { id: "laundry", label: "Laundry" },
-      { id: "walkInCloset", label: "Walk-in Closet" },
-      { id: "linen", label: "Linen Closet" },
+      { id: "walkInCloset", label: `Walk-in Closet` },
+      { id: "linen", label: `Linen Closet` },
       { id: "mudroom", label: "Mudroom" },
-      { id: "storage", label: "Storage / Deposit" },
+      { id: "storage", label: `Storage / Deposit` },
     ]
   },
   {
-    label: "Work & Wellness", items: [
-      { id: "office", label: "Home Office" },
+    label: `Work & Wellness`, items: [
+      { id: "office", label: `Home Office` },
       { id: "gym", label: "Gym" },
-      { id: "studio", label: "Studio / Hobby Room" },
-      { id: "gameRoom", label: "Game Room" },
+      { id: "studio", label: `Studio / Hobby Room` },
+      { id: "gameRoom", label: `Game Room` },
     ]
   },
   {
-    label: "Entertainment & Outdoor", items: [
-      { id: "deckCovered", label: "Covered Deck" },
-      { id: "deckOpen", label: "Uncovered Deck" },
-      { id: "porchCovered", label: "Covered Porch" },
-      { id: "porchOpen", label: "Uncovered Porch" },
+    label: `Entertainment & Outdoor`, items: [
+      { id: "deckCovered", label: `Covered Deck` },
+      { id: "deckOpen", label: `Uncovered Deck` },
+      { id: "porchCovered", label: `Covered Porch` },
+      { id: "porchOpen", label: `Uncovered Porch` },
       { id: "balcony", label: "Balcony" },
       { id: "sunroom", label: "Sunroom" },
-      { id: "outdoorKit", label: "Outdoor Kitchen" },
+      { id: "outdoorKit", label: `Outdoor Kitchen` },
       { id: "fireplace", label: "Fireplace" },
-      { id: "wineCellar", label: "Wine Cellar" },
-      { id: "theater", label: "Home Theater" },
+      { id: "wineCellar", label: `Wine Cellar` },
+      { id: "theater", label: `Home Theater` },
     ]
   },
   {
-    label: "Utilities & Tech", items: [
-      { id: "garageBays", label: "Garage Bays" },
-      { id: "mechanical", label: "Mechanical Room" },
+    label: `Utilities & Tech`, items: [
+      { id: "garageBays", label: `Garage Bays` },
+      { id: "mechanical", label: `Mechanical Room` },
       { id: "elevator", label: "Elevator" },
     ]
   },
@@ -956,7 +941,7 @@ function parseDim(val, isUS) {
   }
 
   // feet'inches" → e.g. 10'6" or 10'-6"
-  const m1 = s.match(/^(\d+)['’]\s*-?\s*(\d+(?:\.\d+)?)(?:\s*(\d+)\/(\d+))?["”]?$/);
+  const m1 = s.match(/^(\d+)[`’]\s*-?\s*(\d+(?:\.\d+)?)(?:\s*(\d+)\/(\d+))?["”]?$/);
   if (m1) {
     const ft = parseInt(m1[1], 10);
     let inch = parseFloat(m1[2] || 0);
@@ -964,8 +949,8 @@ function parseDim(val, isUS) {
     return ft * 12 + inch;
   }
 
-  // e.g. 10'6 (no quote)
-  const m2 = s.match(/^(\d+)['’]\s*(\d+(?:\.\d+)?)?$/);
+  // e.g. 10`6 (no quote)
+  const m2 = s.match(/^(\d+)[`’]\s*(\d+(?:\.\d+)?)?$/);
   if (m2) return parseInt(m2[1], 10) * 12 + parseFloat(m2[2] || 0);
 
   // fraction only: 1/2
@@ -1288,7 +1273,7 @@ function calcEst(d, lang = "EN", step) {
   if (allLvls.has("basement")) lvNames.push(T.basement);
   if (allLvls.has("attic")) lvNames.push(T.attic);
 
-  const PROP_SHORT = lang === "EN" ? { single_family: "Single Family", multi_family: "Multi-Family", adu: "ADU" } : { single_family: "Residencial", multi_family: "Multifamiliar", adu: "ADU" };
+  const PROP_SHORT = lang === "EN" ? { single_family: "Single Family`, multi_family: `Multi-Family", adu: "ADU" } : { single_family: "Residencial`, multi_family: `Multifamiliar", adu: "ADU" };
   const primarySvc = selectedSvcNames[0] || "";
   const propShort = PROP_SHORT[d.propertyType] || d.propertyType || "";
   const projectTitle = primarySvc && propShort ? `${primarySvc} — ${propShort}` : primarySvc || propShort || "";
@@ -1369,7 +1354,7 @@ export default function EstimateWizard() {
   useEffect(() => {
     resetWizard();
     setIsInitialized(true);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const step = isInitialized ? contextStep : 0;
 
@@ -1520,6 +1505,7 @@ export default function EstimateWizard() {
                   T={T}
                   est={est}
                   d={data}
+                  uploading={uploading}
                 />
               ) : (
                 <>
@@ -1606,8 +1592,7 @@ function Stepper({ cur }) {
 function Sidebar({ est, lang, data, step: currentStep }) {
   const { 
     lo = "--", hi = "--", conf = 0, bd = [], 
-    projectTitle = "", pkgName = "", 
-    lvNames = [], selectedSvcNames = [] 
+    projectTitle = "", pkgName = "" 
   } = est || {};
   
   const getConfCol = (c) => {
@@ -1733,7 +1718,7 @@ function S1({ d, up, lang }) {
       {/* Region locked to US by default */}
 
       {d.region && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex`, flexDirection: `column", gap: 14 }}>
 
 
           <div className="wz-f">
@@ -1851,8 +1836,8 @@ function S2({ d, up, lang }) {
       )}
       {showCo && (
         <div className="wz-animate hww-bento-card" style={{ padding: 32, gap: 20 }}>
-          <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--brand-purple)", margin: 0 }}>{T.companyInfo}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".1em`, textTransform: `uppercase", color: "var(--brand-purple)", margin: 0 }}>{T.companyInfo}</p>
+          <div style={{ display: "flex`, flexDirection: `column", gap: 20 }}>
             <div className="wz-grid-adaptive">
               <div className="wz-f">
                 <label className="wz-label">{T.bizName} <span style={{ color: "var(--rd)" }}>*</span></label>
@@ -1902,12 +1887,11 @@ function S2({ d, up, lang }) {
   );
 }
 
-function S3({ d, up, est, lang }) {
+function S3({ d, up, lang }) {
   const isUS = d.region !== "BR";
   const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
   const unit = isUS ? "ft" : "m";
   const au = isUS ? "sqft" : "m²";
-  const [hoverId, setHoverId] = useState(null);
 
   const CONST_SVC = [
     { id: "new_construction", pricingGroup: "multi-level", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="8" width="16" height="14"/><path d="M2 10l10-8 10 8"/><path d="M12 2v6"/><path d="M8 5v3"/><path d="M16 5v3"/></svg>, label: T.svcLabels.new_construction, sub: T.svcSubs.new_construction, desc: T.svcDescs.new_construction },
@@ -1977,7 +1961,7 @@ function S3({ d, up, est, lang }) {
     return baseArea * (count === 0 ? 1 : count); // Default to 1x if 0 selected for rendering intermediate, but validation requires >0
   };
 
-  const grandTotalArea = selectedSvcs.reduce((sum, svcId) => sum + getSvcArea(svcId), 0);
+
 
   return (
     <div className="wz-animate">
@@ -2119,20 +2103,14 @@ function S3({ d, up, est, lang }) {
   );
 }
 
-function S4({ d, up, est, lang }) {
+function S4({ d, up, lang }) {
   const isUS = d.region !== "BR";
   const T = TRANSLATIONS[lang];
   const [openDet, setOpenDet] = useState({});
-  const [openEx, setOpenEx] = useState({});
 
   const toggleDet = (id, e) => {
     e.stopPropagation();
     setOpenDet(p => ({ [id]: !p[id] }));
-  };
-
-  const toggleEx = (id, e) => {
-    e.stopPropagation();
-    setOpenEx(p => ({ ...p, [id]: !p[id] }));
   };
 
   const setPkg = (id) => {
@@ -2328,7 +2306,7 @@ function S4({ d, up, est, lang }) {
                     {pkg.details && pkg.details.whatYouReceive && (
                        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 32 }}>
                           <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "12px", padding: 16 }}>
-                             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#10b981", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}</p>
+                             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#10b981", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? `WHAT'S INCLUDED` : `O QUE ESTÁ INCLUSO`}</p>
                              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                                {pkg.details.whatYouReceive.map((item, idx) => (
                                  <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
@@ -2350,7 +2328,7 @@ function S4({ d, up, est, lang }) {
 
                           {pkg.details.notIncluded && (
                             <div style={{ background: "rgba(233, 30, 99, 0.04)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "12px", padding: 16 }}>
-                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}</p>
+                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : `NÃO INCLUSO`}</p>
                                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                                  {pkg.details.notIncluded.map((it, idx) => (
                                    <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
@@ -2374,126 +2352,18 @@ function S4({ d, up, est, lang }) {
       <div style={{ background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", padding: "14px 18px", borderRadius: "2px 6px 6px 2px", display: "flex", flexDirection: "column", gap: "12px" }}>
         <p style={{ fontSize: 13, color: "#ffffff", fontStyle: "italic", opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
           {lang === "EN" 
-            ? "Click on 'More details' within each package to explore the full scope of included services and available design extras." 
-            : "Clique em 'Mais detalhes' em cada pacote para explorar todo o escopo de serviços inclusos e extras de design disponíveis."}
+            ? `Click on 'More details' within each package to explore the full scope of included services and available design extras.` 
+            : `Clique em 'Mais detalhes' em cada pacote para explorar todo o escopo de serviços inclusos e extras de design disponíveis.`}
         </p>
         <a href="/services" target="_blank" rel="noopener noreferrer" style={{ alignSelf: "flex-start", fontSize: 12, fontWeight: 700, color: "#111", background: "#FFC107", padding: "6px 14px", borderRadius: 6, textDecoration: "none", textTransform: "uppercase", letterSpacing: ".05em", transition: "all 0.2s" }}>
-          {lang === "EN" ? "View Full Service Catalog" : "Ver Catálogo Completo de Serviços"}
+          {lang === "EN" ? "View Full Service Catalog" : `Ver Catálogo Completo de Serviços`}
         </a>
       </div>
     </div>
   );
 }
 
-function S5({ d, up, lang }) {
-  const isUS = d.region !== "BR";
-  const T = TRANSLATIONS[lang];
-  const SVC_LABELS = T.svcLabels;
 
-  const services = d.services || {};
-  const setSvc = (k) => up("services", { ...services, [k]: !services[k] });
-
-  return (
-    <div className="wz-animate">
-      <Title label={T.selectServices} sub={T.servicesSub} />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-        {Object.entries(SVC_LABELS).map(([k, label]) => (
-          <div key={k} className={`wz-card ${services[k] ? "active" : ""}`} onClick={() => setSvc(k)} style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 18, height: 18, borderRadius: 4, border: "2px solid var(--border2)", background: services[k] ? "var(--a)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {services[k] && <Chk />}
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 500 }}>{label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
-function S5_Specs({ d, up, lang }) {
-  const isUS = d.region !== "BR";
-  const [showDetails, setShowDetails] = useState(false);
-
-  const goals = [
-    { id: "permit", label: isUS ? "Building Permit Only" : "Apenas Aprovação Legal" },
-    { id: "construction", label: isUS ? "Construction Documentation" : "Documentação de Construção" },
-    { id: "investment", label: isUS ? "Investment / Flip" : "Investimento / Flip" },
-    { id: "personal", label: isUS ? "Personal Residence" : "Residência Pessoal" },
-  ];
-
-  const constraints = [
-    { id: "c_hoa", label: "HOA" },
-    { id: "c_history", label: "Historical District" },
-    { id: "c_nature", label: "Conservation / Wetland" },
-    { id: "c_setback", label: "Specific Setbacks" },
-  ];
-
-  return (
-    <div className="wz-animate">
-      <Title
-        label={isUS ? "Project Specifications" : "Especificações do Projeto"}
-        sub={isUS ? "Tell us more about the goals and constraints of your project." : "Conte-nos mais sobre os objetivos e restrições do seu projeto."}
-      />
-
-      <div className="wz-card" style={{ marginBottom: "32px", padding: "16px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "16px" }}>⚙️</span>
-            <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--mu)" }}>{isUS ? "Project Goals & Constraints" : "Objetivos e Restrições"}</span>
-          </div>
-          <button onClick={() => setShowDetails(!showDetails)} style={{ background: "none", border: "none", color: "var(--a)", fontSize: "12px", cursor: "pointer", fontWeight: "600" }}>
-            {showDetails ? (isUS ? "- Less details" : "- Menos detalhes") : (isUS ? "+ More details" : "+ Mais detalhes")}
-          </button>
-        </div>
-        {showDetails && (
-          <div className="wz-animate" style={{ marginTop: "16px", padding: "16px", background: "var(--cb)", borderRadius: "8px", border: "1px solid var(--border)" }}>
-            <p style={{ fontSize: "13px", color: "var(--mu)", lineHeight: "1.6", marginBottom: "12px" }}>
-              <strong>{isUS ? "Technical Alignment:" : "Alinhamento Técnico:"}</strong> {isUS ? "This stage ensures that our design team understands the physical and legal constraints of your property." : "Esta etapa garante que nossa equipe de design entenda as restrições físicas e legais de sua propriedade."}
-            </p>
-            <p style={{ fontSize: "13px", color: "var(--mu)", lineHeight: "1.6" }}>
-              <strong>{isUS ? "Customized Scope:" : "Escopo Personalizado:"}</strong> {isUS ? "We will adjust the documentation level based on your specific requirements for zoning, setbacks, or HOA guidelines." : "Ajustaremos o nível de documentação com base em seus requisitos específicos de zoneamento, recuos ou diretrizes de condomínio."}
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="wz-f" style={{ marginBottom: "32px" }}>
-        <label className="wz-label">{isUS ? "Project Goal" : "Objetivo do Projeto"}</label>
-        <select className="wz-inp" value={d.goal || ""} onChange={e => up("goal", e.target.value)} style={{ appearance: "none", background: "var(--bg1) url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236366f1' d='M1 4l5 5 5-5z'/%3E%3C/svg%3E\") no-repeat right 16px center" }}>
-          <option value="">{isUS ? "Select a goal..." : "Selecione um objetivo..."}</option>
-          {goals.map(g => (
-            <option key={g.id} value={g.id}>{g.label}</option>
-          ))}
-        </select>
-      </div>
-
-      <div style={{ marginBottom: "32px" }}>
-        <p className="wz-label" style={{ marginBottom: "16px" }}>{isUS ? "Property Constraints" : "Restrições da Propriedade"}</p>
-        <div className="wz-grid-adaptive">
-          {constraints.map(c => (
-            <div key={c.id} className={`wz-card ${d[c.id] ? "active" : ""}`} onClick={() => up(c.id, !d[c.id])} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 16px", cursor: "pointer", minHeight: 44 }}>
-              <div style={{ width: 18, height: 18, borderRadius: 4, border: "2px solid var(--border2)", background: d[c.id] ? "var(--a)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {d[c.id] && <Chk />}
-              </div>
-              <span style={{ fontSize: "13px", color: d[c.id] ? "var(--tx)" : "var(--mu)", fontWeight: d[c.id] ? "600" : "500" }}>{c.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <p className="wz-label" style={{ marginBottom: "16px" }}>{isUS ? "Additional Notes" : "Notas Adicionais"}</p>
-        <textarea
-          placeholder={isUS ? "Share details about your property in Massachusetts (Weston, Dover, etc.)" : "Compartilhe detalhes sobre sua propriedade em Massachusetts (Weston, Dover, etc.)"}
-          value={d.notes || ""}
-          onChange={e => up("notes", e.target.value)}
-          style={{ width: "100%", background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px", color: "var(--tx)", fontSize: "14px", minHeight: "120px", resize: "vertical" }}
-        />
-      </div>
-    </div>
-  );
-}
 
 function S6({ d, up, lang }) {
   const T = TRANSLATIONS[lang];
@@ -2511,7 +2381,7 @@ function S6({ d, up, lang }) {
               <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".08em", color: "var(--brand-purple)", textTransform: "uppercase", margin: 0 }}>{g.label}</h3>
             </div>
             <div className="wz-grid-adaptive" style={{ gap: 0 }}>
-              {g.items.map((item, idx) => {
+              {g.items.map((item) => {
                 const val = rooms[item.id] || 0;
                 const isActive = val > 0;
                 return (
@@ -2563,15 +2433,14 @@ function S6({ d, up, lang }) {
   );
 }
 
-function S7({ d, up, lang, setUploading, uploading }) {
+function S7({ d, up, lang, setUploading }) {
   const T = TRANSLATIONS[lang];
   const fileRefs = useRef({});
-  const [dragging, setDragging] = useState(null);
 
   const cats = [
     {
       id: "inspiration",
-      label: lang === "EN" ? "Inspiration Images" : "Imagens de Inspiração",
+      label: lang === "EN" ? "Inspiration Images" : `Imagens de Inspiração`,
       icon: "🖼️",
       types: "JPG · PNG · GIF · WEBP · max 100MB",
       accept: ".jpg,.jpeg,.png,.gif,.webp",
@@ -2579,7 +2448,7 @@ function S7({ d, up, lang, setUploading, uploading }) {
     },
     {
       id: "videos",
-      label: lang === "EN" ? "Videos" : "Vídeos",
+      label: lang === "EN" ? "Videos" : `Vídeos`,
       icon: "🎥",
       types: "MP4 · MOV · WEBM · max 100MB",
       accept: ".mp4,.mov,.webm",
@@ -2587,7 +2456,7 @@ function S7({ d, up, lang, setUploading, uploading }) {
     },
     {
       id: "documents",
-      label: lang === "EN" ? "Technical Documents" : "Documentos Técnicos",
+      label: lang === "EN" ? "Technical Documents" : `Documentos Técnicos`,
       icon: "📋",
       types: "PDF · DOC · DWG · DXF · max 100MB",
       accept: ".pdf,.doc,.docx,.dwg,.dxf",
@@ -2615,7 +2484,7 @@ function S7({ d, up, lang, setUploading, uploading }) {
       up("projectId", projectId);
     }
 
-    const current = uploads[catId] || [];
+
     
     for (const f of Array.from(files)) {
       const fileId = Math.random().toString(36).substr(2, 9);
@@ -2689,7 +2558,7 @@ function S7({ d, up, lang, setUploading, uploading }) {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-        {cats.map((cat, idx) => {
+        {cats.map((cat) => {
           const catFiles = uploads[cat.id] || [];
           const isDone = catFiles.length > 0;
           return (
@@ -2776,10 +2645,10 @@ function S7({ d, up, lang, setUploading, uploading }) {
 
       <div style={{ marginTop: 32 }}>
         <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".05em", color: "var(--brand-purple)", marginBottom: 12, textTransform: "uppercase" }}>
-          {lang === "EN" ? "REFERENCE LINKS (OPTIONAL)" : "LINKS DE REFERÊNCIA (OPCIONAL)"}
+          {lang === "EN" ? "REFERENCE LINKS (OPTIONAL)" : `LINKS DE REFERÊNCIA (OPCIONAL)`}
         </p>
         <textarea
-          placeholder={lang === "EN" ? "Paste links to Pinterest boards, Zillow listings, or other references..." : "Cole links de painéis do Pinterest, anúncios no Zillow ou outras referências..."}
+          placeholder={lang === "EN" ? `Paste links to Pinterest boards, Zillow listings, or other references...` : `Cole links de painéis do Pinterest, anúncios no Zillow ou outras referências...`}
           value={d.referenceLinks || ""}
           onChange={e => up("referenceLinks", e.target.value)}
           style={{ width: "100%", background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderRadius: "12px", padding: "16px", color: "var(--tx)", fontSize: "13px", minHeight: "80px", resize: "vertical", outline: "none", transition: "all 0.3s" }}
@@ -2791,7 +2660,7 @@ function S7({ d, up, lang, setUploading, uploading }) {
   );
 }
 
-function S8({ d, up, lang, setUploading, uploading }) {
+function S8({ d, up, lang, setUploading }) {
   const T = TRANSLATIONS[lang];
   const fileRefs = useRef({});
   const [feedback, setFeedback] = useState("");
@@ -2938,12 +2807,12 @@ function S8({ d, up, lang, setUploading, uploading }) {
         }}>
           <h4 style={{ fontSize: "16px", fontWeight: "700", color: "var(--brand-purple)", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-            {T.unlockFast?.title || (lang === "EN" ? "Unlock Faster Delivery" : "Desbloquear Entrega Mais Rápida")}
+            {T.unlockFast?.title || (lang === "EN" ? "Unlock Faster Delivery" : `Desbloquear Entrega Mais Rápida`)}
           </h4>
           <p style={{ fontSize: "14px", color: "var(--tx)", margin: 0, lineHeight: "1.5", maxWidth: "600px", opacity: 0.9 }}>
             {lang === "EN" 
-              ? "To access Express and Rush delivery options, and receive a more precise cost estimate, please attach the mandatory documentation listed below." 
-              : "Para ter acesso às modalidades de entrega Express e Rush, além de uma estimativa de custos mais precisa, por favor anexe a documentação obrigatória listada abaixo."}
+              ? `To access Express and Rush delivery options, and receive a more precise cost estimate, please attach the mandatory documentation listed below.` 
+              : `Para ter acesso às modalidades de entrega Express e Rush, além de uma estimativa de custos mais precisa, por favor anexe a documentação obrigatória listada abaixo.`}
           </p>
         </div>
       )}
@@ -3104,14 +2973,23 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   const { theme } = useAppContext();
   const isDark = theme === "dark";
   const T = TRANSLATIONS[lang] || TRANSLATIONS.EN;
-  const isUS = d.region !== "BR";
   const [loadingType, setLoadingType] = useState(null);
-  const [error, setError] = useState("");
+
+  const checklist = [
+    { id: "chk_survey", label: T.checklist.survey, required: true },
+    { id: "chk_photos", label: T.checklist.photos, required: true },
+    { id: "chk_measure", label: T.checklist.measure, required: true },
+    { id: "chk_listing", label: T.checklist.listing, sub: T.checklist.recommended },
+    { id: "chk_matter", label: T.checklist.tour, sub: T.checklist.ifAvailable },
+    { id: "chk_reports", label: T.checklist.reports, sub: T.checklist.ifAvailable },
+    { id: "chk_existing", label: T.checklist.existing_plans, sub: T.checklist.ifApplicable },
+    { id: "chk_notes", label: T.checklist.city_notes, sub: T.checklist.ifApplicable },
+  ];
 
   const EstimateGuarantee = () => {
     const guarantee = lang === "EN" 
-      ? "Your estimate won't vary more than 15% upon final review."
-      : "Sua estimativa não variará mais do que 15% após a revisão final.";
+      ? `Your estimate won't vary more than 15% upon final review.`
+      : `Sua estimativa não variará mais do que 15% após a revisão final.`;
     
     return (
       <div style={{ 
@@ -3133,7 +3011,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
               <div style={{ flex: 1, height: "6px", background: "rgba(16, 185, 129, 0.15)", borderRadius: "3px", overflow: "hidden" }}>
                 <div style={{ width: `${est.conf}%`, height: "100%", background: "#10b981", borderRadius: "3px", boxShadow: "0 0 8px rgba(16, 185, 129, 0.4)", backgroundSize: '200% auto', animation: 'spShimmer 2s linear infinite' }} />
               </div>
-              <span style={{ fontSize: "10px", fontWeight: "800", color: "#10b981", letterSpacing: "0.05em" }}>{est.conf}% {lang === "EN" ? "CONFIDENCE" : "CONFIANÇA"}</span>
+              <span style={{ fontSize: "10px", fontWeight: "800", color: "#10b981", letterSpacing: "0.05em" }}>{est.conf}% {lang === "EN" ? "CONFIDENCE" : `CONFIANÇA`}</span>
             </div>
           </div>
         </div>
@@ -3152,7 +3030,6 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
   const handleAction = async (type) => {
     setLoadingType(type);
-    setError("");
     try {
       const endpoint = type === "accept" ? "/api/accept" : "/api/leads";
       const payload = {
@@ -3217,7 +3094,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       setSubmitted(true);
     } catch (err) {
       console.error(err);
-      setError(T.review.errorOccurred);
+      alert(T.review.errorOccurred);
     } finally {
       setLoadingType(null);
     }
@@ -3259,12 +3136,12 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
 
           <SectionCard icon="📍" title={T.review.location} step={0}>
             <ReviewRow label={T.review.address} value={d.address} />
-            <ReviewRow label={lang === "EN" ? "Country / State or Jurisdiction" : "País / Estado ou Jurisdição"} value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
+            <ReviewRow label={lang === "EN" ? "Country / State or Jurisdiction" : `País / Estado ou Jurisdição`} value={d.region === "BR" ? T.review.regionBR : T.review.regionUS} />
           </SectionCard>
         </div>
 
         <SectionCard icon="🏛" title={T.yourProject} step={2}>
-          <ReviewRow label={T.propType} value={d.propertyType ? T.propertyTypes[d.propertyType]?.label : ""} />
+          <ReviewRow label={T.propType} value={d.propertyType ? T.propertyTypes[d.propertyType]?.label : ``} />
           <ReviewRow label={T.levels} value={(est?.lvNames || []).join(" + ")} />
           <ReviewRow label={T.typeOfService} value={(est?.selectedSvcNames || []).join(", ")} />
           <div style={{ padding: "7px 0 5px", borderBottom: "1px solid var(--border)" }}>
@@ -3310,9 +3187,9 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
               const files = d.uploads[catId];
               if (!files || files.length === 0) return null;
               const catLabels = {
-                inspiration: lang === "EN" ? "Inspiration Images" : "Imagens de Inspiração",
-                videos: lang === "EN" ? "Videos" : "Vídeos",
-                documents: lang === "EN" ? "Technical Documents" : "Documentos Técnicos",
+                inspiration: lang === "EN" ? "Inspiration Images" : `Imagens de Inspiração`,
+                videos: lang === "EN" ? "Videos" : `Vídeos`,
+                documents: lang === "EN" ? "Technical Documents" : `Documentos Técnicos`,
                 other: lang === "EN" ? "Other Files" : "Outros Arquivos"
               };
               return (
@@ -3339,7 +3216,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           {/* Rush Files from S8 */}
           {d.rushFiles && Object.keys(d.rushFiles).length > 0 ? (
             <div>
-              <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>📁 {lang === "EN" ? "Technical Requirements" : "Requisitos Técnicos"}</p>
+              <p style={{ fontSize: "10px", fontWeight: "700", color: "var(--a)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px" }}>📁 {lang === "EN" ? "Technical Requirements" : `Requisitos Técnicos`}</p>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 {checklist.map(item => {
                   const fileData = d.rushFiles[item.id];
@@ -3465,11 +3342,10 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   );
 }
 
-function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
+function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {} }) {
   const isUS = lang === "EN";
   const isSave = type === "save";
-  const { theme } = useAppContext();
-  const isDark = theme === "dark";
+  const { resetWizard } = useAppContext();
   const [vis, setVis] = useState(false);
   const [waLoading, setWaLoading] = useState(false);
 
@@ -3552,19 +3428,19 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
           {/* Headline */}
           <div style={{ ...f(160), textAlign: "center", marginBottom: 18 }}>
             <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 28, color: "var(--tx)", fontStyle: "italic", fontWeight: 400, margin: "0 0 12px", lineHeight: 1.35 }}>
-              {isUS ? "Your project is safe with us." : "Seu projeto está seguro conosco."}
+              {isUS ? "Your project is safe with us." : `Seu projeto está seguro conosco.`}
             </h2>
             <p style={{ fontSize: 14, color: "var(--mu)", maxWidth: 400, margin: "0 auto", lineHeight: 1.8 }}>
-              {isUS ? "Every detail you shared is preserved and waiting." : "Cada detalhe que você compartilhou está preservado e à espera."}{" "}
-              <span style={{ color: "var(--a)" }}>{isUS ? "When the moment is right, we'll be here — brief in hand, ready to begin." : "Quando o momento for certo, estaremos aqui — brief em mãos, prontos para começar."}</span>
+              {isUS ? "Every detail you shared is preserved and waiting." : `Cada detalhe que você compartilhou está preservado e à espera.`}{" "}
+              <span style={{ color: "var(--a)" }}>{isUS ? `When the moment is right, we'll be here — brief in hand, ready to begin.` : `Quando o momento for certo, estaremos aqui — brief em mãos, prontos para começar.`}</span>
             </p>
           </div>
 
           {/* Quote */}
           <div style={{ ...f(240), borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "18px 0", marginBottom: 24, textAlign: "center" }}>
             <p style={{ fontFamily: "var(--font-serif)", fontSize: 14, fontStyle: "italic", color: "var(--mu)", lineHeight: 1.8, margin: "0 auto", maxWidth: 400 }}>
-              {isUS ? '"Great spaces don\'t happen overnight —' : '"Grandes espaços não acontecem da noite para o dia —'} {" "}
-              <span style={{ color: "var(--a)" }}>{isUS ? 'they begin with a single decision to start."' : 'eles começam com uma única decisão de iniciar."'}</span>
+              {isUS ? `"Great spaces don't happen overnight —` : `"Grandes espaços não acontecem da noite para o dia —`} {" "}
+              <span style={{ color: "var(--a)" }}>{isUS ? 'they begin with a single decision to start."' : `eles começam com uma única decisão de iniciar."`}</span>
             </p>
             <p style={{ fontSize: 11, color: "var(--dm)", margin: "6px 0 0" }}>— DARA Studio</p>
           </div>
@@ -3575,7 +3451,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: "var(--a)", marginBottom: 4 }}>{isUS ? "Check your inbox" : "Verifique seu e-mail"}</div>
               <div style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.65, opacity: 0.8 }}>
-                {isUS ? "A detailed PDF with your full brief, selected services and estimated fees has been sent to" : "Um PDF detalhado com seu brief completo, serviços selecionados e taxas estimadas foi enviado para"}{" "}
+                {isUS ? `A detailed PDF with your full brief, selected services and estimated fees has been sent to` : `Um PDF detalhado com seu brief completo, serviços selecionados e taxas estimadas foi enviado para`}{" "}
                 <span style={{ color: "var(--a)", fontWeight: 500 }}>{d.email}</span>
               </div>
             </div>
@@ -3583,11 +3459,11 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
 
           {/* Tranquility cards */}
           <div style={{ ...f(400), background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: 11, padding: "15px 18px", marginBottom: 28 }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 13 }}>{isUS ? "While you think..." : "Enquanto você pensa..."}</div>
+            <div style={{ fontSize: 10, letterSpacing: "0.08em", color: "var(--dm)", textTransform: "uppercase", marginBottom: 13 }}>{isUS ? "While you think..." : `Enquanto você pensa...`}</div>
             {[
-              { icon: "🔒", text: isUS ? "Your brief is safely stored — access anytime." : "Seu briefing está salvo com segurança — acesse a qualquer momento." },
-              { icon: "📅", text: isUS ? "Our schedule is flexible. You choose when to start." : "Nossa agenda é flexível. Você escolhe quando começar." },
-              { icon: "💬", text: isUS ? "Questions? Our team responds in less than 24h." : "Dúvidas? Nossa equipe responde em menos de 24h." },
+              { icon: "🔒", text: isUS ? "Your brief is safely stored — access anytime." : `Seu briefing está salvo com segurança — acesse a qualquer momento.` },
+              { icon: "📅", text: isUS ? "Our schedule is flexible. You choose when to start." : `Nossa agenda é flexível. Você escolhe quando começar.` },
+              { icon: "💬", text: isUS ? "Questions? Our team responds in less than 24h." : `Dúvidas? Nossa equipe responde em menos de 24h.` },
             ].map((item, i) => (
               <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 2 ? 10 : 0 }}>
                 <span style={{ fontSize: 14, flexShrink: 0 }}>{item.icon}</span>
@@ -3637,26 +3513,26 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
           <div style={{ display: "inline-flex", alignItems: "baseline", gap: 7, background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 9, padding: "8px 15px" }}>
             <span style={{ fontSize: 11, color: "var(--mu)", letterSpacing: "0.06em", textTransform: "uppercase" }}>{isUS ? "Project" : "Projeto"}</span>
             <span style={{ fontSize: 22, fontWeight: 700, color: "var(--a)", fontFamily: "var(--font-serif)" }}>#{count.toString().padStart(3, "0")}</span>
-            <span style={{ fontSize: 11, color: "var(--dm)" }}>{isUS ? "added to DARA portfolio" : "adicionado ao portfólio DARA"}</span>
+            <span style={{ fontSize: 11, color: "var(--dm)" }}>{isUS ? "added to DARA portfolio" : `adicionado ao portfólio DARA`}</span>
           </div>
         </div>
 
         {/* Headline */}
         <div style={{ ...f(160), marginBottom: 16 }}>
           <h2 style={{ fontFamily: "var(--font-serif)", fontSize: 26, color: "var(--tx)", fontStyle: "italic", fontWeight: 400, margin: "0 0 13px", lineHeight: 1.35 }}>
-            {isUS ? "The first stroke of your new chapter has been drawn." : "O primeiro traço do seu novo capítulo foi desenhado."}
+            {isUS ? "The first stroke of your new chapter has been drawn." : `O primeiro traço do seu novo capítulo foi desenhado.`}
           </h2>
           <p style={{ fontSize: 14, color: "var(--mu)", lineHeight: 1.8, margin: 0 }}>
-            {isUS ? "Your brief is with our team. In the next steps, we will transform every detail you entrusted to us into" : "Seu briefing está com nossa equipe. Nos próximos passos, vamos transformar cada detalhe que você nos confiou em"}{" "}
-            <span style={{ color: "var(--a)" }}>{isUS ? "plans that move and spaces that last." : "plantas que emocionam e espaços que duram."}</span>
+            {isUS ? `Your brief is with our team. In the next steps, we will transform every detail you entrusted to us into` : `Seu briefing está com nossa equipe. Nos próximos passos, vamos transformar cada detalhe que você nos confiou em`}{" "}
+            <span style={{ color: "var(--a)" }}>{isUS ? "plans that move and spaces that last." : `plantas que emocionam e espaços que duram.`}</span>
           </p>
         </div>
 
         {/* Anchor Quote */}
         <div style={{ ...f(240), borderLeft: "2px solid var(--a)", paddingLeft: 16, marginBottom: 26 }}>
           <p style={{ fontFamily: "var(--font-serif)", fontSize: 14, fontStyle: "italic", color: "var(--mu)", lineHeight: 1.8, margin: "0 0 5px" }}>
-            {isUS ? '"You are not just building a house —' : '"Você não está apenas construindo uma casa —'} {" "}
-            <span style={{ color: "var(--a)" }}>{isUS ? "you are creating the place where your story will happen.\"" : "você está criando o lugar onde a sua história vai acontecer.\""}</span>
+            {isUS ? '"You are not just building a house —' : `"Você não está apenas construindo uma casa —`} {" "}
+            <span style={{ color: "var(--a)" }}>{isUS ? "you are creating the place where your story will happen.\"" : `você está criando o lugar onde a sua história vai acontecer."`}</span>
           </p>
           <span style={{ fontSize: 11, color: "var(--dm)" }}>— DARA Studio</span>
         </div>
@@ -3685,9 +3561,9 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
             <p style={{ fontSize: 13, color: "var(--mu)", fontStyle: "italic", lineHeight: 1.7, margin: "0 0 5px" }}>
               {isUS 
                 ? '"DARA transformed my vision into a plan in less than a week. The precision and care for every detail surprised me from the first contact."' 
-                : '"A DARA transformou minha visão em planta em menos de uma semana. A precisão e o cuidado com cada detalhe me surpreenderam desde o primeiro contato."'}
+                : `"A DARA transformou minha visão em planta em menos de uma semana. A precisão e o cuidado com cada detalhe me surpreenderam desde o primeiro contato."`}
             </p>
-            <span style={{ fontSize: 11, color: "var(--dm)" }}>— {isUS ? "Verified Client · Miami, FL · New Construction" : "Cliente verificado · Miami, FL · New Construction"}</span>
+            <span style={{ fontSize: 11, color: "var(--dm)" }}>— {isUS ? `Verified Client · Miami, FL · New Construction` : `Cliente verificado · Miami, FL · New Construction`}</span>
           </div>
         </div>
 
@@ -3696,7 +3572,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d }) {
           <button className="wz-btn-primary" onClick={() => { resetWizard(); navigate("/login"); }} style={{ width: "100%", height: 56, borderRadius: 9999, marginBottom: 8, animation: 'spLogoGlow 3s infinite' }}>
             {isUS ? "Access my Client Portal →" : "Acessar meu Portal do Cliente →"}
           </button>
-          <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 11px" }}>{isUS ? "Track your project's progress in real-time" : "Acompanhe o progresso do seu projeto em tempo real"}</p>
+          <p style={{ fontSize: 11, color: "var(--dm)", textAlign: "center", margin: "0 0 11px" }}>{isUS ? `Track your project's progress in real-time` : "Acompanhe o progresso do seu projeto em tempo real"}</p>
           <button className="wz-btn-ghost" onClick={onBack} style={{ width: "100%", height: 56, borderRadius: 9999 }}>
             {isUS ? "← Back to Review" : "← Voltar para o Review"}
           </button>

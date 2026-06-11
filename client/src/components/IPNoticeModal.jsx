@@ -2,56 +2,56 @@ import React from 'react';
 
 const IP_NOTICE_TEXT = {
   EN: {
-    title: "Copyright & IP Notice",
-    subtitle: "LAST UPDATED: FEBRUARY 2011 — © THE AUTHORSHIP OF THE CONTENTS, MATERIALS AND IMAGES DISPLAYED ON DA·RA STUDIO IS PROTECTED BY NATIONAL AND INTERNATIONAL COPYRIGHT LAWS.",
+    title: `Copyright & IP Notice`,
+    subtitle: `LAST UPDATED: FEBRUARY 2011 — © THE AUTHORSHIP OF THE CONTENTS, MATERIALS AND IMAGES DISPLAYED ON DA·RA STUDIO IS PROTECTED BY NATIONAL AND INTERNATIONAL COPYRIGHT LAWS.`,
     sections: [
       {
         number: "1",
-        title: "Ownership of Content",
-        content: "All materials on this website — including house plans, floor plans, 2D/3D artwork, technical drawings, architectural renderings, images, videos, and written content — are the exclusive property of DARA Studio and are protected under United States Federal Copyright Laws (Title 17 of the U.S. Code)."
+        title: `Ownership of Content`,
+        content: `All materials on this website — including house plans, floor plans, 2D/3D artwork, technical drawings, architectural renderings, images, videos, and written content — are the exclusive property of DARA Studio and are protected under United States Federal Copyright Laws (Title 17 of the U.S. Code).`
       },
       {
         number: "2",
-        title: "Protected Materials",
-        content: "Protection includes, but is not limited to:",
+        title: `Protected Materials`,
+        content: `Protection includes, but is not limited to:`,
         list: [
-          "Architectural Assets: CAD files, blueprints, floor plans, elevations, and layouts.",
-          "Visual Media: 3D photorealistic renderings, conceptual models, walkthrough videos, and project photography.",
-          "Digital Content: Website copy, blog posts, and marketing materials."
+          `Architectural Assets: CAD files, blueprints, floor plans, elevations, and layouts.`,
+          `Visual Media: 3D photorealistic renderings, conceptual models, walkthrough videos, and project photography.`,
+          `Digital Content: Website copy, blog posts, and marketing materials.`
         ]
       },
       {
         number: "3",
-        title: "Single-Use Licensing Policy",
-        content: "Unless explicitly stated otherwise in a written contract, all purchased plans or media assets are licensed for single-use only.",
+        title: `Single-Use Licensing Policy`,
+        content: `Unless explicitly stated otherwise in a written contract, all purchased plans or media assets are licensed for single-use only.`,
         list: [
           "One Build: You are authorized to construct only one (1) structure per set of plans.",
-          "No Redistribution: Plans and media may not be resold, licensed, or shared with third parties without prior written authorization.",
-          "Multi-Use: To build multiple homes or use content for multiple projects, an Extended Media License or Multi-Use License must be purchased."
+          `No Redistribution: Plans and media may not be resold, licensed, or shared with third parties without prior written authorization.`,
+          `Multi-Use: To build multiple homes or use content for multiple projects, an Extended Media License or Multi-Use License must be purchased.`
         ]
       },
       {
         number: "4",
-        title: "Prohibited Actions",
-        content: "Unauthorized use constitutes copyright infringement. This includes:",
+        title: `Prohibited Actions`,
+        content: `Unauthorized use constitutes copyright infringement. This includes:`,
         list: [
-          "Copying or Redrawing: Modifying, tracing, or redrawing any design — even with alterations — is illegal.",
-          "Digital Distribution: Scanning, uploading to social media, or posting to marketing sites without a license.",
+          `Copying or Redrawing: Modifying, tracing, or redrawing any design — even with alterations — is illegal.`,
+          `Digital Distribution: Scanning, uploading to social media, or posting to marketing sites without a license.`,
           "Derivative Works: Any modification to our designs remains a derivative work owned by DARA Studio and cannot be reused outside the original project scope."
         ]
       },
       {
         number: "5",
-        title: "Liability and Infringement",
-        content: "Copyright infringement is a serious federal offense. All parties involved can be held legally liable.",
+        title: `Liability and Infringement`,
+        content: `Copyright infringement is a serious federal offense. All parties involved can be held legally liable.`,
         list: [
-          "Statutory Damages: Up to $150,000 per infringement.",
+          `Statutory Damages: Up to $150,000 per infringement.`,
           "Legal Fees: Violators may be required to cover all legal and court costs.",
           "DMCA: Unauthorized online use of our media will result in immediate DMCA takedown actions and potential platform bans."
         ]
       }
     ],
-    warning: "Federal Law: Copyright infringement may result in statutory damages of up to $150,000 per infringement plus attorney fees under 17 U.S.C. § 504.",
+    warning: `Federal Law: Copyright infringement may result in statutory damages of up to $150,000 per infringement plus attorney fees under 17 U.S.C. § 504.`,
     button: "I UNDERSTAND — CLOSE"
   }
 };

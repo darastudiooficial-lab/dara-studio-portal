@@ -4,35 +4,6 @@ import Footer from '../components/Footer';
 import { useAppContext } from '../context/AppContext';
 import PageTransition from '../components/PageTransition';
 
-const TEAM_MEMBERS = [
-  {
-    name: "Marco V.",
-    role: { EN: "Design Director", PT: "Diretor de Design" },
-    bio: { 
-      EN: "15+ years of experience in luxury residential architecture.",
-      PT: "Mais de 15 anos de experiência em arquitetura residencial de luxo."
-    },
-    avatar: "👨‍💼"
-  },
-  {
-    name: "Elena G.",
-    role: { EN: "Lead Architect", PT: "Arquiteta Líder" },
-    bio: { 
-      EN: "Expert in sustainable building codes and permit optimization.",
-      PT: "Especialista em normas sustentáveis e aprovação de projetos."
-    },
-    avatar: "👩‍🎨"
-  },
-  {
-    name: "Julian K.",
-    role: { EN: "Head of 3D", PT: "Líder de 3D" },
-    bio: { 
-      EN: "Transforming technical drawings into hyper-realistic visualizations.",
-      PT: "Transformando desenhos técnicos em visualizações hiper-realistas."
-    },
-    avatar: "👨‍💻"
-  }
-];
 
 export default function Team() {
   const { lang } = useAppContext();
@@ -51,12 +22,12 @@ export default function Team() {
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
           <h1 className="page-main-title" style={{ fontSize: '32px', marginBottom: '16px' }}>
-            {lang === "EN" ? "Under Construction" : "Em Construção"}
+            {lang === "EN" ? "Under Construction" : `Em Construção`}
           </h1>
           <p className="page-subtitle-standard" style={{ maxWidth: '500px', margin: '0 auto', opacity: 0.6 }}>
             {lang === "EN" 
               ? "We are building an amazing team page. Information will be available soon." 
-              : "Estamos montando uma página de equipe incrível. As informações estarão disponíveis em breve."}
+              : `Estamos montando uma página de equipe incrível. As informações estarão disponíveis em breve.`}
           </p>
         </div>
       </main>

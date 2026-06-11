@@ -4,73 +4,72 @@ import { supabase } from '../lib/supabaseClient';
 import { useAppContext } from '../context/AppContext';
 import GlobalControls from '../components/GlobalControls';
 import Icon from '../components/Icon';
-import BackgroundOrbs from '../components/BackgroundOrbs';
 import PageTransition from '../components/PageTransition';
 
 const PORTAL_DATA = {
   client: {
     EN: {
-      title: "Welcome to your Sanctuary.",
-      subtitle: "Track every detail of your space's transformation in real time.",
+      title: `Welcome to your Sanctuary.`,
+      subtitle: `Track every detail of your space's transformation in real time.`,
       features: [
-        { icon: 'rcpt', label: 'Project Status', desc: 'Detailed schedule and next steps.' },
-        { icon: 'image', label: 'Selection Gallery', desc: 'Choose materials, textures, and finishes.' },
-        { icon: 'dollar', label: 'Financial Hub', desc: 'View estimates and payment schedule.' },
-        { icon: 'chat', label: 'Direct Chat', desc: 'Direct channel with your design team.' }
+        { icon: 'rcpt', label: `Project Status`, desc: 'Detailed schedule and next steps.' },
+        { icon: 'image', label: `Selection Gallery`, desc: `Choose materials, textures, and finishes.` },
+        { icon: 'dollar', label: `Financial Hub`, desc: 'View estimates and payment schedule.' },
+        { icon: 'chat', label: `Direct Chat`, desc: 'Direct channel with your design team.' }
       ]
     },
     PT: {
-      title: "Bem-vindo ao seu Santuário.",
-      subtitle: "Acompanhe cada detalhe da transformação do seu espaço em tempo real.",
+      title: `Bem-vindo ao seu Santuário.`,
+      subtitle: `Acompanhe cada detalhe da transformação do seu espaço em tempo real.`,
       features: [
-        { icon: 'rcpt', label: 'Status do Projeto', desc: 'Cronograma detalhado e próximas etapas.' },
-        { icon: 'image', label: 'Galeria de Seleções', desc: 'Escolha de materiais, texturas e acabamentos.' },
-        { icon: 'dollar', label: 'Painel Financeiro', desc: 'Visualização de orçamentos e cronograma de pagamentos.' },
-        { icon: 'chat', label: 'Chat Direto', desc: 'Canal direto com sua equipe de design.' }
+        { icon: 'rcpt', label: `Status do Projeto`, desc: `Cronograma detalhado e próximas etapas.` },
+        { icon: 'image', label: `Galeria de Seleções`, desc: `Escolha de materiais, texturas e acabamentos.` },
+        { icon: 'dollar', label: `Painel Financeiro`, desc: `Visualização de orçamentos e cronograma de pagamentos.` },
+        { icon: 'chat', label: `Chat Direto`, desc: 'Canal direto com sua equipe de design.' }
       ]
     }
   },
   collaborator: {
     EN: {
-      title: "Excellence in every detail.",
+      title: `Excellence in every detail.`,
       subtitle: "Technical access for DARA Studio partners and project execution.",
       features: [
-        { icon: 'layers', label: 'Technical Drawings', desc: 'Access floor plans, sections, and technical details.' },
-        { icon: 'rcpt', label: 'Task Management', desc: 'List of deliverables and project deadlines.' },
-        { icon: 'folder', label: 'Material Specs', desc: 'Complete technical specs from suppliers.' },
-        { icon: 'cal', label: 'Site Logs', desc: 'Inspection records and construction diary.' }
+        { icon: 'layers', label: `Technical Drawings`, desc: `Access floor plans, sections, and technical details.` },
+        { icon: 'rcpt', label: `Task Management`, desc: 'List of deliverables and project deadlines.' },
+        { icon: 'folder', label: `Material Specs`, desc: 'Complete technical specs from suppliers.' },
+        { icon: 'cal', label: `Site Logs`, desc: 'Inspection records and construction diary.' }
       ]
     },
     PT: {
-      title: "Excelência em cada detalhe.",
-      subtitle: "Acesso técnico para parceiros e execução de obras DARA Studio.",
+      title: `Excelência em cada detalhe.`,
+      subtitle: `Acesso técnico para parceiros e execução de obras DARA Studio.`,
       features: [
-        { icon: 'layers', label: 'Desenhos Técnicos', desc: 'Acesso a plantas, cortes e detalhamentos técnicos.' },
-        { icon: 'rcpt', label: 'Gestão de Tarefas', desc: 'Lista de entregas e prazos da obra.' },
-        { icon: 'folder', label: 'Especificações', desc: 'Especificações técnicas completas dos fornecedores.' },
-        { icon: 'cal', label: 'Diário de Obra', desc: 'Registro de vistorias e diário de obra.' }
+        { icon: 'layers', label: `Desenhos Técnicos`, desc: `Acesso a plantas, cortes e detalhamentos técnicos.` },
+        { icon: 'rcpt', label: `Gestão de Tarefas`, desc: 'Lista de entregas e prazos da obra.' },
+        { icon: 'folder', label: `Especificações`, desc: `Especificações técnicas completas dos fornecedores.` },
+        { icon: 'cal', label: `Diário de Obra`, desc: `Registro de vistorias e diário de obra.` }
       ]
     }
   },
   admin: {
     EN: {
-      title: "Mastering the Vision.",
-      subtitle: "Administrative management, leads, and global project control.",
+      title: `Mastering the Vision.`,
+      subtitle: `Administrative management, leads, and global project control.`,
       features: [
         { icon: 'chart', label: 'Dashboard', desc: 'Overview of new estimates and active projects.' },
-        { icon: 'layers', label: 'Asset Library', desc: 'Management of 3D blocks, textures, and portfolio.' },
-        { icon: 'target', label: 'Lead Manager', desc: 'Control of contacts received through the site.' },
-        { icon: 'users', label: 'User Control', desc: 'Access management for clients and partners.' }
+        { icon: 'layers', label: `Asset Library`, desc: `Management of 3D blocks, textures, and portfolio.` },
+        { icon: 'target', label: `Lead Manager`, desc: 'Control of contacts received through the site.' },
+        { icon: 'users', label: `User Control`, desc: 'Access management for clients and partners.' }
       ]
     },
     PT: {
-      title: "Dominando a Visão.",
-      subtitle: "Gestão administrativa, leads e controle global de projetos.",
+      title: `Dominando a Visão.`,
+      subtitle: `Gestão administrativa, leads e controle global de projetos.`,
       features: [
-        { icon: 'chart', label: 'Painel Principal', desc: 'Visão geral de novos orçamentos e projetos ativos.' },
-        { icon: 'layers', label: 'Biblioteca de Ativos', desc: 'Gestão de blocos 3D, texturas e portfólio.' },
-        { icon: 'target', label: 'Gestor de Leads', desc: 'Controle dos contatos recebidos pelo site.' },
-        { icon: 'users', label: 'Controle de Usuários', desc: 'Gestão de acessos para clientes e parceiros.' }
+        { icon: 'chart', label: `Painel Principal`, desc: `Visão geral de novos orçamentos e projetos ativos.` },
+        { icon: 'layers', label: `Biblioteca de Ativos`, desc: `Gestão de blocos 3D, texturas e portfólio.` },
+        { icon: 'target', label: `Gestor de Leads`, desc: 'Controle dos contatos recebidos pelo site.' },
+        { icon: 'users', label: `Controle de Usuários`, desc: `Gestão de acessos para clientes e parceiros.` }
       ]
     }
   }
@@ -99,9 +98,9 @@ const Login = () => {
       signIn: 'Sign In',
       signInGoogle: 'Continue with Google',
       forgot: 'Forgot password?',
-      noAccount: "Don't have an account?",
+      noAccount: `Don't have an account?`,
       contact: 'Contact us',
-      error: 'Invalid login credentials',
+      error: `Invalid login credentials`,
     },
     PT: {
       formTitle: 'Acesso ao Portal',
@@ -110,9 +109,9 @@ const Login = () => {
       signIn: 'Entrar',
       signInGoogle: 'Continuar com Google',
       forgot: 'Esqueceu a senha?',
-      noAccount: 'Não tem uma conta?',
+      noAccount: `Não tem uma conta?`,
       contact: 'Entre em contato',
-      error: 'Credenciais inválidas',
+      error: `Credenciais inválidas`,
     }
   }[lang];
 
@@ -178,14 +177,14 @@ const Login = () => {
             width:52,height:52,
             background:'linear-gradient(135deg,#6366f1,#a78bfa)',
             borderRadius:14,display:'flex',alignItems:'center',justifyContent:'center',
-            fontFamily:'Instrument Serif,serif',fontSize:26,color:'#fff',
+            fontFamily:`Instrument Serif,serif`,fontSize:26,color:'#fff',
             animation:'glowPulse 3s infinite',
             boxShadow:'0 8px 32px rgba(99,102,241,0.4)',
             marginBottom: 24
           }}>D</div>
           
           <h1 style={{
-            fontFamily:'Instrument Serif,serif',fontSize:44,fontWeight:400,
+            fontFamily:`Instrument Serif,serif`,fontSize:44,fontWeight:400,
             color: '#fff',
             marginBottom:12,
             lineHeight: 1.1
@@ -222,8 +221,8 @@ const Login = () => {
           backdropFilter:'blur(20px)',
           boxShadow:'0 8px 40px rgba(99,102,241,0.15)'
         }}>
-          <h2 style={{fontFamily:'Instrument Serif,serif',fontSize:24,color:'#fff',marginBottom:4}}>{T.formTitle}</h2>
-          <p style={{color:'rgba(255,255,255,0.4)',fontSize:13,marginBottom:24}}>{lang === 'EN' ? 'Welcome back to the studio.' : 'Bem-vindo de volta ao estúdio.'}</p>
+          <h2 style={{fontFamily:`Instrument Serif,serif`,fontSize:24,color:'#fff',marginBottom:4}}>{T.formTitle}</h2>
+          <p style={{color:'rgba(255,255,255,0.4)',fontSize:13,marginBottom:24}}>{lang === 'EN' ? 'Welcome back to the studio.' : `Bem-vindo de volta ao estúdio.`}</p>
 
           <button onClick={handleGoogleLogin} style={{
             width:'100%',display:'flex',alignItems:'center',justifyContent:'center',

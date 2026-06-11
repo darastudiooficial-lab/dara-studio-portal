@@ -5,20 +5,20 @@ import { useAppContext } from '../context/AppContext';
 
 const FOOTER_CONTENT = {
   EN: {
-    address: "SC, Brazil · Remote Support Worldwide",
+    address: `SC, Brazil · Remote Support Worldwide`,
     drafting: "Architectural Production & CAD Drafting",
     copyright: "GLOBAL ARCHITECTURAL PRODUCTION & REMOTE TECHNICAL SUPPORT",
-    legal: "All technical documentation, drafting files, and design assets remain the exclusive intellectual property of DARA Studio and its global partners.",
+    legal: `All technical documentation, drafting files, and design assets remain the exclusive intellectual property of DARA Studio and its global partners.`,
     ipNotice: "INTELLECTUAL PROPERTY NOTICE →",
     confidentiality: "Projects are executed under strict data protection protocols and non-disclosure agreements (NDA) to guarantee absolute asset security.",
   },
   PT: {
-    address: "SC, Brasil · Suporte Remoto Mundial",
-    drafting: "Produção Arquitetônica e Desenho CAD",
-    copyright: "PRODUÇÃO ARQUITETÔNICA MUNDIAL E SUPORTE TÉCNICO REMOTO",
-    legal: "Toda a documentação técnica e ativos de design são propriedade exclusiva da DARA Studio e de seus parceiros globais.",
+    address: `SC, Brasil · Suporte Remoto Mundial`,
+    drafting: `Produção Arquitetônica e Desenho CAD`,
+    copyright: `PRODUÇÃO ARQUITETÔNICA MUNDIAL E SUPORTE TÉCNICO REMOTO`,
+    legal: `Toda a documentação técnica e ativos de design são propriedade exclusiva da DARA Studio e de seus parceiros globais.`,
     ipNotice: "AVISO DE PROPRIEDADE INTELECTUAL →",
-    confidentiality: "Nossos processos seguem protocolos rigorosos de segurança de dados e confidencialidade, garantindo total proteção ao patrimônio dos nossos clientes.",
+    confidentiality: `Nossos processos seguem protocolos rigorosos de segurança de dados e confidencialidade, garantindo total proteção ao patrimônio dos nossos clientes.`,
   }
 };
 

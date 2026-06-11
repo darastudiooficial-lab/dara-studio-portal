@@ -11,8 +11,8 @@ const Chat = ({ projectId, lang = 'EN' }) => {
   const scrollRef = useRef();
 
   const T = {
-    EN: { placeholder: 'Type your message...', send: 'Send' },
-    PT: { placeholder: 'Digite sua mensagem...', send: 'Enviar' }
+    EN: { placeholder: `Type your message...`, send: 'Send' },
+    PT: { placeholder: `Digite sua mensagem...`, send: 'Enviar' }
   }[lang];
 
   useEffect(() => {

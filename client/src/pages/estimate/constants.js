@@ -9,46 +9,46 @@ export const ROLES = [
   { id: "architect",  label: "Architect",        icon: "📐" },
   { id: "developer",  label: "Developer",        icon: "🏗️" },
   { id: "investor",   label: "Investor",         icon: "💼" },
-  { id: "agent",      label: "Real Estate Agent",icon: "🤝" },
+  { id: "agent",      label: `Real Estate Agent`,icon: "🤝" },
 ];
 
 export const STATUSES = [
-  { id: "vacant",      label: "Vacant Lot",          icon: "🌿" },
-  { id: "construction",label: "Under Construction",   icon: "🔧" },
+  { id: "vacant",      label: `Vacant Lot`,          icon: "🌿" },
+  { id: "construction",label: `Under Construction`,   icon: "🔧" },
   { id: "occupied",    label: "Occupied",             icon: "🏡" },
 ];
 
 export const ROOM_GROUPS = [
   {
-    label: "Core Rooms",
+    label: `Core Rooms`,
     items: [
       { id: "bedrooms",     label: "Bedrooms"    },
       { id: "bathrooms",    label: "Bathrooms"   },
-      { id: "halfBaths",    label: "Half Baths"  },
-      { id: "livingRooms",  label: "Living Rooms"},
-      { id: "familyRoom",   label: "Family Room" },
-      { id: "diningRoom",   label: "Dining Room" },
+      { id: "halfBaths",    label: `Half Baths`  },
+      { id: "livingRooms",  label: `Living Rooms`},
+      { id: "familyRoom",   label: `Family Room` },
+      { id: "diningRoom",   label: `Dining Room` },
     ],
   },
   {
-    label: "Kitchen & Utility",
+    label: `Kitchen & Utility`,
     items: [
       { id: "kitchen",      label: "Kitchen"         },
       { id: "pantry",       label: "Pantry"          },
-      { id: "closet",       label: "Walk-in Closet"  },
+      { id: "closet",       label: `Walk-in Closet`  },
       { id: "laundry",      label: "Laundry"         },
-      { id: "garageBays",   label: "Garage Bays"     },
+      { id: "garageBays",   label: `Garage Bays`     },
     ],
   },
   {
-    label: "Outdoor & Special",
+    label: `Outdoor & Special`,
     items: [
-      { id: "deck",         label: "Covered Deck"    },
-      { id: "porch",        label: "Screened Porch"  },
-      { id: "office",       label: "Home Office"     },
+      { id: "deck",         label: `Covered Deck`    },
+      { id: "porch",        label: `Screened Porch`  },
+      { id: "office",       label: `Home Office`     },
       { id: "gym",          label: "Gym"             },
       { id: "fireplace",    label: "Fireplace"       },
-      { id: "wineCellar",   label: "Wine Cellar"     },
+      { id: "wineCellar",   label: `Wine Cellar`     },
       { id: "elevator",     label: "Elevator"        },
     ],
   },
@@ -62,25 +62,25 @@ export const ROOM_DEFAULTS = {
 };
 
 export const SCOPE_TYPES = [
-  { id: "newConstruction", label: "New Construction",    icon: "🏗️", desc: "Full set of drawings for a new build" },
-  { id: "remodel",         label: "Remodel / Renovation",icon: "🔨", desc: "Alterations to an existing structure" },
-  { id: "addition",        label: "Addition / Extension", icon: "📐", desc: "Adding square footage to existing home" },
-  { id: "adu",             label: "ADU / Guest House",    icon: "🏠", desc: "Accessory dwelling unit or detached suite" },
-  { id: "asBuilt",         label: "As-Built Drawings",    icon: "📋", desc: "Documenting an existing structure" },
-  { id: "landscape",       label: "Landscape Design",     icon: "🌿", desc: "Outdoor spaces, hardscape & planting" },
+  { id: "newConstruction", label: `New Construction`,    icon: "🏗️", desc: "Full set of drawings for a new build" },
+  { id: "remodel",         label: `Remodel / Renovation`,icon: "🔨", desc: "Alterations to an existing structure" },
+  { id: "addition",        label: `Addition / Extension`, icon: "📐", desc: "Adding square footage to existing home" },
+  { id: "adu",             label: `ADU / Guest House`,    icon: "🏠", desc: "Accessory dwelling unit or detached suite" },
+  { id: "asBuilt",         label: `As-Built Drawings`,    icon: "📋", desc: "Documenting an existing structure" },
+  { id: "landscape",       label: `Landscape Design`,     icon: "🌿", desc: `Outdoor spaces, hardscape & planting` },
 ];
 
 export const SERVICES = [
-  { id: "floorPlan",     label: "Floor Plans",           icon: "📐", desc: "2D layout of all levels",                included: true  },
+  { id: "floorPlan",     label: `Floor Plans`,           icon: "📐", desc: "2D layout of all levels",                included: true  },
   { id: "elevations",    label: "Elevations",            icon: "🏛️", desc: "All 4 exterior views",                   included: true  },
-  { id: "sections",      label: "Cross Sections",        icon: "✂️",  desc: "Building cut-through details",           included: true  },
-  { id: "sitePlan",      label: "Site Plan",             icon: "🗺️", desc: "Property layout with setbacks",          included: true  },
-  { id: "ext3d",         label: "3D Exterior Rendering", icon: "🏠", desc: "Photorealistic exterior visualization",  included: false },
-  { id: "int3d",         label: "3D Interior Rendering", icon: "🛋️", desc: "Photorealistic interior visualization",  included: false },
-  { id: "walkthrough",   label: "3D Walkthrough Video",  icon: "🎬", desc: "Animated video tour of the design",      included: false },
-  { id: "permit",        label: "Permit-Ready Set",      icon: "📄", desc: "Complete drawings for permit submission", included: false },
-  { id: "mep",           label: "MEP Coordination",      icon: "⚡", desc: "Mechanical, electrical, plumbing notes",  included: false },
-  { id: "structural",    label: "Structural Notes",      icon: "🔩", desc: "Foundation & framing references",        included: false },
+  { id: "sections",      label: `Cross Sections`,        icon: "✂️",  desc: "Building cut-through details",           included: true  },
+  { id: "sitePlan",      label: `Site Plan`,             icon: "🗺️", desc: "Property layout with setbacks",          included: true  },
+  { id: "ext3d",         label: `3D Exterior Rendering`, icon: "🏠", desc: "Photorealistic exterior visualization",  included: false },
+  { id: "int3d",         label: `3D Interior Rendering`, icon: "🛋️", desc: "Photorealistic interior visualization",  included: false },
+  { id: "walkthrough",   label: `3D Walkthrough Video`,  icon: "🎬", desc: "Animated video tour of the design",      included: false },
+  { id: "permit",        label: `Permit-Ready Set`,      icon: "📄", desc: "Complete drawings for permit submission", included: false },
+  { id: "mep",           label: `MEP Coordination`,      icon: "⚡", desc: `Mechanical, electrical, plumbing notes`,  included: false },
+  { id: "structural",    label: `Structural Notes`,      icon: "🔩", desc: "Foundation & framing references",        included: false },
 ];
 
 export function calcEstimate(data) {
@@ -129,14 +129,14 @@ export function calcEstimate(data) {
   if (baseArea > 0) {
     breakdown.push({ label: `Base Area (${Math.round(baseArea)} ${isUS?"sqft":"m²"})`, val: fmt(baseArea * baseRate) });
   }
-  if (data.levels?.second)   breakdown.push({ label: "2nd Floor",  val: `+${fmt(baseArea*4.5)}` });
+  if (data.levels?.second)   breakdown.push({ label: `2nd Floor`,  val: `+${fmt(baseArea*4.5)}` });
   if (data.levels?.basement) breakdown.push({ label: "Basement",   val: `+${fmt(baseArea*0.80)}` });
   if (data.levels?.attic)    breakdown.push({ label: "Attic",      val: `+${fmt(baseArea*0.60)}` });
-  if (data.scopeType === "asBuilt")   breakdown.push({ label: "As-Built (−40%)", val: "×0.60" });
-  if (data.scopeType === "landscape") breakdown.push({ label: "Landscape (−50%)", val: "×0.50" });
-  if (data.scopeType === "adu")       breakdown.push({ label: "ADU (−20%)", val: "×0.80" });
+  if (data.scopeType === "asBuilt")   breakdown.push({ label: `As-Built (−40%)`, val: "×0.60" });
+  if (data.scopeType === "landscape") breakdown.push({ label: `Landscape (−50%)`, val: "×0.50" });
+  if (data.scopeType === "adu")       breakdown.push({ label: `ADU (−20%)`, val: "×0.80" });
   if (addonCount > 0) breakdown.push({ label: `Add-on Services (${addonCount})`, val: `+${fmt(baseArea * addonRate * addonCount * 0.15)}` });
-  if (data.rush==="express") breakdown.push({ label: "Rush Express (60%)", val: "×1.60" });
+  if (data.rush==="express") breakdown.push({ label: `Rush Express (60%)`, val: "×1.60" });
 
   return { lo: fmt(lo), hi: fmt(hi), confidence, breakdown };
 }

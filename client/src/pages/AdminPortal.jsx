@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { useAuth } from '../context/AuthContext';
 import { useAppContext } from '../context/AppContext';
 import GlobalControls from '../components/GlobalControls';
 import Icon from '../components/Icon';
@@ -40,13 +39,9 @@ ChartJS.register(
 const AdminPortal = () => {
   const { theme, lang } = useAppContext();
   const [ready, setReady] = useState(false);
-  const [splashDone, setSplashDone] = useState(false);
-  const { logout } = useAuth();
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [inviteEmail, setInviteEmail] = useState('');
-  const [isInviting, setIsInviting] = useState(false);
   const [projects, setProjects] = useState([]);
   const [leads, setLeads] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -97,7 +92,7 @@ const AdminPortal = () => {
 
       // Generate signed URLs
       const filesWithUrls = await Promise.all(files.map(async (file) => {
-        const { data, error: urlError } = await supabase.storage
+        const { data } = await supabase.storage
           .from('project-files')
           .createSignedUrl(file.url, 3600);
         return { ...file, signedUrl: data?.signedUrl };
@@ -116,14 +111,12 @@ const AdminPortal = () => {
   };
 
   const fetchUsers = async () => {
-    setLoading(true);
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .order('created_at', { ascending: false });
 
     if (!error) setUsers(data);
-    setLoading(false);
   };
 
   const updateRole = async (userId, newRole) => {
@@ -141,18 +134,16 @@ const AdminPortal = () => {
     e.preventDefault();
     if (!inviteEmail) return;
     
-    setIsInviting(true);
     setTimeout(() => {
       alert(lang === 'EN' ? `Invitation sent to ${inviteEmail} (Simulated)` : `Convite enviado para ${inviteEmail} (Simulado)`);
       setInviteEmail('');
-      setIsInviting(false);
     }, 1000);
   };
 
   const T = {
     EN: {
-      title: "Mastering the Vision.",
-      subtitle: "Administrative management, leads, and global project control.",
+      title: `Mastering the Vision.`,
+      subtitle: `Administrative management, leads, and global project control.`,
       dashboard: "Dashboard",
       leads: "Lead Manager",
       projects: "Project Control",
@@ -163,13 +154,13 @@ const AdminPortal = () => {
       signOut: "Sign Out"
     },
     PT: {
-      title: "Dominando a Visão.",
-      subtitle: "Gestão administrativa, leads e controle global de projetos.",
+      title: `Dominando a Visão.`,
+      subtitle: `Gestão administrativa, leads e controle global de projetos.`,
       dashboard: "Painel",
       leads: "Gestor de Leads",
       projects: "Controle de Projetos",
       assets: "Biblioteca de Ativos",
-      users: "Controle de Usuários",
+      users: `Controle de Usuários`,
       builders: "Builders Hub",
       chat: "Chat do Sistema",
       signOut: "Sair"
@@ -322,8 +313,8 @@ const AdminPortal = () => {
                   <thead style={{ background: 'rgba(255,255,255,0.03)', fontSize: '10px', textTransform: 'uppercase' }}>
                     <tr>
                       <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Name' : 'Nome'}</th>
-                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Role' : 'Função'}</th>
-                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Actions' : 'Ações'}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Role' : `Função`}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Actions' : `Ações`}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -353,7 +344,7 @@ const AdminPortal = () => {
                     <tr>
                       <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Project' : 'Projeto'}</th>
                       <th style={{ padding: '16px 20px' }}>Status</th>
-                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Actions' : 'Ações'}</th>
+                      <th style={{ padding: '16px 20px' }}>{lang === 'EN' ? 'Actions' : `Ações`}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -407,7 +398,7 @@ const AdminPortal = () => {
             <div className="admin-section">
               <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '32px' }}>Asset Library</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
-                {['3D Blocks', 'Textures', 'Portfólio', 'Templates', 'Legal Docs'].map(cat => (
+                {['3D Blocks', 'Textures', `Portfólio`, 'Templates', 'Legal Docs'].map(cat => (
                   <div key={cat} className="card vault-card anim" style={{ padding: '24px', textAlign: 'center' }}>
                     <div style={{ width: 48, height: 48, background: 'rgba(167,139,250,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a78bfa', margin: '0 auto 16px' }}>
                       <Icon name="folder" size={24} />

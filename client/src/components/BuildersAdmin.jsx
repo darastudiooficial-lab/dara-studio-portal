@@ -32,16 +32,16 @@ const S = {
 
 // ─── Tool Sub-Tabs ──────────────────────────────────────────────────────────────
 const TOOLS = [
-  { id: 'interior', label: '🪵 Interior Reference', collection: 'interiorItems' },
-  { id: 'inspector', label: '📐 Code Inspector', collection: 'inspectorNotes' },
-  { id: 'fieldguide', label: '📋 Field Guide', collection: 'fieldguideCad' },
+  { id: 'interior', label: `🪵 Interior Reference`, collection: 'interiorItems' },
+  { id: 'inspector', label: `📐 Code Inspector`, collection: 'inspectorNotes' },
+  { id: 'fieldguide', label: `📋 Field Guide`, collection: 'fieldguideCad' },
 ];
 
 const FIELDGUIDE_SECTIONS = [
-  { id: 'fieldguideQuick', label: 'Quick Numbers' },
-  { id: 'fieldguideRules', label: 'Critical Rules' },
+  { id: 'fieldguideQuick', label: `Quick Numbers` },
+  { id: 'fieldguideRules', label: `Critical Rules` },
   { id: 'fieldguideChecklist', label: 'Checklist' },
-  { id: 'fieldguideCad', label: 'CAD Notes' },
+  { id: 'fieldguideCad', label: `CAD Notes` },
 ];
 
 // ─── Main Component ─────────────────────────────────────────────────────────────
@@ -131,7 +131,7 @@ export default function BuildersAdmin() {
       {items.length === 0 ? (
         <div style={S.emptyState}>
           {lang === 'EN' ? 'No entries yet. Click "Add Entry" to start building your reference library.' :
-            'Nenhuma entrada. Clique em "Adicionar" para começar a construir sua biblioteca.'}
+            `Nenhuma entrada. Clique em "Adicionar" para começar a construir sua biblioteca.`}
         </div>
       ) : (
         <div style={{ overflowX: 'auto', border: '1px solid var(--border)', borderRadius: 12 }}>
@@ -139,11 +139,11 @@ export default function BuildersAdmin() {
             <thead>
               <tr>
                 <th style={S.th}>#</th>
-                <th style={S.th}>{lang === 'EN' ? 'Title' : 'Título'}</th>
+                <th style={S.th}>{lang === 'EN' ? 'Title' : `Título`}</th>
                 {activeTool === 'interior' && <th style={S.th}>Category</th>}
                 {activeTool === 'inspector' && <><th style={S.th}>Project</th><th style={S.th}>System</th></>}
                 {activeTool === 'fieldguide' && <th style={S.th}>Type</th>}
-                <th style={S.th}>{lang === 'EN' ? 'Actions' : 'Ações'}</th>
+                <th style={S.th}>{lang === 'EN' ? 'Actions' : `Ações`}</th>
               </tr>
             </thead>
             <tbody>
@@ -188,7 +188,7 @@ export default function BuildersAdmin() {
           <div style={{ ...S.modalBody, maxWidth: 400, textAlign: 'center' }} onClick={e => e.stopPropagation()}>
             <h3 style={{ fontSize: 18, fontWeight: 700 }}>⚠️ {lang === 'EN' ? 'Delete this entry?' : 'Apagar esta entrada?'}</h3>
             <p style={{ opacity: 0.6, fontSize: 13 }}>
-              {lang === 'EN' ? 'This action cannot be undone.' : 'Esta ação não pode ser desfeita.'}
+              {lang === 'EN' ? 'This action cannot be undone.' : `Esta ação não pode ser desfeita.`}
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
               <button style={S.btn()} onClick={() => setConfirmDelete(null)}>Cancel</button>
@@ -270,11 +270,11 @@ function EditModal({ item, tool, section, onSave, onCancel, lang }) {
             </div>
             <div>
               <label style={S.label}>Specs JSON (EN) — Array of {'{name, val, desc}'}</label>
-              <textarea style={{ ...S.textarea, minHeight: 100 }} value={JSON.stringify(form.specs || [], null, 2)} onChange={e => { try { set('specs', JSON.parse(e.target.value)); } catch {} }} />
+              <textarea style={{ ...S.textarea, minHeight: 100 }} value={JSON.stringify(form.specs || [], null, 2)} onChange={e => { try { set('specs', JSON.parse(e.target.value)); } catch (err) { console.warn(err); } }} />
             </div>
             <div>
               <label style={S.label}>Specs JSON (PT) — Array of {'{name, val, desc}'}</label>
-              <textarea style={{ ...S.textarea, minHeight: 100 }} value={JSON.stringify(form.specsPt || [], null, 2)} onChange={e => { try { set('specsPt', JSON.parse(e.target.value)); } catch {} }} />
+              <textarea style={{ ...S.textarea, minHeight: 100 }} value={JSON.stringify(form.specsPt || [], null, 2)} onChange={e => { try { set('specsPt', JSON.parse(e.target.value)); } catch (err) { console.warn(err); } }} />
             </div>
           </>
         )}

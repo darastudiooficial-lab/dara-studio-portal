@@ -6,7 +6,7 @@ export default function BackButton() {
   const navigate = useNavigate();
   const { lang } = useAppContext();
   
-  const text = lang === "EN" ? "Back to Home" : "Voltar ao Início";
+  const text = lang === "EN" ? "Back to Home" : `Voltar ao Início`;
 
   return (
     <button 

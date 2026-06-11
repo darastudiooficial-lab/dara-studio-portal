@@ -5,35 +5,35 @@ import { Layers, Ruler, FileCheck2 } from 'lucide-react';
 const SERVICES_DATA = {
   EN: [
     {
-      title: "Permit Sets",
+      title: `Permit Sets`,
       desc: "Complete architectural packages ready for city approval. We ensure 100% compliance with local building codes.",
       icon: <FileCheck2 size={24} className="text-purple-400" />
     },
     {
-      title: "3D Modeling & Rendering",
+      title: `3D Modeling & Rendering`,
       desc: "Photorealistic visualizations to help you and your clients see the final result before breaking ground.",
       icon: <Layers size={24} className="text-pink-400" />
     },
     {
-      title: "Structural Detailing",
-      desc: "High-precision structural drawings engineered for safe, efficient, and reliable construction.",
+      title: `Structural Detailing`,
+      desc: `High-precision structural drawings engineered for safe, efficient, and reliable construction.`,
       icon: <Ruler size={24} className="text-purple-500" />
     }
   ],
   PT: [
     {
-      title: "Plantas de Permissão (Permit Sets)",
-      desc: "Pacotes arquitetônicos completos prontos para aprovação. Garantimos 100% de conformidade com os códigos de obra.",
+      title: `Plantas de Permissão (Permit Sets)`,
+      desc: `Pacotes arquitetônicos completos prontos para aprovação. Garantimos 100% de conformidade com os códigos de obra.`,
       icon: <FileCheck2 size={24} className="text-purple-400" />
     },
     {
-      title: "Modelagem 3D e Renderização",
-      desc: "Visualizações fotorrealistas para ajudar você e seus clientes a verem o resultado final antes da obra.",
+      title: `Modelagem 3D e Renderização`,
+      desc: `Visualizações fotorrealistas para ajudar você e seus clientes a verem o resultado final antes da obra.`,
       icon: <Layers size={24} className="text-pink-400" />
     },
     {
-      title: "Detalhamento Estrutural",
-      desc: "Desenhos estruturais de alta precisão projetados para uma construção segura, eficiente e confiável.",
+      title: `Detalhamento Estrutural`,
+      desc: `Desenhos estruturais de alta precisão projetados para uma construção segura, eficiente e confiável.`,
       icon: <Ruler size={24} className="text-purple-500" />
     }
   ]
@@ -47,12 +47,12 @@ export default function ServicesSection() {
     <section className="py-20 px-6 max-w-7xl mx-auto w-full">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white mb-4">
-          {lang === 'EN' ? 'Technical Precision' : 'Precisão Técnica'}
+          {lang === 'EN' ? 'Technical Precision' : `Precisão Técnica`}
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto">
           {lang === 'EN' 
             ? 'We deliver industry-standard drawings tailored for US contractors.' 
-            : 'Entregamos desenhos no padrão da indústria focados para construtores nos EUA.'}
+            : `Entregamos desenhos no padrão da indústria focados para construtores nos EUA.`}
         </p>
       </div>
       

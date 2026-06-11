@@ -24,38 +24,38 @@ const uid = () => `bh_${_idCounter++}`;
 // ─── Default / Seed Data ────────────────────────────────────────────────────────
 // Interior Reference defaults
 const DEFAULT_INTERIOR_CATEGORIES = [
-  { id: 'cabinetry', label: 'Cabinetry & Joinery', labelPt: 'Marcenaria & Gabinetes', icon: '🪵', sort: 0 },
-  { id: 'moldings', label: 'Moldings & Trim', labelPt: 'Molduras & Acabamentos', icon: '📐', sort: 1 },
-  { id: 'countertops', label: 'Surfaces & Countertops', labelPt: 'Bancadas & Revestimentos', icon: '💎', sort: 2 },
-  { id: 'doors', label: 'Doors & Entryways', labelPt: 'Portas & Vãos', icon: '🚪', sort: 3 },
-  { id: 'lighting', label: 'Lighting & Clearance', labelPt: 'Iluminação & Alturas', icon: '💡', sort: 4 },
+  { id: 'cabinetry', label: `Cabinetry & Joinery`, labelPt: 'Marcenaria & Gabinetes', icon: '🪵', sort: 0 },
+  { id: 'moldings', label: `Moldings & Trim`, labelPt: 'Molduras & Acabamentos', icon: '📐', sort: 1 },
+  { id: 'countertops', label: `Surfaces & Countertops`, labelPt: 'Bancadas & Revestimentos', icon: '💎', sort: 2 },
+  { id: 'doors', label: `Doors & Entryways`, labelPt: `Portas & Vãos`, icon: '🚪', sort: 3 },
+  { id: 'lighting', label: `Lighting & Clearance`, labelPt: `Iluminação & Alturas`, icon: '💡', sort: 4 },
 ];
 
 // Code Inspector static filters (not user-editable, but exported for reference)
 export const INSPECTOR_PROJECTS = [
-  { id: "new_con", label: "New Construction", icon: "🏠" },
-  { id: "addition", label: "Addition / Expansion", icon: "➕" },
-  { id: "remodel", label: "Interior Remodel", icon: "🔨" },
-  { id: "interiors", label: "Interior Design", icon: "🎨" },
-  { id: "deck_roof", label: "Deck (With Roof)", icon: "🏗" },
-  { id: "deck_open", label: "Deck (Open)", icon: "🪵" },
-  { id: "porch_enc", label: "Porch (Enclosed)", icon: "🏛" },
-  { id: "porch_open", label: "Porch (Open)", icon: "🌿" },
-  { id: "adu", label: "ADU / In-Law Suite", icon: "🏘" },
-  { id: "basement", label: "Finished Basement", icon: "🔲" },
-  { id: "dormer", label: "Dormer / Attic", icon: "🏚" },
-  { id: "garage", label: "Garage (Det/Att)", icon: "🚗" },
+  { id: "new_con", label: `New Construction`, icon: "🏠" },
+  { id: "addition", label: `Addition / Expansion`, icon: "➕" },
+  { id: "remodel", label: `Interior Remodel`, icon: "🔨" },
+  { id: "interiors", label: `Interior Design`, icon: "🎨" },
+  { id: "deck_roof", label: `Deck (With Roof)`, icon: "🏗" },
+  { id: "deck_open", label: `Deck (Open)`, icon: "🪵" },
+  { id: "porch_enc", label: `Porch (Enclosed)`, icon: "🏛" },
+  { id: "porch_open", label: `Porch (Open)`, icon: "🌿" },
+  { id: "adu", label: `ADU / In-Law Suite`, icon: "🏘" },
+  { id: "basement", label: `Finished Basement`, icon: "🔲" },
+  { id: "dormer", label: `Dormer / Attic`, icon: "🏚" },
+  { id: "garage", label: `Garage (Det/Att)`, icon: "🚗" },
 ];
 
 export const INSPECTOR_SYSTEMS = [
-  { id: "roof_types", label: "Roof Types & Styles" },
-  { id: "roof_conn", label: "Roof Connections" },
-  { id: "foundation", label: "Foundation / Footings" },
-  { id: "framing", label: "Framing & Structure" },
-  { id: "thermal", label: "Thermal / Insulation" },
-  { id: "envelope", label: "Wall Assembly" },
-  { id: "mep", label: "MEP Systems" },
-  { id: "fire", label: "Life Safety / Fire" },
+  { id: "roof_types", label: `Roof Types & Styles` },
+  { id: "roof_conn", label: `Roof Connections` },
+  { id: "foundation", label: `Foundation / Footings` },
+  { id: "framing", label: `Framing & Structure` },
+  { id: "thermal", label: `Thermal / Insulation` },
+  { id: "envelope", label: `Wall Assembly` },
+  { id: "mep", label: `MEP Systems` },
+  { id: "fire", label: `Life Safety / Fire` },
 ];
 
 // ─── Context ────────────────────────────────────────────────────────────────────

@@ -1,0 +1,126 @@
+[
+  {
+    "file": "components\\BackButton.jsx",
+    "count": 1
+  },
+  {
+    "file": "components\\BuildersAdmin.jsx",
+    "count": 10
+  },
+  {
+    "file": "components\\Chat.jsx",
+    "count": 2
+  },
+  {
+    "file": "components\\DaraLogo.jsx",
+    "count": 1
+  },
+  {
+    "file": "components\\EstimateModal.jsx",
+    "count": 12
+  },
+  {
+    "file": "components\\Footer.jsx",
+    "count": 7
+  },
+  {
+    "file": "components\\InteriorMeasurements.jsx",
+    "count": 110
+  },
+  {
+    "file": "components\\IPNoticeModal.jsx",
+    "count": 21
+  },
+  {
+    "file": "components\\Navbar.jsx",
+    "count": 9
+  },
+  {
+    "file": "components\\ServicesSection.jsx",
+    "count": 12
+  },
+  {
+    "file": "components\\VeraAssistant.jsx",
+    "count": 10
+  },
+  {
+    "file": "context\\BuildersContext.jsx",
+    "count": 27
+  },
+  {
+    "file": "pages\\AdminPortal.jsx",
+    "count": 9
+  },
+  {
+    "file": "pages\\ClientPortal.jsx",
+    "count": 73
+  },
+  {
+    "file": "pages\\CodeInspector.jsx",
+    "count": 145
+  },
+  {
+    "file": "pages\\CollaboratorPortal.jsx",
+    "count": 4
+  },
+  {
+    "file": "pages\\estimate\\constants.js",
+    "count": 38
+  },
+  {
+    "file": "pages\\estimate\\StepsA.jsx",
+    "count": 10
+  },
+  {
+    "file": "pages\\estimate\\StepsB.jsx",
+    "count": 11
+  },
+  {
+    "file": "pages\\EstimateWizard.jsx",
+    "count": 494
+  },
+  {
+    "file": "pages\\FieldGuide.jsx",
+    "count": 211
+  },
+  {
+    "file": "pages\\HowWeWork.jsx",
+    "count": 238
+  },
+  {
+    "file": "pages\\InteriorReference.jsx",
+    "count": 114
+  },
+  {
+    "file": "pages\\IPNotice.jsx",
+    "count": 30
+  },
+  {
+    "file": "pages\\LandingPage.jsx",
+    "count": 20
+  },
+  {
+    "file": "pages\\Login.jsx",
+    "count": 54
+  },
+  {
+    "file": "pages\\LoginPage.jsx",
+    "count": 7
+  },
+  {
+    "file": "pages\\Portfolio.jsx",
+    "count": 7
+  },
+  {
+    "file": "pages\\Process.jsx",
+    "count": 62
+  },
+  {
+    "file": "pages\\Services.jsx",
+    "count": 162
+  },
+  {
+    "file": "pages\\Team.jsx",
+    "count": 14
+  }
+]

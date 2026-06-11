@@ -2,43 +2,43 @@ import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 export default function EstimateModal({ isOpen, onClose }) {
-  const { lang, theme } = useAppContext();
+  const { lang } = useAppContext();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     projectType: '',
-    description: ''
+    description: ``
   });
 
   if (!isOpen) return null;
 
   const T = {
     EN: {
-      title: 'Get an Estimate',
+      title: `Get an Estimate`,
       subtitle: 'Start your architectural journey with DARA Studio.',
       name: 'Full Name',
       email: 'Professional Email',
       projectType: 'Project Type',
-      description: 'Project Description',
+      description: `Project Description`,
       submit: 'Send Request',
       types: ['New Construction', 'Addition/Renovation', '3D Visualization', 'Technical Drafting']
     },
     PT: {
-      title: 'Peça um Orçamento',
-      subtitle: 'Comece sua jornada arquitetônica com o DARA Studio.',
+      title: `Peça um Orçamento`,
+      subtitle: `Comece sua jornada arquitetônica com o DARA Studio.`,
       name: 'Nome Completo',
       email: 'E-mail Profissional',
       projectType: 'Tipo de Projeto',
-      description: 'Descrição do Projeto',
-      submit: 'Enviar Solicitação',
-      types: ['Nova Construção', 'Ampliação/Reforma', 'Visualização 3D', 'Desenho Técnico']
+      description: `Descrição do Projeto`,
+      submit: `Enviar Solicitação`,
+      types: [`Nova Construção`, `Ampliação/Reforma`, `Visualização 3D`, `Desenho Técnico`]
     }
   }[lang];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Submitted:', formData);
-    alert(lang === 'EN' ? 'Request sent! We will contact you soon.' : 'Solicitação enviada! Entraremos em contato em breve.');
+    alert(lang === 'EN' ? 'Request sent! We will contact you soon.' : `Solicitação enviada! Entraremos em contato em breve.`);
     onClose();
   };
 

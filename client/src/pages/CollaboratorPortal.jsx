@@ -13,7 +13,7 @@ const CollaboratorPortal = () => {
   const { theme } = useAppContext();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [ready, setReady] = useState(false);
-  const { logout, profile, user } = useAuth();
+  const { profile, user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +57,7 @@ const CollaboratorPortal = () => {
     survey: '🔍 Vistoria',
     floor_plans: '📐 Plantas',
     design_review: '🎨 Design',
-    permit_drawings: '📋 Aprovação',
+    permit_drawings: `📋 Aprovação`,
     final_delivery: '📦 Entrega'
   };
 
@@ -111,7 +111,7 @@ const CollaboratorPortal = () => {
             {profile?.full_name?.split(' ')[0]}, Excellence in every detail.
           </h1>
           <p className="page-sub">
-            {profile?.role === 'admin' ? 'Studio Management & Control' : 'Acesso técnico para parceiros e execução de obras DARA Studio.'}
+            {profile?.role === 'admin' ? 'Studio Management & Control' : `Acesso técnico para parceiros e execução de obras DARA Studio.`}
           </p>
 
           {activeTab === 'dashboard' && (
@@ -246,8 +246,8 @@ const CollaboratorPortal = () => {
               <div className="card" style={{ padding: '24px' }}>
                 <button className="btn-p" style={{ marginBottom: '24px' }}>+ New Entry</button>
                 {[
-                  { date: '21/03/2026', title: 'Site Inspection - Foundation', by: 'Carlos Maia' },
-                  { date: '18/03/2026', title: 'Initial Measurement Session', by: 'Ana Ferreira' }
+                  { date: '21/03/2026', title: `Site Inspection - Foundation`, by: 'Carlos Maia' },
+                  { date: '18/03/2026', title: `Initial Measurement Session`, by: 'Ana Ferreira' }
                 ].map(log => (
                   <div key={log.date} style={{ display: 'flex', gap: '16px', padding: '16px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                     <div style={{ fontSize: '11px', opacity: 0.5, width: '80px' }}>{log.date}</div>

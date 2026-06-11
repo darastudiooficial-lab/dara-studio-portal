@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useAppContext } from "../context/AppContext";
 import Chat from "../components/Chat";
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import GlobalControls from '../components/GlobalControls';
@@ -44,51 +44,40 @@ ChartJS.register(
 
 /* ══ DATA CONSTANTS ══ */
 const TIMELINE_PHASES = [
-  { id: 'survey', label_en: 'As-Built Survey', label_pt: 'Levantamento As-Built', note_en: 'Field measurements finalized.', note_pt: 'Medições de campo finalizadas.' },
-  { id: 'floor_plans', label_en: 'Floor Plans', label_pt: 'Plantas de Layout', note_en: 'Architectural layouts verified.', note_pt: 'Layouts arquitetônicos verificados.' },
-  { id: 'design_review', label_en: 'Design Review', label_pt: 'Revisão de Design', note_en: 'Reviewing 3D perspectives.', note_pt: 'Revisando perspectivas 3D.' },
-  { id: 'permit_drawings', label_en: 'Permit Drawings', label_pt: 'Permit Drawings', note_en: 'Engineering coordination.', note_pt: 'Coordenação de engenharia.' },
+  { id: 'survey', label_en: 'As-Built Survey', label_pt: 'Levantamento As-Built', note_en: 'Field measurements finalized.', note_pt: `Medições de campo finalizadas.` },
+  { id: 'floor_plans', label_en: 'Floor Plans', label_pt: 'Plantas de Layout', note_en: 'Architectural layouts verified.', note_pt: `Layouts arquitetônicos verificados.` },
+  { id: 'design_review', label_en: 'Design Review', label_pt: `Revisão de Design`, note_en: 'Reviewing 3D perspectives.', note_pt: 'Revisando perspectivas 3D.' },
+  { id: 'permit_drawings', label_en: 'Permit Drawings', label_pt: 'Permit Drawings', note_en: 'Engineering coordination.', note_pt: `Coordenação de engenharia.` },
   { id: 'final_delivery', label_en: 'Final Delivery', label_pt: 'Entrega Final', note_en: 'Final documentation set.', note_pt: 'Conjunto final de documentos.' },
 ];
 
 const PHASE_ORDER = ['survey', 'floor_plans', 'design_review', 'permit_drawings', 'final_delivery'];
 
-const ALL_PROJECTS = [
-  { id: 1, code: 'DARA-0010', address: '41 Bowdoin Ave', city: 'Dorchester, MA', service: 'New Construction — Single Family', stage: 'Detalhamento', status: 'waiting', budget: 2718, paid: 0, progress: 6, updatedAt: '18/03/2026', pending: 'Aguardando informações do cliente', client: 'Jackson Da Silva', freelancer: 'Carlos Maia', due: '15/04/2026' },
-  { id: 2, code: 'DARA-0008', address: '88 Dover St', city: 'Boston, MA', service: 'Commercial Office Renovation', stage: 'Estudo Preliminar', status: 'on_track', budget: 4200, paid: 2100, progress: 50, updatedAt: '14/03/2026', pending: null, client: 'Jackson Da Silva', freelancer: 'Ana Ferreira', due: '30/06/2026' },
-  { id: 3, code: 'DARA-0005', address: '215 Hampton Rd', city: 'Brookline, MA', service: 'Interior Design — Living Room', stage: 'Entrega Final', status: 'completed', budget: 1800, paid: 1800, progress: 100, updatedAt: '28/02/2026', pending: null, client: 'Maria Silva', freelancer: 'Carlos Maia', due: '28/02/2026' },
-  { id: 4, code: 'DARA-0012', address: '99 Commonwealth Ave', city: 'Boston, MA', service: 'Landscape Design', stage: 'Conceituação', status: 'attention', budget: 3200, paid: 800, progress: 25, updatedAt: '10/03/2026', pending: 'Aguardando aprovação de orçamento', client: 'Robert Chen', freelancer: 'Ana Ferreira', due: '20/05/2026' },
-];
+
 
 const NOTIFICATIONS_DATA = [
-  { id: 1, title: 'REV00 visualizada pelo cliente', sub: 'Jackson baixou DARA-0010_REV00.zip', date: '18/03/2026 14:32', type: 'view', unread: true },
-  { id: 2, title: 'Fatura INV-2026-002 vence em 10 dias', sub: 'Valor $1.400 — projeto 88 Dover St', date: '17/03/2026 09:00', type: 'invoice', unread: true },
-  { id: 3, title: 'Novo ticket aberto por Maria Silva', sub: 'TKT-001 — Revisão de planta Hampton Rd', date: '16/03/2026 17:02', type: 'ticket', unread: false },
-  { id: 4, title: 'Upload de comprovante pendente', sub: 'Jackson enviou comprovante fase 1', date: '14/03/2026 18:42', type: 'upload', unread: false },
-  { id: 5, title: 'Novo lead cadastrado', sub: 'Amara Diallo — Diallo Properties', date: '21/03/2026 10:00', type: 'lead', unread: true },
-  { id: 6, title: 'Projeto 99 Commonwealth em Atenção', sub: 'Status alterado pelo Admin', date: '13/03/2026 12:30', type: 'alert', unread: false },
+  { id: 1, title: `REV00 visualizada pelo cliente`, sub: 'Jackson baixou DARA-0010_REV00.zip', date: '18/03/2026 14:32', type: 'view', unread: true },
+  { id: 2, title: `Fatura INV-2026-002 vence em 10 dias`, sub: 'Valor $1.400 — projeto 88 Dover St', date: '17/03/2026 09:00', type: 'invoice', unread: true },
+  { id: 3, title: `Novo ticket aberto por Maria Silva`, sub: `TKT-001 — Revisão de planta Hampton Rd`, date: '16/03/2026 17:02', type: 'ticket', unread: false },
+  { id: 4, title: `Upload de comprovante pendente`, sub: 'Jackson enviou comprovante fase 1', date: '14/03/2026 18:42', type: 'upload', unread: false },
+  { id: 5, title: `Novo lead cadastrado`, sub: 'Amara Diallo — Diallo Properties', date: '21/03/2026 10:00', type: 'lead', unread: true },
+  { id: 6, title: `Projeto 99 Commonwealth em Atenção`, sub: 'Status alterado pelo Admin', date: '13/03/2026 12:30', type: 'alert', unread: false },
 ];
 
-const INVOICES = [
-  { id: 'INV-2026-003', project: '41 Bowdoin Ave', client: 'Jackson Da Silva', amount: 2718, entry: 1359, entryPct: 50, paid: 0, status: 'pending', due: '15/04/2026', issued: '20/03/2026', phase: 'Conceptual Design' },
-  { id: 'INV-2026-002', project: '88 Dover St', client: 'Jackson Da Silva', amount: 4200, entry: 2100, entryPct: 50, paid: 2100, status: 'pending', due: '30/03/2026', issued: '14/03/2026', phase: 'Drafting & Coord.' },
-  { id: 'INV-2026-001', project: '88 Dover St', client: 'Jackson Da Silva', amount: 700, entry: 700, entryPct: 100, paid: 700, status: 'paid', due: '10/03/2026', issued: '01/03/2026', phase: 'Initial Deposit' },
-  { id: 'INV-2026-004', project: '215 Hampton Rd', client: 'Maria Silva', amount: 1800, entry: 900, entryPct: 50, paid: 1800, status: 'paid', due: '28/02/2026', issued: '15/02/2026', phase: 'Final Delivery' },
-  { id: 'INV-2026-005', project: '99 Commonwealth Ave', client: 'Robert Chen', amount: 3200, entry: 800, entryPct: 25, paid: 800, status: 'pending', due: '20/05/2026', issued: '10/03/2026', phase: 'Landscape Design' },
-];
+
 
 const I18N = {
   PT: {
     dashboard: 'Dashboard',
     projects: 'Meus Projetos',
     support: 'Technical Support',
-    calendar: 'Calendário',
-    notifications: 'Notificações',
+    calendar: `Calendário`,
+    notifications: `Notificações`,
     documents: 'Documentos',
     logout: 'Sign Out',
-    settings: 'Configurações',
+    settings: `Configurações`,
     welcomeBack: 'Welcome to your Sanctuary',
-    welcomeBackSub: 'Acompanhe cada detalhe da transformação do seu espaço em tempo real.',
+    welcomeBackSub: `Acompanhe cada detalhe da transformação do seu espaço em tempo real.`,
     activeProjects: 'Projetos Ativos',
     paid: 'Pago',
     pendingInvoices: 'Tickets Abertos',
@@ -97,8 +86,8 @@ const I18N = {
     backToSite: 'Voltar ao Site',
     portalTitle: 'Portal do Cliente',
     welcomeTo: 'Bem-vindo ao',
-    loginTitle: 'Acesse seu santuário',
-    loginSub: 'Acompanhe cada detalhe da transformação do seu espaço em tempo real.',
+    loginTitle: `Acesse seu santuário`,
+    loginSub: `Acompanhe cada detalhe da transformação do seu espaço em tempo real.`,
 
     email: 'E-MAIL',
     password: 'SENHA',
@@ -108,8 +97,8 @@ const I18N = {
     googleLogin: 'Entrar com Google',
     or: 'OU',
     feat1: 'Acompanhe o progresso de cada projeto em tempo real',
-    feat2: 'Gerencie faturas e exporte relatórios PDF',
-    feat3: 'Calendário de entregas e notificações em tempo real',
+    feat2: `Gerencie faturas e exporte relatórios PDF`,
+    feat3: `Calendário de entregas e notificações em tempo real`,
     createAccount: 'Criar Conta',
     login: 'Entrar',
     client: 'Cliente',
@@ -117,43 +106,43 @@ const I18N = {
     admin: 'Admin',
     status_waiting: 'Aguardando Cliente',
     status_on_track: 'Em Andamento',
-    status_attention: 'Atenção / Atrasado',
+    status_attention: `Atenção / Atrasado`,
     status_completed: 'Entregue',
     role_client: 'Portal do Cliente',
     role_freelancer: 'Portal do Colaborador',
     role_admin: 'Portal do Admin',
-    total_budget: 'Área do Terreno',
-    total_paid: 'Área Construída',
-    balance_due: 'Taxa de Ocupação',
-    fin_progress: 'Precisão Técnica',
+    total_budget: `Área do Terreno`,
+    total_paid: `Área Construída`,
+    balance_due: `Taxa de Ocupação`,
+    fin_progress: `Precisão Técnica`,
     view_all: 'Ver todos →',
-    project_mgmt: 'Gestão de Projetos',
-    require_attention: 'requerem atenção',
+    project_mgmt: `Gestão de Projetos`,
+    require_attention: `requerem atenção`,
     projects_found: 'projetos',
     all: 'Todos',
     col_project: 'PROJETO',
-    col_service: 'SERVIÇO',
+    col_service: `SERVIÇO`,
     col_stage: 'STAGE',
     col_progress: 'PROGRESSO',
     col_status: 'STATUS',
     col_due: 'VENCIMENTO',
-    col_budget: 'ORÇAMENTO',
+    col_budget: `ORÇAMENTO`,
     fin_ov: 'Technical Support',
-    fin_sub: 'Tire suas dúvidas e veja o histórico',
+    fin_sub: `Tire suas dúvidas e veja o histórico`,
     total_rec: 'TOTAL RECEBIDO',
-    rec_month: 'RECEITA DO MÊS',
+    rec_month: `RECEITA DO MÊS`,
     bal_pend: 'SALDO PENDENTE',
     inv_paid: 'FATURAS PAGAS',
     net_rev: 'NET REVENUE',
-    forecast: 'PREVISÃO DE RECEITA',
+    forecast: `PREVISÃO DE RECEITA`,
     pend_pay: 'Pagamentos Pendentes',
     pend_entry: 'Entradas Pendentes',
     rec_rate: 'Taxa de Recebimento',
     monthly_rev: 'Receita Mensal',
-    last_6: 'Últimos 6 meses - valores recebidos',
+    last_6: `Últimos 6 meses - valores recebidos`,
     pend_inv: 'Tickets Abertos',
     rec_pay: 'Pagamentos Recentes',
-    method: 'MÉTODO',
+    method: `MÉTODO`,
     gross: 'GROSS',
     fee: 'FEE (GATEWAY)',
     net: 'NET',
@@ -164,35 +153,35 @@ const I18N = {
     of: 'de',
     open_inv: 'faturas em aberto',
     issued: 'emitidas',
-    after_fees: 'após taxas de gateway',
+    after_fees: `após taxas de gateway`,
     export: 'Exportar',
-    cal_ov: 'Calendário',
-    cal_sub: 'Entregas, vencimentos e reuniões',
+    cal_ov: `Calendário`,
+    cal_sub: `Entregas, vencimentos e reuniões`,
     proj_deliveries: 'ENTREGAS DE PROJETOS',
-    month_meetings: 'REUNIÕES DO MÊS',
+    month_meetings: `REUNIÕES DO MÊS`,
     active_projs: 'PROJETOS ATIVOS',
     scheduled: 'Agendadas',
     realized: 'Realizadas',
-    completion_rate: 'Taxa de realização',
-    completed_f: 'concluídas',
-    march_events: 'Eventos de Março',
-    next_due: 'Próximo vencimento',
+    completion_rate: `Taxa de realização`,
+    completed_f: `concluídas`,
+    march_events: `Eventos de Março`,
+    next_due: `Próximo vencimento`,
     week: 'Semana',
-    days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-    months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    unread_count: 'não lidas',
+    days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', `Sáb`],
+    months: ['Janeiro', 'Fevereiro', `Março`, 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    unread_count: `não lidas`,
     mark_all_read: 'Marcar todas como lidas',
-    settings_desc: 'Gerencie sua conta, segurança e preferências do portal',
+    settings_desc: `Gerencie sua conta, segurança e preferências do portal`,
     account: 'Conta',
-    security: 'Segurança',
-    acc_info: 'Informações Pessoais',
+    security: `Segurança`,
+    acc_info: `Informações Pessoais`,
     acc_desc: 'Gerencie seus dados de contato',
-    company_details: 'Informações da Empresa',
+    company_details: `Informações da Empresa`,
     company_desc: 'Dados corporativos e logomarca',
     tax_id: 'CNPJ / EIN',
-    address: 'Endereço',
+    address: `Endereço`,
     website: 'Site / Portfolio',
-    save_changes: 'Salvar Alterações',
+    save_changes: `Salvar Alterações`,
     full_name: 'NOME COMPLETO',
     phone: 'TELEFONE',
     company: 'EMPRESA',
@@ -202,26 +191,26 @@ const I18N = {
     curr_pw: 'SENHA ATUAL',
     new_pw: 'NOVA SENHA',
     conf_pw: 'CONFIRMAR NOVA SENHA',
-    add_sec: 'Segurança Adicional',
-    two_fa: 'Autenticação em duas etapas',
-    two_fa_desc: 'Receba um código por e-mail ao fazer login',
-    session_alerts: 'Alertas de sessão',
+    add_sec: `Segurança Adicional`,
+    two_fa: `Autenticação em duas etapas`,
+    two_fa_desc: `Receba um código por e-mail ao fazer login`,
+    session_alerts: `Alertas de sessão`,
     session_alerts_desc: 'Notifique-me ao acessar de um novo dispositivo',
     cancel: 'Cancelar',
     save_pw: 'Salvar Senha',
     portal_alerts: 'ALERTAS DO PORTAL',
     new_inv_alert: 'Novas faturas e vencimentos',
-    new_inv_desc: 'Notificar quando uma fatura for gerada ou próxima ao vencimento',
+    new_inv_desc: `Notificar quando uma fatura for gerada ou próxima ao vencimento`,
     msg_chat_alert: 'Mensagens e chat de projeto',
     msg_chat_desc: 'Notificar ao receber mensagem no chat de um projeto',
-    work_upd_alert: 'Atualizações de obra',
-    work_upd_desc: 'Notificar quando o Admin ou Freela publicar uma atualização',
+    work_upd_alert: `Atualizações de obra`,
+    work_upd_desc: `Notificar quando o Admin ou Freela publicar uma atualização`,
     tkt_resp_alert: 'Tickets e respostas',
     tkt_resp_desc: 'Notificar ao abrir ou receber resposta em um ticket',
-    comm: 'COMUNICAÇÃO',
-    news_alert: 'Novidades e conteúdo DARA',
-    news_desc: 'Receber e-mails sobre novos serviços e atualizações do portal',
-    save_pref: 'Salvar Preferências',
+    comm: `COMUNICAÇÃO`,
+    news_alert: `Novidades e conteúdo DARA`,
+    news_desc: `Receber e-mails sobre novos serviços e atualizações do portal`,
+    save_pref: `Salvar Preferências`,
     projectTimeline: 'Cronograma do Projeto',
     estDelivery: 'Entrega Estimada',
   },
@@ -286,7 +275,7 @@ const I18N = {
     col_due: 'DUE DATE',
     col_budget: 'BUDGET',
     fin_ov: 'Technical Support',
-    fin_sub: 'Revenue, payments and forecasts',
+    fin_sub: `Revenue, payments and forecasts`,
     total_rec: 'TOTAL RECEIVED',
     rec_month: 'MONTH REVENUE',
     bal_pend: 'PENDING BALANCE',
@@ -314,7 +303,7 @@ const I18N = {
     after_fees: 'after gateway fees',
     export: 'Export',
     cal_ov: 'Calendar',
-    cal_sub: 'Deliveries, deadlines and meetings',
+    cal_sub: `Deliveries, deadlines and meetings`,
     proj_deliveries: 'PROJECT DELIVERIES',
     month_meetings: 'MONTH MEETINGS',
     active_projs: 'ACTIVE PROJECTS',
@@ -329,7 +318,7 @@ const I18N = {
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     unread_count: 'unread',
     mark_all_read: 'Mark all as read',
-    settings_desc: 'Manage your account, security and portal preferences',
+    settings_desc: `Manage your account, security and portal preferences`,
     account: 'Account',
     security: 'Security',
     acc_info: 'Account Information',
@@ -383,7 +372,7 @@ const STATUS = (lang) => ({
 });
 
 /* ══ UTILITIES ══ */
-const t = (k, lang) => (I18N[lang] || I18N.PT)[k] || k;
+
 const fmt = (n, isUS) => (isUS ? '$' : 'R$') + Number(n).toLocaleString(isUS ? 'en-US' : 'pt-BR', { minimumFractionDigits: 2 });
 
 
@@ -468,11 +457,10 @@ export default function ClientPortal() {
   const [splashDone, setSplashDone] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [collapsed, setCollapsed] = useState(false);
-  const [showNotif, setShowNotif] = useState(false);
-  const [loading, setLoading] = useState(true);
+
 
   const t = (key) => I18N[lang][key] || key;
-  const isPT = lang === 'PT';
+
   const isUS = lang === 'EN';
   const T = I18N[lang];
   const userName = profile?.full_name || user?.email?.split('@')[0] || '';
@@ -716,7 +704,7 @@ export default function ClientPortal() {
                      </div>
                      <div className="dash-card side-chart" style={{ background: 'var(--bg2)', padding: '24px', borderRadius: '16px', border: '1px solid var(--br)' }}>
                         <div className="card-head" style={{ marginBottom: '20px' }}>
-                           <div className="card-title" style={{ fontSize: '14px', fontWeight: '700', color: 'var(--a)' }}>{lang === 'PT' ? 'Previsão Financeira' : 'Financial Forecast'}</div>
+                           <div className="card-title" style={{ fontSize: '14px', fontWeight: '700', color: 'var(--a)' }}>{lang === 'PT' ? `Previsão Financeira` : 'Financial Forecast'}</div>
                         </div>
                         <div style={{ height: '180px' }}>
                            <Bar 
@@ -810,7 +798,7 @@ export default function ClientPortal() {
                           <div className="prog-track" style={{ height: 12 }}>
                             <div className="prog-fill" style={{ width: `${S.selectedProject.progress}%`, background: 'var(--a)' }}></div>
                           </div>
-                          <span className="prog-pct">{S.selectedProject.progress}% {lang === 'PT' ? 'Concluído' : 'Completed'}</span>
+                          <span className="prog-pct">{S.selectedProject.progress}% {lang === 'PT' ? `Concluído` : 'Completed'}</span>
                         </div>
                         <div className="detail-meta">
                           <div className="meta-row"><span>{T.col_service}:</span> <strong>{S.selectedProject.service}</strong></div>
@@ -835,7 +823,7 @@ export default function ClientPortal() {
                       <div className="card vault-card">
                         <div className="vault-header">
                           <h3><Icon name="folder" size={16} /> File Vault</h3>
-                          <p>{lang === 'PT' ? 'Arquivos seguros e links expiráveis' : 'Secure files and expiring links'}</p>
+                          <p>{lang === 'PT' ? `Arquivos seguros e links expiráveis` : 'Secure files and expiring links'}</p>
                         </div>
 
                         <div className="vault-content" style={{ maxHeight: '200px', overflowY: 'auto' }}>
@@ -1000,7 +988,7 @@ export default function ClientPortal() {
           {activeTab === 'documents' && (
             <div className="page-content">
               <h1 className="page-title">{T.documents}</h1>
-              <p className="page-sub">{lang === 'PT' ? 'Acesso centralizado a todos os seus arquivos técnicos e documentos.' : 'Centralized access to all your technical files and documents.'}</p>
+              <p className="page-sub">{lang === 'PT' ? `Acesso centralizado a todos os seus arquivos técnicos e documentos.` : 'Centralized access to all your technical files and documents.'}</p>
               
               <div className="documents-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px', marginTop: '32px' }}>
                 {S.projects.map(p => (
@@ -1147,7 +1135,7 @@ export default function ClientPortal() {
                           </div>
                           <div className="st-field">
                             <label>{T.new_pw}</label>
-                            <input type="password" placeholder={lang === 'PT' ? 'Mínimo 8 caracteres' : 'Minimum 8 characters'} />
+                            <input type="password" placeholder={lang === 'PT' ? `Mínimo 8 caracteres` : 'Minimum 8 characters'} />
                           </div>
                           <div className="st-field">
                             <label>{T.conf_pw}</label>
@@ -1192,7 +1180,7 @@ export default function ClientPortal() {
                           <div className="st-ico-box"><Icon name="bell" size={16} /></div>
                           <div>
                             <h3>{T.notifications}</h3>
-                            <p>{lang === 'PT' ? 'Controle o que você recebe e como' : 'Control what you receive and how'}</p>
+                            <p>{lang === 'PT' ? `Controle o que você recebe e como` : 'Control what you receive and how'}</p>
                           </div>
                         </div>
                         

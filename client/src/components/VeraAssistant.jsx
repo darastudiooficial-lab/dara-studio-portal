@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Sparkles } from 'lucide-react';
 
 export default function VeraAssistant() {
-  const { lang, setLang, theme, isVeraOpen, openVera, closeVera, veraMessage } = useAppContext();
+  const { lang, setLang, isVeraOpen, openVera, closeVera, veraMessage } = useAppContext();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
@@ -21,7 +20,7 @@ export default function VeraAssistant() {
         id: Date.now() + 1, 
         text: lang === 'EN' 
           ? "I am currently in presentation mode. My AI core will be connected in a future update." 
-          : "No momento, estou em modo de apresentação. Meu núcleo de IA será conectado em uma atualização futura.", 
+          : `No momento, estou em modo de apresentação. Meu núcleo de IA será conectado em uma atualização futura.`, 
         sender: 'vera' 
       }]);
     }, 1000);
@@ -29,16 +28,16 @@ export default function VeraAssistant() {
 
   const T = {
     EN: {
-      name: 'VÉRA',
+      name: `VÉRA`,
       role: 'Virtual Engineering & Rendering Assistant',
-      welcome: 'Hello! I am VÉRA. How can I assist your project today?',
-      input: 'Ask VÉRA anything...',
+      welcome: `Hello! I am VÉRA. How can I assist your project today?`,
+      input: `Ask VÉRA anything...`,
     },
     PT: {
-      name: 'VÉRA',
-      role: 'Assistente Virtual de Engenharia e Renderização',
-      welcome: 'Olá! Eu sou a VÉRA. Como posso ajudar no seu projeto hoje?',
-      input: 'Pergunte qualquer coisa à VÉRA...',
+      name: `VÉRA`,
+      role: `Assistente Virtual de Engenharia e Renderização`,
+      welcome: `Olá! Eu sou a VÉRA. Como posso ajudar no seu projeto hoje?`,
+      input: `Pergunte qualquer coisa à VÉRA...`,
     }
   }[lang];
 
@@ -77,7 +76,7 @@ export default function VeraAssistant() {
           >
             <img 
               src="/assets/vera-avatar.png" 
-              alt="VÉRA AI"
+              alt={`VÉRA AI`}
               style={{ 
                 width: '100%', height: '100%', borderRadius: '50%', 
                 objectFit: 'cover', border: '1px solid rgba(255,255,255,0.2)' 
@@ -101,7 +100,7 @@ export default function VeraAssistant() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <img 
                 src="/assets/vera-avatar.png" 
-                alt="VÉRA"
+                alt={`VÉRA`}
                 style={{
                   width: '32px', height: '32px', borderRadius: '50%', 
                   border: '1px solid rgba(255,255,255,0.4)',

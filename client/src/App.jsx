@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { AppProvider } from './context/AppContext';
@@ -28,9 +28,6 @@ import { useAppContext } from './context/AppContext';
 import './index.css';
 
 function App() {
-  // Forced re-render trigger for UI synchronization - v3
-  const version = useMemo(() => Date.now(), []);
-
   return (
     <AppProvider>
       <AppContent />

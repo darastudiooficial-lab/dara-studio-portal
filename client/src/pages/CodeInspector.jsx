@@ -3,34 +3,33 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useAppContext } from "../context/AppContext";
 import { useBuilders } from "../context/BuildersContext";
-import { supabase } from '../lib/supabase';
 import PageTransition from '../components/PageTransition';
 
 // Category Data
 const PROJECTS = [
-  { id: "new_con", label: "New Construction", labelPt: "Nova Construção", icon: "🏠" },
-  { id: "addition", label: "Addition / Expansion", labelPt: "Adição / Expansão", icon: "➕" },
-  { id: "remodel", label: "Interior Remodel", labelPt: "Reforma de Interiores", icon: "🔨" },
-  { id: "interiors", label: "Interior Design", labelPt: "Design de Interiores", icon: "🎨" },
-  { id: "deck_roof", label: "Deck (With Roof)", labelPt: "Deck (Com Teto)", icon: "🏗" },
-  { id: "deck_open", label: "Deck (Open)", labelPt: "Deck (Aberto)", icon: "🪵" },
-  { id: "porch_enc", label: "Porch (Enclosed)", labelPt: "Varanda (Fechada)", icon: "🏛" },
-  { id: "porch_open", label: "Porch (Open)", labelPt: "Varanda (Aberta)", icon: "🌿" },
-  { id: "adu", label: "ADU / In-Law Suite", labelPt: "ADU / Casa de Hóspedes", icon: "🏘" },
-  { id: "basement", label: "Finished Basement", labelPt: "Porão Acabado", icon: "🔲" },
-  { id: "dormer", label: "Dormer / Attic", labelPt: "Sótão / Mansarda", icon: "🏚" },
-  { id: "garage", label: "Garage (Det/Att)", labelPt: "Garagem", icon: "🚗" },
+  { id: "new_con", label: `New Construction`, labelPt: `Nova Construção`, icon: "🏠" },
+  { id: "addition", label: `Addition / Expansion`, labelPt: `Adição / Expansão`, icon: "➕" },
+  { id: "remodel", label: `Interior Remodel`, labelPt: "Reforma de Interiores", icon: "🔨" },
+  { id: "interiors", label: `Interior Design`, labelPt: "Design de Interiores", icon: "🎨" },
+  { id: "deck_roof", label: `Deck (With Roof)`, labelPt: "Deck (Com Teto)", icon: "🏗" },
+  { id: "deck_open", label: `Deck (Open)`, labelPt: "Deck (Aberto)", icon: "🪵" },
+  { id: "porch_enc", label: `Porch (Enclosed)`, labelPt: "Varanda (Fechada)", icon: "🏛" },
+  { id: "porch_open", label: `Porch (Open)`, labelPt: "Varanda (Aberta)", icon: "🌿" },
+  { id: "adu", label: `ADU / In-Law Suite`, labelPt: `ADU / Casa de Hóspedes`, icon: "🏘" },
+  { id: "basement", label: `Finished Basement`, labelPt: `Porão Acabado`, icon: "🔲" },
+  { id: "dormer", label: `Dormer / Attic`, labelPt: `Sótão / Mansarda`, icon: "🏚" },
+  { id: "garage", label: `Garage (Det/Att)`, labelPt: "Garagem", icon: "🚗" },
 ];
 
 const SYSTEMS = [
-  { id: "roof_types", label: "Roof Types & Styles", labelPt: "Tipos de Telhado" },
-  { id: "roof_conn", label: "Roof Connections", labelPt: "Conexões de Telhado" },
-  { id: "foundation", label: "Foundation / Footings", labelPt: "Fundação / Sapatas" },
-  { id: "framing", label: "Framing & Structure", labelPt: "Estrutura (Framing)" },
-  { id: "thermal", label: "Thermal / Insulation", labelPt: "Isolamento Térmico" },
-  { id: "envelope", label: "Wall Assembly", labelPt: "Sistema de Paredes" },
-  { id: "mep", label: "MEP Systems", labelPt: "Sistemas MEP" },
-  { id: "fire", label: "Life Safety / Fire", labelPt: "Segurança / Incêndio" },
+  { id: "roof_types", label: `Roof Types & Styles`, labelPt: "Tipos de Telhado" },
+  { id: "roof_conn", label: `Roof Connections`, labelPt: `Conexões de Telhado` },
+  { id: "foundation", label: `Foundation / Footings`, labelPt: `Fundação / Sapatas` },
+  { id: "framing", label: `Framing & Structure`, labelPt: "Estrutura (Framing)" },
+  { id: "thermal", label: `Thermal / Insulation`, labelPt: `Isolamento Térmico` },
+  { id: "envelope", label: `Wall Assembly`, labelPt: "Sistema de Paredes" },
+  { id: "mep", label: `MEP Systems`, labelPt: "Sistemas MEP" },
+  { id: "fire", label: `Life Safety / Fire`, labelPt: `Segurança / Incêndio` },
 ];
 
 // Notes Database
@@ -38,183 +37,183 @@ export const NOTES = [
   {
     id: 1, project: "new_con", system: "roof_types", status: "code_compliant",
     tags: ["roof", "framing", "gable", "wind", "snow", "single-family"],
-    title: "Gable Roof — Two-Slope Classic", titlePt: "Telhado Gable — Clássico de Duas Águas",
-    pt: "Modelo mais popular nos EUA. Duas superfícies inclinadas que se encontram em uma cumeeira, formando um triângulo (gable) nas extremidades.",
+    title: `Gable Roof — Two-Slope Classic`, titlePt: `Telhado Gable — Clássico de Duas Águas`,
+    pt: `Modelo mais popular nos EUA. Duas superfícies inclinadas que se encontram em uma cumeeira, formando um triângulo (gable) nas extremidades.`,
     cad: "GABLE ROOF SYSTEM PER ARCH. PLANS. VERIFY SNOW LOAD PER 780 CMR TABLE R301.2(1).",
     cadPt: "SISTEMA GABLE CONF. PROJETO. VERIFICAR CARGA DE NEVE (780 CMR TABELA R301.2(1)).",
     layout: "ROOF SYSTEM SHALL BE A GABLE DESIGN WITH SLOPES AS INDICATED. STRUCTURE TO RESIST SNOW AND WIND LOADS PER MASSACHUSETTS STATE BUILDING CODE 780 CMR 10TH EDITION AND ASCE 7.",
-    layoutPt: "O TELHADO DEVE SER ESTILO GABLE. A ESTRUTURA DEVE RESISTIR A CARGAS DE VENTO E NEVE SEGUNDO 780 CMR 10ª EDIÇÃO E ASCE 7.",
+    layoutPt: `O TELHADO DEVE SER ESTILO GABLE. A ESTRUTURA DEVE RESISTIR A CARGAS DE VENTO E NEVE SEGUNDO 780 CMR 10ª EDIÇÃO E ASCE 7.`,
     why: "Inspector tip: Gable ends create a flat vertical surface exposed to wind uplift. Gable-end wall bracing per 780 CMR R602.10.6 is required.",
-    whyPt: "Dica do Fiscal: O travamento da parede Gable per 780 CMR R602.10.6 é obrigatório e muito esquecido.",
-    imageTip: "Gable roof framing system showing ridge board, common rafters, collar ties, and gable end with hurricane tie connections."
+    whyPt: `Dica do Fiscal: O travamento da parede Gable per 780 CMR R602.10.6 é obrigatório e muito esquecido.`,
+    imageTip: `Gable roof framing system showing ridge board, common rafters, collar ties, and gable end with hurricane tie connections.`
   },
   {
     id: 2, project: "new_con", system: "roof_types", status: "code_compliant",
     tags: ["roof", "framing", "hip", "wind", "single-family"],
-    title: "Hip Roof — Four-Slope System", titlePt: "Telhado Hip — Sistema de Quatro Águas",
-    pt: "Todas as quatro faces inclinadas, sem gable aberto. Mais resistente ao vento que o Gable.",
-    cad: "HIP ROOF SYSTEM: 4 SLOPED FACES, NO EXPOSED GABLE WALL. PER ARCH. PLANS AND ASCE 7.",
-    cadPt: "TELHADO HIP (4 ÁGUAS), SEM EMPENA EXPOSTA. CONFORME PROJETO E ASCE 7.",
+    title: `Hip Roof — Four-Slope System`, titlePt: `Telhado Hip — Sistema de Quatro Águas`,
+    pt: `Todas as quatro faces inclinadas, sem gable aberto. Mais resistente ao vento que o Gable.`,
+    cad: `HIP ROOF SYSTEM: 4 SLOPED FACES, NO EXPOSED GABLE WALL. PER ARCH. PLANS AND ASCE 7.`,
+    cadPt: `TELHADO HIP (4 ÁGUAS), SEM EMPENA EXPOSTA. CONFORME PROJETO E ASCE 7.`,
     layout: "ROOF SYSTEM SHALL BE A HIP DESIGN WITH FOUR SLOPED FACES. HIP ROOFS PROVIDE SUPERIOR UPLIFT RESISTANCE. ALL RAFTER-TO-PLATE CONNECTIONS SHALL HAVE APPROVED HURRICANE TIES PER 780 CMR R802.11.",
-    layoutPt: "TELHADO COM DESIGN HIP DE 4 FACES INCLINADAS. OFERECE SUPERIOR RESISTÊNCIA A VENTOS. TODA CONEXÃO DE CAIBRO EXIGE FIXADOR METÁLICO SEGUNDO 780 CMR R802.11.",
+    layoutPt: `TELHADO COM DESIGN HIP DE 4 FACES INCLINADAS. OFERECE SUPERIOR RESISTÊNCIA A VENTOS. TODA CONEXÃO DE CAIBRO EXIGE FIXADOR METÁLICO SEGUNDO 780 CMR R802.11.`,
     why: "Inspector tip: Hip roofs are the most wind-resistant residential roof. Hurricane ties are required at every rafter and inspectors count them.",
-    whyPt: "Dica do Fiscal: Telhados Hip são os mais resistentes ao vento. O fiscal contará fisicamente cada hurricane tie (clipe) em cada caibro.",
-    imageTip: "Exploded view of hip roof framing system. Label hip rafters, jack rafters, ridge board, and hip ridgeline showing wind pressure distribution."
+    whyPt: `Dica do Fiscal: Telhados Hip são os mais resistentes ao vento. O fiscal contará fisicamente cada hurricane tie (clipe) em cada caibro.`,
+    imageTip: `Exploded view of hip roof framing system. Label hip rafters, jack rafters, ridge board, and hip ridgeline showing wind pressure distribution.`
   },
   {
     id: 51, project: "new_con", system: "thermal", status: "code_compliant",
     tags: ["insulation", "attic", "thermal", "energy", "r-60", "single-family", "addition"],
-    title: "Attic Insulation — Minimum R-60 (10th Ed)", titlePt: "Isolação de Sótão — Mínimo R-60 (10ª Ed)",
-    pt: "Isolamento de sótão: MÍNIMO R-60. A 10ª Edição aumentou de R-49.",
+    title: `Attic Insulation — Minimum R-60 (10th Ed)`, titlePt: `Isolação de Sótão — Mínimo R-60 (10ª Ed)`,
+    pt: `Isolamento de sótão: MÍNIMO R-60. A 10ª Edição aumentou de R-49.`,
     cad: "ATTIC INSULATION: MIN. R-60 BLOWN-IN OR BATT. IECC 2021 TABLE R402.1.3.",
-    cadPt: "ISOLAMENTO SÓTÃO: MÍN. R-60 (SOPRADO OU MANTA). IECC 2021.",
+    cadPt: `ISOLAMENTO SÓTÃO: MÍN. R-60 (SOPRADO OU MANTA). IECC 2021.`,
     layout: "ROOF/CEILING ASSEMBLIES: MIN. R-60 PER IECC 2021 TABLE R402.1.3 FOR CLIMATE ZONE 5A. MA 10TH EDITION (EFF. OCT 2024) RAISED MINIMUM FROM R-49 TO R-60. CO WILL NOT ISSUE BELOW THIS VALUE.",
-    layoutPt: "CONJUNTOS TETO/TELHADO: MÍNIMO R-60. A 10ª EDIÇÃO AUMENTOU DE R-49 PARA R-60 EM MA. O ALVARÁ FINAL (CO) SERÁ NEGADO SE INFERIOR.",
+    layoutPt: `CONJUNTOS TETO/TELHADO: MÍNIMO R-60. A 10ª EDIÇÃO AUMENTOU DE R-49 PARA R-60 EM MA. O ALVARÁ FINAL (CO) SERÁ NEGADO SE INFERIOR.`,
     why: "Inspector tip: Any drawings showing R-49 were drafted under the 9th Edition. This single number will hold up a CO.",
-    whyPt: "Dica do Fiscal: Plantas mostrando R-49 são da lei antiga. Isso barrará o seu Certificado de Ocupação.",
+    whyPt: `Dica do Fiscal: Plantas mostrando R-49 são da lei antiga. Isso barrará o seu Certificado de Ocupação.`,
     imageTip: "Attic ceiling joist insulated with R-60 blown-in cellulose layers (~20 inches deep)."
   },
   {
     id: 71, project: "basement", system: "fire", status: "code_compliant",
     tags: ["egress", "basement", "window", "life-safety", "remodel"],
-    title: "Egress Window — Finished Basement", titlePt: "Janela Egress — Porão com Quarto",
-    pt: "Quarto no subsolo: janela de escape obrigatória. Mínimo 5.0 sq ft ao nível do terreno. Peitoril máximo 44\" do piso ACABADO.",
+    title: `Egress Window — Finished Basement`, titlePt: `Janela Egress — Porão com Quarto`,
+    pt: `Quarto no subsolo: janela de escape obrigatória. Mínimo 5.0 sq ft ao nível do terreno. Peitoril máximo 44" do piso ACABADO.`,
     cad: "BASEMENT EGRESS: MIN. 5.0 SQ FT NET CLEAR (AT GRADE). 24\"H x 20\"W MIN. SILL MAX 44\" AFF.",
-    cadPt: "EGRESS PORÃO: MÍN. 5.0 SQ FT. ALTURA 24\", LARGURA 20\". PEITORIL MÁX 44\" PISO ACABADO.",
-    layout: "SLEEPING ROOMS IN FINISHED BASEMENTS SHALL HAVE EMERGENCY ESCAPE OPENINGS PER 780 CMR R310. NET CLEAR: MIN. 5.0 SQ FT AT GRADE, 5.7 SQ FT ABOVE GRADE. MIN. 24\"H x 20\"W. MAX SILL HEIGHT 44\" AFF. WINDOW WELLS DEEPER THAN 44\" REQUIRE LADDER.",
-    layoutPt: "QUARTOS EM PORÕES EXIGEM JANELA DE FUGA SEGUNDO 780 CMR R310. VÃO LIVRE DE 5.0 SQ FT (AO NÍVEL DA TERRA). PEITORIL NÃO MAIS QUE 44 POLEGADAS ACIMA DO PISO PRONTO. POÇOS (WELLS) FUNDOS EXIGEM ESCADA.",
-    why: "Inspector tip: Sill height is measured from FINISH floor, not subfloor. Net clear opening is measured after window is open — not rough opening.",
-    whyPt: "Dica do Fiscal: A altura do peitoril é pelo piso ACABADO. E a dimensão do vão é com a janela já instalada e aberta.",
-    imageTip: "Finished basement egress cross section showing max 44 inch sill height from finish flooring, clear open window and well ladder."
+    cadPt: `EGRESS PORÃO: MÍN. 5.0 SQ FT. ALTURA 24", LARGURA 20". PEITORIL MÁX 44" PISO ACABADO.`,
+    layout: `SLEEPING ROOMS IN FINISHED BASEMENTS SHALL HAVE EMERGENCY ESCAPE OPENINGS PER 780 CMR R310. NET CLEAR: MIN. 5.0 SQ FT AT GRADE, 5.7 SQ FT ABOVE GRADE. MIN. 24"H x 20"W. MAX SILL HEIGHT 44" AFF. WINDOW WELLS DEEPER THAN 44" REQUIRE LADDER.`,
+    layoutPt: `QUARTOS EM PORÕES EXIGEM JANELA DE FUGA SEGUNDO 780 CMR R310. VÃO LIVRE DE 5.0 SQ FT (AO NÍVEL DA TERRA). PEITORIL NÃO MAIS QUE 44 POLEGADAS ACIMA DO PISO PRONTO. POÇOS (WELLS) FUNDOS EXIGEM ESCADA.`,
+    why: `Inspector tip: Sill height is measured from FINISH floor, not subfloor. Net clear opening is measured after window is open — not rough opening.`,
+    whyPt: `Dica do Fiscal: A altura do peitoril é pelo piso ACABADO. E a dimensão do vão é com a janela já instalada e aberta.`,
+    imageTip: `Finished basement egress cross section showing max 44 inch sill height from finish flooring, clear open window and well ladder.`
   },
   {
     id: 80, project: "addition", system: "fire", status: "code_compliant",
     tags: ["multi-family", "fire-separation", "party-wall", "townhouse"],
-    title: "Multi-Family Fire Separation — 2-Hour Wall", titlePt: "Separação de Incêndio Multi-Family — Parede de 2 Horas",
-    pt: "Townhouses e projetos multi-family exigem separação corta-fogo de 2 horas entre as unidades residenciais.",
+    title: `Multi-Family Fire Separation — 2-Hour Wall`, titlePt: `Separação de Incêndio Multi-Family — Parede de 2 Horas`,
+    pt: `Townhouses e projetos multi-family exigem separação corta-fogo de 2 horas entre as unidades residenciais.`,
     cad: "PARTY WALL: 2-HR FIRE-RESISTANCE RATED ASSEMBLY PER 780 CMR 10th ED. UL DESIGN U301.",
-    cadPt: "PAREDE DIVISÓRIA: CONJUNTO CORTA-FOGO DE 2 HORAS (780 CMR 10ª ED). DESIGN UL U301.",
+    cadPt: `PAREDE DIVISÓRIA: CONJUNTO CORTA-FOGO DE 2 HORAS (780 CMR 10ª ED). DESIGN UL U301.`,
     layout: "TOWNHOUSE / MULTI-FAMILY SEPARATION WALLS SHALL BE CONSTRUCTED AS CONTINUOUS 2-HOUR FIRE-RESISTANCE-RATED ASSEMBLIES FROM FOUNDATION TO ROOF DECK. PENETRATIONS MUST BE FIRESTOPPED WITH APPROVED INTUMESCENT CAULK.",
-    layoutPt: "PAREDES DE SEPARAÇÃO MULTI-FAMILY DEVEM SER CONSTRUÍDAS COMO CONJUNTOS CONTÍNUOS DE RESISTÊNCIA A INCÊNDIO DE 2 HORAS, DA FUNDAÇÃO ATÉ O TELHADO. PENETRAÇÕES DEVEM SER SELADAS COM MASSA INTUMESCENTE APROVADA.",
-    why: "Inspector tip: Missing firestopping around pipes/wires in the party wall is the #1 reason multi-family framing fails inspection. Don't leave gaps.",
-    whyPt: "Dica do Fiscal: A falta de selante corta-fogo ao redor de tubos na parede divisória é a principal causa de reprovação em edifícios multifamiliares.",
+    layoutPt: `PAREDES DE SEPARAÇÃO MULTI-FAMILY DEVEM SER CONSTRUÍDAS COMO CONJUNTOS CONTÍNUOS DE RESISTÊNCIA A INCÊNDIO DE 2 HORAS, DA FUNDAÇÃO ATÉ O TELHADO. PENETRAÇÕES DEVEM SER SELADAS COM MASSA INTUMESCENTE APROVADA.`,
+    why: `Inspector tip: Missing firestopping around pipes/wires in the party wall is the #1 reason multi-family framing fails inspection. Don't leave gaps.`,
+    whyPt: `Dica do Fiscal: A falta de selante corta-fogo ao redor de tubos na parede divisória é a principal causa de reprovação em edifícios multifamiliares.`,
     imageTip: "Cross-section of a 2-hour fire-rated party wall (double stud, double gypsum) with firestopping caulk around pipe penetration."
   },
   {
     id: 81, project: "addition", system: "mep", status: "lessons_learned",
     tags: ["multi-family", "sound-transmission", "acoustics", "stc"],
-    title: "Multi-Family Acoustics — STC 50 Requirement", titlePt: "Acústica Multi-Family — Exigência STC 50",
-    pt: "O código 780 CMR exige classe de transmissão de som (STC) mínima de 50 para paredes e pisos que separam unidades residenciais.",
+    title: `Multi-Family Acoustics — STC 50 Requirement`, titlePt: `Acústica Multi-Family — Exigência STC 50`,
+    pt: `O código 780 CMR exige classe de transmissão de som (STC) mínima de 50 para paredes e pisos que separam unidades residenciais.`,
     cad: "ACOUSTIC SEPARATION: MIN. STC 50 FOR WALLS/FLOORS BETWEEN DWELLING UNITS (STC 45 IF FIELD TESTED).",
-    cadPt: "SEPARAÇÃO ACÚSTICA: MÍN. STC 50 PARA PAREDES/PISOS ENTRE UNIDADES HABITACIONAIS.",
+    cadPt: `SEPARAÇÃO ACÚSTICA: MÍN. STC 50 PARA PAREDES/PISOS ENTRE UNIDADES HABITACIONAIS.`,
     layout: "WALL AND FLOOR-CEILING ASSEMBLIES SEPARATING DWELLING UNITS IN MULTI-FAMILY STRUCTURES SHALL PROVIDE AIRBORNE SOUND TRANSMISSION CLASS (STC) RATING OF NOT LESS THAN 50 PER 780 CMR 1206.2.",
-    layoutPt: "CONJUNTOS DE PAREDE E PISO-TETO SEPARANDO UNIDADES EM MULTIFAMILIARES DEVEM PROVER ISOLAMENTO ACÚSTICO (STC) NÃO INFERIOR A 50 (780 CMR 1206.2).",
+    layoutPt: `CONJUNTOS DE PAREDE E PISO-TETO SEPARANDO UNIDADES EM MULTIFAMILIARES DEVEM PROVER ISOLAMENTO ACÚSTICO (STC) NÃO INFERIOR A 50 (780 CMR 1206.2).`,
     why: "Inspector tip: Using resilient channels (RC clips) incorrectly — like screwing drywall directly into the stud through the channel — completely voids the acoustic rating.",
-    whyPt: "Dica do Fiscal: Parafusar o drywall diretamente no perfil metálico (passando pelo RC clip) destrói completamente o isolamento acústico.",
-    imageTip: "Sound transmission wall detail showing staggered studs, acoustic batt insulation, and resilient channels."
+    whyPt: `Dica do Fiscal: Parafusar o drywall diretamente no perfil metálico (passando pelo RC clip) destrói completamente o isolamento acústico.`,
+    imageTip: `Sound transmission wall detail showing staggered studs, acoustic batt insulation, and resilient channels.`
   },
   {
     id: 82, project: "garage", system: "fire", status: "code_compliant",
     tags: ["garage", "fire-separation", "drywall", "single-family"],
-    title: "Garage Fire Separation — 5/8\" Type X", titlePt: "Separação de Incêndio na Garagem — 5/8\" Type X",
-    pt: "Garagens anexadas à casa exigem drywall 5/8\" Type X no teto (se houver ambiente habitável acima) e 1/2\" nas paredes contíguas.",
+    title: `Garage Fire Separation — 5/8" Type X`, titlePt: `Separação de Incêndio na Garagem — 5/8" Type X`,
+    pt: `Garagens anexadas à casa exigem drywall 5/8" Type X no teto (se houver ambiente habitável acima) e 1/2" nas paredes contíguas.`,
     cad: "GARAGE SEPARATION: 5/8\" TYPE X GYPSUM AT CEILING BELOW HABITABLE SPACE. 1/2\" GYPSUM AT COMMON WALLS. 780 CMR R302.6.",
-    cadPt: "SEPARAÇÃO GARAGEM: DRYWALL 5/8\" TYPE X NO TETO ABAIXO DE ÁREA HABITÁVEL. 1/2\" NAS PAREDES COMUNS.",
+    cadPt: `SEPARAÇÃO GARAGEM: DRYWALL 5/8" TYPE X NO TETO ABAIXO DE ÁREA HABITÁVEL. 1/2" NAS PAREDES COMUNS.`,
     layout: "GARAGE SHALL BE SEPARATED FROM THE RESIDENCE AND ITS ATTIC AREA BY NOT LESS THAN 1/2-INCH GYPSUM BOARD APPLIED TO THE GARAGE SIDE. CEILINGS BENEATH HABITABLE ROOMS SHALL BE SEPARATED BY NOT LESS THAN 5/8-INCH TYPE X GYPSUM BOARD PER 780 CMR R302.6.",
-    layoutPt: "A GARAGEM DEVE SER SEPARADA DA RESIDÊNCIA POR PLACAS DE GESSO DE NO MÍNIMO 1/2 POLEGADA. TETOS ABAIXO DE QUARTOS HABITÁVEIS EXIGEM GESSO 5/8 POLEGADA TIPO X.",
+    layoutPt: `A GARAGEM DEVE SER SEPARADA DA RESIDÊNCIA POR PLACAS DE GESSO DE NO MÍNIMO 1/2 POLEGADA. TETOS ABAIXO DE QUARTOS HABITÁVEIS EXIGEM GESSO 5/8 POLEGADA TIPO X.`,
     why: "Inspector tip: Mudding and taping the joints in the garage fire separation wall is required to maintain the fire rating. It cannot just be screwed up raw.",
-    whyPt: "Dica do Fiscal: O acabamento com fita e massa (mud & tape) nas juntas do drywall da garagem é obrigatório para selar a passagem de fumaça.",
-    imageTip: "Cross section of attached garage. Highlights 5/8 Type X on ceiling below bedroom, and 1/2 inch on shared wall."
+    whyPt: `Dica do Fiscal: O acabamento com fita e massa (mud & tape) nas juntas do drywall da garagem é obrigatório para selar a passagem de fumaça.`,
+    imageTip: `Cross section of attached garage. Highlights 5/8 Type X on ceiling below bedroom, and 1/2 inch on shared wall.`
   },
   {
     id: 83, project: "garage", system: "foundation", status: "code_compliant",
     tags: ["garage", "slab", "slope", "drainage"],
-    title: "Garage Slab Sloping — Liquid Drainage", titlePt: "Caimento de Laje de Garagem — Drenagem",
-    pt: "O piso da garagem deve ter inclinação para a porta principal para escoamento de líquidos inflamáveis/água.",
+    title: `Garage Slab Sloping — Liquid Drainage`, titlePt: "Caimento de Laje de Garagem — Drenagem",
+    pt: `O piso da garagem deve ter inclinação para a porta principal para escoamento de líquidos inflamáveis/água.`,
     cad: "GARAGE FLOOR: SLOPE TOWARD VEHICLE DOOR OR DRAIN. NON-COMBUSTIBLE MATERIAL. 780 CMR R309.1.",
-    cadPt: "PISO DA GARAGEM: INCLINAÇÃO PARA A PORTA DO VEÍCULO. MATERIAL INCOMBUSTÍVEL.",
+    cadPt: `PISO DA GARAGEM: INCLINAÇÃO PARA A PORTA DO VEÍCULO. MATERIAL INCOMBUSTÍVEL.`,
     layout: "GARAGE FLOOR SURFACES SHALL BE OF APPROVED NONCOMBUSTIBLE MATERIAL. THE AREA OF FLOOR USED FOR PARKING OF AUTOMOBILES OR OTHER VEHICLES SHALL BE SLOPED TO FACILITATE THE MOVEMENT OF LIQUIDS TO A DRAIN OR TOWARD THE MAIN VEHICLE ENTRY DOOR PER 780 CMR R309.1.",
-    layoutPt: "O PISO DA GARAGEM DEVE SER DE MATERIAL INCOMBUSTÍVEL. A ÁREA DE ESTACIONAMENTO DEVE TER CAIMENTO PARA FACILITAR O ESCOAMENTO DE LÍQUIDOS PARA A RUA OU RALO.",
+    layoutPt: `O PISO DA GARAGEM DEVE SER DE MATERIAL INCOMBUSTÍVEL. A ÁREA DE ESTACIONAMENTO DEVE TER CAIMENTO PARA FACILITAR O ESCOAMENTO DE LÍQUIDOS PARA A RUA OU RALO.`,
     why: "Inspector tip: A perfectly level garage slab will fail inspection because melting snow and oil will pool inside the structure.",
-    whyPt: "Dica do Fiscal: Uma laje de garagem perfeitamente nivelada será reprovada. O caimento é obrigatório para evitar poças de óleo/neve derretida.",
+    whyPt: `Dica do Fiscal: Uma laje de garagem perfeitamente nivelada será reprovada. O caimento é obrigatório para evitar poças de óleo/neve derretida.`,
     imageTip: "Section of garage slab showing 1/8 inch per foot slope towards the main overhead door."
   },
   {
     id: 84, project: "dormer", system: "framing", status: "code_compliant",
     tags: ["dormer", "attic", "headroom", "1/2-story", "half-story"],
-    title: "Habitable Attic Headroom — 7'0\" Minimum", titlePt: "Pé-Direito em Sótão Habitável — Mínimo de 7'0\"",
-    pt: "Para um sótão (meio andar) ser habitável, pelo menos 50% da área do piso deve ter um pé-direito mínimo de 7 pés (2.13m).",
-    cad: "ATTIC HEADROOM: MIN. 7'-0\" CEILING HEIGHT FOR AT LEAST 50% OF REQUIRED FLOOR AREA. 780 CMR R305.1.",
-    cadPt: "PÉ DIREITO SÓTÃO: MÍN. 7'-0\" EM PELO MENOS 50% DA ÁREA DO PISO EXIGIDA. 780 CMR R305.1.",
+    title: `Habitable Attic Headroom — 7'0" Minimum`, titlePt: `Pé-Direito em Sótão Habitável — Mínimo de 7'0"`,
+    pt: `Para um sótão (meio andar) ser habitável, pelo menos 50% da área do piso deve ter um pé-direito mínimo de 7 pés (2.13m).`,
+    cad: `ATTIC HEADROOM: MIN. 7'-0" CEILING HEIGHT FOR AT LEAST 50% OF REQUIRED FLOOR AREA. 780 CMR R305.1.`,
+    cadPt: `PÉ DIREITO SÓTÃO: MÍN. 7'-0" EM PELO MENOS 50% DA ÁREA DO PISO EXIGIDA. 780 CMR R305.1.`,
     layout: "HABITABLE ROOMS IN ATTICS OR HALF-STORIES SHALL HAVE A CEILING HEIGHT OF NOT LESS THAN 7 FEET FOR NOT LESS THAN 50 PERCENT OF THE REQUIRED FLOOR AREA. PORTIONS OF THE ROOM WITH CEILING HEIGHTS LESS THAN 5 FEET SHALL NOT BE INCLUDED IN THE FLOOR AREA CALCULATION.",
-    layoutPt: "QUARTOS HABITÁVEIS EM SÓTÃOS (MEIO-ANDAR) DEVEM TER PÉ-DIREITO DE PELO MENOS 7 PÉS EM 50% DA ÁREA. ÁREAS COM MENOS DE 5 PÉS NÃO CONTAM NA ÁREA ÚTIL.",
-    why: "Inspector tip: This is the #1 reason attic conversions are rejected. If the 7-foot ceiling area is too small, it's not a legal bedroom.",
-    whyPt: "Dica do Fiscal: Esse é o principal motivo para a reprovação de conversões de sótão. Se a área com 7 pés não for metade do quarto, ele não é um quarto legal.",
+    layoutPt: `QUARTOS HABITÁVEIS EM SÓTÃOS (MEIO-ANDAR) DEVEM TER PÉ-DIREITO DE PELO MENOS 7 PÉS EM 50% DA ÁREA. ÁREAS COM MENOS DE 5 PÉS NÃO CONTAM NA ÁREA ÚTIL.`,
+    why: `Inspector tip: This is the #1 reason attic conversions are rejected. If the 7-foot ceiling area is too small, it's not a legal bedroom.`,
+    whyPt: `Dica do Fiscal: Esse é o principal motivo para a reprovação de conversões de sótão. Se a área com 7 pés não for metade do quarto, ele não é um quarto legal.`,
     imageTip: "Cross section of a dormer attic showing 7-foot height at the center and 5-foot height at the kneewalls."
   },
   {
     id: 85, project: "deck_open", system: "framing", status: "code_compliant",
     tags: ["deck", "guardrail", "stairs", "safety"],
-    title: "Deck Guardrails — Minimum 36\" Height", titlePt: "Guarda-Corpos de Deck — Altura Mínima 36\"",
+    title: `Deck Guardrails — Minimum 36" Height`, titlePt: `Guarda-Corpos de Deck — Altura Mínima 36"`,
     pt: "Decks com mais de 30 polegadas do solo exigem guarda-corpo de pelo menos 36\" (residenciais) ou 42\" (comerciais).",
     cad: "DECK GUARDRAIL: MIN. 36\" HEIGHT. BALUSTER SPACING MAX 4\" CLEAR. 780 CMR R312.",
-    cadPt: "GUARDA-CORPO DECK: ALTURA MÍN. 36\". ESPAÇAMENTO BALAÚSTRE MÁX 4\".",
-    layout: "PORCHES, BALCONIES OR RAISED FLOOR SURFACES LOCATED MORE THAN 30 INCHES ABOVE THE FLOOR OR GRADE BELOW SHALL HAVE GUARDS NOT LESS THAN 36 INCHES IN HEIGHT. REQUIRED GUARDS SHALL HAVE INTERMEDIATE RAILS OR BALUSTERS SUCH THAT A 4-INCH SPHERE CANNOT PASS THROUGH.",
-    layoutPt: "DECKS E VARANDAS A MAIS DE 30 POLEGADAS DO CHÃO EXIGEM GUARDA-CORPO COM NO MÍNIMO 36 POLEGADAS DE ALTURA. A DISTÂNCIA ENTRE AS BARRAS (BALAÚSTRES) NÃO PODE DEIXAR PASSAR UMA ESFERA DE 4 POLEGADAS.",
-    why: "Inspector tip: 36 inches is residential (IRC/780 CMR). Commercial/Multi-family (IBC) requires 42 inches. Don't mix them up.",
-    whyPt: "Dica do Fiscal: O limite do espaçamento (4 polegadas) é rigorosamente testado pelo inspetor usando uma bola física.",
+    cadPt: `GUARDA-CORPO DECK: ALTURA MÍN. 36". ESPAÇAMENTO BALAÚSTRE MÁX 4".`,
+    layout: `PORCHES, BALCONIES OR RAISED FLOOR SURFACES LOCATED MORE THAN 30 INCHES ABOVE THE FLOOR OR GRADE BELOW SHALL HAVE GUARDS NOT LESS THAN 36 INCHES IN HEIGHT. REQUIRED GUARDS SHALL HAVE INTERMEDIATE RAILS OR BALUSTERS SUCH THAT A 4-INCH SPHERE CANNOT PASS THROUGH.`,
+    layoutPt: `DECKS E VARANDAS A MAIS DE 30 POLEGADAS DO CHÃO EXIGEM GUARDA-CORPO COM NO MÍNIMO 36 POLEGADAS DE ALTURA. A DISTÂNCIA ENTRE AS BARRAS (BALAÚSTRES) NÃO PODE DEIXAR PASSAR UMA ESFERA DE 4 POLEGADAS.`,
+    why: `Inspector tip: 36 inches is residential (IRC/780 CMR). Commercial/Multi-family (IBC) requires 42 inches. Don't mix them up.`,
+    whyPt: `Dica do Fiscal: O limite do espaçamento (4 polegadas) é rigorosamente testado pelo inspetor usando uma bola física.`,
     imageTip: "Detailed elevation of deck guardrail. Shows 36 inch total height and 4 inch maximum gap between vertical balusters."
   },
   {
     id: 86, project: "remodel", system: "framing", status: "lessons_learned",
     tags: ["remodel", "framing", "notching", "boring"],
-    title: "Notching & Boring — Load-Bearing Studs", titlePt: "Furos e Entalhes — Vigas de Suporte",
-    pt: "Em reformas, furos em studs de paredes estruturais não podem exceder 40% da profundidade. Entalhes não podem exceder 25%.",
+    title: `Notching & Boring — Load-Bearing Studs`, titlePt: "Furos e Entalhes — Vigas de Suporte",
+    pt: `Em reformas, furos em studs de paredes estruturais não podem exceder 40% da profundidade. Entalhes não podem exceder 25%.`,
     cad: "STUD NOTCHING: MAX 25% DEPTH IN BEARING WALLS. BORING MAX 40%. 780 CMR R602.6.",
-    cadPt: "CORTES EM STUDS: MÁX 25% EM PAREDES ESTRUTURAIS. FUROS MÁX 40%.",
-    layout: "IN BEARING WALLS, ANY WOOD STUD MAY BE CUT OR NOTCHED TO A DEPTH NOT EXCEEDING 25 PERCENT OF ITS WIDTH. HOLES BORED SHALL NOT EXCEED 40 PERCENT OF THE STUD WIDTH AND SHALL NOT BE CLOSER THAN 5/8 INCH TO THE EDGE.",
-    layoutPt: "EM PAREDES DE SUPORTE, NENHUMA VIGA PODE TER UM ENTALHE MAIOR QUE 25% DE SUA LARGURA. FUROS NÃO PODEM EXCEDER 40% DA LARGURA E DEVEM FICAR A PELO MENOS 5/8 DE POLEGADA DA BORDA.",
-    why: "Inspector tip: Plumbers and electricians frequently over-notch studs in remodels, requiring expensive structural repairs before insulation.",
-    whyPt: "Dica do Fiscal: Encanadores frequentemente furam mais do que 40% do stud para passar tubos de PVC grossos, arruinando a parede estrutural.",
+    cadPt: `CORTES EM STUDS: MÁX 25% EM PAREDES ESTRUTURAIS. FUROS MÁX 40%.`,
+    layout: `IN BEARING WALLS, ANY WOOD STUD MAY BE CUT OR NOTCHED TO A DEPTH NOT EXCEEDING 25 PERCENT OF ITS WIDTH. HOLES BORED SHALL NOT EXCEED 40 PERCENT OF THE STUD WIDTH AND SHALL NOT BE CLOSER THAN 5/8 INCH TO THE EDGE.`,
+    layoutPt: `EM PAREDES DE SUPORTE, NENHUMA VIGA PODE TER UM ENTALHE MAIOR QUE 25% DE SUA LARGURA. FUROS NÃO PODEM EXCEDER 40% DA LARGURA E DEVEM FICAR A PELO MENOS 5/8 DE POLEGADA DA BORDA.`,
+    why: `Inspector tip: Plumbers and electricians frequently over-notch studs in remodels, requiring expensive structural repairs before insulation.`,
+    whyPt: `Dica do Fiscal: Encanadores frequentemente furam mais do que 40% do stud para passar tubos de PVC grossos, arruinando a parede estrutural.`,
     imageTip: "Diagram of a 2x4 stud showing maximum allowed boring hole (1.4 inches) and notch (0.875 inches)."
   },
   {
     id: 87, project: "remodel", system: "fire", status: "code_compliant",
     tags: ["remodel", "smoke-detectors", "fire", "retrofitting"],
-    title: "Smoke Detector Retrofit — Permit Trigger", titlePt: "Atualização de Detectores — Gatilho de Alvará",
-    pt: "Reformas acima de um certo valor em MA exigem que toda a casa seja atualizada com detectores de fumaça interligados.",
+    title: `Smoke Detector Retrofit — Permit Trigger`, titlePt: `Atualização de Detectores — Gatilho de Alvará`,
+    pt: `Reformas acima de um certo valor em MA exigem que toda a casa seja atualizada com detectores de fumaça interligados.`,
     cad: "SMOKE RETROFIT: ALL REMODELS TRIGGER HARDWIRED/INTERCONNECTED ALARMS PER 780 CMR.",
-    cadPt: "ATUALIZAÇÃO DE FUMAÇA: REFORMAS EXIGEM ALARMES INTERLIGADOS/CABEADOS.",
+    cadPt: `ATUALIZAÇÃO DE FUMAÇA: REFORMAS EXIGEM ALARMES INTERLIGADOS/CABEADOS.`,
     layout: "WHEN ALTERATIONS, REPAIRS OR ADDITIONS REQUIRING A PERMIT OCCUR, THE INDIVIDUAL DWELLING UNIT SHALL BE EQUIPPED WITH SMOKE ALARMS LOCATED AS REQUIRED FOR NEW DWELLINGS (INTERCONNECTED AND HARDWIRED WHERE FEASIBLE).",
-    layoutPt: "QUANDO OCORREM REFORMAS, REPAROS OU ADIÇÕES QUE EXIGEM ALVARÁ, A RESIDÊNCIA INTEIRA DEVE SER EQUIPADA COM ALARMES DE FUMAÇA CONFORME AS REGRAS PARA CASAS NOVAS.",
+    layoutPt: `QUANDO OCORREM REFORMAS, REPAROS OU ADIÇÕES QUE EXIGEM ALVARÁ, A RESIDÊNCIA INTEIRA DEVE SER EQUIPADA COM ALARMES DE FUMAÇA CONFORME AS REGRAS PARA CASAS NOVAS.`,
     why: "Inspector tip: Doing a $50k kitchen remodel? The inspector will demand the bedrooms upstairs get hardwired smoke detectors too.",
-    whyPt: "Dica do Fiscal: Se você reformar a cozinha, o fiscal vai exigir que os quartos do andar de cima recebam detectores de fumaça interligados. Inclua no orçamento.",
+    whyPt: `Dica do Fiscal: Se você reformar a cozinha, o fiscal vai exigir que os quartos do andar de cima recebam detectores de fumaça interligados. Inclua no orçamento.`,
     imageTip: "Floor plan showing existing rooms receiving new hardwired interconnected smoke alarms due to an addition."
   },
   {
     id: 88, project: "porch_enc", system: "thermal", status: "lessons_learned",
     tags: ["porch", "sunroom", "thermal", "heating"],
-    title: "Enclosed Porches — Heating & Insulation", titlePt: "Varandas Fechadas — Aquecimento e Isolação",
-    pt: "Se uma varanda for fechada (sunroom) e aquecida, ela passa a fazer parte do envelope térmico e exige isolamento completo.",
-    cad: "SUNROOM/ENCLOSED PORCH: IF CONDITIONED, FULL COMPLIANCE WITH IECC 2021 REQUIRED.",
-    cadPt: "VARANDA FECHADA: SE AQUECIDA, EXIGE CONFORMIDADE TOTAL COM IECC 2021.",
+    title: `Enclosed Porches — Heating & Insulation`, titlePt: `Varandas Fechadas — Aquecimento e Isolação`,
+    pt: `Se uma varanda for fechada (sunroom) e aquecida, ela passa a fazer parte do envelope térmico e exige isolamento completo.`,
+    cad: `SUNROOM/ENCLOSED PORCH: IF CONDITIONED, FULL COMPLIANCE WITH IECC 2021 REQUIRED.`,
+    cadPt: `VARANDA FECHADA: SE AQUECIDA, EXIGE CONFORMIDADE TOTAL COM IECC 2021.`,
     layout: "ENCLOSED PORCHES OR SUNROOMS THAT ARE THERMALLY ISOLATED FROM THE MAIN HOUSE (UNCONDITIONED) ARE EXEMPT FROM ENERGY CODE. IF CONDITIONED (HEATED/COOLED), THE STRUCTURE MUST COMPLY FULLY WITH INSULATION AND GLAZING REQUIREMENTS OF THE MA STRETCH CODE.",
-    layoutPt: "VARANDAS FECHADAS QUE SÃO TERMICAMENTE ISOLADAS DA CASA (SEM AQUECIMENTO) SÃO ISENTAS. SE AQUECIDAS, DEVEM CUMPRIR INTEGRALMENTE AS REGRAS DE ISOLAMENTO (PAREDES R-20, SÓTÃO R-60).",
-    why: "Inspector tip: Don't put a mini-split in a 3-season porch unless you plan to rip the walls open and insulate them to R-20.",
-    whyPt: "Dica do Fiscal: Não instale ar condicionado/aquecimento em uma varanda fechada a menos que as paredes tenham isolamento R-20.",
+    layoutPt: `VARANDAS FECHADAS QUE SÃO TERMICAMENTE ISOLADAS DA CASA (SEM AQUECIMENTO) SÃO ISENTAS. SE AQUECIDAS, DEVEM CUMPRIR INTEGRALMENTE AS REGRAS DE ISOLAMENTO (PAREDES R-20, SÓTÃO R-60).`,
+    why: `Inspector tip: Don't put a mini-split in a 3-season porch unless you plan to rip the walls open and insulate them to R-20.`,
+    whyPt: `Dica do Fiscal: Não instale ar condicionado/aquecimento em uma varanda fechada a menos que as paredes tenham isolamento R-20.`,
     imageTip: "Thermal envelope diagram. Red line bounds the main house; a green line includes the porch only if it is conditioned."
   },
   {
     id: 89, project: "new_con", system: "framing", status: "code_compliant",
     tags: ["stairs", "framing", "rise", "run", "single-family"],
-    title: "Stair Geometry — 7-3/4\" Rise, 10\" Run", titlePt: "Geometria de Escadas — Degrau 7-3/4\" x 10\"",
-    pt: "As escadas residenciais devem ter espelho máximo de 7-3/4\" e piso mínimo de 10\". A variação entre o maior e menor não pode exceder 3/8\".",
-    cad: "STAIRS: MAX RISE 7-3/4\", MIN RUN 10\". MAX TOLERANCE 3/8\". 780 CMR R311.7.",
-    cadPt: "ESCADAS: ESPELHO MÁX 7-3/4\", PISO MÍN 10\". TOLERÂNCIA MÁX 3/8\".",
+    title: `Stair Geometry — 7-3/4" Rise, 10" Run`, titlePt: "Geometria de Escadas — Degrau 7-3/4\" x 10\"",
+    pt: `As escadas residenciais devem ter espelho máximo de 7-3/4" e piso mínimo de 10". A variação entre o maior e menor não pode exceder 3/8".`,
+    cad: `STAIRS: MAX RISE 7-3/4", MIN RUN 10". MAX TOLERANCE 3/8". 780 CMR R311.7.`,
+    cadPt: `ESCADAS: ESPELHO MÁX 7-3/4", PISO MÍN 10". TOLERÂNCIA MÁX 3/8".`,
     layout: "STAIRWAYS SHALL HAVE A MAXIMUM RISER HEIGHT OF 7-3/4 INCHES AND A MINIMUM TREAD DEPTH OF 10 INCHES. THE GREATEST RISER HEIGHT WITHIN ANY FLIGHT OF STAIRS SHALL NOT EXCEED THE SMALLEST BY MORE THAN 3/8 INCH.",
-    layoutPt: "AS ESCADAS TERÃO ALTURA MÁXIMA DO ESPELHO DE 7-3/4 POLEGADAS E PROFUNDIDADE MÍNIMA DO PISO DE 10 POLEGADAS. A VARIAÇÃO MÁXIMA DE ALTURA ENTRE QUALQUER DEGRAU DO LANCE É DE 3/8 DE POLEGADA.",
-    why: "Inspector tip: Stair variance is the strictest framing rule. If one step is 7\" and another is 7-1/2\", you must rebuild the entire stringer.",
-    whyPt: "Dica do Fiscal: Se a altura de um degrau der diferença maior que 3/8\" para o outro, você terá que refazer toda a escada. O fiscal mede todos.",
+    layoutPt: `AS ESCADAS TERÃO ALTURA MÁXIMA DO ESPELHO DE 7-3/4 POLEGADAS E PROFUNDIDADE MÍNIMA DO PISO DE 10 POLEGADAS. A VARIAÇÃO MÁXIMA DE ALTURA ENTRE QUALQUER DEGRAU DO LANCE É DE 3/8 DE POLEGADA.`,
+    why: `Inspector tip: Stair variance is the strictest framing rule. If one step is 7" and another is 7-1/2", you must rebuild the entire stringer.`,
+    whyPt: `Dica do Fiscal: Se a altura de um degrau der diferença maior que 3/8" para o outro, você terá que refazer toda a escada. O fiscal mede todos.`,
     imageTip: "Stair stringer detail showing 7 3/4 inch max riser and 10 inch min tread."
   }
 ];
@@ -252,7 +251,7 @@ function TechnicalDiagram({ id }) {
           <line x1="350" y1="200" x2="350" y2="220" />
           <line x1="50" y1="200" x2="350" y2="200" />
         </g>
-        <path d="M280,180 L345,180" stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3" />
+        <path d={`M280,180 L345,180`} stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3" />
         <text x="310" y="170" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#3b82f6" textAnchor="middle">R-60 Attic Cavity</text>
         <circle cx="350" cy="200" r="4" fill="#ef4444" />
         <text x="350" y="215" fontFamily="sans-serif" fontSize="9" fill="#ef4444" textAnchor="middle">Heel Height</text>
@@ -355,7 +354,7 @@ function TechnicalDiagram({ id }) {
         <line x1="105" y1="180" x2="115" y2="180" stroke="#ef4444" strokeWidth="1.5" />
         <text x="95" y="200" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#ef4444" textAnchor="middle">Max 44"</text>
         <text x="200" y="225" fontFamily="sans-serif" fontSize="9" fill="#718096" textAnchor="middle">Sill height measured from finished flooring</text>
-        <text x="200" y="240" fontFamily="sans-serif" fontSize="8" fill="#718096" textAnchor="middle">Width min: 20", Height min: 24"</text>
+        <text x="200" y="240" fontFamily="sans-serif" fontSize="8" fill="#718096" textAnchor="middle">Width min: 20`, Height min: 24`</text>
       </svg>
     );
   }
@@ -371,7 +370,7 @@ function TechnicalDiagram({ id }) {
 }
 
 export default function CodeInspector() {
-  const { lang, theme } = useAppContext();
+  const { lang } = useAppContext();
   const { getCollection, seedCollection } = useBuilders();
   const [aProj, setAProj] = useState("new_con");
   const [aSys, setASys] = useState("roof_types");
@@ -431,7 +430,7 @@ export default function CodeInspector() {
 
   // Simulated AI Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalNoteId, setModalNoteId] = useState(null);
+  const [modalNoteId] = useState(null);
   const [modalPrompt, setModalPrompt] = useState("");
   
   // Custom Diagrams collection state
@@ -454,7 +453,7 @@ export default function CodeInspector() {
   const copyToClipboard = (id, field, text) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopiedId(`${id}-${field}`);
-      showToast(lang === "EN" ? "Copied strictly to clipboard!" : "Copiado estritamente para a área de transferência!");
+      showToast(lang === "EN" ? "Copied strictly to clipboard!" : `Copiado estritamente para a área de transferência!`);
       setTimeout(() => setCopiedId(null), 1500);
     });
   };
@@ -476,7 +475,7 @@ export default function CodeInspector() {
           cls: "err",
           msg: lang === "EN"
             ? "ERROR — R-49 attic insulation is outdated. MA 10th Ed requires R-60 minimum in Climate Zone 5A."
-            : "ERRO — O R-49 é obsoleto para sótão. A 10ª Edição de MA exige R-60 no mínimo na Zona de Clima 5A."
+            : `ERRO — O R-49 é obsoleto para sótão. A 10ª Edição de MA exige R-60 no mínimo na Zona de Clima 5A.`
         });
       }
 
@@ -485,7 +484,7 @@ export default function CodeInspector() {
           cls: "err",
           msg: lang === "EN"
             ? "ERROR — Ledger nailing: Nails are NOT permitted as primary ledger fasteners. Use lag screws per Table R507.9.1.3(1)."
-            : "ERRO — Pregagem de ledger: Pregos NÃO são permitidos como fixadores primários. Use parafusos de lag conforme Tabela R507.9.1.3(1)."
+            : `ERRO — Pregagem de ledger: Pregos NÃO são permitidos como fixadores primários. Use parafusos de lag conforme Tabela R507.9.1.3(1).`
         });
       }
 
@@ -494,7 +493,7 @@ export default function CodeInspector() {
           cls: "wrn",
           msg: lang === "EN"
             ? "WARNING — Multi-family mentioned but no acoustic STC 50 rating cited. Check 780 CMR 1206.2."
-            : "AVISO — Multifamiliar mencionado, mas sem isolamento acústico STC 50. Verifique 780 CMR 1206.2."
+            : `AVISO — Multifamiliar mencionado, mas sem isolamento acústico STC 50. Verifique 780 CMR 1206.2.`
         });
       }
 
@@ -503,7 +502,7 @@ export default function CodeInspector() {
           cls: "err",
           msg: lang === "EN"
             ? "ERROR — Basement egress sill height cannot exceed 44 inches. 48 inches is a violation."
-            : "ERRO — A altura do peitoril para saída de emergência no porão não pode exceder 44 polegadas. 48 polegadas é uma violação."
+            : `ERRO — A altura do peitoril para saída de emergência no porão não pode exceder 44 polegadas. 48 polegadas é uma violação.`
         });
       }
 
@@ -550,12 +549,7 @@ export default function CodeInspector() {
 
   const filteredNotes = getFilteredNotes();
 
-  const handleOpenDiagramModal = (noteId) => {
-    const note = effectiveNotes.find(n => n.id === noteId);
-    setModalNoteId(noteId);
-    setModalPrompt(note?.imageTip || "");
-    setIsModalOpen(true);
-  };
+
 
   const handleGenerateDiagram = () => {
     if (!modalPrompt.trim()) return;
@@ -565,7 +559,7 @@ export default function CodeInspector() {
       [modalNoteId]: true
     }));
     setIsModalOpen(false);
-    showToast(lang === "EN" ? "Technical SVG Diagram generated!" : "Diagrama Técnico SVG gerado com sucesso!");
+    showToast(lang === "EN" ? "Technical SVG Diagram generated!" : `Diagrama Técnico SVG gerado com sucesso!`);
   };
 
   const handleRemoveDiagram = (noteId) => {
@@ -602,7 +596,7 @@ export default function CodeInspector() {
           <div className="badge" style={{ marginBottom: '16px' }}>
             <span className="badge-icon">☆</span>
             <span className="badge-text">
-              {lang === "EN" ? "CODE INSPECTOR" : "INSPETOR DE CÓDIGO"}
+              {lang === "EN" ? "CODE INSPECTOR" : `INSPETOR DE CÓDIGO`}
             </span>
           </div>
           <h1 className="page-main-title">
@@ -619,7 +613,7 @@ export default function CodeInspector() {
           <p className="page-subtitle-standard">
             {lang === "EN" 
               ? "Bilingual compliance library, anti-error validation engine and structural details. Aligned strictly with Massachusetts 780 CMR 10th Edition (effective Oct 2024), 248 CMR, NEC 2023 and NFPA 72."
-              : "Biblioteca bilíngue de conformidade, motor de validação anti-erro e detalhes estruturais. Alinhado estritamente com a 10ª Edição do 780 CMR (outubro de 2024), 248 CMR, NEC 2023 e NFPA 72."}
+              : `Biblioteca bilíngue de conformidade, motor de validação anti-erro e detalhes estruturais. Alinhado estritamente com a 10ª Edição do 780 CMR (outubro de 2024), 248 CMR, NEC 2023 e NFPA 72.`}
           </p>
           <div style={{ display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", marginTop: "24px", flexWrap: "wrap" }}>
             <div style={{ 
@@ -883,7 +877,7 @@ export default function CodeInspector() {
                             border: n.status === "lessons_learned" ? "1px solid rgba(245,158,11,0.2)" : "1px solid rgba(34,197,94,0.2)",
                             whiteSpace: "nowrap"
                           }}>
-                            {n.status === "lessons_learned" ? (lang === "EN" ? "⚡ Lessons Learned" : "⚡ Lições Aprendidas") : (lang === "EN" ? "✓ Code Compliant" : "✓ Conformidade Verificada")}
+                            {n.status === "lessons_learned" ? (lang === "EN" ? "⚡ Lessons Learned" : `⚡ Lições Aprendidas`) : (lang === "EN" ? "✓ Code Compliant" : "✓ Conformidade Verificada")}
                           </span>
                         </div>
 
@@ -904,7 +898,7 @@ export default function CodeInspector() {
                           {/* Quick CAD note */}
                           <div>
                             <label style={{ fontSize: "10px", fontWeight: "800", color: "var(--mu)", textTransform: "uppercase", display: "block", marginBottom: "6px" }}>
-                              {lang === "EN" ? "Quick CAD Note (Short)" : "Nota CAD Rápida (Curta)"}
+                              {lang === "EN" ? "Quick CAD Note (Short)" : `Nota CAD Rápida (Curta)`}
                             </label>
                             <div className="copyable-box" style={{ 
                               position: "relative",
@@ -1044,7 +1038,7 @@ export default function CodeInspector() {
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <h3 style={{ fontSize: "14px", fontWeight: "700", margin: 0 }}>
-                  {lang === "EN" ? "Inspector Validation Scanner" : "Validador Automático do Inspetor"}
+                  {lang === "EN" ? "Inspector Validation Scanner" : `Validador Automático do Inspetor`}
                 </h3>
               </div>
               <p style={{ fontSize: "11px", color: "var(--mu)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 16px" }}>
@@ -1053,8 +1047,8 @@ export default function CodeInspector() {
 
               <textarea 
                 placeholder={lang === "EN" 
-                  ? "Paste any construction note or specification here to validate against Massachusetts building codes in real-time...\nExamples to try:\n- 'All plumbing per IPC Section 305'\n- 'Sill height at 48 inches above finish floor'\n- 'Attic insulation R-49 per 9th Edition'"
-                  : "Cole qualquer especificação ou nota de projeto para verificar contra os códigos de Massachusetts em tempo real...\nExemplos para testar:\n- 'All plumbing per IPC Section 305'\n- 'Sill height at 48 inches above finish floor'\n- 'Attic insulation R-49 per 9th Edition'"}
+                  ? `Paste any construction note or specification here to validate against Massachusetts building codes in real-time...\nExamples to try:\n- 'All plumbing per IPC Section 305'\n- 'Sill height at 48 inches above finish floor'\n- 'Attic insulation R-49 per 9th Edition'`
+                  : `Cole qualquer especificação ou nota de projeto para verificar contra os códigos de Massachusetts em tempo real...\nExemplos para testar:\n- 'All plumbing per IPC Section 305'\n- 'Sill height at 48 inches above finish floor'\n- 'Attic insulation R-49 per 9th Edition'`}
                 value={scanInput}
                 onChange={e => setScanInput(e.target.value)}
                 style={{ 
@@ -1133,14 +1127,14 @@ export default function CodeInspector() {
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               <h3 style={{ fontSize: "16px", fontWeight: "800", margin: 0 }}>
-                {lang === "EN" ? "Generate Technical Detail Diagram" : "Gerar Diagrama de Detalhe Técnico"}
+                {lang === "EN" ? "Generate Technical Detail Diagram" : `Gerar Diagrama de Detalhe Técnico`}
               </h3>
             </div>
             
             <p style={{ fontSize: "12px", color: "var(--mu)", marginTop: "-8px", lineHeight: "1.6" }}>
               {lang === "EN"
                 ? "Describe the specific architectural component or connection you want to render in structural axonometric drawing style."
-                : "Descreva a conexão ou componente de desenho arquitetônico que deseja renderizar no estilo técnico axonométrico."}
+                : `Descreva a conexão ou componente de desenho arquitetônico que deseja renderizar no estilo técnico axonométrico.`}
             </p>
 
             <div style={{ background: "rgba(123, 31, 162, 0.05)", border: "1px solid rgba(123, 31, 162, 0.15)", borderRadius: "8px", padding: "12px", fontSize: "11px", fontFamily: "monospace", lineHeight: "1.6" }}>
@@ -1151,7 +1145,7 @@ export default function CodeInspector() {
             <textarea 
               value={modalPrompt}
               onChange={e => setModalPrompt(e.target.value)}
-              placeholder="Ex: Axonometric cross section of roof eaves, detailing rafter to double plate connection with steel hurricane ties, R-60 blown in insulation and soffit vent path..."
+              placeholder={`Ex: Axonometric cross section of roof eaves, detailing rafter to double plate connection with steel hurricane ties, R-60 blown in insulation and soffit vent path...`}
               style={{ 
                 width: "100%", 
                 background: "rgba(0,0,0,0.2)", 

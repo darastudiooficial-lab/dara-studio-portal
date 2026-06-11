@@ -28,15 +28,15 @@ const LegalIcons = {
 
 const IP_NOTICE_TEXT = {
   EN: {
-    title: "Copyright & IP Notice",
-    subtitle: "Last updated in January 2026. The authorship of all contents, materials, and images displayed on DA·RA Studio is strictly protected by national and international copyright laws.",
+    title: `Copyright & IP Notice`,
+    subtitle: `Last updated in January 2026. The authorship of all contents, materials, and images displayed on DA·RA Studio is strictly protected by national and international copyright laws.`,
     sections: [
       {
         number: "01",
         icon: <LegalIcons.Copyright />,
         badge: "FEDERAL PROTECTION",
-        title: "Intellectual Property & Ownership",
-        content: "Every proprietary asset hosted here, including house plans, 2D/3D BIM models, schematic designs, and technical documentation, is the exclusive Intellectual Property of DA·RA Studio. These works are protected under Title 17 of the U.S. Code and international copyright treaties. Any unauthorized reproduction, redrawing, or digital extraction is strictly prohibited and subject to federal litigation.",
+        title: `Intellectual Property & Ownership`,
+        content: `Every proprietary asset hosted here, including house plans, 2D/3D BIM models, schematic designs, and technical documentation, is the exclusive Intellectual Property of DA·RA Studio. These works are protected under Title 17 of the U.S. Code and international copyright treaties. Any unauthorized reproduction, redrawing, or digital extraction is strictly prohibited and subject to federal litigation.`,
         list: [
           "Title 17 U.S. Code Protected",
           "BIM & CAD Data Exclusivity",
@@ -49,8 +49,8 @@ const IP_NOTICE_TEXT = {
         number: "02",
         icon: <LegalIcons.Licensing />,
         badge: "LEGAL ENFORCEMENT",
-        title: "Single-Use Licensing Protocols",
-        content: "Unless otherwise ratified via a written Master Service Agreement (MSA), all deliverables are issued under a non-transferable, Single-Use License. This authorization is restricted to one (1) physical construction per set of plans. The redistribution, sub-licensing, or resale of these digital assets to third-party entities without express written consent constitutes a material breach of contract.",
+        title: `Single-Use Licensing Protocols`,
+        content: `Unless otherwise ratified via a written Master Service Agreement (MSA), all deliverables are issued under a non-transferable, Single-Use License. This authorization is restricted to one (1) physical construction per set of plans. The redistribution, sub-licensing, or resale of these digital assets to third-party entities without express written consent constitutes a material breach of contract.`,
         list: [
           "One Physical Construction Limit",
           "Redistribution Strictly Prohibited",
@@ -63,8 +63,8 @@ const IP_NOTICE_TEXT = {
         number: "03",
         icon: <LegalIcons.Shield />,
         badge: "DMCA PROTECTED",
-        title: "Digital Asset Protection (DMCA)",
-        content: "DA·RA Studio actively monitors the digital landscape for unauthorized use of our visual media, architectural renderings, and website content. We reserve the right to issue immediate Takedown Notices under the Digital Millennium Copyright Act (DMCA) and pursue statutory damages for any infringement. All metadata and project signatures are encrypted to ensure traceability of origin.",
+        title: `Digital Asset Protection (DMCA)`,
+        content: `DA·RA Studio actively monitors the digital landscape for unauthorized use of our visual media, architectural renderings, and website content. We reserve the right to issue immediate Takedown Notices under the Digital Millennium Copyright Act (DMCA) and pursue statutory damages for any infringement. All metadata and project signatures are encrypted to ensure traceability of origin.`,
         list: [
           "Active Digital Monitoring",
           "Immediate DMCA Takedowns",
@@ -74,63 +74,63 @@ const IP_NOTICE_TEXT = {
         btnLabel: "SECURITY PROTOCOLS"
       }
     ],
-    warning: "Federal Law: Copyright infringement may result in statutory damages of up to $150,000 per infringement plus attorney fees under 17 U.S.C. § 504.",
+    warning: `Federal Law: Copyright infringement may result in statutory damages of up to $150,000 per infringement plus attorney fees under 17 U.S.C. § 504.`,
     legalBadge: "LEGAL PROTECTION"
   },
   PT: {
-    title: "Aviso de Copyright e IP",
-    subtitle: "Última atualização em Janeiro de 2026. A autoria de todos os conteúdos, materiais e imagens exibidos no DA·RA Studio é protegida por leis de direitos autorais nacionais e internacionais.",
+    title: `Aviso de Copyright e IP`,
+    subtitle: `Última atualização em Janeiro de 2026. A autoria de todos os conteúdos, materiais e imagens exibidos no DA·RA Studio é protegida por leis de direitos autorais nacionais e internacionais.`,
     sections: [
       {
         number: "01",
         icon: <LegalIcons.Copyright />,
-        badge: "PROTEÇÃO FEDERAL",
-        title: "Propriedade Intelectual & Autoria",
-        content: "Cada ativo proprietário hospedado neste portal, incluindo planos residenciais, modelos BIM 2D/3D, designs esquemáticos e documentação técnica, constitui propriedade intelectual exclusiva do DA·RA Studio. Estas obras são protegidas pelo Título 17 do Código dos EUA e tratados internacionais. Qualquer reprodução não autorizada, redesenho ou extração digital é estritamente proibida e sujeita a litígio federal.",
+        badge: `PROTEÇÃO FEDERAL`,
+        title: `Propriedade Intelectual & Autoria`,
+        content: `Cada ativo proprietário hospedado neste portal, incluindo planos residenciais, modelos BIM 2D/3D, designs esquemáticos e documentação técnica, constitui propriedade intelectual exclusiva do DA·RA Studio. Estas obras são protegidas pelo Título 17 do Código dos EUA e tratados internacionais. Qualquer reprodução não autorizada, redesenho ou extração digital é estritamente proibida e sujeita a litígio federal.`,
         list: [
-          "Proteção Título 17 Código EUA",
+          `Proteção Título 17 Código EUA`,
           "Exclusividade de Dados BIM e CAD",
-          "Plantas Arquitetônicas e Esquemáticas",
+          `Plantas Arquitetônicas e Esquemáticas`,
           "Propriedade de Obras Derivadas"
         ],
-        btnLabel: "REVISAR LICENÇA"
+        btnLabel: `REVISAR LICENÇA`
       },
       {
         number: "02",
         icon: <LegalIcons.Licensing />,
         badge: "CUMPRIMENTO LEGAL",
-        title: "Protocolos de Licenciamento de Uso Único",
-        content: "A menos que haja um Contrato de Serviço (MSA) por escrito, todos os entregáveis são emitidos sob uma Licença de Uso Único e intransferível. Esta autorização é restrita a apenas uma construção física por conjunto de planos. A redistribuição, sublicenciamento ou revenda destes ativos digitais para terceiros sem consentimento expresso constitui uma violação contratual grave.",
+        title: `Protocolos de Licenciamento de Uso Único`,
+        content: `A menos que haja um Contrato de Serviço (MSA) por escrito, todos os entregáveis são emitidos sob uma Licença de Uso Único e intransferível. Esta autorização é restrita a apenas uma construção física por conjunto de planos. A redistribuição, sublicenciamento ou revenda destes ativos digitais para terceiros sem consentimento expresso constitui uma violação contratual grave.`,
         list: [
-          "Limite de Uma Construção Física",
-          "Redistribuição Estritamente Proibida",
+          `Limite de Uma Construção Física`,
+          `Redistribuição Estritamente Proibida`,
           "Requisito de Contrato Escrito (MSA)",
-          "Direitos de Uso Intransferíveis"
+          `Direitos de Uso Intransferíveis`
         ],
-        btnLabel: "DETALHES DA LICENÇA"
+        btnLabel: `DETALHES DA LICENÇA`
       },
       {
         number: "03",
         icon: <LegalIcons.Shield />,
         badge: "PROTEGIDO POR DMCA",
-        title: "Proteção de Ativos Digitais (DMCA)",
-        content: "O DA·RA Studio monitora ativamente o ambiente digital para identificar o uso não autorizado de nossas mídias visuais, renders arquitetônicos e conteúdo do site. Reservamo-nos o direito de emitir Notificações de Remoção imediata (DMCA) e buscar danos por qualquer infração. Todos os metadados e assinaturas de projeto são criptografados para garantir a rastreabilidade da origem.",
+        title: `Proteção de Ativos Digitais (DMCA)`,
+        content: `O DA·RA Studio monitora ativamente o ambiente digital para identificar o uso não autorizado de nossas mídias visuais, renders arquitetônicos e conteúdo do site. Reservamo-nos o direito de emitir Notificações de Remoção imediata (DMCA) e buscar danos por qualquer infração. Todos os metadados e assinaturas de projeto são criptografados para garantir a rastreabilidade da origem.`,
         list: [
           "Monitoramento Digital Ativo",
-          "Remoção Imediata via DMCA",
-          "Busca de Danos Estatutários",
+          `Remoção Imediata via DMCA`,
+          `Busca de Danos Estatutários`,
           "Metadados de Origem Criptografados"
         ],
-        btnLabel: "PROTOCOLOS DE SEGURANÇA"
+        btnLabel: `PROTOCOLOS DE SEGURANÇA`
       }
     ],
-    warning: "Lei Federal: A violação de direitos autorais pode resultar em danos estatutários de até $150.000 por infração, além de honorários advocatícios nos termos do 17 U.S.C. § 504.",
-    legalBadge: "PROTEÇÃO JURÍDICA"
+    warning: `Lei Federal: A violação de direitos autorais pode resultar em danos estatutários de até $150.000 por infração, além de honorários advocatícios nos termos do 17 U.S.C. § 504.`,
+    legalBadge: `PROTEÇÃO JURÍDICA`
   }
 };
 
 export default function IPNotice() {
-  const { lang, openVera } = useAppContext();
+  const { lang } = useAppContext();
   const T = IP_NOTICE_TEXT[lang] || IP_NOTICE_TEXT.EN;
   const scrollRef = useRef(null);
   const [activeIdx, setActiveIdx] = useState(0);
@@ -149,20 +149,6 @@ export default function IPNotice() {
       const newIdx = Math.round(scrollLeft / cardWidth);
       if (newIdx !== activeIdx) setActiveIdx(newIdx);
     }
-  };
-
-  const scrollToIdx = (idx) => {
-    if (scrollRef.current) {
-      const cardWidth = 412;
-      scrollRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
-    }
-  };
-
-  const handleLegalConsult = (label) => {
-    const msg = lang === 'EN'
-      ? `Hi! I'm VÉRA. I see you're reviewing our ${label}. Would you like to discuss specific licensing terms or intellectual property protections?`
-      : `Olá! Eu sou a VÉRA. Vejo que você está revisando nossos ${label}. Gostaria de discutir termos de licenciamento específicos ou proteções de propriedade intelectual?`;
-    openVera(msg);
   };
 
   return (

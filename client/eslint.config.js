@@ -5,6 +5,10 @@ import reactPlugin from "eslint-plugin-react";
 export default [
   js.configs.recommended,
   {
+    ignores: ["**/*.cjs", "dist/**", "node_modules/**", "jest.config.js"]
+  },
+  {
+    files: ["**/*.js", "**/*.jsx"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -19,7 +23,19 @@ export default [
         window: "readonly",
         console: "readonly",
         process: "readonly",
-        __dirname: "readonly"
+        __dirname: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
+        alert: "readonly",
+        fetch: "readonly",
+        crypto: "readonly",
+        URL: "readonly",
+        Blob: "readonly",
+        URLSearchParams: "readonly",
+        Headers: "readonly",
+        localStorage: "readonly"
       }
     },
     plugins: {

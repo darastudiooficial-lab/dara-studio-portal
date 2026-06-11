@@ -89,11 +89,11 @@ export default function DaraLogo({ size = 40, className = '' }) {
           Mirrors the official brand: bowl starts ~38% from top, ends ~65% from top
         */}
         <path
-          d="M 66 37
+          d={`M 66 37
              C 66 37, 58 26, 43 28
              C 28 30, 21 41, 21 51
              C 21 61, 28 73, 43 74
-             C 58 75, 66 65, 66 65"
+             C 58 75, 66 65, 66 65`}
           stroke={`url(#${gradId})`}
           strokeWidth="5.5"
           strokeLinecap="round"

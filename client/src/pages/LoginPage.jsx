@@ -6,27 +6,27 @@ import { useNavigate } from 'react-router-dom';
 
 const TRANSLATIONS = {
   EN: {
-    title: "Welcome back",
+    title: `Welcome back`,
     subtitle: "Access your DARA Studio portal",
     email: "Email Address",
     password: "Password",
     login: "Log In",
     google: "Continue with Google",
-    noAccount: "Don't have an account?",
+    noAccount: `Don't have an account?`,
     contact: "Contact our team",
-    error: "Invalid email or password",
+    error: `Invalid email or password`,
     loading: "Processing..."
   },
   PT: {
-    title: "Bem-vindo de volta",
+    title: `Bem-vindo de volta`,
     subtitle: "Acesse seu portal DARA Studio",
-    email: "Endereço de E-mail",
+    email: `Endereço de E-mail`,
     password: "Senha",
     login: "Entrar",
     google: "Continuar com Google",
-    noAccount: "Não tem uma conta?",
+    noAccount: `Não tem uma conta?`,
     contact: "Contate nossa equipe",
-    error: "E-mail ou senha inválidos",
+    error: `E-mail ou senha inválidos`,
     loading: "Processando..."
   }
 };
@@ -48,7 +48,7 @@ const LoginPage = () => {
     setLoading(true);
     setError(null);
     
-    const { data, error: authError } = await supabase.auth.signInWithPassword({
+    const { error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });

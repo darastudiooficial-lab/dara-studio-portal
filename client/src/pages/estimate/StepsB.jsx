@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ROOM_GROUPS, ROOM_DEFAULTS, SERVICES } from "./constants";
-import { SectionTitle, FieldGroup, Counter } from "./components";
+import { SectionTitle, Counter } from "./components";
 
 /* ═══ STEP 6: PROGRAM ═══ */
 export function Step6({ data, update }) {
@@ -26,7 +26,7 @@ export function Step6({ data, update }) {
       </div>
       <div style={{ marginTop: 24 }}>
         <label className="wz-label" style={{ marginBottom: 8 }}>Special Requirements <span style={{ color: "var(--dm)", textTransform: "none", letterSpacing: 0 }}>(optional)</span></label>
-        <textarea className="wz-textarea" placeholder="Describe any special needs, accessibility requirements, or custom spaces..."
+        <textarea className="wz-textarea" placeholder={`Describe any special needs, accessibility requirements, or custom spaces...`}
           value={data.specialReqs || ""} onChange={e => update("specialReqs", e.target.value)} />
       </div>
     </div>
@@ -42,7 +42,7 @@ export function Step7({ data, update }) {
 
   return (
     <div className="wz-animate">
-      <SectionTitle label="Upload Reference Files" sub="Plans, photos, inspiration images, videos — anything helps us understand your vision." />
+      <SectionTitle label="Upload Reference Files" sub={`Plans, photos, inspiration images, videos — anything helps us understand your vision.`} />
       <label
         className={`wz-drop ${dragging ? "dragging" : ""}`}
         style={{ display: "block", cursor: "pointer" }}
@@ -80,8 +80,8 @@ export function Step8({ data, update }) {
   const allDone = docs.survey && docs.photos && docs.measurements;
 
   const docItems = [
-    { key: "survey",       label: "Property Survey",   icon: "📋" },
-    { key: "photos",       label: "Site Photos",        icon: "📷" },
+    { key: "survey",       label: `Property Survey`,   icon: "📋" },
+    { key: "photos",       label: `Site Photos`,        icon: "📷" },
     { key: "measurements", label: "Measurements",       icon: "📏" },
   ];
 
@@ -111,8 +111,8 @@ export function Step8({ data, update }) {
       )}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, opacity: allDone ? 1 : .5, pointerEvents: allDone ? "auto" : "none" }}>
         {[
-          { id: "standard", label: "Standard Delivery", sub: "Included in base price", price: "", icon: "📦" },
-          { id: "express",  label: "Rush Express",      sub: "+60% on total estimate", price: "+60%", icon: "⚡" },
+          { id: "standard", label: `Standard Delivery`, sub: "Included in base price", price: "", icon: "📦" },
+          { id: "express",  label: `Rush Express`,      sub: "+60% on total estimate", price: "+60%", icon: "⚡" },
         ].map(opt => (
           <div key={opt.id} className={`wz-card ${data.rush === opt.id ? "active" : ""}`}
             onClick={() => allDone && update("rush", opt.id)}
@@ -142,7 +142,7 @@ export function Step9({ data, estimate, navigate }) {
     { label: "Region",     val: data.region || "—" },
     { label: "Address",    val: [data.street, data.city, data.state].filter(Boolean).join(", ") || "—" },
     { label: "Role",       val: data.role || "—" },
-    { label: "Width × Length", val: data.width && data.length ? `${data.width} × ${data.length} ${isUS?"ft":"m"}` : "—" },
+    { label: `Width × Length`, val: data.width && data.length ? `${data.width} × ${data.length} ${isUS?"ft":"m"}` : "—" },
     { label: "Levels",    val: Object.entries(data.levels || {}).filter(([,v])=>v).map(([k])=>k).join(", ") || "Ground only" },
     { label: "Status",     val: data.status || "—" },
     { label: "Scope",      val: data.scopeType || "—" },
@@ -152,9 +152,9 @@ export function Step9({ data, estimate, navigate }) {
   ];
 
   const steps = [
-    { n: "01", label: "Estimate Review",    sub: "Our team reviews your brief within 24 hours." },
-    { n: "02", label: "Discovery Call",     sub: "A 30-min call to align on scope and goals." },
-    { n: "03", label: "Formal Quote",       sub: "You receive a detailed, no-surprise proposal." },
+    { n: "01", label: `Estimate Review`,    sub: "Our team reviews your brief within 24 hours." },
+    { n: "02", label: `Discovery Call`,     sub: "A 30-min call to align on scope and goals." },
+    { n: "03", label: `Formal Quote`,       sub: `You receive a detailed, no-surprise proposal.` },
   ];
 
   return (

@@ -8,21 +8,21 @@ const NAV_TRANSLATIONS = {
   EN: {
     portal: "Client Portal",
     nav: [
-      { label: "What We Do", path: "/services" },
-      { label: "How We Work", path: "/how-we-work" },
+      { label: `What We Do`, path: "/services" },
+      { label: `How We Work`, path: "/how-we-work" },
       { label: "Portfolio", path: "/portfolio" },
       { label: "Team", path: "/team" },
-      { label: "IP Notice", path: "/ip-notice" },
+      { label: `IP Notice`, path: "/ip-notice" },
     ]
   },
   PT: {
     portal: "Portal do Cliente",
     nav: [
-      { label: "Especialização", path: "/services" },
-      { label: "Como Trabalhamos", path: "/how-we-work" },
-      { label: "Portfólio", path: "/portfolio" },
+      { label: `Especialização`, path: "/services" },
+      { label: `Como Trabalhamos`, path: "/how-we-work" },
+      { label: `Portfólio`, path: "/portfolio" },
       { label: "Equipe", path: "/team" },
-      { label: "Aviso de IP", path: "/ip-notice" },
+      { label: `Aviso de IP`, path: "/ip-notice" },
     ]
   }
 };
@@ -31,7 +31,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { lang, setLang, theme, toggleTheme } = useAppContext();
-  const { user, profile, logout } = useAuth();
+  const { user, profile } = useAuth();
   const T = NAV_TRANSLATIONS[lang];
 
   const portalPath = profile?.role === 'admin' 
@@ -73,10 +73,10 @@ export default function Navbar() {
           </span>
           <div className="dropdown-content">
             <Link to="/interior-reference" className="dropdown-item">
-              {lang === 'EN' ? 'Interior Reference Guide' : 'Guia de Referência de Interiores'}
+              {lang === 'EN' ? 'Interior Reference Guide' : `Guia de Referência de Interiores`}
             </Link>
             <Link to="/code-inspector" className="dropdown-item">
-              {lang === 'EN' ? 'Code Inspector v4' : 'Inspetor de Código v4'}
+              {lang === 'EN' ? 'Code Inspector v4' : `Inspetor de Código v4`}
             </Link>
             <Link to="/field-guide" className="dropdown-item">
               {lang === 'EN' ? 'MA Code Field Guide' : 'Guia de Campo (MA Code)'}
