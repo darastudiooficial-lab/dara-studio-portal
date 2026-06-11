@@ -22,10 +22,32 @@ const WORKFLOW_STEPS = [
   },
   {
     num: "01",
-    title: { EN: "Alignment & Commercial Proposal", PT: "Alinhamento & Proposta Comercial" },
+    title: { EN: "Initial Consultation", PT: "Primeiro Contato" },
     desc: { 
-      EN: "The starting point to turn your vision into reality. We define scope, deadlines, and investment. After signing and the initial deposit, your project slot is secured.",
-      PT: "O ponto de partida para transformar sua visão em realidade. Definimos escopo, prazos e investimento. Após assinatura e o sinal, sua vaga é garantida."
+      EN: "Start with what you have. You don't need a finalized blueprint to get moving. A preliminary sketch, visual references, or a clear objective is more than enough for our team to understand your requirements and build a precise project scope.",
+      PT: "Comece com o que você tem em mãos. Você não precisa chegar com um projeto definitivo ou perfeito para iniciar o fluxo. Um croqui preliminar, referências visuais ou um direcionamento claro já são suficientes para compreendermos a sua demanda e estruturarmos um escopo assertivo."
+    },
+    list: {
+      EN: [
+        <><strong>Reference Images —</strong> Visual concepts, style directions, and your desired finishes.</>,
+        <><strong>Site Information —</strong> Property photos, topographical data, or simply the project address.</>,
+        <><strong>Sketches or Drafts —</strong> Hand-drawn concepts or preliminary spatial zoning ideas.</>,
+        <><strong>Existing Documentation —</strong> Prior surveys, old files, or existing floor plans in PDF.</>,
+        <><strong>Plot Plan or Existing Layout —</strong> Site documentation that significantly accelerates our technical workflow.</>,
+        <><strong>Intended Scope —</strong> A brief description of your goals, whether it is a remodel, a new build, an addition, or specialized drafting support.</>
+      ],
+      PT: [
+        <><strong>Imagens de Referência —</strong> Conceitos visuais, referências de estilo e os acabamentos que você deseja.</>,
+        <><strong>Informações do Terreno —</strong> Fotos do local, dados topográficos ou simplesmente o endereço da propriedade.</>,
+        <><strong>Croquis ou Esboços —</strong> Desenhos à mão livre ou zoneamentos espaciais preliminares.</>,
+        <><strong>Levantamentos Anteriores —</strong> Plantas existentes em PDF, imagens ou arquivos antigos que você já possua.</>,
+        <><strong>Plot Plan ou Implantação Existente —</strong> Documentação do lote que agiliza significativamente o nosso processo técnico.</>,
+        <><strong>Escopo Pretendido —</strong> Uma breve descrição da sua demanda, seja ela uma reforma, construção nova, ampliação (addition) ou um suporte técnico específico.</>
+      ]
+    },
+    note: {
+      EN: <><strong>WHY THIS PHASE MATTERS:</strong> The more context you provide upfront, the more accurate our initial estimate will be. A realistic, well-founded estimate protects your budget against unexpected costs and establishes a solid foundation for every phase that follows.</>,
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Quanto mais contexto você compartilhar de início, mais preciso será o seu estimate. Uma estimativa realista e bem fundamentada protege o seu orçamento contra custos inesperados e estabelece uma base sólida para todas as etapas seguintes.</>
     }
   },
   {
@@ -131,7 +153,26 @@ export default function Process() {
                   </div>
                   {step.badge && <span className="timeline-badge">{step.badge[lang]}</span>}
                 </div>
-                <p className="workflow-step-desc">{step.desc[lang]}</p>
+                {step.desc && <p className="workflow-step-desc">{step.desc[lang]}</p>}
+                
+                {step.list && (
+                  <ul className="service-list" style={{ marginTop: '16px' }}>
+                    {step.list[lang].map((item, i) => (
+                      <li key={i} className="service-list-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || "var(--color-neon-purple)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          {step.listIcon || <polyline points="20 6 9 17 4 12"/>}
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {step.note && (
+                  <div className="service-disclaimer" style={{ marginTop: '16px' }}>
+                    {step.note[lang]}
+                  </div>
+                )}
                 {step.cta && (
                   <div style={{ marginTop: '24px', width: '100%' }}>
                     <button 
