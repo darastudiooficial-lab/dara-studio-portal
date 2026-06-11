@@ -392,9 +392,45 @@ const STEPS = [
             "Pagamento do milestone final de 20% recebido e compensado",
             <>20% — <em>Conjunto de Desenhos Final e Encerramento do Projeto</em></>
           ]
-        }
       }
-    ]
+    ],
+    gantt: {
+      intro: {
+        EN: "To keep your project metrics transparent, here is how your technical pipeline moves across our operational calendar, calculated from the moment your funds clear and kickoff is authorized.",
+        PT: "Para garantir total transparência em relação aos prazos, veja como a sua demanda avança dentro do nosso calendário de produção, calculada a partir do momento em que os fundos são compensados e o kickoff é autorizado."
+      },
+      note: {
+        EN: "Production cycles are dynamic. While standard phases move within the 8 to 16 business days window, the total speed of your pipeline is heavily driven by how fast your consolidated technical feedback is compiled and uploaded to our portal.",
+        PT: "Os ciclos de produção são dinâmicos. Embora as fases principais aconteçam na janela de 8 a 16 dias úteis, a velocidade total do seu projeto depende diretamente da rapidez com que os seus feedbacks consolidados são enviados no nosso portal."
+      },
+      phases: [
+        {
+          label: { EN: "Phase 1: Kickoff & Scope Validation", PT: "Fase 1: Alinhamento Inicial & Validação de Escopo" },
+          duration: { EN: "1 to 3 Business Days", PT: "1 a 3 Dias Úteis" },
+          progress: 20
+        },
+        {
+          label: { EN: "Phase 2: First Design Preview Delivery", PT: "Fase 2: Entrega da Primeira Prévia de Design" },
+          duration: { EN: "8 to 16 Business Days", PT: "8 a 16 Dias Úteis" },
+          progress: 40
+        },
+        {
+          label: { EN: "Phase 3: Revision Iterations (REV 01 to REV 03)", PT: "Fase 3: Ciclos de Ajuste e Revisão (REV 01 a REV 03)" },
+          duration: { EN: "8 to 16 Business Days per round", PT: "8 a 16 Dias Úteis por rodada" },
+          progress: 60
+        },
+        {
+          label: { EN: "Phase 4: Technical Production & Final Drawing Set Compilation", PT: "Fase 4: Produção Técnica & Compilação do Set Final" },
+          duration: { EN: "8 to 16 Business Days", PT: "8 a 16 Dias Úteis" },
+          progress: 80
+        },
+        {
+          label: { EN: "Phase 5: Quality Assurance Review, Final 20% Release & Closeout", PT: "Fase 5: Revisão de Controle de Qualidade, Liberação dos 20% e Encerramento" },
+          duration: { EN: "1 to 3 Business Days", PT: "1 a 3 Dias Úteis" },
+          progress: 100
+        }
+      ]
+    }
   },
   {
     num: "05.1",
@@ -939,6 +975,46 @@ export default function HowWeWork() {
                     <p style={{ marginTop: '16px', fontSize: '12px', opacity: 0.55, lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)' }}>
                       {step.planningNote[lang]}
                     </p>
+                  )}
+
+                  {step.gantt && (
+                    <div style={{ marginTop: '24px' }}>
+                      <h4 style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-color)', opacity: 0.45, marginBottom: '6px', fontFamily: 'var(--font-sans)' }}>
+                        {lang === 'EN' ? 'PROJECT TIMELINE & OPERATIONAL PIPELINE' : 'LINHA DO TEMPO DO PROJETO & FLUXO OPERACIONAL'}
+                      </h4>
+                      <p style={{ fontSize: '12px', opacity: 0.6, lineHeight: 1.6, marginBottom: '20px' }}>{step.gantt.intro[lang]}</p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                        {step.gantt.phases.map((phase, i) => (
+                          <div key={i}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>
+                              <span style={{ fontSize: '12px', fontWeight: 600, fontFamily: 'var(--font-sans)' }}>{phase.label[lang]}</span>
+                              <span style={{ fontSize: '11px', opacity: 0.5, marginLeft: '8px', whiteSpace: 'nowrap' }}>{phase.duration[lang]}</span>
+                            </div>
+                            <div style={{ height: '6px', borderRadius: '99px', background: 'rgba(255,255,255,0.07)', overflow: 'hidden' }}>
+                              <div style={{
+                                height: '100%',
+                                width: `${phase.progress}%`,
+                                borderRadius: '99px',
+                                background: phase.progress === 100
+                                  ? 'linear-gradient(90deg, #7B1FA2, #E91E63)'
+                                  : phase.progress >= 80
+                                  ? 'rgba(123, 31, 162, 0.8)'
+                                  : phase.progress >= 60
+                                  ? 'rgba(123, 31, 162, 0.6)'
+                                  : phase.progress >= 40
+                                  ? 'rgba(123, 31, 162, 0.5)'
+                                  : 'rgba(16, 185, 129, 0.7)',
+                                transition: 'width 0.6s ease'
+                              }} />
+                            </div>
+                            <div style={{ textAlign: 'right', fontSize: '10px', opacity: 0.4, marginTop: '3px' }}>{phase.progress}%</div>
+                          </div>
+                        ))}
+                      </div>
+                      <p style={{ marginTop: '16px', fontSize: '11px', opacity: 0.5, lineHeight: 1.7, fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '14px' }}>
+                        {step.gantt.note[lang]}
+                      </p>
+                    </div>
                   )}
                 </div>
               ))}
