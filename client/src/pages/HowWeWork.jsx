@@ -248,18 +248,111 @@ const STEPS = [
     }
   },
   {
-    num: 4,
+    num: "04",
+    icon: <Icons.Eye />,
+    badge: { EN: "8\u201316 Business Days Per Round", PT: "8\u201316 Dias \u00fateis Por Rodada" },
+    title: { EN: "Design Development & Previews", PT: "Desenvolvimento de Design & Pr\u00e9vias" },
+    summary: { EN: "See Your Project Come to Life.", PT: "Veja Seu Projeto Ganhar Vida." },
+    body: {
+      EN: "This is where your vision takes shape. We develop your project and deliver structured previews combining clear layout plans with high-fidelity 3D visualizations. This approach allows you to experience the spatial flow and validate every detail before any technical production begins.",
+      PT: "\u00c9 aqui que o seu projeto come\u00e7a. Desenvolvemos a sua demanda e enviamos pr\u00e9vias estruturadas que combinam plantas baixas com simula\u00e7\u00f5es em 3D. Assim, voc\u00ea consegue visualizar a real propor\u00e7\u00e3o dos espa\u00e7os e validar cada elemento antes que o detalhamento t\u00e9cnico seja finalizado."
+    },
+    note: {
+      EN: <><strong>WHY THIS PHASE MATTERS:</strong> Moving a wall on a screen costs nothing. Modifying it after construction starts costs thousands. These design preview rounds are engineered to protect your equity, giving you the control to refine every space before the documentation moves into a technical phase that cannot be undone without additional expenses.</>,
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Mudar uma parede no projeto n\u00e3o custa nada. Mudar a mesma parede durante a obra custa milhares de d\u00f3lares. As rodadas de pr\u00e9vias existem especificamente para proteger o seu investimento, sendo a sua grande oportunidade de lapidar cada detalhe antes que o projeto entre na fila de produ\u00e7\u00e3o executiva, uma fase que n\u00e3o pode ser desfeita sem custos adicionais.</>
+    },
+    customLists: [
+      {
+        title: { EN: "HOW THE PREVIEW ROUNDS WORK", PT: "COMO FUNCIONAM AS RODADAS DE PR\u00c9VIAS" },
+        boxClass: "service-box-green",
+        titleClass: "service-box-green-title",
+        iconColor: "#10b981",
+        icon: <polyline points="20 6 9 17 4 12"/>,
+        items: {
+          EN: [
+            "We deliver a complete floor plan layout accompanied by a 3D visualization for each preview.",
+            "You review the assets, compile your feedback, and send it back to our team.",
+            "We apply your requests systematically and return the updated design.",
+            "Each iteration round takes between 8 to 16 business days to be processed and delivered."
+          ],
+          PT: [
+            "Enviamos o layout da planta baixa acompanhado da visualiza\u00e7\u00e3o em 3D a cada entrega.",
+            "Voc\u00ea analisa os arquivos, re\u00fane seus coment\u00e1rios e nos envia o feedback.",
+            "Aplicamos todas as altera\u00e7\u00f5es de forma sistem\u00e1tica e devolvemos a pr\u00e9via atualizada.",
+            "Cada rodada leva de 8 a 16 dias \u00fateis para ser elaborada e entregue."
+          ]
+        }
+      }
+    ],
+    revisionSystem: {
+      included: {
+        label: { EN: "REV 01, 02 & 03 \u2014 Included Revision Rounds", PT: "REV 01, 02 & 03 \u2014 Rodadas de Revis\u00e3o Inclusas" },
+        items: {
+          EN: [
+            "Up to 3 rounds of structured feedback and refinement are completely included.",
+            "Every single update is delivered within 8 to 16 business days.",
+            "Feedback must be entirely consolidated \u2014 partial notes or daily messages do not count as a formal revision round."
+          ],
+          PT: [
+            "At\u00e9 3 rodadas de alinhamento e refinamento est\u00e3o totalmente cobertas pelo seu pacote.",
+            "Cada entrega dentro do prazo padr\u00e3o de 8 a 16 dias \u00fateis.",
+            "Os feedbacks precisam ser consolidados \u2014 mensagens parciais ou feedbacks di\u00e1rios n\u00e3o contam como uma rodada de revis\u00e3o oficial."
+          ]
+        }
+      },
+      extended: {
+        label: { EN: "REV 04, 05, 06+ \u2014 Hourly Extension Model", PT: "REV 04, 05, 06+ \u2014 Modelo de Extens\u00e3o por Hora T\u00e9cnica" },
+        steps: {
+          EN: [
+            <><strong>The Process:</strong> You send your consolidated feedback just like the initial rounds.</>,
+            <><strong>The Evaluation:</strong> DARA Studio reviews your notes and calculates the exact hours required based on technical complexity.</>,
+            <><strong>The Transparency:</strong> We send over the estimated hours and the final cost for your approval. No work ever begins without your explicit green light.</>,
+            <><strong>The Execution:</strong> Once approved and processed, we apply the changes and deliver your updated preview within the agreed timeframe.</>
+          ],
+          PT: [
+            <><strong>O Fluxo:</strong> Voc\u00ea envia o seu feedback consolidado exatamente como nas rodadas anteriores.</>,
+            <><strong>A Avalia\u00e7\u00e3o:</strong> A DARA Studio analisa as solicita\u00e7\u00f5es e calcula o tempo necess\u00e1rio com base no n\u00edvel t\u00e9cnico, e n\u00e3o por quantidade de itens.</>,
+            <><strong>A Transpar\u00eancia:</strong> Enviamos a estimativa de horas e o valor total para a sua valida\u00e7\u00e3o. Nenhuma altera\u00e7\u00e3o come\u00e7a sem a sua autoriza\u00e7\u00e3o.</>,
+            <><strong>A Execu\u00e7\u00e3o:</strong> Ap\u00f3s a aprova\u00e7\u00e3o e o pagamento, executamos as mudan\u00e7as e entregamos a nova pr\u00e9via dentro do prazo combinado.</>
+          ]
+        },
+        example: {
+          EN: "Real Operational Example: You submit a request for REV 04 to move the kitchen island, adjust the master closet layout, and change two window placements. DARA Studio evaluates the technical scope and estimates 3 hours of work. We send you the clear quote of 3 hours at $95 per hour, totaling $285. You approve and pay, and we deliver the new preview within 8 to 16 business days.",
+          PT: "Exemplo Pr\u00e1tico Operacional: Voc\u00ea envia os coment\u00e1rios para a REV 04 solicitando a mudan\u00e7a da ilha da cozinha, o ajuste do layout do closet principal e a altera\u00e7\u00e3o de duas janelas. A DARA Studio avalia o impacto t\u00e9cnico e projeta 3 horas de trabalho. Enviamos o or\u00e7amento claro de 3 horas a $95 por hora, resultando em $285. Voc\u00ea aprova e realiza o pagamento, e n\u00f3s entregamos a nova pr\u00e9via de 8 a 16 dias \u00fateis."
+        }
+      },
+      guidelines: {
+        title: { EN: "IMPORTANT GUIDELINES \u2014 3D & SCOPE CHANGES", PT: "DIRETRIZES ESSENCIAIS \u2014 3D & ALTERA\u00c7\u00d5ES DE ESCOPO" },
+        items: {
+          EN: [
+            <><strong>Exterior 3D:</strong> Included volumetric renders are tied directly to your closed package as outlined in your initial Estimate. This covers the baseline exterior models agreed upon during signing.</>,
+            <><strong>Interior 3D:</strong> Interior renders are always handled separately and are not included in the base package. Each room is billed individually at $150 to $200 per interior space, with subsequent post-delivery revisions at $150 per round.</>,
+            <><strong>AI and Conceptual References:</strong> Any layout changes or new render requests inspired by AI-generated mockups or external references are treated as new interior work and billed per room without exception.</>,
+            <><strong>Post-Approval Changes:</strong> Any structural change to a previously approved layout is billed at our standard technical hour rate of $95 per hour, regardless of your package. Significant scope alterations will always require a revised Estimate.</>
+          ],
+          PT: [
+            <><strong>3D Externo:</strong> As renderiza\u00e7\u00f5es volum\u00e9tricas externas est\u00e3o vinculadas ao seu pacote fechado conforme estabelecido no seu Estimate inicial, cobrindo o que foi acordado no momento da assinatura.</>,
+            <><strong>3D Interno:</strong> As imagens internas n\u00e3o fazem parte do pacote base e s\u00e3o tratadas separadamente. Cada ambiente \u00e9 faturado individualmente com valores entre $150 e $200 por espa\u00e7o, e revis\u00f5es p\u00f3s-entrega possuem o custo de $150 por rodada.</>,
+            <><strong>Refer\u00eancias e Imagens de IA:</strong> Novas demandas de renders ou altera\u00e7\u00f5es de layout baseadas em imagens conceituais externas ou maquetes geradas por IA s\u00e3o processadas como novos trabalhos internos e faturadas por ambiente, sem exce\u00e7\u00f5es.</>,
+            <><strong>Altera\u00e7\u00f5es P\u00f3s-Aprova\u00e7\u00e3o:</strong> Qualquer modifica\u00e7\u00e3o estrutural em um layout j\u00e1 aprovado ser\u00e1 faturada com base na nossa hora t\u00e9cnica padr\u00e3o de $95 por hora, independente do pacote contratado. Mudan\u00e7as profundas de escopo sempre exigir\u00e3o um novo Estimate.</>
+          ]
+        }
+      }
+    }
+  },
+  {
+    num: "04.5",
     icon: <Icons.FileText />,
-    badge: { EN: "25–30 Business Days After Approval", PT: "25–30 Dias Úteis Após Aprovação" },
+    badge: { EN: "25\u201330 Business Days After Approval", PT: "25\u201330 Dias \u00fateis Ap\u00f3s Aprova\u00e7\u00e3o" },
     title: { EN: "Final Drawing Set", PT: "Conjunto de Desenhos Final" },
-    summary: { EN: "Complete architectural drawing package is delivered in digital format.", PT: "Pacote completo de desenhos arquitetônicos é entregue em formato digital." },
+    summary: { EN: "Your comprehensive blueprint package delivered in a high-resolution, construction-ready digital format.", PT: "O pacote completo de documenta\u00e7\u00e3o arquitet\u00f4nica entregue em formato digital de alta resolu\u00e7\u00e3o, pronto para a obra." },
+    body: {
+      EN: "Once the design previews are fully approved, our technical production team develops the complete construction documentation. This technical phase translates your vision into fully dimensioned floor plans, detailed exterior elevations, cross-sections, and exact door and window schedules. Every structural detail required for building permit submittal and actual construction is meticulously integrated. All drawings are drafted from the ground up utilizing specialized Chief Architect X17 parameters to meet strict US residential drawing standards, delivered in industry-standard PDF format.",
+      PT: "Ap\u00f3s a valida\u00e7\u00e3o final da etapa de design, nossa equipe inicia a produ\u00e7\u00e3o t\u00e9cnica de todo o detalhamento executivo para constru\u00e7\u00e3o. Essa entrega engloba plantas baixas totalmente cotadas, eleva\u00e7\u00f5es externas detalhadas, cortes construtivos e as tabelas exatas de portas e janelas. Agrupamos todos os detalhes necess\u00e1rios para a submiss\u00e3o de alvar\u00e1s e orienta\u00e7\u00e3o do canteiro de obras. Toda a documenta\u00e7\u00e3o \u00e9 desenvolvida seguindo rigorosamente as normas norte-americanas de desenho residencial diretamente no sistema do Chief Architect X17, garantindo a entrega em arquivos PDF que s\u00e3o o padr\u00e3o absoluto da ind\u00fastria."
+    },
     note: {
       EN: "Timeline may vary depending on project complexity, requested revisions, and technical coordination during project development.",
-      PT: "O prazo pode variar dependendo da complexidade do projeto, revisões solicitadas e coordenação técnica durante o desenvolvimento do projeto."
-    },
-    body: {
-      EN: "Once the design preview is approved, our team develops the complete construction documentation package. This includes detailed floor plans with dimensions, exterior elevations, building sections, door and window schedules, and all key details needed for permit submission and construction. All drawings are prepared according to U.S. residential drafting standards and delivered in industry-standard digital formats (PDF).",
-      PT: "Após a aprovação da prévia de design, nossa equipe desenvolve o pacote completo de documentação para construção. Isso inclui plantas baixas detalhadas com dimensões, elevações externas, cortes do edifício, tabelas de portas e janelas, e todos os detalhes necessários para submissão de alvará e construção. Todos os desenhos são preparados de acordo com os padrões de desenho residencial dos EUA e entregues em formatos digitais padrão da indústria (PDF)."
+      PT: "O prazo pode variar dependendo da complexidade do projeto, revis\u00f5es solicitadas e coordena\u00e7\u00e3o t\u00e9cnica durante o desenvolvimento do projeto."
     }
   },
   {
@@ -575,6 +668,63 @@ export default function HowWeWork() {
                       ))}
                     </div>
                   )}
+
+                  {step.revisionSystem && (() => {
+                    const rs = step.revisionSystem;
+                    return (
+                      <div style={{ marginTop: '16px' }}>
+                        {/* Included Rounds */}
+                        <div className="service-box-green">
+                          <h4 className="service-box-green-title">{rs.included.label[lang]}</h4>
+                          <ul className="service-list" style={{ marginTop: 0 }}>
+                            {rs.included.items[lang].map((item, i) => (
+                              <li key={i} className="service-list-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Extended Model */}
+                        <div style={{ marginTop: '16px', padding: '20px', borderRadius: '12px', border: '1px solid rgba(123, 31, 162, 0.2)' }}>
+                          <h4 style={{ color: 'var(--brand-purple)', fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
+                            {rs.extended.label[lang]}
+                          </h4>
+                          <ul className="service-list" style={{ marginTop: 0 }}>
+                            {rs.extended.steps[lang].map((step, i) => (
+                              <li key={i} className="service-list-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                {step}
+                              </li>
+                            ))}
+                          </ul>
+                          {rs.extended.example && (
+                            <p style={{ marginTop: '16px', fontSize: '12px', opacity: 0.65, lineHeight: 1.7, fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '14px' }}>
+                              {rs.extended.example[lang]}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Guidelines */}
+                        {rs.guidelines && (
+                          <div className="service-box-red" style={{ border: '1px solid rgba(255, 193, 7, 0.2)' }}>
+                            <h4 style={{ color: '#FFC107', fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
+                              {rs.guidelines.title[lang]}
+                            </h4>
+                            <ul className="service-list" style={{ marginTop: 0 }}>
+                              {rs.guidelines.items[lang].map((item, i) => (
+                                <li key={i} className="service-list-item">
+                                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFC107" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
 
                   {step.cta && (
                     <div style={{ marginTop: 'auto', paddingTop: '16px', width: '100%' }}>
