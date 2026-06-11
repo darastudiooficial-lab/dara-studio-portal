@@ -120,10 +120,76 @@ const WORKFLOW_STEPS = [
   },
   {
     num: "03",
-    title: { EN: "Revisions Phase", PT: "Fase de Revisões" },
+    title: { EN: "Approval & Activation", PT: "Aprovação & Ativação" },
     desc: { 
-      EN: "Two revision rounds included to refine layout and design intent. Additional revisions available upon request.",
-      PT: "Duas rodadas de revisão incluídas para refinar o layout e a intenção do design. Revisões adicionais sob consulta."
+      EN: "Once you review and sign the estimate, the initial payment confirmation formalizes the project start date and secures the immediate allocation of our production team.",
+      PT: "Após revisar e assinar o estimate, a confirmação do pagamento inicial formaliza a data de início do projeto e assegura a alocação imediata da nossa equipe de produção."
+    },
+    customLists: [
+      {
+        title: { EN: "ACTIVATION CHECKLIST", PT: "CHECKLIST DE ATIVAÇÃO" },
+        boxClass: "service-box-green",
+        titleClass: "service-box-green-title",
+        iconColor: "#10b981",
+        icon: <polyline points="20 6 9 17 4 12"/>,
+        items: {
+          EN: [
+            "Estimate reviewed and all scope items confirmed by you",
+            "Estimate digitally signed",
+            "Initial 40% payment received and processed — the project is officially scheduled only after this confirmation",
+            <>40% — <em>Project Initiation and Conceptual Design</em></>
+          ],
+          PT: [
+            "Estimate revisado e todos os itens de escopo confirmados por você",
+            "Estimate assinado digitalmente",
+            "Pagamento inicial de 40% recebido e processado — somente então o projeto é oficialmente agendado",
+            <>40% — <em>Início do Projeto e Design Conceitual</em></>
+          ]
+        }
+      }
+    ],
+    paymentMethods: {
+      title: { EN: "PAYMENT METHODS & PROCESSING TIMES", PT: "FORMAS DE PAGAMENTO & PRAZOS DE PROCESSAMENTO" },
+      methods: [
+        {
+          icon: "💳",
+          name: { EN: "Credit Card via Stripe", PT: "Cartão de Crédito via Stripe" },
+          desc: { EN: "A secure payment link is sent directly with your invoice. All major credit cards are accepted.", PT: "Um link de pagamento seguro é enviado junto com a sua fatura. Aceitamos as principais bandeiras do mercado." },
+          details: {
+            EN: [
+              <><strong>Fees:</strong> A processing fee of 7.99% is added to the project total.</>,
+              <><strong>Project Start:</strong> Funds are typically cleared within 5 to 10 business days, and the project enters our production queue only after this processing window.</>
+            ],
+            PT: [
+              <><strong>Encargos:</strong> Uma taxa de processamento de 7,99% é adicionada sobre o valor total do projeto.</>,
+              <><strong>Início do Projeto:</strong> O valor normalmente é compensado de 5 a 10 dias úteis — o projeto entra na fila somente após isso.</>
+            ]
+          }
+        },
+        {
+          icon: "🏦",
+          name: { EN: "Wire Transfer / ACH", PT: "Wire Transfer / ACH" },
+          desc: { EN: "No additional processing fees. ACH is available for US bank accounts, and international wire transfers are also accepted.", PT: "Sem taxa adicional de processamento. ACH disponível para contas bancárias nos EUA. Wire internacional também aceito." },
+          details: {
+            EN: [
+              <><strong>Processing Window:</strong> Funds are typically received within 2 to 5 business days.</>,
+              <><strong>Instructions:</strong> Complete banking details are provided directly on your invoice.</>
+            ],
+            PT: [
+              <><strong>Prazos:</strong> Valores normalmente recebidos em 2 a 5 dias úteis.</>,
+              <><strong>Instruções:</strong> Dados bancários fornecidos na fatura.</>
+            ]
+          }
+        }
+      ]
+    },
+    note: {
+      EN: <><strong>WHY THIS PHASE MATTERS:</strong> We work with a limited number of active projects simultaneously to guarantee exceptional technical quality and meet every single deadline. Signing the document alone does not reserve your spot. Your project is placed in our production queue only when the payment is fully cleared on our end, regardless of the chosen payment method.</>,
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Trabalhamos com um número limitado de projetos ativos ao mesmo tempo para garantir o máximo rigor técnico e cumprir cada prazo com precisão. A assinatura isolada não reserva a sua vaga. O projeto só entra na nossa fila de execução quando o pagamento é recebido e processado do nosso lado, independentemente da forma de pagamento escolhida.</>
+    },
+    planningNote: {
+      EN: "Planning Note: The allocation of your project in our schedule is validated exclusively after the full clearing of funds, not upon the issuance date or proof of transfer. We highly recommend factoring in these processing times when planning your project kickoff.",
+      PT: "Nota de Planejamento: A alocação da sua demanda em nosso cronograma é validada exclusivamente após a compensação integral dos fundos, e não na data de envio do comprovante. Recomendamos considerar os prazos de processamento de cada método ao planejar o início do seu projeto."
     }
   },
   {
@@ -245,10 +311,35 @@ export default function Process() {
                   </div>
                 ))}
 
+                {step.paymentMethods && (
+                  <div style={{ marginTop: '16px' }}>
+                    <h4 style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--text-color)', opacity: 0.5, marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
+                      {step.paymentMethods.title[lang]}
+                    </h4>
+                    {step.paymentMethods.methods.map((m, i) => (
+                      <div key={i} style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: i < step.paymentMethods.methods.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                        <p style={{ fontWeight: 700, fontSize: '14px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span>{m.icon}</span> {m.name[lang]}
+                        </p>
+                        <p style={{ fontSize: '13px', opacity: 0.7, marginBottom: '10px', lineHeight: 1.5 }}>{m.desc[lang]}</p>
+                        {m.details[lang].map((d, j) => (
+                          <p key={j} style={{ fontSize: '12px', opacity: 0.65, lineHeight: 1.6, marginBottom: '4px' }}>{d}</p>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 {step.note && (
                   <div className="service-disclaimer" style={{ marginTop: '16px' }}>
                     {step.note[lang]}
                   </div>
+                )}
+
+                {step.planningNote && (
+                  <p style={{ marginTop: '16px', fontSize: '12px', opacity: 0.55, lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)' }}>
+                    {step.planningNote[lang]}
+                  </p>
                 )}
                 {step.cta && (
                   <div style={{ marginTop: '24px', width: '100%' }}>
