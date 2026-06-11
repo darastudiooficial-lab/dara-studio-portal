@@ -63,14 +63,33 @@ export default function Process() {
       <main className="independent-page">
         <BackButton />
         <header className="page-header-premium animate-float-up">
-          <span style={{ fontSize: 11, color: "var(--brand-purple)", fontWeight: 700, letterSpacing: ".2em", textTransform: "uppercase", opacity: 0.7 }}>Workflow</span>
           <h1 className="page-main-title">
-            {lang === "EN" ? "How We Work" : "Como Trabalhamos"}
+            {lang === "EN" ? (
+              <>
+                <span className="title-gradient-italic">Workflow</span>{" "}
+                <span className="title-white">& Professional Scope</span>
+              </>
+            ) : (
+              <>
+                <span className="title-gradient-italic">Processo</span>{" "}
+                <span className="title-white">& Escopo Profissional</span>
+              </>
+            )}
           </h1>
           <p className="page-subtitle-standard">
-            {lang === "EN" 
-              ? "We follow a structured, fully remote digital workflow — no in-person meetings. All coordination happens via WhatsApp and our client portal." 
-              : "Seguimos um fluxo de trabalho digital estruturado e totalmente remoto — sem reuniões presenciais. Toda a coordenação acontece via WhatsApp e nosso portal do cliente."}
+            {lang === "EN" ? (
+              <>
+                A structured, efficient, and fully remote workflow engineered for discerning builders, developers, and homeowners. By leveraging cutting-edge technical accuracy and robust communication via WhatsApp and our dedicated client portal, we eliminate friction and deliver construction-ready documentation wherever you are.
+                <br /><br />
+                <strong>The Benefit:</strong> No overhead, no communication gaps. Just high-precision Permit Sets and 3D modeling delivered through a seamless, transparent pipeline.
+              </>
+            ) : (
+              <>
+                Eliminamos a distância com um fluxo de trabalho estruturado, ágil e 100% remoto, projetado especificamente para construtores, incorporadores e proprietários exigentes. Toda a coordenação técnica e o gerenciamento das entregas acontecem direto via WhatsApp e no nosso portal do cliente, garantindo controle absoluto do seu projeto em tempo real.
+                <br /><br />
+                <strong>O Benefício:</strong> A segurança de um processo executivo rigoroso com a agilidade que o mercado imobiliário exige. Sem ruídos, sem burocracia, com total transparência.
+              </>
+            )}
           </p>
         </header>
 

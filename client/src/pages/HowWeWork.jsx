@@ -293,8 +293,8 @@ export default function HowWeWork() {
             <h1 className="page-main-title">
               {lang === "EN" ? (
                 <>
-                  <span className="title-white">Project</span>{" "}
-                  <span className="title-gradient-italic">Process & Scope</span>
+                  <span className="title-gradient-italic">Workflow</span>{" "}
+                  <span className="title-white">& Professional Scope</span>
                 </>
               ) : (
                 <>
@@ -304,9 +304,19 @@ export default function HowWeWork() {
               )}
             </h1>
             <p className="page-subtitle-standard">
-              {lang === "EN"
-                ? "We follow a structured, efficient, and fully remote workflow — designed for builders, developers, and serious homeowners. All coordination is handled via WhatsApp and our client portal."
-                : "Seguimos um fluxo de trabalho estruturado, eficiente e totalmente remoto — projetado para construtores, incorporadores e proprietários exigentes. Toda a coordenação é feita via WhatsApp e nosso portal do cliente."}
+              {lang === "EN" ? (
+                <>
+                  A structured, efficient, and fully remote workflow engineered for discerning builders, developers, and homeowners. By leveraging cutting-edge technical accuracy and robust communication via WhatsApp and our dedicated client portal, we eliminate friction and deliver construction-ready documentation wherever you are.
+                  <br /><br />
+                  <strong>The Benefit:</strong> No overhead, no communication gaps. Just high-precision Permit Sets and 3D modeling delivered through a seamless, transparent pipeline.
+                </>
+              ) : (
+                <>
+                  Eliminamos a distância com um fluxo de trabalho estruturado, ágil e 100% remoto, projetado especificamente para construtores, incorporadores e proprietários exigentes. Toda a coordenação técnica e o gerenciamento das entregas acontecem direto via WhatsApp e no nosso portal do cliente, garantindo controle absoluto do seu projeto em tempo real.
+                  <br /><br />
+                  <strong>O Benefício:</strong> A segurança de um processo executivo rigoroso com a agilidade que o mercado imobiliário exige. Sem ruídos, sem burocracia, com total transparência.
+                </>
+              )}
             </p>
           </header>
 
