@@ -472,6 +472,96 @@ const STEPS = [
     }
   },
   {
+    num: "06",
+    icon: <Icons.Shield />,
+    iconColor: "#7B1FA2",
+    iconBg: "rgba(123, 31, 162, 0.08)",
+    title: { EN: "Administrative Terms & Conditions", PT: "Termos & Condições Administrativas" },
+    summary: {
+      EN: "Clear operational boundaries for communication and timeline management.",
+      PT: "Diretrizes claras para a comunicação e o gerenciamento de prazos ao longo do contrato."
+    },
+    body: {
+      EN: "To maintain the high operational velocity and absolute technical precision that defines DARA Studio, we establish clear behavioral boundaries for our ongoing communication and timeline management.",
+      PT: "Para manter a alta velocidade de execução e o rigor técnico que definem a DARA Studio, estabelecemos diretrizes claras para a nossa comunicação diária e para o gerenciamento de prazos ao longo do contrato."
+    },
+    paymentMethods: {
+      title: { EN: "COMMUNICATION PROTOCOLS", PT: "PROTOCOLOS DE COMUNICAÇÃO" },
+      methods: [
+        {
+          icon: "💬",
+          name: { EN: "Centralized Channels", PT: "Canais Centralizados" },
+          desc: {
+            EN: "Our client portal and text messaging via WhatsApp serve as the exclusive channels for all project-related updates, file transfers, and design feedback.",
+            PT: "O portal do cliente e o atendimento via WhatsApp são os únicos canais oficiais para atualizações, envios de arquivos e recebimento de feedbacks."
+          },
+          details: {
+            EN: [<>We do not utilize audio notes or voice messages for official design changes — technical alignments must remain entirely auditable and traceable.</>],
+            PT: [<>Não utilizamos mensagens de áudio para aprovações ou alterações de design, pois cada alinhamento técnico precisa ser totalmente documentado e rastreável.</>]
+          }
+        },
+        {
+          icon: "⏱️",
+          name: { EN: "Response Windows", PT: "Janelas de Resposta" },
+          desc: {
+            EN: "Our standard response time sits between 2 to 4 business hours during working days.",
+            PT: "Nosso tempo padrão de retorno é de 2 a 4 horas úteis durante o horário comercial."
+          },
+          details: {
+            EN: [<>For deeply technical inquiries or structural reviews that demand detailed analysis from our drafting team, please allow up to <strong>24 business hours</strong> for a comprehensive resolution.</>],
+            PT: [<>Para dúvidas profundamente técnicas ou revisões estruturais que exijam uma análise detalhada da nossa equipe de desenho, pedimos o prazo de até <strong>24 horas úteis</strong> para uma resposta completa.</>]
+          }
+        }
+      ]
+    },
+    revisionSystem: {
+      included: {
+        label: { EN: "SCHEDULE MANAGEMENT & PROJECT EXPIRATIONS", PT: "PRAZOS DE INATIVIDADE & EXPIRAÇÃO DE CONTRATO" },
+        items: {
+          EN: [
+            <>On-Hold Status: If a project pipeline is paused or left inactive due to delayed client feedback or missing site documentation for more than <strong>45 consecutive days</strong>, the original contract terms are voided.</>,
+          ],
+          PT: [
+            <>Status em Espera: Se o andamento do projeto ficar estagnado por falta de feedbacks, atrasos em aprovações ou ausência de documentos por mais de <strong>45 dias seguidos</strong>, o contrato original perde a validade.</>,
+          ]
+        }
+      },
+      extended: {
+        label: { EN: "REACTIVATION ARCHITECTURE", PT: "ESTRUTURA DE REATIVAÇÃO" },
+        steps: {
+          EN: [
+            <>A dedicated reactivation fee equal to <strong>15% of the total estimate</strong> will be assessed to bring a dormant project back into active production after the 45-day threshold.</>,
+            <>The project will then be repositioned into our current production queue based on our active availability — original timelines and delivery milestones will be subject to recalibration.</>
+          ],
+          PT: [
+            <>Para reinserir um projeto inativo de volta à nossa linha de produção após o limite de 45 dias, será cobrada uma taxa de reativação equivalente a <strong>15% do valor total do estimate</strong>.</>,
+            <>O projeto será reposicionado na fila de acordo com a nossa disponibilidade atual — os prazos e cronogramas originais serão recalculados.</>
+          ]
+        }
+      }
+    }
+  },
+  {
+    num: "06.1",
+    icon: <Icons.Star />,
+    iconColor: "#E91E63",
+    iconBg: "rgba(233, 30, 99, 0.08)",
+    title: { EN: "Welcome to DARA Studio", PT: "Seja Bem-Vindo à DARA Studio" },
+    summary: {
+      EN: "We are fully organized and ready to scale your architectural pipeline.",
+      PT: "Estamos prontos para estruturar e dar escala à sua demanda arquitetônica."
+    },
+    body: {
+      EN: "Now that your project is officially activated and positioned in our production queue, we will guide you through our onboarding process to ensure complete alignment before the technical work begins.",
+      PT: "Agora que o seu projeto está oficialmente ativado e posicionado na nossa linha de produção, vamos guiar você pelas etapas iniciais para garantir total alinhamento antes do início dos desenhos técnicos."
+    },
+    cta: {
+      label: { EN: "START YOUR PROJECT", PT: "INICIAR MEU PROJETO" },
+      path: "/estimate",
+      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    }
+  },
+  {
     num: 6,
     icon: <Icons.Package />,
     iconColor: "#10b981",
