@@ -356,13 +356,119 @@ const STEPS = [
     }
   },
   {
-    num: 5,
-    icon: <Icons.MessageCircle />,
-    title: { EN: "Ongoing Coordination", PT: "Coordenação Contínua" },
-    summary: { EN: "We provide remote support and coordination via WhatsApp and our client portal.", PT: "Oferecemos suporte remoto e coordenação via WhatsApp e nosso portal do cliente." },
+    num: "05",
+    icon: <Icons.FileText />,
+    iconColor: "#10b981",
+    iconBg: "rgba(16, 185, 129, 0.08)",
+    title: { EN: "Final Set Review & Retention", PT: "Revisão do Set Final & Retenção" },
+    summary: { EN: "Precision down to the last detail.", PT: "Precisão até o último detalhe." },
     body: {
-      EN: "Our commitment doesn't end with drawing delivery. We remain available to answer questions from your construction team, clarify design intent, and coordinate with licensed engineers when structural modifications require professional stamp. Whether it's explaining a detail to your contractor or making minor adjustments during construction, we're here to ensure smooth project execution from documentation through completion.",
-      PT: "Nosso compromisso não termina com a entrega dos desenhos. Permanecemos disponíveis para responder perguntas da sua equipe de obra, esclarecer a intenção do design e coordenar com engenheiros licenciados quando modificações estruturais exigem carimbo profissional. Seja para explicar um detalhe ao seu empreiteiro ou fazer ajustes menores durante a construção, estamos aqui para garantir a execução tranquila do projeto, da documentação até a conclusão."
+      EN: "When the production team finishes the full construction set, we upload a watermarked, low-resolution technical preview to your client portal. This allows you to verify that every technical specification, annotation, and structural element aligns with your expectations before the final transaction.",
+      PT: "Assim que nossa equipe técnica conclui todo o conjunto de desenhos executivos, disponibilizamos uma prévia técnica em baixa resolução com marca d’água diretamente no seu portal do cliente. Essa etapa serve para você verificar se todas as especificações, notas e elementos estruturais estão em perfeita conformidade antes do encerramento do contrato."
+    },
+    note: {
+      EN: <><strong>WHY THIS PHASE MATTERS:</strong> This is the safety valve of our workflow. It gives you the absolute certainty that the material is complete and accurate before you complete the financial milestone. Once you verify the preview, the final payment releases the high-resolution, unwatermarked files, completely ready for municipal permitting or site execution.</>,
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Esta é a válvula de segurança do nosso processo. Ela traz a certeza absoluta de que o material está completo e correto antes de você realizar a última movimentação financeira. Uma vez validada a prévia, o pagamento final libera os arquivos em alta resolução e sem marcas, totalmente prontos para dar entrada na prefeitura ou guiar o canteiro de obras.</>
+    },
+    customLists: [
+      {
+        title: { EN: "FINAL RELEASE CHECKLIST", PT: "CHECKLIST DE LIBERAÇÃO FINAL" },
+        boxClass: "service-box-green",
+        titleClass: "service-box-green-title",
+        iconColor: "#10b981",
+        icon: <polyline points="20 6 9 17 4 12"/>,
+        items: {
+          EN: [
+            "Final drawing set produced and compiled by DARA Studio",
+            "Low-resolution watermarked technical preview uploaded to your portal",
+            "Project package thoroughly reviewed and verified by you",
+            "Final 20% payment milestone received and fully cleared",
+            <>20% — <em>Final Drawing Set and Project Closeout</em></>
+          ],
+          PT: [
+            "Conjunto de desenhos final produzido e compilado pela DARA Studio",
+            "Prévia técnica em baixa resolução com marca d’água disponível no portal",
+            "Todo o pacote de arquivos revisado e verificado por você",
+            "Pagamento do milestone final de 20% recebido e compensado",
+            <>20% — <em>Conjunto de Desenhos Final e Encerramento do Projeto</em></>
+          ]
+        }
+      }
+    ]
+  },
+  {
+    num: "05.1",
+    icon: <Icons.Clock />,
+    iconColor: "#7B1FA2",
+    iconBg: "rgba(123, 31, 162, 0.08)",
+    title: { EN: "Extended Technical Hours & Post-Delivery Framework", PT: "Tabela de Horas Técnicas & Suporte Pós-Entrega" },
+    summary: {
+      EN: "Architecture is a dynamic pipeline, and municipal demands can shift.",
+      PT: "Projetos executivos são dinâmicos e as exigências municipais podem mudar."
+    },
+    body: {
+      EN: "If your project requires adjustments beyond your initial package or after final delivery, we scale our technical support through a highly structured and predictable hourly ecosystem.",
+      PT: "Se a sua demanda exigir modificações além do pacote original ou após o encerramento do contrato, nossa estrutura oferece suporte sob demanda através de um modelo de hora técnica altamente previsível."
+    },
+    paymentMethods: {
+      title: { EN: "OUT-OF-SCOPE AND POST-DELIVERY TECHNICAL RATES", PT: "VALORES DE HORA TÉCNICA PARA ITENS FORA DO ESCOPO E PÓS-ENTREGA" },
+      methods: [
+        {
+          icon: "📐",
+          name: { EN: "Technical Drafting and Project Modification", PT: "Desenho Técnico e Modificações de Projeto" },
+          desc: { EN: "Priced at $95 per hour.", PT: "Fixado em $95 por hora." },
+          details: {
+            EN: [<>Covers any layout updates, code corrections requested by local authorities, or structural calibration inside the Chief Architect X17 software.</>],
+            PT: [<>Cobre qualquer alteração de layout, correções de código solicitadas por órgãos públicos ou calibrações estruturais dentro do sistema Chief Architect X17.</>]
+          }
+        },
+        {
+          icon: "🎥",
+          name: { EN: "On-Demand Technical Meetings", PT: "Reuniões Técnicas Sob Demanda" },
+          desc: { EN: "Priced at $95 per hour.", PT: "Fixado em $95 por hora." },
+          details: {
+            EN: [<>Applies to dedicated video calls or phone alignments required to discuss scope modifications after a phase is closed.</>],
+            PT: [<>Aplica-se a videoconferências dedicadas ou alinhamentos telefônicos necessários para debater mudanças de escopo após uma etapa ser encerrada.</>]
+          }
+        },
+        {
+          icon: "📋",
+          name: { EN: "General Technical Consultations", PT: "Consultoria Técnica Geral" },
+          desc: { EN: "Priced at $95 per hour.", PT: "Fixado em $95 por hora." },
+          details: {
+            EN: [<>Includes deep reviews of municipal code changes or zoning alignments outside the original contract parameters.</>],
+            PT: [<>Inclui análises profundas de mudanças em códigos de zoneamento ou leis municipais específicas que estejam fora do contrato inicial.</>]
+          }
+        }
+      ]
+    },
+    revisionSystem: {
+      included: {
+        label: { EN: "THE 30-DAY POST-DELIVERY WARRANTY — What Is Included", PT: "GARANTIA TÉCNICA DE 30 DIAS PÓS-ENTREGA — O que está incluso" },
+        items: {
+          EN: [
+            "Every final drawing set comes with a built-in 30-day technical support window that begins the exact day your unwatermarked files are released.",
+            "If the city hall or local building department issues correction notices (redlines) within 30 days, our team will apply the necessary adjustments inside Chief Architect X17 at no extra cost.",
+            "Valid exclusively when changes do not alter the approved architectural layout, overall square footage, or structural scope."
+          ],
+          PT: [
+            "Cada conjunto de desenhos final possui um período de suporte técnico de 30 dias corridos, contados a partir da data de liberação dos arquivos em alta resolução.",
+            "Se a prefeitura ou o departamento de construções local emitir notas de correção (redlines) dentro desse prazo, nossa equipe aplicará os ajustes no Chief Architect X17 sem qualquer custo adicional.",
+            "Válido exclusivamente quando as correções não alterem o layout arquitetônico já aprovado, a área construída ou o escopo estrutural."
+          ]
+        }
+      },
+      extended: {
+        label: { EN: "WHAT SITS OUTSIDE THE WARRANTY", PT: "O QUE NÃO FAZ PARTE DA GARANTIA" },
+        steps: {
+          EN: [
+            <>Any correction request caused by a change of mind, structural layout modifications, or code inquiries received after the 30-day window has expired will be billed under our standard rate of <strong>$95 per hour</strong>.</>
+          ],
+          PT: [
+            <>Qualquer solicitação de ajuste motivada por mudança de ideia, alterações no layout estrutural ou pedidos de correção recebidos após o término do prazo de 30 dias serão faturados com base no valor padrão de <strong>$95 por hora técnica</strong>.</>
+          ]
+        }
+      }
     }
   },
   {
