@@ -220,6 +220,7 @@ export const NOTES = [
 
 // Vector SVG Technical Diagrams for each note
 function TechnicalDiagram({ id }) {
+  const { lang } = useAppContext();
   if (id === 1) { // Gable Roof
     return (
       <svg viewBox="0 0 400 250" style={{ width: "100%", height: "100%", background: "#ffffff" }}>
@@ -233,11 +234,11 @@ function TechnicalDiagram({ id }) {
         <circle cx="200" cy="40" r="4" fill="#3b82f6" />
         <circle cx="50" cy="180" r="5" fill="#3b82f6" />
         <circle cx="350" cy="180" r="5" fill="#3b82f6" />
-        <text x="200" y="30" fontFamily="sans-serif" fontSize="10" fontWeight="bold" textAnchor="middle" fill="#2d3748">Ridge Board</text>
-        <text x="280" y="95" fontFamily="sans-serif" fontSize="9" fill="#718096">Collar Tie</text>
-        <text x="320" y="150" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#3b82f6">Common Rafter</text>
-        <text x="200" y="210" fontFamily="sans-serif" fontSize="11" fontWeight="bold" textAnchor="middle" fill="#3b82f6">HURRICANE TIES REQUIRED AT WALL PLATES</text>
-        <text x="200" y="230" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">Bracing per 780 CMR R602.10.6</text>
+        <text x="200" y="30" fontFamily="sans-serif" fontSize="10" fontWeight="bold" textAnchor="middle" fill="#2d3748">{lang === 'EN' ? 'Ridge Board' : 'Cumeeira'}</text>
+        <text x="280" y="95" fontFamily="sans-serif" fontSize="9" fill="#718096">{lang === 'EN' ? 'Collar Tie' : 'Viga Collar'}</text>
+        <text x="320" y="150" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#3b82f6">{lang === 'EN' ? 'Common Rafter' : 'Caibro Comum'}</text>
+        <text x="200" y="210" fontFamily="sans-serif" fontSize="11" fontWeight="bold" textAnchor="middle" fill="#3b82f6">{lang === 'EN' ? 'HURRICANE TIES REQUIRED AT WALL PLATES' : 'FIXADORES CONTRA FURACÃO NAS COROAS'}</text>
+        <text x="200" y="230" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">{lang === 'EN' ? 'Bracing per 780 CMR R602.10.6' : 'Contraventamento per 780 CMR R602.10.6'}</text>
       </svg>
     );
   }
@@ -252,12 +253,12 @@ function TechnicalDiagram({ id }) {
           <line x1="50" y1="200" x2="350" y2="200" />
         </g>
         <path d={`M280,180 L345,180`} stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3" />
-        <text x="310" y="170" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#3b82f6" textAnchor="middle">R-60 Attic Cavity</text>
+        <text x="310" y="170" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#3b82f6" textAnchor="middle">{lang === 'EN' ? 'R-60 Attic Cavity' : 'Cavidade do Sótão R-60'}</text>
         <circle cx="350" cy="200" r="4" fill="#ef4444" />
-        <text x="350" y="215" fontFamily="sans-serif" fontSize="9" fill="#ef4444" textAnchor="middle">Heel Height</text>
-        <text x="90" y="80" fontFamily="sans-serif" fontSize="9" fill="#718096">Short Slope</text>
-        <text x="250" y="110" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#3b82f6">Long Slope (Snow Drift Zone)</text>
-        <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">New England Colonial Architecture</text>
+        <text x="350" y="215" fontFamily="sans-serif" fontSize="9" fill="#ef4444" textAnchor="middle">{lang === 'EN' ? 'Heel Height' : 'Altura do Calcanhar (Heel)'}</text>
+        <text x="90" y="80" fontFamily="sans-serif" fontSize="9" fill="#718096">{lang === 'EN' ? 'Short Slope' : 'Inclinação Curta'}</text>
+        <text x="250" y="110" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#3b82f6">{lang === 'EN' ? 'Long Slope (Snow Drift Zone)' : 'Inclinação Longa (Acúmulo de Neve)'}</text>
+        <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">{lang === 'EN' ? 'New England Colonial Architecture' : 'Arquitetura Colonial New England'}</text>
       </svg>
     );
   }
@@ -268,11 +269,11 @@ function TechnicalDiagram({ id }) {
         <line x1="40" y1="160" x2="360" y2="152" stroke="#3b82f6" strokeWidth="3" />
         <circle cx="340" cy="153" r="5" fill="#3b82f6" />
         <circle cx="300" cy="154" r="5" fill="#ef4444" />
-        <text x="340" y="135" fontFamily="sans-serif" fontSize="9" fill="#3b82f6" textAnchor="middle">Primary Drain</text>
-        <text x="300" y="120" fontFamily="sans-serif" fontSize="9" fill="#ef4444" textAnchor="middle">Overflow Scupper</text>
-        <text x="200" y="90" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">TPO or EPDM Membrane Layer</text>
-        <text x="200" y="195" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#2d3748" textAnchor="middle">Structural Deck (Min. 1/4" : 12 Slope)</text>
-        <text x="200" y="235" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">IECC 2021 Table R402.1.3 Compliance</text>
+        <text x="340" y="135" fontFamily="sans-serif" fontSize="9" fill="#3b82f6" textAnchor="middle">{lang === 'EN' ? 'Primary Drain' : 'Ralo Principal'}</text>
+        <text x="300" y="120" fontFamily="sans-serif" fontSize="9" fill="#ef4444" textAnchor="middle">{lang === 'EN' ? 'Overflow Scupper' : 'Ladrão/Scupper de Emergência'}</text>
+        <text x="200" y="90" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'TPO or EPDM Membrane Layer' : 'Membrana TPO ou EPDM'}</text>
+        <text x="200" y="195" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'Structural Deck (Min. 1/4" : 12 Slope)' : 'Laje Estrutural (Mín. 1/4" : 12 Incl.)'}</text>
+        <text x="200" y="235" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">{lang === 'EN' ? 'IECC 2021 Table R402.1.3 Compliance' : 'Conformidade IECC 2021 Tabela R402.1.3'}</text>
       </svg>
     );
   }
@@ -280,17 +281,17 @@ function TechnicalDiagram({ id }) {
     return (
       <svg viewBox="0 0 400 250" style={{ width: "100%", height: "100%", background: "#ffffff" }}>
         <line x1="20" y1="90" x2="380" y2="90" stroke="#22c55e" strokeWidth="2" strokeDasharray="6 4" />
-        <text x="300" y="80" fontFamily="sans-serif" fontSize="9" fill="#22c55e">Finished Grade Line</text>
+        <text x="300" y="80" fontFamily="sans-serif" fontSize="9" fill="#22c55e">{lang === 'EN' ? 'Finished Grade Line' : 'Linha do Terreno Acabado'}</text>
         <rect x="170" y="30" width="60" height="60" fill="#f7fafc" stroke="#2d3748" strokeWidth="2" />
         <rect x="180" y="90" width="40" height="120" fill="#e2e8f0" stroke="#3b82f6" strokeWidth="2" />
         <circle cx="200" cy="210" r="15" fill="#a855f7" opacity="0.3" />
-        <text x="200" y="60" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">Wood Deck Post</text>
-        <text x="200" y="150" fontFamily="sans-serif" fontSize="10" fill="#3b82f6" textAnchor="middle">Concrete Sonotube</text>
+        <text x="200" y="60" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'Wood Deck Post' : 'Pilar de Madeira do Deck'}</text>
+        <text x="200" y="150" fontFamily="sans-serif" fontSize="10" fill="#3b82f6" textAnchor="middle">{lang === 'EN' ? 'Concrete Sonotube' : 'Sonotube de Concreto'}</text>
         <line x1="140" y1="90" x2="140" y2="210" stroke="#ef4444" strokeWidth="1.5" />
         <line x1="135" y1="90" x2="145" y2="90" stroke="#ef4444" strokeWidth="1.5" />
         <line x1="135" y1="210" x2="145" y2="210" stroke="#ef4444" strokeWidth="1.5" />
-        <text x="125" y="155" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#ef4444" textAnchor="middle" transform="rotate(-90 125 155)">48" Frost Depth</text>
-        <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">MA 780 CMR Frost Protection Limit</text>
+        <text x="125" y="155" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#ef4444" textAnchor="middle" transform="rotate(-90 125 155)">{lang === 'EN' ? '48" Frost Depth' : '48" Prof. de Geada'}</text>
+        <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">{lang === 'EN' ? 'MA 780 CMR Frost Protection Limit' : 'MA 780 CMR Limite de Geada'}</text>
       </svg>
     );
   }
@@ -302,12 +303,12 @@ function TechnicalDiagram({ id }) {
         <rect x="180" y="70" width="150" height="30" fill="#f7fafc" stroke="#2d3748" strokeWidth="1.5" />
         <line x1="110" y1="85" x2="210" y2="85" stroke="#ef4444" strokeWidth="3" />
         <circle cx="210" cy="85" r="4" fill="#ef4444" />
-        <text x="110" y="210" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">Rim Joist</text>
-        <text x="150" y="190" fontFamily="sans-serif" fontSize="9" fill="#3b82f6">Ledger Board</text>
-        <text x="260" y="60" fontFamily="sans-serif" fontSize="9" fill="#2d3748">Deck Joists</text>
-        <text x="240" y="125" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#ef4444">1/2" Lag Screw / Bolt</text>
-        <text x="240" y="140" fontFamily="sans-serif" fontSize="9" fill="#ef4444">NAILS STRICTLY PROHIBITED</text>
-        <text x="200" y="235" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">Table R507.9.1.3(1) Compliance</text>
+        <text x="110" y="210" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'Rim Joist' : 'Viga de Borda (Rim Joist)'}</text>
+        <text x="150" y="190" fontFamily="sans-serif" fontSize="9" fill="#3b82f6">{lang === 'EN' ? 'Ledger Board' : 'Viga de Apoio (Ledger)'}</text>
+        <text x="260" y="60" fontFamily="sans-serif" fontSize="9" fill="#2d3748">{lang === 'EN' ? 'Deck Joists' : 'Vigas do Deck'}</text>
+        <text x="240" y="125" fontFamily="sans-serif" fontSize="10" fontWeight="bold" fill="#ef4444">{lang === 'EN' ? '1/2" Lag Screw / Bolt' : 'Parafuso Lag de 1/2"'}</text>
+        <text x="240" y="140" fontFamily="sans-serif" fontSize="9" fill="#ef4444">{lang === 'EN' ? 'NAILS STRICTLY PROHIBITED' : 'PREGOS ESTRITAMENTE PROIBIDOS'}</text>
+        <text x="200" y="235" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#718096">{lang === 'EN' ? 'Table R507.9.1.3(1) Compliance' : 'Conformidade Tabela R507.9.1.3(1)'}</text>
       </svg>
     );
   }
@@ -319,10 +320,10 @@ function TechnicalDiagram({ id }) {
         <rect x="180" y="120" width="40" height="50" fill="#f7fafc" stroke="#718096" strokeWidth="1.5" />
         <rect x="300" y="120" width="40" height="50" fill="#f7fafc" stroke="#718096" strokeWidth="1.5" />
         <path d="M40,110 Q80,90 120,110 T200,105 T280,112 T360,108 L360,170 L40,170 Z" fill="#a855f7" opacity="0.15" stroke="#a855f7" strokeWidth="1.5" strokeDasharray="3" />
-        <text x="200" y="145" fontFamily="sans-serif" fontSize="13" fontWeight="bold" fill="#a855f7" textAnchor="middle">R-60 Blown-in Insulation</text>
-        <text x="200" y="70" fontFamily="sans-serif" fontSize="10" fill="#718096" textAnchor="middle">~20 inches continuous depth</text>
-        <text x="200" y="210" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">Gypsum Ceiling Board</text>
-        <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#ef4444">Fails CO if below R-60 (780 CMR 10th Ed)</text>
+        <text x="200" y="145" fontFamily="sans-serif" fontSize="13" fontWeight="bold" fill="#a855f7" textAnchor="middle">{lang === 'EN' ? 'R-60 Blown-in Insulation' : 'Isolamento Soprado R-60'}</text>
+        <text x="200" y="70" fontFamily="sans-serif" fontSize="10" fill="#718096" textAnchor="middle">{lang === 'EN' ? '~20 inches continuous depth' : '~20 polegadas de espessura'}</text>
+        <text x="200" y="210" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'Gypsum Ceiling Board' : 'Placa de Gesso de Teto'}</text>
+        <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#ef4444">{lang === 'EN' ? 'Fails CO if below R-60 (780 CMR 10th Ed)' : 'Reprova CO se abaixo de R-60 (10ª Ed)'}</text>
       </svg>
     );
   }
@@ -331,10 +332,10 @@ function TechnicalDiagram({ id }) {
       <svg viewBox="0 0 400 250" style={{ width: "100%", height: "100%", background: "#ffffff" }}>
         <path d="M200,40 L300,70 L300,140 C300,190 200,220 200,220 C200,220 100,190 100,140 L100,70 Z" fill="#eff6ff" stroke="#3b82f6" strokeWidth="3" />
         <text x="200" y="105" fontFamily="sans-serif" fontSize="24" fontWeight="800" fill="#1d4ed8" textAnchor="middle">248 CMR</text>
-        <text x="200" y="130" fontFamily="sans-serif" fontSize="11" fontWeight="bold" fill="#1d4ed8" textAnchor="middle">MA Plumbing Code</text>
-        <text x="200" y="150" fontFamily="sans-serif" fontSize="9" fill="#718096" textAnchor="middle">GOVERNS EXCLUSIVELY</text>
+        <text x="200" y="130" fontFamily="sans-serif" fontSize="11" fontWeight="bold" fill="#1d4ed8" textAnchor="middle">{lang === 'EN' ? 'MA Plumbing Code' : 'Código Hidráulico de MA'}</text>
+        <text x="200" y="150" fontFamily="sans-serif" fontSize="9" fill="#718096" textAnchor="middle">{lang === 'EN' ? 'GOVERNS EXCLUSIVELY' : 'GOVERNA EXCLUSIVAMENTE'}</text>
         <g opacity="0.8">
-          <text x="200" y="180" fontFamily="sans-serif" fontSize="11" fontWeight="bold" fill="#ef4444" textAnchor="middle">IPC CITED = AUTOMATIC REJECTION</text>
+          <text x="200" y="180" fontFamily="sans-serif" fontSize="11" fontWeight="bold" fill="#ef4444" textAnchor="middle">{lang === 'EN' ? 'IPC CITED = AUTOMATIC REJECTION' : 'IPC CITADO = REJEIÇÃO AUTOMÁTICA'}</text>
         </g>
       </svg>
     );
@@ -348,13 +349,13 @@ function TechnicalDiagram({ id }) {
         <line x1="260" y1="210" x2="260" y2="180" stroke="#3b82f6" strokeWidth="2" strokeDasharray="4 2" />
         <line x1="140" y1="195" x2="260" y2="195" stroke="#3b82f6" strokeWidth="2" />
         <circle cx="200" cy="195" r="3" fill="#3b82f6" />
-        <text x="200" y="188" fontFamily="sans-serif" fontSize="9" fill="#3b82f6" textAnchor="middle">5.7 SQ FT Egress Net Clear</text>
+        <text x="200" y="188" fontFamily="sans-serif" fontSize="9" fill="#3b82f6" textAnchor="middle">{lang === 'EN' ? '5.7 SQ FT Egress Net Clear' : '5.7 SQ FT Vão Livre de Egress'}</text>
         <line x1="110" y1="210" x2="110" y2="180" stroke="#ef4444" strokeWidth="1.5" />
         <line x1="105" y1="210" x2="115" y2="210" stroke="#ef4444" strokeWidth="1.5" />
         <line x1="105" y1="180" x2="115" y2="180" stroke="#ef4444" strokeWidth="1.5" />
-        <text x="95" y="200" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#ef4444" textAnchor="middle">Max 44"</text>
-        <text x="200" y="225" fontFamily="sans-serif" fontSize="9" fill="#718096" textAnchor="middle">Sill height measured from finished flooring</text>
-        <text x="200" y="240" fontFamily="sans-serif" fontSize="8" fill="#718096" textAnchor="middle">Width min: 20`, Height min: 24`</text>
+        <text x="95" y="200" fontFamily="sans-serif" fontSize="9" fontWeight="bold" fill="#ef4444" textAnchor="middle">{lang === 'EN' ? 'Max 44"' : 'Máx 44"'}</text>
+        <text x="200" y="225" fontFamily="sans-serif" fontSize="9" fill="#718096" textAnchor="middle">{lang === 'EN' ? 'Sill height measured from finished flooring' : 'Peitoril medido do piso acabado'}</text>
+        <text x="200" y="240" fontFamily="sans-serif" fontSize="8" fill="#718096" textAnchor="middle">{lang === 'EN' ? 'Width min: 20", Height min: 24"' : 'Largura mín: 20", Altura mín: 24"'}</text>
       </svg>
     );
   }
@@ -362,9 +363,9 @@ function TechnicalDiagram({ id }) {
   return (
     <svg viewBox="0 0 400 250" style={{ width: "100%", height: "100%", background: "#ffffff" }}>
       <rect x="40" y="40" width="320" height="170" fill="#f7fafc" stroke="#3b82f6" strokeWidth="1" strokeDasharray="4" />
-      <text x="200" y="110" fontFamily="sans-serif" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">Technical Construction Diagram</text>
-      <text x="200" y="135" fontFamily="sans-serif" fontSize="10" fill="#718096" textAnchor="middle">{id ? `Note Component Detail #${id}` : "Detail Reference"}</text>
-      <text x="200" y="160" fontFamily="sans-serif" fontSize="9" fill="#a855f7" textAnchor="middle">Auto-Generated SVG Precision Vector</text>
+      <text x="200" y="110" fontFamily="sans-serif" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">{lang === 'EN' ? 'Technical Construction Diagram' : 'Diagrama Técnico de Construção'}</text>
+      <text x="200" y="135" fontFamily="sans-serif" fontSize="10" fill="#718096" textAnchor="middle">{lang === 'EN' ? `Note Component Detail #${id}` : `Detalhe do Componente Nota #${id}`}</text>
+      <text x="200" y="160" fontFamily="sans-serif" fontSize="9" fill="#a855f7" textAnchor="middle">{lang === 'EN' ? 'Auto-Generated SVG Precision Vector' : 'Vetor de Precisão SVG Gerado'}</text>
     </svg>
   );
 }
@@ -470,7 +471,7 @@ export default function CodeInspector() {
       const l = scanInput.toLowerCase();
 
       // Example checks
-      if ((l.includes("r-49") || l.includes("r49")) && l.includes("attic")) {
+      if ((l.includes("r-49") || l.includes("r49")) && (l.includes("attic") || l.includes("sótão") || l.includes("sotao"))) {
         results.push({
           cls: "err",
           msg: lang === "EN"
@@ -479,7 +480,7 @@ export default function CodeInspector() {
         });
       }
 
-      if ((l.includes("nail") || l.includes("toenail")) && l.includes("ledger")) {
+      if ((l.includes("nail") || l.includes("toenail") || l.includes("prego") || l.includes("pregagem")) && (l.includes("ledger") || l.includes("tábua de apoio") || l.includes("tabua de apoio"))) {
         results.push({
           cls: "err",
           msg: lang === "EN"
@@ -488,7 +489,7 @@ export default function CodeInspector() {
         });
       }
 
-      if (l.includes("multi-family") && !l.includes("stc")) {
+      if ((l.includes("multi-family") || l.includes("multifamiliar")) && !l.includes("stc")) {
         results.push({
           cls: "wrn",
           msg: lang === "EN"
@@ -497,7 +498,7 @@ export default function CodeInspector() {
         });
       }
 
-      if (l.includes("sill height") && l.includes("48")) {
+      if ((l.includes("sill height") || l.includes("altura do peitoril") || l.includes("peitoril")) && l.includes("48")) {
         results.push({
           cls: "err",
           msg: lang === "EN"
@@ -1048,7 +1049,7 @@ export default function CodeInspector() {
               <textarea 
                 placeholder={lang === "EN" 
                   ? `Paste any construction note or specification here to validate against Massachusetts building codes in real-time...\nExamples to try:\n- 'All plumbing per IPC Section 305'\n- 'Sill height at 48 inches above finish floor'\n- 'Attic insulation R-49 per 9th Edition'`
-                  : `Cole qualquer especificação ou nota de projeto para verificar contra os códigos de Massachusetts em tempo real...\nExemplos para testar:\n- 'All plumbing per IPC Section 305'\n- 'Sill height at 48 inches above finish floor'\n- 'Attic insulation R-49 per 9th Edition'`}
+                  : `Cole qualquer especificação ou nota de projeto para verificar contra os códigos de Massachusetts em tempo real...\nExemplos para testar:\n- 'Instalações hidráulicas seguindo o IPC'\n- 'Peitoril da janela com altura de 48 polegadas'\n- 'Isolamento de sótão com fator R-49'`}
                 value={scanInput}
                 onChange={e => setScanInput(e.target.value)}
                 style={{ 

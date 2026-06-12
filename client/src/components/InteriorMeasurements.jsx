@@ -9,17 +9,17 @@ export const SUB_CATEGORIES = {
 };
 
 export const MEASUREMENTS_CATEGORIES = [
-  { id: 'all', label: 'Todos', labelPt: 'Todos' },
+  { id: 'all', label: 'All', labelPt: 'Todos' },
   { id: 'closets', label: 'Closets', labelPt: 'Closets', icon: '🗄️' },
-  { id: 'stairs', label: `Escadas & Halls`, labelPt: 'Escadas & Halls' },
-  { id: 'bathrooms', label: 'Banheiros', labelPt: 'Banheiros', icon: '🚿' },
-  { id: 'circulation', label: `Circulação`, labelPt: `Circulação` },
-  { id: 'bedrooms', label: 'Quartos', labelPt: 'Quartos' },
-  { id: 'garage', label: `Garagem & Serviços`, labelPt: `Garagem & Serviços` },
-  { id: 'social', label: `Áreas Sociais`, labelPt: `Áreas Sociais` },
-  { id: 'adu', label: `ADU — Sq Ft`, labelPt: 'ADU — Sq Ft', isOutline: true, icon: '🏠' },
-  { id: 'office', label: 'Office', labelPt: 'Office', isOutline: true },
-  { id: 'gym', label: 'Gym', labelPt: 'Gym', isOutline: true }
+  { id: 'stairs', label: 'Stairs & Halls', labelPt: 'Escadas & Halls' },
+  { id: 'bathrooms', label: 'Bathrooms', labelPt: 'Banheiros', icon: '🚿' },
+  { id: 'circulation', label: 'Circulation', labelPt: 'Circulação' },
+  { id: 'bedrooms', label: 'Bedrooms', labelPt: 'Quartos' },
+  { id: 'garage', label: 'Garage & Services', labelPt: 'Garagem & Serviços' },
+  { id: 'social', label: 'Social Areas', labelPt: 'Áreas Sociais' },
+  { id: 'adu', label: 'ADU — Sq Ft', labelPt: 'ADU — Sq Ft', isOutline: true, icon: '🏠' },
+  { id: 'office', label: 'Office', labelPt: 'Escritório', isOutline: true },
+  { id: 'gym', label: 'Gym', labelPt: 'Academia', isOutline: true }
 ];
 
 export const MEASUREMENTS_ITEMS = [
@@ -352,9 +352,9 @@ export default function InteriorMeasurements({ lang }) {
                 <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>
                   {lang === 'EN' ? 'ENVIRONMENT / ELEMENT' : 'AMBIENTE / ELEMENTO'}
                 </th>
-                <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>MÍNIMO</th>
-                <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>MÉDIO</th>
-                <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>GRANDE</th>
+                <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>{lang === 'EN' ? 'MINIMUM' : 'MÍNIMO'}</th>
+                <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>{lang === 'EN' ? 'MEDIUM' : 'MÉDIO'}</th>
+                <th style={{ padding: '16px 24px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: 'var(--mu)', letterSpacing: '0.1em' }}>{lang === 'EN' ? 'LARGE' : 'GRANDE'}</th>
               </tr>
             </thead>
             <tbody>

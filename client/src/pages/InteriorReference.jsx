@@ -174,7 +174,7 @@ export const CATALOG_ITEMS = [
 ];
 
 // Interactive Technical Diagrams
-function InteriorTechnicalDiagram({ id }) {
+function InteriorTechnicalDiagram({ id, lang }) {
   if (id === 'cab_base') {
     return (
       <svg viewBox="0 0 400 300" style={{ width: '100%', height: '100%', background: '#0a0a0f' }}>
@@ -205,17 +205,17 @@ function InteriorTechnicalDiagram({ id }) {
         </g>
         
         {/* Toe kick labels */}
-        <text x="125" y="245" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#ec4899">Toe Kick: 4"H x 3"D</text>
+        <text x="125" y="245" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#ec4899">{lang === 'EN' ? 'Toe Kick: 4"H x 3"D' : 'Rodapé: 4"A x 3"P'}</text>
         <circle cx="110" cy="240" r="3" fill="#ec4899" />
         
         {/* Dimension text */}
-        <text x="325" y="165" fontFamily="monospace" fontSize="11" fontWeight="bold" fill="#f59e0b" textAnchor="middle">36" Finished Ht</text>
-        <text x="325" y="180" fontFamily="sans-serif" fontSize="8" fill="#94a3b8" textAnchor="middle">(Including Counter)</text>
+        <text x="325" y="165" fontFamily="monospace" fontSize="11" fontWeight="bold" fill="#f59e0b" textAnchor="middle">{lang === 'EN' ? '36" Finished Ht' : 'Alt. Acabada: 36"'}</text>
+        <text x="325" y="180" fontFamily="sans-serif" fontSize="8" fill="#94a3b8" textAnchor="middle">{lang === 'EN' ? '(Including Counter)' : '(Incluindo Bancada)'}</text>
         
-        <text x="150" y="45" fontFamily="monospace" fontSize="10" fontWeight="bold" fill="#a855f7" textAnchor="middle">1.5" Slab Overhang</text>
-        <text x="150" y="140" fontFamily="sans-serif" fontSize="11" fill="#94a3b8" textAnchor="middle">24" Standard Depth</text>
+        <text x="150" y="45" fontFamily="monospace" fontSize="10" fontWeight="bold" fill="#a855f7" textAnchor="middle">{lang === 'EN' ? '1.5" Slab Overhang' : 'Balanço da Pedra: 1.5"'}</text>
+        <text x="150" y="140" fontFamily="sans-serif" fontSize="11" fill="#94a3b8" textAnchor="middle">{lang === 'EN' ? '24" Standard Depth' : 'Profundidade Padrão: 24"'}</text>
         
-        <text x="200" y="290" fontFamily="sans-serif" fontSize="9" fill="#64748b" textAnchor="middle">Precision Ergonomic Kitchen Layout</text>
+        <text x="200" y="290" fontFamily="sans-serif" fontSize="9" fill="#64748b" textAnchor="middle">{lang === 'EN' ? 'Precision Ergonomic Kitchen Layout' : 'Layout Ergonômico de Cozinha'}</text>
       </svg>
     );
   }
@@ -242,16 +242,16 @@ function InteriorTechnicalDiagram({ id }) {
         </g>
         
         <circle cx="160" cy="195" r="4" fill="#f59e0b" />
-        <text x="180" y="200" fontFamily="monospace" fontSize="11" fontWeight="bold" fill="#f59e0b">18" Backsplash Clearance</text>
+        <text x="180" y="200" fontFamily="monospace" fontSize="11" fontWeight="bold" fill="#f59e0b">{lang === 'EN' ? '18" Backsplash Clearance' : 'Vão da Bancada: 18"'}</text>
         
-        <text x="80" y="90" fontFamily="monospace" fontSize="10" fontWeight="bold" fill="#6366f1" textAnchor="middle">12" Depth</text>
-        <text x="80" y="105" fontFamily="sans-serif" fontSize="8" fill="#94a3b8" textAnchor="middle">(Prevents Collision)</text>
+        <text x="80" y="90" fontFamily="monospace" fontSize="10" fontWeight="bold" fill="#6366f1" textAnchor="middle">{lang === 'EN' ? '12" Depth' : 'Profundidade: 12"'}</text>
+        <text x="80" y="105" fontFamily="sans-serif" fontSize="8" fill="#94a3b8" textAnchor="middle">{lang === 'EN' ? '(Prevents Collision)' : '(Evita Colisões)'}</text>
         
-        <text x="210" y="255" fontFamily="monospace" fontSize="9.5" fill="#10b981" textAnchor="middle">Finished Countertop Surface</text>
+        <text x="210" y="255" fontFamily="monospace" fontSize="9.5" fill="#10b981" textAnchor="middle">{lang === 'EN' ? 'Finished Countertop Surface' : 'Bancada Acabada'}</text>
         
         {/* Under-cabinet LED light path */}
         <path d="M42,148 L118,148" stroke="#a855f7" strokeWidth="2" strokeDasharray="3" />
-        <text x="80" y="165" fontFamily="monospace" fontSize="8.5" fontWeight="bold" fill="#a855f7" textAnchor="middle">LED Valance Zone</text>
+        <text x="80" y="165" fontFamily="monospace" fontSize="8.5" fontWeight="bold" fill="#a855f7" textAnchor="middle">{lang === 'EN' ? 'LED Valance Zone' : 'Zona do Perfil LED'}</text>
       </svg>
     );
   }
@@ -282,11 +282,11 @@ function InteriorTechnicalDiagram({ id }) {
           <line x1="45" y1="225" x2="55" y2="225" />
         </g>
         
-        <text x="75" y="55" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#a855f7">Crown Height (3" - 7")</text>
-        <text x="65" y="245" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#6366f1">Baseboard (3.5" - 5.5")</text>
+        <text x="75" y="55" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#a855f7">{lang === 'EN' ? 'Crown Height (3" - 7")' : 'Altura do Rodateto (3" - 7")'}</text>
+        <text x="65" y="245" fontFamily="monospace" fontSize="9" fontWeight="bold" fill="#6366f1">{lang === 'EN' ? 'Baseboard (3.5" - 5.5")' : 'Rodapé (3.5" - 5.5")'}</text>
         
-        <text x="200" y="140" fontFamily="sans-serif" fontSize="12" fill="#94a3b8" textAnchor="middle">Architectural Proportions</text>
-        <text x="200" y="160" fontFamily="monospace" fontSize="10.5" fontWeight="bold" fill="#f59e0b" textAnchor="middle">Trim Height = Ceiling Ht * 1/20 ratio</text>
+        <text x="200" y="140" fontFamily="sans-serif" fontSize="12" fill="#94a3b8" textAnchor="middle">{lang === 'EN' ? 'Architectural Proportions' : 'Proporções Arquitetônicas'}</text>
+        <text x="200" y="160" fontFamily="monospace" fontSize="10.5" fontWeight="bold" fill="#f59e0b" textAnchor="middle">{lang === 'EN' ? 'Trim Height = Ceiling Ht * 1/20 ratio' : 'Alt. Acabamento = Pé-Direito * 1/20'}</text>
       </svg>
     );
   }
@@ -303,13 +303,13 @@ function InteriorTechnicalDiagram({ id }) {
         </g>
         
         {/* Annotations */}
-        <text x="160" y="50" fontFamily="monospace" fontSize="11" fontWeight="bold" fill="#6366f1" textAnchor="middle">3cm (1-1/4") Slab</text>
+        <text x="160" y="50" fontFamily="monospace" fontSize="11" fontWeight="bold" fill="#6366f1" textAnchor="middle">{lang === 'EN' ? '3cm (1-1/4") Slab' : 'Chapa de 3cm (1-1/4")'}</text>
         
         <circle cx="215" cy="85" r="4" fill="#ec4899" />
-        <text x="260" y="90" fontFamily="monospace" fontSize="10.5" fontWeight="bold" fill="#ec4899">45° Miter Joint</text>
+        <text x="260" y="90" fontFamily="monospace" fontSize="10.5" fontWeight="bold" fill="#ec4899">{lang === 'EN' ? '45° Miter Joint' : 'Meia-Esquadria 45°'}</text>
         
-        <text x="140" y="140" fontFamily="sans-serif" fontSize="10" fill="#94a3b8" textAnchor="middle">Waterfall Edge Detail</text>
-        <text x="140" y="155" fontFamily="sans-serif" fontSize="8.5" fill="#64748b" textAnchor="middle">Seamless structural grain continuation</text>
+        <text x="140" y="140" fontFamily="sans-serif" fontSize="10" fill="#94a3b8" textAnchor="middle">{lang === 'EN' ? 'Waterfall Edge Detail' : 'Detalhe de Borda Cascata'}</text>
+        <text x="140" y="155" fontFamily="sans-serif" fontSize="8.5" fill="#64748b" textAnchor="middle">{lang === 'EN' ? 'Seamless structural grain continuation' : 'Continuidade dos veios'}</text>
       </svg>
     );
   }
@@ -319,8 +319,8 @@ function InteriorTechnicalDiagram({ id }) {
     <svg viewBox="0 0 400 300" style={{ width: '100%', height: '100%', background: '#0a0a0f' }}>
       <rect x="40" y="40" width="320" height="220" fill="#0f172a" stroke="#1e293b" strokeWidth="1.5" rx="8" />
       <circle cx="200" cy="130" r="30" fill="none" stroke="#6366f1" strokeWidth="2" strokeDasharray="5" />
-      <text x="200" y="185" fontFamily="monospace" fontSize="12" fontWeight="bold" fill="#6366f1" textAnchor="middle">CAD Technical Blueprint</text>
-      <text x="200" y="205" fontFamily="sans-serif" fontSize="9" fill="#64748b" textAnchor="middle">Precision architectural vector details</text>
+      <text x="200" y="185" fontFamily="monospace" fontSize="12" fontWeight="bold" fill="#6366f1" textAnchor="middle">{lang === 'EN' ? 'CAD Technical Blueprint' : 'Desenho Técnico CAD'}</text>
+      <text x="200" y="205" fontFamily="sans-serif" fontSize="9" fill="#64748b" textAnchor="middle">{lang === 'EN' ? 'Precision architectural vector details' : 'Detalhes vetoriais precisos'}</text>
     </svg>
   );
 }
@@ -533,7 +533,9 @@ export default function InteriorReference() {
                     borderRadius: '8px', 
                     textTransform: 'uppercase' 
                   }}>
-                    {activeCategory}
+                    {lang === 'EN' 
+                      ? (effectiveCategories.find(c => c.id === activeCategory)?.label || activeCategory)
+                      : (effectiveCategories.find(c => c.id === activeCategory)?.labelPt || activeCategory)}
                   </span>
                 </div>
 
@@ -648,7 +650,7 @@ export default function InteriorReference() {
                 background: '#0a0a0f',
                 boxShadow: 'inset 0 4px 20px rgba(0,0,0,0.5)'
               }}>
-                <InteriorTechnicalDiagram id={filteredItems[0]?.id} />
+                <InteriorTechnicalDiagram id={filteredItems[0]?.id} lang={lang} />
               </div>
               
               <div style={{ textAlign: 'center', marginTop: '12px', fontSize: '10.5px', fontFamily: 'monospace', color: 'var(--mu)', textTransform: 'uppercase' }}>
@@ -734,7 +736,7 @@ export default function InteriorReference() {
                   color: '#fff',
                   fontFamily: 'monospace'
                 }}>
-                  CROWN
+                  {lang === 'EN' ? 'CROWN' : 'RODATETO'}
                 </div>
 
                 {/* Wall body representation */}
@@ -754,7 +756,7 @@ export default function InteriorReference() {
                   color: '#fff',
                   fontFamily: 'monospace'
                 }}>
-                  BASEBOARD
+                  {lang === 'EN' ? 'BASEBOARD' : 'RODAPÉ'}
                 </div>
               </div>
 

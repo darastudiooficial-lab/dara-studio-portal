@@ -367,7 +367,7 @@ export default function FieldGuide() {
     const l = scanInput.toLowerCase();
     const results = [];
 
-    if (/\b(9th edition|9th ed)\b/.test(l)) {
+    if (/\b(9th edition|9th ed|9ª edição|9ª ed|9a ed)\b/.test(l)) {
       results.push({
         cls: "err",
         msg: lang === "EN"
@@ -376,7 +376,7 @@ export default function FieldGuide() {
       });
     }
 
-    if (/\bipc\b/.test(l) || l.includes("international plumbing code")) {
+    if (/\bipc\b/.test(l) || l.includes("international plumbing code") || l.includes("código internacional de encanamento") || l.includes("codigo internacional de encanamento")) {
       results.push({
         cls: "err",
         msg: lang === "EN"
@@ -385,7 +385,7 @@ export default function FieldGuide() {
       });
     }
 
-    if ((l.includes("r-13") || l.includes("r13")) && !l.includes("r-5") && !l.includes("continuous") && !l.includes("r-20") && !l.includes("r20")) {
+    if ((l.includes("r-13") || l.includes("r13")) && !l.includes("r-5") && !l.includes("continuous") && !l.includes("contínuo") && !l.includes("continuo") && !l.includes("r-20") && !l.includes("r20")) {
       results.push({
         cls: "err",
         msg: lang === "EN"
@@ -403,7 +403,7 @@ export default function FieldGuide() {
       });
     }
 
-    if ((l.includes("nail") || l.includes("toenail")) && l.includes("ledger")) {
+    if ((l.includes("nail") || l.includes("toenail") || l.includes("prego") || l.includes("pregagem")) && (l.includes("ledger") || l.includes("tábua de apoio") || l.includes("tabua de apoio"))) {
       results.push({
         cls: "err",
         msg: lang === "EN"
@@ -412,7 +412,7 @@ export default function FieldGuide() {
       });
     }
 
-    const sillM = scanInput.match(/sill[^0-9]*(\d+)/i);
+    const sillM = scanInput.match(/(?:sill|peitoril)[^0-9]*(\d+)/i);
     if (sillM && parseInt(sillM[1]) > 44) {
       results.push({
         cls: "err",
@@ -422,7 +422,7 @@ export default function FieldGuide() {
       });
     }
 
-    const smokeN = scanInput.match(/(\d{2,})\s*smoke/gi);
+    const smokeN = scanInput.match(/(\d{2,})\s*(?:smoke|fumaça|fumaca|detector)/gi);
     if (smokeN) {
       smokeN.forEach(m => {
         const n = parseInt(m);
@@ -482,23 +482,31 @@ export default function FieldGuide() {
               : "Manual abrangente de referência de campo para construtores, carpintaria e empreiteiros gerais sob a 10ª Edição do 780 CMR. Checklist completo para manter seu projeto aprovado."}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "8px", marginTop: "24px" }}>
-            {["780 CMR 10th Ed", "248 CMR Plumbing", "NEC 2023", "NFPA 72", "IECC 2021", "Effective Oct 11, 2024"].map((tag, idx) => (
-              <span 
-                key={tag} 
-                style={{ 
-                  background: idx === 5 ? "rgba(34,197,94,0.08)" : "rgba(255,255,255,0.03)", 
-                  border: idx === 5 ? "1px solid rgba(34,197,94,0.2)" : "1px solid var(--glass-border)", 
-                  color: idx === 5 ? "var(--gn)" : "inherit", 
-                  borderRadius: "999px", 
-                  padding: "4px 12px", 
-                  fontSize: "11px", 
-                  fontFamily: "monospace",
-                  fontWeight: "600"
-                }}
-              >
-                {tag}
-              </span>
-            ))}
+            {["780 CMR 10th Ed", "248 CMR Plumbing", "NEC 2023", "NFPA 72", "IECC 2021", "Effective Oct 11, 2024"].map((tag, idx) => {
+              let displayTag = tag;
+              if (lang === "PT") {
+                if (tag === "780 CMR 10th Ed") displayTag = "780 CMR 10ª Ed";
+                else if (tag === "248 CMR Plumbing") displayTag = "248 CMR Hidráulica";
+                else if (tag === "Effective Oct 11, 2024") displayTag = "Vigente desde 11 de Out de 2024";
+              }
+              return (
+                <span 
+                  key={tag} 
+                  style={{ 
+                    background: idx === 5 ? "rgba(34,197,94,0.08)" : "rgba(255,255,255,0.03)", 
+                    border: idx === 5 ? "1px solid rgba(34,197,94,0.2)" : "1px solid var(--glass-border)", 
+                    color: idx === 5 ? "var(--gn)" : "inherit", 
+                    borderRadius: "999px", 
+                    padding: "4px 12px", 
+                    fontSize: "11px", 
+                    fontFamily: "monospace",
+                    fontWeight: "600"
+                  }}
+                >
+                  {displayTag}
+                </span>
+              );
+            })}
           </div>
         </header>
 
@@ -846,11 +854,10 @@ export default function FieldGuide() {
           <p style={{ fontSize: "11px", color: "var(--mu)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 16px" }}>
             {lang === "EN" ? "Automatic compliance vetting · 780 CMR 10th Ed · 248 CMR · NEC 2023 · NFPA 72" : "Verificação de conformidade automática · 780 CMR 10ª Ed · 248 CMR · NEC 2023 · NFPA 72"}
           </p>
-
           <textarea 
             placeholder={lang === "EN" 
-              ? "Paste any note or specification here to check for Massachusetts code violations...\nTry typing: `All plumbing per IPC Section 305' or 'Sill height at 48 inches above finish floor'..." 
-              : "Cole qualquer nota ou especificação para verificar erros de código...\nTente digitar: 'All plumbing per IPC Section 305' ou 'Sill height at 48 inches above finish floor'..."}
+              ? "Paste any note or specification here to check for Massachusetts code violations...\nTry typing: 'All plumbing per IPC Section 305' or 'Sill height at 48 inches above finish floor'..." 
+              : "Cole qualquer nota ou especificação para verificar erros de código...\nTente digitar: 'Instalações hidráulicas seguindo o IPC' ou 'Peitoril da janela com altura de 48 polegadas'..."}
             value={scanInput}
             onChange={e => setScanInput(e.target.value)}
             style={{ 
