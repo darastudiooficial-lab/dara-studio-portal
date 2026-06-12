@@ -192,6 +192,22 @@ app.post('/api/accept', async (req, res) => {
   }
 });
 
+app.post('/api/estimate', async (req, res) => {
+  try {
+    const { scope, selectedServices, ...rest } = req.body;
+    if (!scope || !selectedServices) {
+      return res.status(400).json({ ok: false, error: 'Missing scope or selectedServices' });
+    }
+    const { data, error } = await supabase.from('estimates').insert([{ ...req.body }]);
+    if (error) throw error;
+    res.json({ ok: true, estimateId: data[0].id });
+  } catch (err) {
+    console.error('Estimate Error:', err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
