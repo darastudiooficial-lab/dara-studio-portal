@@ -3959,7 +3959,7 @@ a {
 
 .home-cta-subtitle {
   font-family: var(--font-sans, sans-serif);
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -3967,7 +3967,7 @@ a {
 
 .home-cta-title {
   font-family: var(--font-serif, serif);
-  font-size: var(--text-stat-value, 28px);
+  font-size: var(--text-service-title, 36px);
   color: var(--color-offwhite, #F8F9FA);
   line-height: 1.1;
   font-weight: 400;
