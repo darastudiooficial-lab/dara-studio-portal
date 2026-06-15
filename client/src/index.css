@@ -3964,7 +3964,7 @@ a {
 
 .home-cta-title {
   font-family: var(--font-serif, serif);
-  font-size: clamp(36px, 4vw, 56px);
+  font-size: var(--text-stat-value, 28px);
   color: var(--color-offwhite, #F8F9FA);
   line-height: 1.1;
   font-weight: 400;
