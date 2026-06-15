@@ -85,7 +85,7 @@ const CONTENT = {
       statsTurnaroundTooltip: `Fluxo de produção calibrado para entregas entre 8 e 16 dias.`,
       statsTurnaroundLabel: "Velocidade",
       statsTurnaroundValue: "Entrega",
-    softwareChief: "Arquiteto Chefe",
+    softwareChief: "CHIEF ARCHITECT",
     softwareUSCode: `CONFORME CÓDIGOS EUA`,
     softwareUSCodeTooltip: `Projetos desenvolvidos de acordo com as normas IBC, IRC e padrões municipais locais para aprovação simplificada de alvarás.`,
     badgeLicensedBR: "CAU SC A115105-3 - Arquiteto Licenciado · Brasil",
