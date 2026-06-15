@@ -681,7 +681,7 @@ export default function CodeInspector() {
                       padding: "8px 16px", 
                       borderRadius: "999px", 
                       border: "none", 
-                      background: aProj === p.id ? "linear-gradient(135deg, #7B1FA2, #E91E63)" : "transparent",
+                      background: aProj === p.id ? "linear-gradient(135deg, #7D9F85, #5A7E62)" : "transparent",
                       color: aProj === p.id ? "#fff" : "inherit", 
                       textAlign: "left",
                       fontSize: "12px",
@@ -717,8 +717,8 @@ export default function CodeInspector() {
                         padding: "8px 16px", 
                         borderRadius: "999px", 
                         border: "none", 
-                        borderLeft: aSys === s.id ? "3px solid #7B1FA2" : "3px solid transparent",
-                        background: aSys === s.id ? "rgba(123, 31, 162, 0.08)" : "transparent",
+                        borderLeft: aSys === s.id ? "3px solid #7D9F85" : "3px solid transparent",
+                        background: aSys === s.id ? "rgba(125, 159, 133, 0.08)" : "transparent",
                         color: aSys === s.id ? "var(--color-neon-purple)" : "inherit", 
                         textAlign: "left",
                         fontSize: "12px",
@@ -731,7 +731,7 @@ export default function CodeInspector() {
                       {count > 0 && (
                         <span style={{ 
                           fontSize: "9px", 
-                          background: aSys === s.id ? "#7B1FA2" : "rgba(255,255,255,0.06)", 
+                          background: aSys === s.id ? "#7D9F85" : "rgba(255,255,255,0.06)", 
                           color: "#fff", 
                           padding: "2px 6px", 
                           borderRadius: "10px",
@@ -1138,7 +1138,7 @@ export default function CodeInspector() {
                 : `Descreva a conexão ou componente de desenho arquitetônico que deseja renderizar no estilo técnico axonométrico.`}
             </p>
 
-            <div style={{ background: "rgba(123, 31, 162, 0.05)", border: "1px solid rgba(123, 31, 162, 0.15)", borderRadius: "8px", padding: "12px", fontSize: "11px", fontFamily: "monospace", lineHeight: "1.6" }}>
+            <div style={{ background: "rgba(125, 159, 133, 0.05)", border: "1px solid rgba(125, 159, 133, 0.15)", borderRadius: "8px", padding: "12px", fontSize: "11px", fontFamily: "monospace", lineHeight: "1.6" }}>
               <strong style={{ color: "var(--color-neon-purple)" }}>MASTER STYLESHEET APPLIED:</strong><br />
               Architectural technical diagram, clean vector section style. Isolated white background. Minimalist colors (gray, technical blue, and highlighted joints).
             </div>
@@ -1184,7 +1184,7 @@ export default function CodeInspector() {
                   padding: "8px 20px", 
                   borderRadius: "8px", 
                   border: "none", 
-                  background: "linear-gradient(135deg, #7B1FA2, #E91E63)", 
+                  background: "linear-gradient(135deg, #7D9F85, #5A7E62)", 
                   color: "#fff", 
                   fontSize: "12px", 
                   fontWeight: "700",
@@ -1212,7 +1212,7 @@ export default function CodeInspector() {
           fontSize: "13px", 
           fontWeight: "700",
           zIndex: 9999,
-          boxShadow: "0 10px 30px rgba(123, 31, 162, 0.2)"
+          boxShadow: "0 10px 30px rgba(125, 159, 133, 0.2)"
         }}>
           {toastMsg}
         </div>

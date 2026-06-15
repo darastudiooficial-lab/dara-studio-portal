@@ -66,8 +66,8 @@ export default function VeraAssistant() {
             onClick={toggleAssistant}
             style={{
               width: '64px', height: '64px', borderRadius: '50%', 
-              background: 'linear-gradient(135deg, var(--brand-purple), var(--brand-pink))',
-              border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px var(--neon-glow)',
+              background: 'linear-gradient(135deg, #7D9F85, #5A7E62)',
+              border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(125, 159, 133, 0.4)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
               padding: '2px', overflow: 'hidden'
@@ -94,7 +94,7 @@ export default function VeraAssistant() {
         }}>
           {/* Header */}
           <div className="vera-header" style={{
-            background: 'linear-gradient(135deg, var(--brand-purple), var(--brand-pink))',
+            background: 'linear-gradient(135deg, #7D9F85, #5A7E62)',
             padding: '20px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -149,12 +149,12 @@ export default function VeraAssistant() {
                 <div style={{
                   padding: '12px 16px', 
                   borderRadius: msg.sender === 'vera' ? '2px 16px 16px 16px' : '16px 16px 2px 16px',
-                  background: msg.sender === 'vera' ? 'rgba(255,255,255,0.05)' : 'var(--brand-purple)',
+                  background: msg.sender === 'vera' ? 'rgba(255,255,255,0.05)' : '#7D9F85',
                   color: msg.sender === 'vera' ? 'inherit' : '#fff', 
                   fontSize: '13px', 
                   lineHeight: '1.5',
                   border: msg.sender === 'vera' ? '1px solid var(--glass-border)' : 'none',
-                  boxShadow: msg.sender === 'vera' ? 'none' : '0 4px 15px rgba(123, 31, 162, 0.3)'
+                  boxShadow: msg.sender === 'vera' ? 'none' : '0 4px 15px rgba(125, 159, 133, 0.3)'
                 }}>
                   {msg.text}
                 </div>
@@ -180,7 +180,7 @@ export default function VeraAssistant() {
                 onClick={handleSend}
                 style={{
                 position: 'absolute', right: '5px', top: '5px', width: '30px', height: '30px',
-                borderRadius: '50%', background: 'var(--brand-purple)', border: 'none', color: '#fff',
+                borderRadius: '50%', background: '#7D9F85', border: 'none', color: '#fff',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
               }}>
                 →

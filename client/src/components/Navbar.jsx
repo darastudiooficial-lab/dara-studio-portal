@@ -8,9 +8,10 @@ const NAV_TRANSLATIONS = {
   EN: {
     portal: "Client Portal",
     nav: [
+      { label: `Home`, path: "/" },
       { label: `What We Do`, path: "/services" },
-      { label: `How We Work`, path: "/how-we-work" },
       { label: "Portfolio", path: "/portfolio" },
+      { label: `How It Works`, path: "/how-we-work" },
       { label: "Team", path: "/team" },
       { label: `IP Notice`, path: "/ip-notice" },
     ]
@@ -18,9 +19,10 @@ const NAV_TRANSLATIONS = {
   PT: {
     portal: "Portal do Cliente",
     nav: [
+      { label: `Home`, path: "/" },
       { label: `Especialização`, path: "/services" },
-      { label: `Como Trabalhamos`, path: "/how-we-work" },
       { label: `Portfólio`, path: "/portfolio" },
+      { label: `Como Trabalhamos`, path: "/how-we-work" },
       { label: "Equipe", path: "/team" },
       { label: `Aviso de IP`, path: "/ip-notice" },
     ]
@@ -43,9 +45,7 @@ export default function Navbar() {
   return (
     <header className="header-nav">
       <Link to="/" className="header-logo">
-        <div className="lp-logo-mark">
-          <DaraLogo size={24} />
-        </div>
+
         <span className="header-logo-text">
           <strong>DARA</strong><em>Studio</em>
         </span>

@@ -424,7 +424,7 @@ export default function InteriorReference() {
             <button 
               onClick={() => setViewMode('technical')}
               style={{
-                background: viewMode === 'technical' ? 'linear-gradient(135deg, #7B1FA2, #E91E63)' : 'transparent',
+                background: viewMode === 'technical' ? 'linear-gradient(135deg, #7D9F85, #5A7E62)' : 'transparent',
                 color: viewMode === 'technical' ? '#fff' : 'var(--mu)',
                 border: 'none',
                 padding: '10px 24px',
@@ -440,7 +440,7 @@ export default function InteriorReference() {
             <button 
               onClick={() => setViewMode('measurements')}
               style={{
-                background: viewMode === 'measurements' ? 'linear-gradient(135deg, #7B1FA2, #E91E63)' : 'transparent',
+                background: viewMode === 'measurements' ? 'linear-gradient(135deg, #7D9F85, #5A7E62)' : 'transparent',
                 color: viewMode === 'measurements' ? '#fff' : 'var(--mu)',
                 border: 'none',
                 padding: '10px 24px',
@@ -485,7 +485,7 @@ export default function InteriorReference() {
                   fontWeight: '700', 
                   borderRadius: '999px', 
                   border: 'none', 
-                  background: isActive ? 'linear-gradient(135deg, #7B1FA2, #E91E63)' : 'transparent',
+                  background: isActive ? 'linear-gradient(135deg, #7D9F85, #5A7E62)' : 'transparent',
                   color: isActive ? '#fff' : 'var(--mu)', 
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
@@ -526,8 +526,8 @@ export default function InteriorReference() {
                   <span style={{ 
                     fontSize: '9.5px', 
                     fontWeight: '800', 
-                    background: 'rgba(123, 31, 162, 0.08)', 
-                    border: '1px solid rgba(123, 31, 162, 0.15)', 
+                    background: 'rgba(125, 159, 133, 0.08)', 
+                    border: '1px solid rgba(125, 159, 133, 0.15)', 
                     color: '#c084fc', 
                     padding: '3px 8px', 
                     borderRadius: '8px', 
@@ -684,7 +684,7 @@ export default function InteriorReference() {
                   onChange={e => setCeilingHeight(parseFloat(e.target.value))}
                   style={{ 
                     width: '100%', 
-                    accentColor: '#7B1FA2',
+                    accentColor: '#7D9F85',
                     cursor: 'pointer'
                   }}
                 />
@@ -788,7 +788,7 @@ export default function InteriorReference() {
           fontSize: "13px", 
           fontWeight: "700",
           zIndex: 9999,
-          boxShadow: "0 10px 30px rgba(123, 31, 162, 0.2)"
+          boxShadow: "0 10px 30px rgba(125, 159, 133, 0.2)"
         }}>
           {toastMsg}
         </div>

@@ -1447,9 +1447,7 @@ export default function EstimateWizard() {
       {/* ── Top Bar ── */}
       <header className="header-nav" style={{ position: 'sticky', top: 0, background: 'var(--bg-primary)', borderBottom: '1px solid var(--glass-border)', height: '80px', padding: '0 48px' }}>
           <Link to="/" className="header-logo">
-            <div className="lp-logo-mark">
-              <DaraLogo size={24} />
-            </div>
+
             <span className="header-logo-text">
               <strong>DARA</strong><em>Studio</em>
             </span>
@@ -1566,7 +1564,7 @@ function Stepper({ cur }) {
             fontSize: 16,
             fontWeight: 800,
             display: 'inline-block',
-            background: 'linear-gradient(to right, #7B1FA2, #E91E63)',
+            background: 'linear-gradient(to right, #7D9F85, #5A7E62)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             opacity: currentStepNum >= n ? 1 : 0.3,
@@ -1755,7 +1753,7 @@ function S1({ d, up, lang }) {
           </div>
 
           {allFilled && (
-            <div className={`wz-map-container ${d.mapConfirmed ? 'confirmed' : ''}`} style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", border: `1px solid ${d.mapConfirmed ? 'var(--brand-purple)' : 'var(--glass-border)'}`, boxShadow: d.mapConfirmed ? '0 0 32px rgba(123, 31, 162, 0.15)' : 'none', transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+            <div className={`wz-map-container ${d.mapConfirmed ? 'confirmed' : ''}`} style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", border: `1px solid ${d.mapConfirmed ? 'var(--brand-purple)' : 'var(--glass-border)'}`, boxShadow: d.mapConfirmed ? '0 0 32px rgba(125, 159, 133, 0.15)' : 'none', transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
               <iframe key={d.street + d.city + d.state + d.zip} src={mapsUrl()} title="Project location" width="100%" height="320" style={{ border: "none", display: "block" }} allowFullScreen loading="lazy" />
               <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, borderTop: '1px solid var(--glass-border)' }}>
                 <p style={{ fontSize: 14, color: "var(--text-color)", opacity: 0.85, flex: 1, lineHeight: 1.5, margin: 0, fontWeight: 500 }}>
@@ -1819,8 +1817,8 @@ function S2({ d, up, lang }) {
       <p className="wz-label" style={{ marginBottom: 16 }}>{T.whoAreYou} <span style={{ color: "var(--rd)" }}>*</span></p>
       <div className="wz-grid-adaptive" style={{ marginBottom: 32 }}>
         {ROLES.map(r => (
-          <div key={r.id} className={`hww-feature-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.role === r.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.role === r.id ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)" }}>
-            <div style={{ fontSize: 24, marginBottom: 8, filter: d.role === r.id ? "drop-shadow(0 0 12px rgba(123, 31, 162, 0.5))" : "none", transition: "all 0.3s ease", transform: d.role === r.id ? "scale(1.1)" : "scale(1)", color: d.role === r.id ? "var(--brand-purple)" : "var(--mu)" }}>{r.icon}</div>
+          <div key={r.id} className={`hww-feature-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.role === r.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.role === r.id ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)" }}>
+            <div style={{ fontSize: 24, marginBottom: 8, filter: d.role === r.id ? "drop-shadow(0 0 12px rgba(125, 159, 133, 0.5))" : "none", transition: "all 0.3s ease", transform: d.role === r.id ? "scale(1.1)" : "scale(1)", color: d.role === r.id ? "var(--brand-purple)" : "var(--mu)" }}>{r.icon}</div>
             <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.03em', color: "var(--text-color)" }}>{T.roles[r.id]}</div>
           </div>
         ))}
@@ -1828,7 +1826,7 @@ function S2({ d, up, lang }) {
 
       {d.role && T[d.role + "Msg"] && (
         <div className="wz-animate" style={{ marginBottom: 32, padding: "12px 20px", display: "flex", flexDirection: "row", alignItems: "center", gap: 12, background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "12px" }}>
-          <span style={{ fontSize: 20, filter: "drop-shadow(0 0 12px rgba(123, 31, 162, 0.4))" }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
+          <span style={{ fontSize: 20, filter: "drop-shadow(0 0 12px rgba(125, 159, 133, 0.4))" }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
           <p style={{ fontSize: 13, color: "var(--text-color)", fontWeight: 600, lineHeight: 1.4, margin: 0, opacity: 0.9 }}>
             {T[d.role + "Msg"]}
           </p>
@@ -1974,8 +1972,8 @@ function S3({ d, up, lang }) {
           { id: "multi_family", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 21H3"/><path d="M5 21V5l8-3 8 3v16"/><path d="M9 21v-5h6v5"/><path d="M9 9h2"/><path d="M13 9h2"/><path d="M9 13h2"/><path d="M13 13h2"/></svg>, label: T.propertyTypes.multi_family.label, sub: T.propertyTypes.multi_family.sub },
           { id: "adu", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M6 21V13l6-5 6 5v8"/><path d="M10 21v-4h4v4"/></svg>, label: T.propertyTypes.adu.label, sub: T.propertyTypes.adu.sub },
         ].map(pt => (
-          <div key={pt.id} className={`hww-feature-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.propertyType === pt.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.propertyType === pt.id ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)" }}>
-            <div style={{ fontSize: 24, marginBottom: 8, filter: d.propertyType === pt.id ? "drop-shadow(0 0 12px rgba(123, 31, 162, 0.5))" : "none", transition: "all 0.3s ease", transform: d.propertyType === pt.id ? "scale(1.1)" : "scale(1)" }}>{pt.icon}</div>
+          <div key={pt.id} className={`hww-feature-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.propertyType === pt.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.propertyType === pt.id ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)" }}>
+            <div style={{ fontSize: 24, marginBottom: 8, filter: d.propertyType === pt.id ? "drop-shadow(0 0 12px rgba(125, 159, 133, 0.5))" : "none", transition: "all 0.3s ease", transform: d.propertyType === pt.id ? "scale(1.1)" : "scale(1)" }}>{pt.icon}</div>
             <p style={{ fontSize: 13, fontWeight: 700, margin: "0 0 4px 0", color: "var(--text-color)" }}>{pt.label}</p>
             <p style={{ fontSize: 11, color: "var(--text-color)", fontStyle: "italic", opacity: 0.6, margin: 0 }}>{pt.sub}</p>
           </div>
@@ -1987,8 +1985,8 @@ function S3({ d, up, lang }) {
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.constructionStructure}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
           {CONST_SVC.map(svc => (
-            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
-              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(123, 31, 162, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
+            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(125, 159, 133, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
               <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, lineHeight: 1.2, color: "#FFFFFF" }}>{svc.label}</p>
               <p style={{ fontSize: 10, color: "#e2e8f0", lineHeight: 1.3, margin: "0 0 16px 0" }}>{svc.sub}</p>
               <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
@@ -2008,8 +2006,8 @@ function S3({ d, up, lang }) {
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.interiors}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
           {INT_SVC.map(svc => (
-            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(123,31,162,0.1), rgba(233,30,99,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
-              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(123, 31, 162, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
+            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(125, 159, 133, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
               <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, lineHeight: 1.2, color: "#FFFFFF" }}>{svc.label}</p>
               <p style={{ fontSize: 10, color: "#e2e8f0", lineHeight: 1.3, margin: "0 0 16px 0" }}>{svc.sub}</p>
               <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
@@ -2218,7 +2216,7 @@ function S4({ d, up, lang }) {
               key={pkg.id}
               className={`hww-bento-card ${isActive ? "active" : ""}`}
               onClick={() => setPkg(pkg.id)}
-              style={{ padding: 0, borderColor: isActive ? "var(--brand-purple)" : "var(--glass-border)", background: isActive ? "linear-gradient(135deg, rgba(123,31,162,0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)", transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)", overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer", boxShadow: isActive ? "0 0 30px rgba(123, 31, 162, 0.15)" : "none" }}
+              style={{ padding: 0, borderColor: isActive ? "var(--brand-purple)" : "var(--glass-border)", background: isActive ? "linear-gradient(135deg, rgba(125, 159, 133,0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)", transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)", overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer", boxShadow: isActive ? "0 0 30px rgba(125, 159, 133, 0.15)" : "none" }}
             >
               <div style={{ padding: 32 }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 12 }}>
@@ -2327,12 +2325,12 @@ function S4({ d, up, lang }) {
                           </div>
 
                           {pkg.details.notIncluded && (
-                            <div style={{ background: "rgba(233, 30, 99, 0.04)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "12px", padding: 16 }}>
-                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : `NÃO INCLUSO`}</p>
+                            <div style={{ background: "rgba(90, 126, 98, 0.04)", border: "1px solid rgba(90, 126, 98, 0.15)", borderRadius: "12px", padding: 16 }}>
+                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#5A7E62", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : `NÃO INCLUSO`}</p>
                                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                                  {pkg.details.notIncluded.map((it, idx) => (
                                    <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
-                                      <span style={{ color: "#E91E63", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                                      <span style={{ color: "#5A7E62", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
                                       <span>{it}</span>
                                    </li>
                                  ))}
@@ -2567,7 +2565,7 @@ function S7({ d, up, lang, setUploading }) {
               borderColor: isDone ? "var(--brand-purple)" : "var(--glass-border)",
               background: isDone ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-              boxShadow: isDone ? "0 0 30px rgba(123, 31, 162, 0.15)" : "none",
+              boxShadow: isDone ? "0 0 30px rgba(125, 159, 133, 0.15)" : "none",
               display: "flex", flexDirection: "column", overflow: "hidden", marginBottom: 16,
               borderRadius: isDone ? "24px" : "100px"
             }}>
@@ -2626,7 +2624,7 @@ function S7({ d, up, lang, setUploading }) {
                           <button 
                             style={{ background: "transparent", border: "none", color: "var(--brand-pink)", fontSize: "14px", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s", flexShrink: 0 }}
                             onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
-                            onMouseOver={e => { e.currentTarget.style.background = "rgba(233, 30, 99, 0.1)"; }}
+                            onMouseOver={e => { e.currentTarget.style.background = "rgba(90, 126, 98, 0.1)"; }}
                             onMouseOut={e => { e.currentTarget.style.background = "transparent"; }}
                             title={lang === "EN" ? "Delete file" : "Excluir arquivo"}
                           >
@@ -2828,7 +2826,7 @@ function S8({ d, up, lang, setUploading }) {
                 borderColor: isDone ? "var(--brand-purple)" : "var(--glass-border)",
                 background: isDone ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
                 transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-                boxShadow: isDone ? "0 0 30px rgba(123, 31, 162, 0.15)" : "none",
+                boxShadow: isDone ? "0 0 30px rgba(125, 159, 133, 0.15)" : "none",
                 display: "flex", flexDirection: "column", overflow: "hidden", marginBottom: 16,
                 borderRadius: isDone ? "24px" : "100px"
               }}>
@@ -2849,7 +2847,7 @@ function S8({ d, up, lang, setUploading }) {
                     </div>
 
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginLeft: 12 }}>
-                      {!isDone && idx < 3 && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--brand-pink)", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(233, 30, 99, 0.1)", padding: "4px 8px", borderRadius: 4 }}>{T.required}</span>}
+                      {!isDone && idx < 3 && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--brand-pink)", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(90, 126, 98, 0.1)", padding: "4px 8px", borderRadius: 4 }}>{T.required}</span>}
                       {!isDone && item.sub && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--tx)", opacity: 0.6, textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(255, 255, 255, 0.05)", padding: "4px 8px", borderRadius: 4 }}>{item.sub}</span>}
                       
                       <button
@@ -2882,7 +2880,7 @@ function S8({ d, up, lang, setUploading }) {
                             <button 
                               style={{ background: "transparent", border: "none", color: "var(--brand-pink)", fontSize: "14px", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s", flexShrink: 0 }}
                               onClick={() => removeRushFile(item.id, f.id)}
-                              onMouseOver={e => { e.currentTarget.style.background = "rgba(233, 30, 99, 0.1)"; }}
+                              onMouseOver={e => { e.currentTarget.style.background = "rgba(90, 126, 98, 0.1)"; }}
                               onMouseOut={e => { e.currentTarget.style.background = "transparent"; }}
                               title={lang === "EN" ? "Delete file" : "Excluir arquivo"}
                             >
@@ -2902,7 +2900,7 @@ function S8({ d, up, lang, setUploading }) {
       {/* Moved !isUnlocked card to the top */}
 
       {feedback && (
-        <div className="wz-animate" style={{ background: "rgba(233, 30, 99, 0.1)", border: "1px solid #E91E63", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#E91E63", fontSize: "13px", fontWeight: "500" }}>
+        <div className="wz-animate" style={{ background: "rgba(90, 126, 98, 0.1)", border: "1px solid #5A7E62", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#5A7E62", fontSize: "13px", fontWeight: "500" }}>
           ⚠️ {feedback}
         </div>
       )}
@@ -3292,7 +3290,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           fontWeight: 700,
           color: "#fff",
           marginBottom: 4,
-          boxShadow: "0 4px 15px rgba(123, 31, 162, 0.3)",
+          boxShadow: "0 4px 15px rgba(125, 159, 133, 0.3)",
           transition: "all 0.2s"
         }}>
           {loadingType === "accept" ? (lang === "EN" ? "Processing..." : "Processando...") : (lang === "EN" ? "🔒 Confirm Scope & Request Proposal" : "🔒 Confirmar Escopo e Solicitar Proposta")}

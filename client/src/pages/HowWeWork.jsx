@@ -57,7 +57,7 @@ const STEPS = [
   {
     num: "00",
     icon: <Icons.Layers />,
-    title: { EN: `Solutions & Engagement Model`, PT: `Nossos Serviços & Modelos de Engajamento` },
+    title: { EN: `Services & Engagement Models`, PT: `Serviços & Modelos de Engajamento` },
     summary: { EN: `Definition of the engagement model.`, PT: `Definição do modelo de engajamento.` },
     body: {
       EN: `Select the precise architectural support or documentation package that aligns with your pipeline’s current demand. Our specialized capability acts as an extension of your team, whether you need high-volume Chief Architect X17 conversions from PDFs or sketches, regulatory Permit Sets, or highly detailed executive documentation. We recommend reviewing our full capabilities in the Specialization section under the What We Do menu to optimize and calibrate your scope before initiating production.`,
@@ -72,7 +72,7 @@ const STEPS = [
   {
     num: "01",
     icon: <Icons.MessageCircle />,
-    title: { EN: `Initial Consultation`, PT: `Primeiro Contato` },
+    title: { EN: `First Contact`, PT: `Primeiro Contato` },
     summary: { EN: `Start with what you have.`, PT: `Comece com o que você tem em mãos.` },
     body: {
       EN: `You don't need a finalized blueprint to get moving. A preliminary sketch, visual references, or a clear objective is more than enough for our team to understand your requirements and build a precise project scope.`,
@@ -438,7 +438,7 @@ const STEPS = [
     icon: <Icons.Clock />,
     iconColor: "#7B1FA2",
     iconBg: "rgba(123, 31, 162, 0.08)",
-    title: { EN: `Extended Technical Hours & Post-Delivery Framework`, PT: `Tabela de Horas Técnicas & Suporte Pós-Entrega` },
+    title: { EN: `Technical Hours & Post-Delivery Support`, PT: `Horas Técnicas & Suporte Pós-Entrega` },
     summary: {
       EN: `Architecture is a dynamic pipeline, and municipal demands can shift.`,
       PT: `Projetos executivos são dinâmicos e as exigências municipais podem mudar.`
@@ -513,7 +513,7 @@ const STEPS = [
     icon: <Icons.Shield />,
     iconColor: "#7B1FA2",
     iconBg: "rgba(123, 31, 162, 0.08)",
-    title: { EN: `Administrative Terms & Conditions`, PT: `Termos & Condições Administrativas` },
+    title: { EN: `Terms & Administrative Conditions`, PT: `Termos & Condições Administrativas` },
     summary: {
       EN: `Clear operational boundaries for communication and timeline management.`,
       PT: `Diretrizes claras para a comunicação e o gerenciamento de prazos ao longo do contrato.`
@@ -578,28 +578,9 @@ const STEPS = [
       }
     }
   },
+
   {
-    num: "06.1",
-    icon: <Icons.Star />,
-    iconColor: "#E91E63",
-    iconBg: "rgba(233, 30, 99, 0.08)",
-    title: { EN: `Welcome to DARA Studio`, PT: `Seja Bem-Vindo à DARA Studio` },
-    summary: {
-      EN: `We are fully organized and ready to scale your architectural pipeline.`,
-      PT: `Estamos prontos para estruturar e dar escala à sua demanda arquitetônica.`
-    },
-    body: {
-      EN: `Now that your project is officially activated and positioned in our production queue, we will guide you through our onboarding process to ensure complete alignment before the technical work begins.`,
-      PT: `Agora que o seu projeto está oficialmente ativado e posicionado na nossa linha de produção, vamos guiar você pelas etapas iniciais para garantir total alinhamento antes do início dos desenhos técnicos.`
-    },
-    cta: {
-      label: { EN: `START YOUR PROJECT`, PT: `INICIAR MEU PROJETO` },
-      path: "/estimate",
-      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    }
-  },
-  {
-    num: 6,
+    num: "07",
     icon: <Icons.Package />,
     iconColor: "#10b981",
     iconBg: "rgba(16, 185, 129, 0.1)",
@@ -629,7 +610,7 @@ const STEPS = [
     note: { EN: `All drawings are prepared in accordance with standard U.S. residential drafting practices.`, PT: `Todos os desenhos são preparados de acordo com práticas padrão de desenho residencial dos EUA.` }
   },
   {
-    num: 7,
+    num: "08",
     icon: <Icons.XIcon />,
     iconColor: "#E91E63",
     iconBg: "rgba(233, 30, 99, 0.1)",
@@ -660,9 +641,9 @@ const STEPS = [
     note: { EN: `When required, licensed professionals must be hired locally by the client.`, PT: `Quando necessário, profissionais licenciados devem ser contratados localmente pelo cliente.` }
   },
   {
-    num: 8,
+    num: "09",
     icon: <Icons.Shield />,
-    title: { EN: `Compliance & Responsibility`, PT: `Conformidade e Responsabilidade` },
+    title: { EN: `Compliance & Liability`, PT: `Conformidade e Responsabilidade` },
     summary: { EN: `Our drawings are intended for design development and permit documentation support.`, PT: `Nossos desenhos são destinados ao desenvolvimento do projeto e suporte à documentação de alvará.` },
     body: {
       EN: `Final approval is subject to review by local authorities and licensed engineers, when required by state or municipal regulations.`,
@@ -683,7 +664,7 @@ const STEPS = [
     note: { EN: `We design in alignment with U.S. standards; final compliance depends on local jurisdiction.`, PT: `Projetamos em alinhamento com padrões dos EUA; a conformidade final depende da jurisdição local.` }
   },
   {
-    num: 9,
+    num: "10",
     icon: <Icons.MessageCircle />,
     title: { EN: `Meetings & Communication`, PT: `Reuniões e Comunicação` },
     summary: { EN: `DA·RA Studio operates 100% remotely with a structured digital workflow.`, PT: `O DA·RA Studio opera 100% remotamente com um fluxo de trabalho digital estruturado.` },
@@ -707,9 +688,9 @@ const STEPS = [
     }
   },
   {
-    num: 10,
+    num: "11",
     icon: <Icons.Star />,
-    title: { EN: `Why DA·RA Studio`, PT: `Por que o DA·RA Studio` },
+    title: { EN: `Why DARA Studio`, PT: `Por que o DARA Studio` },
     summary: { EN: `We serve clients across the United States and Brazil with precision and speed.`, PT: `Atendemos clientes nos Estados Unidos e Brasil com precisão e velocidade.` },
     list: {
       EN: [
@@ -733,40 +714,15 @@ const STEPS = [
 ];
 
 /* ── Page ── */
-/* ── Accordion sub-component ── */
-function Accordion({ label, iconColor = 'var(--brand-purple)', children, defaultOpen = false }) {
-  const [open, setOpen] = React.useState(defaultOpen);
-  return (
-    <div className="step-accordion">
-      <button className="step-accordion-trigger" onClick={() => setOpen(o => !o)}>
-        <span className="step-accordion-label" style={{ color: iconColor, opacity: 1 }}>{label}</span>
-        <svg className={`step-accordion-chevron ${open ? 'open' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div className={`step-accordion-body ${open ? 'open' : ''}`}>{children}</div>
-    </div>
-  );
-}
+
 
 export default function HowWeWork() {
   const { lang } = useAppContext();
   const navigate = useNavigate();
-  const scrollRef = React.useRef(null);
-  const [activeIdx, setActiveIdx] = React.useState(0);
+  const [openAccordion, setOpenAccordion] = React.useState(0);
 
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const amount = 960;
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
-    }
-  };
-
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const scrollLeft = scrollRef.current.scrollLeft;
-      const cardWidth = 960;
-      const newIdx = Math.round(scrollLeft / cardWidth);
-      if (newIdx !== activeIdx) setActiveIdx(newIdx);
-    }
+  const toggleAccordion = (idx) => {
+    setOpenAccordion(openAccordion === idx ? null : idx);
   };
 
   const handleStartProject = () => { navigate('/estimate'); };
@@ -781,79 +737,66 @@ export default function HowWeWork() {
         <main className="independent-page">
 
           {/* Header */}
-          <header className="page-header-premium animate-float-up">
-            <h1 className="page-main-title">
-              {lang === "EN" ? (
-                <>
-                  <span className="title-gradient-italic">Workflow</span>{" "}
-                  <span className="title-white">& Professional Scope</span>
-                </>
-              ) : (
-                <>
-                  <span className="title-gradient-italic">Processo</span>{" "}
-                  <span className="title-white">& Escopo Profissional</span>
-                </>
-              )}
-            </h1>
-            <p className="page-subtitle-standard">
-              {lang === "EN" ? (
-                <>
-                  A structured, efficient, and fully remote workflow engineered for discerning builders, developers, and homeowners. By leveraging cutting-edge technical accuracy and robust communication via WhatsApp and our dedicated client portal, we eliminate friction and deliver construction-ready documentation wherever you are.
-                  <br /><br />
-                  <strong>The Benefit:</strong> No overhead, no communication gaps. Just high-precision Permit Sets and 3D modeling delivered through a seamless, transparent pipeline.
-                </>
-              ) : (
-                <>
-                  Eliminamos a distância com um fluxo de trabalho estruturado, ágil e 100% remoto, projetado especificamente para construtores, incorporadores e proprietários exigentes. Toda a coordenação técnica e o gerenciamento das entregas acontecem direto via WhatsApp e no nosso portal do cliente, garantindo controle absoluto do seu projeto em tempo real.
-                  <br /><br />
-                  <strong>O Benefício:</strong> A segurança de um processo executivo rigoroso com a agilidade que o mercado imobiliário exige. Sem ruídos, sem burocracia, com total transparência.
-                </>
-              )}
-            </p>
+          <header className="editorial-header animate-float-up" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
+            {/* Top Row: Method & Cycles */}
+            <div style={{ display: 'flex', alignItems: 'center', fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6, marginBottom: '40px' }}>
+              <span style={{ marginRight: '16px' }}>(04) METHOD</span>
+              <div style={{ flex: 1, height: '1px', background: 'var(--text-color)', opacity: 0.2 }}></div>
+              <span style={{ marginLeft: '16px', textTransform: 'none' }}>8-16 day cycles</span>
+            </div>
+
+            {/* Title & Description Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'flex-start', marginBottom: '60px' }}>
+              <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '64px', margin: 0, fontWeight: 400, color: 'var(--text-color)', lineHeight: 1 }}>
+                How it works
+              </h1>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', lineHeight: 1.8, margin: 0, color: 'var(--text-color)', opacity: 0.8, paddingTop: '10px' }}>
+                We eliminate distance with a structured, agile, 100% remote workflow built specifically for builders, developers and demanding owners. All technical coordination and delivery management happen via WhatsApp and our client portal — giving you absolute, real-time control of your project.
+              </p>
+            </div>
+
+            {/* Middle Divider */}
+            <div style={{ height: '1px', width: '100%', background: 'var(--text-color)', opacity: 0.1, marginBottom: '40px' }}></div>
+
+            {/* The Benefit Section */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'flex-start', marginBottom: '60px' }}>
+              <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6 }}>
+                THE BENEFIT
+              </div>
+              <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '24px', lineHeight: 1.5, color: 'var(--text-color)' }}>
+                The security of a rigorous executive process with the speed the real-estate market demands. No noise, no bureaucracy, full transparency.
+              </div>
+            </div>
+
+            {/* Bottom Row: Engagement Flow */}
+            <div style={{ display: 'flex', alignItems: 'center', fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6, marginBottom: '20px' }}>
+              <span style={{ marginRight: '16px' }}>(A) THE ENGAGEMENT FLOW</span>
+              <div style={{ flex: 1, height: '1px', background: 'var(--text-color)', opacity: 0.2 }}></div>
+            </div>
           </header>
 
-          {/* Steps Carousel */}
-          <div className="services-carousel-wrap">
-            <button className="carousel-arrow left" onClick={() => scroll('left')}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button className="carousel-arrow right" onClick={() => scroll('right')}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-            
-            <div 
-              className="services-grid carousel" 
-              ref={scrollRef} 
-              onScroll={handleScroll}
-            >
-              {STEPS.map((step, idx) => (
-                <div
-                  key={step.num}
-                  className={`service-card-premium animate-float-up ${activeIdx === idx ? 'active' : ''}`}
-                  style={{ animationDelay: `${(idx + 1) * 50}ms`, padding: 0, display: 'flex', flexDirection: 'column', minWidth: '860px', maxWidth: '960px', width: '100%' }}
+          {/* Engagement Flow Accordion */}
+          <div className="engagement-accordion-wrap">
+            {STEPS.map((step, idx) => (
+                  <div key={step.num} className="engagement-accordion-item">
+                <button 
+                  className="engagement-accordion-header" 
+                  onClick={() => toggleAccordion(idx)}
                 >
-                  {/* ── SPLIT BODY ── */}
-                  <div className="step-card-split">
-
-                    {/* LEFT COL — identity + intro + why this matters */}
+                  <span className="accordion-num">{step.num}</span>
+                  <span className="accordion-title">{step.title[lang]}</span>
+                  <span className={`accordion-icon ${openAccordion === idx ? 'open' : ''}`}>
+                    {openAccordion === idx ? '-' : '+'}
+                  </span>
+                </button>
+                <div className={`engagement-accordion-body ${openAccordion === idx ? 'open' : ''}`}>
+                  <div className="step-card-split accordion-content-inner" style={{ border: 'none', padding: '0 0 40px', background: 'transparent' }}>
                     <div className="step-col-left">
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                        <div className="service-icon-box" style={{ color: step.iconColor || 'var(--color-neon-purple)', background: step.iconBg || 'rgba(123,31,162,0.1)', flexShrink: 0 }}>
-                          {step.icon}
-                        </div>
-                        <div>
-                          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.4, fontFamily: 'var(--font-sans)', marginBottom: '2px' }}>
-                            {lang === 'EN' ? 'STEP' : 'ETAPA'} {step.num}
-                          </p>
-                          <h3 className="service-title" style={{ margin: 0 }}>{step.title[lang]}</h3>
-                        </div>
-                      </div>
-
                       {step.badge && (
                         <div className="service-output-badge" style={{ alignSelf: 'flex-start' }}>{step.badge[lang]}</div>
                       )}
 
-                      <p className="service-desc" style={{ margin: 0 }}>{step.summary[lang]}</p>
+                      <p className="service-desc" style={{ margin: '0 0 16px 0', fontWeight: 600, color: 'var(--text-color)' }}>{step.summary[lang]}</p>
 
                       {step.body && (
                         <p className="service-desc" style={{ margin: 0, opacity: 0.75 }}>{step.body[lang]}</p>
@@ -878,17 +821,14 @@ export default function HowWeWork() {
                       )}
                     </div>
 
-                    {/* RIGHT COL — dynamic content */}
                     <div className="step-col-right">
-
-                      {/* Simple list → 2-col grid */}
                       {step.list && (
                         <div>
                           <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '12px' }}>
                             {step.summary[lang]}
                           </p>
                           <div className="step-item-grid">
-                            {step.list[lang].map((item, i) => (
+                            {step.list && step.list[lang] && step.list[lang].map((item, i) => (
                               <div key={i} className="step-item-grid-cell">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || 'var(--color-neon-purple)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                   {step.listIcon || <polyline points="20 6 9 17 4 12"/>}
@@ -903,12 +843,11 @@ export default function HowWeWork() {
                         </div>
                       )}
 
-                      {/* Custom lists (service-box-green / red) */}
                       {step.customLists && step.customLists.map((clist, i) => (
                         <div key={i} className={clist.boxClass}>
                           <h4 className={clist.titleClass}>{clist.title[lang]}</h4>
                           <div className="step-item-grid">
-                            {clist.items[lang].map((item, j) => (
+                            {clist.items && clist.items[lang] && clist.items[lang].map((item, j) => (
                               <div key={j} className="step-item-grid-cell">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={clist.iconColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{clist.icon}</svg>
                                 {item}
@@ -918,155 +857,138 @@ export default function HowWeWork() {
                         </div>
                       ))}
 
-                      {/* Payment Methods → accordion */}
                       {step.paymentMethods && (
-                        <div>
-                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '10px' }}>
-                            {step.paymentMethods.title[lang]}
-                          </p>
-                          {step.paymentMethods.methods.map((m, i) => (
-                            <Accordion key={i} label={`${m.icon}  ${m.name[lang]}`} iconColor="rgba(255,255,255,0.6)" defaultOpen={i === 0}>
-                              <p style={{ fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>{m.desc[lang]}</p>
-                              {m.details[lang].map((d, j) => (
-                                <p key={j} style={{ fontSize: '12px', opacity: 0.65, lineHeight: 1.6, marginBottom: '4px' }}>{d}</p>
-                              ))}
-                            </Accordion>
-                          ))}
+                        <div style={{ marginTop: '24px' }}>
+                          <h4 style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', opacity: 0.5, marginBottom: '16px' }}>{step.paymentMethods.title[lang]}</h4>
+                          <div style={{ display: 'grid', gap: '16px' }}>
+                            {step.paymentMethods.methods.map((method, i) => (
+                              <div key={i} style={{ padding: '16px', background: 'rgba(0,0,0,0.03)', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                                  <span style={{ fontSize: '20px' }}>{method.icon}</span>
+                                  <h5 style={{ margin: 0, fontSize: '14px', fontFamily: 'var(--font-serif)' }}>{method.name[lang]}</h5>
+                                </div>
+                                <p style={{ fontSize: '13px', opacity: 0.7, marginBottom: '12px', lineHeight: 1.5 }}>{method.desc[lang]}</p>
+                                <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '12px', opacity: 0.6, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                  {method.details && method.details[lang] && method.details[lang].map((detail, j) => <li key={j}>{detail}</li>)}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
 
-                      {/* Revision System → accordion */}
-                      {step.revisionSystem && (() => {
-                        const rs = step.revisionSystem;
-                        return (
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            {/* Included */}
-                            <Accordion label={rs.included.label[lang]} iconColor="#10b981" defaultOpen={true}>
-                              <div className="step-item-grid">
-                                {rs.included.items[lang].map((item, i) => (
-                                  <div key={i} className="step-item-grid-cell">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                    {item}
-                                  </div>
-                                ))}
+                      {step.gantt && (
+                        <div className="service-box-green" style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                          {step.gantt.title && step.gantt.title[lang] && (
+                            <h4 className="service-box-green-title" style={{ color: 'var(--text-color)', opacity: 0.6 }}>{step.gantt.title[lang]}</h4>
+                          )}
+                          <div className="step-gantt-phases">
+                            {step.gantt.phases && step.gantt.phases.map((phase, i) => (
+                              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '12px', borderBottom: i < step.gantt.phases.length - 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                                <div style={{ fontSize: '10px', letterSpacing: '0.1em', opacity: 0.4 }}>{phase.label?.[lang]}</div>
+                                <div style={{ fontSize: '13px', fontWeight: 600 }}>{phase.duration?.[lang]}</div>
+                                {phase.desc && phase.desc[lang] && (
+                                  <div style={{ fontSize: '12px', opacity: 0.7, lineHeight: 1.4 }}>{phase.desc[lang]}</div>
+                                )}
                               </div>
-                            </Accordion>
-
-                            {/* Extended */}
-                            <Accordion label={rs.extended.label[lang]} iconColor="var(--brand-purple)">
-                              <ul className="service-list" style={{ marginTop: 0 }}>
-                                {rs.extended.steps[lang].map((s, i) => (
-                                  <li key={i} className="service-list-item">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                                    {s}
-                                  </li>
-                                ))}
-                              </ul>
-                              {rs.extended.example && (
-                                <p style={{ marginTop: '12px', fontSize: '12px', opacity: 0.6, lineHeight: 1.7, fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '12px' }}>
-                                  {rs.extended.example[lang]}
-                                </p>
-                              )}
-                            </Accordion>
-
-                            {/* Guidelines */}
-                            {rs.guidelines && (
-                              <Accordion label={rs.guidelines.title[lang]} iconColor="#FFC107">
-                                <ul className="service-list" style={{ marginTop: 0 }}>
-                                  {rs.guidelines.items[lang].map((item, i) => (
-                                    <li key={i} className="service-list-item">
-                                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFC107" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                      {item}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </Accordion>
-                            )}
+                            ))}
                           </div>
-                        );
-                      })()}
-
+                          {step.gantt.note && step.gantt.note[lang] && (
+                            <p style={{ marginTop: '14px', fontSize: '11px', opacity: 0.45, lineHeight: 1.7, fontStyle: 'italic' }}>
+                              {step.gantt.note[lang]}
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
-
-                  {/* ── GANTT FOOTER (full-width, Step 05 only) ── */}
-                  {step.gantt && (
-                    <div className="step-gantt-footer">
-                      <p style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.4, fontFamily: 'var(--font-sans)', marginBottom: '4px' }}>
-                        {lang === 'EN' ? 'PROJECT TIMELINE & OPERATIONAL PIPELINE' : 'LINHA DO TEMPO DO PROJETO & FLUXO OPERACIONAL'}
-                      </p>
-                      <p style={{ fontSize: '12px', opacity: 0.6, lineHeight: 1.5, marginBottom: '0' }}>{step.gantt.intro[lang]}</p>
-                      <div className="step-gantt-phases">
-                        {step.gantt.phases.map((phase, i) => (
-                          <div key={i} className="step-gantt-phase">
-                            <div className="step-gantt-phase-label">{phase.label[lang]}</div>
-                            <div className="step-gantt-phase-bar-track">
-                              <div className="step-gantt-phase-bar-fill" style={{
-                                width: `${phase.progress}%`,
-                                background: phase.progress === 100
-                                  ? 'linear-gradient(90deg, #7B1FA2, #E91E63)'
-                                  : phase.progress >= 80 ? 'rgba(123,31,162,0.85)'
-                                  : phase.progress >= 60 ? 'rgba(123,31,162,0.65)'
-                                  : phase.progress >= 40 ? 'rgba(123,31,162,0.5)'
-                                  : 'rgba(16,185,129,0.75)'
-                              }} />
-                            </div>
-                            <div className="step-gantt-phase-duration">{phase.duration[lang]} · {phase.progress}%</div>
-                          </div>
-                        ))}
-                      </div>
-                      <p style={{ marginTop: '14px', fontSize: '11px', opacity: 0.45, lineHeight: 1.7, fontStyle: 'italic' }}>
-                        {step.gantt.note[lang]}
-                      </p>
-                    </div>
-                  )}
-
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-          {/* CTA */}
 
-          <div className="hww-cta-section animate-float-up" style={{ animationDelay: '300ms', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', maxWidth: '860px', margin: '48px auto 0' }}>
-            <h2 className="page-main-title" style={{ fontSize: '36px', marginBottom: '16px' }}>
-              {lang === 'EN' ? 'Request a Free Quote' : `Solicite um Orçamento Gratuito`}
+          {/* Timeline & Operational Flow */}
+          <div className="preview-header" style={{ marginTop: '80px', marginBottom: '24px' }}>
+            <h2 className="preview-title" style={{ display: 'flex', alignItems: 'center' }}>
+              <span style={{ opacity: 0.5, marginRight: '16px' }}>(B)</span>
+              <span style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>{lang === "EN" ? "PROJECT TIMELINE & OPERATIONAL FLOW" : "CRONOGRAMA DO PROJETO & FLUXO OPERACIONAL"}</span>
             </h2>
-            <p className="page-subtitle-standard" style={{ marginBottom: '24px', maxWidth: '600px' }}>
-              {lang === 'EN' 
-                ? 'Tell us about your project. Receive a personalized proposal within 2–3 business days.' 
-                : `Fale-nos sobre o seu projeto. Receba uma proposta personalizada em 2 a 3 dias úteis.`}
+            <div className="preview-line" style={{ margin: '0 0 0 16px' }}></div>
+          </div>
+          <div style={{ maxWidth: '900px', margin: '0 0 40px', padding: '0 20px' }}>
+            <p className="editorial-subtitle" style={{ fontSize: '16.5px', lineHeight: 1.6, opacity: 0.8, color: 'var(--text-color)' }}>
+              {lang === "EN" 
+                ? "For full transparency on schedule, here is how your project advances through our production calendar — measured from the moment funds clear and kickoff is authorized." 
+                : "Para total transparência no cronograma, eis como o seu projeto avança pelo nosso calendário de produção — medido a partir do momento em que os fundos são liberados e o início é autorizado."}
             </p>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <button className="btn-glow" onClick={handleStartProject} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 28px', fontSize: '14px', letterSpacing: '0.1em' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                {lang === 'EN' ? 'REQUEST A FREE QUOTE' : `SOLICITAR ORÇAMENTO`}
-              </button>
-              <a href={`https://wa.me/5548996503350?text=${encodeURIComponent(lang === 'EN' ? "Hi DA·RA Studio! I would like to request a free quote." : "Olá DA·RA Studio! Gostaria de solicitar um orçamento gratuito.")}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                <button style={{ 
-                  background: 'transparent', 
-                  border: '1px solid #25D366', 
-                  color: '#25D366', 
-                  padding: '14px 28px', 
-                  borderRadius: '100px', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '10px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  letterSpacing: '0.1em',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(37, 211, 102, 0.1)'; }}
-                onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; }}
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  WHATSAPP
-                </button>
-              </a>
-            </div>
           </div>
 
+          <div className="timeline-grid">
+            <div className="timeline-card">
+              <div className="timeline-phase">PHASE 1</div>
+              <div className="timeline-line-container"><div className="timeline-line-progress" style={{ width: '20%' }}></div></div>
+              <div className="timeline-title">{lang === "EN" ? "Initial alignment & scope validation" : "Alinhamento inicial & validação de escopo"}</div>
+              <div className="timeline-duration">{lang === "EN" ? "1-3 business days" : "1-3 dias úteis"}</div>
+              <div className="timeline-percentage">20%</div>
+            </div>
+            <div className="timeline-card">
+              <div className="timeline-phase">PHASE 2</div>
+              <div className="timeline-line-container"><div className="timeline-line-progress" style={{ width: '40%' }}></div></div>
+              <div className="timeline-title">{lang === "EN" ? "First design preview delivered" : "Primeira prévia de design entregue"}</div>
+              <div className="timeline-duration">{lang === "EN" ? "8-16 business days" : "8-16 dias úteis"}</div>
+              <div className="timeline-percentage">40%</div>
+            </div>
+            <div className="timeline-card">
+              <div className="timeline-phase">PHASE 3</div>
+              <div className="timeline-line-container"><div className="timeline-line-progress" style={{ width: '60%' }}></div></div>
+              <div className="timeline-title">{lang === "EN" ? "Adjustment & revision cycles (REV 01-03)" : "Ciclos de ajuste & revisão (REV 01-03)"}</div>
+              <div className="timeline-duration">{lang === "EN" ? "8-16 days / round" : "8-16 dias / rodada"}</div>
+              <div className="timeline-percentage">60%</div>
+            </div>
+            <div className="timeline-card">
+              <div className="timeline-phase">PHASE 4</div>
+              <div className="timeline-line-container"><div className="timeline-line-progress" style={{ width: '80%' }}></div></div>
+              <div className="timeline-title">{lang === "EN" ? "Technical production & final set compilation" : "Produção técnica & compilação do set final"}</div>
+              <div className="timeline-duration">{lang === "EN" ? "8-16 business days" : "8-16 dias úteis"}</div>
+              <div className="timeline-percentage">80%</div>
+            </div>
+            <div className="timeline-card">
+              <div className="timeline-phase">PHASE 5</div>
+              <div className="timeline-line-container"><div className="timeline-line-progress" style={{ width: '100%' }}></div></div>
+              <div className="timeline-title">{lang === "EN" ? "QA review, 20% release & closeout" : "Revisão QA, liberação de 20% & encerramento"}</div>
+              <div className="timeline-duration">{lang === "EN" ? "1-3 business days" : "1-3 dias úteis"}</div>
+              <div className="timeline-percentage">100%</div>
+            </div>
+          </div>
+          
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px 80px' }}>
+            <p style={{ fontSize: '12px', opacity: 0.5, lineHeight: 1.6, fontFamily: 'var(--font-sans)', color: 'var(--text-color)' }}>
+              {lang === "EN" 
+                ? "Production cycles are dynamic. While the main phases run in the 8-16 business-day window, your total speed depends directly on how quickly your consolidated feedback is sent through our portal."
+                : "Os ciclos de produção são dinâmicos. Embora as fases principais ocorram na janela de 8 a 16 dias úteis, a sua velocidade total depende diretamente de quão rápido o seu feedback consolidado é enviado através do nosso portal."}
+            </p>
+          </div>
+
+          {/* Dark CTA Section */}
+          <div className="hww-dark-cta">
+            <div className="hww-dark-cta-inner">
+              <div>
+                <div className="hww-cta-welcome">{lang === "EN" ? "WELCOME" : "BEM-VINDO"}</div>
+                <h2 className="hww-cta-title">{lang === "EN" ? "Ready to structure and scale your architectural demand." : "Pronto para estruturar e escalar sua demanda arquitetônica."}</h2>
+              </div>
+              <div>
+                <p className="hww-cta-desc">
+                  {lang === "EN" 
+                    ? "Once your project is activated and queued, we guide you through the initial steps to ensure full alignment before technical drawings begin."
+                    : "Assim que o seu projeto é ativado e enfileirado, nós o guiamos pelos passos iniciais para garantir alinhamento total antes do início dos desenhos técnicos."}
+                </p>
+                <button className="hww-cta-btn" onClick={handleStartProject}>
+                  {lang === "EN" ? "START MY PROJECT" : "INICIAR MEU PROJETO"}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
         </main>
         <Footer />
       </div>

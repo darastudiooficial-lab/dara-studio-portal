@@ -5,20 +5,36 @@ import { useAppContext } from '../context/AppContext';
 
 const FOOTER_CONTENT = {
   EN: {
-    address: `SC, Brazil · Remote Support Worldwide`,
+    address: `SC, Brazil · Worldwide Remote Support`,
     drafting: "Architectural Production & CAD Drafting",
-    copyright: "GLOBAL ARCHITECTURAL PRODUCTION & REMOTE TECHNICAL SUPPORT",
-    legal: `All technical documentation, drafting files, and design assets remain the exclusive intellectual property of DARA Studio and its global partners.`,
-    ipNotice: "INTELLECTUAL PROPERTY NOTICE →",
-    confidentiality: "Projects are executed under strict data protection protocols and non-disclosure agreements (NDA) to guarantee absolute asset security.",
+    copyright: <>WORLDWIDE ARCHITECTURAL <br />PRODUCTION & REMOTE TECHNICAL SUPPORT</>,
+    legal: <>All technical documentation and design assets are the <br />exclusive property of DARA Studio and its global <br />partners.</>,
+    ipNotice: "INTELLECTUAL PROPERTY NOTICE",
+    confidentiality: <>Our processes follow strict data security and <br />confidentiality protocols, ensuring full protection of our <br />clients' assets.</>,
+    indexTitle: "Index",
+    links: [
+      { label: "Home", path: "/" },
+      { label: "What We Do", path: "/services" },
+      { label: "Portfolio", path: "/portfolio" },
+      { label: "Team", path: "/team" },
+      { label: "How It Works", path: "/HowWeWork" }
+    ]
   },
   PT: {
     address: `SC, Brasil · Suporte Remoto Mundial`,
     drafting: `Produção Arquitetônica e Desenho CAD`,
-    copyright: `PRODUÇÃO ARQUITETÔNICA MUNDIAL E SUPORTE TÉCNICO REMOTO`,
-    legal: `Toda a documentação técnica e ativos de design são propriedade exclusiva da DARA Studio e de seus parceiros globais.`,
-    ipNotice: "AVISO DE PROPRIEDADE INTELECTUAL →",
-    confidentiality: `Nossos processos seguem protocolos rigorosos de segurança de dados e confidencialidade, garantindo total proteção ao patrimônio dos nossos clientes.`,
+    copyright: <>PRODUÇÃO ARQUITETÔNICA <br />MUNDIAL E SUPORTE TÉCNICO REMOTO</>,
+    legal: <>Toda a documentação técnica e ativos de design são <br />propriedade exclusiva da DARA Studio e de seus parceiros <br />globais.</>,
+    ipNotice: "AVISO DE PROPRIEDADE INTELECTUAL",
+    confidentiality: <>Nossos processos seguem protocolos rigorosos de <br />segurança de dados e confidencialidade, garantindo total <br />proteção ao patrimônio dos nossos clientes.</>,
+    indexTitle: "Index",
+    links: [
+      { label: "Home", path: "/" },
+      { label: "What We Do", path: "/services" },
+      { label: "Portfolio", path: "/portfolio" },
+      { label: "Team", path: "/team" },
+      { label: "How It Works", path: "/HowWeWork" }
+    ]
   }
 };
 
@@ -33,8 +49,8 @@ export default function Footer() {
         {/* Zone 1 — Left: Logo + Address + Socials */}
         <div className="footer-zone zone-left">
           <div className="footer-logo-wrap">
-            <DaraLogo size={22} />
-            <span className="footer-logo-text">DARA<strong>Studio</strong></span>
+
+            <span className="footer-logo-text"><strong>DARA</strong><em>Studio</em></span>
           </div>
           <p className="footer-address">
             {T.address}<br />
@@ -56,19 +72,27 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Zone 2 — Center: Copyright + Legal */}
+        {/* Zone 2 — Center: Index */}
         <div className="footer-zone zone-center">
+          <p className="footer-index-title">{T.indexTitle}</p>
+          <div className="footer-index-list">
+            {T.links.map(link => (
+              <Link key={link.path} to={link.path} className="footer-index-link">
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Zone 3 — Right: Copyright, Legal & IP Notice */}
+        <div className="footer-zone zone-right">
           <p className="footer-copyright-main">
             © {year} DARA STUDIO · {T.copyright}
           </p>
           <p className="footer-legal">
             {T.legal}
           </p>
-        </div>
-
-        {/* Zone 3 — Right: IP Notice Link + Description + Email */}
-        <div className="footer-zone zone-right">
-          <Link to="/ip-notice" className="footer-ip-notice-link">
+          <Link to="/ip-notice" className="footer-ip-title">
             {T.ipNotice}
           </Link>
           <p className="footer-ip-notice-small">

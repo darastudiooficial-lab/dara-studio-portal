@@ -14,24 +14,51 @@ const CONTENT = {
       { label: `How It Works`, path: '/process'   },
     ],
     clientPortal: "Client Portal",
-    heroBadge: "Architecture · Design · Visualization",
-    heroTitle1: "US Construction Standards.",
-    heroTitle2: "Seamless Remote Execution.",
-    heroSubtitle: `We deliver high-precision permit sets, architectural drafting, and detailed construction documentation tailored to US municipal codes. Scale your construction or development pipeline with an agile, dedicated technical partner.`,
-    getEstimate: "REQUEST PROPOSAL",
+    heroBadge: "ARCHITECTURE · DESIGN · TECHNICAL DOCUMENTATION",
+    heroTitle1: "Built to American\nstandards.",
+    heroTitle2: "Executed remotely,\nwithout compromise.",
+    heroSubtitle: "We produce Permit Sets, construction documents, and high-precision technical drawings for the U.S. market. Strict code compliance. Clear communication. Delivered remotely without losing an inch of quality.",
+    getEstimate: "REQUEST A QUOTE",
     accessPortal: "ACCESS PORTAL",
-    statsRating: "Certified Workflow",
+    statsRating: "Licensed Support",
       statsRatingTooltip: "High-end drafting and architectural support for builders and investors.",
-    statsMarket: "US Code Compliance",
+      statsRatingLabel: "Licensed",
+      statsRatingValue: "Support",
+    statsMarket: "Code Compliance",
       statsMarketTooltip: `Projects executed strictly under IBC, IRC, and local zoning frameworks.`,
-    statsTurnaround: "Turnaround Efficiency",
+      statsMarketValue: "IBC · IRC",
+    statsTurnaround: "Fast Turnaround",
       statsTurnaroundTooltip: "Production cycles optimized for 8 to 16 days.",
+      statsTurnaroundLabel: "Fast",
+      statsTurnaroundValue: "Turnaround",
     softwareChief: "Chief Architect",
     softwareUSCode: "US CODE COMPLIANT",
     softwareUSCodeTooltip: `Projects developed according to IBC, IRC, and local municipal standards for seamless permit approval.`,
-    badgeLicensedBR: "CAU SC A115105-3 — Licensed Architect · Brazil",
+    badgeLicensedBR: "CAU SC A115105-3 - Licensed Architect · Brazil",
     badgeLicensedUS: "Architectural Drafter · United States",
-    badgeSecure: "Secure Payment via Stripe",
+    badgeZoning: "US Code Compliant · Local Zoning",
+    previewSectionTitle: "(01) WHAT WE DO",
+    previewItems: [
+      { num: "01", title: "Permit Sets", desc: "Complete, code-compliant drawing sets prepared for municipal submission and approval." },
+      { num: "02", title: "Construction Documents", desc: "Coordinated CDs a contractor can build from without ambiguity or rework." },
+      { num: "03", title: "Technical Drawings", desc: "High-precision details, sections and schedules drafted exactly to specification." },
+      { num: "04", title: "Modeling & Renders", desc: "Massing, 3D modeling and presentation imagery to communicate intent clearly." },
+    ],
+    selectedWorkTitle: "(02) SELECTED WORK",
+    viewAllBtn: "VIEW ALL",
+    selectedWorks: [
+      { num: "P-01", title: "Coastal Residence", desc: "Single-family · Florida", badge: "Residential" },
+      { num: "P-02", title: "Infill Duplex", desc: "Multi-family · Texas", badge: "Multi-family" },
+      { num: "P-03", title: "Warehouse Conversion", desc: "Adaptive reuse · Georgia", badge: "Commercial" },
+    ],
+    howItWorksTitle: "(03) HOW IT WORKS",
+    howItWorksSubtitle: "VIEW ALL",
+    howItWorksSteps: [
+      { num: "01", title: "Brief & Scope", desc: "We align on jurisdiction, code path, deliverables and timeline before anything is drawn." },
+      { num: "02", title: "Drafting & Modeling", desc: "Production in Chief Architect, AutoCAD and SketchUp — versioned and internally reviewed." },
+      { num: "03", title: "Code Review", desc: "Every sheet checked against IBC, IRC and local zoning before it leaves the studio." },
+      { num: "04", title: "Delivery & Revisions", desc: "Issued through the Client Portal. Revisions tracked and turned around fast." },
+    ],
   },
   PT: {
     nav: [
@@ -41,24 +68,51 @@ const CONTENT = {
       { label: `Como Funciona`,  path: '/process'   },
     ],
     clientPortal: "Portal do Cliente",
-    heroBadge: `Arquitetura · Design · Visualização`,
-    heroTitle1: `Projetos no Padrão Americano.`,
-    heroTitle2: `Execução Remota sem Barreiras.`,
-    heroSubtitle: `Desenvolvemos Permit Sets, detalhamentos executivos e documentação técnica de alta precisão para o mercado dos EUA. A união exata entre o rigor dos códigos de construção americanos e a proximidade de um atendimento humanizado e transparente.`,
+    heroBadge: `ARQUITETURA · DESIGN · DOCUMENTAÇÃO TÉCNICA`,
+    heroTitle1: `Projetos no Padrão\nAmericano.`,
+    heroTitle2: `Execução Remota.\nSem Concessões.`,
+    heroSubtitle: `Desenvolvemos Permit Sets, detalhamentos executivos e documentação técnica de alta precisão para o mercado dos EUA. Rigor absoluto nos códigos de construção americanos com o atendimento próximo e transparente que seu projeto merece.`,
     getEstimate: `SOLICITAR ORÇAMENTO`,
     accessPortal: "ACESSAR PORTAL",
     statsRating: "Suporte Credenciado",
       statsRatingTooltip: `Estrutura técnica sob medida para construtores, empreiteiros e investidores.`,
+      statsRatingLabel: "Credenciado",
+      statsRatingValue: "Suporte",
     statsMarket: `Conformidade de Códigos`,
       statsMarketTooltip: `Projetos alinhados estritamente às normas locais norte-americanas.`,
+      statsMarketValue: "IBC · IRC",
     statsTurnaround: "Velocidade de Entrega",
       statsTurnaroundTooltip: `Fluxo de produção calibrado para entregas entre 8 e 16 dias.`,
+      statsTurnaroundLabel: "Velocidade",
+      statsTurnaroundValue: "Entrega",
     softwareChief: "Arquiteto Chefe",
     softwareUSCode: `CONFORME CÓDIGOS EUA`,
     softwareUSCodeTooltip: `Projetos desenvolvidos de acordo com as normas IBC, IRC e padrões municipais locais para aprovação simplificada de alvarás.`,
-    badgeLicensedBR: "CAU SC A115105-3 — Arquiteto Licenciado · Brasil",
-    badgeLicensedUS: `Projetista Arquitetônico · EUA`,
-    badgeSecure: "Pagamento Seguro via Stripe",
+    badgeLicensedBR: "CAU SC A115105-3 - Arquiteto Licenciado · Brasil",
+    badgeLicensedUS: "Desenhista Arquitetônico · Estados Unidos",
+    badgeZoning: "Conformidade de Código dos EUA · Zoneamento Local",
+    previewSectionTitle: "(01) O QUE FAZEMOS",
+    previewItems: [
+      { num: "01", title: "Permit Sets", desc: "Conjuntos de plantas completos em conformidade com as normas, prontos para aprovação na prefeitura." },
+      { num: "02", title: "Documentação Executiva", desc: "Documentação coordenada para que o empreiteiro possa construir sem ambiguidades ou retrabalhos." },
+      { num: "03", title: "Desenhos Técnicos", desc: "Detalhes de alta precisão, cortes e tabelas projetados exatamente de acordo com as especificações." },
+      { num: "04", title: "Modelagem e Renders", desc: "Estudos de volumetria, modelagem 3D e imagens de apresentação para comunicar a intenção de forma clara." },
+    ],
+    selectedWorkTitle: "(02) TRABALHOS SELECIONADOS",
+    viewAllBtn: "VER TODOS",
+    selectedWorks: [
+      { num: "P-01", title: "Residência Costeira", desc: "Unifamiliar · Flórida", badge: "Residencial" },
+      { num: "P-02", title: "Duplex Infill", desc: "Multifamiliar · Texas", badge: "Multifamiliar" },
+      { num: "P-03", title: "Conversão de Galpão", desc: "Reúso Adaptativo · Geórgia", badge: "Comercial" },
+    ],
+    howItWorksTitle: "(03) COMO FUNCIONA",
+    howItWorksSubtitle: "VER TODOS",
+    howItWorksSteps: [
+      { num: "01", title: "Briefing e Escopo", desc: "Alinhamos a jurisdição, normas locais, entregáveis e prazos antes de qualquer desenho." },
+      { num: "02", title: "Desenho e Modelagem", desc: "Produção no Chief Architect, AutoCAD e SketchUp — versionado e revisado internamente." },
+      { num: "03", title: "Revisão de Códigos", desc: "Cada prancha verificada em relação ao IBC, IRC e zoneamento local antes da entrega." },
+      { num: "04", title: "Entrega e Revisões", desc: "Acesso direto pelo Portal do Cliente. Revisões controladas e devolvidas rapidamente." },
+    ],
   }
 };
 
@@ -117,9 +171,10 @@ export default function LandingPage() {
       <main className="hero-section">
 
         {/* Badge superior */}
-        <div className="badge animate-float-up delay-100">
-          <span className="badge-icon">☆</span>
-          <span className="badge-text badge-gradient">{T.heroBadge}</span>
+        <div className="badge animate-float-up delay-100" style={{ display: 'flex', width: '100%' }}>
+          <span className="badge-index">(00)</span>
+          <span className="badge-text">{T.heroBadge}</span>
+          <div className="preview-line"></div>
         </div>
 
         {/* Heading */}
@@ -128,78 +183,157 @@ export default function LandingPage() {
           <h1 className="heading-italic">{T.heroTitle2}</h1>
         </div>
 
-        {/* Subtitle */}
-        <p className="hero-subtitle animate-float-up delay-300">
-          {T.heroSubtitle}
-        </p>
+        {/* Hero Content Row: Subtitle + Title Block */}
+        <div className="hero-content-row animate-float-up delay-300">
+          <div className="hero-content-left">
+            <p className="hero-subtitle">
+              {T.heroSubtitle}
+            </p>
+            <div className="action-buttons">
+              <button className="btn-glow" onClick={() => navigate("/estimate")}>
+                {T.getEstimate}
+              </button>
+              <button className="btn-outline" onClick={() => navigate("/login")}>
+                {T.accessPortal}
+              </button>
+            </div>
+          </div>
 
-        {/* Ações Principais (Botões Pill-shaped) */}
-        <div className="action-buttons animate-float-up delay-400">
-          <button className="btn-glow" onClick={() => navigate("/estimate")}>
-            {T.getEstimate} &rarr;
-          </button>
+          <div className="title-block">
+            <div className="title-block-header">TITLE BLOCK</div>
+            <div className="title-block-divider"></div>
+            <div className="title-block-row">
+              <span className="title-block-label">SHEET</span>
+              <span className="title-block-value">00 — Index</span>
+            </div>
+            <div className="title-block-row">
+              <span className="title-block-label">SCALE</span>
+              <span className="title-block-value">US Market</span>
+            </div>
+            <div className="title-block-row">
+              <span className="title-block-label">CODE</span>
+              <span className="title-block-value">IBC · IRC</span>
+            </div>
+            <div className="title-block-row">
+              <span className="title-block-label">REV</span>
+              <span className="title-block-value">2026.1</span>
+            </div>
+          </div>
+        </div>
 
-          <button className="btn-glow" onClick={() => navigate("/login")}>
-            {T.accessPortal}
-          </button>
+        {/* Hero Image — Placeholder for project imagery */}
+        <div className="hero-image-placeholder animate-float-up delay-450" onClick={() => navigate("/portfolio")} role="link" tabIndex={0}>
+          <img
+            src="/hero-project.jpg"
+            alt="Project imagery"
+            className="hero-image-src"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          <div className="hero-image-labels">
+            <span className="hero-image-sheet">Permit set — sheet A-101 · floor plan</span>
+            <span className="hero-image-tag">[ project imagery ]</span>
+          </div>
+        </div>
+
+        {/* Preview Services List */}
+        <div className="preview-services-section animate-float-up delay-450">
+          <div className="preview-header">
+            <span className="preview-title">{T.previewSectionTitle}</span>
+            <div className="preview-line"></div>
+          </div>
+          <div className="preview-list">
+            {T.previewItems.map((item, idx) => (
+              <div key={idx} className="preview-item" onClick={() => navigate("/services")}>
+                <span className="preview-num">{item.num}</span>
+                <h3 className="preview-item-title">{item.title}</h3>
+                <p className="preview-item-desc">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Selected Work Section */}
+        <div className="selected-work-section animate-float-up delay-450">
+          <div className="preview-header">
+            <span className="preview-title">{T.selectedWorkTitle}</span>
+            <div className="preview-line"></div>
+            <span className="preview-title view-all-link" onClick={() => navigate("/portfolio")}>{T.viewAllBtn}</span>
+          </div>
+          <div className="selected-work-grid">
+            {T.selectedWorks.map((work, idx) => (
+              <div key={idx} className="work-card" onClick={() => navigate("/portfolio")}>
+                <div className="work-image-placeholder">
+                  <span className="work-badge">{work.badge}</span>
+                </div>
+                <div className="work-info">
+                  <span className="preview-num">{work.num}</span>
+                  <h3 className="work-title">{work.title}</h3>
+                  <p className="work-desc">{work.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* How It Works Section */}
+        <div className="how-it-works-section animate-float-up delay-450">
+          <div className="preview-header">
+            <span className="preview-title">{T.howItWorksTitle}</span>
+            <div className="preview-line"></div>
+            <span className="preview-title view-all-link" onClick={() => navigate("/how-we-work")}>{T.howItWorksSubtitle}</span>
+          </div>
+          <div className="how-it-works-grid">
+            {T.howItWorksSteps.map((step, idx) => (
+              <div key={idx} className="how-it-works-card" onClick={() => navigate("/how-we-work")}>
+                <span className="preview-num">{step.num}</span>
+                <h3 className="work-title" style={{ marginTop: '24px', marginBottom: '16px' }}>{step.title}</h3>
+                <p className="work-desc" style={{ textTransform: 'none', lineHeight: '1.6' }}>{step.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Trust Cluster — Integrated Social Proof & Certifications */}
         <div className="trust-cluster animate-float-up delay-500">
           <div className="trust-indicators">
-            <a 
-              href="https://share.google/P6LjQ8q2gPf2wzupp" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="trust-item trust-link"
-                title={T.statsRatingTooltip}
-              >
-              <span style={{ color: "#fbbf24", fontSize: "14px" }}>⭐</span>
-              {T.statsRating}
-            </a>
-            <span className="footer-divider">·</span>
-            <div className="trust-item">
-              <span style={{ fontSize: "14px" }}>🌎</span>
-              {T.statsMarket}
+            <div className="stat-card" title={T.statsRatingTooltip}>
+              <span className="stat-label">{T.statsRatingLabel}</span>
+              <span className="stat-value">{T.statsRatingValue}</span>
             </div>
-            <span className="footer-divider">·</span>
-            <div className="trust-item" title={T.statsTurnaroundTooltip}>
-                <span style={{ color: "#f97316", fontSize: "14px" }}>⚡</span>
-                {T.statsTurnaround}
-              </div>
+            <div className="stat-card" title={T.statsMarketTooltip}>
+              <span className="stat-label">{T.statsMarket}</span>
+              <span className="stat-value">{T.statsMarketValue}</span>
+            </div>
+            <div className="stat-card" title={T.statsTurnaroundTooltip}>
+              <span className="stat-label">{T.statsTurnaroundLabel}</span>
+              <span className="stat-value">{T.statsTurnaroundValue}</span>
+            </div>
           </div>
 
           <div className="trust-bar">
-            {/* Row 2: Software Logos (Grayscale) */}
+            {/* Row 2: Authority Badges */}
+            <div className="credentials-grid">
+              <div className="credential-box">{T.badgeLicensedBR}</div>
+              <div className="credential-box">{T.badgeLicensedUS}</div>
+              <div className="credential-box">{T.badgeZoning}</div>
+            </div>
+
+            {/* Row 3: Software Logos (Grayscale) */}
             <div className="trust-bar-logos">
               <div className="software-logo-item" title={T.softwareChief}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 4.84L18.16 13v5.16H5.84V13L12 7.84zM10 11h4v4h-4v-4z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M 5 3 A 17 17 0 0 1 22 20" stroke="currentColor" strokeWidth="2.5" />
+                  <rect x="2" y="3" width="3" height="17" fill="#90C23A" />
+                </svg>
                 <span className="software-logo-text">{T.softwareChief}</span>
               </div>
               <div className="software-logo-item" title="SketchUp">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.1L1 7v10l11 4.9L23 17V7l-11-4.9zm0 2L20.5 7.9 12 11.7 3.5 7.9 12 4.1zm-9 5.3l8 3.6v7L3 16.4V9.4zm18 7l-8 3.6v-7l8-3.6v7z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#E22E2F"><path d="M.968 9.027l7.717 4.428-.006 1.32-4.39-2.518-2.763 1.57 7.148 4.12.005 1.27-7.658-4.405c.02.516.488 2.106 1.383 3.337.91 1.247 1.946 1.776 1.946 1.776L11.428 24V11.849L.975 5.846zm22.064-3.8L15.22.723S13.982 0 12.008 0C9.952 0 8.76.746 8.76.746l-7.236 4.14 11.009 6.328V24l7.245-4.136s1.295-.715 2.279-2.414c.867-1.496.975-2.943.975-2.943zM11.251 7.308s1.615-.298 2.98.49l2.171 1.25s.003 1.097.003 2.736c0 1.313-1.112 2.674-1.112 2.674l.002-4.816zm6.402 10.562l-2.358 1.353v-1.269l1.835-1.05c1.748-1.26 2.037-3.117 2.037-3.761l-.007-5.705-5.006-2.881s-.76-.499-2.129-.499c-1.367 0-2.113.461-2.113.461L8.154 5.53l-1.11-.641L9.473 3.5s.95-.527 2.544-.527c1.462 0 2.6.571 2.6.571L20.27 6.81l-.007 6.226c.04.957-.406 3.296-2.61 4.835z"/></svg>
                 <span className="software-logo-text">SketchUp</span>
               </div>
               <div className="software-logo-item" title="AutoCAD">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2zm0 3.27L18.5 18l-6.5-2.86L5.5 18 12 5.27z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#E22E2F"><path d="M3.8672 1.0527v.0157L0 3.3848v17.914l3.8965-2.332h18.3398V2.3301c0-.702-.5773-1.2774-1.2793-1.2774H3.8672zm7.5058 4.0098h3.3008l2.9844 9.9512h-2.5879l-.5683-2.1895h-2.9844l-.5703 2.1621h-2.416l2.8417-9.9238zm11.8633.0273v14.877H4.172l-2.0684 1.2383v.4648c0 .702.5793 1.2774 1.2813 1.2774H24V5.0898h-.7637zM12.9668 6.6816l-.9941 4.3243h2.0468l-1.0527-4.3243z"/></svg>
                 <span className="software-logo-text">AutoCAD</span>
-              </div>
-              <div className="software-logo-item has-tooltip" title={T.softwareUSCode}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
-                <span className="software-logo-text">{T.softwareUSCode}</span>
-                <div className="tooltip-content">
-                  {T.softwareUSCodeTooltip}
-                </div>
-              </div>
-            </div>
-
-            {/* Row 3: Authority Badges */}
-            <div className="trust-bar-badges">
-              <div className="trust-badge">{T.badgeLicensedBR}</div>
-              <div className="trust-badge">{T.badgeLicensedUS}</div>
-              <div className="trust-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                {T.badgeSecure}
               </div>
             </div>
           </div>

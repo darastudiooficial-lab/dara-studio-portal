@@ -919,7 +919,7 @@ export default function FieldGuide() {
           fontSize: "13px", 
           fontWeight: "700",
           zIndex: 9999,
-          boxShadow: "0 10px 30px rgba(123, 31, 162, 0.2)"
+          boxShadow: "0 10px 30px rgba(125, 159, 133, 0.2)"
         }}>
           {toastMsg}
         </div>

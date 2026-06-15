@@ -241,9 +241,9 @@ export default function IPNotice() {
         {/* Federal Warning Box */}
         <div style={{ maxWidth: '1400px', margin: '0 auto 40px', width: '100%', padding: '0 60px', zIndex: 20, position: 'relative' }}>
           <div style={{
-            background: 'rgba(233, 30, 99, 0.08)',
+            background: 'rgba(90, 126, 98, 0.08)',
             backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(233, 30, 99, 0.2)',
+            border: '1px solid rgba(90, 126, 98, 0.2)',
             padding: '16px 40px',
             borderRadius: '99px',
             display: 'flex',
@@ -252,7 +252,7 @@ export default function IPNotice() {
             justifyContent: 'center',
             boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
           }}>
-            <span style={{ fontSize: '28px', color: '#e91e63', filter: 'drop-shadow(0 0 10px rgba(233, 30, 99, 0.4))' }}>
+            <span style={{ fontSize: '28px', color: '#5A7E62', filter: 'drop-shadow(0 0 10px rgba(90, 126, 98, 0.4))' }}>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </span>
             <div style={{ 
@@ -263,20 +263,20 @@ export default function IPNotice() {
               fontStyle: 'italic',
               opacity: 0.85
             }}>
-              <span style={{ color: '#E91E63', fontWeight: '800', fontStyle: 'normal', textTransform: 'uppercase', marginRight: '12px', letterSpacing: '0.1em' }}>
+              <span style={{ color: '#5A7E62', fontWeight: '800', fontStyle: 'normal', textTransform: 'uppercase', marginRight: '12px', letterSpacing: '0.1em' }}>
                 {lang === "EN" ? "FEDERAL LAW:" : "LEI FEDERAL:"}
               </span>
               
               {lang === "EN" ? (
                 <>
                   Copyright infringement may result in statutory damages of up to{" "}
-                  <span style={{ color: '#e91e63', fontWeight: '800', fontStyle: 'normal' }}>$150,000</span>{" "}
+                  <span style={{ color: '#5A7E62', fontWeight: '800', fontStyle: 'normal' }}>$150,000</span>{" "}
                   per infringement plus attorney fees under 17 U.S.C. § 504. All parties involved, including those copying or redrawing designs, can be held legally liable.
                 </>
               ) : (
                 <>
                   A violação de direitos autorais pode resultar em danos estatutários de até{" "}
-                  <span style={{ color: '#e91e63', fontWeight: '800', fontStyle: 'normal' }}>$150,000</span>{" "}
+                  <span style={{ color: '#5A7E62', fontWeight: '800', fontStyle: 'normal' }}>$150,000</span>{" "}
                   por infração, além de honorários advocatícios nos termos do 17 U.S.C. § 504. Todas as partes envolvidas, inclusive aquelas que copiam ou redesenham projetos, podem ser responsabilizadas legalmente.
                 </>
               )}

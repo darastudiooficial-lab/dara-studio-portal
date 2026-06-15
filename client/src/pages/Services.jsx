@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,25 +9,25 @@ import PageTransition from "../components/PageTransition";
 // Icons using SVG for stability
 const Icons = {
   Drafting: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 21 3-3 3 3"/><path d="m9 21 3-3-3-3"/><path d="M12 21V9"/><path d="M18 12c.5 0 1 .5 1 1v2c0 .5-.5 1-1 1h-2"/><path d="M6 12c-.5 0-1 .5-1 1v2c0 .5.5 1 1 1h2"/><circle cx="12" cy="5" r="3"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 21 3-3 3 3" /><path d="m9 21 3-3-3-3" /><path d="M12 21V9" /><path d="M18 12c.5 0 1 .5 1 1v2c0 .5-.5 1-1 1h-2" /><path d="M6 12c-.5 0-1 .5-1 1v2c0 .5.5 1 1 1h2" /><circle cx="12" cy="5" r="3" /></svg>
   ),
   WoodFrame: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10v11h18V10"/><path d="M3 10l9-7 9 7"/><path d="M9 21v-8h6v8"/><path d="M12 3v7"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10v11h18V10" /><path d="M3 10l9-7 9 7" /><path d="M9 21v-8h6v8" /><path d="M12 3v7" /></svg>
   ),
   PdfCad: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><line x1="10" y1="9" x2="8" y2="9" /></svg>
   ),
   Redrawing: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
   ),
   OfficeSupport: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></svg>
   ),
   Viz: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" /></svg>
   ),
   Check: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-neon-purple)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
   )
 };
 
@@ -36,7 +37,7 @@ const SERVICES_DATA = [
     icon: <Icons.Drafting />,
     badge: { EN: `PACKAGE 01 · COMPREHENSIVE PERMIT SET | Phase: CD & PERMITTING`, PT: `PACOTE 01 · CONJUNTO COMPLETO PARA PERMIT | Phase: PROJETO EXECUTIVO` },
     title: { EN: `As-Built Drawings & Permit Packages`, PT: `Desenhos As-Built e Pacotes de Prefeitura` },
-    desc: { 
+    desc: {
       EN: `Our flagship end-to-end solution. A complete architectural suite covering existing conditions (As-Built), full design development, and high-precision construction documents (CD) required for municipal approval and field execution.`,
       PT: `Nossa solução completa de ponta a ponta. Um conjunto arquitetônico abrangente que cobre desde o levantamento (As-Built) até o desenvolvimento de design e documentação técnica de alta precisão exigida para aprovação municipal e execução em obra.`
     },
@@ -62,11 +63,11 @@ const SERVICES_DATA = [
         { title: `Renderização Externa Fotorrealista`, desc: `Visualização 3D de alta fidelidade da fachada inclusa para demonstrar a intenção do design e valorização do imóvel.`, highlight: true }
       ]
     },
-    output: `Output: DWG, PDF`,
+    output: `Output: PDF`,
     tools: "Chief Architect Expert",
     deliverables: {
-      EN: `Permit-Ready PDF Set | Layered DWG Files`,
-      PT: `Set em PDF Pronto para Permit | Arquivos DWG em Camadas`
+      EN: `Permit-Ready PDF Set`,
+      PT: `Set em PDF Pronto para Permit`
     },
     disclaimer: {
       EN: `Interior 3D Modules: Check availability for custom angles of interior areas.`,
@@ -80,11 +81,11 @@ const SERVICES_DATA = [
   {
     id: "redrawing",
     icon: <Icons.Redrawing />,
-    badge: { EN: `PACKAGE 02 · FLOOR PLANS & SPACE PLANNING | Phase: SCHEMATIC DESIGN`, PT: `PACOTE 02 · LAYOUT & PLANTAS BAIXAS | Phase: ESTUDO PRELIMINAR` },
-    title: { EN: `Floor Plans Only`, PT: `Apenas Plantas Baixas` },
-    desc: { 
+    badge: { EN: `PACKAGE 02 · FLOOR PLANS & SPACE PLANNING | PHASE: SCHEMATIC DESIGN`, PT: `PACOTE 02 · PLANTAS BAIXAS E PLANEJAMENTO | FASE: DESIGN ESQUEMÁTICO` },
+    title: { EN: `Floor Plans Only`, PT: `Plantas Baixas` },
+    desc: {
       EN: `Specialized technical drafting focused on interior space optimization. Engineered for preliminary space studies, zoning analysis, and high-end 2D layout concepts.`,
-      PT: `Desenho técnico especializado focado na otimização de layouts internos. Ideal para estudos de viabilidade espacial, análise de zoneamento e propostas conceituais em 2D.`
+      PT: `Produção técnica especializada focada em otimização de espaços interiores. Desenvolvida para estudos preliminares, análise de zoneamento e conceitos de layout 2D de alto padrão.`
     },
     calloutBox: {
       EN: `Whether you are an investor pitching an asset or a property owner visualizing a space, our team delivers precise architectural drafting with a rapid turnaround and aesthetic refinement that generic drafting services simply cannot match.`,
@@ -92,36 +93,34 @@ const SERVICES_DATA = [
     },
     list: {
       EN: [
-        { label: `Core Spatial Layouts`, desc: `Internal wall placement, door schedules, and space identification.` },
-        { label: `Dimensioned Floor Plans`, desc: "High-accuracy measurements of all interior spaces and structural baselines." },
-        { label: `Advanced CAD Layer Management`, desc: "Organized and clean file structure for professional integration." },
-        { label: `Revision & Markup Integration`, desc: "Seamless processing of feedback and design markups." }
+        { label: `Core Spatial Layouts:`, desc: `Internal wall placement, door schedules, and space identification.` },
+        { label: `Dimensioned Floor Plans:`, desc: "High-accuracy measurements of all interior spaces and structural baselines." },
+        { label: `Revision & Markup Integration:`, desc: "Seamless processing of feedback and design markups." }
       ],
       PT: [
-        { label: `Layouts Espaciais Estratégicos`, desc: `Posicionamento de paredes internas, fluxos de portas e identificação técnica de ambientes.` },
-        { label: `Plantas Baixas Dimensionadas`, desc: `Medições precisas de todos os espaços internos e eixos estruturais.` },
-        { label: `Organização Avançada de Camadas`, desc: "Estrutura de arquivos CAD limpa e padronizada para uso profissional." },
-        { label: `Integração de Revisões e Markups`, desc: `Processamento ágil de feedbacks e anotações técnicas.` }
+        { label: `Layouts Espaciais Principais:`, desc: `Posicionamento de paredes internas, cronograma de portas e identificação de espaços.` },
+        { label: `Plantas Dimensionadas:`, desc: `Medições de alta precisão de todos os espaços internos e eixos estruturais.` },
+        { label: `Integração de Revisões:`, desc: `Processamento ágil de feedbacks e marcações de projeto.` }
       ]
     },
-    output: `Output: .DWG, .PDF`,
+    output: { EN: `OUTPUT: .PDF`, PT: `SAÍDA: .PDF` },
     deliverables: {
       EN: `White-Label Ready | Cloud-Integrated Workflow`,
-      PT: `Pronto para White-Label | Fluxo em Nuvem`
+      PT: `Pronto para White-Label | Fluxo Integrado em Nuvem`
     },
     notIncluded: {
       EN: ["Exterior Design", "3D Renderings", "Municipal Permitting", "Structural Engineering"],
-      PT: ["Design Exterior", `Renderizações 3D`, `Aprovação em Prefeitura`, "Engenharia Estrutural"]
+      PT: ["Design Externo", `Renderizações 3D`, `Licenciamento Municipal`, "Engenharia Estrutural"]
     }
   },
   {
     id: "viz",
     icon: <Icons.Viz />,
-    badge: { EN: `PACKAGE 03 · 3D VISUALIZATION | Phase: PRESENTATION & MARKETING`, PT: `PACOTE 03 · VISUALIZAÇÃO 3D | Phase: APRESENTAÇÃO & MARKETING` },
+    badge: { EN: `PACKAGE 03 · 3D VISUALIZATION | PHASE: PRESENTATION & MARKETING`, PT: `PACOTE 03 · VISUALIZAÇÃO 3D | FASE: APRESENTAÇÃO & MARKETING` },
     title: { EN: `High-End 3D Visualization`, PT: `Visualização 3D de Alto Padrão` },
-    desc: { 
+    desc: {
       EN: `High-end architectural rendering and CGI support designed to transform technical blueprints into immersive visual assets. Engineered to elevate real estate marketing, client presentations, and pre-sale strategies.`,
-      PT: `Renderização arquitetônica de alto padrão desenvolvida para transformar plantas técnicas em ativos visuais imersivos. Ideal para potencializar o marketing imobiliário, apresentações a clientes e estratégias de pré-venda.`
+      PT: `Renderização arquitetônica e suporte CGI de alto nível para transformar plantas técnicas em ativos visuais imersivos. Desenvolvido para elevar o marketing imobiliário, apresentações a clientes e estratégias de pré-venda.`
     },
     calloutBox: {
       EN: `Designed for builders, developers, and real estate professionals who need to visualize potential and secure capital. We deliver hyper-realistic 3D assets that communicate design intent and luxury value long before groundbreaking.`,
@@ -129,40 +128,38 @@ const SERVICES_DATA = [
     },
     list: {
       EN: [
-        { label: `Photorealistic Renderings`, desc: "High-resolution interior and exterior 3D perspectives with premium material mapping." },
-        { label: `Lighting & Atmosphere Crafting`, desc: "Advanced daytime/nighttime environmental setups tailored to project aesthetics." },
-        { label: `Digital Material Staging`, desc: `Accurate representation of textures, finishes, fixtures, and landscape elements.` },
-        { label: `Marketing-Ready Deliverables`, desc: `Optimized, high-fidelity files ready for web, print, and investor pitches.` }
+        { label: `Photorealistic Renderings:`, desc: "High-resolution interior and exterior 3D perspectives with premium material mapping." },
+        { label: `Lighting & Atmosphere Crafting:`, desc: "Advanced daytime/nighttime environmental setups tailored to project aesthetics." },
+        { label: `Marketing-Ready Deliverables:`, desc: `Optimized, high-fidelity files ready for web, print, and investor pitches.` }
       ],
       PT: [
-        { label: `Renderizações Fotorrealistas`, desc: `Perspectivas 3D internas e externas em alta resolução com mapeamento de materiais premium.` },
-        { label: `Estudo de Iluminação e Atmosfera`, desc: `Configurações avançadas de cenários diurnos ou noturnos alinhados à estética do projeto.` },
-        { label: `Humanização e Texturização Digital`, desc: `Representação precisa de texturas, acabamentos, mobiliário e elementos de paisagismo.` },
-        { label: `Ativos Prontos para Marketing`, desc: `Arquivos finais em alta fidelidade otimizados para uso digital, material impresso e pitches de investidores.` }
+        { label: `Renders Fotorrealistas:`, desc: `Perspectivas 3D internas e externas em alta resolução com mapeamento de materiais premium.` },
+        { label: `Iluminação e Atmosfera:`, desc: `Configurações ambientais avançadas de dia/noite adaptadas à estética do projeto.` },
+        { label: `Entregáveis para Marketing:`, desc: `Arquivos de alta fidelidade otimizados para web, impressão e apresentações a investidores.` }
       ]
     },
     notIncluded: {
       EN: ["Municipal Permitting", "Structural Engineering", "Working Construction Drawings", "CAD/BIM Floor Plans"],
-      PT: [`Aprovação em Prefeitura`, "Engenharia Estrutural", "Desenhos Executivos de Obra", "Plantas Baixas em CAD/BIM"]
+      PT: ["Licenciamento Municipal", "Engenharia Estrutural", "Pranchas Construtivas Executivas", "Plantas CAD/BIM"]
     },
     ctaNote: {
       EN: `[ Custom Estimate Based on Views → ]\n*Rates are calculated per camera angle and complexity. Generate your instant quote via our Estimate portal.`,
       PT: `[ Solicitar Estimativa por Ângulo → ]\n*Valores calculados com base no número de vistas e complexidade. Gere seu orçamento instantâneo no painel Estimate.`
     },
-    output: `Output: JPG, MP4, PDF`,
+    output: { EN: `OUTPUT: JPG, PDF`, PT: `SAÍDA: JPG, PDF` },
     deliverables: {
-      EN: `4K Still Renders | Board-Ready Assets`,
-      PT: `Renders 4K | Ativos para Reunião`
+      EN: `4K Still Renders | Walkthrough Animation`,
+      PT: `Renders Estáticos 4K | Animação Walkthrough`
     }
   },
   {
     id: "pdf_cad",
     icon: <Icons.PdfCad />,
-    badge: { EN: `PACKAGE 04 · CHIEF ARCHITECT CONVERSION | Phase: TECHNICAL DOCUMENTATION`, PT: `PACOTE 04 · CONVERSÃO CHIEF ARCHITECT | Phase: DOCUMENTAÇÃO TÉCNICA` },
-    title: { EN: `Chief Architect Conversion`, PT: `Conversão Chief Architect` },
-    desc: { 
+    badge: { EN: `PACKAGE 04 · CHIEF ARCHITECT CONVERSION | PHASE: TECHNICAL DOCUMENTATION`, PT: `PACOTE 04 · CONVERSÃO CHIEF ARCHITECT | FASE: DOCUMENTAÇÃO TÉCNICA` },
+    title: { EN: `Chief Architect Conversion`, PT: `Conversão para Chief Architect` },
+    desc: {
       EN: `High-precision vectorization turning legacy blueprints, static PDFs, and sketches into fully editable, production-ready Chief Architect X17 native files and precise digital exports. Modeled directly within Chief Architect to ensure absolute spatial integrity.`,
-      PT: `Vetorização de alta precisão que transforma plantas antigas, PDFs estáticos e esboços em arquivos nativos do Chief Architect X17 totalmente editáveis e prontos para produção. Modelagem realizada na plataforma para garantir total integridade espacial.`
+      PT: `Vetorização de alta precisão transformando plantas antigas, PDFs estáticos e esboços em arquivos nativos Chief Architect X17 totalmente editáveis e prontos para produção. Modelado diretamente no software para garantir integridade espacial absoluta.`
     },
     calloutBox: {
       EN: `Precision is everything. We deliver millimeter-accurate digital conversions, structured under professional architectural layer standards. This allows your engineers and builders to begin working immediately, eliminating hours spent cleaning up messy files.`,
@@ -170,40 +167,41 @@ const SERVICES_DATA = [
     },
     list: {
       EN: [
-        { label: `Fully Editable Native Files`, desc: "Native Chief Architect X17 formats and clean exports compatible with industry-leading architectural software." },
-        { label: `Precise Scalement & Verification`, desc: "Rigorous verification and scaling adjustments to ensure real-world accuracy (1:1)." },
-        { label: `Advanced Layer Management`, desc: `Structured layer and plan views mapping for walls, dimensions, annotations, and blocks.` },
-        { label: `Digital Archiving Setup`, desc: `Clean, high-performance file architecture ideal for contractors and digital storage.` }
+        { label: `Fully Editable Native Files:`, desc: "Native Chief Architect X17 formats and clean exports compatible with industry-leading architectural software." },
+        { label: `Precise Scalement & Verification:`, desc: "Rigorous verification and scaling adjustments to ensure real-world accuracy (1:1)." },
+        { label: `Advanced Layer Management:`, desc: `Structured layer and plan views mapping for walls, dimensions, annotations, and blocks.` },
+        { label: `Digital Archiving Setup:`, desc: `Clean, high-performance file architecture ideal for contractors and digital storage.` }
       ],
       PT: [
-        { label: `Arquivos Nativos Totalmente Editáveis`, desc: `Arquivo original em formato Chief Architect X17 e exportações limpas compatíveis com os principais softwares do mercado.` },
-        { label: `Escalonamento e Verificação Precisos`, desc: `Ajustes e verificações rigorosas para garantir precisão absoluta no mundo real (escala 1:1).` },
-        { label: `Organização Avançada de Camadas (Layers)`, desc: `Estruturação inteligente de camadas e vistas técnicas para paredes, dimensões, anotações e atributos.` },
-        { label: `Infraestrutura para Arquivamento Digital`, desc: `Arquivos limpos e otimizados, ideais para o dia a dia de empreiteiros e construtores.` }
+        { label: `Arquivos Nativos Editáveis:`, desc: `Formatos nativos Chief Architect X17 e exportações limpas compatíveis com os principais softwares do mercado.` },
+        { label: `Escalonamento e Verificação Precisos:`, desc: `Verificação rigorosa e ajustes de escala para garantir precisão real (1:1).` },
+        { label: `Gestão Avançada de Camadas:`, desc: `Mapeamento estruturado de camadas e vistas de planta para paredes, cotas, anotações e blocos.` },
+        { label: `Configuração de Arquivo Digital:`, desc: `Arquitetura de arquivos limpa e de alto desempenho, ideal para construtores e armazenamento digital.` }
       ]
     },
-    output: `Output: .PLAN, .DWG, .PDF`,
+    output: { EN: `OUTPUT: .PLAN, .PDF`, PT: `SAÍDA: .PLAN, .PDF` },
     deliverables: {
       EN: `100% Native Modeling | Production-Ready Files`,
       PT: `Modelagem 100% Nativa | Arquivos Prontos para Produção`
     },
     notIncluded: {
       EN: ["Architectural Design", "Code & Zoning Compliance Review", "On-Site Field Measurements", "3D Modeling & Rendering"],
-      PT: [`Design Arquitetônico`, `Revisão de Códigos e Zoneamento`, `Medições de Campo (no Local)`, `Modelagem 3D e Renderização`]
+      PT: ["Projeto Arquitetônico", "Revisão de Conformidade de Código e Zoneamento", "Medições em Campo", "Modelagem 3D e Renderização"]
     }
   },
   {
     id: "permit_processing",
     icon: <Icons.OfficeSupport />,
     isUS: true,
+    badge: { EN: 'US STANDARD', PT: 'PADRÃO EUA' },
     title: { EN: `Municipal Approval Support`, PT: `Suporte para Aprovação Municipal` },
-    desc: { 
+    desc: {
       EN: `Streamline your permitting process. We ensure every drawing strictly complies with IBC/IRC standards and local zoning codes to eliminate RFIs and accelerate approvals.`,
-      PT: `Agilize o licenciamento do seu projeto. Garantimos total conformidade técnica com os códigos locais (IBC/IRC) e de zoneamento, blindando sua entrega contra RFIs e atrasos na prefeitura.`
+      PT: `Otimize seu processo de licenciamento. Garantimos que cada prancha esteja em total conformidade com as normas IBC/IRC e códigos de zoneamento locais para eliminar RFIs e acelerar aprovações.`
     },
     list: {
       EN: ["IBC/IRC Code Compliance Review", "Comprehensive Zoning Analysis", "Strategic RFI Mitigation", "ADA Accessibility Verification"],
-      PT: [`Revisão de Conformidade IBC / IRC`, `Análise Estratégica de Zoneamento`, `Engenharia de Mitigação de RFI`, `Verificação de Acessibilidade (ADA Standards)`]
+      PT: [`Revisão de Conformidade IBC/IRC`, `Análise Completa de Zoneamento`, `Mitigação Estratégica de RFIs`, `Verificação de Acessibilidade ADA`]
     },
     output: `Standards: IBC, IRC, ADA`
   },
@@ -211,20 +209,21 @@ const SERVICES_DATA = [
     id: "wood_frame",
     icon: <Icons.WoodFrame />,
     isUS: true,
-    title: { EN: `Wood Framing Support`, PT: `Suporte em Wood Framing` },
-    desc: { 
+    badge: { EN: 'US STANDARD', PT: 'PADRÃO EUA' },
+    title: { EN: `Wood Framing Support`, PT: `Suporte em Estrutura de Madeira` },
+    desc: {
       EN: `Accurate structural drafting for seamless field execution. We deliver advanced framing layouts and preliminary sizing, providing the precise graphic foundation required to streamline final engineering and approval.`,
-      PT: `Engenharia gráfica precisa para o sistema construtivo americano. Desenvolvemos plantas de framing e pré-dimensionamento preliminar, fornecendo a base técnica ideal para otimizar o detalhamento final por profissionais licenciados (PE Engineers).`
+      PT: `Produção estrutural precisa para execução em campo sem falhas. Desenvolvemos layouts avançados de estrutura de madeira e dimensionamento preliminar, fornecendo a base gráfica necessária para agilizar a engenharia final e aprovação.`
     },
     list: {
       EN: ["Wall & Floor Framing Layouts", "Preliminary Structural Sizing", "3D Framing Modeling & Visualization", "Technical Documentation Support"],
-      PT: ["Layouts de Framing (Wall & Floor Systems)", `Pré-dimensionamento Estrutural Preliminar`, `Modelagem e Visualização 3D de Framing`, `Suporte em Documentação Técnica`]
+      PT: ["Layouts de Estrutura de Paredes e Pisos", "Dimensionamento Estrutural Preliminar", "Modelagem 3D e Visualização da Estrutura", "Suporte em Documentação Técnica"]
     },
-    output: `Output: DWG, PDF`,
+    output: { EN: `OUTPUT: DWG, PDF`, PT: `SAÍDA: DWG, PDF` },
     tools: "Chief Architect · AutoCAD",
     deliverables: {
       EN: `Framing Details | Submittal-Ready Plans`,
-      PT: `Detalhes de Framing | Plantas Prontas para Submissão`
+      PT: `Detalhes de Estrutura | Pranchas Prontas para Submissão`
     }
   },
   {
@@ -232,25 +231,25 @@ const SERVICES_DATA = [
     icon: <Icons.OfficeSupport />,
     badge: { EN: `CORPORATE SOLUTIONS · B2B SUPPORT`, PT: `SOLUÇÕES CORPORATIVAS · SUPORTE B2B` },
     title: { EN: `High-Performance Back-Office Support`, PT: `Suporte Back-Office de Alta Performance` },
-    desc: { 
-      EN: `Scale your firm’s production capacity without the overhead of expanding your local team. DARA Studio operates as your dedicated technical back-office, seamlessly handling high-volume drafting, precision documentation, and complex revisions.`,
-      PT: `Escale a capacidade de produção do seu escritório ou construtora sem os custos fixos de expandir sua equipe local nos EUA. Atuamos como seu back-office técnico dedicado, absorvendo grandes volumes de desenho, detalhamento e revisões complexas.`
+    desc: {
+      EN: `Scale your firm's production capacity without the overhead of expanding your local team. DARA Studio operates as your dedicated technical back-office, seamlessly handling high-volume drafting, precision documentation, and complex revisions.`,
+      PT: `Expanda a capacidade produtiva do seu escritório sem o custo de ampliar sua equipe local. O DARA Studio atua como seu back-office técnico dedicado, gerenciando produção em volume, documentação de precisão e revisões complexas.`
     },
     list: {
       EN: [
-        { label: `Accelerated Revision Cycles`, desc: "Fast turnaround times to keep your active projects moving forward." },
-        { label: `On-Demand Scalability`, desc: "Instant technical capacity to absorb sudden increases in project volume." },
-        { label: `Standardized Technical Workflows`, desc: "Seamless file integration aligned with US graphic standards." },
-        { label: `Complex Layout & Project Management`, desc: "End-to-end technical production and drafting oversight." }
+        { label: `Accelerated Revision Cycles:`, desc: "Fast turnaround times to keep your active projects moving forward." },
+        { label: `On-Demand Scalability:`, desc: "Instant technical capacity to absorb sudden increases in project volume." },
+        { label: `Standardized Technical Workflows:`, desc: "Seamless file integration aligned with US graphic standards." },
+        { label: `Complex Layout & Project Management:`, desc: "End-to-end technical production and drafting oversight." }
       ],
       PT: [
-        { label: `Ciclos de Revisão Ágeis`, desc: "Prazos otimizados para manter o fluxo dos seus projetos em andamento." },
-        { label: `Capacidade Sob Demanda`, desc: `Infraestrutura técnica imediata para absorver picos de demanda.` },
-        { label: `Fluxos de Trabalho Padronizados`, desc: `Processos integrados e alinhados aos padrões gráficos americanos.` },
-        { label: `Modelagem e Gestão Documental`, desc: `Produção de documentação técnica e detalhamentos complexos.` }
+        { label: `Ciclos de Revisão Acelerados:`, desc: "Prazos ágeis para manter seus projetos ativos em andamento." },
+        { label: `Escalabilidade Sob Demanda:`, desc: `Capacidade técnica imediata para absorver aumentos repentinos de volume.` },
+        { label: `Fluxos Técnicos Padronizados:`, desc: `Integração de arquivos alinhada aos padrões gráficos americanos.` },
+        { label: `Gestão de Layout e Projetos Complexos:`, desc: `Produção técnica e supervisão de desenho de ponta a ponta.` }
       ]
     },
-    output: "Consultative Extension",
+    output: { EN: `CONSULTATIVE EXTENSION`, PT: `EXTENSÃO CONSULTIVA` },
     deliverables: {
       EN: `White-Label Integration | Time-Zone Advantage`,
       PT: `Integração White-Label | Vantagem de Fuso Horário`
@@ -261,26 +260,6 @@ const SERVICES_DATA = [
 export default function Services() {
 
   const { lang } = useAppContext();
-  const scrollRef = React.useRef(null);
-  const [activeIdx, setActiveIdx] = React.useState(0);
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const amount = 420; // card width + gap
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
-    }
-  };
-
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const scrollLeft = scrollRef.current.scrollLeft;
-      const cardWidth = 420;
-      const newIdx = Math.round(scrollLeft / cardWidth);
-      if (newIdx !== activeIdx) setActiveIdx(newIdx);
-    }
-  };
-
-
 
 
 
@@ -296,167 +275,211 @@ export default function Services() {
 
   return (
     <PageTransition variant="default">
-    <div className="lp-root services-page-root">
-      {/* Brilho radial roxo suave no topo centralizado */}
-      <div className="radial-glow"></div>
-      <div className="radial-glow-navy"></div>
-      <Navbar />
-      
-      <main className="independent-page">
-        {/* Header Section */}
-        <header className="page-header-premium animate-float-up">
-          <h1 className="page-main-title">
-            {lang === "EN" ? (
-              <>
-                <span className="title-white">Specialized</span> <span className="title-gradient-italic">Technical Support</span>
-              </>
-            ) : (
-              <>
-                <span className="title-gradient-italic">Suporte Técnico</span> <span className="title-white">de Alta Performance nos EUA</span>
-              </>
-            )}
-          </h1>
-          <p className="page-subtitle-standard">
-            {lang === "EN" 
-              ? `DARA Studio operates as a seamless technical extension for US builders, developers, and architects. We transform complex project demands into precise, permit-ready documentation. Scale your operation without the overhead.`
-              : `A DARA Studio atua como o braço técnico estratégico de construtores, incorporadores e escritórios no mercado americano. Desenvolvemos documentação técnica precisa, do estudo preliminar ao Permit Set, garantindo agilidade e total conformidade com as normas locais.`}
-          </p>
-        </header>
+      <div className="lp-root services-page-root">
+        <div className="radial-glow"></div>
+        <div className="radial-glow-navy"></div>
+        <Navbar />
 
-        {/* Services Carousel */}
-        <div className="services-carousel-wrap">
-          <button className="carousel-arrow left" onClick={() => scroll('left')}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          
-          <div 
-            className="services-grid carousel" 
-            ref={scrollRef} 
-            onScroll={handleScroll}
-          >
-            {SERVICES_DATA.map((service, idx) => (
-              <div 
-                key={service.id} 
-                className={`service-card-premium animate-float-up ${activeIdx === idx ? 'active' : ''}`}
-                style={{ animationDelay: `${(idx + 1) * 50}ms` }}
-              >
-                {service.badge && <span className="service-badge-us">{service.badge[lang]}</span>}
-                {!service.badge && service.isUS && <span className="service-badge-us">US Standard</span>}
-                <div className="service-icon-box">
-                  {service.icon}
-                </div>
-                <h3 className="service-title">{service.title[lang]}</h3>
-                <p className="service-desc">{service.desc[lang]}</p>
-                
-                {service.bentoExtras ? (
-                  <div style={{ marginTop: 24, marginBottom: 16 }}>
-                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--dm)", marginBottom: 12, textTransform: "uppercase" }}>
-                      {lang === "EN" ? "DESIGN EXTRAS — CUSTOMIZABLE PER PROJECT" : `EXTRAS DE DESIGN — CUSTOMIZÁVEIS POR PROJETO`}
-                    </p>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
-                      {service.bentoExtras[lang].map((bento, idx) => (
-                        <div key={idx} style={{ 
-                          background: bento.highlight ? "rgba(16, 185, 129, 0.04)" : "rgba(255,255,255,0.02)", 
-                          border: bento.highlight ? "1px solid rgba(16, 185, 129, 0.2)" : "1px solid rgba(255,255,255,0.05)", 
-                          borderRadius: "12px", 
-                          padding: 16 
-                        }}>
-                          <h4 style={{ fontSize: 14, fontWeight: 700, color: bento.highlight ? "var(--a)" : "#fff", marginBottom: 8, lineHeight: 1.3 }}>{bento.title}</h4>
-                          <p style={{ fontSize: 13, color: bento.highlight ? "#fff" : "var(--mu)", lineHeight: 1.5 }}>{bento.desc}</p>
-                        </div>
-                      ))}
-                    </div>
+        <main className="independent-page">
+          {/* Editorial Header Section */}
+          <header className="editorial-header animate-float-up">
+            {/* Top Divider */}
+            <div className="preview-header">
+              <h2 className="preview-title">{lang === "EN" ? "(01) CAPABILITIES" : "(01) CAPACIDADES"}</h2>
+              <div className="preview-line"></div>
+            </div>
+
+            {/* Main Content */}
+            <div className="editorial-content">
+              <h1 className="editorial-title" style={{ display: 'flex', flexDirection: 'column' }}>
+                {lang === "EN" ? (
+                  <>
+                    <span>Specialized</span>
+                    <span className="editorial-title-italic">Technical Support</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Suporte</span>
+                    <span className="editorial-title-italic">Técnico Especializado</span>
+                  </>
+                )}
+              </h1>
+              <p className="editorial-subtitle">
+                {lang === "EN"
+                  ? `DARA Studio operates as a seamless technical extension for U.S. builders, developers and architects. We transform complex project demands into precise, permit-ready documentation so you scale your operation without the overhead.`
+                  : `O DARA Studio atua como uma extensão técnica integrada para construtores, incorporadores e arquitetos nos EUA. Transformamos demandas complexas de projetos em documentação precisa e pronta para aprovação para que você escale sua operação sem os custos fixos.`}
+              </p>
+            </div>
+
+            {/* Bottom Divider */}
+            <div className="preview-header">
+              <h2 className="preview-title">{lang === "EN" ? "(A) CORE PACKAGES" : "(A) PACOTES PRINCIPAIS"}</h2>
+              <div className="preview-line"></div>
+            </div>
+          </header>
+
+          {/* Core Packages List */}
+          <section className="core-packages-list">
+            {SERVICES_DATA.slice(0, 4).map((service, idx) => (
+              <div key={service.id} className="core-package-row animate-float-up" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
+                <div className="core-package-left">
+                  <h2 className="package-number-large">0{idx + 1}</h2>
+                  <div className="package-meta-block">
+                    <span className="package-meta-label">{service.badge[lang].split('·')[0]}</span>
+                    <span className="package-meta-value">{service.badge[lang].split('|')[1]?.trim() || ''}</span>
                   </div>
-                ) : service.notIncluded ? (
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 16, marginBottom: 16 }}>
-                    {/* INCLUDED CARD */}
-                    <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "12px", padding: 16 }}>
-                      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#10b981", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? `WHAT'S INCLUDED` : `O QUE ESTÁ INCLUSO`}</p>
-                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-                        {service.list[lang].map((item, i) => (
-                          <li key={i} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
-                            <span style={{ color: "var(--a)", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
-                            <span>
+                  {service.output && (
+                    <div className="package-meta-block" style={{ marginTop: 16 }}>
+                      <span className="package-meta-label">OUTPUT</span>
+                      <span className="package-meta-value">{typeof service.output === 'string' ? service.output.replace('OUTPUT: ', '').replace('Output: ', '') : service.output[lang].replace('OUTPUT: ', '').replace('SAÍDA: ', '')}</span>
+                    </div>
+                  )}
+                  {service.tools && (
+                    <div className="package-meta-block" style={{ marginTop: 16 }}>
+                      <span className="package-meta-label">COMPATIBLE</span>
+                      <span className="package-meta-value">{service.tools}</span>
+                    </div>
+                  )}
+                  {service.deliverables && (
+                    <div className="package-meta-block" style={{ marginTop: 16 }}>
+                      <span className="package-meta-label">DELIVERABLES</span>
+                      <span className="package-meta-value">{service.deliverables[lang]}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="core-package-right">
+                  <h3 className="package-title-large">{service.title[lang]}</h3>
+                  <p className="package-desc-large">{service.desc[lang]}</p>
+
+                  {service.bentoExtras ? (
+                    <>
+                      <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginTop: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                        {lang === "EN" ? "DESIGN EXTRAS — CUSTOMIZABLE PER PROJECT" : "COMPLEMENTOS DE PROJETO — PERSONALIZÁVEIS POR OBRA"}
+                      </p>
+                      <div className="package-extras-grid">
+                        {service.bentoExtras[lang].map((bento, i) => (
+                          <div key={i} className="package-extra-card">
+                            <h4 className="package-extra-title">{bento.title}</h4>
+                            <p className="package-extra-desc">{bento.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginTop: 16 }}>
+                      <div>
+                        <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                          {lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}
+                        </p>
+                        {service.list && service.list[lang].map((item, i) => (
+                          <div key={i} className="support-list-item">
+                            <span className="support-list-bullet">▪</span>
+                            <span className="support-list-text">
                               {typeof item === 'string' ? item : (
-                                <>
-                                  <strong style={{ color: "#fff" }}>{item.label}:</strong> {item.desc}
-                                </>
+                                <><strong style={{ color: 'var(--text-color)' }}>{item.label}</strong> {item.desc}</>
                               )}
                             </span>
-                          </li>
+                          </div>
                         ))}
-                      </ul>
-                    </div>
-
-                    {/* NOT INCLUDED CARD */}
-                    <div style={{ background: "rgba(233, 30, 99, 0.03)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "12px", padding: 16 }}>
-                      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : `NÃO INCLUSO`}</p>
-                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-                        {service.notIncluded[lang].map((item, i) => (
-                          <li key={i} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
-                            <span style={{ color: "#E91E63", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ) : (
-                  <ul className="service-list">
-                    {service.list[lang].map((item, i) => (
-                      <li key={i} className="service-list-item">
-                        <Icons.Check />
-                        <span>
-                          {typeof item === 'string' ? item : (
-                            <>
-                              <strong style={{ color: "#fff" }}>{item.label}:</strong> {item.desc}
-                            </>
-                          )}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {service.output && (
-                  <div className="service-output-badge">
-                    {service.output}
-                  </div>
-                )}
-
-                {(service.tools || service.deliverables) && (
-                  <div className="service-footer-info">
-                    {service.tools && (
-                      <div className="service-extra-info">
-                        <span className="info-label">{lang === 'EN' ? 'Compatible with:' : `Compatível com:`}</span> {service.tools}
                       </div>
-                    )}
-                    {service.deliverables && (
-                      <div className="service-extra-info">
-                        <span className="info-label">{lang === 'EN' ? 'Deliverables:' : 'Entregas:'}</span> {service.deliverables[lang]}
-                      </div>
-                    )}
-                  </div>
-                )}
+                      {service.notIncluded && (
+                        <div>
+                          <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                            {lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}
+                          </p>
+                          {service.notIncluded[lang].map((item, i) => (
+                            <div key={i} className="support-list-item" style={{ opacity: 0.5 }}>
+                              <span className="support-list-bullet" style={{ color: 'var(--text-color)' }}>—</span>
+                              <span className="support-list-text">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
-                {service.disclaimer && (
-                  <div className="service-disclaimer">
-                    {service.disclaimer[lang]}
-                  </div>
-                )}
+                  {service.disclaimer && (
+                    <div className="package-disclaimer">
+                      {service.disclaimer[lang]}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
+          </section>
+
+          {/* Additional Support Divider */}
+          <header className="editorial-header" style={{ paddingBottom: 0, paddingTop: 40, marginBottom: 40 }}>
+            <div className="preview-header">
+              <h2 className="preview-title">{lang === "EN" ? "(B) ADDITIONAL SUPPORT" : "(B) SUPORTE ADICIONAL"}</h2>
+              <div className="preview-line"></div>
+            </div>
+          </header>
+
+          {/* Additional Support Grid */}
+          <section className="additional-support-grid">
+            {SERVICES_DATA.slice(4).map((service, idx) => (
+              <div key={service.id} className="support-card animate-float-up" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
+                <span className="support-card-badge">
+                  {service.badge ? service.badge[lang].split('·')[0].trim() : (service.isUS ? 'US STANDARD' : 'CORPORATE · B2B')}
+                </span>
+                <h3 className="support-card-title">{service.title[lang]}</h3>
+                <p className="support-card-desc">{service.desc[lang]}</p>
+
+                <div style={{ flex: 1 }}>
+                  {service.list && service.list[lang].map((item, i) => (
+                    <div key={i} className="support-list-item">
+                      <span className="support-list-bullet">▪</span>
+                      <span className="support-list-text">
+                        {typeof item === 'string' ? item : (
+                          <><strong style={{ color: 'var(--text-color)' }}>{item.label}</strong> {item.desc}</>
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="support-card-meta">
+                  {service.output && (
+                    <div className="support-meta-row">
+                      <span className="support-meta-label">OUTPUT</span>
+                      <span className="support-meta-value">{typeof service.output === 'string' ? service.output.replace('Output: ', '').replace('Standards: ', '') : service.output[lang].replace('SAÍDA: ', '').replace('OUTPUT: ', '')}</span>
+                    </div>
+                  )}
+                  {service.tools && (
+                    <div className="support-meta-row">
+                      <span className="support-meta-label">COMPATIBLE</span>
+                      <span className="support-meta-value">{service.tools}</span>
+                    </div>
+                  )}
+                  {service.deliverables && (
+                    <div className="support-meta-row">
+                      <span className="support-meta-label">DELIVERABLES</span>
+                      <span className="support-meta-value">{service.deliverables[lang]}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </section>
+
+          {/* Footer CTA */}
+          <div className="services-footer-cta animate-float-up" style={{ animationDelay: '400ms' }}>
+            <h2>
+              {lang === "EN" ? (
+                <>Bring your next U.S. project <br /> <span className="cta-italic">to the studio.</span></>
+              ) : (
+                <>Traga seu próximo projeto <span className="cta-italic">nos EUA para o estúdio.</span></>
+              )}
+            </h2>
+            <Link to="/EstimateWizard" className="services-cta-button">
+              {lang === "EN" ? "REQUEST A QUOTE" : "SOLICITAR ORÇAMENTO"}
+            </Link>
           </div>
 
-          <button className="carousel-arrow right" onClick={() => scroll('right')}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-
-        </div>
-
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
     </PageTransition>
   );
 }

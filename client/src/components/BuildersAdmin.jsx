@@ -11,7 +11,7 @@ import { QUICK_NUMBERS, CRITICAL_RULES, CHECKLIST_SECTIONS, CAD_NOTES_DATA } fro
 const S = {
   panel: { display: 'flex', flexDirection: 'column', gap: 20 },
   toolbar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 },
-  addBtn: { background: 'linear-gradient(135deg, #7B1FA2, #E91E63)', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 20px', fontWeight: 700, fontSize: 13, cursor: 'pointer' },
+  addBtn: { background: 'linear-gradient(135deg, #7D9F85, #5A7E62)', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 20px', fontWeight: 700, fontSize: 13, cursor: 'pointer' },
   table: { width: '100%', borderCollapse: 'collapse', fontSize: 12 },
   th: { padding: '12px 16px', textAlign: 'left', fontWeight: 800, fontSize: 10, textTransform: 'uppercase', color: 'var(--mu)', borderBottom: '1px solid var(--border)' },
   td: { padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.03)' },
@@ -21,12 +21,12 @@ const S = {
   textarea: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '10px 14px', color: '#fff', width: '100%', fontSize: 12, minHeight: 80, resize: 'vertical', fontFamily: 'monospace', boxSizing: 'border-box' },
   label: { fontSize: 10, fontWeight: 800, textTransform: 'uppercase', color: 'var(--mu)', marginBottom: 4, display: 'block', letterSpacing: '0.05em' },
   modal: { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', padding: '60px 20px', zIndex: 9999, overflowY: 'auto' },
-  modalBody: { background: '#0d0d12', border: '1px solid rgba(123,31,162,0.3)', borderRadius: 16, padding: 32, width: '100%', maxWidth: 700, display: 'flex', flexDirection: 'column', gap: 16 },
+  modalBody: { background: '#0d0d12', border: '1px solid rgba(125, 159, 133,0.3)', borderRadius: 16, padding: 32, width: '100%', maxWidth: 700, display: 'flex', flexDirection: 'column', gap: 16 },
   badge: (color) => ({ fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: color === 'red' ? 'rgba(239,68,68,0.1)' : color === 'amber' ? 'rgba(245,158,11,0.1)' : color === 'green' ? 'rgba(34,197,94,0.1)' : 'rgba(99,102,241,0.1)', color: color === 'red' ? '#f87171' : color === 'amber' ? '#fbbf24' : color === 'green' ? '#4ade80' : '#818cf8', textTransform: 'uppercase' }),
   row2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 },
   emptyState: { textAlign: 'center', padding: 60, opacity: 0.4, fontSize: 14 },
   subTabs: { display: 'flex', gap: 6, marginBottom: 16 },
-  subTab: (active) => ({ padding: '8px 16px', borderRadius: 8, border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', background: active ? 'linear-gradient(135deg, #7B1FA2, #E91E63)' : 'rgba(255,255,255,0.04)', color: active ? '#fff' : 'var(--mu)' }),
+  subTab: (active) => ({ padding: '8px 16px', borderRadius: 8, border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', background: active ? 'linear-gradient(135deg, #7D9F85, #5A7E62)' : 'rgba(255,255,255,0.04)', color: active ? '#fff' : 'var(--mu)' }),
   count: { fontSize: 10, opacity: 0.5, marginLeft: 6 },
 };
 
