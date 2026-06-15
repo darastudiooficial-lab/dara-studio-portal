@@ -3993,6 +3993,20 @@ a {
   transform: translateY(-2px);
 }
 
+[data-theme='light'] .home-bottom-cta {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+[data-theme='light'] .home-cta-subtitle {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+[data-theme='light'] .home-cta-title span:first-child {
+  color: var(--text-color) !important;
+}
+
 @media (max-width: 900px) {
   .home-bottom-cta {
     flex-direction: column;
