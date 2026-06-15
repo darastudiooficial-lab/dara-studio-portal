@@ -124,7 +124,6 @@ input, select, textarea, .lp-btn, .back-to-site-btn, .glass-toggle, .pill-button
 .lp-btn:hover, .glass-nav-link:hover, .footer-social-link:hover {
   background-color: transparent !important;
   opacity: 0.8;
-  box-shadow: 0 0 15px var(--neon-glow);
   transform: translateY(-1px);
 }
 
@@ -1813,7 +1812,7 @@ a {
 
 .footer-address {
   font-family: var(--font-sans);
-  font-size: 10.5px;
+  font-size: 11px;
   line-height: 1.6;
   color: var(--text-color);
   opacity: 1;
@@ -1836,7 +1835,6 @@ a {
 .footer-social-link:hover {
   opacity: 1 !important;
   color: #7D9F85 !important;
-  filter: drop-shadow(0 0 8px rgba(125, 159, 133, 0.6)) !important;
   transform: scale(1.1) translateY(-2px);
 }
 
@@ -1946,7 +1944,7 @@ a {
 
 .footer-email-link {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-sage) !important;
   text-align: left;
   font-weight: 500;
