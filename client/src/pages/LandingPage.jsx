@@ -306,7 +306,8 @@ export default function LandingPage() {
           <div className="home-cta-content">
             <span className="home-cta-subtitle">{T.ctaSubtitle}</span>
             <h2 className="home-cta-title">
-              <span style={{ color: '#FFFFFF' }}>{T.ctaTitle1} </span>
+              <span style={{ color: '#FFFFFF' }}>{T.ctaTitle1}</span>
+              <br />
               <span style={{ color: 'var(--color-sage, #7D9F85)', fontStyle: 'italic', fontFamily: 'var(--font-serif, serif)', fontSize: 'inherit' }}>{T.ctaTitle2}</span>
             </h2>
           </div>
