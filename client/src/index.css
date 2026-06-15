@@ -3961,8 +3961,7 @@ a {
   font-family: var(--font-sans, sans-serif);
   font-size: 13px;
   color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }
 
 .home-cta-title {
