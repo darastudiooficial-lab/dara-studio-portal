@@ -463,19 +463,6 @@ export default function Services() {
             ))}
           </section>
 
-          {/* Footer CTA */}
-          <div className="services-footer-cta animate-float-up" style={{ animationDelay: '400ms' }}>
-            <h2>
-              {lang === "EN" ? (
-                <>Bring your next U.S. project <br /> <span className="cta-italic">to the studio.</span></>
-              ) : (
-                <>Traga seu próximo projeto <span className="cta-italic">nos EUA para o estúdio.</span></>
-              )}
-            </h2>
-            <Link to="/EstimateWizard" className="services-cta-button">
-              {lang === "EN" ? "REQUEST A QUOTE" : "SOLICITAR ORÇAMENTO"}
-            </Link>
-          </div>
 
         </main>
         <Footer />
