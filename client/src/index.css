@@ -3944,8 +3944,11 @@ a {
   justify-content: space-between;
   align-items: center;
   background-color: #121212;
-  padding: 80px 10%;
-  margin: 60px 0;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 48px;
+  margin: 0 auto 40px;
+  box-sizing: border-box;
 }
 
 .home-cta-content {

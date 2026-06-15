@@ -61,7 +61,7 @@ const CONTENT = {
     ],
     ctaSubtitle: "PERMIT-READY DOCUMENTATION, DELIVERED REMOTELY",
     ctaTitle1: "Bring your next U.S.",
-    ctaTitle2: "project to the studio.",
+    ctaTitle2: "project to the studio?",
     ctaBtn: "REQUEST A QUOTE",
   },
   PT: {
@@ -119,7 +119,7 @@ const CONTENT = {
     ],
     ctaSubtitle: "DOCUMENTAÇÃO PRONTA PARA ALVARÁ, ENTREGUE REMOTAMENTE",
     ctaTitle1: "Traga seu próximo projeto nos EUA",
-    ctaTitle2: "para o studio.",
+    ctaTitle2: "para o studio?",
     ctaBtn: "SOLICITAR ORÇAMENTO",
   }
 };
@@ -307,7 +307,7 @@ export default function LandingPage() {
             <span className="home-cta-subtitle">{T.ctaSubtitle}</span>
             <h2 className="home-cta-title">
               <span style={{ color: '#FFFFFF' }}>{T.ctaTitle1} </span>
-              <span className="heading-italic" style={{ color: 'var(--color-sage, #7D9F85)', fontStyle: 'italic', fontFamily: 'var(--font-serif, serif)' }}>{T.ctaTitle2}</span>
+              <span style={{ color: 'var(--color-sage, #7D9F85)', fontStyle: 'italic', fontFamily: 'var(--font-serif, serif)', fontSize: 'inherit' }}>{T.ctaTitle2}</span>
             </h2>
           </div>
           <button className="home-cta-btn" onClick={() => navigate("/estimate")}>
