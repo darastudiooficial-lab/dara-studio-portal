@@ -60,7 +60,8 @@ const CONTENT = {
       { num: "04", title: "Delivery & Revisions", desc: "Issued through the Client Portal. Revisions tracked and turned around fast." },
     ],
     ctaSubtitle: "PERMIT-READY DOCUMENTATION, DELIVERED REMOTELY",
-    ctaTitle: "Bring your next U.S. project to the studio.",
+    ctaTitle1: "Bring your next U.S.",
+    ctaTitle2: "project to the studio.",
     ctaBtn: "REQUEST A QUOTE",
   },
   PT: {
@@ -117,7 +118,8 @@ const CONTENT = {
       { num: "04", title: "Entrega e Revisões", desc: "Acesso direto pelo Portal do Cliente. Revisões controladas e devolvidas rapidamente." },
     ],
     ctaSubtitle: "DOCUMENTAÇÃO PRONTA PARA ALVARÁ, ENTREGUE REMOTAMENTE",
-    ctaTitle: "Traga seu próximo projeto nos EUA para o studio.",
+    ctaTitle1: "Traga seu próximo projeto nos EUA",
+    ctaTitle2: "para o studio.",
     ctaBtn: "SOLICITAR ORÇAMENTO",
   }
 };
@@ -304,9 +306,8 @@ export default function LandingPage() {
           <div className="home-cta-content">
             <span className="home-cta-subtitle">{T.ctaSubtitle}</span>
             <h2 className="home-cta-title">
-              {T.ctaTitle.split('\n').map((line, idx) => (
-                <React.Fragment key={idx}>{line}<br/></React.Fragment>
-              ))}
+              <span style={{ color: '#FFFFFF' }}>{T.ctaTitle1} </span>
+              <span className="heading-italic" style={{ color: 'var(--color-sage, #7D9F85)', fontStyle: 'italic', fontFamily: 'var(--font-serif, serif)' }}>{T.ctaTitle2}</span>
             </h2>
           </div>
           <button className="home-cta-btn" onClick={() => navigate("/estimate")}>
