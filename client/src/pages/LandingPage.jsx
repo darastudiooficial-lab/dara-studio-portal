@@ -61,7 +61,7 @@ const CONTENT = {
     ],
     ctaSubtitle: "PERMIT-READY DOCUMENTATION, DELIVERED REMOTELY",
     ctaTitle: "Bring your next U.S. project to the studio.",
-    ctaBtn: "REQUEST A QUOTE →",
+    ctaBtn: "REQUEST A QUOTE",
   },
   PT: {
     nav: [
@@ -118,7 +118,7 @@ const CONTENT = {
     ],
     ctaSubtitle: "DOCUMENTAÇÃO PRONTA PARA ALVARÁ, ENTREGUE REMOTAMENTE",
     ctaTitle: "Traga seu próximo projeto nos EUA para o studio.",
-    ctaBtn: "SOLICITAR ORÇAMENTO →",
+    ctaBtn: "SOLICITAR ORÇAMENTO",
   }
 };
 
