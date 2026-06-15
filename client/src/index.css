@@ -3718,7 +3718,6 @@ a {
   max-width: 1200px;
   padding: 0 48px;
   margin: 0 auto 80px;
-  border-top: 1px solid var(--glass-border);
   box-sizing: border-box;
 }
 

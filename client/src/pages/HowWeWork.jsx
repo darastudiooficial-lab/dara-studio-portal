@@ -59,9 +59,9 @@ const STEPS = [
     icon: <Icons.Layers />,
     label: { EN: "STAGE 00", PT: "ETAPA 00" },
     title: { EN: `Our Services & Engagement Models`, PT: `Nossos Serviços & Modelos de Engajamento` },
-    summary: { EN: `<strong>Defining your engagement model.</strong>`, PT: `<strong>Definição do modelo de engajamento.</strong>` },
+    summary: { EN: `Defining your engagement model.`, PT: `Definição do modelo de engajamento.` },
     body: {
-      EN: `Choose the package or point technical support that best fits your current volume and pace. Our complete solution catalog is structured to scale your operation — from file conversions to Chief Architect X17 to full Permit Sets and complex executive documentation. We recommend consulting our technical matrix under the What We Do menu to calibrate the ideal scope before starting the workflow.`,
+      EN: `Choose the package or point technical support that best fits your current volume and pace. Our complete solution catalog is structured to scale your operation - from file conversions to Chief Architect X17 to full Permit Sets and complex executive documentation. We recommend consulting our technical matrix under the What We Do menu to calibrate the ideal scope before starting the workflow.`,
       PT: `Escolha o pacote ou o suporte técnico pontual que melhor atenda ao volume e à velocidade atual da sua empresa. Nosso catálogo completo de soluções foi estruturado para dar escala à sua operação, incluindo desde conversões de arquivos para Chief Architect X17 até a aprovação de projetos como Permit Sets e documentação executiva de alta complexidade. Recomendamos consultar nossa matriz técnica na aba de Especialização dentro do menu What We Do para calibrar o escopo ideal antes de iniciar o fluxo de trabalho.`
     },
     cta: {
@@ -88,7 +88,7 @@ const STEPS = [
         <><strong>Sketches or drafts</strong> freehand drawings or preliminary spatial zoning.</>,
         <><strong>Prior surveys</strong> existing plans in PDF, images or older files you may have.</>,
         <><strong>Plot plan or existing site</strong> lot documentation that significantly speeds our process.</>,
-        <><strong>Intended scope</strong> a brief description — remodel, new build, addition or specific support.</>
+        <><strong>Intended scope</strong> a brief description - remodel, new build, addition or specific support.</>
       ],
       PT: [
         <><strong>Imagens de referência</strong> conceitos visuais, referências de estilo e os acabamentos que você deseja.</>,
@@ -96,7 +96,7 @@ const STEPS = [
         <><strong>Croquis ou rascunhos</strong> desenhos à mão livre ou zoneamento espacial preliminar.</>,
         <><strong>Levantamentos anteriores</strong> plantas existentes em PDF, imagens ou arquivos mais antigos que você possa ter.</>,
         <><strong>Plot plan ou terreno existente</strong> documentação do lote que acelera significativamente nosso processo.</>,
-        <><strong>Escopo pretendido</strong> uma breve descrição — reforma, construção nova, ampliação ou suporte específico.</>
+        <><strong>Escopo pretendido</strong> uma breve descrição - reforma, construção nova, ampliação ou suporte específico.</>
       ]
     },
     note: {
@@ -136,18 +136,18 @@ const STEPS = [
           ],
           PT: [
             `Plantas baixas com dimensionamentos e anotações técnicas`,
-            `Elevações externas — as quatro fachadas principais`,
+            `Elevações externas - as quatro fachadas principais`,
             `Cortes e seções construtivas detalhadas`,
             "Schedules (quadros) de portas e janelas",
             `Layout interno e posicionamento de fixtures (peças e acabamentos fixos)`,
             "Renders 3D (conforme o pacote selecionado)",
             `Plantas de Wood Framing (quando aplicável ao escopo)`,
-            "Estrutura de pagamento clara — modelo 40 / 40 / 20"
+            "Estrutura de pagamento clara - modelo 40 / 40 / 20"
           ]
         }
       },
       {
-        title: { EN: `SERVICES NOT INCLUDED — REQUIRE SEPARATE CONTRACTS`, PT: `SERVIÇOS NÃO INCLUÍDOS — REQUEREM CONTRATOS SEPARADOS` },
+        title: { EN: `SERVICES NOT INCLUDED - REQUIRE SEPARATE CONTRACTS`, PT: `SERVIÇOS NÃO INCLUÍDOS - REQUEREM CONTRATOS SEPARADOS` },
         boxClass: "service-box-red",
         titleClass: "service-box-red-title",
         iconColor: "#ef4444",
@@ -167,14 +167,14 @@ const STEPS = [
             `Levantamento topográfico do terreno`,
             `Relatórios de eficiência energética (como HERS rating ou Blower Door test)`,
             `Visitas técnicas presenciais ou inspeções de obra`,
-            `Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) — disponíveis mediante taxa de liberação`
+            `Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) - disponíveis mediante taxa de liberação`
           ]
         }
       }
     ],
     note: {
       EN: <><strong>WHY THIS PHASE MATTERS:</strong> The estimate serves as our commercial roadmap and your ultimate consumer protection. It draws a clear line around what is included and what sits outside the scope, alongside the precise cost of each milestone. At DARA Studio, we eliminate verbal agreements by documenting every technical alignment before production begins.</>,
-      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> O estimate atua como nossa diretriz comercial e a sua segurança. Ele delimita com precisão o que está contemplado e o que está descontinuado do escopo, além do custo de cada fase. No DARA Studio, eliminamos acordos verbais — documentamos cada alinhamento antes de iniciar a produção técnica.</>
+      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> O estimate atua como nossa diretriz comercial e a sua segurança. Ele delimita com precisão o que está contemplado e o que está descontinuado do escopo, além do custo de cada fase. No DARA Studio, eliminamos acordos verbais - documentamos cada alinhamento antes de iniciar a produção técnica.</>
     }
   },
   {
@@ -197,14 +197,14 @@ const STEPS = [
           EN: [
             "Estimate reviewed and all scope items confirmed by you",
             "Estimate digitally signed",
-            "Initial 40% payment received and processed — the project is officially scheduled only after this confirmation",
-            <>40% — <em>Project Initiation and Conceptual Design</em></>
+            "Initial 40% payment received and processed - the project is officially scheduled only after this confirmation",
+            <>40% - <em>Project Initiation and Conceptual Design</em></>
           ],
           PT: [
             `Estimate revisado e todos os itens de escopo confirmados por você`,
             "Estimate assinado digitalmente",
-            `Pagamento inicial de 40% recebido e processado — somente então o projeto é oficialmente agendado`,
-            <>40% — <em>Início do Projeto e Design Conceitual</em></>
+            `Pagamento inicial de 40% recebido e processado - somente então o projeto é oficialmente agendado`,
+            <>40% - <em>Início do Projeto e Design Conceitual</em></>
           ]
         }
       }
@@ -223,7 +223,7 @@ const STEPS = [
             ],
             PT: [
               <><strong>Encargos:</strong> Uma taxa de processamento de 7,99% é adicionada sobre o valor total do projeto.</>,
-              <><strong>Início do Projeto:</strong> O valor normalmente é compensado de 5 a 10 dias úteis — o projeto entra na fila somente após isso.</>
+              <><strong>Início do Projeto:</strong> O valor normalmente é compensado de 5 a 10 dias úteis - o projeto entra na fila somente após isso.</>
             ]
           }
         },
@@ -292,22 +292,22 @@ const STEPS = [
     ],
     revisionSystem: {
       included: {
-        label: { EN: `REV 01, 02 & 03 — Included Revision Rounds`, PT: `REV 01, 02 & 03 — Rodadas de Revisão Inclusas` },
+        label: { EN: `REV 01, 02 & 03 - Included Revision Rounds`, PT: `REV 01, 02 & 03 - Rodadas de Revisão Inclusas` },
         items: {
           EN: [
             "Up to 3 rounds of structured feedback and refinement are completely included.",
             "Every single update is delivered within 8 to 16 business days.",
-            "Feedback must be entirely consolidated — partial notes or daily messages do not count as a formal revision round."
+            "Feedback must be entirely consolidated - partial notes or daily messages do not count as a formal revision round."
           ],
           PT: [
             `Até 3 rodadas de alinhamento e refinamento estão totalmente cobertas pelo seu pacote.`,
             `Cada entrega dentro do prazo padrão de 8 a 16 dias úteis.`,
-            `Os feedbacks precisam ser consolidados — mensagens parciais ou feedbacks diários não contam como uma rodada de revisão oficial.`
+            `Os feedbacks precisam ser consolidados - mensagens parciais ou feedbacks diários não contam como uma rodada de revisão oficial.`
           ]
         }
       },
       extended: {
-        label: { EN: `REV 04, 05, 06+ — Hourly Extension Model`, PT: `REV 04, 05, 06+ — Modelo de Extensão por Hora Técnica` },
+        label: { EN: `REV 04, 05, 06+ - Hourly Extension Model`, PT: `REV 04, 05, 06+ - Modelo de Extensão por Hora Técnica` },
         steps: {
           EN: [
             <><strong>The Process:</strong> You send your consolidated feedback just like the initial rounds.</>,
@@ -328,7 +328,7 @@ const STEPS = [
         }
       },
       guidelines: {
-        title: { EN: `IMPORTANT GUIDELINES — 3D & SCOPE CHANGES`, PT: `DIRETRIZES ESSENCIAIS — 3D & ALTERAÇÕES DE ESCOPO` },
+        title: { EN: `IMPORTANT GUIDELINES - 3D & SCOPE CHANGES`, PT: `DIRETRIZES ESSENCIAIS - 3D & ALTERAÇÕES DE ESCOPO` },
         items: {
           EN: [
             <><strong>Exterior 3D:</strong> Included volumetric renders are tied directly to your closed package as outlined in your initial Estimate. This covers the baseline exterior models agreed upon during signing.</>,
@@ -389,14 +389,14 @@ const STEPS = [
             "Low-resolution watermarked technical preview uploaded to your portal",
             "Project package thoroughly reviewed and verified by you",
             "Final 20% payment milestone received and fully cleared",
-            <>20% — <em>Final Drawing Set and Project Closeout</em></>
+            <>20% - <em>Final Drawing Set and Project Closeout</em></>
           ],
           PT: [
             "Conjunto de desenhos final produzido e compilado pela DARA Studio",
             `Prévia técnica em baixa resolução com marca d’água disponível no portal`,
             `Todo o pacote de arquivos revisado e verificado por você`,
             "Pagamento do milestone final de 20% recebido e compensado",
-            <>20% — <em>Conjunto de Desenhos Final e Encerramento do Projeto</em></>
+            <>20% - <em>Conjunto de Desenhos Final e Encerramento do Projeto</em></>
           ]
         }
       }
@@ -487,7 +487,7 @@ const STEPS = [
     },
     revisionSystem: {
       included: {
-        label: { EN: `THE 30-DAY POST-DELIVERY WARRANTY — What Is Included`, PT: `GARANTIA TÉCNICA DE 30 DIAS PÓS-ENTREGA — O que está incluso` },
+        label: { EN: `THE 30-DAY POST-DELIVERY WARRANTY - What Is Included`, PT: `GARANTIA TÉCNICA DE 30 DIAS PÓS-ENTREGA - O que está incluso` },
         items: {
           EN: [
             "Every final drawing set comes with a built-in 30-day technical support window that begins the exact day your unwatermarked files are released.",
@@ -539,7 +539,7 @@ const STEPS = [
             PT: `O portal do cliente e o atendimento via WhatsApp são os únicos canais oficiais para atualizações, envios de arquivos e recebimento de feedbacks.`
           },
           details: {
-            EN: [<>We do not utilize audio notes or voice messages for official design changes — technical alignments must remain entirely auditable and traceable.</>],
+            EN: [<>We do not utilize audio notes or voice messages for official design changes - technical alignments must remain entirely auditable and traceable.</>],
             PT: [<>Não utilizamos mensagens de áudio para aprovações ou alterações de design, pois cada alinhamento técnico precisa ser totalmente documentado e rastreável.</>]
           }
         },
@@ -574,11 +574,11 @@ const STEPS = [
         steps: {
           EN: [
             <>A dedicated reactivation fee equal to <strong>15% of the total estimate</strong> will be assessed to bring a dormant project back into active production after the 45-day threshold.</>,
-            <>The project will then be repositioned into our current production queue based on our active availability — original timelines and delivery milestones will be subject to recalibration.</>
+            <>The project will then be repositioned into our current production queue based on our active availability - original timelines and delivery milestones will be subject to recalibration.</>
           ],
           PT: [
             <>Para reinserir um projeto inativo de volta à nossa linha de produção após o limite de 45 dias, será cobrada uma taxa de reativação equivalente a <strong>15% do valor total do estimate</strong>.</>,
-            <>O projeto será reposicionado na fila de acordo com a nossa disponibilidade atual — os prazos e cronogramas originais serão recalculados.</>
+            <>O projeto será reposicionado na fila de acordo com a nossa disponibilidade atual - os prazos e cronogramas originais serão recalculados.</>
           ]
         }
       }
@@ -778,7 +778,7 @@ export default function HowWeWork() {
               <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6 }}>
                 {lang === 'EN' ? 'THE BENEFIT' : 'O BENEFÍCIO'}
               </div>
-              <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '24px', lineHeight: 1.5, color: 'var(--text-color)' }}>
+              <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '18px', lineHeight: 1.5, color: 'var(--text-color)' }}>
                 {lang === 'EN' 
                   ? 'The security of a rigorous executive process with the agility the real estate market demands. No noise, no bureaucracy, full transparency.'
                   : 'A segurança de um processo executivo rigoroso com a agilidade que o mercado imobiliário exige. Sem ruídos, sem burocracia, com total transparência.'}
@@ -986,8 +986,8 @@ export default function HowWeWork() {
           <div style={{ maxWidth: '900px', margin: '0 0 40px', padding: '0 20px' }}>
             <p className="editorial-subtitle" style={{ fontSize: '16.5px', lineHeight: 1.6, opacity: 0.8, color: 'var(--text-color)' }}>
               {lang === "EN" 
-                ? "For full transparency on schedule, here is how your project advances through our production calendar — measured from the moment funds clear and kickoff is authorized." 
-                : "Para total transparência no cronograma, eis como o seu projeto avança pelo nosso calendário de produção — medido a partir do momento em que os fundos são liberados e o início é autorizado."}
+                ? "For full transparency on schedule, here is how your project advances through our production calendar - measured from the moment funds clear and kickoff is authorized." 
+                : "Para total transparência no cronograma, eis como o seu projeto avança pelo nosso calendário de produção - medido a partir do momento em que os fundos são liberados e o início é autorizado."}
             </p>
           </div>
 
