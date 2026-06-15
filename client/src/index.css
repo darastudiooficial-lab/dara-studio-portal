@@ -67,7 +67,7 @@
   color: #1A1A1A !important;
 }
 
-[data-theme='light'] *:not(.btn-glow):not(.client-portal-btn):not(.btn-legal-static):not(.glass-nav-link):not(.footer-email-link):not(.lp-btn-primary):not(.lp-btn-secondary):not(.vera-header *):not(.vera-trigger *):not(.badge-text):not(.badge-icon):not(.heading-italic):not(.badge-gradient):not(.service-badge-us) {
+[data-theme='light'] *:not(.btn-glow):not(.client-portal-btn):not(.btn-legal-static):not(.glass-nav-link):not(.footer-email-link):not(.lp-btn-primary):not(.lp-btn-secondary):not(.vera-header *):not(.vera-trigger *):not(.badge-text):not(.badge-icon):not(.heading-italic):not(.badge-gradient):not(.service-badge-us):not(.home-bottom-cta *) {
   color: #1A1A1A !important;
 }
 
