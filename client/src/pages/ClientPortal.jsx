@@ -630,9 +630,6 @@ export default function ClientPortal() {
           <button className="nav-item sign-out-btn" onClick={logout}>
             <Icon name="out" /> <span className="nav-lbl">{T.logout}</span>
           </button>
-          <button className="nav-item back-btn" onClick={() => navigate('/')}>
-            <Icon name="back" /> <span className="nav-lbl">{T.backToSite}</span>
-          </button>
         </div>
       </aside>
 

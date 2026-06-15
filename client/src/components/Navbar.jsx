@@ -86,15 +86,7 @@ export default function Navbar() {
       </nav>
 
       <div className="header-actions">
-        {/* Botão de Voltar (Sub-páginas) */}
-        {isSubPage && (
-          <button 
-            className="pill-button back-to-site-btn" 
-            onClick={() => navigate("/")}
-          >
-            ← {lang === 'EN' ? 'Back to Site' : 'Voltar ao Site'}
-          </button>
-        )}
+
 
         {/* Language Toggle */}
         <div className="pill-button lang-toggle">

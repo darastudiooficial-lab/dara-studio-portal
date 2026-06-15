@@ -168,7 +168,7 @@ input, select, textarea, .lp-btn, .back-to-site-btn, .glass-toggle, .pill-button
 
 html, body {
   background-color: var(--bg-primary) !important;
-  background-image: radial-gradient(circle at 80% 80%, rgba(30, 58, 138, var(--bg-glow-opacity)), transparent 40%);
+  background-image: radial-gradient(circle at 80% 80%, rgba(125, 159, 133, var(--bg-glow-opacity)), transparent 40%);
   color: var(--text-color);
   font-family: var(--font-sans);
   font-size: 14px;
@@ -3562,7 +3562,7 @@ a {
   gap: 0;
   width: 100%;
   min-width: 720px;
-  max-width: 960px;
+  max-width: 100%;
   height: auto;
   min-height: 520px;
 }
@@ -3699,31 +3699,35 @@ a {
   .step-card-split { grid-template-columns: 1fr; min-width: unset; }
   .step-col-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 24px 20px; }
   .step-col-right { padding: 20px; max-height: unset; overflow-y: visible; }
+}
 
 /* Engagement Accordion */
 .engagement-accordion-wrap {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 960px;
-  margin: 40px auto 80px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+  padding: 0 48px;
+  margin: 0 auto 80px;
+  border-top: 1px solid var(--glass-border);
+  box-sizing: border-box;
 }
 
 .engagement-accordion-item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .engagement-accordion-header {
   display: grid;
-  grid-template-columns: 120px 1fr 40px;
+  grid-template-columns: 32px 1fr 40px;
   align-items: center;
   width: 100%;
-  padding: 48px 0;
+  padding: 24px 0;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
+  color: var(--text-color);
   transition: all 0.3s ease;
 }
 
@@ -3733,15 +3737,16 @@ a {
 
 .accordion-num {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.15em;
-  opacity: 0.5;
+  color: var(--brand-purple);
+  opacity: 1;
 }
 
 .accordion-title {
   font-family: var(--font-serif);
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 400;
   color: var(--text-color);
 }
@@ -3929,6 +3934,7 @@ a {
   }
 }
 
+@media (max-width: 860px) {
   .step-gantt-phases { grid-template-columns: repeat(2, 1fr); }
   .step-item-grid { grid-template-columns: 1fr; }
 }

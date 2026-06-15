@@ -57,48 +57,54 @@ const STEPS = [
   {
     num: "00",
     icon: <Icons.Layers />,
-    title: { EN: `Services & Engagement Models`, PT: `Serviços & Modelos de Engajamento` },
-    summary: { EN: `Definition of the engagement model.`, PT: `Definição do modelo de engajamento.` },
+    label: { EN: "STAGE 00", PT: "ETAPA 00" },
+    title: { EN: `Our Services & Engagement Models`, PT: `Nossos Serviços & Modelos de Engajamento` },
+    summary: { EN: `<strong>Defining your engagement model.</strong>`, PT: `<strong>Definição do modelo de engajamento.</strong>` },
     body: {
-      EN: `Select the precise architectural support or documentation package that aligns with your pipeline’s current demand. Our specialized capability acts as an extension of your team, whether you need high-volume Chief Architect X17 conversions from PDFs or sketches, regulatory Permit Sets, or highly detailed executive documentation. We recommend reviewing our full capabilities in the Specialization section under the What We Do menu to optimize and calibrate your scope before initiating production.`,
+      EN: `Choose the package or point technical support that best fits your current volume and pace. Our complete solution catalog is structured to scale your operation — from file conversions to Chief Architect X17 to full Permit Sets and complex executive documentation. We recommend consulting our technical matrix under the What We Do menu to calibrate the ideal scope before starting the workflow.`,
       PT: `Escolha o pacote ou o suporte técnico pontual que melhor atenda ao volume e à velocidade atual da sua empresa. Nosso catálogo completo de soluções foi estruturado para dar escala à sua operação, incluindo desde conversões de arquivos para Chief Architect X17 até a aprovação de projetos como Permit Sets e documentação executiva de alta complexidade. Recomendamos consultar nossa matriz técnica na aba de Especialização dentro do menu What We Do para calibrar o escopo ideal antes de iniciar o fluxo de trabalho.`
     },
     cta: {
-      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
-      label: { EN: `EXPLORE CAPABILITIES & SERVICES`, PT: `VER CATÁLOGO DE SERVIÇOS` },
+      icon: null,
+      label: { EN: `VIEW SERVICE CATALOG`, PT: `VER CATÁLOGO DE SERVIÇOS` },
       path: "/services"
     }
   },
   {
     num: "01",
     icon: <Icons.MessageCircle />,
+    label: { EN: "STAGE 01", PT: "ETAPA 01" },
     title: { EN: `First Contact`, PT: `Primeiro Contato` },
-    summary: { EN: `Start with what you have.`, PT: `Comece com o que você tem em mãos.` },
+    summary: { EN: `Start with what you already have.`, PT: `Comece com o que você já tem.` },
     body: {
-      EN: `You don't need a finalized blueprint to get moving. A preliminary sketch, visual references, or a clear objective is more than enough for our team to understand your requirements and build a precise project scope.`,
-      PT: `Você não precisa chegar com um projeto definitivo ou perfeito para iniciar o fluxo. Um croqui preliminar, referências visuais ou um direcionamento claro já são suficientes para compreendermos a sua demanda e estruturarmos um escopo assertivo.`
+      EN: `You don't need a final or perfect project to begin. A preliminary sketch, visual references or a clear direction are enough for us to understand your demand and structure an assertive scope.`,
+      PT: `Você não precisa de um projeto final ou perfeito para começar. Um esboço preliminar, referências visuais ou um direcionamento claro são suficientes para entendermos sua demanda e estruturarmos um escopo assertivo.`
     },
+    listTitle: { EN: `START WITH WHATEVER IS IN HAND`, PT: `COMECE COM O QUE ESTIVER EM MÃOS` },
     list: {
       EN: [
-        <><strong>Reference Images —</strong> Visual concepts, style directions, and your desired finishes.</>,
-        <><strong>Site Information —</strong> Property photos, topographical data, or simply the project address.</>,
-        <><strong>Sketches or Drafts —</strong> Hand-drawn concepts or preliminary spatial zoning ideas.</>,
-        <><strong>Existing Documentation —</strong> Prior surveys, old files, or existing floor plans in PDF.</>,
-        <><strong>Plot Plan or Existing Layout —</strong> Site documentation that significantly accelerates our technical workflow.</>,
-        <><strong>Intended Scope —</strong> A brief description of your goals, whether it is a remodel, a new build, an addition, or specialized drafting support.</>
+        <><strong>Reference images</strong> visual concepts, style references and the finishes you want.</>,
+        <><strong>Site information</strong> site photos, topographic data, or simply the property address.</>,
+        <><strong>Sketches or drafts</strong> freehand drawings or preliminary spatial zoning.</>,
+        <><strong>Prior surveys</strong> existing plans in PDF, images or older files you may have.</>,
+        <><strong>Plot plan or existing site</strong> lot documentation that significantly speeds our process.</>,
+        <><strong>Intended scope</strong> a brief description — remodel, new build, addition or specific support.</>
       ],
       PT: [
-        <><strong>Imagens de Referência —</strong> Conceitos visuais, referências de estilo e os acabamentos que você deseja.</>,
-        <><strong>Informações do Terreno —</strong> Fotos do local, dados topográficos ou simplesmente o endereço da propriedade.</>,
-        <><strong>Croquis ou Esboços —</strong> Desenhos à mão livre ou zoneamentos espaciais preliminares.</>,
-        <><strong>Levantamentos Anteriores —</strong> Plantas existentes em PDF, imagens ou arquivos antigos que você já possua.</>,
-        <><strong>Plot Plan ou Implantação Existente —</strong> Documentação do lote que agiliza significativamente o nosso processo técnico.</>,
-        <><strong>Escopo Pretendido —</strong> Uma breve descrição da sua demanda, seja ela uma reforma, construção nova, ampliação (addition) ou um suporte técnico específico.</>
+        <><strong>Imagens de referência</strong> conceitos visuais, referências de estilo e os acabamentos que você deseja.</>,
+        <><strong>Informações do terreno</strong> fotos do local, dados topográficos ou simplesmente o endereço da propriedade.</>,
+        <><strong>Croquis ou rascunhos</strong> desenhos à mão livre ou zoneamento espacial preliminar.</>,
+        <><strong>Levantamentos anteriores</strong> plantas existentes em PDF, imagens ou arquivos mais antigos que você possa ter.</>,
+        <><strong>Plot plan ou terreno existente</strong> documentação do lote que acelera significativamente nosso processo.</>,
+        <><strong>Escopo pretendido</strong> uma breve descrição — reforma, construção nova, ampliação ou suporte específico.</>
       ]
     },
     note: {
-      EN: <><strong>WHY THIS PHASE MATTERS:</strong> The more context you provide upfront, the more accurate our initial estimate will be. A realistic, well-founded estimate protects your budget against unexpected costs and establishes a solid foundation for every phase that follows.</>,
-      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Quanto mais contexto você compartilhar de início, mais preciso será o seu estimate. Uma estimativa realista e bem fundamentada protege o seu orçamento contra custos inesperados e estabelece uma base sólida para todas as etapas seguintes.</>
+      title: { EN: "WHY THIS STAGE MATTERS", PT: "POR QUE ESSA ETAPA IMPORTA" },
+      text: { 
+        EN: `The more context you share up front, the more accurate your estimate. A realistic, well-grounded estimate protects your budget from surprises and sets a solid base for every following stage.`,
+        PT: `Quanto mais contexto você compartilhar no início, mais preciso será seu orçamento. Um orçamento realista e bem fundamentado protege seu budget de surpresas e define uma base sólida para as etapas seguintes.`
+      }
     }
   },
   {
@@ -737,41 +743,55 @@ export default function HowWeWork() {
         <main className="independent-page">
 
           {/* Header */}
-          <header className="editorial-header animate-float-up" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-            {/* Top Row: Method & Cycles */}
-            <div style={{ display: 'flex', alignItems: 'center', fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6, marginBottom: '40px' }}>
-              <span style={{ marginRight: '16px' }}>(04) METHOD</span>
-              <div style={{ flex: 1, height: '1px', background: 'var(--text-color)', opacity: 0.2 }}></div>
-              <span style={{ marginLeft: '16px', textTransform: 'none' }}>8-16 day cycles</span>
+          <header className="editorial-header animate-float-up">
+            {/* Top Divider */}
+            <div className="preview-header">
+              <h2 className="preview-title">(03) METHOD</h2>
+              <div className="preview-line"></div>
+              <h2 className="preview-title">8-16 DAY CYCLES</h2>
             </div>
 
-            {/* Title & Description Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'flex-start', marginBottom: '60px' }}>
-              <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '64px', margin: 0, fontWeight: 400, color: 'var(--text-color)', lineHeight: 1 }}>
-                How it works
+            {/* Main Content */}
+            <div className="editorial-content">
+              <h1 className="editorial-title" style={{ display: 'flex', flexDirection: 'column' }}>
+                {lang === 'EN' ? (
+                  <>
+                    <span>Process &</span>
+                    <span className="editorial-title-italic">Professional Scope</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Processo &</span>
+                    <span className="editorial-title-italic">Escopo Profissional</span>
+                  </>
+                )}
               </h1>
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', lineHeight: 1.8, margin: 0, color: 'var(--text-color)', opacity: 0.8, paddingTop: '10px' }}>
-                We eliminate distance with a structured, agile, 100% remote workflow built specifically for builders, developers and demanding owners. All technical coordination and delivery management happen via WhatsApp and our client portal — giving you absolute, real-time control of your project.
+              <p className="editorial-subtitle">
+                {lang === 'EN' 
+                  ? 'We eliminate distance through a structured, agile, and 100% remote workflow designed specifically for builders, developers, and demanding owners. All technical coordination and delivery management happen directly via WhatsApp and our client portal, ensuring full control of your project in real time.'
+                  : 'Eliminamos a distância com um fluxo de trabalho estruturado, ágil e 100% remoto, projetado especificamente para construtores, incorporadores e proprietários exigentes. Toda a coordenação técnica e o gerenciamento das entregas acontecem direto via WhatsApp e no nosso portal do cliente, garantindo controle absoluto do seu projeto em tempo real.'}
               </p>
             </div>
 
-            {/* Middle Divider */}
-            <div style={{ height: '1px', width: '100%', background: 'var(--text-color)', opacity: 0.1, marginBottom: '40px' }}></div>
-
             {/* The Benefit Section */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'flex-start', marginBottom: '60px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'flex-start', marginBottom: '40px' }}>
               <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6 }}>
-                THE BENEFIT
+                {lang === 'EN' ? 'THE BENEFIT' : 'O BENEFÍCIO'}
               </div>
               <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '24px', lineHeight: 1.5, color: 'var(--text-color)' }}>
-                The security of a rigorous executive process with the speed the real-estate market demands. No noise, no bureaucracy, full transparency.
+                {lang === 'EN' 
+                  ? 'The security of a rigorous executive process with the agility the real estate market demands. No noise, no bureaucracy, full transparency.'
+                  : 'A segurança de um processo executivo rigoroso com a agilidade que o mercado imobiliário exige. Sem ruídos, sem burocracia, com total transparência.'}
               </div>
             </div>
 
-            {/* Bottom Row: Engagement Flow */}
-            <div style={{ display: 'flex', alignItems: 'center', fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6, marginBottom: '20px' }}>
-              <span style={{ marginRight: '16px' }}>(A) THE ENGAGEMENT FLOW</span>
-              <div style={{ flex: 1, height: '1px', background: 'var(--text-color)', opacity: 0.2 }}></div>
+            {/* Bottom Divider */}
+            <div className="preview-header">
+              <h2 className="preview-title">
+                <span style={{ opacity: 0.5, marginRight: '8px' }}>(A)</span>
+                {lang === 'EN' ? 'THE ENGAGEMENT FLOW' : 'O FLUXO DE ENGAJAMENTO'}
+              </h2>
+              <div className="preview-line"></div>
             </div>
           </header>
 
@@ -803,7 +823,25 @@ export default function HowWeWork() {
                       )}
 
                       {step.note && (
-                        <div className="service-disclaimer" style={{ marginTop: 'auto' }}>{step.note[lang]}</div>
+                        <div className="service-disclaimer" style={{ 
+                          marginTop: 'auto', 
+                          padding: '16px', 
+                          borderLeft: '2px solid var(--text-color)', 
+                          background: 'rgba(255,255,255,0.02)' 
+                        }}>
+                          {typeof step.note === 'object' && step.note.title ? (
+                            <>
+                              <div style={{ fontSize: '10px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', opacity: 0.6, marginBottom: '8px', textTransform: 'uppercase' }}>
+                                {step.note.title[lang]}
+                              </div>
+                              <div style={{ fontSize: '13px', fontStyle: 'italic', opacity: 0.75, lineHeight: 1.5 }}>
+                                {step.note.text[lang]}
+                              </div>
+                            </>
+                          ) : (
+                            step.note[lang]
+                          )}
+                        </div>
                       )}
 
                       {step.planningNote && (
@@ -814,7 +852,36 @@ export default function HowWeWork() {
 
                       {step.cta && (
                         <div style={{ marginTop: 'auto' }}>
-                          <button className="btn-glow" style={{ width: '100%', gap: '8px' }} onClick={() => navigate(step.cta.path)}>
+                          <button 
+                            onClick={() => navigate(step.cta.path)}
+                            style={{ 
+                              background: '#1F3C2C', 
+                              color: '#ffffff', 
+                              border: 'none', 
+                              borderRadius: '4px',
+                              padding: '16px 28px', 
+                              fontSize: '11px', 
+                              fontWeight: 700,
+                              letterSpacing: '0.12em', 
+                              textTransform: 'uppercase', 
+                              cursor: 'pointer', 
+                              fontFamily: 'var(--font-sans)',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              transition: 'all 0.2s ease',
+                              width: '100%',
+                              gap: '8px'
+                            }}
+                            onMouseOver={(e) => {
+                              e.currentTarget.style.filter = 'brightness(1.1)';
+                              e.currentTarget.style.transform = 'translateY(-1px)';
+                            }}
+                            onMouseOut={(e) => {
+                              e.currentTarget.style.filter = 'brightness(1)';
+                              e.currentTarget.style.transform = 'translateY(0)';
+                            }}
+                          >
                             {step.cta.icon}{step.cta.label[lang]}
                           </button>
                         </div>
@@ -823,23 +890,24 @@ export default function HowWeWork() {
 
                     <div className="step-col-right">
                       {step.list && (
-                        <div>
-                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '12px' }}>
-                            {step.summary[lang]}
+                        <div style={{ 
+                          border: '1px solid rgba(255,255,255,0.1)', 
+                          padding: '24px', 
+                          background: 'rgba(0,0,0,0.1)' 
+                        }}>
+                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '16px' }}>
+                            {step.listTitle ? step.listTitle[lang] : step.summary[lang]}
                           </p>
                           <div className="step-item-grid">
                             {step.list && step.list[lang] && step.list[lang].map((item, i) => (
                               <div key={i} className="step-item-grid-cell">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || 'var(--color-neon-purple)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={step.listIconColor || 'var(--color-neon-purple)'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                                   {step.listIcon || <polyline points="20 6 9 17 4 12"/>}
                                 </svg>
-                                {item}
+                                <span>{item}</span>
                               </div>
                             ))}
                           </div>
-                          {step.note && (
-                            <p style={{ marginTop: '14px', fontSize: '11px', opacity: 0.45, lineHeight: 1.6, fontStyle: 'italic' }}>{step.note[lang]}</p>
-                          )}
                         </div>
                       )}
 
