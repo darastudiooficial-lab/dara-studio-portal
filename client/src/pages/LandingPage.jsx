@@ -59,6 +59,9 @@ const CONTENT = {
       { num: "03", title: "Code Review", desc: "Every sheet checked against IBC, IRC and local zoning before it leaves the studio." },
       { num: "04", title: "Delivery & Revisions", desc: "Issued through the Client Portal. Revisions tracked and turned around fast." },
     ],
+    ctaSubtitle: "PERMIT-READY DOCUMENTATION, DELIVERED REMOTELY",
+    ctaTitle: "Bring your next U.S. project to the studio.",
+    ctaBtn: "REQUEST A QUOTE →",
   },
   PT: {
     nav: [
@@ -113,6 +116,9 @@ const CONTENT = {
       { num: "03", title: "Revisão de Códigos", desc: "Cada prancha verificada em relação ao IBC, IRC e zoneamento local antes da entrega." },
       { num: "04", title: "Entrega e Revisões", desc: "Acesso direto pelo Portal do Cliente. Revisões controladas e devolvidas rapidamente." },
     ],
+    ctaSubtitle: "DOCUMENTAÇÃO PRONTA PARA ALVARÁ, ENTREGUE REMOTAMENTE",
+    ctaTitle: "Traga seu próximo projeto nos EUA para o studio.",
+    ctaBtn: "SOLICITAR ORÇAMENTO →",
   }
 };
 
@@ -291,6 +297,21 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Home Bottom CTA */}
+        <div className="home-bottom-cta animate-float-up delay-500">
+          <div className="home-cta-content">
+            <span className="home-cta-subtitle">{T.ctaSubtitle}</span>
+            <h2 className="home-cta-title">
+              {T.ctaTitle.split('\n').map((line, idx) => (
+                <React.Fragment key={idx}>{line}<br/></React.Fragment>
+              ))}
+            </h2>
+          </div>
+          <button className="home-cta-btn" onClick={() => navigate("/estimate")}>
+            {T.ctaBtn}
+          </button>
         </div>
 
         {/* Trust Cluster — Integrated Social Proof & Certifications */}
