@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import DaraLogo from './DaraLogo';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -30,7 +29,7 @@ const NAV_TRANSLATIONS = {
 };
 
 export default function Navbar() {
-  const navigate = useNavigate();
+
   const location = useLocation();
   const { lang, setLang, theme, toggleTheme } = useAppContext();
   const { user, profile } = useAuth();

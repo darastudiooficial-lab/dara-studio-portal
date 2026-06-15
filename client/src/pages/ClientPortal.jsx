@@ -2,7 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useAppContext } from "../context/AppContext";
 import Chat from "../components/Chat";
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { supabase } from '../lib/supabaseClient';
 import GlobalControls from '../components/GlobalControls';
 import Icon from '../components/Icon';

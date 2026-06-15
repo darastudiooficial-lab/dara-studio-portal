@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { useAppContext } from "../context/AppContext";
 import { useAuth } from "../context/AuthContext";
-import DaraLogo from "../components/DaraLogo";
 import InputMask from "react-input-mask";
 import BackgroundOrbs from "../components/BackgroundOrbs";
 
