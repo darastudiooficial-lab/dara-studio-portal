@@ -10,7 +10,7 @@ O sistema utiliza a biblioteca Google Fonts para entregar uma aparência premium
 
 ### Famílias de Fontes
 - **Sans-Serif Principal:** `var(--font-sans)`
-  - Famílias: `'Inter Tight'`, `'Inter'`, `'Plus Jakarta Sans'`, `sans-serif`
+  - Famílias: `'Century Gothic'`, `sans-serif`
   - **Onde é usado:** Corpo de texto, parágrafos, inputs, botões, barras de navegação, tooltips e tabelas.
 - **Serif Principal:** `var(--font-serif)`
   - Famílias: `'Playfair Display'`, `Georgia`, `serif`
@@ -19,12 +19,10 @@ O sistema utiliza a biblioteca Google Fonts para entregar uma aparência premium
 ### Tamanhos e Pesos
 - **Headings (Títulos Grandes):** 
   - `clamp(52px, 8vw, 80px)`
-  - Variantes: Normal (`.heading-normal`) e Itálico com gradiente (`.heading-italic`).
-- **Subtítulos (Hero):** `17px`, peso `300` (Light), opacidade `0.8`.
-- **Botões Premium (`.btn-glow`):** `15px`, peso `700` (Bold).
-- **Botões Secundários (`.glass-pill`):** `14px`, peso `600` (Semi-Bold).
-- **Navegação / Dropdown:** `12.5px` ou `13px`, peso `500` (Medium).
-- **Badges / Textos Pequenos:** `11px`, peso `800` (Extra Bold), com `letter-spacing: 0.15em` (Maiúsculas).
+  - Variantes: Normal (`.heading-normal`) e Itálico (`.heading-italic`).
+- **Botões e Navegação:** `13px`, peso `600` (Semi-Bold), letter-spacing `0.12em` (Maiúsculas).
+- **Badges / Textos Pequenos:** `10px` a `11px`, peso `500`-`800`, letter-spacing `0.1em` a `0.18em`.
+- **Accent Color:** `--color-sage: #7D9F85` (usado para títulos em destaque e interações hover).
 
 ---
 

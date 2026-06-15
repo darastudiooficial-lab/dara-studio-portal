@@ -10,11 +10,24 @@
   --dark-bg: #050505;
   
   --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Century Gothic', 'CenturyGothic', sans-serif;
+  --font-sans: 'Century Gothic', sans-serif;
   
   --color-offwhite: #F8F9FA;
   --color-neon-purple: var(--brand-purple);
   --color-neon-magenta: var(--brand-pink);
+  --color-sage: #7D9F85;
+  
+  /* Typography Variables */
+  --hero-title-size: clamp(52px, 8vw, 80px);
+  --text-2xs: 10px;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-md: 14px;
+  --text-body: 16.5px;
+  --text-card-title: 24px;
+  --text-service-title: 36px;
+  --text-stat-value: 28px;
   
   /* Theme Variables — Default Dark */
   --bg-primary: var(--dark-bg);
@@ -1156,7 +1169,7 @@ a {
 }
 
 .preview-title {
-  font-family: 'Century Gothic', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--text-color);
@@ -1196,7 +1209,7 @@ a {
 }
 
 .preview-num {
-  font-family: 'Century Gothic', monospace;
+  font-family: var(--font-sans);
   font-size: 12px;
   opacity: 0.4;
   color: var(--text-color);
@@ -1205,14 +1218,15 @@ a {
 
 .preview-item-title {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: var(--text-service-title);
   font-weight: 400;
-  color: #7D9F85 !important;
+  color: var(--color-sage) !important;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .preview-item-desc {
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--text-color);
   opacity: 0.7;
@@ -1246,6 +1260,7 @@ a {
 }
 
 .view-all-link {
+  font-family: var(--font-sans);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -1317,10 +1332,11 @@ a {
   backdrop-filter: blur(8px);
   border: 1px solid var(--glass-border);
   padding: 4px 12px;
-  font-family: 'Century Gothic', monospace;
+  font-family: var(--font-sans);
   font-size: 10px;
   text-transform: uppercase;
   color: var(--text-color);
+  border-radius: 99px;
 }
 
 .work-info {
@@ -1333,15 +1349,15 @@ a {
 
 .work-title {
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: var(--text-card-title);
   font-weight: 400;
-  color: #7D9F85 !important;
+  color: var(--color-sage) !important;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .work-desc {
-  font-family: 'Century Gothic', monospace;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--text-color);
   opacity: 0.6;
@@ -1426,9 +1442,11 @@ a {
   height: var(--btn-height);
   padding: 0 36px;
   border-radius: 4px;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
   box-shadow: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1465,9 +1483,11 @@ a {
   height: var(--btn-height);
   padding: 0 36px;
   border-radius: 4px;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
   border: 1.5px solid var(--text-color);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1590,7 +1610,7 @@ a {
 
 .stat-value {
   font-family: var(--font-serif);
-  font-size: 28px;
+  font-size: var(--text-stat-value);
   font-weight: 400;
   color: var(--text-color);
   letter-spacing: -0.02em;
@@ -1710,7 +1730,7 @@ a {
 .credential-box {
   padding: 16px 20px;
   text-align: center;
-  font-family: 'Century Gothic', monospace;
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 500;
   color: var(--text-color);
@@ -1782,6 +1802,7 @@ a {
 }
 
 .footer-logo-text {
+  font-family: var(--font-sans);
   font-size: 15px;
   letter-spacing: -0.01em;
   color: var(--text-color);
@@ -1791,6 +1812,7 @@ a {
 .footer-logo-text em { font-style: italic; font-family: var(--font-serif); opacity: 0.8; }
 
 .footer-address {
+  font-family: var(--font-sans);
   font-size: 10.5px;
   line-height: 1.6;
   color: var(--text-color);
@@ -1819,6 +1841,7 @@ a {
 }
 
 .footer-copyright-main {
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
   color: var(--text-color);
@@ -1829,6 +1852,7 @@ a {
 }
 
 .footer-legal {
+  font-family: var(--font-sans);
   font-size: 10px;
   line-height: 1.6;
   color: var(--text-color);
@@ -1839,6 +1863,7 @@ a {
 }
 
 .footer-ip-title {
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
   color: var(--text-color);
@@ -1891,6 +1916,7 @@ a {
 }
 
 .footer-ip-notice-link {
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   color: var(--text-color);
@@ -1907,6 +1933,7 @@ a {
 }
 
 .footer-ip-notice-small {
+  font-family: var(--font-sans);
   font-size: 10px;
   line-height: 1.6;
   color: var(--text-color);
@@ -1918,8 +1945,9 @@ a {
 }
 
 .footer-email-link {
+  font-family: var(--font-sans);
   font-size: 12px;
-  color: #7D9F85 !important;
+  color: var(--color-sage) !important;
   text-align: left;
   font-weight: 500;
   transition: all 0.3s ease;
