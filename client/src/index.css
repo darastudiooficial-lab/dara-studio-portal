@@ -216,6 +216,7 @@ a {
 }
 
 .dropdown-trigger {
+  -webkit-user-select: none;
   user-select: none;
   display: flex;
   align-items: center;
@@ -2696,8 +2697,8 @@ a {
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .hww-accordion-item:hover {
@@ -3458,6 +3459,7 @@ a {
     border: none;
     background: transparent;
     padding: 0;
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }
