@@ -47,14 +47,15 @@ export default function Navbar() {
       <Link to="/" className="header-logo" style={{ display: 'flex', alignItems: 'center', gap: '16px', textDecoration: 'none' }}>
         <DaraLogo size={36} variant="horizontal" />
         <span style={{ 
-          fontSize: '10px', 
+          fontSize: '13px', 
           fontFamily: 'var(--font-sans)', 
-          fontWeight: 600, 
+          fontWeight: 500, 
           letterSpacing: '0.02em', 
-          lineHeight: 1.4, 
+          lineHeight: 1.2, 
           color: 'var(--text-color)',
           borderLeft: '1px solid rgba(161, 130, 74, 0.3)',
           paddingLeft: '16px',
+          textTransform: 'uppercase'
         }}>
           Drafting Support & Permit-Ready<br />Plans for Builders
         </span>
