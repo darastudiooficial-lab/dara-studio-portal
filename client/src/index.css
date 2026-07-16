@@ -2307,7 +2307,7 @@ a {
   scroll-snap-type: x mandatory;
   gap: 32px;
   padding: 10px 20px 20px;
-  scrollbar-width: none;
+  
   -ms-overflow-style: none;
   overflow-y: visible !important;
   height: auto !important;

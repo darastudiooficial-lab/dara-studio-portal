@@ -75,7 +75,8 @@ body{font-family: var(--font-sans); background:var(--bg); color:var(--tx); min-h
 @keyframes spLogoGlow{0%{box-shadow:0 0 0 0 rgba(156, 124, 58, .6)}50%{box-shadow:0 0 0 22px rgba(156, 124, 58, .15),0 8px 40px rgba(156, 124, 58, .5)}100%{box-shadow:0 0 0 8px rgba(156, 124, 58, .08),0 8px 30px rgba(156, 124, 58, .35)}}
 #sp-name-wrap{opacity:0;animation:spNameIn .6s 1s cubic-bezier(.22,.68,0,1.15) forwards;display:flex;flex-direction:column;align-items:center;gap:6px}
 @keyframes spNameIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.sp-name{font-family: var(--font-serif);font-size:36px;color:#fff;letter-spacing:.18em;background:linear-gradient(90deg,#fff 0%,#c4b5fd 50%,#fff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:spShimmer 2.5s 1.2s linear infinite}
+.sp-name{font-family: var(--font-serif);font-size:36px;color:#fff;letter-spacing:.18em;background:linear-gradient(90deg,#fff 0%,#c4b5fd 50%,#fff 100%);background-size:200% auto;-webkit-background-clip:text;
+  background-clip: text;-webkit-text-fill-color:transparent;background-clip:text;animation:spShimmer 2.5s 1.2s linear infinite}
 @keyframes spShimmer{0%{background-position:0% center}100%{background-position:200% center}}
 .sp-tagline{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.22em;font-weight:300;text-transform:uppercase;animation:spTagIn .5s 1.4s both}
 @keyframes spTagIn{from{opacity:0;letter-spacing:.38em}to{opacity:1;letter-spacing:.22em}}
@@ -179,7 +180,8 @@ body{font-family: var(--font-sans); background:var(--bg); color:var(--tx); min-h
 /* â•â• TOPBAR â•â• */
 .topbar{height:54px;background:rgba(15, 15, 15, 0.4);border-bottom:1px solid var(--br);padding:0 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40;animation:navBarDrop .35s cubic-bezier(.22,.68,0,1.15) both;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
 .tb-brand{font-size:12px;color:var(--mu);display:flex;align-items:center;gap:6px}
-.tb-brand strong{font-family: var(--font-serif);font-size:14px;background:linear-gradient(90deg,var(--a),#9c7c3a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tb-brand strong{font-family: var(--font-serif);font-size:14px;background:linear-gradient(90deg,var(--a),#9c7c3a);-webkit-background-clip:text;
+  background-clip: text;-webkit-text-fill-color:transparent;background-clip:text}
 .tb-right{display:flex;align-items:center;gap:8px;position:relative}
 .tb-btn{background:none;border:none;cursor:pointer;padding:7px;color:var(--mu);display:flex;border-radius:9px;transition:background .15s}
 .tb-btn:hover{background:var(--lav2)}
@@ -827,7 +829,7 @@ svg.ic{display:inline-block;vertical-align:middle;flex-shrink:0}
 /* Phase selector tabs */
 .rv-phase-tabs{
   display:flex;gap:4px;padding:10px 16px;border-bottom:1px solid var(--cb);
-  overflow-x:auto;flex-shrink:0;scrollbar-width:none;
+  overflow-x:auto;flex-shrink:0;
 }
 .rv-phase-tabs::-webkit-scrollbar { display: none; }
 /* rest */
@@ -3556,7 +3558,7 @@ svg.ic{display:inline-block;vertical-align:middle;flex-shrink:0}
   margin-bottom: 24px;
   overflow-x: auto;
   padding-bottom: 4px;
-  scrollbar-width: none;
+  
 }
 .tab-strip::-webkit-scrollbar { display: none; }
 
