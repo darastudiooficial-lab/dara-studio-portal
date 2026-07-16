@@ -37,7 +37,10 @@ const CONTENT = {
     badgeLicensedBR: "CAU SC A115105-3 - Licensed Architect · Brazil",
     badgeLicensedUS: "Architectural Drafter · United States",
     badgeZoning: "US Code Compliant · Local Zoning",
-    previewSectionTitle: "WHAT WE DO",
+    previewSectionTitle: "CAPABILITIES",
+    capabilitiesTitle: "What we do",
+    capabilitiesDesc: "DARA Studio operates as a seamless technical extension for U.S. builders, developers and architects. We transform complex project demands into precise, permit-ready documentation, so you scale your operation without the overhead.",
+    corePackagesTitle: "CORE PACKAGES",
     previewItems: [
       { num: "01", title: "Permit Sets", desc: "Complete, code-compliant drawing sets prepared for municipal submission and approval." },
       { num: "02", title: "Construction Documents", desc: "Coordinated CDs a contractor can build from without ambiguity or rework." },
@@ -95,7 +98,10 @@ const CONTENT = {
     badgeLicensedBR: "CAU SC A115105-3 - Arquiteto Licenciado · Brasil",
     badgeLicensedUS: "Desenhista Arquitetônico · Estados Unidos",
     badgeZoning: "Conformidade de Código dos EUA · Zoneamento Local",
-    previewSectionTitle: "O QUE FAZEMOS",
+    previewSectionTitle: "CAPACIDADES",
+    capabilitiesTitle: "O que fazemos",
+    capabilitiesDesc: "O DARA Studio atua como uma extensão técnica perfeita para construtores, incorporadores e arquitetos. Transformamos demandas complexas de projeto em documentação precisa e pronta para aprovação, para que você dimensione sua operação sem custos adicionais.",
+    corePackagesTitle: "PACOTES PRINCIPAIS",
     previewItems: [
       { num: "01", title: "Permit Sets", desc: "Conjuntos de plantas completos em conformidade com as normas, prontos para aprovação na prefeitura." },
       { num: "02", title: "Documentação Executiva", desc: "Documentação coordenada para que o empreiteiro possa construir sem ambiguidades ou retrabalhos." },
@@ -247,11 +253,29 @@ export default function LandingPage() {
         <div className="preview-services-section animate-float-up delay-450">
           <div className="preview-header">
             <div className="badge" style={{ gap: '24px' }}>
-              <span className="badge-index">(01)</span>
-              <span className="badge-text">{T.previewSectionTitle}</span>
+              <span className="badge-index" style={{ color: '#A1824A' }}>(01)</span>
+              <span className="badge-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{T.previewSectionTitle}</span>
             </div>
             <div className="preview-line"></div>
           </div>
+          
+          <div className="capabilities-hero" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '64px', marginBottom: '80px', flexWrap: 'wrap', gap: '32px' }}>
+            <h2 className="capabilities-main-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '72px', fontWeight: '400', color: 'var(--text-color)', margin: 0, lineHeight: '1', whiteSpace: 'nowrap' }}>
+              {T.capabilitiesTitle}
+            </h2>
+            <p className="capabilities-desc" style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: '400', lineHeight: '1.8', color: 'var(--text-color)', maxWidth: '580px', margin: 0 }}>
+              {T.capabilitiesDesc}
+            </p>
+          </div>
+
+          <div className="preview-header" style={{ marginBottom: '32px' }}>
+            <div className="badge" style={{ gap: '24px' }}>
+              <span className="badge-index" style={{ color: '#A1824A' }}>(A)</span>
+              <span className="badge-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{T.corePackagesTitle}</span>
+            </div>
+            <div className="preview-line"></div>
+          </div>
+
           <div className="preview-list">
             {T.previewItems.map((item, idx) => (
               <div key={idx} className="preview-item" onClick={() => navigate("/services")}>
