@@ -1888,7 +1888,7 @@ a {
   justify-content: center;
   gap: 32px; /* Reduced horizontal gap for better density */
   
-  filter: grayscale(1);
+  
   transition: all 0.3s ease;
   color: var(--text-color);
   margin: 4px 0 !important;
@@ -1897,7 +1897,7 @@ a {
 
 [data-theme='light'] .trust-bar-logos {
   opacity: 1;
-  filter: grayscale(0);
+  
 }
 
 .trust-bar-logos:hover {
