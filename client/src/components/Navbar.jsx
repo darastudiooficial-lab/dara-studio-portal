@@ -68,7 +68,7 @@ export default function Navbar() {
         {/* Builders Hub Dropdown */}
         <div className="nav-dropdown" style={{ position: 'relative', zIndex: 100 }}>
           <span className={`glass-nav-link dropdown-trigger ${["/interior-reference", "/code-inspector", "/field-guide"].includes(location.pathname) ? "active" : ""}`}>
-            {lang === 'EN' ? 'Builders Hub' : 'Central do Construtor'} <span style={{ fontSize: '9px', marginLeft: '4px', opacity: 0.8 }}>▼</span>
+            {lang === 'EN' ? 'Builders Hub' : 'Central do Construtor'} <span style={{ fontSize: '9px', marginLeft: '4px', color: "#000000" }}>▼</span>
           </span>
           <div className="dropdown-content">
             <Link to="/interior-reference" className="dropdown-item">

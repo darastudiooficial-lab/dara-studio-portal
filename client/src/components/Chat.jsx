@@ -94,9 +94,9 @@ const Chat = ({ projectId, lang = 'EN' }) => {
         style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}
       >
         {loading ? (
-          <div style={{ textAlign: 'center', opacity: 0.5, fontSize: '12px' }}>Loading conversation...</div>
+          <div style={{ textAlign: 'center', color: "#000000", fontSize: '12px' }}>Loading conversation...</div>
         ) : messages.length === 0 ? (
-          <div style={{ textAlign: 'center', opacity: 0.3, fontSize: '11px', marginTop: '20px' }}>
+          <div style={{ textAlign: 'center', color: "#000000", fontSize: '11px', marginTop: '20px' }}>
             No messages yet. Start the conversation!
           </div>
         ) : (
@@ -105,7 +105,7 @@ const Chat = ({ projectId, lang = 'EN' }) => {
             return (
               <div key={msg.id} style={{ alignSelf: isMe ? 'flex-end' : 'flex-start', maxWidth: '80%' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', justifyContent: isMe ? 'flex-end' : 'flex-start' }}>
-                  <span style={{ fontSize: '10px', fontWeight: '600', opacity: 0.6 }}>{msg.profiles?.full_name || 'System'}</span>
+                  <span style={{ fontSize: '10px', fontWeight: '600', color: "#000000" }}>{msg.profiles?.full_name || 'System'}</span>
                   <span style={{ 
                     fontSize: '9px', textTransform: 'uppercase', padding: '2px 6px', borderRadius: '4px', 
                     background: msg.sender_role === 'admin' ? 'rgba(156, 124, 58,0.2)' : 'rgba(255,255,255,0.05)',
@@ -122,7 +122,7 @@ const Chat = ({ projectId, lang = 'EN' }) => {
                 }}>
                   {msg.content}
                 </div>
-                <div style={{ fontSize: '9px', opacity: 0.4, marginTop: '4px', textAlign: isMe ? 'right' : 'left' }}>
+                <div style={{ fontSize: '9px', color: "#000000", marginTop: '4px', textAlign: isMe ? 'right' : 'left' }}>
                   {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>

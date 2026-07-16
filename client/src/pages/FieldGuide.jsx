@@ -518,7 +518,7 @@ export default function FieldGuide() {
             <h2 style={{ fontSize: "16px", fontWeight: "800", margin: "0 0 4px" }}>
               {lang === "EN" ? "Quick Reference Metrics" : "Métricas Rápidas de Referência"}
             </h2>
-            <p style={{ fontSize: "13px", opacity: 0.6, margin: 0 }}>
+            <p style={{ fontSize: "13px", color: "#000000", margin: 0 }}>
               {lang === "EN" ? "Critical values and dimensions checked at every physical inspection." : "Dimensões e valores críticos verificados rigidamente em toda fiscalização."}
             </p>
           </div>
@@ -536,7 +536,7 @@ export default function FieldGuide() {
                   borderLeft: num.type === "red" ? "4px solid #ef4444" : (num.type === "amber" ? "4px solid #f59e0b" : "4px solid #3b82f6") 
                 }}
               >
-                <div style={{ fontSize: "9.5px", fontWeight: "700", opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>{lang === "EN" ? num.label : num.labelPt}</div>
+                <div style={{ fontSize: "9.5px", fontWeight: "700", color: "#000000", textTransform: "uppercase", letterSpacing: "0.08em" }}>{lang === "EN" ? num.label : num.labelPt}</div>
                 <div style={{ 
                   fontSize: "24px", 
                   fontWeight: "800", 
@@ -546,7 +546,7 @@ export default function FieldGuide() {
                 }}>
                   {lang === "EN" ? num.val : num.valPt}
                 </div>
-                <div style={{ fontSize: "11.5px", opacity: 0.7, lineHeight: "1.5" }}>{lang === "EN" ? num.desc : num.descPt}</div>
+                <div style={{ fontSize: "11.5px", color: "#000000", lineHeight: "1.5" }}>{lang === "EN" ? num.desc : num.descPt}</div>
               </div>
             ))}
           </div>
@@ -558,7 +558,7 @@ export default function FieldGuide() {
             <h2 style={{ fontSize: "16px", fontWeight: "800", margin: "0 0 4px" }}>
               {lang === "EN" ? "Critical Inspection Rules" : "Regras Críticas da Inspeção"}
             </h2>
-            <p style={{ fontSize: "13px", opacity: 0.6, margin: 0 }}>
+            <p style={{ fontSize: "13px", color: "#000000", margin: 0 }}>
               {lang === "EN" ? "Avoid the most common reasons for failed framing, electrical and plumbing layouts." : "Evite as falhas mais comuns de estrutura, elétrica e encanamento."}
             </p>
           </div>
@@ -597,7 +597,7 @@ export default function FieldGuide() {
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                   <h4 style={{ fontSize: "13.5px", fontWeight: "700", margin: 0 }}>{lang === "EN" ? rule.title : rule.titlePt}</h4>
-                  <p style={{ fontSize: "12px", opacity: 0.75, lineHeight: "1.6", margin: 0 }}>{lang === "EN" ? rule.desc : rule.descPt}</p>
+                  <p style={{ fontSize: "12px", color: "#000000", lineHeight: "1.6", margin: 0 }}>{lang === "EN" ? rule.desc : rule.descPt}</p>
                 </div>
 
                 <div style={{ 
@@ -770,7 +770,7 @@ export default function FieldGuide() {
             <h2 style={{ fontSize: "15px", fontWeight: "800", margin: "0 0 4px" }}>
               {lang === "EN" ? "Ready-to-Use CAD Sheet Notes" : "Notas Prontas para Prancha CAD"}
             </h2>
-            <p style={{ fontSize: "12px", opacity: 0.6, margin: 0 }}>
+            <p style={{ fontSize: "12px", color: "#000000", margin: 0 }}>
               {lang === "EN" ? "Pre-written specifications citing correct codes. Click `Copy` to copy layout notes directly." : "Especificações pré-escritas citando os códigos corretos. Clique em `Copy` para copiar."}
             </p>
           </div>

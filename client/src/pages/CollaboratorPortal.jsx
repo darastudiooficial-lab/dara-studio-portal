@@ -122,35 +122,35 @@ const CollaboratorPortal = () => {
                     <Icon name="folder" size={12} /> Technical Drawings
                   </div>
                   <div className="kpi-val" style={{ fontSize: '18px', fontWeight: '600' }}>Plantas & Cortes</div>
-                  <div className="kpi-trend" style={{ fontSize: '11px', opacity: 0.5 }}>Detalhamentos técnicos</div>
+                  <div className="kpi-trend" style={{ fontSize: '11px', color: "#000000" }}>Detalhamentos técnicos</div>
                 </div>
                 <div className="kpi" onClick={() => setActiveTab('tasks')} style={{ cursor: 'pointer', background: 'var(--bg1)', padding: '24px', border: '1px solid var(--border)', borderRadius: '12px' }}>
                   <div className="kpi-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', color: 'var(--a)', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px' }}>
                     <Icon name="target" size={12} /> Task Management
                   </div>
                   <div className="kpi-val" style={{ fontSize: '18px', fontWeight: '600' }}>Cronograma</div>
-                  <div className="kpi-trend" style={{ fontSize: '11px', opacity: 0.5 }}>Lista de entregas e prazos</div>
+                  <div className="kpi-trend" style={{ fontSize: '11px', color: "#000000" }}>Lista de entregas e prazos</div>
                 </div>
                 <div className="kpi" onClick={() => setActiveTab('specs')} style={{ cursor: 'pointer', background: 'var(--bg1)', padding: '24px', border: '1px solid var(--border)', borderRadius: '12px' }}>
                   <div className="kpi-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', color: 'var(--a)', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px' }}>
                     <Icon name="briefcase" size={12} /> Material Specs
                   </div>
                   <div className="kpi-val" style={{ fontSize: '18px', fontWeight: '600' }}>Especificações</div>
-                  <div className="kpi-trend" style={{ fontSize: '11px', opacity: 0.5 }}>Dados técnicos de fornecedores</div>
+                  <div className="kpi-trend" style={{ fontSize: '11px', color: "#000000" }}>Dados técnicos de fornecedores</div>
                 </div>
                 <div className="kpi" onClick={() => setActiveTab('logs')} style={{ cursor: 'pointer', background: 'var(--bg1)', padding: '24px', border: '1px solid var(--border)', borderRadius: '12px' }}>
                   <div className="kpi-label" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', color: 'var(--a)', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px' }}>
                     <Icon name="file" size={12} /> Site Logs
                   </div>
                   <div className="kpi-val" style={{ fontSize: '18px', fontWeight: '600' }}>Diário de Obra</div>
-                  <div className="kpi-trend" style={{ fontSize: '11px', opacity: 0.5 }}>Registro de vistorias</div>
+                  <div className="kpi-trend" style={{ fontSize: '11px', color: "#000000" }}>Registro de vistorias</div>
                 </div>
               </div>
               
               {loading ? (
                 <div style={{ color: 'var(--a)' }}>Loading assigned projects...</div>
               ) : projects.length === 0 ? (
-                <div className="card" style={{ padding: '60px', textAlign: 'center', opacity: 0.3, border: '1px dashed var(--border)' }}>
+                <div className="card" style={{ padding: '60px', textAlign: 'center', color: "#000000", border: '1px dashed var(--border)' }}>
                    <Icon name="briefcase" size={32} />
                    <p style={{ marginTop: '16px' }}>No active collaborations found.</p>
                 </div>
@@ -161,13 +161,13 @@ const CollaboratorPortal = () => {
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
                         <div>
                           <h3 style={{ fontSize: '16px', fontWeight: '600' }}>{p.address || 'Untitled Project'}</h3>
-                          <p style={{ fontSize: '12px', opacity: 0.4 }}>Client: {p.profiles?.full_name}</p>
+                          <p style={{ fontSize: '12px', color: "#000000" }}>Client: {p.profiles?.full_name}</p>
                         </div>
                         <span style={{ fontSize: '10px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(255,255,255,0.05)', color: 'var(--a)' }}>{p.status?.toUpperCase() || 'ACTIVE'}</span>
                       </div>
                       
                       <div style={{ marginTop: '20px' }}>
-                        <div style={{ fontSize: '11px', opacity: 0.4, textTransform: 'uppercase', marginBottom: '8px' }}>Current Phase</div>
+                        <div style={{ fontSize: '11px', color: "#000000", textTransform: 'uppercase', marginBottom: '8px' }}>Current Phase</div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(212,175,55,0.05)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(212,175,55,0.1)' }}>
                           <span style={{ fontSize: '18px' }}>{PHASE_NAMES[p.timeline_phase]?.split(' ')[0] || '📐'}</span>
                           <span style={{ fontWeight: '600', color: 'var(--a)' }}>{PHASE_NAMES[p.timeline_phase]?.split(' ')[1] || 'Design'}</span>
@@ -215,7 +215,7 @@ const CollaboratorPortal = () => {
                   <div key={t.task} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                     <div>
                       <div style={{ fontSize: '13px', fontWeight: '600' }}>{t.task}</div>
-                      <div style={{ fontSize: '11px', opacity: 0.5 }}>Due: {t.due}</div>
+                      <div style={{ fontSize: '11px', color: "#000000" }}>Due: {t.due}</div>
                     </div>
                     <span style={{ fontSize: '10px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(255,255,255,0.05)', color: t.priority === 'High' ? '#dc2626' : '#fff' }}>{t.priority}</span>
                   </div>
@@ -250,10 +250,10 @@ const CollaboratorPortal = () => {
                   { date: '18/03/2026', title: `Initial Measurement Session`, by: 'Ana Ferreira' }
                 ].map(log => (
                   <div key={log.date} style={{ display: 'flex', gap: '16px', padding: '16px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ fontSize: '11px', opacity: 0.5, width: '80px' }}>{log.date}</div>
+                    <div style={{ fontSize: '11px', color: "#000000", width: '80px' }}>{log.date}</div>
                     <div>
                       <div style={{ fontSize: '13px', fontWeight: '600' }}>{log.title}</div>
-                      <div style={{ fontSize: '11px', opacity: 0.5 }}>Logged by: {log.by}</div>
+                      <div style={{ fontSize: '11px', color: "#000000" }}>Logged by: {log.by}</div>
                     </div>
                   </div>
                 ))}

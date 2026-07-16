@@ -353,7 +353,7 @@ export default function Services() {
 
                   {service.bentoExtras ? (
                     <>
-                      <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginTop: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                      <p style={{ fontSize: 10, letterSpacing: '.15em', color: "#000000", marginTop: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
                         {lang === "EN" ? "DESIGN EXTRAS — CUSTOMIZABLE PER PROJECT" : "COMPLEMENTOS DE PROJETO — PERSONALIZÁVEIS POR OBRA"}
                       </p>
                       <div className="package-extras-grid">
@@ -368,7 +368,7 @@ export default function Services() {
                   ) : (
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginTop: 16 }}>
                       <div>
-                        <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                        <p style={{ fontSize: 10, letterSpacing: '.15em', color: "#000000", marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
                           {lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}
                         </p>
                         {(service.list?.[lang] || []).map((item, i) => (
@@ -384,11 +384,11 @@ export default function Services() {
                       </div>
                       {service.notIncluded && (
                         <div>
-                          <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                          <p style={{ fontSize: 10, letterSpacing: '.15em', color: "#000000", marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
                             {lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}
                           </p>
                           {(service.notIncluded?.[lang] || []).map((item, i) => (
-                            <div key={i} className="support-list-item" style={{ opacity: 0.5 }}>
+                            <div key={i} className="support-list-item" style={{ color: "#000000" }}>
                               <span className="support-list-bullet" style={{ color: 'var(--text-color)' }}>—</span>
                               <span className="support-list-text">{item}</span>
                             </div>

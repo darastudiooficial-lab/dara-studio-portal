@@ -24,10 +24,10 @@ const S = {
   modalBody: { background: "var(--bg)", border: '1px solid rgba(156, 124, 58,0.3)', borderRadius: 16, padding: 32, width: '100%', maxWidth: 700, display: 'flex', flexDirection: 'column', gap: 16 },
   badge: (color) => ({ fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: color === 'red' ? 'rgba(239,68,68,0.1)' : color === 'amber' ? 'rgba(245,158,11,0.1)' : color === 'green' ? 'rgba(156, 124, 58,0.1)' : 'rgba(156, 124, 58,0.1)', color: color === 'red' ? '#f87171' : color === 'amber' ? '#fbbf24' : color === 'green' ? '#4ade80' : '#818cf8', textTransform: 'uppercase' }),
   row2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 },
-  emptyState: { textAlign: 'center', padding: 60, opacity: 0.4, fontSize: 14 },
+  emptyState: { textAlign: 'center', padding: 60, color: "#000000", fontSize: 14 },
   subTabs: { display: 'flex', gap: 6, marginBottom: 16 },
   subTab: (active) => ({ padding: '8px 16px', borderRadius: 8, border: 'none', fontSize: 12, fontWeight: 700, cursor: 'pointer', background: active ? 'linear-gradient(135deg, #A1824A, #8F723E)' : 'rgba(255,255,255,0.04)', color: active ? '#fff' : 'var(--mu)' }),
-  count: { fontSize: 10, opacity: 0.5, marginLeft: 6 },
+  count: { fontSize: 10, color: "#000000", marginLeft: 6 },
 };
 
 // ─── Tool Sub-Tabs ──────────────────────────────────────────────────────────────
@@ -120,7 +120,7 @@ export default function BuildersAdmin() {
           {activeTool === 'interior' ? 'Interior Reference Items' :
            activeTool === 'inspector' ? 'Code Inspector Notes' :
            FIELDGUIDE_SECTIONS.find(s => s.id === fgSection)?.label || 'Field Guide'}
-          <span style={{ fontSize: 12, opacity: 0.5, marginLeft: 8 }}>({items.length} entries)</span>
+          <span style={{ fontSize: 12, color: "#000000", marginLeft: 8 }}>({items.length} entries)</span>
         </h3>
         <button style={S.addBtn} onClick={() => setEditingItem({})}>
           + {lang === 'EN' ? 'Add Entry' : 'Adicionar'}
@@ -187,7 +187,7 @@ export default function BuildersAdmin() {
         <div style={S.modal} onClick={() => setConfirmDelete(null)}>
           <div style={{ ...S.modalBody, maxWidth: 400, textAlign: 'center' }} onClick={e => e.stopPropagation()}>
             <h3 style={{ fontSize: 18, fontWeight: 700 }}>⚠️ {lang === 'EN' ? 'Delete this entry?' : 'Apagar esta entrada?'}</h3>
-            <p style={{ opacity: 0.6, fontSize: 13 }}>
+            <p style={{ color: "#000000", fontSize: 13 }}>
               {lang === 'EN' ? 'This action cannot be undone.' : `Esta ação não pode ser desfeita.`}
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>

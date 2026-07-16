@@ -1575,7 +1575,7 @@ function Stepper({ cur }) {
           {i < 7 && (
             <span style={{ 
               color: 'var(--tx)', 
-              opacity: 0.3, 
+              color: "#000000", 
               fontSize: 16,
               fontWeight: 800 
             }}>·</span>
@@ -1756,7 +1756,7 @@ function S1({ d, up, lang }) {
             <div className={`wz-map-container ${d.mapConfirmed ? 'confirmed' : ''}`} style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", border: `1px solid ${d.mapConfirmed ? 'var(--brand-purple)' : 'var(--glass-border)'}`, boxShadow: d.mapConfirmed ? '0 0 32px rgba(156, 124, 58, 0.15)' : 'none', transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
               <iframe key={d.street + d.city + d.state + d.zip} src={mapsUrl()} title="Project location" width="100%" height="320" style={{ border: "none", display: "block" }} allowFullScreen loading="lazy" />
               <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, borderTop: '1px solid var(--glass-border)' }}>
-                <p style={{ fontSize: 14, color: "var(--text-color)", opacity: 0.85, flex: 1, lineHeight: 1.5, margin: 0, fontWeight: 500 }}>
+                <p style={{ fontSize: 14, color: "var(--text-color)", color: "#000000", flex: 1, lineHeight: 1.5, margin: 0, fontWeight: 500 }}>
                   {d.mapConfirmed
                     ? <span style={{ color: "var(--brand-purple)", fontWeight: 700 }}>{T.locationConfirmed}</span>
                     : T.verifyLocation}
@@ -1827,7 +1827,7 @@ function S2({ d, up, lang }) {
       {d.role && T[d.role + "Msg"] && (
         <div className="wz-animate" style={{ marginBottom: 32, padding: "12px 20px", display: "flex", flexDirection: "row", alignItems: "center", gap: 12, background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "12px" }}>
           <span style={{ fontSize: 20, filter: "drop-shadow(0 0 12px rgba(156, 124, 58, 0.4))" }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
-          <p style={{ fontSize: 13, color: "var(--text-color)", fontWeight: 600, lineHeight: 1.4, margin: 0, opacity: 0.9 }}>
+          <p style={{ fontSize: 13, color: "var(--text-color)", fontWeight: 600, lineHeight: 1.4, margin: 0, color: "#000000" }}>
             {T[d.role + "Msg"]}
           </p>
         </div>
@@ -1975,7 +1975,7 @@ function S3({ d, up, lang }) {
           <div key={pt.id} className={`hww-feature-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.propertyType === pt.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.propertyType === pt.id ? "linear-gradient(135deg, rgba(156, 124, 58,0.1), rgba(161, 130, 74,0.05))" : "var(--glass-bg)" }}>
             <div style={{ fontSize: 24, marginBottom: 8, filter: d.propertyType === pt.id ? "drop-shadow(0 0 12px rgba(156, 124, 58, 0.5))" : "none", transition: "all 0.3s ease", transform: d.propertyType === pt.id ? "scale(1.1)" : "scale(1)" }}>{pt.icon}</div>
             <p style={{ fontSize: 13, fontWeight: 700, margin: "0 0 4px 0", color: "var(--text-color)" }}>{pt.label}</p>
-            <p style={{ fontSize: 11, color: "var(--text-color)", fontStyle: "italic", opacity: 0.6, margin: 0 }}>{pt.sub}</p>
+            <p style={{ fontSize: 11, color: "var(--text-color)", fontStyle: "italic", color: "#000000", margin: 0 }}>{pt.sub}</p>
           </div>
         ))}
       </div>
@@ -1998,7 +1998,7 @@ function S3({ d, up, lang }) {
 
         <div style={{ marginBottom: 24, padding: "12px 16px", background: "rgba(156, 124, 58, 0.05)", border: "1px solid rgba(156, 124, 58, 0.2)", borderRadius: "999px", display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#9c7c3a", flexShrink: 0 }} />
-          <p style={{ fontSize: 11, color: "var(--tx)", fontWeight: 500, lineHeight: 1.4, opacity: 0.9, margin: 0 }}>
+          <p style={{ fontSize: 11, color: "var(--tx)", fontWeight: 500, lineHeight: 1.4, color: "#000000", margin: 0 }}>
             {T.ircIbcStandardsMsg}
           </p>
         </div>
@@ -2237,7 +2237,7 @@ function S4({ d, up, lang }) {
                         </span>
                       )}
                     </div>
-                    <p style={{ fontSize: 13, color: "#ffffff", opacity: 0.9, lineHeight: 1.5, margin: "0 0 0 16px" }}>
+                    <p style={{ fontSize: 13, color: "#ffffff", color: "#000000", lineHeight: 1.5, margin: "0 0 0 16px" }}>
                       {pkg.desc}
 
                     </p>
@@ -2284,7 +2284,7 @@ function S4({ d, up, lang }) {
                                        </div>
                                      </div>
                                      {item.desc && (
-                                       <p style={{ fontSize: 11, color: "#ffffff", fontStyle: "italic", opacity: 0.9, lineHeight: 1.3, margin: "6px 0 0 26px" }}>
+                                       <p style={{ fontSize: 11, color: "#ffffff", fontStyle: "italic", color: "#000000", lineHeight: 1.3, margin: "6px 0 0 26px" }}>
                                          {item.desc}
                                        </p>
                                      )}
@@ -2310,7 +2310,7 @@ function S4({ d, up, lang }) {
                                       {item.title && item.desc ? (
                                         <>
                                           <span style={{ fontSize: 13, fontWeight: 500, color: "#ffffff", lineHeight: 1.4 }}>{item.title}</span>
-                                          <span style={{ fontSize: 13, color: "#ffffff", opacity: 0.9, lineHeight: 1.4 }}>{item.desc}</span>
+                                          <span style={{ fontSize: 13, color: "#ffffff", color: "#000000", lineHeight: 1.4 }}>{item.desc}</span>
                                         </>
                                       ) : (
                                         <span>{item.title || item.desc || item}</span>
@@ -2344,7 +2344,7 @@ function S4({ d, up, lang }) {
       </div>
 
       <div style={{ background: "var(--bg1)", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", padding: "14px 18px", borderRadius: "2px 6px 6px 2px", display: "flex", flexDirection: "column", gap: "12px" }}>
-        <p style={{ fontSize: 13, color: "#ffffff", fontStyle: "italic", opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
+        <p style={{ fontSize: 13, color: "#ffffff", fontStyle: "italic", color: "#000000", lineHeight: 1.5, margin: 0 }}>
           {lang === "EN" 
             ? `Explore the full scope of included services and available design extras.` 
             : `Explore todo o escopo de serviços inclusos e extras de design disponíveis.`}
@@ -2542,7 +2542,7 @@ function S7({ d, up, lang, setUploading }) {
           <InfoIcon />
         </div>
         <div>
-          <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--tx)", opacity: 0.9, marginBottom: "4px" }}>
+          <p style={{ fontSize: "13px", lineHeight: "1.5", color: "var(--tx)", color: "#000000", marginBottom: "4px" }}>
             {T.uploadHelp}
           </p>
           <p style={{ fontSize: "12px", color: "var(--brand-purple)", fontWeight: "600" }}>
@@ -2579,7 +2579,7 @@ function S7({ d, up, lang, setUploading }) {
                         </svg>
                       )}
                     </div>
-                    <span style={{ fontSize: 13, color: "var(--tx)", opacity: 0.7, fontStyle: "italic" }}>
+                    <span style={{ fontSize: 13, color: "var(--tx)", color: "#000000", fontStyle: "italic" }}>
                       {cat.types}
                     </span>
                   </div>
@@ -2803,7 +2803,7 @@ function S8({ d, up, lang, setUploading }) {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             {T.unlockFast?.title || (lang === "EN" ? "Unlock Faster Delivery" : `Desbloquear Entrega Mais Rápida`)}
           </h4>
-          <p style={{ fontSize: "14px", color: "var(--tx)", margin: 0, lineHeight: "1.5", maxWidth: "600px", opacity: 0.9 }}>
+          <p style={{ fontSize: "14px", color: "var(--tx)", margin: 0, lineHeight: "1.5", maxWidth: "600px", color: "#000000" }}>
             {lang === "EN" 
               ? `To access Express and Rush delivery options, and receive a more precise cost estimate, please attach the mandatory documentation listed below.` 
               : `Para ter acesso às modalidades de entrega Express e Rush, além de uma estimativa de custos mais precisa, por favor anexe a documentação obrigatória listada abaixo.`}
@@ -2844,7 +2844,7 @@ function S8({ d, up, lang, setUploading }) {
 
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginLeft: 12 }}>
                       {!isDone && idx < 3 && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--brand-pink)", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(161, 130, 74, 0.1)", padding: "4px 8px", borderRadius: 4 }}>{T.required}</span>}
-                      {!isDone && item.sub && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--tx)", opacity: 0.6, textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(255, 255, 255, 0.05)", padding: "4px 8px", borderRadius: 4 }}>{item.sub}</span>}
+                      {!isDone && item.sub && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--tx)", color: "#000000", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(255, 255, 255, 0.05)", padding: "4px 8px", borderRadius: 4 }}>{item.sub}</span>}
                       
                       <button
                         onClick={() => fileRefs.current[item.id]?.click()}
@@ -3014,7 +3014,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           <p style={{ fontSize: "10px", color: "#fca5a5", fontWeight: "800", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "8px", margin: 0 }}>
             [ {lang === "EN" ? "LEGAL DISCLAIMER" : "NOTA LEGAL"} ]
           </p>
-          <p style={{ fontSize: "11px", color: "#f87171", lineHeight: "1.6", margin: "0", opacity: 0.9 }}>
+          <p style={{ fontSize: "11px", color: "#f87171", lineHeight: "1.6", margin: "0", color: "#000000" }}>
             {T.review.legalBody}
           </p>
         </div>
@@ -3268,7 +3268,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
         padding: "16px", 
         marginBottom: "24px"
       }}>
-        <p style={{ fontSize: "12px", color: "#fcd34d", lineHeight: "1.6", margin: 0, opacity: 0.9 }}>
+        <p style={{ fontSize: "12px", color: "#fcd34d", lineHeight: "1.6", margin: 0, color: "#000000" }}>
           {T.review.agreementBody}
         </p>
       </div>
@@ -3444,7 +3444,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {}
             <div style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, flexShrink: 0 }}>📩</div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: "var(--a)", marginBottom: 4 }}>{isUS ? "Check your inbox" : "Verifique seu e-mail"}</div>
-              <div style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.65, opacity: 0.8 }}>
+              <div style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.65, color: "#000000" }}>
                 {isUS ? `A detailed PDF with your full brief, selected services and estimated fees has been sent to` : `Um PDF detalhado com seu brief completo, serviços selecionados e taxas estimadas foi enviado para`}{" "}
                 <span style={{ color: "var(--a)", fontWeight: 500 }}>{d.email}</span>
               </div>

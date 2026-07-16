@@ -151,7 +151,7 @@ export default function IPNoticeModal({ isOpen, onClose }) {
                       position: 'relative', 
                       paddingLeft: '18px', 
                       marginBottom: '8px',
-                      opacity: 0.85
+                      color: "#000000"
                     }}>
                       <span style={{ position: 'absolute', left: 0, color: 'var(--accent)' }}>•</span>
                       {item}

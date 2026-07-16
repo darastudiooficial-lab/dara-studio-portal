@@ -261,7 +261,7 @@ export default function Process() {
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
             </div>
-            <p style={{ fontSize: '14px', opacity: 0.8, fontStyle: 'italic' }}>
+            <p style={{ fontSize: '14px', color: "#000000", fontStyle: 'italic' }}>
               {lang === "EN" 
                 ? "DA·RA Studio operates 100% remotely. All coordination is handled via WhatsApp and our Client Portal. We do not offer video calls or in-person meetings."
                 : `A DA·RA Studio opera 100% remotamente. Toda a coordenação é feita via WhatsApp e nosso Portal do Cliente. Não oferecemos chamadas de vídeo ou reuniões presenciais.`}
@@ -313,7 +313,7 @@ export default function Process() {
 
                 {step.paymentMethods && (
                   <div style={{ marginTop: '16px' }}>
-                    <h4 style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--text-color)', opacity: 0.5, marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
+                    <h4 style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--text-color)', color: "#000000", marginBottom: '16px', fontFamily: 'var(--font-sans)' }}>
                       {step.paymentMethods.title[lang]}
                     </h4>
                     {step.paymentMethods.methods.map((m, i) => (
@@ -321,9 +321,9 @@ export default function Process() {
                         <p style={{ fontWeight: 700, fontSize: '14px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <span>{m.icon}</span> {m.name[lang]}
                         </p>
-                        <p style={{ fontSize: '13px', opacity: 0.7, marginBottom: '10px', lineHeight: 1.5 }}>{m.desc[lang]}</p>
+                        <p style={{ fontSize: '13px', color: "#000000", marginBottom: '10px', lineHeight: 1.5 }}>{m.desc[lang]}</p>
                         {m.details[lang].map((d, j) => (
-                          <p key={j} style={{ fontSize: '12px', opacity: 0.65, lineHeight: 1.6, marginBottom: '4px' }}>{d}</p>
+                          <p key={j} style={{ fontSize: '12px', color: "#000000", lineHeight: 1.6, marginBottom: '4px' }}>{d}</p>
                         ))}
                       </div>
                     ))}
@@ -337,7 +337,7 @@ export default function Process() {
                 )}
 
                 {step.planningNote && (
-                  <p style={{ marginTop: '16px', fontSize: '12px', opacity: 0.55, lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)' }}>
+                  <p style={{ marginTop: '16px', fontSize: '12px', color: "#000000", lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)' }}>
                     {step.planningNote[lang]}
                   </p>
                 )}

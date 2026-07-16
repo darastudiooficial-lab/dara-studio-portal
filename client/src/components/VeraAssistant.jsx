@@ -135,7 +135,7 @@ export default function VeraAssistant() {
               />
               <div>
                 <h4 style={{ margin: 0, fontSize: '15px', fontWeight: '700' }}>{T.name}</h4>
-                <p style={{ margin: 0, fontSize: '10px', opacity: 0.8 }}>{T.role}</p>
+                <p style={{ margin: 0, fontSize: '10px', color: "#000000" }}>{T.role}</p>
               </div>
             </div>
             

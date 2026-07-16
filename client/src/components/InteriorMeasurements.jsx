@@ -267,7 +267,7 @@ export default function InteriorMeasurements({ lang }) {
             <span style={{ border: '1px solid #3b82f6', color: '#3b82f6', padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold' }}>ADA</span> {lang === 'EN' ? 'Accessibility' : 'Acessibilidade'}
           </div>
         </div>
-        <div style={{ fontSize: '13px', fontFamily: 'monospace', color: 'var(--mu)', opacity: 0.7 }}>
+        <div style={{ fontSize: '13px', fontFamily: 'monospace', color: 'var(--mu)', color: "#000000" }}>
           89 {lang === 'EN' ? 'environments' : 'ambientes'}
         </div>
       </div>
@@ -339,7 +339,7 @@ export default function InteriorMeasurements({ lang }) {
                   {lang === 'EN' ? group.label : group.labelPt}
                 </h2>
               </div>
-              <div style={{ fontSize: '13px', fontFamily: 'monospace', color: 'var(--mu)', opacity: 0.7 }}>
+              <div style={{ fontSize: '13px', fontFamily: 'monospace', color: 'var(--mu)', color: "#000000" }}>
                 {group.items.length} {lang === 'EN' ? 'items' : 'itens'}
               </div>
             </div>

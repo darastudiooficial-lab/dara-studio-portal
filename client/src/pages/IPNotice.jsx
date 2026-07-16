@@ -261,7 +261,7 @@ export default function IPNotice() {
               color: 'var(--text-color)',
               lineHeight: '1.6',
               fontStyle: 'italic',
-              opacity: 0.85
+              color: "#000000"
             }}>
               <span style={{ color: '#8F723E', fontWeight: '800', fontStyle: 'normal', textTransform: 'uppercase', marginRight: '12px', letterSpacing: '0.1em' }}>
                 {lang === "EN" ? "FEDERAL LAW:" : "LEI FEDERAL:"}

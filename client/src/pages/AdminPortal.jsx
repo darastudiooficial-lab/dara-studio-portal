@@ -379,7 +379,7 @@ const AdminPortal = () => {
                       <tr key={l.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                         <td style={{ padding: '16px 20px' }}>
                           <div style={{ fontWeight: '600' }}>{l.raw_data?.name || l.email}</div>
-                          <div style={{ fontSize: '11px', opacity: 0.5 }}>{l.email}</div>
+                          <div style={{ fontSize: '11px', color: "#000000" }}>{l.email}</div>
                         </td>
                         <td style={{ padding: '16px 20px' }}>{l.raw_data?.project || 'N/A'}</td>
                         <td style={{ padding: '16px 20px' }}>{new Date(l.created_at).toLocaleDateString()}</td>
@@ -404,7 +404,7 @@ const AdminPortal = () => {
                       <Icon name="folder" size={24} />
                     </div>
                     <div style={{ fontWeight: '600', marginBottom: '4px' }}>{cat}</div>
-                    <div style={{ fontSize: '11px', opacity: 0.5 }}>Manage assets</div>
+                    <div style={{ fontSize: '11px', color: "#000000" }}>Manage assets</div>
                   </div>
                 ))}
               </div>

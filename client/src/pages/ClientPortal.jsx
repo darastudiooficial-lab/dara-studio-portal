@@ -637,7 +637,7 @@ export default function ClientPortal() {
       <main className="main">
         <header className="topbar">
           <div className="tb-brand">
-            <span style={{ opacity: 0.5 }}>DARA Studio</span> <span style={{ margin: '0 8px', opacity: 0.3 }}>|</span> <span>Client Portal</span>
+            <span style={{ color: "#000000" }}>DARA Studio</span> <span style={{ margin: '0 8px', color: "#000000" }}>|</span> <span>Client Portal</span>
           </div>
           <div className="tb-right">
             <GlobalControls />
@@ -653,7 +653,7 @@ export default function ClientPortal() {
                             <div className="notif-ico"><Icon name="bell" size={12} /></div>
                             <div className="notif-info">
                                <div className="notif-title" style={{ fontSize: 12, fontWeight: 600 }}>{n.title}</div>
-                               <div className="notif-sub" style={{ fontSize: 10, opacity: 0.7 }}>{n.date}</div>
+                               <div className="notif-sub" style={{ fontSize: 10, color: "#000000" }}>{n.date}</div>
                             </div>
                          </div>
                        ))}
@@ -933,7 +933,7 @@ export default function ClientPortal() {
                  <div className="card fin-kpi-card" style={{ background: 'var(--bg3)', padding: '24px', borderRadius: '16px', border: '1px solid var(--br)' }}>
                     <div className="kpi-label" style={{ fontSize: '10px', fontWeight: '700', color: 'var(--a)', textTransform: 'uppercase', marginBottom: '16px' }}>Status Suporte</div>
                     <div className="kpi-val" style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>{fmt(14000, isUS)}</div>
-                    <div className="kpi-sub" style={{ fontSize: '12px', opacity: 0.6 }}>Total em projetos ativos</div>
+                    <div className="kpi-sub" style={{ fontSize: '12px', color: "#000000" }}>Total em projetos ativos</div>
                  </div>
               </div>
             </div>
@@ -943,7 +943,7 @@ export default function ClientPortal() {
             <div className="page-content">
                <h1 className="page-title">{T.cal_ov}</h1>
                <p className="page-sub">{T.cal_sub}</p>
-               <div style={{ padding: '60px', textAlign: 'center', opacity: 0.5 }}>Calendário interativo em desenvolvimento.</div>
+               <div style={{ padding: '60px', textAlign: 'center', color: "#000000" }}>Calendário interativo em desenvolvimento.</div>
             </div>
           )}
 
@@ -998,7 +998,7 @@ export default function ClientPortal() {
                         </div>
                         <div>
                           <h3 style={{ fontSize: '14px', fontWeight: '700' }}>{p.address}</h3>
-                          <p style={{ fontSize: '11px', opacity: 0.5 }}>{p.service}</p>
+                          <p style={{ fontSize: '11px', color: "#000000" }}>{p.service}</p>
                         </div>
                       </div>
                     </div>

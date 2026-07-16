@@ -539,7 +539,7 @@ export default function InteriorReference() {
                   </span>
                 </div>
 
-                <p style={{ fontSize: '13px', opacity: 0.8, lineHeight: '1.6', margin: 0 }}>
+                <p style={{ fontSize: '13px', color: "#000000", lineHeight: '1.6', margin: 0 }}>
                   {lang === 'EN' ? item.desc : item.descPt}
                 </p>
 
@@ -564,7 +564,7 @@ export default function InteriorReference() {
                         <tr key={sidx} style={{ borderBottom: sidx === item.specs.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.03)' }}>
                           <td style={{ padding: '12px 16px', fontWeight: '700' }}>{spec.name}</td>
                           <td style={{ padding: '12px 16px', color: '#60a5fa', fontWeight: '800', fontFamily: 'monospace' }}>{spec.val}</td>
-                          <td style={{ padding: '12px 16px', opacity: 0.7 }}>{spec.desc}</td>
+                          <td style={{ padding: '12px 16px', color: "#000000" }}>{spec.desc}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -637,7 +637,7 @@ export default function InteriorReference() {
                 <h4 style={{ fontSize: '14px', fontWeight: '800', margin: 0 }}>
                   {lang === 'EN' ? 'Technical Detail Diagram' : `Diagrama Técnico de Detalhamento`}
                 </h4>
-                <p style={{ fontSize: '11px', opacity: 0.6, margin: 0 }}>
+                <p style={{ fontSize: '11px', color: "#000000", margin: 0 }}>
                   {lang === 'EN' ? 'Dynamic blueprint view for the active category' : `Visualização dinâmica de planta para a categoria ativa`}
                 </p>
               </div>
@@ -664,7 +664,7 @@ export default function InteriorReference() {
                 <h4 style={{ fontSize: '14.5px', fontWeight: '800', margin: 0 }}>
                   {lang === 'EN' ? 'Classical Ratio & Trim Calculator' : `Calculadora de Transição e Proporções`}
                 </h4>
-                <p style={{ fontSize: '11px', opacity: 0.6, margin: 0 }}>
+                <p style={{ fontSize: '11px', color: "#000000", margin: 0 }}>
                   {lang === 'EN' ? 'Inputs ceiling height to compute ideal architectural molding proportions.' : `Insira o pé-direito para obter as proporções ideais de acabamentos.`}
                 </p>
               </div>
@@ -740,7 +740,7 @@ export default function InteriorReference() {
                 </div>
 
                 {/* Wall body representation */}
-                <div style={{ fontSize: '10px', textAlign: 'center', opacity: 0.2, fontFamily: 'sans-serif' }}>
+                <div style={{ fontSize: '10px', textAlign: 'center', color: "#000000", fontFamily: 'sans-serif' }}>
                   {ceilingHeight}FT {lang === 'EN' ? 'WALL MOCKUP (SCALE PREVIEW)' : `MOCKUP DE PAREDE (PRÉVIA EM ESCALA)`}
                 </div>
 
