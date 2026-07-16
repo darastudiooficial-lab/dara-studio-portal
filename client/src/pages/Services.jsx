@@ -298,7 +298,7 @@ export default function Services() {
               <h1 className="capabilities-main-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '72px', fontWeight: '400', color: 'var(--text-color)', margin: 0, lineHeight: '1', whiteSpace: 'nowrap' }}>
                 {lang === "EN" ? "What we do" : "O que fazemos"}
               </h1>
-              <p className="capabilities-desc" style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: '300', lineHeight: '1.8', color: '#555555', maxWidth: '650px', margin: 0 }}>
+              <p className="capabilities-desc" style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: '300', lineHeight: '1.8', color: '#555555', maxWidth: '100%', margin: 0 }}>
                 {lang === "EN"
                   ? `DARA Studio operates as a seamless technical extension for U.S. builders, developers and architects. We transform complex project demands into precise, permit-ready documentation, so you scale your operation without the overhead.`
                   : `O DARA Studio atua como uma extensão técnica integrada para construtores, incorporadores e arquitetos. Transformamos demandas complexas de projetos em documentação precisa e pronta para aprovação, para que você dimensione sua operação sem custos fixos.`}
@@ -363,7 +363,7 @@ export default function Services() {
                 </div>
                 <div className="core-package-right" style={{ display: 'flex', flexDirection: 'column' }}>
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '46px', fontWeight: '400', color: 'var(--text-color)', margin: '0 0 20px 0', lineHeight: '1.2' }}>{service.title[lang]}</h3>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: '300', color: '#555555', lineHeight: '1.7', maxWidth: '750px', margin: '0 0 40px 0' }}>{service.desc[lang]}</p>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: '300', color: '#555555', lineHeight: '1.7', maxWidth: '100%', margin: '0 0 40px 0' }}>{service.desc[lang]}</p>
 
                   {service.bentoExtras ? (
                     <>
@@ -413,7 +413,7 @@ export default function Services() {
                   )}
 
                   {service.disclaimer && (
-                    <div style={{ marginTop: '24px', backgroundColor: 'rgba(0,0,0,0.03)', borderLeft: '2px solid #A1824A', padding: '16px 20px', fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#555', fontStyle: 'italic', maxWidth: '80%' }}>
+                    <div style={{ marginTop: '24px', backgroundColor: 'rgba(0,0,0,0.03)', borderLeft: '2px solid #A1824A', padding: '16px 20px', fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#555', fontStyle: 'italic', maxWidth: '100%' }}>
                       {service.disclaimer[lang]}
                     </div>
                   )}

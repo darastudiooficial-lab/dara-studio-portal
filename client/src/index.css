@@ -4446,4 +4446,14 @@ a {
   letter-spacing: 0.05em;
   text-decoration: underline;
   text-underline-offset: 2px;
-}\n\n.services-page-root .independent-page {\n  max-width: 1440px !important;\n  padding: 0 5%;\n}\n\n\n.services-page-root .core-packages-list {\n  max-width: 100% !important;\n  padding: 0 !important;\n}\n
+}
+
+.services-page-root .independent-page {
+  max-width: none !important;
+  padding: 0 5% !important;
+}
+
+.services-page-root .core-packages-list {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
