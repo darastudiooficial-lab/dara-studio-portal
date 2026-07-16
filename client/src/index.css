@@ -1566,6 +1566,14 @@ a {
   flex: 1;
 }
 
+.work-meta {
+  color: #A1824A;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
 .work-title {
   font-family: var(--font-serif);
   font-size: var(--text-card-title);
@@ -1577,8 +1585,9 @@ a {
 
 .work-desc {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-color);
+  opacity: 0.6;
   margin: 0;
   text-transform: none;
 }
