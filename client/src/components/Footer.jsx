@@ -104,19 +104,19 @@ export default function Footer() {
 
         {/* Zone 3 — Right: Copyright, Legal & IP Notice */}
         <div className="footer-zone zone-right">
-          <p className="footer-copyright-main">
+          <p className="footer-copyright-main" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '600', color: 'var(--text-color)', textAlign: 'right', letterSpacing: '0.08em', marginBottom: '8px', textTransform: 'uppercase' }}>
             © {year} DARA STUDIO · {T.copyright}
           </p>
-          <p className="footer-legal">
+          <p className="footer-legal" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '400', lineHeight: '1.8', color: 'var(--text-color)', textAlign: 'right', margin: '0' }}>
             {T.legal}
           </p>
-          <h4 className="footer-ip-title-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '600', color: 'var(--text-color)', textAlign: 'right', letterSpacing: '0.05em', margin: '16px 0 0 0', textTransform: 'uppercase' }}>
+          <h4 className="footer-ip-title-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '700', color: 'var(--text-color)', textAlign: 'right', letterSpacing: '0.08em', margin: '24px 0 8px 0', textTransform: 'uppercase' }}>
             {T.ipNotice}
           </h4>
-          <p className="footer-ip-notice-small" style={{ margin: '8px 0 4px 0' }}>
+          <p className="footer-ip-notice-small" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '400', lineHeight: '1.8', color: 'var(--text-color)', textAlign: 'right', margin: '0' }}>
             {T.confidentiality}
           </p>
-          <Link to="/ip-notice" className="footer-ip-read-more" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#A1824A', textAlign: 'right', textDecoration: 'underline', textUnderlineOffset: '4px', cursor: 'pointer', display: 'block', marginTop: '8px' }}>
+          <Link to="/ip-notice" className="footer-ip-read-more" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '400', color: '#A1824A', textAlign: 'right', textDecoration: 'underline', textUnderlineOffset: '4px', cursor: 'pointer', display: 'block', marginTop: '16px' }}>
             {T.readMore}
           </Link>
         </div>
