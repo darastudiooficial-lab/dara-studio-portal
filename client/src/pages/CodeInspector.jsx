@@ -280,11 +280,11 @@ function TechnicalDiagram({ id }) {
   if (id === 31) { // Deck Footing
     return (
       <svg viewBox="0 0 400 250" style={{ width: "100%", height: "100%", background: "#ffffff" }}>
-        <line x1="20" y1="90" x2="380" y2="90" stroke="#22c55e" strokeWidth="2" strokeDasharray="6 4" />
-        <text x="300" y="80" fontFamily="sans-serif" fontSize="9" fill="#22c55e">{lang === 'EN' ? 'Finished Grade Line' : 'Linha do Terreno Acabado'}</text>
+        <line x1="20" y1="90" x2="380" y2="90" stroke="#9c7c3a" strokeWidth="2" strokeDasharray="6 4" />
+        <text x="300" y="80" fontFamily="sans-serif" fontSize="9" fill="#9c7c3a">{lang === 'EN' ? 'Finished Grade Line' : 'Linha do Terreno Acabado'}</text>
         <rect x="170" y="30" width="60" height="60" fill="#f7fafc" stroke="#2d3748" strokeWidth="2" />
         <rect x="180" y="90" width="40" height="120" fill="#e2e8f0" stroke="#3b82f6" strokeWidth="2" />
-        <circle cx="200" cy="210" r="15" fill="#a855f7" opacity="0.3" />
+        <circle cx="200" cy="210" r="15" fill="#9c7c3a" opacity="0.3" />
         <text x="200" y="60" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'Wood Deck Post' : 'Pilar de Madeira do Deck'}</text>
         <text x="200" y="150" fontFamily="sans-serif" fontSize="10" fill="#3b82f6" textAnchor="middle">{lang === 'EN' ? 'Concrete Sonotube' : 'Sonotube de Concreto'}</text>
         <line x1="140" y1="90" x2="140" y2="210" stroke="#ef4444" strokeWidth="1.5" />
@@ -319,8 +319,8 @@ function TechnicalDiagram({ id }) {
         <rect x="60" y="120" width="40" height="50" fill="#f7fafc" stroke="#718096" strokeWidth="1.5" />
         <rect x="180" y="120" width="40" height="50" fill="#f7fafc" stroke="#718096" strokeWidth="1.5" />
         <rect x="300" y="120" width="40" height="50" fill="#f7fafc" stroke="#718096" strokeWidth="1.5" />
-        <path d="M40,110 Q80,90 120,110 T200,105 T280,112 T360,108 L360,170 L40,170 Z" fill="#a855f7" opacity="0.15" stroke="#a855f7" strokeWidth="1.5" strokeDasharray="3" />
-        <text x="200" y="145" fontFamily="sans-serif" fontSize="13" fontWeight="bold" fill="#a855f7" textAnchor="middle">{lang === 'EN' ? 'R-60 Blown-in Insulation' : 'Isolamento Soprado R-60'}</text>
+        <path d="M40,110 Q80,90 120,110 T200,105 T280,112 T360,108 L360,170 L40,170 Z" fill="#9c7c3a" opacity="0.15" stroke="#9c7c3a" strokeWidth="1.5" strokeDasharray="3" />
+        <text x="200" y="145" fontFamily="sans-serif" fontSize="13" fontWeight="bold" fill="#9c7c3a" textAnchor="middle">{lang === 'EN' ? 'R-60 Blown-in Insulation' : 'Isolamento Soprado R-60'}</text>
         <text x="200" y="70" fontFamily="sans-serif" fontSize="10" fill="#718096" textAnchor="middle">{lang === 'EN' ? '~20 inches continuous depth' : '~20 polegadas de espessura'}</text>
         <text x="200" y="210" fontFamily="sans-serif" fontSize="10" fill="#2d3748" textAnchor="middle">{lang === 'EN' ? 'Gypsum Ceiling Board' : 'Placa de Gesso de Teto'}</text>
         <text x="200" y="240" fontFamily="sans-serif" fontSize="9" textAnchor="middle" fill="#ef4444">{lang === 'EN' ? 'Fails CO if below R-60 (780 CMR 10th Ed)' : 'Reprova CO se abaixo de R-60 (10ª Ed)'}</text>
@@ -365,7 +365,7 @@ function TechnicalDiagram({ id }) {
       <rect x="40" y="40" width="320" height="170" fill="#f7fafc" stroke="#3b82f6" strokeWidth="1" strokeDasharray="4" />
       <text x="200" y="110" fontFamily="sans-serif" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">{lang === 'EN' ? 'Technical Construction Diagram' : 'Diagrama Técnico de Construção'}</text>
       <text x="200" y="135" fontFamily="sans-serif" fontSize="10" fill="#718096" textAnchor="middle">{lang === 'EN' ? `Note Component Detail #${id}` : `Detalhe do Componente Nota #${id}`}</text>
-      <text x="200" y="160" fontFamily="sans-serif" fontSize="9" fill="#a855f7" textAnchor="middle">{lang === 'EN' ? 'Auto-Generated SVG Precision Vector' : 'Vetor de Precisão SVG Gerado'}</text>
+      <text x="200" y="160" fontFamily="sans-serif" fontSize="9" fill="#9c7c3a" textAnchor="middle">{lang === 'EN' ? 'Auto-Generated SVG Precision Vector' : 'Vetor de Precisão SVG Gerado'}</text>
     </svg>
   );
 }
@@ -587,7 +587,7 @@ export default function CodeInspector() {
   return (
     <PageTransition variant="default">
     <div className="lp-root">
-      {/* Brilho radial roxo suave no topo centralizado */}
+      {/* Brilho radial verde suave no topo centralizado */}
       <div className="radial-glow"></div>
       <div className="radial-glow-navy"></div>
       <Navbar />
@@ -618,9 +618,9 @@ export default function CodeInspector() {
           </p>
           <div style={{ display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", marginTop: "24px", flexWrap: "wrap" }}>
             <div style={{ 
-              background: "rgba(34,197,94,0.06)", 
-              border: "1.5px solid rgba(34,197,94,0.2)", 
-              color: "var(--gn)", 
+              background: "rgba(156, 124, 58,0.06)", 
+              border: "1.5px solid rgba(156, 124, 58,0.2)", 
+              color: "var(--accent)", 
               padding: "6px 14px", 
               borderRadius: "999px", 
               fontSize: "11px", 
@@ -631,7 +631,7 @@ export default function CodeInspector() {
               alignItems: "center",
               gap: 6
             }}>
-              <span className="live-dot" style={{ width: 6, height: 6, background: "var(--gn)", borderRadius: "50%", display: "inline-block", boxShadow: "0 0 10px var(--gn)" }}></span>
+              <span className="live-dot" style={{ width: 6, height: 6, background: "var(--accent)", borderRadius: "50%", display: "inline-block", boxShadow: "0 0 10px var(--accent)" }}></span>
               {lang === "EN" ? "Live Database" : "Banco Ativo"}
             </div>
             
@@ -681,7 +681,7 @@ export default function CodeInspector() {
                       padding: "8px 16px", 
                       borderRadius: "999px", 
                       border: "none", 
-                      background: aProj === p.id ? "linear-gradient(135deg, #7D9F85, #5A7E62)" : "transparent",
+                      background: aProj === p.id ? "linear-gradient(135deg, #A1824A, #8F723E)" : "transparent",
                       color: aProj === p.id ? "#fff" : "inherit", 
                       textAlign: "left",
                       fontSize: "12px",
@@ -717,8 +717,8 @@ export default function CodeInspector() {
                         padding: "8px 16px", 
                         borderRadius: "999px", 
                         border: "none", 
-                        borderLeft: aSys === s.id ? "3px solid #7D9F85" : "3px solid transparent",
-                        background: aSys === s.id ? "rgba(125, 159, 133, 0.08)" : "transparent",
+                        borderLeft: aSys === s.id ? "3px solid #A1824A" : "3px solid transparent",
+                        background: aSys === s.id ? "rgba(156, 124, 58, 0.08)" : "transparent",
                         color: aSys === s.id ? "var(--color-neon-purple)" : "inherit", 
                         textAlign: "left",
                         fontSize: "12px",
@@ -731,7 +731,7 @@ export default function CodeInspector() {
                       {count > 0 && (
                         <span style={{ 
                           fontSize: "9px", 
-                          background: aSys === s.id ? "#7D9F85" : "rgba(255,255,255,0.06)", 
+                          background: aSys === s.id ? "#A1824A" : "rgba(255,255,255,0.06)", 
                           color: "#fff", 
                           padding: "2px 6px", 
                           borderRadius: "10px",
@@ -873,9 +873,9 @@ export default function CodeInspector() {
                             borderRadius: "14px", 
                             textTransform: "uppercase", 
                             letterSpacing: "0.05em",
-                            background: n.status === "lessons_learned" ? "rgba(245,158,11,0.08)" : "rgba(34,197,94,0.08)",
-                            color: n.status === "lessons_learned" ? "var(--amber)" : "var(--gn)",
-                            border: n.status === "lessons_learned" ? "1px solid rgba(245,158,11,0.2)" : "1px solid rgba(34,197,94,0.2)",
+                            background: n.status === "lessons_learned" ? "rgba(245,158,11,0.08)" : "rgba(156, 124, 58,0.08)",
+                            color: n.status === "lessons_learned" ? "var(--amber)" : "var(--accent)",
+                            border: n.status === "lessons_learned" ? "1px solid rgba(245,158,11,0.2)" : "1px solid rgba(156, 124, 58,0.2)",
                             whiteSpace: "nowrap"
                           }}>
                             {n.status === "lessons_learned" ? (lang === "EN" ? "⚡ Lessons Learned" : `⚡ Lições Aprendidas`) : (lang === "EN" ? "✓ Code Compliant" : "✓ Conformidade Verificada")}
@@ -924,7 +924,7 @@ export default function CodeInspector() {
                                   right: 8, 
                                   top: "50%", 
                                   transform: "translateY(-50%)", 
-                                  background: copiedId === `${n.id}-cad` ? "var(--gn)" : "#5B52E8", 
+                                  background: copiedId === `${n.id}-cad` ? "var(--accent)" : "#5B52E8", 
                                   color: "#fff",
                                   border: "none", 
                                   borderRadius: "6px", 
@@ -967,7 +967,7 @@ export default function CodeInspector() {
                                   right: 8, 
                                   top: "50%", 
                                   transform: "translateY(-50%)", 
-                                  background: copiedId === `${n.id}-layout` ? "var(--gn)" : "#5B52E8", 
+                                  background: copiedId === `${n.id}-layout` ? "var(--accent)" : "#5B52E8", 
                                   color: "#fff",
                                   border: "none", 
                                   borderRadius: "6px", 
@@ -1011,7 +1011,7 @@ export default function CodeInspector() {
                                   right: 8, 
                                   top: "50%", 
                                   transform: "translateY(-50%)", 
-                                  background: copiedId === `${n.id}-prompt` ? "var(--gn)" : "#3b82f6", 
+                                  background: copiedId === `${n.id}-prompt` ? "var(--accent)" : "#3b82f6", 
                                   color: "#fff",
                                   border: "none", 
                                   borderRadius: "6px", 
@@ -1082,8 +1082,8 @@ export default function CodeInspector() {
                     alignItems: "flex-start", 
                     gap: "10px", 
                     lineHeight: "1.5",
-                    background: out.cls === "err" ? "rgba(239,68,68,0.06)" : (out.cls === "wrn" ? "rgba(245,158,11,0.06)" : "rgba(34,197,94,0.06)"),
-                    border: out.cls === "err" ? "1px solid rgba(239,68,68,0.18)" : (out.cls === "wrn" ? "1px solid rgba(245,158,11,0.18)" : "1px solid rgba(34,197,94,0.18)"),
+                    background: out.cls === "err" ? "rgba(239,68,68,0.06)" : (out.cls === "wrn" ? "rgba(245,158,11,0.06)" : "rgba(156, 124, 58,0.06)"),
+                    border: out.cls === "err" ? "1px solid rgba(239,68,68,0.18)" : (out.cls === "wrn" ? "1px solid rgba(245,158,11,0.18)" : "1px solid rgba(156, 124, 58,0.18)"),
                     color: out.cls === "err" ? "#f87171" : (out.cls === "wrn" ? "#fbbf24" : "#4ade80")
                   }}
                 >
@@ -1138,7 +1138,7 @@ export default function CodeInspector() {
                 : `Descreva a conexão ou componente de desenho arquitetônico que deseja renderizar no estilo técnico axonométrico.`}
             </p>
 
-            <div style={{ background: "rgba(125, 159, 133, 0.05)", border: "1px solid rgba(125, 159, 133, 0.15)", borderRadius: "8px", padding: "12px", fontSize: "11px", fontFamily: "monospace", lineHeight: "1.6" }}>
+            <div style={{ background: "rgba(156, 124, 58, 0.05)", border: "1px solid rgba(156, 124, 58, 0.15)", borderRadius: "8px", padding: "12px", fontSize: "11px", fontFamily: "monospace", lineHeight: "1.6" }}>
               <strong style={{ color: "var(--color-neon-purple)" }}>MASTER STYLESHEET APPLIED:</strong><br />
               Architectural technical diagram, clean vector section style. Isolated white background. Minimalist colors (gray, technical blue, and highlighted joints).
             </div>
@@ -1184,7 +1184,7 @@ export default function CodeInspector() {
                   padding: "8px 20px", 
                   borderRadius: "8px", 
                   border: "none", 
-                  background: "linear-gradient(135deg, #7D9F85, #5A7E62)", 
+                  background: "linear-gradient(135deg, #A1824A, #8F723E)", 
                   color: "#fff", 
                   fontSize: "12px", 
                   fontWeight: "700",
@@ -1212,7 +1212,7 @@ export default function CodeInspector() {
           fontSize: "13px", 
           fontWeight: "700",
           zIndex: 9999,
-          boxShadow: "0 10px 30px rgba(125, 159, 133, 0.2)"
+          boxShadow: "0 10px 30px rgba(156, 124, 58, 0.2)"
         }}>
           {toastMsg}
         </div>

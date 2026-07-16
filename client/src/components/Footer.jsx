@@ -106,7 +106,7 @@ export default function Footer() {
         <div className="footer-zone zone-center">
           <p className="footer-index-title">{T.indexTitle}</p>
           <div className="footer-index-list">
-            {T.links.map(link => (
+            {(T.links || []).map(link => (
               <Link key={link.path} to={link.path} className="footer-index-link">
                 {link.label}
               </Link>

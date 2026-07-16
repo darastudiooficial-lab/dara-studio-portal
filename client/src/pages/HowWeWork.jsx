@@ -75,35 +75,35 @@ const STEPS = [
     icon: <Icons.MessageCircle />,
     label: { EN: "STAGE 01", PT: "ETAPA 01" },
     title: { EN: `First Contact`, PT: `Primeiro Contato` },
-    summary: { EN: `Start with what you already have.`, PT: `Comece com o que você já tem.` },
+    summary: { EN: `Start with what you have.`, PT: `Comece com o que você tem em mãos.` },
     body: {
-      EN: `You don't need a final or perfect project to begin. A preliminary sketch, visual references or a clear direction are enough for us to understand your demand and structure an assertive scope.`,
-      PT: `Você não precisa de um projeto final ou perfeito para começar. Um esboço preliminar, referências visuais ou um direcionamento claro são suficientes para entendermos sua demanda e estruturarmos um escopo assertivo.`
+      EN: `You don't need a finalized or perfect project to start the process. A preliminary sketch, visual references, or a clear brief are enough for us to understand your needs and structure an accurate scope.`,
+      PT: `Você não precisa chegar com um projeto definitivo ou perfeito para iniciar o fluxo. Um croqui preliminar, referências visuais ou um direcionamento claro já são suficientes para compreendermos a sua demanda e estruturarmos um escopo assertivo.`
     },
-    listTitle: { EN: `START WITH WHATEVER IS IN HAND`, PT: `COMECE COM O QUE ESTIVER EM MÃOS` },
+    listTitle: { EN: `START WITH WHAT YOU HAVE.`, PT: `COMECE COM O QUE VOCÊ TEM EM MÃOS.` },
     list: {
       EN: [
-        <><strong>Reference images</strong> visual concepts, style references and the finishes you want.</>,
-        <><strong>Site information</strong> site photos, topographic data, or simply the property address.</>,
-        <><strong>Sketches or drafts</strong> freehand drawings or preliminary spatial zoning.</>,
-        <><strong>Prior surveys</strong> existing plans in PDF, images or older files you may have.</>,
-        <><strong>Plot plan or existing site</strong> lot documentation that significantly speeds our process.</>,
-        <><strong>Intended scope</strong> a brief description - remodel, new build, addition or specific support.</>
+        <><strong>Reference Images</strong> Visual concepts, style references, and desired finishes.</>,
+        <><strong>Site Information</strong> Site photos, topographic data, or simply the property address.</>,
+        <><strong>Sketches or Drafts</strong> Freehand drawings or preliminary spatial zoning.</>,
+        <><strong>Previous Surveys</strong> Existing floor plans in PDF, images, or legacy files you already have.</>,
+        <><strong>Plot Plan or Site Plan</strong> Lot documentation that significantly accelerates our technical process.</>,
+        <><strong>Intended Scope</strong> A brief description of your need - renovation, new construction, addition, or specific technical support.</>
       ],
       PT: [
-        <><strong>Imagens de referência</strong> conceitos visuais, referências de estilo e os acabamentos que você deseja.</>,
-        <><strong>Informações do terreno</strong> fotos do local, dados topográficos ou simplesmente o endereço da propriedade.</>,
-        <><strong>Croquis ou rascunhos</strong> desenhos à mão livre ou zoneamento espacial preliminar.</>,
-        <><strong>Levantamentos anteriores</strong> plantas existentes em PDF, imagens ou arquivos mais antigos que você possa ter.</>,
-        <><strong>Plot plan ou terreno existente</strong> documentação do lote que acelera significativamente nosso processo.</>,
-        <><strong>Escopo pretendido</strong> uma breve descrição - reforma, construção nova, ampliação ou suporte específico.</>
+        <><strong>Imagens de Referência</strong> Conceitos visuais, referências de estilo e os acabamentos que você deseja.</>,
+        <><strong>Informações do Terreno</strong> Fotos do local, dados topográficos ou simplesmente o endereço da propriedade.</>,
+        <><strong>Croquis ou Esboços</strong> Desenhos à mão livre ou zoneamentos espaciais preliminares.</>,
+        <><strong>Levantamentos Anteriores</strong> Plantas existentes em PDF, imagens ou arquivos antigos que você já possua.</>,
+        <><strong>Plot Plan ou Implantação Existente</strong> Documentação do lote que agiliza significativamente o nosso processo técnico.</>,
+        <><strong>Escopo Pretendido</strong> Uma breve descrição da sua demanda, seja ela uma reforma, construção nova, ampliação (addition) ou um suporte técnico específico.</>
       ]
     },
     note: {
       title: { EN: "WHY THIS STAGE MATTERS", PT: "POR QUE ESSA ETAPA IMPORTA" },
       text: { 
-        EN: `The more context you share up front, the more accurate your estimate. A realistic, well-grounded estimate protects your budget from surprises and sets a solid base for every following stage.`,
-        PT: `Quanto mais contexto você compartilhar no início, mais preciso será seu orçamento. Um orçamento realista e bem fundamentado protege seu budget de surpresas e define uma base sólida para as etapas seguintes.`
+        EN: `The more context you share upfront, the more accurate your estimate will be. A realistic, well-grounded estimate protects your budget from unexpected costs and sets a solid foundation for every stage that follows.`,
+        PT: `Quanto mais contexto você compartilhar de início, mais preciso será o seu estimate. Uma estimativa realista e bem fundamentada protege o seu orçamento contra custos inesperados e estabelece uma base sólida para todas as etapas seguintes.`
       }
     }
   },
@@ -111,37 +111,37 @@ const STEPS = [
     num: "02",
     icon: <Icons.Eye />,
     title: { EN: `Scope & Estimate`, PT: `Escopo & estimate` },
-    summary: { EN: `You receive a comprehensive, itemized estimate.`, PT: `Você recebe um estimate detalhado.` },
+    summary: { EN: `You receive a detailed estimate.`, PT: `Você recebe um estimate detalhado.` },
     body: {
-      EN: `We carefully analyze every piece of data you share to map out the actual structural and architectural needs of the project. Then, we provide a highly transparent proposal specifying the exact scope, clear delivery milestones, and payment terms.`,
+      EN: `We carefully analyze the information provided to map the project's real needs. We then build a transparent proposal specifying the exact scope, timeline, and payment terms.`,
       PT: `Analisamos minuciosamente as informações enviadas para mapear as reais necessidades do projeto. Em seguida, estruturamos uma proposta transparente, especificando o escopo exato, cronograma de prazos e as condições de pagamento.`
     },
     customLists: [
       {
-        title: { EN: `WHAT YOUR ESTIMATE ALWAYS INCLUDES`, PT: `SEU ESTIMATE SEMPRE INCLUI` },
-        boxClass: "service-box-green",
-        titleClass: "service-box-green-title",
-        iconColor: "#10b981",
+        title: { EN: `YOUR ESTIMATE ALWAYS INCLUDES`, PT: `SEU ESTIMATE SEMPRE INCLUI` },
+        boxClass: "service-box-gold",
+        titleClass: "service-box-gold-title",
+        iconColor: "#9c7c3a",
         icon: <polyline points="20 6 9 17 4 12"/>,
         items: {
           EN: [
-            "Fully dimensioned floor plans with comprehensive technical annotations",
-            "Exterior elevations detailing all four main facades",
-            "Highly detailed cross-sections and structural construction details",
-            "Detailed window and door schedules",
-            "Internal layouts with precise placement for all architectural fixtures and fixed finishes",
-            "3D renderings customized to your selected package",
-            "Wood Framing plans whenever applicable to the project scope",
-            "A clear payment breakdown following our 40 / 40 / 20 milestone structure"
+            "Floor plans with dimensions and technical annotations",
+            "Exterior elevations - all four primary facades",
+            "Detailed building sections and constructive cuts",
+            "Door and window schedules",
+            "Interior layout and fixture placement",
+            "3D renders (per selected package)",
+            "Wood framing plans (when applicable to scope)",
+            "Clear payment structure - 40 / 40 / 20 model"
           ],
           PT: [
-            `Plantas baixas com dimensionamentos e anotações técnicas`,
-            `Elevações externas - as quatro fachadas principais`,
-            `Cortes e seções construtivas detalhadas`,
+            "Plantas baixas com dimensionamentos e anotações técnicas",
+            "Elevações externas - as quatro fachadas principais",
+            "Cortes e seções construtivas detalhadas",
             "Schedules (quadros) de portas e janelas",
-            `Layout interno e posicionamento de fixtures (peças e acabamentos fixos)`,
+            "Layout interno e posicionamento de fixtures (peças e acabamentos fixos)",
             "Renders 3D (conforme o pacote selecionado)",
-            `Plantas de Wood Framing (quando aplicável ao escopo)`,
+            "Plantas de Wood Framing (quando aplicável ao escopo)",
             "Estrutura de pagamento clara - modelo 40 / 40 / 20"
           ]
         }
@@ -154,27 +154,30 @@ const STEPS = [
         icon: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
         items: {
           EN: [
-            "Structural engineering calculations and professional engineering stamps (PE Stamp)",
-            `MEP engineering plans covering electrical, plumbing, and HVAC systems`,
-            "Boundary and topographical land surveys",
-            "Energy efficiency assessment reports such as HERS rating or Blower Door testing",
-            "On-site technical visits or physical construction inspections",
-            `Native editable project files including .plan from Chief Architect or .dwg, which can be made available upon a separate release fee`
+            "Structural calculations and engineering seal (PE Stamp)",
+            "Complementary engineering (Electrical, Plumbing, HVAC)",
+            "Site topographic survey",
+            "Energy efficiency reports (HERS rating, Blower Door test)",
+            "On-site technical visits or construction inspections",
+            "Native editable files (.plan or .dwg) - available for a release fee"
           ],
           PT: [
-            `Cálculo estrutural e assinatura/selo de engenharia (PE Stamp)`,
-            `Projetos complementares de Engenharia (Elétrico, Hidráulico e HVAC)`,
-            `Levantamento topográfico do terreno`,
-            `Relatórios de eficiência energética (como HERS rating ou Blower Door test)`,
-            `Visitas técnicas presenciais ou inspeções de obra`,
-            `Fornecimento de arquivos editáveis nativos (como .plan ou .dwg) - disponíveis mediante taxa de liberação`
+            "Cálculo estrutural e assinatura/selo de engenharia (PE Stamp)",
+            "Projetos complementares de Engenharia (Elétrico, Hidráulico e HVAC)",
+            "Levantamento topográfico do terreno",
+            "Relatórios de eficiência energética (como HERS rating ou Blower Door test)",
+            "Visitas técnicas presenciais ou inspeções de obra",
+            "Fornecimento de arquivos editáveis nativos (.plan ou .dwg) - disponíveis mediante taxa de liberação"
           ]
         }
       }
     ],
     note: {
-      EN: <><strong>WHY THIS PHASE MATTERS:</strong> The estimate serves as our commercial roadmap and your ultimate consumer protection. It draws a clear line around what is included and what sits outside the scope, alongside the precise cost of each milestone. At DARA Studio, we eliminate verbal agreements by documenting every technical alignment before production begins.</>,
-      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> O estimate atua como nossa diretriz comercial e a sua segurança. Ele delimita com precisão o que está contemplado e o que está descontinuado do escopo, além do custo de cada fase. No DARA Studio, eliminamos acordos verbais - documentamos cada alinhamento antes de iniciar a produção técnica.</>
+      title: { EN: "WHY THIS STAGE MATTERS", PT: "POR QUE ESSA ETAPA IMPORTA" },
+      text: {
+        EN: `The estimate is our commercial guideline and your protection. It precisely defines what is and isn't in scope, plus the cost of each phase. At DARA Studio, we eliminate verbal agreements — every alignment is documented before technical production begins.`,
+        PT: `O estimate atua como nossa diretriz comercial e a sua segurança. Ele delimita com precisão o que está contemplado e o que está descontinuado do escopo, além do custo de cada fase. No DARA Studio, eliminamos acordos verbais — documentamos cada alinhamento antes de iniciar a produção técnica.`
+      }
     }
   },
   {
@@ -183,43 +186,45 @@ const STEPS = [
     title: { EN: `Approval & Activation`, PT: `Aprovação & Ativação` },
     summary: { EN: `Sign, pay, and we begin.`, PT: `Assine, pague e começamos.` },
     body: {
-      EN: `Once you review and sign the estimate, the initial payment confirmation formalizes the project start date and secures the immediate allocation of our production team.`,
+      EN: `After reviewing and signing the estimate, confirmation of the initial payment formalizes the project start date and secures immediate allocation of our production team.`,
       PT: `Após revisar e assinar o estimate, a confirmação do pagamento inicial formaliza a data de início do projeto e assegura a alocação imediata da nossa equipe de produção.`
     },
     customLists: [
       {
         title: { EN: `ACTIVATION CHECKLIST`, PT: `CHECKLIST DE ATIVAÇÃO` },
-        boxClass: "service-box-green",
-        titleClass: "service-box-green-title",
-        iconColor: "#10b981",
+        boxClass: "service-box-gold",
+        titleClass: "service-box-gold-title",
+        iconColor: "#9c7c3a",
         icon: <polyline points="20 6 9 17 4 12"/>,
         items: {
           EN: [
             "Estimate reviewed and all scope items confirmed by you",
-            "Estimate digitally signed",
-            "Initial 40% payment received and processed - the project is officially scheduled only after this confirmation",
-            <>40% - <em>Project Initiation and Conceptual Design</em></>
+            "Estimate signed digitally",
+            "Initial 40% payment received and processed - only then is the project officially scheduled",
+            "40% - Project Start and Conceptual Design"
           ],
           PT: [
-            `Estimate revisado e todos os itens de escopo confirmados por você`,
+            "Estimate revisado e todos os itens de escopo confirmados por você",
             "Estimate assinado digitalmente",
-            `Pagamento inicial de 40% recebido e processado - somente então o projeto é oficialmente agendado`,
-            <>40% - <em>Início do Projeto e Design Conceitual</em></>
+            "Pagamento inicial de 40% recebido e processado - somente então o projeto é oficialmente agendado",
+            "40% - Início do Projeto e Design Conceitual"
           ]
         }
       }
     ],
     paymentMethods: {
-      title: { EN: `PAYMENT METHODS & PROCESSING TIMES`, PT: `FORMAS DE PAGAMENTO & PRAZOS DE PROCESSAMENTO` },
+      title: { EN: `PAYMENT METHODS & PROCESSING TIMELINES`, PT: `FORMAS DE PAGAMENTO & PRAZOS DE PROCESSAMENTO` },
       methods: [
         {
-          icon: "💳",
-          name: { EN: `Credit Card via Stripe`, PT: `Cartão de Crédito via Stripe` },
-          desc: { EN: `A secure payment link is sent directly with your invoice. All major credit cards are accepted.`, PT: `Um link de pagamento seguro é enviado junto com a sua fatura. Aceitamos as principais bandeiras do mercado.` },
+          name: { EN: `CREDIT CARD VIA STRIPE`, PT: `CARTÃO DE CRÉDITO VIA STRIPE` },
+          desc: { 
+            EN: <><strong>A secure payment link is sent with your invoice. We accept all major card networks.</strong></>, 
+            PT: <><strong>Um link de pagamento seguro é enviado junto com a sua fatura. Aceitamos as principais bandeiras do mercado.</strong></> 
+          },
           details: {
             EN: [
-              <><strong>Fees:</strong> A processing fee of 7.99% is added to the project total.</>,
-              <><strong>Project Start:</strong> Funds are typically cleared within 5 to 10 business days, and the project enters our production queue only after this processing window.</>
+              <><strong>Fees:</strong> A 7.99% processing fee is added to the total project value.</>,
+              <><strong>Project Start:</strong> Funds typically clear within 5-10 business days - the project enters the queue only after that.</>
             ],
             PT: [
               <><strong>Encargos:</strong> Uma taxa de processamento de 7,99% é adicionada sobre o valor total do projeto.</>,
@@ -228,8 +233,7 @@ const STEPS = [
           }
         },
         {
-          icon: "🏦",
-          name: { EN: `Wire Transfer / ACH`, PT: `Wire Transfer / ACH` },
+          name: { EN: `WIRE TRANSFER / ACH`, PT: `WIRE TRANSFER / ACH` },
           desc: { EN: `No additional processing fees. ACH is available for US bank accounts, and international wire transfers are also accepted.`, PT: `Sem taxa adicional de processamento. ACH disponível para contas bancárias nos EUA. Wire internacional também aceito.` },
           details: {
             EN: [
@@ -245,11 +249,14 @@ const STEPS = [
       ]
     },
     note: {
-      EN: <><strong>WHY THIS PHASE MATTERS:</strong> We work with a limited number of active projects simultaneously to guarantee exceptional technical quality and meet every single deadline. Signing the document alone does not reserve your spot. Your project is placed in our production queue only when the payment is fully cleared on our end, regardless of the chosen payment method.</>,
-      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Trabalhamos com um número limitado de projetos ativos ao mesmo tempo para garantir o máximo rigor técnico e cumprir cada prazo com precisão. A assinatura isolada não reserva a sua vaga. O projeto só entra na nossa fila de execução quando o pagamento é recebido e processado do nosso lado, independentemente da forma de pagamento escolhida.</>
+      title: { EN: "WHY THIS STAGE MATTERS", PT: "POR QUE ESSA ETAPA IMPORTA" },
+      text: {
+        EN: `We limit the number of active projects at any given time to ensure maximum technical rigor and meet every deadline. Signing alone does not reserve your slot. The project only enters our execution queue once payment is received and processed on our end, regardless of payment method.`,
+        PT: `Trabalhamos com um número limitado de projetos ativos ao mesmo tempo para garantir o máximo rigor técnico e cumprir cada prazo com precisão. A assinatura isolada não reserva a sua vaga. O projeto só entra na nossa fila de execução quando o pagamento é recebido e processado do nosso lado, independentemente da forma de pagamento escolhida.`
+      }
     },
     planningNote: {
-      EN: `Planning Note: The allocation of your project in our schedule is validated exclusively after the full clearing of funds, not upon the issuance date or proof of transfer. We highly recommend factoring in these processing times when planning your project kickoff.`,
+      EN: `Planning Note: Your project's slot in our schedule is confirmed only after full fund clearance - not on the date of payment submission. We recommend factoring in each method's processing time when planning your project start.`,
       PT: `Nota de Planejamento: A alocação da sua demanda em nosso cronograma é validada exclusivamente após a compensação integral dos fundos, e não na data de envio do comprovante. Recomendamos considerar os prazos de processamento de cada método ao planejar o início do seu projeto.`
     }
   },
@@ -258,56 +265,59 @@ const STEPS = [
     icon: <Icons.Eye />,
     badge: { EN: `8–16 Business Days Per Round`, PT: `8–16 Dias úteis Por Rodada` },
     title: { EN: `Design Development & Previews`, PT: `Desenvolvimento de Design & Prévias` },
-    summary: { EN: `See Your Project Come to Life.`, PT: `Veja Seu Projeto Ganhar Vida.` },
+    summary: { EN: `Watch Your Project Come to Life.`, PT: `Veja Seu Projeto Ganhar Vida.` },
     body: {
-      EN: `This is where your vision takes shape. We develop your project and deliver structured previews combining clear layout plans with high-fidelity 3D visualizations. This approach allows you to experience the spatial flow and validate every detail before any technical production begins.`,
+      EN: `This is where your project begins. We develop your brief and deliver structured previews combining floor plans with 3D simulations - so you can visualize the real proportions and validate every element before technical detailing is finalized.`,
       PT: `É aqui que o seu projeto começa. Desenvolvemos a sua demanda e enviamos prévias estruturadas que combinam plantas baixas com simulações em 3D. Assim, você consegue visualizar a real proporção dos espaços e validar cada elemento antes que o detalhamento técnico seja finalizado.`
     },
     note: {
-      EN: <><strong>WHY THIS PHASE MATTERS:</strong> Moving a wall on a screen costs nothing. Modifying it after construction starts costs thousands. These design preview rounds are engineered to protect your equity, giving you the control to refine every space before the documentation moves into a technical phase that cannot be undone without additional expenses.</>,
-      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Mudar uma parede no projeto não custa nada. Mudar a mesma parede durante a obra custa milhares de dólares. As rodadas de prévias existem especificamente para proteger o seu investimento, sendo a sua grande oportunidade de lapidar cada detalhe antes que o projeto entre na fila de produção executiva, uma fase que não pode ser desfeita sem custos adicionais.</>
+      title: { EN: "WHY THIS STAGE MATTERS", PT: "POR QUE ESSA ETAPA IMPORTA" },
+      text: {
+        EN: `Moving a wall in the design costs nothing. Moving that same wall during construction costs thousands of dollars. Preview rounds exist specifically to protect your investment - this is your opportunity to refine every detail before the project enters executive production, a phase that cannot be undone without additional cost.`,
+        PT: `Mudar uma parede no projeto não custa nada. Mudar a mesma parede durante a obra custa milhares de dólares. As rodadas de prévias existem especificamente para proteger o seu investimento, sendo a sua grande oportunidade de lapidar cada detalhe antes que o projeto entre na fila de produção executiva, uma fase que não pode ser desfeita sem custos adicionais.`
+      }
     },
     customLists: [
       {
-        title: { EN: `HOW THE PREVIEW ROUNDS WORK`, PT: `COMO FUNCIONAM AS RODADAS DE PRÉVIAS` },
-        boxClass: "service-box-green",
-        titleClass: "service-box-green-title",
-        iconColor: "#10b981",
+        title: { EN: `HOW PREVIEW ROUNDS WORK`, PT: `COMO FUNCIONAM AS RODADAS DE PRÉVIAS` },
+        boxClass: "service-box-gold",
+        titleClass: "service-box-gold-title",
+        iconColor: "#9c7c3a",
         icon: <polyline points="20 6 9 17 4 12"/>,
         items: {
           EN: [
-            "We deliver a complete floor plan layout accompanied by a 3D visualization for each preview.",
-            `You review the assets, compile your feedback, and send it back to our team.`,
-            "We apply your requests systematically and return the updated design.",
-            "Each iteration round takes between 8 to 16 business days to be processed and delivered."
+            "We deliver the floor plan layout alongside the 3D visualization at each submission.",
+            "You review the files, consolidate your feedback, and send it to us.",
+            "We apply all changes systematically and return the updated preview.",
+            "Each round takes 8-16 business days to develop and deliver."
           ],
           PT: [
-            `Enviamos o layout da planta baixa acompanhado da visualização em 3D a cada entrega.`,
-            `Você analisa os arquivos, reúne seus comentários e nos envia o feedback.`,
-            `Aplicamos todas as alterações de forma sistemática e devolvemos a prévia atualizada.`,
-            `Cada rodada leva de 8 a 16 dias úteis para ser elaborada e entregue.`
+            "Enviamos o layout da planta baixa acompanhado da visualização em 3D a cada entrega.",
+            "Você analisa os arquivos, reúne seus comentários e nos envia o feedback.",
+            "Aplicamos todas as alterações de forma sistemática e devolvemos a prévia atualizada.",
+            "Cada rodada leva de 8 a 16 dias úteis para ser elaborada e entregue."
           ]
         }
       }
     ],
     revisionSystem: {
       included: {
-        label: { EN: `REV 01, 02 & 03 - Included Revision Rounds`, PT: `REV 01, 02 & 03 - Rodadas de Revisão Inclusas` },
+        label: { EN: `REV 01, 02 & 03 - INCLUDED REVISION ROUNDS`, PT: `REV 01, 02 & 03 - RODADAS DE REVISÃO INCLUSAS` },
         items: {
           EN: [
-            "Up to 3 rounds of structured feedback and refinement are completely included.",
-            "Every single update is delivered within 8 to 16 business days.",
-            "Feedback must be entirely consolidated - partial notes or daily messages do not count as a formal revision round."
+            "Up to 3 alignment and refinement rounds are fully covered by your package.",
+            "Each delivery within the standard 8-16 business day window.",
+            "Feedback must be consolidated - partial messages or daily inputs do not count as an official revision round."
           ],
           PT: [
-            `Até 3 rodadas de alinhamento e refinamento estão totalmente cobertas pelo seu pacote.`,
-            `Cada entrega dentro do prazo padrão de 8 a 16 dias úteis.`,
-            `Os feedbacks precisam ser consolidados - mensagens parciais ou feedbacks diários não contam como uma rodada de revisão oficial.`
+            "Até 3 rodadas de alinhamento e refinamento estão totalmente cobertas pelo seu pacote.",
+            "Cada entrega dentro do prazo padrão de 8 a 16 dias úteis.",
+            "Os feedbacks precisam ser consolidados - mensagens parciais ou feedbacks diários não contam como uma rodada de revisão oficial."
           ]
         }
       },
       extended: {
-        label: { EN: `REV 04, 05, 06+ - Hourly Extension Model`, PT: `REV 04, 05, 06+ - Modelo de Extensão por Hora Técnica` },
+        label: { EN: `REV 04, 05, 06+ - EXTENSION MODEL BY TECHNICAL HOUR`, PT: `REV 04, 05, 06+ - MODELO DE EXTENSÃO POR HORA TÉCNICA` },
         steps: {
           EN: [
             <><strong>The Process:</strong> You send your consolidated feedback just like the initial rounds.</>,
@@ -328,7 +338,7 @@ const STEPS = [
         }
       },
       guidelines: {
-        title: { EN: `IMPORTANT GUIDELINES - 3D & SCOPE CHANGES`, PT: `DIRETRIZES ESSENCIAIS - 3D & ALTERAÇÕES DE ESCOPO` },
+        title: { EN: `ESSENTIAL GUIDELINES - 3D & SCOPE CHANGES`, PT: `DIRETRIZES ESSENCIAIS - 3D & ALTERAÇÕES DE ESCOPO` },
         items: {
           EN: [
             <><strong>Exterior 3D:</strong> Included volumetric renders are tied directly to your closed package as outlined in your initial Estimate. This covers the baseline exterior models agreed upon during signing.</>,
@@ -347,94 +357,93 @@ const STEPS = [
     }
   },
   {
-    num: "04.5",
+    num: "04.1",
     icon: <Icons.FileText />,
-    badge: { EN: `25–30 Business Days After Approval`, PT: `25–30 Dias úteis Após Aprovação` },
+    badge: { EN: `25–30 BUSINESS DAYS AFTER APPROVAL`, PT: `25–30 DIAS ÚTEIS APÓS APROVAÇÃO` },
     title: { EN: `Final Drawing Set`, PT: `Conjunto de Desenhos Final` },
-    summary: { EN: `Your comprehensive blueprint package delivered in a high-resolution, construction-ready digital format.`, PT: `O pacote completo de documentação arquitetônica entregue em formato digital de alta resolução, pronto para a obra.` },
+    summary: { EN: `The complete architectural documentation package delivered in high-resolution digital format, ready for construction.`, PT: `O pacote completo de documentação arquitetônica entregue em formato digital de alta resolução, pronto para a obra.` },
     body: {
-      EN: `Once the design previews are fully approved, our technical production team develops the complete construction documentation. This technical phase translates your vision into fully dimensioned floor plans, detailed exterior elevations, cross-sections, and exact door and window schedules. Every structural detail required for building permit submittal and actual construction is meticulously integrated. All drawings are drafted from the ground up utilizing specialized Chief Architect X17 parameters to meet strict US residential drawing standards, delivered in industry-standard PDF format.`,
+      EN: `After final design validation, our team begins full technical production of all executive construction documentation. This delivery includes fully dimensioned floor plans, detailed exterior elevations, constructive sections, and precise door and window schedules. We consolidate every detail required for permit submission and field execution. All documentation is developed strictly following US residential drafting standards within Chief Architect X17, delivered as industry-standard PDF files.`,
       PT: `Após a validação final da etapa de design, nossa equipe inicia a produção técnica de todo o detalhamento executivo para construção. Essa entrega engloba plantas baixas totalmente cotadas, elevações externas detalhadas, cortes construtivos e as tabelas exatas de portas e janelas. Agrupamos todos os detalhes necessários para a submissão de alvarás e orientação do canteiro de obras. Toda a documentação é desenvolvida seguindo rigorosamente as normas norte-americanas de desenho residencial diretamente no sistema do Chief Architect X17, garantindo a entrega em arquivos PDF que são o padrão absoluto da indústria.`
     },
     note: {
-      EN: `Timeline may vary depending on project complexity, requested revisions, and technical coordination during project development.`,
+      EN: `Timeline may vary depending on project complexity, requested revisions, and technical coordination throughout development.`,
       PT: `O prazo pode variar dependendo da complexidade do projeto, revisões solicitadas e coordenação técnica durante o desenvolvimento do projeto.`
     }
   },
   {
     num: "05",
     icon: <Icons.FileText />,
-    iconColor: "#10b981",
-    iconBg: "rgba(16, 185, 129, 0.08)",
+    iconColor: "#9c7c3a",
+    iconBg: "rgba(156, 124, 58, 0.08)",
     title: { EN: `Final Set Review & Retention`, PT: `Revisão do Set Final & Retenção` },
     summary: { EN: `Precision down to the last detail.`, PT: `Precisão até o último detalhe.` },
     body: {
-      EN: `When the production team finishes the full construction set, we upload a watermarked, low-resolution technical preview to your client portal. This allows you to verify that every technical specification, annotation, and structural element aligns with your expectations before the final transaction.`,
-      PT: `Assim que nossa equipe técnica conclui todo o conjunto de desenhos executivos, disponibilizamos uma prévia técnica em baixa resolução com marca d’água diretamente no seu portal do cliente. Essa etapa serve para você verificar se todas as especificações, notas e elementos estruturais estão em perfeita conformidade antes do encerramento do contrato.`
+      EN: `Once our technical team completes the full executive drawing set, we release a low-resolution watermarked preview directly to your client portal. This stage allows you to verify that all specifications, notes, and structural elements are in full compliance before contract closure.`,
+      PT: `Assim que nossa equipe técnica conclui todo o conjunto de desenhos executivos, disponibilizamos uma prévia técnica em baixa resolução com marca d'água diretamente no seu portal do cliente. Essa etapa serve para você verificar se todas as especificações, notas e elementos estruturais estão em perfeita conformidade antes do encerramento do contrato.`
     },
     note: {
-      EN: <><strong>WHY THIS PHASE MATTERS:</strong> This is the safety valve of our workflow. It gives you the absolute certainty that the material is complete and accurate before you complete the financial milestone. Once you verify the preview, the final payment releases the high-resolution, unwatermarked files, completely ready for municipal permitting or site execution.</>,
-      PT: <><strong>POR QUE ESSA ETAPA IMPORTA:</strong> Esta é a válvula de segurança do nosso processo. Ela traz a certeza absoluta de que o material está completo e correto antes de você realizar a última movimentação financeira. Uma vez validada a prévia, o pagamento final libera os arquivos em alta resolução e sem marcas, totalmente prontos para dar entrada na prefeitura ou guiar o canteiro de obras.</>
+      title: { EN: "WHY THIS STAGE MATTERS", PT: "POR QUE ESSA ETAPA IMPORTA" },
+      text: {
+        EN: `This is the safety valve of our process. It gives you absolute certainty that the material is complete and correct before your final financial transaction. Once the preview is approved, the final payment releases the full high-resolution, watermark-free files - ready for permit submission or field execution.`,
+        PT: `Esta é a válvula de segurança do nosso processo. Ela traz a certeza absoluta de que o material está completo e correto antes de você realizar a última movimentação financeira. Uma vez validada a prévia, o pagamento final libera os arquivos em alta resolução e sem marcas, totalmente prontos para dar entrada na prefeitura ou guiar o canteiro de obras.`
+      }
     },
     customLists: [
       {
         title: { EN: `FINAL RELEASE CHECKLIST`, PT: `CHECKLIST DE LIBERAÇÃO FINAL` },
-        boxClass: "service-box-green",
-        titleClass: "service-box-green-title",
-        iconColor: "#10b981",
+        boxClass: "service-box-gold",
+        titleClass: "service-box-gold-title",
+        iconColor: "#9c7c3a",
         icon: <polyline points="20 6 9 17 4 12"/>,
         items: {
           EN: [
             "Final drawing set produced and compiled by DARA Studio",
-            "Low-resolution watermarked technical preview uploaded to your portal",
-            "Project package thoroughly reviewed and verified by you",
-            "Final 20% payment milestone received and fully cleared",
-            <>20% - <em>Final Drawing Set and Project Closeout</em></>
+            "Low-resolution watermarked technical preview available on portal",
+            "Full file package reviewed and verified by you",
+            "Final 20% milestone payment received and cleared",
+            "20% - Final Drawing Set and Project Closure"
           ],
           PT: [
             "Conjunto de desenhos final produzido e compilado pela DARA Studio",
-            `Prévia técnica em baixa resolução com marca d’água disponível no portal`,
-            `Todo o pacote de arquivos revisado e verificado por você`,
+            "Prévia técnica em baixa resolução com marca d'água disponível no portal",
+            "Todo o pacote de arquivos revisado e verificado por você",
             "Pagamento do milestone final de 20% recebido e compensado",
-            <>20% - <em>Conjunto de Desenhos Final e Encerramento do Projeto</em></>
+            "20% - Conjunto de Desenhos Final e Encerramento do Projeto"
           ]
         }
       }
     ],
     gantt: {
+      title: { EN: `PROJECT TIMELINE & OPERATIONAL FLOW`, PT: `LINHA DO TEMPO DO PROJETO & FLUXO OPERACIONAL` },
       intro: {
-        EN: `To keep your project metrics transparent, here is how your technical pipeline moves across our operational calendar, calculated from the moment your funds clear and kickoff is authorized.`,
+        EN: `For full timeline transparency, here is how your project advances through our production calendar - calculated from the moment funds clear and kickoff is authorized.`,
         PT: `Para garantir total transparência em relação aos prazos, veja como a sua demanda avança dentro do nosso calendário de produção, calculada a partir do momento em que os fundos são compensados e o kickoff é autorizado.`
       },
       note: {
-        EN: `Production cycles are dynamic. While standard phases move within the 8 to 16 business days window, the total speed of your pipeline is heavily driven by how fast your consolidated technical feedback is compiled and uploaded to our portal.`,
+        EN: `Production cycles are dynamic. While main phases operate within an 8-16 business day window, your project's overall pace depends directly on how quickly consolidated feedback is submitted through your portal.`,
         PT: `Os ciclos de produção são dinâmicos. Embora as fases principais aconteçam na janela de 8 a 16 dias úteis, a velocidade total do seu projeto depende diretamente da rapidez com que os seus feedbacks consolidados são enviados no nosso portal.`
       },
       phases: [
         {
-          label: { EN: `Phase 1: Kickoff & Scope Validation`, PT: `Fase 1: Alinhamento Inicial & Validação de Escopo` },
-          duration: { EN: `1 to 3 Business Days`, PT: `1 a 3 Dias Úteis` },
-          progress: 20
+          label: { EN: `Phase 1: Initial Alignment & Scope Validation`, PT: `Fase 1: Alinhamento Inicial & Validação de Escopo` },
+          duration: { EN: `1-3 Business Days · 20%`, PT: `1 a 3 Dias Úteis · 20%` }
         },
         {
           label: { EN: `Phase 2: First Design Preview Delivery`, PT: `Fase 2: Entrega da Primeira Prévia de Design` },
-          duration: { EN: `8 to 16 Business Days`, PT: `8 a 16 Dias Úteis` },
-          progress: 40
+          duration: { EN: `8-16 Business Days · 40%`, PT: `8 a 16 Dias Úteis · 40%` }
         },
         {
-          label: { EN: `Phase 3: Revision Iterations (REV 01 to REV 03)`, PT: `Fase 3: Ciclos de Ajuste e Revisão (REV 01 a REV 03)` },
-          duration: { EN: `8 to 16 Business Days per round`, PT: `8 a 16 Dias Úteis por rodada` },
-          progress: 60
+          label: { EN: `Phase 3: Adjustment and Revision Cycles (REV 01-03)`, PT: `Fase 3: Ciclos de Ajuste e Revisão (REV 01 a REV 03)` },
+          duration: { EN: `8-16 Business Days per round · 60%`, PT: `8 a 16 Dias Úteis por rodada · 60%` }
         },
         {
-          label: { EN: `Phase 4: Technical Production & Final Drawing Set Compilation`, PT: `Fase 4: Produção Técnica & Compilação do Set Final` },
-          duration: { EN: `8 to 16 Business Days`, PT: `8 a 16 Dias Úteis` },
-          progress: 80
+          label: { EN: `Phase 4: Technical Production & Final Set Compilation`, PT: `Fase 4: Produção Técnica & Compilação do Set Final` },
+          duration: { EN: `8-16 Business Days · 80%`, PT: `8 a 16 Dias Úteis · 80%` }
         },
         {
-          label: { EN: `Phase 5: Quality Assurance Review, Final 20% Release & Closeout`, PT: `Fase 5: Revisão de Controle de Qualidade, Liberação dos 20% e Encerramento` },
-          duration: { EN: `1 to 3 Business Days`, PT: `1 a 3 Dias Úteis` },
-          progress: 100
+          label: { EN: `Phase 5: Quality Control Review, Final 20% Release & Closure`, PT: `Fase 5: Revisão de Controle de Qualidade, Liberação dos 20% e Encerramento` },
+          duration: { EN: `1-3 Business Days · 100%`, PT: `1 a 3 Dias Úteis · 100%` }
         }
       ]
     }
@@ -442,73 +451,70 @@ const STEPS = [
   {
     num: "05.1",
     icon: <Icons.Clock />,
-    iconColor: "#7B1FA2",
+    iconColor: "#9c7c3a",
     iconBg: "rgba(123, 31, 162, 0.08)",
-    title: { EN: `Technical Hours & Post-Delivery Support`, PT: `Horas Técnicas & Suporte Pós-Entrega` },
+    title: { EN: `Technical Hour Rates & Post-Delivery Support`, PT: `Tabela de Horas Técnicas & Suporte Pós-Entrega` },
     summary: {
-      EN: `Architecture is a dynamic pipeline, and municipal demands can shift.`,
+      EN: `Executive projects are dynamic and municipal requirements can change.`,
       PT: `Projetos executivos são dinâmicos e as exigências municipais podem mudar.`
     },
     body: {
-      EN: `If your project requires adjustments beyond your initial package or after final delivery, we scale our technical support through a highly structured and predictable hourly ecosystem.`,
+      EN: `If your project requires modifications beyond the original package or after contract closure, our structure offers on-demand support through a highly predictable technical hour model.`,
       PT: `Se a sua demanda exigir modificações além do pacote original ou após o encerramento do contrato, nossa estrutura oferece suporte sob demanda através de um modelo de hora técnica altamente previsível.`
     },
     paymentMethods: {
-      title: { EN: `OUT-OF-SCOPE AND POST-DELIVERY TECHNICAL RATES`, PT: `VALORES DE HORA TÉCNICA PARA ITENS FORA DO ESCOPO E PÓS-ENTREGA` },
+      title: { EN: `TECHNICAL HOUR RATES FOR OUT-OF-SCOPE & POST-DELIVERY ITEMS`, PT: `VALORES DE HORA TÉCNICA PARA ITENS FORA DO ESCOPO E PÓS-ENTREGA` },
       methods: [
         {
-          icon: "📐",
-          name: { EN: `Technical Drafting and Project Modification`, PT: `Desenho Técnico e Modificações de Projeto` },
-          desc: { EN: `Priced at $95 per hour.`, PT: `Fixado em $95 por hora.` },
+          name: { EN: `TECHNICAL DRAFTING & PROJECT MODIFICATIONS`, PT: `DESENHO TÉCNICO E MODIFICAÇÕES DE PROJETO` },
+          desc: { EN: `Fixed at $95 per hour.`, PT: `Fixado em $95 por hora.` },
           details: {
-            EN: [<>Covers any layout updates, code corrections requested by local authorities, or structural calibration inside the Chief Architect X17 software.</>],
-            PT: [<>Cobre qualquer alteração de layout, correções de código solicitadas por órgãos públicos ou calibrações estruturais dentro do sistema Chief Architect X17.</>]
+            EN: ["Covers any layout changes, code corrections requested by public agencies, or structural calibrations within Chief Architect X17."],
+            PT: ["Cobre qualquer alteração de layout, correções de código solicitadas por órgãos públicos ou calibrações estruturais dentro do sistema Chief Architect X17."]
           }
         },
         {
-          icon: "🎥",
-          name: { EN: `On-Demand Technical Meetings`, PT: `Reuniões Técnicas Sob Demanda` },
-          desc: { EN: `Priced at $95 per hour.`, PT: `Fixado em $95 por hora.` },
+          name: { EN: `ON-DEMAND TECHNICAL MEETINGS`, PT: `REUNIÕES TÉCNICAS SOB DEMANDA` },
+          desc: { EN: `Fixed at $95 per hour.`, PT: `Fixado em $95 por hora.` },
           details: {
-            EN: [<>Applies to dedicated video calls or phone alignments required to discuss scope modifications after a phase is closed.</>],
-            PT: [<>Aplica-se a videoconferências dedicadas ou alinhamentos telefônicos necessários para debater mudanças de escopo após uma etapa ser encerrada.</>]
+            EN: ["Applies to dedicated video calls or phone consultations needed to discuss scope changes after a stage has been closed."],
+            PT: ["Aplica-se a videoconferências dedicadas ou alinhamentos telefônicos necessários para debater mudanças de escopo após uma etapa ser encerrada."]
           }
         },
         {
-          icon: "📋",
-          name: { EN: `General Technical Consultations`, PT: `Consultoria Técnica Geral` },
-          desc: { EN: `Priced at $95 per hour.`, PT: `Fixado em $95 por hora.` },
+          name: { EN: `GENERAL TECHNICAL CONSULTING`, PT: `CONSULTORIA TÉCNICA GERAL` },
+          desc: { EN: `Fixed at $95 per hour.`, PT: `Fixado em $95 por hora.` },
           details: {
-            EN: [<>Includes deep reviews of municipal code changes or zoning alignments outside the original contract parameters.</>],
-            PT: [<>Inclui análises profundas de mudanças em códigos de zoneamento ou leis municipais específicas que estejam fora do contrato inicial.</>]
+            EN: ["Includes in-depth analysis of zoning code changes or specific municipal regulations outside the initial contract."],
+            PT: ["Inclui análises profundas de mudanças em códigos de zoneamento ou leis municipais específicas que estejam fora do contrato inicial."]
           }
         }
       ]
     },
     revisionSystem: {
       included: {
-        label: { EN: `THE 30-DAY POST-DELIVERY WARRANTY - What Is Included`, PT: `GARANTIA TÉCNICA DE 30 DIAS PÓS-ENTREGA - O que está incluso` },
+        label: { EN: `30-DAY POST-DELIVERY TECHNICAL WARRANTY - WHAT'S INCLUDED`, PT: `GARANTIA TÉCNICA DE 30 DIAS PÓS-ENTREGA - O QUE ESTÁ INCLUSO` },
         items: {
           EN: [
-            "Every final drawing set comes with a built-in 30-day technical support window that begins the exact day your unwatermarked files are released.",
-            "If the city hall or local building department issues correction notices (redlines) within 30 days, our team will apply the necessary adjustments inside Chief Architect X17 at no extra cost.",
-            `Valid exclusively when changes do not alter the approved architectural layout, overall square footage, or structural scope.`
+            "Each final drawing set includes a 30-day technical support period from the date of high-resolution file release.",
+            "If the municipality or local building department issues correction notes (redlines) within this period, our team will apply the adjustments in Chief Architect X17 at no additional cost.",
+            "Valid only when corrections do not alter the previously approved architectural layout, built area, or structural scope."
           ],
           PT: [
-            `Cada conjunto de desenhos final possui um período de suporte técnico de 30 dias corridos, contados a partir da data de liberação dos arquivos em alta resolução.`,
-            `Se a prefeitura ou o departamento de construções local emitir notas de correção (redlines) dentro desse prazo, nossa equipe aplicará os ajustes no Chief Architect X17 sem qualquer custo adicional.`,
-            `Válido exclusivamente quando as correções não alterem o layout arquitetônico já aprovado, a área construída ou o escopo estrutural.`
+            "Cada conjunto de desenhos final possui um período de suporte técnico de 30 dias corridos, contados a partir da data de liberação dos arquivos em alta resolução.",
+            "Se a prefeitura ou o departamento de construções local emitir notas de correção (redlines) dentro desse prazo, nossa equipe aplicará os ajustes no Chief Architect X17 sem qualquer custo adicional.",
+            "Válido exclusivamente quando as correções não alterem o layout arquitetônico já aprovado, a área construída ou o escopo estrutural."
           ]
         }
       },
       extended: {
-        label: { EN: `WHAT SITS OUTSIDE THE WARRANTY`, PT: `O QUE NÃO FAZ PARTE DA GARANTIA` },
+        label: { EN: `WHAT IS NOT COVERED BY THE WARRANTY`, PT: `O QUE NÃO FAZ PARTE DA GARANTIA` },
         steps: {
           EN: [
-            <>Any correction request caused by a change of mind, structural layout modifications, or code inquiries received after the 30-day window has expired will be billed under our standard rate of <strong>$95 per hour</strong>.</>
+            "Any adjustment request driven by a change of mind, structural layout changes, or correction requests received after the 30-day period will be billed at the standard rate of $95 per technical hour."
           ],
           PT: [
-            <>Qualquer solicitação de ajuste motivada por mudança de ideia, alterações no layout estrutural ou pedidos de correção recebidos após o término do prazo de 30 dias serão faturados com base no valor padrão de <strong>$95 por hora técnica</strong>.</>
+            "Qualquer solicitação de ajuste motivada por mudança de ideia, alterações no layout estrutural ou pedidos de correção recebidos após o término do prazo de 30 dias serão faturados com base no valor padrão de $95 por hora técnica."
           ]
         }
       }
@@ -517,88 +523,85 @@ const STEPS = [
   {
     num: "06",
     icon: <Icons.Shield />,
-    iconColor: "#7B1FA2",
+    iconColor: "#9c7c3a",
     iconBg: "rgba(123, 31, 162, 0.08)",
-    title: { EN: `Terms & Administrative Conditions`, PT: `Termos & Condições Administrativas` },
+    title: { EN: `Administrative Terms & Conditions`, PT: `Termos & Condições Administrativas` },
     summary: {
-      EN: `Clear operational boundaries for communication and timeline management.`,
+      EN: `Clear guidelines for communication and deadline management throughout the contract.`,
       PT: `Diretrizes claras para a comunicação e o gerenciamento de prazos ao longo do contrato.`
     },
     body: {
-      EN: `To maintain the high operational velocity and absolute technical precision that defines DARA Studio, we establish clear behavioral boundaries for our ongoing communication and timeline management.`,
+      EN: `To maintain the high execution speed and technical rigor that define DARA Studio, we establish clear guidelines for our daily communication and deadline management throughout the contract.`,
       PT: `Para manter a alta velocidade de execução e o rigor técnico que definem a DARA Studio, estabelecemos diretrizes claras para a nossa comunicação diária e para o gerenciamento de prazos ao longo do contrato.`
     },
     paymentMethods: {
       title: { EN: `COMMUNICATION PROTOCOLS`, PT: `PROTOCOLOS DE COMUNICAÇÃO` },
       methods: [
         {
-          icon: "💬",
-          name: { EN: `Centralized Channels`, PT: `Canais Centralizados` },
-          desc: {
-            EN: `Our client portal and text messaging via WhatsApp serve as the exclusive channels for all project-related updates, file transfers, and design feedback.`,
-            PT: `O portal do cliente e o atendimento via WhatsApp são os únicos canais oficiais para atualizações, envios de arquivos e recebimento de feedbacks.`
-          },
+          name: { EN: `CENTRALIZED CHANNELS`, PT: `CANAIS CENTRALIZADOS` },
+          desc: { EN: `The client portal and WhatsApp are the only official channels for updates, file submissions, and feedback.`, PT: `O portal do cliente e o atendimento via WhatsApp são os únicos canais oficiais para atualizações, envios de arquivos e recebimento de feedbacks.` },
           details: {
-            EN: [<>We do not utilize audio notes or voice messages for official design changes - technical alignments must remain entirely auditable and traceable.</>],
-            PT: [<>Não utilizamos mensagens de áudio para aprovações ou alterações de design, pois cada alinhamento técnico precisa ser totalmente documentado e rastreável.</>]
+            EN: ["We do not use voice messages for design approvals or changes — every technical alignment must be fully documented and traceable."],
+            PT: ["Não utilizamos mensagens de áudio para aprovações ou alterações de design, pois cada alinhamento técnico precisa ser totalmente documentado e rastreável."]
           }
         },
         {
-          icon: "⏱️",
-          name: { EN: `Response Windows`, PT: `Janelas de Resposta` },
-          desc: {
-            EN: `Our standard response time sits between 2 to 4 business hours during working days.`,
-            PT: `Nosso tempo padrão de retorno é de 2 a 4 horas úteis durante o horário comercial.`
-          },
+          name: { EN: `RESPONSE WINDOWS`, PT: `JANELAS DE RESPOSTA` },
+          desc: { EN: `Our standard response time is 2–4 business hours, with up to 24‑hour technical depth.`, PT: `Nosso tempo padrão de retorno é de 2–4 horas úteis, com profundidade técnica de até 24 horas.` },
           details: {
-            EN: [<>For deeply technical inquiries or structural reviews that demand detailed analysis from our drafting team, please allow up to <strong>24 business hours</strong> for a comprehensive resolution.</>],
-            PT: [<>Para dúvidas profundamente técnicas ou revisões estruturais que exijam uma análise detalhada da nossa equipe de desenho, pedimos o prazo de até <strong>24 horas úteis</strong> para uma resposta completa.</>]
+            EN: ["For deeply technical questions or structural revisions that require detailed analysis from our drafting team, we allow up to 24 business hours for a complete response."],
+            PT: ["Para dúvidas profundamente técnicas ou revisões estruturais que exigem análise detalhada da equipe de desenho, permitimos até 24 horas úteis para resposta completa."]
+          }
+        },
+        {
+          name: { EN: `INACTIVITY PERIODS & CONTRACT EXPIRATION`, PT: `PRAZOS DE INATIVIDADE & EXPIRAÇÃO DE CONTRATO` },
+          details: {
+            EN: ["On‑Hold Status: If project progress stalls due to missing feedback, delayed approvals, or absent documents for more than 45 consecutive days, the original contract becomes void."],
+            PT: ["Status em Espera: Se o andamento do projeto ficar estagnado por falta de feedbacks, atrasos em aprovações ou ausência de documentos por mais de 45 dias seguidos, o contrato original perde a validade."]
+          }
+        },
+        {
+          name: { EN: `REACTIVATION STRUCTURE`, PT: `ESTRUTURA DE REATIVAÇÃO` },
+          desc: { EN: `To reinsert an inactive project back into our production queue after the 45‑day limit, a reactivation fee equivalent to 15% of the total estimate value will be charged.`, PT: `Para reinserir um projeto inativo de volta à nossa linha de produção após o limite de 45 dias, será cobrada uma taxa de reativação equivalente a 15% do valor total do estimate.` },
+          details: {
+            EN: ["The project will be repositioned in the queue according to our current availability — original timelines and schedules will be recalculated."],
+            PT: ["O projeto será reposicionado na fila de acordo com a nossa disponibilidade atual — os prazos e cronogramas originais serão recalculados."]
           }
         }
       ]
     },
-    revisionSystem: {
-      included: {
-        label: { EN: `SCHEDULE MANAGEMENT & PROJECT EXPIRATIONS`, PT: `PRAZOS DE INATIVIDADE & EXPIRAÇÃO DE CONTRATO` },
-        items: {
-          EN: [
-            <>On-Hold Status: If a project pipeline is paused or left inactive due to delayed client feedback or missing site documentation for more than <strong>45 consecutive days</strong>, the original contract terms are voided.</>,
-          ],
-          PT: [
-            <>Status em Espera: Se o andamento do projeto ficar estagnado por falta de feedbacks, atrasos em aprovações ou ausência de documentos por mais de <strong>45 dias seguidos</strong>, o contrato original perde a validade.</>,
-          ]
-        }
-      },
-      extended: {
-        label: { EN: `REACTIVATION ARCHITECTURE`, PT: `ESTRUTURA DE REATIVAÇÃO` },
-        steps: {
-          EN: [
-            <>A dedicated reactivation fee equal to <strong>15% of the total estimate</strong> will be assessed to bring a dormant project back into active production after the 45-day threshold.</>,
-            <>The project will then be repositioned into our current production queue based on our active availability - original timelines and delivery milestones will be subject to recalibration.</>
-          ],
-          PT: [
-            <>Para reinserir um projeto inativo de volta à nossa linha de produção após o limite de 45 dias, será cobrada uma taxa de reativação equivalente a <strong>15% do valor total do estimate</strong>.</>,
-            <>O projeto será reposicionado na fila de acordo com a nossa disponibilidade atual - os prazos e cronogramas originais serão recalculados.</>
-          ]
-        }
-      }
+
+  },
+  {
+    num: "06.1",
+    icon: <Icons.Target />,
+    iconColor: "#9c7c3a",
+    iconBg: "rgba(156, 124, 58, 0.1)",
+    label: { EN: "STAGE 06.1", PT: "ETAPA 06.1" },
+    title: { EN: `Welcome to DARA Studio`, PT: `Seja Bem-Vindo à DARA Studio` },
+    body: {
+      EN: `We are ready to structure and scale your architectural demand. Now that your project is officially activated and positioned in our production queue, we will guide you through the initial steps to ensure full alignment before technical drawings begin.`,
+      PT: `Estamos prontos para estruturar e dar escala à sua demanda arquitetônica. Agora que o seu projeto está oficialmente ativado e posicionado na nossa linha de produção, vamos guiar você pelas etapas iniciais para garantir total alinhamento antes do início dos desenhos técnicos.`
+    },
+    cta: {
+      label: { EN: `START MY PROJECT`, PT: `INICIAR MEU PROJETO` },
+      path: "/estimate"
     }
   },
-
   {
     num: "07",
     icon: <Icons.Package />,
-    iconColor: "#10b981",
-    iconBg: "rgba(16, 185, 129, 0.1)",
-    listIconColor: "#10b981",
+    iconColor: "#9c7c3a",
+    iconBg: "rgba(156, 124, 58, 0.1)",
+    listIconColor: "#9c7c3a",
     title: { EN: `What's Included`, PT: `O Que Está Incluído` },
     summary: { EN: `Depending on the selected package, deliverables may include:`, PT: `Dependendo do pacote selecionado, as entregas podem incluir:` },
     list: {
       EN: [
         "Architectural floor plans & Exterior elevations",
-        "Basic building sections & Interior layout planning",
+        "Basic building sections & Layout planning",
         "Kitchen and bathroom layouts",
-        "Fixture and equipment placement",
+        "Equipment and fixture placement",
         "Door and window schedules",
         "Dimensioned construction drawings",
         "3D visualization (if included)"
@@ -613,103 +616,113 @@ const STEPS = [
         `Visualização 3D (se inclusa)`
       ]
     },
-    note: { EN: `All drawings are prepared in accordance with standard U.S. residential drafting practices.`, PT: `Todos os desenhos são preparados de acordo com práticas padrão de desenho residencial dos EUA.` }
+    note: { EN: `All drawings are prepared in accordance with US residential drafting standards.`, PT: `Todos os desenhos são preparados de acordo com práticas padrão de desenho residencial dos EUA.` }
   },
   {
     num: "08",
-    icon: <Icons.XIcon />,
-    iconColor: "#E91E63",
+    icon: <Icons.XIcon />, // red X icon
+    iconColor: "#9c7c3a",
     iconBg: "rgba(233, 30, 99, 0.1)",
-    listIconColor: "#E91E63",
+    listIconColor: "#9c7c3a",
     listIcon: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+    label: { EN: "STAGE 08", PT: "ETAPA 08" },
     title: { EN: `What's Not Included`, PT: `O Que Não Está Incluído` },
     summary: { EN: `To maintain clarity and compliance, the following are not part of our scope:`, PT: `Para manter clareza e conformidade, os seguintes não fazem parte do nosso escopo:` },
+    listTitle: { EN: `TO MAINTAIN CLARITY AND COMPLIANCE, THE FOLLOWING ARE NOT PART OF OUR SCOPE:`, PT: `PARA MANTER CLAREZA E CONFORMIDADE, OS SEGUINTES NÃO FAZEM PARTE DO NOSSO ESCOPO:` },
     list: {
       EN: [
         "Structural engineering calculations",
         "Engineer stamp or sealed drawings",
-        `Full electrical, plumbing & HVAC design`,
-        "Site surveys or topographic mapping",
+        "Full electrical, plumbing, and HVAC design",
+        "Topographic surveys",
         "Soil testing or geotechnical reports",
         "Energy compliance reports",
-        "In-person site visits or inspections"
+        "On-site visits or inspections"
       ],
       PT: [
-        `Cálculos de engenharia estrutural`,
+        "Cálculos de engenharia estrutural",
         "Carimbo de engenheiro ou desenhos selados",
-        `Projeto elétrico, hidráulico e HVAC completo`,
-        `Levantamentos topográficos`,
-        `Ensaios de solo ou relatórios geotécnicos`,
-        `Relatórios de conformidade energética`,
-        `Visitas presenciais ao local ou inspeções`
+        "Projeto elétrico, hidráulico e HVAC completo",
+        "Levantamentos topográficos",
+        "Ensaios de solo ou relatórios geotécnicos",
+        "Relatórios de conformidade energética",
+        "Visitas presenciais ao local ou inspeções"
       ]
     },
     note: { EN: `When required, licensed professionals must be hired locally by the client.`, PT: `Quando necessário, profissionais licenciados devem ser contratados localmente pelo cliente.` }
   },
   {
     num: "09",
-    icon: <Icons.Shield />,
-    title: { EN: `Compliance & Liability`, PT: `Conformidade e Responsabilidade` },
-    summary: { EN: `Our drawings are intended for design development and permit documentation support.`, PT: `Nossos desenhos são destinados ao desenvolvimento do projeto e suporte à documentação de alvará.` },
+    icon: <Icons.Shield />, // shield icon
+    label: { EN: "STAGE 09", PT: "ETAPA 09" },
+    title: { EN: `Compliance and Responsibility`, PT: `Conformidade e Responsabilidade` },
+    summary: { EN: `Our drawings are intended for project development and permit documentation support.`, PT: `Nossos desenhos são destinados ao desenvolvimento do projeto e suporte à documentação de alvará.` },
     body: {
       EN: `Final approval is subject to review by local authorities and licensed engineers, when required by state or municipal regulations.`,
       PT: `A aprovação final está sujeita à revisão por autoridades locais e engenheiros licenciados, quando exigido pelas regulamentações estaduais ou municipais.`
     },
+    listTitle: { EN: `OUR DRAWINGS ARE INTENDED FOR PROJECT DEVELOPMENT AND PERMIT DOCUMENTATION SUPPORT.`, PT: `NOSSOS DESENHOS SÃO DESTINADOS AO DESENVOLVIMENTO DO PROJETO E SUPORTE À DOCUMENTAÇÃO DE ALVARÁ.` },
     list: {
       EN: [
-        "Hiring licensed structural engineers (if required)",
-        "Coordinating required technical reports",
-        "Verifying local zoning and code restrictions"
+        "Hire licensed structural engineers (if required)",
+        "Coordinate any required technical reports",
+        "Verify local zoning and code restrictions"
       ],
       PT: [
         "Contratar engenheiros estruturais licenciados (se exigido)",
-        `Coordenar relatórios técnicos necessários`,
-        `Verificar restrições de zoneamento e código local`
+        "Coordenar relatórios técnicos necessários",
+        "Verificar restrições de zoneamento e código local"
       ]
     },
-    note: { EN: `We design in alignment with U.S. standards; final compliance depends on local jurisdiction.`, PT: `Projetamos em alinhamento com padrões dos EUA; a conformidade final depende da jurisdição local.` }
+    note: { EN: `We design in alignment with U.S. standards; final compliance depends on the local jurisdiction.`, PT: `Projetamos em alinhamento com padrões dos EUA; a conformidade final depende da jurisdição local.` }
   },
+
+
   {
     num: "10",
     icon: <Icons.MessageCircle />,
-    title: { EN: `Meetings & Communication`, PT: `Reuniões e Comunicação` },
+    label: { EN: "STAGE 10", PT: "ETAPA 10" },
+    title: { EN: `Meetings and Communication`, PT: `Reuniões e Comunicação` },
     summary: { EN: `DA·RA Studio operates 100% remotely with a structured digital workflow.`, PT: `O DA·RA Studio opera 100% remotamente com um fluxo de trabalho digital estruturado.` },
     body: {
       EN: `We do not offer video calls or in-person meetings. All project coordination is handled exclusively via WhatsApp and our Client Portal.`,
       PT: `Não oferecemos chamadas de vídeo ou reuniões presenciais. Toda a coordenação do projeto é feita exclusivamente via WhatsApp e nosso Portal do Cliente.`
     },
+    listTitle: { EN: `DA·RA STUDIO OPERATES 100% REMOTELY WITH A STRUCTURED DIGITAL WORKFLOW.`, PT: `O DA·RA STUDIO OPERA 100% REMOTAMENTE COM UM FLUXO DE TRABALHO DIGITAL ESTRUTURADO.` },
     list: {
       EN: [
-        "Full online project management",
+        "Fully online project management",
         "Direct communication via WhatsApp during business hours",
-        "Continuous updates throughout each phase",
-        `Client portal access for files, timelines, and invoices`
+        "Continuous updates at every phase",
+        "Portal access for files, deadlines, and invoices"
       ],
       PT: [
-        `Gestão de projeto totalmente online`,
-        `Comunicação direta via WhatsApp em horário comercial`,
-        `Atualizações contínuas em cada fase`,
-        `Acesso ao portal para arquivos, prazos e faturas`
+        "Gestão de projeto totalmente online",
+        "Comunicação direta via WhatsApp em horário comercial",
+        "Atualizações contínuas em cada fase",
+        "Acesso ao portal para arquivos, prazos e faturas"
       ]
     }
   },
   {
     num: "11",
-    icon: <Icons.Star />,
-    title: { EN: `Why DARA Studio`, PT: `Por que o DARA Studio` },
-    summary: { EN: `We serve clients across the United States and Brazil with precision and speed.`, PT: `Atendemos clientes nos Estados Unidos e Brasil com precisão e velocidade.` },
+    icon: <Icons.Star />, // star icon
+    label: { EN: "STAGE 11", PT: "ETAPA 11" },
+    title: { EN: `Why DARA Studio`, PT: `Por Que o DARA Studio` },
+    summary: { EN: `We serve clients in the United States and Brazil with precision and speed.`, PT: `Atendemos clientes nos Estados Unidos e Brasil com precisão e velocidade.` },
+    listTitle: { EN: `WE SERVE CLIENTS IN THE UNITED STATES AND BRAZIL WITH PRECISION AND SPEED.`, PT: `ATENDEMOS CLIENTES NOS ESTADOS UNIDOS E BRASIL COM PRECISÃO E VELOCIDADE.` },
     list: {
       EN: [
-        "Code-conscious documentation (IRC, IBC, NBR)",
-        "Builder-friendly drawing sets",
-        "Efficient turnaround with defined milestones",
-        "Clear scope and professional boundaries",
-        "Trusted by developers and construction teams",
-        "Remote-first digital workflow"
+        "Code-driven documentation (IRC, IBC, NBR)",
+        "Execution-focused project drawings",
+        "Efficient delivery timelines",
+        "Clear professional scope and boundaries",
+        "Trusted by developers and builders",
+        "100% remote workflow"
       ],
       PT: [
-        `Documentação voltada a normas (IRC, IBC, NBR)`,
-        `Projetos focados na execução`,
+        "Documentação voltada a normas (IRC, IBC, NBR)",
+        "Projetos focados na execução",
         "Prazos de entrega eficientes",
         "Escopo e limites profissionais claros",
         "Aprovado por incorporadores e construtores",
@@ -725,10 +738,10 @@ const STEPS = [
 export default function HowWeWork() {
   const { lang } = useAppContext();
   const navigate = useNavigate();
-  const [openAccordion, setOpenAccordion] = React.useState(0);
+  const [openAccordion, setOpenAccordion] = React.useState(STEPS.map((_, i) => i));
 
   const toggleAccordion = (idx) => {
-    setOpenAccordion(openAccordion === idx ? null : idx);
+    setOpenAccordion(prev => prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]);
   };
 
   const handleStartProject = () => { navigate('/estimate'); };
@@ -736,7 +749,7 @@ export default function HowWeWork() {
   return (
     <PageTransition variant="fade">
       <div className="lp-root services-page-root">
-        {/* Brilho radial roxo suave no topo centralizado */}
+        {/* Brilho radial verde suave no topo centralizado */}
         <div className="radial-glow"></div>
         <div className="radial-glow-navy"></div>
         <Navbar />
@@ -775,7 +788,7 @@ export default function HowWeWork() {
 
             {/* The Benefit Section */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'flex-start', marginBottom: '40px' }}>
-              <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', opacity: 0.6 }}>
+              <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
                 {lang === 'EN' ? 'THE BENEFIT' : 'O BENEFÍCIO'}
               </div>
               <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '18px', lineHeight: 1.5, color: 'var(--text-color)' }}>
@@ -788,7 +801,7 @@ export default function HowWeWork() {
             {/* Bottom Divider */}
             <div className="preview-header">
               <h2 className="preview-title">
-                <span style={{ opacity: 0.5, marginRight: '8px' }}>(A)</span>
+                <span style={{  marginRight: '8px' }}>(A)</span>
                 {lang === 'EN' ? 'THE ENGAGEMENT FLOW' : 'O FLUXO DE ENGAJAMENTO'}
               </h2>
               <div className="preview-line"></div>
@@ -805,21 +818,23 @@ export default function HowWeWork() {
                 >
                   <span className="accordion-num">{step.num}</span>
                   <span className="accordion-title">{step.title[lang]}</span>
-                  <span className={`accordion-icon ${openAccordion === idx ? 'open' : ''}`}>
-                    {openAccordion === idx ? '-' : '+'}
+                  <span className={`accordion-icon ${openAccordion.includes(idx) ? 'open' : ''}`}>
+                    {openAccordion.includes(idx) ? '-' : '+'}
                   </span>
                 </button>
-                <div className={`engagement-accordion-body ${openAccordion === idx ? 'open' : ''}`}>
+                <div className={`engagement-accordion-body ${openAccordion.includes(idx) ? 'open' : ''}`}>
                   <div className="step-card-split accordion-content-inner" style={{ border: 'none', padding: '0 0 40px', background: 'transparent' }}>
                     <div className="step-col-left">
                       {step.badge && (
                         <div className="service-output-badge" style={{ alignSelf: 'flex-start' }}>{step.badge[lang]}</div>
                       )}
 
-                      <p className="service-desc" style={{ margin: '0 0 16px 0', fontWeight: 600, color: 'var(--text-color)' }}>{step.summary[lang]}</p>
+                      {step.summary && (
+                        <p className="service-desc" style={{ margin: '0 0 16px 0', fontWeight: 600, color: 'var(--text-color)' }}>{step.summary[lang]}</p>
+                      )}
 
                       {step.body && (
-                        <p className="service-desc" style={{ margin: 0, opacity: 0.75 }}>{step.body[lang]}</p>
+                        <p className="service-desc" style={{ margin: 0 }}>{step.body[lang]}</p>
                       )}
 
                       {step.note && (
@@ -831,23 +846,32 @@ export default function HowWeWork() {
                         }}>
                           {typeof step.note === 'object' && step.note.title ? (
                             <>
-                              <div style={{ fontSize: '10px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', opacity: 0.6, marginBottom: '8px', textTransform: 'uppercase' }}>
+                              <div style={{ fontSize: '10px', letterSpacing: '0.15em', fontFamily: 'var(--font-mono)', marginBottom: '8px', textTransform: 'uppercase' }}>
                                 {step.note.title[lang]}
                               </div>
-                              <div style={{ fontSize: '13px', fontStyle: 'italic', opacity: 0.75, lineHeight: 1.5 }}>
+                              <div style={{ fontSize: '13px', fontStyle: 'italic', lineHeight: 1.5 }}>
                                 {step.note.text[lang]}
                               </div>
                             </>
                           ) : (
-                            step.note[lang]
+                            <div style={{ fontSize: '13px', fontStyle: 'italic', lineHeight: 1.5 }}>
+                              {step.note[lang]}
+                            </div>
                           )}
                         </div>
                       )}
 
                       {step.planningNote && (
-                        <p style={{ fontSize: '12px', opacity: 0.5, lineHeight: 1.6, fontStyle: 'italic', fontFamily: 'var(--font-sans)', marginTop: 'auto' }}>
-                          {step.planningNote[lang]}
-                        </p>
+                        <div style={{ 
+                          marginTop: 'auto', 
+                          padding: '24px 24px 24px 20px', 
+                          borderLeft: '2px solid rgba(255,255,255,0.2)', 
+                          background: 'rgba(255,255,255,0.02)' 
+                        }}>
+                          <div style={{ fontSize: '13px', fontStyle: 'italic', lineHeight: 1.5 }}>
+                            {step.planningNote[lang]}
+                          </div>
+                        </div>
                       )}
 
                       {step.cta && (
@@ -895,7 +919,7 @@ export default function HowWeWork() {
                           padding: '24px', 
                           background: 'rgba(0,0,0,0.1)' 
                         }}>
-                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', opacity: 0.45, fontFamily: 'var(--font-sans)', marginBottom: '16px' }}>
+                          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', fontFamily: 'var(--font-sans)', marginBottom: '16px' }}>
                             {step.listTitle ? step.listTitle[lang] : step.summary[lang]}
                           </p>
                           <div className="step-item-grid">
@@ -927,16 +951,18 @@ export default function HowWeWork() {
 
                       {step.paymentMethods && (
                         <div style={{ marginTop: '24px' }}>
-                          <h4 style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', opacity: 0.5, marginBottom: '16px' }}>{step.paymentMethods.title[lang]}</h4>
+                          <h4 style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '16px' }}>{step.paymentMethods.title[lang]}</h4>
                           <div style={{ display: 'grid', gap: '16px' }}>
                             {step.paymentMethods.methods.map((method, i) => (
                               <div key={i} style={{ padding: '16px', background: 'rgba(0,0,0,0.03)', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.05)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                                  <span style={{ fontSize: '20px' }}>{method.icon}</span>
-                                  <h5 style={{ margin: 0, fontSize: '14px', fontFamily: 'var(--font-serif)' }}>{method.name[lang]}</h5>
+                                  {method.icon && <span style={{ fontSize: '20px' }}>{method.icon}</span>}
+                                  <h5 style={{ margin: 0, fontSize: '13px', fontFamily: 'var(--font-sans)', fontWeight: 700 }}>{method.name[lang]}</h5>
                                 </div>
-                                <p style={{ fontSize: '13px', opacity: 0.7, marginBottom: '12px', lineHeight: 1.5 }}>{method.desc[lang]}</p>
-                                <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '12px', opacity: 0.6, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                {method.desc && (
+                                  <p style={{ fontSize: '13px', marginBottom: '12px', lineHeight: 1.5 }}>{method.desc[lang]}</p>
+                                )}
+                                <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                   {method.details && method.details[lang] && method.details[lang].map((detail, j) => <li key={j}>{detail}</li>)}
                                 </ul>
                               </div>
@@ -946,23 +972,28 @@ export default function HowWeWork() {
                       )}
 
                       {step.gantt && (
-                        <div className="service-box-green" style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <div className="service-box-gold" style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
                           {step.gantt.title && step.gantt.title[lang] && (
-                            <h4 className="service-box-green-title" style={{ color: 'var(--text-color)', opacity: 0.6 }}>{step.gantt.title[lang]}</h4>
+                            <h4 className="service-box-gold-title" style={{ color: 'var(--text-color)' }}>{step.gantt.title[lang]}</h4>
+                          )}
+                          {step.gantt.intro && step.gantt.intro[lang] && (
+                            <p style={{ fontSize: '13px', lineHeight: 1.5, marginBottom: '20px' }}>
+                              {step.gantt.intro[lang]}
+                            </p>
                           )}
                           <div className="step-gantt-phases">
                             {step.gantt.phases && step.gantt.phases.map((phase, i) => (
-                              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '12px', borderBottom: i < step.gantt.phases.length - 2 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
-                                <div style={{ fontSize: '10px', letterSpacing: '0.1em', opacity: 0.4 }}>{phase.label?.[lang]}</div>
+                              <div key={i} className="step-gantt-phase-item">
+                                <div style={{ fontSize: '10px', letterSpacing: '0.1em' }}>{phase.label?.[lang]}</div>
                                 <div style={{ fontSize: '13px', fontWeight: 600 }}>{phase.duration?.[lang]}</div>
                                 {phase.desc && phase.desc[lang] && (
-                                  <div style={{ fontSize: '12px', opacity: 0.7, lineHeight: 1.4 }}>{phase.desc[lang]}</div>
+                                  <div style={{ fontSize: '12px', lineHeight: 1.4 }}>{phase.desc[lang]}</div>
                                 )}
                               </div>
                             ))}
                           </div>
                           {step.gantt.note && step.gantt.note[lang] && (
-                            <p style={{ marginTop: '14px', fontSize: '11px', opacity: 0.45, lineHeight: 1.7, fontStyle: 'italic' }}>
+                            <p style={{ marginTop: '14px', fontSize: '11px', lineHeight: 1.7, fontStyle: 'italic' }}>
                               {step.gantt.note[lang]}
                             </p>
                           )}
@@ -978,13 +1009,13 @@ export default function HowWeWork() {
           {/* Timeline & Operational Flow */}
           <div className="preview-header" style={{ marginTop: '80px', marginBottom: '24px' }}>
             <h2 className="preview-title" style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ opacity: 0.5, marginRight: '16px' }}>(B)</span>
+              <span style={{  marginRight: '16px' }}>(B)</span>
               <span style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>{lang === "EN" ? "PROJECT TIMELINE & OPERATIONAL FLOW" : "CRONOGRAMA DO PROJETO & FLUXO OPERACIONAL"}</span>
             </h2>
             <div className="preview-line" style={{ margin: '0 0 0 16px' }}></div>
           </div>
           <div style={{ maxWidth: '900px', margin: '0 0 40px', padding: '0 20px' }}>
-            <p className="editorial-subtitle" style={{ fontSize: '16.5px', lineHeight: 1.6, opacity: 0.8, color: 'var(--text-color)' }}>
+            <p className="editorial-subtitle" style={{ fontSize: '16.5px', lineHeight: 1.6, color: 'var(--text-color)' }}>
               {lang === "EN" 
                 ? "For full transparency on schedule, here is how your project advances through our production calendar - measured from the moment funds clear and kickoff is authorized." 
                 : "Para total transparência no cronograma, eis como o seu projeto avança pelo nosso calendário de produção - medido a partir do momento em que os fundos são liberados e o início é autorizado."}
@@ -1030,7 +1061,7 @@ export default function HowWeWork() {
           </div>
           
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px 80px' }}>
-            <p style={{ fontSize: '12px', opacity: 0.5, lineHeight: 1.6, fontFamily: 'var(--font-sans)', color: 'var(--text-color)' }}>
+            <p style={{ fontSize: '12px', lineHeight: 1.6, fontFamily: 'var(--font-sans)', color: 'var(--text-color)' }}>
               {lang === "EN" 
                 ? "Production cycles are dynamic. While the main phases run in the 8-16 business-day window, your total speed depends directly on how quickly your consolidated feedback is sent through our portal."
                 : "Os ciclos de produção são dinâmicos. Embora as fases principais ocorram na janela de 8 a 16 dias úteis, a sua velocidade total depende diretamente de quão rápido o seu feedback consolidado é enviado através do nosso portal."}

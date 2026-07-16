@@ -1,4 +1,4 @@
-// MOCKED FOR SCREENSHOTS
+// MOCKED FOR SCREENSHOTS & UI DEV
 const mockPromise = (data = []) => {
   let isSingle = false;
   const self = {
@@ -33,7 +33,12 @@ export const supabase = {
       return { data: { subscription: { unsubscribe: () => {} } } };
     },
     signInWithPassword: async () => ({ data: { user: {} }, error: null }),
-    signInWithOAuth: async () => ({ data: {}, error: null }),
+    signInWithOAuth: async ({ options }) => {
+      if (options?.redirectTo) {
+        window.location.href = options.redirectTo;
+      }
+      return { data: {}, error: null };
+    },
     signOut: async () => ({ error: null }),
     getUser: async () => ({ data: { user: { id: 'mock-user', email: 'test@dara.com' } } }),
   },
@@ -50,7 +55,7 @@ export const supabase = {
   }),
   removeChannel: () => {},
   from: (table) => ({
-    select: () => mockPromise(table === 'profiles' ? [{ id: 'mock-user', full_name: 'Mock User', role: 'admin' }] : []),
+    select: () => mockPromise(table === 'profiles' ? [{ id: 'mock-user', full_name: 'Mock Client', role: 'client' }] : []),
     insert: () => mockPromise({}),
     update: () => mockPromise({}),
   })

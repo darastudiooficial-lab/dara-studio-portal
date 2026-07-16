@@ -940,7 +940,7 @@ function parseDim(val, isUS) {
   }
 
   // feet'inches" → e.g. 10'6" or 10'-6"
-  const m1 = s.match(/^(\d+)[`’]\s*-?\s*(\d+(?:\.\d+)?)(?:\s*(\d+)\/(\d+))?["”]?$/);
+  const m1 = s.match(/^(\d+)['`’]\s*-?\s*(\d+(?:\.\d+)?)(?:\s*(\d+)\/(\d+))?["”]?$/);
   if (m1) {
     const ft = parseInt(m1[1], 10);
     let inch = parseFloat(m1[2] || 0);
@@ -948,8 +948,8 @@ function parseDim(val, isUS) {
     return ft * 12 + inch;
   }
 
-  // e.g. 10`6 (no quote)
-  const m2 = s.match(/^(\d+)[`’]\s*(\d+(?:\.\d+)?)?$/);
+  // e.g. 10'6 (no quote) or 10'
+  const m2 = s.match(/^(\d+)['`’]\s*-?\s*(\d+(?:\.\d+)?)?["”]?$/);
   if (m2) return parseInt(m2[1], 10) * 12 + parseFloat(m2[2] || 0);
 
   // fraction only: 1/2
@@ -1327,7 +1327,7 @@ function Title({ label, sub, checked }) {
       <div style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "center" }}>
         <h1 className="page-main-title" style={{ fontSize: '32px', margin: 0, textAlign: "center" }}>{formatLabel(label)}</h1>
         {checked && (
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))", marginTop: 4 }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9c7c3a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(156, 124, 58, 0.4))", marginTop: 4 }}>
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
@@ -1564,7 +1564,7 @@ function Stepper({ cur }) {
             fontSize: 16,
             fontWeight: 800,
             display: 'inline-block',
-            background: 'linear-gradient(to right, #7D9F85, #5A7E62)',
+            background: 'linear-gradient(to right, #A1824A, #8F723E)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             opacity: currentStepNum >= n ? 1 : 0.3,
@@ -1753,7 +1753,7 @@ function S1({ d, up, lang }) {
           </div>
 
           {allFilled && (
-            <div className={`wz-map-container ${d.mapConfirmed ? 'confirmed' : ''}`} style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", border: `1px solid ${d.mapConfirmed ? 'var(--brand-purple)' : 'var(--glass-border)'}`, boxShadow: d.mapConfirmed ? '0 0 32px rgba(125, 159, 133, 0.15)' : 'none', transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+            <div className={`wz-map-container ${d.mapConfirmed ? 'confirmed' : ''}`} style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", border: `1px solid ${d.mapConfirmed ? 'var(--brand-purple)' : 'var(--glass-border)'}`, boxShadow: d.mapConfirmed ? '0 0 32px rgba(156, 124, 58, 0.15)' : 'none', transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
               <iframe key={d.street + d.city + d.state + d.zip} src={mapsUrl()} title="Project location" width="100%" height="320" style={{ border: "none", display: "block" }} allowFullScreen loading="lazy" />
               <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, borderTop: '1px solid var(--glass-border)' }}>
                 <p style={{ fontSize: 14, color: "var(--text-color)", opacity: 0.85, flex: 1, lineHeight: 1.5, margin: 0, fontWeight: 500 }}>
@@ -1817,8 +1817,8 @@ function S2({ d, up, lang }) {
       <p className="wz-label" style={{ marginBottom: 16 }}>{T.whoAreYou} <span style={{ color: "var(--rd)" }}>*</span></p>
       <div className="wz-grid-adaptive" style={{ marginBottom: 32 }}>
         {ROLES.map(r => (
-          <div key={r.id} className={`hww-feature-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.role === r.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.role === r.id ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)" }}>
-            <div style={{ fontSize: 24, marginBottom: 8, filter: d.role === r.id ? "drop-shadow(0 0 12px rgba(125, 159, 133, 0.5))" : "none", transition: "all 0.3s ease", transform: d.role === r.id ? "scale(1.1)" : "scale(1)", color: d.role === r.id ? "var(--brand-purple)" : "var(--mu)" }}>{r.icon}</div>
+          <div key={r.id} className={`hww-feature-card ${d.role === r.id ? "active" : ""}`} onClick={() => { up("role", r.id); touch("role"); }} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.role === r.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.role === r.id ? "linear-gradient(135deg, rgba(156, 124, 58,0.1), rgba(161, 130, 74,0.05))" : "var(--glass-bg)" }}>
+            <div style={{ fontSize: 24, marginBottom: 8, filter: d.role === r.id ? "drop-shadow(0 0 12px rgba(156, 124, 58, 0.5))" : "none", transition: "all 0.3s ease", transform: d.role === r.id ? "scale(1.1)" : "scale(1)", color: d.role === r.id ? "var(--brand-purple)" : "var(--mu)" }}>{r.icon}</div>
             <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.03em', color: "var(--text-color)" }}>{T.roles[r.id]}</div>
           </div>
         ))}
@@ -1826,7 +1826,7 @@ function S2({ d, up, lang }) {
 
       {d.role && T[d.role + "Msg"] && (
         <div className="wz-animate" style={{ marginBottom: 32, padding: "12px 20px", display: "flex", flexDirection: "row", alignItems: "center", gap: 12, background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "12px" }}>
-          <span style={{ fontSize: 20, filter: "drop-shadow(0 0 12px rgba(125, 159, 133, 0.4))" }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
+          <span style={{ fontSize: 20, filter: "drop-shadow(0 0 12px rgba(156, 124, 58, 0.4))" }}>{ROLES.find(r => r.id === d.role)?.icon || "✨"}</span>
           <p style={{ fontSize: 13, color: "var(--text-color)", fontWeight: 600, lineHeight: 1.4, margin: 0, opacity: 0.9 }}>
             {T[d.role + "Msg"]}
           </p>
@@ -1972,8 +1972,8 @@ function S3({ d, up, lang }) {
           { id: "multi_family", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 21H3"/><path d="M5 21V5l8-3 8 3v16"/><path d="M9 21v-5h6v5"/><path d="M9 9h2"/><path d="M13 9h2"/><path d="M9 13h2"/><path d="M13 13h2"/></svg>, label: T.propertyTypes.multi_family.label, sub: T.propertyTypes.multi_family.sub },
           { id: "adu", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M6 21V13l6-5 6 5v8"/><path d="M10 21v-4h4v4"/></svg>, label: T.propertyTypes.adu.label, sub: T.propertyTypes.adu.sub },
         ].map(pt => (
-          <div key={pt.id} className={`hww-feature-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.propertyType === pt.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.propertyType === pt.id ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)" }}>
-            <div style={{ fontSize: 24, marginBottom: 8, filter: d.propertyType === pt.id ? "drop-shadow(0 0 12px rgba(125, 159, 133, 0.5))" : "none", transition: "all 0.3s ease", transform: d.propertyType === pt.id ? "scale(1.1)" : "scale(1)" }}>{pt.icon}</div>
+          <div key={pt.id} className={`hww-feature-card ${d.propertyType === pt.id ? "active" : ""}`} onClick={() => up("propertyType", pt.id)} style={{ textAlign: "center", padding: "16px 12px", cursor: "pointer", borderColor: d.propertyType === pt.id ? "var(--color-neon-purple)" : "var(--glass-border)", background: d.propertyType === pt.id ? "linear-gradient(135deg, rgba(156, 124, 58,0.1), rgba(161, 130, 74,0.05))" : "var(--glass-bg)" }}>
+            <div style={{ fontSize: 24, marginBottom: 8, filter: d.propertyType === pt.id ? "drop-shadow(0 0 12px rgba(156, 124, 58, 0.5))" : "none", transition: "all 0.3s ease", transform: d.propertyType === pt.id ? "scale(1.1)" : "scale(1)" }}>{pt.icon}</div>
             <p style={{ fontSize: 13, fontWeight: 700, margin: "0 0 4px 0", color: "var(--text-color)" }}>{pt.label}</p>
             <p style={{ fontSize: 11, color: "var(--text-color)", fontStyle: "italic", opacity: 0.6, margin: 0 }}>{pt.sub}</p>
           </div>
@@ -1985,8 +1985,8 @@ function S3({ d, up, lang }) {
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.constructionStructure}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
           {CONST_SVC.map(svc => (
-            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
-              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(125, 159, 133, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
+            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(156, 124, 58,0.1), rgba(161, 130, 74,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(156, 124, 58, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
               <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, lineHeight: 1.2, color: "#FFFFFF" }}>{svc.label}</p>
               <p style={{ fontSize: 10, color: "#e2e8f0", lineHeight: 1.3, margin: "0 0 16px 0" }}>{svc.sub}</p>
               <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
@@ -1996,8 +1996,8 @@ function S3({ d, up, lang }) {
           ))}
         </div>
 
-        <div style={{ marginBottom: 24, padding: "12px 16px", background: "rgba(16, 185, 129, 0.05)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "999px", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981", flexShrink: 0 }} />
+        <div style={{ marginBottom: 24, padding: "12px 16px", background: "rgba(156, 124, 58, 0.05)", border: "1px solid rgba(156, 124, 58, 0.2)", borderRadius: "999px", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#9c7c3a", flexShrink: 0 }} />
           <p style={{ fontSize: 11, color: "var(--tx)", fontWeight: 500, lineHeight: 1.4, opacity: 0.9, margin: 0 }}>
             {T.ircIbcStandardsMsg}
           </p>
@@ -2006,8 +2006,8 @@ function S3({ d, up, lang }) {
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>{T.interiors}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
           {INT_SVC.map(svc => (
-            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(125, 159, 133,0.1), rgba(90, 126, 98,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
-              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(125, 159, 133, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
+            <div key={svc.id} className={`hww-feature-card ${services[svc.id] ? "active" : ""}`} onClick={() => setSvc(svc.id)} style={{ padding: "16px 12px", textAlign: "center", position: "relative", cursor: "pointer", borderColor: services[svc.id] ? "var(--color-neon-purple)" : "var(--glass-border)", background: services[svc.id] ? "linear-gradient(135deg, rgba(156, 124, 58,0.1), rgba(161, 130, 74,0.05))" : "var(--glass-bg)", display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, filter: services[svc.id] ? "drop-shadow(0 0 10px rgba(156, 124, 58, 0.4))" : "none", transition: "all 0.3s ease", transform: services[svc.id] ? "scale(1.1)" : "scale(1)" }}>{svc.icon}</div>
               <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, lineHeight: 1.2, color: "#FFFFFF" }}>{svc.label}</p>
               <p style={{ fontSize: 10, color: "#e2e8f0", lineHeight: 1.3, margin: "0 0 16px 0" }}>{svc.sub}</p>
               <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
@@ -2033,7 +2033,7 @@ function S3({ d, up, lang }) {
                 <div key={svcId} className="hww-bento-card" style={{ padding: 24, borderRadius: 20, marginBottom: 16 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "var(--a)", textTransform: "uppercase" }}>{svcLabel}</p>
-                    {getSvcArea(svcId) > 0 && <div style={{ background: "rgba(100, 108, 255, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(getSvcArea(svcId))} {au}</div>}
+                    {getSvcArea(svcId) > 0 && <div style={{ background: "rgba(156, 124, 58, 0.15)", color: "var(--a)", padding: "4px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600 }}>{Math.round(getSvcArea(svcId))} {au}</div>}
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 10, alignItems: "start", marginBottom: 20 }}>
                     <div className="wz-f">
@@ -2065,7 +2065,7 @@ function S3({ d, up, lang }) {
                                 padding: "6px 12px",
                                 borderRadius: 20,
                                 border: isActive ? "1px solid var(--a)" : "1px solid var(--border)",
-                                background: isActive ? "rgba(100, 108, 255, 0.1)" : "transparent",
+                                background: isActive ? "rgba(156, 124, 58, 0.1)" : "transparent",
                                 color: isActive ? "var(--a)" : "var(--tx)",
                                 fontSize: 12,
                                 fontWeight: isActive ? 600 : 500,
@@ -2178,7 +2178,7 @@ function S4({ d, up, lang }) {
       title: T.pkgTitles["3d_rendering"],
       tag: T.pkgDetails["3d_rendering"].tag,
       tagColor: "rgba(139, 92, 246, 0.15)",
-      tagTextCol: "#A78BFA",
+      tagTextCol: "#9c7c3a",
       desc: T.pkgDetails["3d_rendering"].summary,
       details: T.pkgDetails["3d_rendering"],
       extras: [
@@ -2216,7 +2216,7 @@ function S4({ d, up, lang }) {
               key={pkg.id}
               className={`hww-bento-card ${isActive ? "active" : ""}`}
               onClick={() => setPkg(pkg.id)}
-              style={{ padding: 0, borderColor: isActive ? "var(--brand-purple)" : "var(--glass-border)", background: isActive ? "linear-gradient(135deg, rgba(125, 159, 133,0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)", transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)", overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer", boxShadow: isActive ? "0 0 30px rgba(125, 159, 133, 0.15)" : "none" }}
+              style={{ padding: 0, borderColor: isActive ? "var(--brand-purple)" : "var(--glass-border)", background: isActive ? "linear-gradient(135deg, rgba(156, 124, 58,0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)", transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)", overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer", boxShadow: isActive ? "0 0 30px rgba(156, 124, 58, 0.15)" : "none" }}
             >
               <div style={{ padding: 32 }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 12 }}>
@@ -2225,7 +2225,7 @@ function S4({ d, up, lang }) {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: "var(--brand-purple)", background: "rgba(167, 139, 250, 0.05)", border: "1px solid rgba(167, 139, 250, 0.2)", padding: "6px 16px", borderRadius: 100 }}>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: "var(--brand-purple)", background: "rgba(156, 124, 58, 0.05)", border: "1px solid rgba(156, 124, 58, 0.2)", padding: "6px 16px", borderRadius: 100 }}>
                         <span style={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em" }}>
                           {lang === "EN" ? `PACKAGE 0${index + 1}` : `PACOTE 0${index + 1}`}
                         </span>
@@ -2239,18 +2239,15 @@ function S4({ d, up, lang }) {
                     </div>
                     <p style={{ fontSize: 13, color: "#ffffff", opacity: 0.9, lineHeight: 1.5, margin: "0 0 0 16px" }}>
                       {pkg.desc}
-                      <span onClick={(e) => toggleDet(pkg.id, e)} style={{ marginLeft: 8, color: "var(--brand-purple)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
-                        {openDet[pkg.id] ? (lang === "EN" ? "Less details" : "Menos detalhes") : (lang === "EN" ? "More details" : "Mais detalhes")}
-                      </span>
+
                     </p>
                   </div>
                 </div>
 
-                {openDet[pkg.id] && (
                   <>
                     {/* WHY US / PITCH */}
                     {pkg.details?.whyUs && (
-                      <div className="wz-animate" style={{ marginTop: 24, padding: "16px 20px", background: "rgba(167, 139, 250, 0.08)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "0 12px 12px 0", display: "flex", gap: 14, alignItems: "flex-start" }}>
+                      <div className="wz-animate" style={{ marginTop: 24, padding: "16px 20px", background: "rgba(156, 124, 58, 0.08)", borderLeft: "4px solid var(--brand-purple)", borderRadius: "0 12px 12px 0", display: "flex", gap: 14, alignItems: "flex-start" }}>
                         <span style={{ fontSize: 24, lineHeight: 1 }}>💡</span>
                         <p style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.6, margin: 0, fontWeight: 500 }}>
                           {pkg.details.whyUs}
@@ -2267,7 +2264,7 @@ function S4({ d, up, lang }) {
                             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
                               {group.items.map(item => {
                                  const isChecked = item.isIncluded || d.pkgExtras?.[item.id];
-                                 const cardBorder = isChecked ? (item.isIncluded ? "rgba(16, 185, 129, 0.4)" : "var(--brand-purple)") : "var(--glass-border)";
+                                 const cardBorder = isChecked ? (item.isIncluded ? "rgba(156, 124, 58, 0.4)" : "var(--brand-purple)") : "var(--glass-border)";
                                  const bgCol = isChecked ? "rgba(255,255,255,0.06)" : "var(--glass-bg)";
                                  
                                  return (
@@ -2282,7 +2279,7 @@ function S4({ d, up, lang }) {
                                             {isChecked && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
                                           </div>
                                           <h4 style={{ fontSize: 13, fontWeight: 500, color: "#ffffff", margin: 0, lineHeight: 1.2 }}>
-                                            {item.label} {item.isIncluded && <span style={{color: "#10b981", fontSize: 11, fontWeight: 700}}>· Included</span>}
+                                            {item.label} {item.isIncluded && <span style={{color: "#9c7c3a", fontSize: 11, fontWeight: 700}}>· Included</span>}
                                           </h4>
                                        </div>
                                      </div>
@@ -2303,12 +2300,12 @@ function S4({ d, up, lang }) {
                     {/* INCLUSIONS */}
                     {pkg.details && pkg.details.whatYouReceive && (
                        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 32 }}>
-                          <div style={{ background: "rgba(16, 185, 129, 0.04)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "12px", padding: 16 }}>
-                             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#10b981", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? `WHAT'S INCLUDED` : `O QUE ESTÁ INCLUSO`}</p>
+                          <div style={{ background: "rgba(156, 124, 58, 0.04)", border: "1px solid rgba(156, 124, 58, 0.15)", borderRadius: "12px", padding: 16 }}>
+                             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#9c7c3a", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? `WHAT'S INCLUDED` : `O QUE ESTÁ INCLUSO`}</p>
                              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                                {pkg.details.whatYouReceive.map((item, idx) => (
                                  <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
-                                    <span style={{ color: "#10b981", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                                    <span style={{ color: "#9c7c3a", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
                                     <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                                       {item.title && item.desc ? (
                                         <>
@@ -2325,12 +2322,12 @@ function S4({ d, up, lang }) {
                           </div>
 
                           {pkg.details.notIncluded && (
-                            <div style={{ background: "rgba(90, 126, 98, 0.04)", border: "1px solid rgba(90, 126, 98, 0.15)", borderRadius: "12px", padding: 16 }}>
-                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#5A7E62", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : `NÃO INCLUSO`}</p>
+                            <div style={{ background: "rgba(161, 130, 74, 0.04)", border: "1px solid rgba(161, 130, 74, 0.15)", borderRadius: "12px", padding: 16 }}>
+                               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#8F723E", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : `NÃO INCLUSO`}</p>
                                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                                  {pkg.details.notIncluded.map((it, idx) => (
                                    <li key={idx} style={{ fontSize: 13, color: "#ffffff", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
-                                      <span style={{ color: "#5A7E62", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                                      <span style={{ color: "#8F723E", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
                                       <span>{it}</span>
                                    </li>
                                  ))}
@@ -2340,20 +2337,19 @@ function S4({ d, up, lang }) {
                        </div>
                     )}
                   </>
-                )}
               </div>
             </div>
           );
         })}
       </div>
 
-      <div style={{ background: "#111111", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", padding: "14px 18px", borderRadius: "2px 6px 6px 2px", display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div style={{ background: "var(--bg1)", border: "1px solid rgba(255, 193, 7, 0.1)", borderLeft: "3px solid #FFC107", padding: "14px 18px", borderRadius: "2px 6px 6px 2px", display: "flex", flexDirection: "column", gap: "12px" }}>
         <p style={{ fontSize: 13, color: "#ffffff", fontStyle: "italic", opacity: 0.9, lineHeight: 1.5, margin: 0 }}>
           {lang === "EN" 
-            ? `Click on 'More details' within each package to explore the full scope of included services and available design extras.` 
-            : `Clique em 'Mais detalhes' em cada pacote para explorar todo o escopo de serviços inclusos e extras de design disponíveis.`}
+            ? `Explore the full scope of included services and available design extras.` 
+            : `Explore todo o escopo de serviços inclusos e extras de design disponíveis.`}
         </p>
-        <a href="/services" target="_blank" rel="noopener noreferrer" style={{ alignSelf: "flex-start", fontSize: 12, fontWeight: 700, color: "#111", background: "#FFC107", padding: "6px 14px", borderRadius: 6, textDecoration: "none", textTransform: "uppercase", letterSpacing: ".05em", transition: "all 0.2s" }}>
+        <a href="/services" target="_blank" rel="noopener noreferrer" style={{ alignSelf: "flex-start", fontSize: 12, fontWeight: 700, color: "var(--tx)", background: "#FFC107", padding: "6px 14px", borderRadius: 6, textDecoration: "none", textTransform: "uppercase", letterSpacing: ".05em", transition: "all 0.2s" }}>
           {lang === "EN" ? "View Full Service Catalog" : `Ver Catálogo Completo de Serviços`}
         </a>
       </div>
@@ -2391,7 +2387,7 @@ function S6({ d, up, lang }) {
                     borderBottom: "1px solid var(--glass-border)",
                     borderRight: "1px solid var(--glass-border)",
                     minHeight: 56,
-                    background: isActive ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), transparent)" : "transparent",
+                    background: isActive ? "linear-gradient(135deg, rgba(156, 124, 58, 0.05), transparent)" : "transparent",
                     transition: "all 0.3s ease"
                   }}>
                     <span style={{ fontSize: 13, fontWeight: isActive ? 600 : 500, color: isActive ? "#ffffff" : "rgba(255,255,255,0.85)" }}>
@@ -2423,7 +2419,7 @@ function S6({ d, up, lang }) {
           style={{ width: "100%", background: "var(--glass-bg)", border: "1px solid var(--glass-border)", minHeight: 140, borderRadius: "16px", padding: 20, color: "var(--tx)", fontSize: 14, lineHeight: 1.5, resize: "vertical", transition: "all 0.3s", outline: "none" }}
           value={d.specialReqs || ""}
           onChange={e => up("specialReqs", e.target.value)}
-          onFocus={e => { e.target.style.borderColor = "var(--brand-purple)"; e.target.style.boxShadow = "0 0 15px rgba(167, 139, 250, 0.1)"; }}
+          onFocus={e => { e.target.style.borderColor = "var(--brand-purple)"; e.target.style.boxShadow = "0 0 15px rgba(156, 124, 58, 0.1)"; }}
           onBlur={e => { e.target.style.borderColor = "var(--glass-border)"; e.target.style.boxShadow = "none"; }}
         />
       </div>
@@ -2442,7 +2438,7 @@ function S7({ d, up, lang, setUploading }) {
       icon: "🖼️",
       types: "JPG · PNG · GIF · WEBP · max 100MB",
       accept: ".jpg,.jpeg,.png,.gif,.webp",
-      color: "#6366f1"
+      color: "#9c7c3a"
     },
     {
       id: "videos",
@@ -2466,7 +2462,7 @@ function S7({ d, up, lang, setUploading }) {
       icon: "📎",
       types: lang === "EN" ? "Any file type · max 100MB" : "Qualquer formato · max 100MB",
       accept: "*",
-      color: "#10b981"
+      color: "#9c7c3a"
     },
   ];
 
@@ -2541,8 +2537,8 @@ function S7({ d, up, lang, setUploading }) {
     <div className="wz-animate">
       <Title label={T.uploadTitle} sub={T.uploadSub} />
 
-      <div style={{ background: "rgba(167, 139, 250, 0.05)", border: "1px solid rgba(167, 139, 250, 0.2)", borderRadius: "16px", padding: "16px 20px", display: "flex", gap: "16px", marginBottom: "32px", alignItems: "center" }}>
-        <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(167, 139, 250, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--brand-purple)", flexShrink: 0 }}>
+      <div style={{ background: "rgba(156, 124, 58, 0.05)", border: "1px solid rgba(156, 124, 58, 0.2)", borderRadius: "16px", padding: "16px 20px", display: "flex", gap: "16px", marginBottom: "32px", alignItems: "center" }}>
+        <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(156, 124, 58, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--brand-purple)", flexShrink: 0 }}>
           <InfoIcon />
         </div>
         <div>
@@ -2563,9 +2559,9 @@ function S7({ d, up, lang, setUploading }) {
             <div key={cat.id} className={`hww-bento-card ${isDone ? "active" : ""}`} style={{
               padding: 0,
               borderColor: isDone ? "var(--brand-purple)" : "var(--glass-border)",
-              background: isDone ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
+              background: isDone ? "linear-gradient(135deg, rgba(156, 124, 58, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-              boxShadow: isDone ? "0 0 30px rgba(125, 159, 133, 0.15)" : "none",
+              boxShadow: isDone ? "0 0 30px rgba(156, 124, 58, 0.15)" : "none",
               display: "flex", flexDirection: "column", overflow: "hidden", marginBottom: 16,
               borderRadius: isDone ? "24px" : "100px"
             }}>
@@ -2577,7 +2573,7 @@ function S7({ d, up, lang, setUploading }) {
                         {cat.label}
                       </span>
                       {isDone && (
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))" }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9c7c3a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(156, 124, 58, 0.4))" }}>
                           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                           <polyline points="22 4 12 14.01 9 11.01"></polyline>
                         </svg>
@@ -2624,7 +2620,7 @@ function S7({ d, up, lang, setUploading }) {
                           <button 
                             style={{ background: "transparent", border: "none", color: "var(--brand-pink)", fontSize: "14px", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s", flexShrink: 0 }}
                             onClick={(e) => { e.stopPropagation(); removeFile(cat.id, f.id); }}
-                            onMouseOver={e => { e.currentTarget.style.background = "rgba(90, 126, 98, 0.1)"; }}
+                            onMouseOver={e => { e.currentTarget.style.background = "rgba(161, 130, 74, 0.1)"; }}
                             onMouseOut={e => { e.currentTarget.style.background = "transparent"; }}
                             title={lang === "EN" ? "Delete file" : "Excluir arquivo"}
                           >
@@ -2650,7 +2646,7 @@ function S7({ d, up, lang, setUploading }) {
           value={d.referenceLinks || ""}
           onChange={e => up("referenceLinks", e.target.value)}
           style={{ width: "100%", background: "var(--glass-bg)", border: "1px solid var(--glass-border)", borderRadius: "12px", padding: "16px", color: "var(--tx)", fontSize: "13px", minHeight: "80px", resize: "vertical", outline: "none", transition: "all 0.3s" }}
-          onFocus={e => { e.target.style.borderColor = "var(--brand-purple)"; e.target.style.boxShadow = "0 0 15px rgba(167, 139, 250, 0.1)"; }}
+          onFocus={e => { e.target.style.borderColor = "var(--brand-purple)"; e.target.style.boxShadow = "0 0 15px rgba(156, 124, 58, 0.1)"; }}
           onBlur={e => { e.target.style.borderColor = "var(--glass-border)"; e.target.style.boxShadow = "none"; }}
         />
       </div>
@@ -2801,7 +2797,7 @@ function S8({ d, up, lang, setUploading }) {
           textAlign: "center",
           gap: "16px",
           marginBottom: "32px",
-          boxShadow: "0 4px 20px rgba(167, 139, 250, 0.05)"
+          boxShadow: "0 4px 20px rgba(156, 124, 58, 0.05)"
         }}>
           <h4 style={{ fontSize: "16px", fontWeight: "700", color: "var(--brand-purple)", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
@@ -2824,9 +2820,9 @@ function S8({ d, up, lang, setUploading }) {
               <div key={item.id} className={`hww-bento-card ${isDone ? "active" : ""}`} style={{
                 padding: 0,
                 borderColor: isDone ? "var(--brand-purple)" : "var(--glass-border)",
-                background: isDone ? "linear-gradient(135deg, rgba(167, 139, 250, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
+                background: isDone ? "linear-gradient(135deg, rgba(156, 124, 58, 0.05), rgba(255,255,255,0.02))" : "var(--glass-bg)",
                 transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-                boxShadow: isDone ? "0 0 30px rgba(125, 159, 133, 0.15)" : "none",
+                boxShadow: isDone ? "0 0 30px rgba(156, 124, 58, 0.15)" : "none",
                 display: "flex", flexDirection: "column", overflow: "hidden", marginBottom: 16,
                 borderRadius: isDone ? "24px" : "100px"
               }}>
@@ -2838,7 +2834,7 @@ function S8({ d, up, lang, setUploading }) {
                           {item.label}
                         </span>
                         {isDone && (
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))" }}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9c7c3a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(156, 124, 58, 0.4))" }}>
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                             <polyline points="22 4 12 14.01 9 11.01"></polyline>
                           </svg>
@@ -2847,7 +2843,7 @@ function S8({ d, up, lang, setUploading }) {
                     </div>
 
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginLeft: 12 }}>
-                      {!isDone && idx < 3 && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--brand-pink)", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(90, 126, 98, 0.1)", padding: "4px 8px", borderRadius: 4 }}>{T.required}</span>}
+                      {!isDone && idx < 3 && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--brand-pink)", textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(161, 130, 74, 0.1)", padding: "4px 8px", borderRadius: 4 }}>{T.required}</span>}
                       {!isDone && item.sub && <span style={{ fontSize: "10px", fontWeight: "700", color: "var(--tx)", opacity: 0.6, textTransform: "uppercase", letterSpacing: ".05em", background: "rgba(255, 255, 255, 0.05)", padding: "4px 8px", borderRadius: 4 }}>{item.sub}</span>}
                       
                       <button
@@ -2880,7 +2876,7 @@ function S8({ d, up, lang, setUploading }) {
                             <button 
                               style={{ background: "transparent", border: "none", color: "var(--brand-pink)", fontSize: "14px", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s", flexShrink: 0 }}
                               onClick={() => removeRushFile(item.id, f.id)}
-                              onMouseOver={e => { e.currentTarget.style.background = "rgba(90, 126, 98, 0.1)"; }}
+                              onMouseOver={e => { e.currentTarget.style.background = "rgba(161, 130, 74, 0.1)"; }}
                               onMouseOut={e => { e.currentTarget.style.background = "transparent"; }}
                               title={lang === "EN" ? "Delete file" : "Excluir arquivo"}
                             >
@@ -2900,7 +2896,7 @@ function S8({ d, up, lang, setUploading }) {
       {/* Moved !isUnlocked card to the top */}
 
       {feedback && (
-        <div className="wz-animate" style={{ background: "rgba(90, 126, 98, 0.1)", border: "1px solid #5A7E62", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#5A7E62", fontSize: "13px", fontWeight: "500" }}>
+        <div className="wz-animate" style={{ background: "rgba(161, 130, 74, 0.1)", border: "1px solid #8F723E", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#8F723E", fontSize: "13px", fontWeight: "500" }}>
           ⚠️ {feedback}
         </div>
       )}
@@ -2924,7 +2920,7 @@ function S8({ d, up, lang, setUploading }) {
                 border: "1px solid",
                 borderColor: isSelected ? "var(--brand-purple)" : "var(--glass-border)",
                 background: isSelected ? "rgba(255, 255, 255, 0.03)" : "var(--glass-bg)",
-                boxShadow: isSelected ? "0 4px 30px rgba(167, 139, 250, 0.15)" : "none"
+                boxShadow: isSelected ? "0 4px 30px rgba(156, 124, 58, 0.15)" : "none"
               }}
             >
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "24px", width: "100%", justifyContent: "space-between" }}>
@@ -2991,25 +2987,25 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
     
     return (
       <div style={{ 
-        background: isDark ? "rgba(16, 185, 129, 0.04)" : "rgba(16, 185, 129, 0.08)", 
-        border: "1.5px solid rgba(16, 185, 129, 0.2)", 
+        background: isDark ? "rgba(156, 124, 58, 0.04)" : "rgba(156, 124, 58, 0.08)", 
+        border: "1.5px solid rgba(156, 124, 58, 0.2)", 
         borderRadius: "14px", 
         padding: "20px", 
         marginBottom: "24px" 
       }}>
         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-          <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "rgba(156, 124, 58, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9c7c3a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
           </div>
           <div style={{ flex: 1 }}>
-            <h4 style={{ fontSize: "14px", fontWeight: "600", color: isDark ? "#34d399" : "#065f46", margin: "0 0 8px", lineHeight: 1.4 }}>{guarantee}</h4>
+            <h4 style={{ fontSize: "14px", fontWeight: "600", color: isDark ? "#34d399" : "#1d1c1a", margin: "0 0 8px", lineHeight: 1.4 }}>{guarantee}</h4>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <div style={{ flex: 1, height: "6px", background: "rgba(16, 185, 129, 0.15)", borderRadius: "3px", overflow: "hidden" }}>
-                <div style={{ width: `${est.conf}%`, height: "100%", background: "#10b981", borderRadius: "3px", boxShadow: "0 0 8px rgba(16, 185, 129, 0.4)", backgroundSize: '200% auto', animation: 'spShimmer 2s linear infinite' }} />
+              <div style={{ flex: 1, height: "6px", background: "rgba(156, 124, 58, 0.15)", borderRadius: "3px", overflow: "hidden" }}>
+                <div style={{ width: `${est.conf}%`, height: "100%", background: "#9c7c3a", borderRadius: "3px", boxShadow: "0 0 8px rgba(156, 124, 58, 0.4)", backgroundSize: '200% auto', animation: 'spShimmer 2s linear infinite' }} />
               </div>
-              <span style={{ fontSize: "10px", fontWeight: "800", color: "#10b981", letterSpacing: "0.05em" }}>{est.conf}% {lang === "EN" ? "CONFIDENCE" : `CONFIANÇA`}</span>
+              <span style={{ fontSize: "10px", fontWeight: "800", color: "#9c7c3a", letterSpacing: "0.05em" }}>{est.conf}% {lang === "EN" ? "CONFIDENCE" : `CONFIANÇA`}</span>
             </div>
           </div>
         </div>
@@ -3106,7 +3102,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   );
 
   const SectionCard = ({ icon, title, step, children }) => (
-    <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(167, 139, 250, 0.2)", borderRadius: "12px", padding: "16px", marginBottom: "12px", boxShadow: "0 4px 20px rgba(167, 139, 250, 0.05)" }}>
+    <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(156, 124, 58, 0.2)", borderRadius: "12px", padding: "16px", marginBottom: "12px", boxShadow: "0 4px 20px rgba(156, 124, 58, 0.05)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <span style={{ fontSize: "15px" }}>{icon}</span>
@@ -3119,7 +3115,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
   );
 
   return (
-    <div className="wz-animate" style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
+    <div className="wz-animate wz-main-layout has-sidebar">
       <div style={{ flex: 1, minWidth: 0 }}>
         <h1 style={{ fontFamily: "var(--font-serif)", fontSize: "25px", color: "var(--tx)", margin: "0 0 4px", fontWeight: "400", fontStyle: "italic" }}>{T.reviewEstimate}</h1>
         <p style={{ fontSize: "12px", color: "var(--mu)", margin: "0 0 16px" }}>{T.reviewSub}</p>
@@ -3246,11 +3242,11 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       <div style={{ marginTop: "40px", marginBottom: "40px", position: "relative" }}>
         <h3 style={{ fontSize: "10px", fontWeight: "700", letterSpacing: ".15em", color: "var(--mu)", textTransform: "uppercase", marginBottom: "24px" }}>{T.review.whatNext}</h3>
         <div style={{ display: "flex", flexDirection: "column", gap: "32px", position: "relative", marginLeft: "12px" }}>
-          <div style={{ position: "absolute", left: "20px", top: "40px", bottom: "0px", width: "1px", borderLeft: "2px dashed rgba(167, 139, 250, 0.3)", zIndex: 0 }} />
+          <div style={{ position: "absolute", left: "20px", top: "40px", bottom: "0px", width: "1px", borderLeft: "2px dashed rgba(156, 124, 58, 0.3)", zIndex: 0 }} />
           
           {(T.review.nextSteps || []).map((s, idx) => (
             <div key={idx} style={{ display: "flex", gap: "24px", alignItems: "flex-start", position: "relative", zIndex: 1 }}>
-              <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "var(--bg1)", border: "2px solid var(--brand-purple)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0, boxShadow: "0 0 15px rgba(167, 139, 250, 0.2)" }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "var(--bg1)", border: "2px solid var(--brand-purple)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0, boxShadow: "0 0 15px rgba(156, 124, 58, 0.2)" }}>
                 {idx === 0 ? "👁️" : "✍️"}
               </div>
               <div style={{ paddingTop: "2px" }}>
@@ -3290,7 +3286,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
           fontWeight: 700,
           color: "#fff",
           marginBottom: 4,
-          boxShadow: "0 4px 15px rgba(125, 159, 133, 0.3)",
+          boxShadow: "0 4px 15px rgba(156, 124, 58, 0.3)",
           transition: "all 0.2s"
         }}>
           {loadingType === "accept" ? (lang === "EN" ? "Processing..." : "Processando...") : (lang === "EN" ? "🔒 Confirm Scope & Request Proposal" : "🔒 Confirmar Escopo e Solicitar Proposta")}
@@ -3333,7 +3329,7 @@ function S9({ d, est, setStep, lang, setSubmitted, setSubmissionType }) {
       </div>
       </div>
 
-      <div style={{ width: 320, flexShrink: 0, position: "sticky", top: 100 }}>
+      <div className="wz-review-sidebar">
         <Sidebar est={est} lang={lang} data={d} step={7} />
       </div>
     </div>
@@ -3361,7 +3357,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {}
   const count = Math.floor(Math.random() * 500) + 120;
 
   const sidebarContent = (
-    <div style={{ width: 295, flexShrink: 0, background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 16, padding: 20, alignSelf: "flex-start" }}>
+    <div className="wz-review-sidebar" style={{ background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 16, padding: 20, alignSelf: "flex-start" }}>
       <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", color: "var(--a)", marginBottom: 13, textTransform: "uppercase" }}>{T.estimatedFee}</div>
       <div style={{ background: "var(--a-dim)", border: "1px solid var(--a-glow)", borderRadius: 16, padding: "10px 13px", marginBottom: 11 }}>
         <div style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--a)", textTransform: "uppercase", marginBottom: 3 }}>{T.yourProject}</div>
@@ -3383,17 +3379,17 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
         <span style={{ fontSize: 11, color: "var(--mu)" }}>{T.confidence}</span>
-        <span style={{ fontSize: 11, fontWeight: 700, color: "var(--gn)" }}>{est.conf}%</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color: "var(--accent)" }}>{est.conf}%</span>
       </div>
       <div style={{ height: 4, background: "var(--border)", borderRadius: 4 }}>
-        <div style={{ width: `${est.conf}%`, height: "100%", background: "var(--gn)", borderRadius: 4 }} />
+        <div style={{ width: `${est.conf}%`, height: "100%", background: "var(--accent)", borderRadius: 4 }} />
       </div>
     </div>
   );
 
   if (isSave) {
     return (
-      <div style={{ display: "flex", gap: 32, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto" }}>
+      <div className="wz-main-layout has-sidebar" style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ flex: 1, minWidth: 0 }}>
                   {/* Real progress bar per file */}
                   {Object.entries(uploading).map(([id, pct]) => (
@@ -3418,8 +3414,8 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {}
 
           {/* Icon */}
           <div style={{ ...f(80), display: "flex", justifyContent: "center", marginBottom: 22 }}>
-            <div style={{ width: 62, height: 62, borderRadius: "50%", background: "rgba(16,185,129,0.09)", border: "1.5px solid rgba(16,185,129,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M5 14L11 20L23 8" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <div style={{ width: 62, height: 62, borderRadius: "50%", background: "rgba(156, 124, 58,0.09)", border: "1.5px solid rgba(156, 124, 58,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M5 14L11 20L23 8" stroke="#9c7c3a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
           </div>
 
@@ -3495,7 +3491,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {}
 
   // Pay / Start Screen
   return (
-    <div style={{ display: "flex", gap: 32, alignItems: "flex-start", maxWidth: 1100, margin: "0 auto" }}>
+    <div className="wz-main-layout has-sidebar" style={{ maxWidth: 1100, margin: "0 auto" }}>
       <div style={{ flex: 1, minWidth: 0 }}>
         {/* Project badge */}
         <div style={{ ...f(0), background: "var(--bg1)", border: "1px solid var(--border)", borderRadius: 12, padding: "13px 17px", marginBottom: 24, display: "flex", alignItems: "center", gap: 13 }}>
@@ -3553,7 +3549,7 @@ function SuccessScreen({ type, lang, onBack, navigate, T, est, d, uploading = {}
         </div>
 
         {/* Social proof */}
-        <div style={{ ...f(400), background: "rgba(16,185,129,0.04)", border: "1px solid rgba(16,185,129,0.11)", borderRadius: 11, padding: "14px 18px", marginBottom: 26, display: "flex", gap: 11, alignItems: "flex-start" }}>
+        <div style={{ ...f(400), background: "rgba(156, 124, 58,0.04)", border: "1px solid rgba(156, 124, 58,0.11)", borderRadius: 11, padding: "14px 18px", marginBottom: 26, display: "flex", gap: 11, alignItems: "flex-start" }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>⭐</span>
           <div>
             <p style={{ fontSize: 13, color: "var(--mu)", fontStyle: "italic", lineHeight: 1.7, margin: "0 0 5px" }}>

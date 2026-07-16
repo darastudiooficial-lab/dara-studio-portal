@@ -58,7 +58,7 @@ export default function ServicesSection() {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {services.map((svc, idx) => (
-          <div key={idx} className="relative group bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-purple-500/50 transition-all duration-300 shadow-2xl hover:shadow-[0_0_40px_rgba(168,85,247,0.2)]">
+          <div key={idx} className="relative group bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-purple-500/50 transition-all duration-300 shadow-2xl hover:shadow-[0_0_40px_rgba(156, 124, 58,0.2)]">
             <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 border border-white/10 group-hover:bg-purple-500/20 transition-colors">
               {svc.icon}
             </div>

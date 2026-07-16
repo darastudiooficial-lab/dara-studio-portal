@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children, allowedRoles = [], portalType = 'client' }) 
 
   if (loading) {
     return (
-      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d0a1e', color: '#6366f1' }}>
+      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0d0a1e', color: '#9c7c3a' }}>
         <div className="loader">Loading Session...</div>
       </div>
     );

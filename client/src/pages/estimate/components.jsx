@@ -28,7 +28,7 @@ export function Stepper({ current }) {
 
 export function Sidebar({ estimate }) {
   const { lo, hi, confidence, breakdown } = estimate;
-  const gradColor = confidence < 40 ? "#ef4444" : confidence < 70 ? "#f59e0b" : "#10b981";
+  const gradColor = confidence < 40 ? "#ef4444" : confidence < 70 ? "#f59e0b" : "#9c7c3a";
   return (
     <div className="wz-sidebar">
       <div>
@@ -67,7 +67,7 @@ export function Sidebar({ estimate }) {
       )}
       <div style={{ borderTop: "1px solid var(--border)", paddingTop: 14 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(99,102,241,.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(156, 124, 58,.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--a)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4" />
             </svg>

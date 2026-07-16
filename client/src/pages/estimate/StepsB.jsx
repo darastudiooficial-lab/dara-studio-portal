@@ -169,7 +169,7 @@ export function Step9({ data, estimate, navigate }) {
           </div>
         ))}
       </div>
-      <div style={{ background: "linear-gradient(135deg, rgba(99,102,241,.14) 0%, rgba(99,102,241,.06) 100%)", border: "1.5px solid var(--a)", borderRadius: "var(--r)", padding: 22, marginBottom: 24 }}>
+      <div style={{ background: "linear-gradient(135deg, rgba(156, 124, 58,.14) 0%, rgba(156, 124, 58,.06) 100%)", border: "1.5px solid var(--a)", borderRadius: "var(--r)", padding: 22, marginBottom: 24 }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--a)", marginBottom: 12 }}>Estimate Range</p>
         <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
           <span style={{ fontFamily: "var(--font-serif)", fontSize: 32, fontStyle: "italic", color: "var(--tx)" }}>{estimate.lo}</span>

@@ -17,8 +17,8 @@ const CONTENT = {
     heroBadge: "ARCHITECTURE · DESIGN · TECHNICAL DOCUMENTATION",
     heroTitle1: "Built to American\nstandards.",
     heroTitle2: "Executed remotely,\nwithout compromise.",
-    heroSubtitle: "We produce Permit Sets, construction documents, and high-precision technical drawings for the U.S. market. Strict code compliance. Clear communication. Delivered remotely without losing an inch of quality.",
-    getEstimate: "REQUEST A QUOTE",
+    heroSubtitle: "We produce Permit Sets, construction documents and high-precision technical drawings for the U.S. market, under strict code compliance, with the close, transparent communication a serious project deserves.",
+    getEstimate: "REQUEST A QUOTE ->",
     accessPortal: "ACCESS PORTAL",
     statsRating: "Licensed Support",
       statsRatingTooltip: "High-end drafting and architectural support for builders and investors.",
@@ -37,22 +37,22 @@ const CONTENT = {
     badgeLicensedBR: "CAU SC A115105-3 - Licensed Architect · Brazil",
     badgeLicensedUS: "Architectural Drafter · United States",
     badgeZoning: "US Code Compliant · Local Zoning",
-    previewSectionTitle: "(01) WHAT WE DO",
+    previewSectionTitle: "WHAT WE DO",
     previewItems: [
       { num: "01", title: "Permit Sets", desc: "Complete, code-compliant drawing sets prepared for municipal submission and approval." },
       { num: "02", title: "Construction Documents", desc: "Coordinated CDs a contractor can build from without ambiguity or rework." },
       { num: "03", title: "Technical Drawings", desc: "High-precision details, sections and schedules drafted exactly to specification." },
       { num: "04", title: "Modeling & Renders", desc: "Massing, 3D modeling and presentation imagery to communicate intent clearly." },
     ],
-    selectedWorkTitle: "(02) SELECTED WORK",
+    selectedWorkTitle: "SELECTED WORK",
     viewAllBtn: "VIEW ALL",
     selectedWorks: [
-      { num: "P-01", title: "Coastal Residence", desc: "Single-family · Florida", badge: "Residential" },
-      { num: "P-02", title: "Infill Duplex", desc: "Multi-family · Texas", badge: "Multi-family" },
-      { num: "P-03", title: "Warehouse Conversion", desc: "Adaptive reuse · Georgia", badge: "Commercial" },
+      { num: "E-01", title: "Coastal Residence", desc: "Exterior render · Florida", badge: "exterior render" },
+      { num: "E-02", title: "Courtyard House", desc: "Street view · Arizona", badge: "exterior render" },
+      { num: "E-03", title: "Hillside Addition", desc: "Massing study · California", badge: "exterior render" },
     ],
-    howItWorksTitle: "(03) HOW IT WORKS",
-    howItWorksSubtitle: "VIEW ALL",
+    howItWorksTitle: "HOW IT WORKS",
+    howItWorksSubtitle: "8-16 day cycles",
     howItWorksSteps: [
       { num: "01", title: "Brief & Scope", desc: "We align on jurisdiction, code path, deliverables and timeline before anything is drawn." },
       { num: "02", title: "Drafting & Modeling", desc: "Production in Chief Architect, AutoCAD and SketchUp — versioned and internally reviewed." },
@@ -75,8 +75,8 @@ const CONTENT = {
     heroBadge: `ARQUITETURA · DESIGN · DOCUMENTAÇÃO TÉCNICA`,
     heroTitle1: `Projetos no Padrão\nAmericano.`,
     heroTitle2: `Execução Remota.\nSem Concessões.`,
-    heroSubtitle: `Desenvolvemos Permit Sets, detalhamentos executivos e documentação técnica de alta precisão para o mercado dos EUA. Rigor absoluto nos códigos de construção americanos com o atendimento próximo e transparente que seu projeto merece.`,
-    getEstimate: `SOLICITAR ORÇAMENTO`,
+    heroSubtitle: "Produzimos Permit Sets, documentos de construção e desenhos técnicos de alta precisão para o mercado dos EUA, sob estrito cumprimento das normas, com a comunicação próxima e transparente que um projeto sério merece.",
+    getEstimate: "SOLICITAR ORÇAMENTO ->",
     accessPortal: "ACESSAR PORTAL",
     statsRating: "Suporte Credenciado",
       statsRatingTooltip: `Estrutura técnica sob medida para construtores, empreiteiros e investidores.`,
@@ -95,22 +95,22 @@ const CONTENT = {
     badgeLicensedBR: "CAU SC A115105-3 - Arquiteto Licenciado · Brasil",
     badgeLicensedUS: "Desenhista Arquitetônico · Estados Unidos",
     badgeZoning: "Conformidade de Código dos EUA · Zoneamento Local",
-    previewSectionTitle: "(01) O QUE FAZEMOS",
+    previewSectionTitle: "O QUE FAZEMOS",
     previewItems: [
       { num: "01", title: "Permit Sets", desc: "Conjuntos de plantas completos em conformidade com as normas, prontos para aprovação na prefeitura." },
       { num: "02", title: "Documentação Executiva", desc: "Documentação coordenada para que o empreiteiro possa construir sem ambiguidades ou retrabalhos." },
       { num: "03", title: "Desenhos Técnicos", desc: "Detalhes de alta precisão, cortes e tabelas projetados exatamente de acordo com as especificações." },
       { num: "04", title: "Modelagem e Renders", desc: "Estudos de volumetria, modelagem 3D e imagens de apresentação para comunicar a intenção de forma clara." },
     ],
-    selectedWorkTitle: "(02) TRABALHOS SELECIONADOS",
+    selectedWorkTitle: "TRABALHOS SELECIONADOS",
     viewAllBtn: "VER TODOS",
     selectedWorks: [
-      { num: "P-01", title: "Residência Costeira", desc: "Unifamiliar · Flórida", badge: "Residencial" },
-      { num: "P-02", title: "Duplex Infill", desc: "Multifamiliar · Texas", badge: "Multifamiliar" },
-      { num: "P-03", title: "Conversão de Galpão", desc: "Reúso Adaptativo · Geórgia", badge: "Comercial" },
+      { num: "E-01", title: "Residência Costeira", desc: "Render externo · Flórida", badge: "render externo" },
+      { num: "E-02", title: "Courtyard House", desc: "Vista da rua · Arizona", badge: "render externo" },
+      { num: "E-03", title: "Hillside Addition", desc: "Estudo de massa · Califórnia", badge: "render externo" },
     ],
-    howItWorksTitle: "(03) COMO FUNCIONA",
-    howItWorksSubtitle: "VER TODOS",
+    howItWorksTitle: "COMO FUNCIONA",
+    howItWorksSubtitle: "Ciclos de 8-16 dias",
     howItWorksSteps: [
       { num: "01", title: "Briefing e Escopo", desc: "Alinhamos a jurisdição, normas locais, entregáveis e prazos antes de qualquer desenho." },
       { num: "02", title: "Desenho e Modelagem", desc: "Produção no Chief Architect, AutoCAD e SketchUp — versionado e revisado internamente." },
@@ -168,7 +168,7 @@ export default function LandingPage() {
         className={`glass-cursor ${isHovering ? 'hovering' : ''}`} 
       ></div>
 
-      {/* Brilho radial roxo suave no topo centralizado */}
+      {/* Brilho radial verde suave no topo centralizado */}
       <div className="radial-glow"></div>
       <div className="radial-glow-navy"></div>
 
@@ -198,10 +198,10 @@ export default function LandingPage() {
               {T.heroSubtitle}
             </p>
             <div className="action-buttons">
-              <button className="btn-glow" onClick={() => navigate("/estimate")}>
+              <button className="hero-btn-primary" onClick={() => navigate("/estimate")}>
                 {T.getEstimate}
               </button>
-              <button className="btn-outline" onClick={() => navigate("/login")}>
+              <button className="hero-btn-secondary" onClick={() => navigate("/login")}>
                 {T.accessPortal}
               </button>
             </div>
@@ -246,7 +246,10 @@ export default function LandingPage() {
         {/* Preview Services List */}
         <div className="preview-services-section animate-float-up delay-450">
           <div className="preview-header">
-            <span className="preview-title">{T.previewSectionTitle}</span>
+            <div className="badge" style={{ gap: '24px' }}>
+              <span className="badge-index">(01)</span>
+              <span className="badge-text">{T.previewSectionTitle}</span>
+            </div>
             <div className="preview-line"></div>
           </div>
           <div className="preview-list">
@@ -263,7 +266,10 @@ export default function LandingPage() {
         {/* Selected Work Section */}
         <div className="selected-work-section animate-float-up delay-450">
           <div className="preview-header">
-            <span className="preview-title">{T.selectedWorkTitle}</span>
+            <div className="badge" style={{ gap: '24px' }}>
+              <span className="badge-index">(02)</span>
+              <span className="badge-text">{T.selectedWorkTitle}</span>
+            </div>
             <div className="preview-line"></div>
             <span className="preview-title view-all-link" onClick={() => navigate("/portfolio")}>{T.viewAllBtn}</span>
           </div>
@@ -271,7 +277,7 @@ export default function LandingPage() {
             {T.selectedWorks.map((work, idx) => (
               <div key={idx} className="work-card" onClick={() => navigate("/portfolio")}>
                 <div className="work-image-placeholder">
-                  <span className="work-badge">{work.badge}</span>
+                  <span className="work-badge">[ {work.badge} ]</span>
                 </div>
                 <div className="work-info">
                   <span className="preview-num">{work.num}</span>
@@ -286,7 +292,10 @@ export default function LandingPage() {
         {/* How It Works Section */}
         <div className="how-it-works-section animate-float-up delay-450">
           <div className="preview-header">
-            <span className="preview-title">{T.howItWorksTitle}</span>
+            <div className="badge" style={{ gap: '24px' }}>
+              <span className="badge-index">(03)</span>
+              <span className="badge-text">{T.howItWorksTitle}</span>
+            </div>
             <div className="preview-line"></div>
             <span className="preview-title view-all-link" onClick={() => navigate("/how-we-work")}>{T.howItWorksSubtitle}</span>
           </div>
@@ -294,7 +303,7 @@ export default function LandingPage() {
             {T.howItWorksSteps.map((step, idx) => (
               <div key={idx} className="how-it-works-card" onClick={() => navigate("/how-we-work")}>
                 <span className="preview-num">{step.num}</span>
-                <h3 className="work-title" style={{ marginTop: '24px', marginBottom: '16px' }}>{step.title}</h3>
+                <h3 className="work-title" style={{ marginTop: '32px', marginBottom: '8px' }}>{step.title}</h3>
                 <p className="work-desc" style={{ textTransform: 'none', lineHeight: '1.6' }}>{step.desc}</p>
               </div>
             ))}
@@ -308,7 +317,7 @@ export default function LandingPage() {
             <h2 className="home-cta-title">
               <span style={{ color: '#FFFFFF' }}>{T.ctaTitle1}</span>
               <br />
-              <span style={{ color: 'var(--color-sage, #7D9F85)', fontStyle: 'italic', fontFamily: 'var(--font-serif, serif)', fontSize: 'inherit' }}>{T.ctaTitle2}</span>
+              <span style={{ color: 'var(--accent, #A1824A)', fontStyle: 'italic', fontFamily: 'var(--font-serif, serif)', fontSize: 'inherit' }}>{T.ctaTitle2}</span>
             </h2>
           </div>
           <button className="home-cta-btn" onClick={() => navigate("/estimate")}>

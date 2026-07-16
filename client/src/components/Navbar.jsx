@@ -33,7 +33,7 @@ export default function Navbar() {
   const location = useLocation();
   const { lang, setLang, theme, toggleTheme } = useAppContext();
   const { user, profile } = useAuth();
-  const T = NAV_TRANSLATIONS[lang];
+  const T = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.EN;
 
   const portalPath = profile?.role === 'admin' 
     ? '/admin' 
@@ -52,7 +52,7 @@ export default function Navbar() {
 
       {/* Menu centralizado — Glass Nav Links */}
       <nav className="header-center-nav">
-        {T.nav.map((item) => {
+        {(T.nav || []).map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <Link
@@ -88,14 +88,13 @@ export default function Navbar() {
 
 
         {/* Language Toggle */}
-        <div className="pill-button lang-toggle">
+        <div className="lang-toggle-text">
           <span 
             className={lang === 'EN' ? 'active' : 'inactive'} 
             onClick={() => setLang('EN')}
           >
             EN
           </span>
-          <span className="divider">|</span>
           <span 
             className={lang === 'PT' ? 'active' : 'inactive'} 
             onClick={() => setLang('PT')}
@@ -104,13 +103,15 @@ export default function Navbar() {
           </span>
         </div>
 
+        <div className="nav-vertical-divider"></div>
+
         {/* Theme Toggle */}
-        <button className="pill-button theme-toggle" onClick={toggleTheme}>
+        <button className="round-theme-toggle" onClick={toggleTheme}>
           <div className="theme-icon-aura">
             {theme === 'dark' ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="half-moon-sun"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="half-moon-sun"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="half-moon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="half-moon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             )}
           </div>
         </button>
@@ -118,18 +119,16 @@ export default function Navbar() {
         {/* Authentication State Portal Actions */}
         {user ? (
           <>
-            <Link to={portalPath} className="pill-button client-portal-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-              {lang === 'EN' ? 'My Portal' : 'Meu Portal'}
+            <Link to={portalPath} className="sharp-portal-btn">
+              {lang === 'EN' ? 'CLIENT PORTAL' : 'PORTAL DO CLIENTE'}
             </Link>
-            <Link to="/logout" className="pill-button logout-btn">
-              {lang === 'EN' ? 'Sign Out' : 'Sair'}
+            <Link to="/logout" className="sharp-logout-btn" style={{ marginLeft: 12 }}>
+              {lang === 'EN' ? 'SIGN OUT' : 'SAIR'}
             </Link>
           </>
         ) : (
-          <Link to="/login" className="pill-button client-portal-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            {T.portal}
+          <Link to="/login" className="sharp-portal-btn">
+            {lang === 'EN' ? 'CLIENT PORTAL' : 'PORTAL DO CLIENTE'}
           </Link>
         )}
       </div>

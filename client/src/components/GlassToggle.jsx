@@ -12,7 +12,7 @@ const GlassToggle = ({ onThemeToggle, onLangToggle, currentLang, isDark }) => {
       >
         <motion.div 
           animate={{ x: isDark ? 40 : 0 }}
-          className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+          className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(156, 124, 58,0.5)]"
         >
           {isDark ? <Moon size={18} className="text-white" /> : <Sun size={18} className="text-white" />}
         </motion.div>

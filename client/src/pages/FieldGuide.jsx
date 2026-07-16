@@ -452,7 +452,7 @@ export default function FieldGuide() {
   return (
     <PageTransition variant="default">
     <div className="lp-root">
-      {/* Brilho radial roxo suave no topo centralizado */}
+      {/* Brilho radial verde suave no topo centralizado */}
       <div className="radial-glow"></div>
       <div className="radial-glow-navy"></div>
       <Navbar />
@@ -493,9 +493,9 @@ export default function FieldGuide() {
                 <span 
                   key={tag} 
                   style={{ 
-                    background: idx === 5 ? "rgba(34,197,94,0.08)" : "rgba(255,255,255,0.03)", 
-                    border: idx === 5 ? "1px solid rgba(34,197,94,0.2)" : "1px solid var(--glass-border)", 
-                    color: idx === 5 ? "var(--gn)" : "inherit", 
+                    background: idx === 5 ? "rgba(156, 124, 58,0.08)" : "rgba(255,255,255,0.03)", 
+                    border: idx === 5 ? "1px solid rgba(156, 124, 58,0.2)" : "1px solid var(--glass-border)", 
+                    color: idx === 5 ? "var(--accent)" : "inherit", 
                     borderRadius: "999px", 
                     padding: "4px 12px", 
                     fontSize: "11px", 
@@ -647,7 +647,7 @@ export default function FieldGuide() {
               <span style={{ fontSize: "16px", fontWeight: "800", color: "var(--text-color)", fontFamily: "monospace" }}>
                 {verifiedCount} / {totalChecks}
               </span>
-              <div style={{ fontSize: "9px", color: "var(--gn)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: "2px" }}>
+              <div style={{ fontSize: "9px", color: "var(--accent)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: "2px" }}>
                 {lang === "EN" ? "VERIFIED COMPLIANT" : "CONFORMIDADE VERIFICADA"}
               </div>
             </div>
@@ -656,7 +656,7 @@ export default function FieldGuide() {
           {/* Progress Bar Row */}
           <div style={{ padding: "12px 24px", background: "rgba(0,0,0,0.15)", borderBottom: "1px solid var(--glass-border)", display: "flex", alignItems: "center", gap: "14px" }}>
             <div style={{ flex: 1, height: "6px", background: "rgba(255,255,255,0.05)", borderRadius: "3px", overflow: "hidden" }}>
-              <div style={{ width: `${progressPct}%`, height: "100%", background: "var(--gn)", borderRadius: "3px", transition: "width 0.4s ease" }}></div>
+              <div style={{ width: `${progressPct}%`, height: "100%", background: "var(--accent)", borderRadius: "3px", transition: "width 0.4s ease" }}></div>
             </div>
             <span style={{ fontSize: "11px", fontWeight: "700", fontFamily: "monospace", color: "var(--mu)", whiteSpace: "nowrap" }}>
               {progressPct}% {lang === "EN" ? "Done" : "Concluído"}
@@ -693,7 +693,7 @@ export default function FieldGuide() {
                         padding: "16px 24px", 
                         borderBottom: "1px solid rgba(255,255,255,0.04)", 
                         cursor: "pointer",
-                        background: isChecked ? "rgba(34,197,94,0.02)" : "transparent",
+                        background: isChecked ? "rgba(156, 124, 58,0.02)" : "transparent",
                         transition: "all 0.15s ease"
                       }}
                     >
@@ -701,8 +701,8 @@ export default function FieldGuide() {
                       <div style={{ 
                         width: "18px", 
                         height: "18px", 
-                        border: isChecked ? "2px solid var(--gn)" : "2px solid var(--glass-border)", 
-                        background: isChecked ? "var(--gn)" : "transparent", 
+                        border: isChecked ? "2px solid var(--accent)" : "2px solid var(--glass-border)", 
+                        background: isChecked ? "var(--accent)" : "transparent", 
                         borderRadius: "4px", 
                         flexShrink: 0,
                         marginTop: "2px",
@@ -813,7 +813,7 @@ export default function FieldGuide() {
                         <button 
                           onClick={() => handleCopy(note.id, lang === "EN" ? note.topic : note.topicPt, lang === "EN" ? note.sheet : note.sheetPt)}
                           style={{ 
-                            background: isCopied ? "var(--gn)" : "rgba(255,255,255,0.03)", 
+                            background: isCopied ? "var(--accent)" : "rgba(255,255,255,0.03)", 
                             border: "1px solid var(--glass-border)", 
                             color: isCopied ? "#fff" : "inherit", 
                             padding: "4px 12px", 
@@ -889,8 +889,8 @@ export default function FieldGuide() {
                 alignItems: "flex-start", 
                 gap: "10px", 
                 lineHeight: "1.5",
-                background: out.cls === "err" ? "rgba(239,68,68,0.06)" : (out.cls === "wrn" ? "rgba(245,158,11,0.06)" : "rgba(34,197,94,0.06)"),
-                border: out.cls === "err" ? "1px solid rgba(239,68,68,0.18)" : (out.cls === "wrn" ? "1px solid rgba(245,158,11,0.18)" : "1px solid rgba(34,197,94,0.18)"),
+                background: out.cls === "err" ? "rgba(239,68,68,0.06)" : (out.cls === "wrn" ? "rgba(245,158,11,0.06)" : "rgba(156, 124, 58,0.06)"),
+                border: out.cls === "err" ? "1px solid rgba(239,68,68,0.18)" : (out.cls === "wrn" ? "1px solid rgba(245,158,11,0.18)" : "1px solid rgba(156, 124, 58,0.18)"),
                 color: out.cls === "err" ? "#f87171" : (out.cls === "wrn" ? "#fbbf24" : "#4ade80")
               }}
             >
@@ -919,7 +919,7 @@ export default function FieldGuide() {
           fontSize: "13px", 
           fontWeight: "700",
           zIndex: 9999,
-          boxShadow: "0 10px 30px rgba(125, 159, 133, 0.2)"
+          boxShadow: "0 10px 30px rgba(156, 124, 58, 0.2)"
         }}>
           {toastMsg}
         </div>

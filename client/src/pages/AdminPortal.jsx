@@ -277,7 +277,7 @@ const AdminPortal = () => {
                     <Bar 
                       data={{
                         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [{ data: [12, 19, 15, 22, 28, 14, 10], backgroundColor: '#6366f1', borderRadius: 6 }]
+                        datasets: [{ data: [12, 19, 15, 22, 28, 14, 10], backgroundColor: '#9c7c3a', borderRadius: 6 }]
                       }}
                       options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }}
                     />
@@ -289,7 +289,7 @@ const AdminPortal = () => {
                     <Doughnut 
                       data={{
                         labels: ['Active', 'Pending', 'Done'],
-                        datasets: [{ data: [15, 8, 22], backgroundColor: ['#6366f1', '#a78bfa', '#10b981'], borderWidth: 0 }]
+                        datasets: [{ data: [15, 8, 22], backgroundColor: ['#9c7c3a', '#9c7c3a', '#9c7c3a'], borderWidth: 0 }]
                       }}
                       options={{ responsive: true, maintainAspectRatio: false, cutout: '70%' }}
                     />
@@ -384,7 +384,7 @@ const AdminPortal = () => {
                         <td style={{ padding: '16px 20px' }}>{l.raw_data?.project || 'N/A'}</td>
                         <td style={{ padding: '16px 20px' }}>{new Date(l.created_at).toLocaleDateString()}</td>
                         <td style={{ padding: '16px 20px' }}>
-                          <span style={{ fontSize: '10px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#818cf8', textTransform: 'capitalize' }}>{l.status}</span>
+                          <span style={{ fontSize: '10px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(156, 124, 58,0.1)', color: '#818cf8', textTransform: 'capitalize' }}>{l.status}</span>
                         </td>
                       </tr>
                     ))}
@@ -400,7 +400,7 @@ const AdminPortal = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
                 {['3D Blocks', 'Textures', `Portfólio`, 'Templates', 'Legal Docs'].map(cat => (
                   <div key={cat} className="card vault-card anim" style={{ padding: '24px', textAlign: 'center' }}>
-                    <div style={{ width: 48, height: 48, background: 'rgba(167,139,250,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a78bfa', margin: '0 auto 16px' }}>
+                    <div style={{ width: 48, height: 48, background: 'rgba(156, 124, 58,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9c7c3a', margin: '0 auto 16px' }}>
                       <Icon name="folder" size={24} />
                     </div>
                     <div style={{ fontWeight: '600', marginBottom: '4px' }}>{cat}</div>

@@ -31,70 +31,107 @@ O sistema utiliza a biblioteca Google Fonts para entregar uma aparência premium
 O sistema é gerido pela raiz do CSS (`:root` e `[data-theme='light']`), alternando automaticamente baseado na escolha do usuário.
 
 ### Cores de Marca (Brand Colors)
-Estas cores são **imutáveis** e persistem em ambos os temas.
-- **Brand Purple (Roxo Primário):** `#7B1FA2` (usado em hover states e ícones)
-- **Brand Pink (Rosa Magenta):** `#E91E63`
-- **Gradiente Principal da Marca:** `linear-gradient(135deg, #7B1FA2, #E91E63)` (usado nos botões principais e textos em destaque).
-
-### 🌙 Dark Mode (Padrão)
-O tema escuro foca em contraste brilhante com *neon glow* (brilho difuso roxo).
-
-| Elemento | Variável CSS | Código Hex / RGBA | Onde é usado |
-| :--- | :--- | :--- | :--- |
-| **Fundo Principal** | `--bg-primary` | `#050505` | Background da página (body, LP, admin). |
-| **Texto Secundário** | N/A | `#020203` | Fundo do Footer. |
-| **Cor do Texto** | `--text-color` | `#ffffff` | Textos gerais, títulos e ícones. |
-| **Vidro (Fundo)** | `--glass-bg` | `rgba(255, 255, 255, 0.05)` | Fundo de botões e cartões (glassmorphism). |
-| **Vidro (Borda)** | `--glass-border` | `rgba(255, 255, 255, 0.1)` | Bordas de botões e cartões. |
-| **Brilho Neon** | `--neon-glow` | `rgba(123, 31, 162, 0.4)` | Sombras de botões premium e estados de hover. |
+O design utiliza cores elegantes e arquitetônicas focadas em tons terra e creme.
 
 ### ☀️ Light Mode
-O tema claro foca em minimalismo puro, alto contraste de leitura e redução da intensidade neon para garantir conforto ocular.
+O tema claro foca em minimalismo puro e alto contraste elegante.
 
 | Elemento | Variável CSS | Código Hex / RGBA | Onde é usado |
 | :--- | :--- | :--- | :--- |
-| **Fundo Principal** | `--bg-primary` | `#F8F8F7` | Background da página (body, LP, admin). |
-| **Fundo Secundário**| `--bg-secondary` | `#FFFFFF` | Cartões ou containers superpostos. |
-| **Cor do Texto** | `--text-color` | `#1A1A1A` | Textos gerais, títulos e ícones (forçado via CSS). |
-| **Vidro (Fundo)** | `--glass-bg` | `rgba(0, 0, 0, 0.05)` | Fundo de botões e cartões (glassmorphism). |
-| **Vidro (Borda)** | `--glass-border` | `rgba(0, 0, 0, 0.1)` | Bordas de botões e cartões. |
-| **Brilho Neon** | `--neon-glow` | `rgba(123, 31, 162, 0.15)` | Sombras muito sutis. |
+| **Fundo** | `--bg` / `--surface` | `#f5f4f0` | Background da página e containers. |
+| **Texto Principal** | `--ink` | `#1d1c1a` | Textos gerais e títulos. |
+| **Texto Secundário** | `--text` / `--muted`| `#474440` / `#6d6a63` | Parágrafos e descrições. |
+| **Destaque (Gold)** | `--accent` | `#9c7c3a` | Kickers, botões primários. |
+| **Bordas** | `--hair` / `--hair2` | `#e3e0d8` / `#eae7df` | Bordas e linhas de separação. |
+
+### 🌙 Dark Mode (Padrão)
+O tema escuro foca em contraste sofisticado sem uso de neon.
+
+| Elemento | Variável CSS | Código Hex / RGBA | Onde é usado |
+| :--- | :--- | :--- | :--- |
+| **Fundo** | `--bg` / `--surface` | `#26262a` | Background da página e containers. |
+| **Texto Principal** | `--ink` | `#f1eee7` | Textos gerais e títulos. |
+| **Texto Secundário** | `--text` / `--muted`| `#c5c1ba` / `#979489` | Parágrafos e descrições. |
+| **Destaque (Gold)** | `--accent` | `#cda24e` | Kickers, botões primários. |
+| **Bordas** | `--hair` / `--hair2` | `#3c3c42` / `#343439` | Bordas e linhas de separação. |
 
 ---
 
 ## 3. Botões e Componentes Interativos
 
-**Regra Global DARA:** Para garantir uma interface perfeitamente alinhada e "Premium", todos os elementos interativos horizontais (Inputs, Selects, Botões primários e secundários) obedecem estritamente à mesma altura.
-- **Altura Padrão:** `--interactive-height: 48px;`
+**Regra Global DARA:** Para garantir uma interface "Premium", os elementos horizontais obedecem a linhas retas e blocos sólidos, sem arredondamentos extremos. A altura padrão interativa é de `48px`.
 
-### 1. Botão Primário Glow (`.btn-glow`)
-O botão mais importante (Call to Action principal).
-- **Fundo:** `linear-gradient(to right, #7B1FA2, #E91E63)`
-- **Texto:** `#ffffff` (sempre branco, independente do tema).
-- **Forma:** Arredondamento extremo (`border-radius: 999px`), altura `48px`, padding horizontal `32px`.
-- **Efeito Visual:** Sombra neon (`box-shadow: 0 0 25px rgba(123, 31, 162, 0.5)`).
-- **Interação (Hover):** O botão ganha um pequeno pulo geométrico (`transform: scale(1.05)`) e o glow aumenta (`box-shadow: 0 0 45px rgba(168, 85, 247, 0.9)`).
-
-### 2. Botão Secundário Glass (`.glass-pill`)
-Botão elegante para ações auxiliares (ex: ver portfólio, serviços).
-- **Fundo:** `--glass-bg` (varia de acordo com Dark/Light).
-- **Borda:** `1px solid var(--glass-border)`
-- **Efeito Visual:** Desfoque de fundo (`backdrop-filter: blur(12px)`).
-- **Interação (Hover):** Crescimento geométrico (`scale(1.02)`), borda assume a cor roxa primária (`border-color: var(--color-neon-purple)`) e altera opacidade para `0.9`. No modo claro, recebe uma leve camada preta adicional (`rgba(0,0,0,0.08)`).
-
-### 3. Links de Navegação (`.glass-nav-link`)
-Usados no cabeçalho e rodapé.
-- **Cor Base:** `rgba(255, 255, 255, 0.6)` (Dark) ou `#1A1A1A` (Light).
-- **Interação (Hover):** Mudança de cor para `#7B1FA2` (Purple), pequeno salto (`translateY(-1px)`) e sombra de texto sutil simulando glow (no Dark mode).
-
-### 4. Entradas de Texto (`.glass-input`)
+### 1. Botão Primário (Gold)
+O botão principal (Call to Action).
+- **Classe:** `.btn-primary`
+- **Fundo:** `var(--accent)`
+- **Cor do Texto:** `var(--bg)` (com override via `!important` para manter contraste)
+- **Borda:** `1px solid var(--accent)`
+- **Padding:** `16px 26px`
 - **Altura:** `48px`
-- **Raio da Borda:** `12px` (levemente mais quadrados que os botões).
-- **Interação (Focus):** A borda acende na cor roxa (`border-color: var(--brand-purple)`) e reflete uma sombra roxa para sinalizar ao usuário a digitação ativa.
+- **Tipografia:** `12px`, `font-weight: 600`, `letter-spacing: .13em`, Maiúsculas, fonte `var(--font-sans)`.
+- **Interação (Hover):** Fundo e borda mudam para `var(--accentD)` com transição suave (`0.3s ease`).
+
+### 2. Botão Secundário (Outline)
+- **Classe:** `.btn-outline`
+- **Fundo:** `none`
+- **Cor do Texto:** `var(--ink)`
+- **Borda:** `1px solid var(--ink)`
+- **Altura:** `48px`
+- **Interação (Hover):** Fundo muda para `var(--ink)` e texto para `var(--bg)` (efeito inverso).
+
+### 3. Botões de Navegação e Pílulas (Pill / Sharp)
+- **Pill Button (`.pill-button`):** Fundo `.glass-bg`, borda `.glass-border`, altura `40px`, padding `0 16px`, raio `4px` (única exceção levemente arredondada).
+- **Sharp Portal Button (`.sharp-portal-btn`):** Fundo Gold constante, sem arredondamento, letras maiúsculas espaçadas (`letter-spacing: 0.1em`), altura `40px`. Usado no header.
+
+### 4. Entradas de Texto (Inputs e Textareas)
+- **Regras:** Todos os inputs possuem `height: 48px !important`.
+- **Classes base:** `.glass-input`
+- **Fundo:** `var(--surface2)`
+- **Borda:** `var(--hair)`.
+- **Foco:** Ao focar (`:focus`), a borda assume `var(--accent)` (`outline: none`).
 
 ---
 
-## 4. Como Replicar no Código
+## 4. Cards e Layout (Dimensões e Estrutura)
+
+Os cards na plataforma seguem uma estrutura limpa e ortogonal, focando em separação de áreas através de bordas finas ao invés de sombras projetadas.
+
+- **Fundo do Card:** Usar `var(--surface)` ou `var(--surface2)`.
+- **Bordas do Card:** `1px solid var(--hair)`. Evite bordas duplas sem necessidade.
+- **Paddings Padrão:** Internos devem oscilar entre `24px` e `32px` para garantir respiro (breathing room).
+- **Service Boxes:** 
+  - **Incluído (`.service-box-green`):** Borda verde sutil `rgba(16, 185, 129, 0.2)`.
+  - **Excluído (`.service-box-red`):** Borda vermelha sutil `rgba(239, 68, 68, 0.2)`.
+- **Background Stripe (`.bg-stripe`):** Usado para preencher áreas vazias ou destacar containers estéticos (usa um repeating-linear-gradient de `11px`).
+
+---
+
+## 5. Efeitos e Transições
+
+O portal utiliza animações discretas (micro-interações) para reforçar a sensação de luxo e responsividade, sem sobrecarregar o usuário.
+
+- **Transição Padrão:** `transition: all 0.3s ease;` em quase todos os hovers (botões, links).
+- **Hover de Texto:** Links e navbars ganham `transform: translateY(-1px);` ou `scale(1.02)` e cor `var(--accent)` (Gold).
+- **Animações (Keyframes):**
+  - `@keyframes floatUp`: Transição vertical (`transform: translateY(18px)`) até `0` acompanhada de `opacity: 0` até `1`.
+  - `@keyframes fadeIn`: Entrada limpa com opacidade.
+  - `@keyframes drawLine`: Usado em separadores visuais crescendo horizontalmente (`scaleX(0)` to `1`).
+
+---
+
+## 6. Glassmorphism e Estilos de Superfície
+
+Para integrar componentes ao fundo, especialmente modais ou overlays:
+
+- **Premium Glass (`.glass-premium`):** 
+  - Fundo sólido baseado no tema: `var(--surface)`
+  - Borda discreta: `var(--hair)`
+  - *Nota:* O glassmorphism clássico com blur foi achatado (flat) nas atualizações recentes para reforçar o minimalismo arquitetônico. Evitar `backdrop-filter` pesado, preferir cores sólidas do tema escuro/claro.
+
+---
+
+## 7. Como Replicar no Código
 
 Ao criar novos componentes ou páginas, **NÃO** utilize cores hexadecimais *hardcoded* (fixas no código) para cenários onde a cor muda no fundo (branco/preto). 
 
@@ -109,25 +146,20 @@ Sempre utilize as variáveis nativas para que os modos Light/Dark sejam herdados
 
 /* Certo: */
 .meu-card {
-  background-color: var(--bg-primary);
-  color: var(--text-color);
-  border: 1px solid var(--glass-border);
+  background-color: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--hair);
 }
 ```
 
 Para aplicar os botões corretamente no React/HTML, chame apenas as classes globais já configuradas no `index.css`:
 ```html
-<!-- Primário Glow -->
-<button class="btn-glow">Agendar Reunião</button>
+<!-- Primário Gold -->
+<button class="btn-primary">Agendar Reunião</button>
 
-<!-- Secundário Glass -->
-<button class="glass-pill">Ver Portfólio</button>
+<!-- Secundário Outline -->
+<button class="btn-outline">Ver Portfólio</button>
 ```
-
-
-### Custom Service Boxes
-- **Green Box (`.service-box-green`)**: Used for included services. Border `rgba(16, 185, 129, 0.2)`. Title class `.service-box-green-title`.
-- **Red Box (`.service-box-red`)**: Used for excluded services. Border `rgba(239, 68, 68, 0.2)`. Title class `.service-box-red-title`.
 
 ---
 

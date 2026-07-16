@@ -166,7 +166,7 @@ const Login = () => {
     }}>
       <div style={{
         position:'fixed',inset:0,zIndex:0,
-        background:'radial-gradient(ellipse 70% 60% at 15% 50%,rgba(99,102,241,0.15) 0%,transparent 70%),radial-gradient(ellipse 45% 55% at 85% 25%,rgba(167,139,250,0.1) 0%,transparent 70%)',
+        background:'radial-gradient(ellipse 70% 60% at 15% 50%,rgba(156, 124, 58,0.15) 0%,transparent 70%),radial-gradient(ellipse 45% 55% at 85% 25%,rgba(156, 124, 58,0.1) 0%,transparent 70%)',
         pointerEvents:'none'
       }} />
 
@@ -175,11 +175,11 @@ const Login = () => {
         <div style={{ marginBottom: '40px', maxWidth: '500px' }}>
           <div className="sp-logo-d" style={{
             width:52,height:52,
-            background:'linear-gradient(135deg,#6366f1,#a78bfa)',
+            background:'linear-gradient(135deg,#9c7c3a,#9c7c3a)',
             borderRadius:14,display:'flex',alignItems:'center',justifyContent:'center',
             fontFamily:`Instrument Serif,serif`,fontSize:26,color:'#fff',
             animation:'glowPulse 3s infinite',
-            boxShadow:'0 8px 32px rgba(99,102,241,0.4)',
+            boxShadow:'0 8px 32px rgba(156, 124, 58,0.4)',
             marginBottom: 24
           }}>D</div>
           
@@ -196,7 +196,7 @@ const Login = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
            {content.features.map(f => (
              <div key={f.label} style={{display:'flex', gap:16, alignItems:'flex-start'}}>
-                <div style={{width:36,height:36,borderRadius:10,background:'rgba(99,102,241,0.12)',border:'1px solid rgba(99,102,241,0.25)',display:'flex',alignItems:'center',justifyContent:'center',color:'#818cf8', flexShrink: 0}}>
+                <div style={{width:36,height:36,borderRadius:10,background:'rgba(156, 124, 58,0.12)',border:'1px solid rgba(156, 124, 58,0.25)',display:'flex',alignItems:'center',justifyContent:'center',color:'#818cf8', flexShrink: 0}}>
                   <Icon name={f.icon} size={16} color="inherit" />
                 </div>
                 <div>
@@ -216,10 +216,10 @@ const Login = () => {
 
         <div style={{
           width:400,background:'rgba(255,255,255,0.04)',
-          border:'1px solid rgba(99,102,241,0.2)',
+          border:'1px solid rgba(156, 124, 58,0.2)',
           borderRadius:20,padding:32,
           backdropFilter:'blur(20px)',
-          boxShadow:'0 8px 40px rgba(99,102,241,0.15)'
+          boxShadow:'0 8px 40px rgba(156, 124, 58,0.15)'
         }}>
           <h2 style={{fontFamily:`Instrument Serif,serif`,fontSize:24,color:'#fff',marginBottom:4}}>{T.formTitle}</h2>
           <p style={{color:'rgba(255,255,255,0.4)',fontSize:13,marginBottom:24}}>{lang === 'EN' ? 'Welcome back to the studio.' : `Bem-vindo de volta ao estúdio.`}</p>
@@ -242,25 +242,25 @@ const Login = () => {
 
           <form onSubmit={handleEmailLogin}>
             <div style={{ marginBottom: '16px' }}>
-              <label style={{fontSize:10,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',color:'rgba(99,102,241,0.8)',display:'block',marginBottom:6}}>{T.email}</label>
+              <label style={{fontSize:10,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',color:'rgba(156, 124, 58,0.8)',display:'block',marginBottom:6}}>{T.email}</label>
               <input 
                 type="email" 
                 value={email} 
                 onChange={e => setEmail(e.target.value)} 
                 required 
-                style={{width:'100%',background:'rgba(99,102,241,0.08)',border:'1px solid rgba(99,102,241,0.2)',borderRadius:10,padding:'10px 14px',color:'#fff',fontSize:13,outline:'none',boxSizing:'border-box'}} 
+                style={{width:'100%',background:'rgba(156, 124, 58,0.08)',border:'1px solid rgba(156, 124, 58,0.2)',borderRadius:10,padding:'10px 14px',color:'#fff',fontSize:13,outline:'none',boxSizing:'border-box'}} 
                 placeholder="architect@example.com" 
               />
             </div>
 
             <div style={{ marginBottom: '8px' }}>
-              <label style={{fontSize:10,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',color:'rgba(99,102,241,0.8)',display:'block',marginBottom:6}}>{T.password}</label>
+              <label style={{fontSize:10,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',color:'rgba(156, 124, 58,0.8)',display:'block',marginBottom:6}}>{T.password}</label>
               <input 
                 type="password" 
                 value={password} 
                 onChange={e => setPassword(e.target.value)} 
                 required 
-                style={{width:'100%',background:'rgba(99,102,241,0.08)',border:'1px solid rgba(99,102,241,0.2)',borderRadius:10,padding:'10px 14px',color:'#fff',fontSize:13,outline:'none',boxSizing:'border-box'}} 
+                style={{width:'100%',background:'rgba(156, 124, 58,0.08)',border:'1px solid rgba(156, 124, 58,0.2)',borderRadius:10,padding:'10px 14px',color:'#fff',fontSize:13,outline:'none',boxSizing:'border-box'}} 
                 placeholder="••••••••" 
               />
             </div>
@@ -272,9 +272,9 @@ const Login = () => {
             {error && <p style={{ color: '#ff4d4d', fontSize: '12px', marginBottom: '16px', textAlign: 'center', fontWeight: '600' }}>{error}</p>}
 
             <button type="submit" disabled={loading} style={{
-              width:'100%',background:'linear-gradient(135deg,#6366f1,#a78bfa)',
+              width:'100%',background:'linear-gradient(135deg,#9c7c3a,#9c7c3a)',
               border:'none',borderRadius:12,padding:'12px',color:'#fff',fontSize:14,
-              fontWeight:600,cursor:'pointer',boxShadow:'0 4px 20px rgba(99,102,241,0.4)',
+              fontWeight:600,cursor:'pointer',boxShadow:'0 4px 20px rgba(156, 124, 58,0.4)',
               marginTop:8,transition:'all 0.2s', opacity: loading ? 0.7 : 1
             }}>
               {loading ? '...' : T.signIn}

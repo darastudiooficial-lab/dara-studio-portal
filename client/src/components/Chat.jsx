@@ -108,7 +108,7 @@ const Chat = ({ projectId, lang = 'EN' }) => {
                   <span style={{ fontSize: '10px', fontWeight: '600', opacity: 0.6 }}>{msg.profiles?.full_name || 'System'}</span>
                   <span style={{ 
                     fontSize: '9px', textTransform: 'uppercase', padding: '2px 6px', borderRadius: '4px', 
-                    background: msg.sender_role === 'admin' ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)',
+                    background: msg.sender_role === 'admin' ? 'rgba(156, 124, 58,0.2)' : 'rgba(255,255,255,0.05)',
                     color: msg.sender_role === 'admin' ? 'var(--a)' : 'inherit'
                   }}>
                     {msg.sender_role}

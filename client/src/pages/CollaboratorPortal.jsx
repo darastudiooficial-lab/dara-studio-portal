@@ -191,7 +191,7 @@ const CollaboratorPortal = () => {
                 {['DARA-0010_REV01.dwg', 'DARA-0008_LAYOUT.pdf', 'SITE_PLAN_V3.cad'].map(file => (
                   <div key={file} className="card vault-card anim" style={{ padding: '20px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                      <div style={{ width: 32, height: 32, background: 'rgba(99,102,241,0.1)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6366f1' }}>
+                      <div style={{ width: 32, height: 32, background: 'rgba(156, 124, 58,0.1)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9c7c3a' }}>
                         <Icon name="layers" size={16} />
                       </div>
                       <div style={{ fontSize: '13px', fontWeight: '600' }}>{file}</div>
@@ -230,7 +230,7 @@ const CollaboratorPortal = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
                 {['Hardware', 'Lighting', 'Finishes', 'Furniture', 'Plumbing'].map(spec => (
                   <div key={spec} className="card vault-card anim" style={{ padding: '24px', textAlign: 'center' }}>
-                    <div style={{ width: 40, height: 40, background: 'rgba(167,139,250,0.1)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a78bfa', margin: '0 auto 12px' }}>
+                    <div style={{ width: 40, height: 40, background: 'rgba(156, 124, 58,0.1)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9c7c3a', margin: '0 auto 12px' }}>
                       <Icon name="briefcase" size={20} />
                     </div>
                     <div style={{ fontSize: '13px', fontWeight: '600' }}>{spec} Catalog</div>

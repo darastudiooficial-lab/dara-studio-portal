@@ -270,7 +270,7 @@ export function Step5({ data, update }) {
       <SectionTitle label="Select Your Services" sub="Core deliverables are included. Add optional services to enhance your project." />
 
       {/* Included services */}
-      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--gn)", marginBottom: 14 }}>
+      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 14 }}>
         ✓ Included in Base Package
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}>
@@ -282,7 +282,7 @@ export function Step5({ data, update }) {
               <p style={{ fontSize: 13, fontWeight: 600, color: "var(--tx)" }}>{svc.label}</p>
               <p style={{ fontSize: 11, color: "var(--dm)" }}>{svc.desc}</p>
             </div>
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--gn)", padding: "3px 10px", borderRadius: 20, background: "rgba(16,185,129,.12)", border: "1px solid rgba(16,185,129,.3)" }}>
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--accent)", padding: "3px 10px", borderRadius: 20, background: "rgba(156, 124, 58,.12)", border: "1px solid rgba(156, 124, 58,.3)" }}>
               Included
             </span>
           </div>

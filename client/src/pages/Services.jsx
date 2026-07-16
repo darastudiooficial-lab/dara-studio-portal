@@ -320,7 +320,7 @@ export default function Services() {
 
           {/* Core Packages List */}
           <section className="core-packages-list">
-            {SERVICES_DATA.slice(0, 4).map((service, idx) => (
+            {(SERVICES_DATA || []).slice(0, 4).map((service, idx) => (
               <div key={service.id} className="core-package-row animate-float-up" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
                 <div className="core-package-left">
                   <h2 className="package-number-large">0{idx + 1}</h2>
@@ -357,7 +357,7 @@ export default function Services() {
                         {lang === "EN" ? "DESIGN EXTRAS — CUSTOMIZABLE PER PROJECT" : "COMPLEMENTOS DE PROJETO — PERSONALIZÁVEIS POR OBRA"}
                       </p>
                       <div className="package-extras-grid">
-                        {service.bentoExtras[lang].map((bento, i) => (
+                        {(service.bentoExtras?.[lang] || []).map((bento, i) => (
                           <div key={i} className="package-extra-card">
                             <h4 className="package-extra-title">{bento.title}</h4>
                             <p className="package-extra-desc">{bento.desc}</p>
@@ -371,7 +371,7 @@ export default function Services() {
                         <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
                           {lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}
                         </p>
-                        {service.list && service.list[lang].map((item, i) => (
+                        {(service.list?.[lang] || []).map((item, i) => (
                           <div key={i} className="support-list-item">
                             <span className="support-list-bullet">▪</span>
                             <span className="support-list-text">
@@ -387,7 +387,7 @@ export default function Services() {
                           <p style={{ fontSize: 10, letterSpacing: '.15em', opacity: 0.5, marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
                             {lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}
                           </p>
-                          {service.notIncluded[lang].map((item, i) => (
+                          {(service.notIncluded?.[lang] || []).map((item, i) => (
                             <div key={i} className="support-list-item" style={{ opacity: 0.5 }}>
                               <span className="support-list-bullet" style={{ color: 'var(--text-color)' }}>—</span>
                               <span className="support-list-text">{item}</span>
@@ -418,7 +418,7 @@ export default function Services() {
 
           {/* Additional Support Grid */}
           <section className="additional-support-grid">
-            {SERVICES_DATA.slice(4).map((service, idx) => (
+            {(SERVICES_DATA || []).slice(4).map((service, idx) => (
               <div key={service.id} className="support-card animate-float-up" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
                 <span className="support-card-badge">
                   {service.badge ? service.badge[lang].split('·')[0].trim() : (service.isUS ? 'US STANDARD' : 'CORPORATE · B2B')}
@@ -427,7 +427,7 @@ export default function Services() {
                 <p className="support-card-desc">{service.desc[lang]}</p>
 
                 <div style={{ flex: 1 }}>
-                  {service.list && service.list[lang].map((item, i) => (
+                  {(service.list?.[lang] || []).map((item, i) => (
                     <div key={i} className="support-list-item">
                       <span className="support-list-bullet">▪</span>
                       <span className="support-list-text">

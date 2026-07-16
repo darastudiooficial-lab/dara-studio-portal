@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useAppContext } from "../context/AppContext";
 import Chat from "../components/Chat";
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { supabase } from '../lib/supabaseClient';
 import GlobalControls from '../components/GlobalControls';
@@ -366,9 +367,9 @@ const I18N = {
 
 const STATUS = (lang) => ({
   waiting: { label: I18N[lang].status_waiting, bg: 'rgba(217,119,6,.08)', c: '#92400e', dot: '#d97706' },
-  on_track: { label: I18N[lang].status_on_track, bg: 'rgba(99,102,241,.08)', c: '#3730a3', dot: '#6366f1' },
+  on_track: { label: I18N[lang].status_on_track, bg: 'rgba(156, 124, 58,.08)', c: '#3730a3', dot: '#9c7c3a' },
   attention: { label: I18N[lang].status_attention, bg: 'rgba(220,38,38,.08)', c: '#991b1b', dot: '#dc2626' },
-  completed: { label: I18N[lang].status_completed, bg: 'rgba(16,185,129,.08)', c: '#065f46', dot: '#10b981' },
+  completed: { label: I18N[lang].status_completed, bg: 'rgba(156, 124, 58,.08)', c: '#1d1c1a', dot: '#9c7c3a' },
 });
 
 /* ══ UTILITIES ══ */
@@ -690,8 +691,8 @@ export default function ClientPortal() {
                                  fill: true,
                                  label: 'Progress',
                                  data: [10, 30, 50, 75, 100],
-                                 borderColor: '#6366f1',
-                                 backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                                 borderColor: '#9c7c3a',
+                                 backgroundColor: 'rgba(156, 124, 58, 0.1)',
                                  tension: 0.4
                                }]
                              }}
@@ -710,7 +711,7 @@ export default function ClientPortal() {
                                datasets: [{
                                  label: 'Revenue',
                                  data: [1200, 1900, 3000, 5000],
-                                 backgroundColor: '#a78bfa',
+                                 backgroundColor: '#9c7c3a',
                                  borderRadius: 4
                                }]
                              }}
@@ -919,8 +920,8 @@ export default function ClientPortal() {
                            datasets: [{
                              label: 'Investimento',
                              data: [2000, 4500, 7800, 11000, 14000],
-                             borderColor: '#a78bfa',
-                             backgroundColor: 'rgba(167, 139, 250, 0.1)',
+                             borderColor: '#9c7c3a',
+                             backgroundColor: 'rgba(156, 124, 58, 0.1)',
                              fill: true,
                              tension: 0.4
                            }]

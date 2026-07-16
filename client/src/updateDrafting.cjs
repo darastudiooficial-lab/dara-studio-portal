@@ -85,11 +85,11 @@ const replacementJSX = `                      {service.bentoExtras[lang].map((be
                     </div>
                     {service.notIncluded && (
                       <div style={{ marginTop: 16, background: "rgba(233, 30, 99, 0.03)", border: "1px solid rgba(233, 30, 99, 0.15)", borderRadius: "12px", padding: 16 }}>
-                        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#E91E63", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}</p>
+                        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".05em", color: "#9c7c3a", marginBottom: 12, textTransform: "uppercase" }}>{lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}</p>
                         <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                           {service.notIncluded[lang].map((item, i) => (
                             <li key={i} style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.4, display: "flex", alignItems: "flex-start", gap: 8 }}>
-                              <span style={{ color: "#E91E63", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
+                              <span style={{ color: "#9c7c3a", fontSize: 16, lineHeight: 1, marginTop: -2 }}>•</span>
                               <span>{item}</span>
                             </li>
                           ))}
