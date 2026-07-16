@@ -281,41 +281,38 @@ export default function Services() {
         <Navbar />
 
         <main className="independent-page">
-          {/* Editorial Header Section */}
-          <header className="editorial-header animate-float-up">
+          <header className="editorial-header animate-float-up" style={{ padding: '0 48px', maxWidth: '1200px', margin: '80px auto 40px' }}>
             {/* Top Divider */}
             <div className="preview-header">
-              <span className="badge-index">(01)</span>
-              <h2 className="preview-title" style={{ margin: 0 }}>{lang === "EN" ? "CAPABILITIES" : "CAPACIDADES"}</h2>
+              <div className="badge" style={{ gap: '24px' }}>
+                <span className="badge-index" style={{ color: '#A1824A' }}>(01)</span>
+                <span className="badge-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                  {lang === "EN" ? "CAPABILITIES" : "CAPACIDADES"}
+                </span>
+              </div>
               <div className="preview-line"></div>
             </div>
 
             {/* Main Content */}
-            <div className="editorial-content">
-              <h1 className="editorial-title" style={{ display: 'flex', flexDirection: 'column' }}>
-                {lang === "EN" ? (
-                  <>
-                    <span>Specialized</span>
-                    <span className="editorial-title-italic">Technical Support</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Suporte</span>
-                    <span className="editorial-title-italic">Técnico Especializado</span>
-                  </>
-                )}
+            <div className="capabilities-hero" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '64px', marginBottom: '80px', flexWrap: 'wrap', gap: '32px' }}>
+              <h1 className="capabilities-main-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '72px', fontWeight: '400', color: 'var(--text-color)', margin: 0, lineHeight: '1', whiteSpace: 'nowrap' }}>
+                {lang === "EN" ? "What we do" : "O que fazemos"}
               </h1>
-              <p className="editorial-subtitle">
+              <p className="capabilities-desc" style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: '400', lineHeight: '1.8', color: 'var(--text-color)', maxWidth: '580px', margin: 0 }}>
                 {lang === "EN"
-                  ? `DARA Studio operates as a seamless technical extension for U.S. builders, developers and architects. We transform complex project demands into precise, permit-ready documentation so you scale your operation without the overhead.`
-                  : `O DARA Studio atua como uma extensão técnica integrada para construtores, incorporadores e arquitetos nos EUA. Transformamos demandas complexas de projetos em documentação precisa e pronta para aprovação para que você escale sua operação sem os custos fixos.`}
+                  ? `DARA Studio operates as a seamless technical extension for U.S. builders, developers and architects. We transform complex project demands into precise, permit-ready documentation, so you scale your operation without the overhead.`
+                  : `O DARA Studio atua como uma extensão técnica integrada para construtores, incorporadores e arquitetos. Transformamos demandas complexas de projetos em documentação precisa e pronta para aprovação, para que você dimensione sua operação sem custos fixos.`}
               </p>
             </div>
 
             {/* Bottom Divider */}
             <div className="preview-header">
-              <span className="badge-index">(A)</span>
-              <h2 className="preview-title" style={{ margin: 0 }}>{lang === "EN" ? "CORE PACKAGES" : "PACOTES PRINCIPAIS"}</h2>
+              <div className="badge" style={{ gap: '24px' }}>
+                <span className="badge-index" style={{ color: '#A1824A' }}>(A)</span>
+                <span className="badge-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                  {lang === "EN" ? "CORE PACKAGES" : "PACOTES PRINCIPAIS"}
+                </span>
+              </div>
               <div className="preview-line"></div>
             </div>
           </header>
