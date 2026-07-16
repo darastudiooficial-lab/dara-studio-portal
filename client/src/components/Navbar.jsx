@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import DaraLogo from './DaraLogo';
 
 const NAV_TRANSLATIONS = {
   EN: {
@@ -44,10 +45,7 @@ export default function Navbar() {
   return (
     <header className="header-nav">
       <Link to="/" className="header-logo">
-
-        <span className="header-logo-text">
-          <strong>DARA</strong><em>Studio</em>
-        </span>
+        <DaraLogo size={42} variant="horizontal" />
       </Link>
 
       {/* Menu centralizado — Glass Nav Links */}

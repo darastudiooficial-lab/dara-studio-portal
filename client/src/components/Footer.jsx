@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import DaraLogo from './DaraLogo';
 
 const FOOTER_CONTENT = {
   EN: {
@@ -48,8 +49,7 @@ export default function Footer() {
         {/* Zone 1 — Left: Logo + Address + Socials */}
         <div className="footer-zone zone-left">
           <div className="footer-logo-wrap">
-
-            <span className="footer-logo-text"><strong>DARA</strong><em>Studio</em></span>
+            <DaraLogo size={42} variant="horizontal" />
           </div>
           <p className="footer-address">
             {T.address}<br />

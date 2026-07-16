@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import DaraLogo from './DaraLogo';
 
 const SplashScreen = ({ portalName, onComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
@@ -31,14 +32,8 @@ const SplashScreen = ({ portalName, onComplete }) => {
   return (
     <div id="splash" className={isExiting ? 'exiting' : ''}>
       <div id="splash-bg" />
-      <div id="splash-content">
-        <div id="sp-logo-wrap">
-          <div className="sp-logo-d">D</div>
-        </div>
-        <div id="sp-name-wrap">
-          <div className="sp-name">DARA</div>
-          <div className="sp-tagline">Excellence in every detail</div>
-        </div>
+      <div id="splash-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <DaraLogo size={120} variant="stacked" />
         <div className="sp-line" />
         <div id="sp-portal">
           <div className="sp-portal-label">{portalName}</div>
