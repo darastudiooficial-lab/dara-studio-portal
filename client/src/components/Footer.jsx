@@ -8,32 +8,36 @@ const FOOTER_CONTENT = {
     address: `SC, Brazil · Worldwide Remote Support`,
     drafting: "Architectural Production & CAD Drafting",
     copyright: <>WORLDWIDE ARCHITECTURAL <br />PRODUCTION & REMOTE TECHNICAL SUPPORT</>,
-    legal: <>All technical documentation and design assets are the <br />exclusive property of DARA Studio and its global <br />partners.</>,
+    legal: <>All technical documentation and design assets are the <br />exclusive property of DARA Studio and its global partners.</>,
     ipNotice: "INTELLECTUAL PROPERTY NOTICE",
-    confidentiality: <>Our processes follow strict data security and <br />confidentiality protocols, ensuring full protection of our <br />clients' assets.</>,
-    indexTitle: "Index",
+    confidentiality: <>Our processes follow rigorous data-security and <br />confidentiality protocols, ensuring full protection of our <br />clients' assets.</>,
+    readMore: "Read the full notice →",
+    indexTitle: "INDEX",
     links: [
       { label: "Home", path: "/" },
       { label: "What We Do", path: "/services" },
       { label: "Portfolio", path: "/portfolio" },
+      { label: "How It Works", path: "/how-we-work" },
       { label: "Team", path: "/team" },
-      { label: "How It Works", path: "/HowWeWork" }
+      { label: "Notice", path: "/ip-notice" }
     ]
   },
   PT: {
     address: `SC, Brasil · Suporte Remoto Mundial`,
     drafting: `Produção Arquitetônica e Desenho CAD`,
     copyright: <>PRODUÇÃO ARQUITETÔNICA <br />MUNDIAL E SUPORTE TÉCNICO REMOTO</>,
-    legal: <>Toda a documentação técnica e ativos de design são <br />propriedade exclusiva da DARA Studio e de seus parceiros <br />globais.</>,
+    legal: <>Toda a documentação técnica e ativos de design são a <br />propriedade exclusiva da DARA Studio e de seus parceiros globais.</>,
     ipNotice: "AVISO DE PROPRIEDADE INTELECTUAL",
-    confidentiality: <>Nossos processos seguem protocolos rigorosos de <br />segurança de dados e confidencialidade, garantindo total <br />proteção ao patrimônio dos nossos clientes.</>,
-    indexTitle: "Index",
+    confidentiality: <>Nossos processos seguem protocolos rigorosos de segurança de dados e <br />confidencialidade, garantindo total proteção ao patrimônio dos nossos <br />clientes.</>,
+    readMore: "Leia o aviso completo →",
+    indexTitle: "INDEX",
     links: [
       { label: "Home", path: "/" },
       { label: "What We Do", path: "/services" },
       { label: "Portfolio", path: "/portfolio" },
+      { label: "How It Works", path: "/how-we-work" },
       { label: "Team", path: "/team" },
-      { label: "How It Works", path: "/HowWeWork" }
+      { label: "Notice", path: "/ip-notice" }
     ]
   }
 };
@@ -113,12 +117,15 @@ export default function Footer() {
           <p className="footer-legal">
             {T.legal}
           </p>
-          <Link to="/ip-notice" className="footer-ip-title">
+          <h4 className="footer-ip-title-text" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '600', color: 'var(--text-color)', textAlign: 'right', letterSpacing: '0.05em', margin: '16px 0 0 0', textTransform: 'uppercase' }}>
             {T.ipNotice}
-          </Link>
-          <p className="footer-ip-notice-small">
+          </h4>
+          <p className="footer-ip-notice-small" style={{ margin: '8px 0 4px 0' }}>
             {T.confidentiality}
           </p>
+          <Link to="/ip-notice" className="footer-ip-read-more" style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#A1824A', textAlign: 'right', textDecoration: 'underline', textUnderlineOffset: '4px', cursor: 'pointer', display: 'block', marginTop: '8px' }}>
+            {T.readMore}
+          </Link>
         </div>
       </div>
     </footer>
