@@ -23,9 +23,9 @@ export default function DaraLogo({ size = 40, className = '', variant = 'horizon
 
   return (
     <img
-      src={logoSrc}
+      src={`${logoSrc}?v=2`}
       alt="DARA Studio Logo"
-      className={className}
+      className={`dara-logo-img ${className}`}
       style={{
         height: `${height}px`,
         width: 'auto',

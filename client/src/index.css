@@ -4314,3 +4314,8 @@ a {
   }
 }
 
+
+/* -- Logo Transparent Blending -- */
+[data-theme='light'] .dara-logo-img {
+  mix-blend-mode: multiply;
+}
