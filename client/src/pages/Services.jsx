@@ -35,7 +35,7 @@ const SERVICES_DATA = [
   {
     id: "drafting",
     icon: <Icons.Drafting />,
-    badge: { EN: `PACKAGE 01 · COMPREHENSIVE PERMIT SET | Phase: CD & PERMITTING`, PT: `PACOTE 01 · CONJUNTO COMPLETO PARA PERMIT | Phase: PROJETO EXECUTIVO` },
+    badge: { EN: `COMPREHENSIVE PERMIT SET | Phase: CD & PERMITTING`, PT: `CONJUNTO COMPLETO PARA PERMIT | Phase: PROJETO EXECUTIVO` },
     title: { EN: `As-Built Drawings & Permit Packages`, PT: `Desenhos As-Built e Pacotes de Prefeitura` },
     desc: {
       EN: `Our flagship end-to-end solution. A complete architectural suite covering existing conditions (As-Built), full design development, and high-precision construction documents (CD) required for municipal approval and field execution.`,
@@ -81,7 +81,7 @@ const SERVICES_DATA = [
   {
     id: "redrawing",
     icon: <Icons.Redrawing />,
-    badge: { EN: `PACKAGE 02 · FLOOR PLANS & SPACE PLANNING | PHASE: SCHEMATIC DESIGN`, PT: `PACOTE 02 · PLANTAS BAIXAS E PLANEJAMENTO | FASE: DESIGN ESQUEMÁTICO` },
+    badge: { EN: `FLOOR PLANS & SPACE PLANNING | PHASE: SCHEMATIC DESIGN`, PT: `PLANTAS BAIXAS E PLANEJAMENTO | FASE: DESIGN ESQUEMÁTICO` },
     title: { EN: `Floor Plans Only`, PT: `Plantas Baixas` },
     desc: {
       EN: `Specialized technical drafting focused on interior space optimization. Engineered for preliminary space studies, zoning analysis, and high-end 2D layout concepts.`,
@@ -116,7 +116,7 @@ const SERVICES_DATA = [
   {
     id: "viz",
     icon: <Icons.Viz />,
-    badge: { EN: `PACKAGE 03 · 3D VISUALIZATION | PHASE: PRESENTATION & MARKETING`, PT: `PACOTE 03 · VISUALIZAÇÃO 3D | FASE: APRESENTAÇÃO & MARKETING` },
+    badge: { EN: `3D VISUALIZATION | PHASE: PRESENTATION & MARKETING`, PT: `VISUALIZAÇÃO 3D | FASE: APRESENTAÇÃO & MARKETING` },
     title: { EN: `High-End 3D Visualization`, PT: `Visualização 3D de Alto Padrão` },
     desc: {
       EN: `High-end architectural rendering and CGI support designed to transform technical blueprints into immersive visual assets. Engineered to elevate real estate marketing, client presentations, and pre-sale strategies.`,
@@ -155,7 +155,7 @@ const SERVICES_DATA = [
   {
     id: "pdf_cad",
     icon: <Icons.PdfCad />,
-    badge: { EN: `PACKAGE 04 · CHIEF ARCHITECT CONVERSION | PHASE: TECHNICAL DOCUMENTATION`, PT: `PACOTE 04 · CONVERSÃO CHIEF ARCHITECT | FASE: DOCUMENTAÇÃO TÉCNICA` },
+    badge: { EN: `CHIEF ARCHITECT CONVERSION | PHASE: TECHNICAL DOCUMENTATION`, PT: `CONVERSÃO CHIEF ARCHITECT | FASE: DOCUMENTAÇÃO TÉCNICA` },
     title: { EN: `Chief Architect Conversion`, PT: `Conversão para Chief Architect` },
     desc: {
       EN: `High-precision vectorization turning legacy blueprints, static PDFs, and sketches into fully editable, production-ready Chief Architect X17 native files and precise digital exports. Modeled directly within Chief Architect to ensure absolute spatial integrity.`,
@@ -319,63 +319,78 @@ export default function Services() {
 
           {/* Core Packages List */}
           <section className="core-packages-list">
-            {(SERVICES_DATA || []).slice(0, 4).map((service, idx) => (
-              <div key={service.id} className="core-package-row animate-float-up" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
-                <div className="core-package-left">
-                  <h2 className="package-number-large">0{idx + 1}</h2>
-                  <div className="package-meta-block">
-                    <span className="package-meta-label">{service.badge[lang].split('·')[0]}</span>
-                    <span className="package-meta-value">{service.badge[lang].split('|')[1]?.trim() || ''}</span>
+            {(SERVICES_DATA || []).slice(0, 4).map((service, idx) => {
+              const [badgeTitle, badgeSubtitle] = service.badge[lang].split('|');
+              
+              return (
+              <div key={service.id} className="core-package-row animate-float-up" style={{ display: 'grid', gridTemplateColumns: '1.2fr 3fr', gap: '80px', marginBottom: '80px', animationDelay: `${(idx + 1) * 100}ms` }}>
+                <div className="core-package-left" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '80px', fontWeight: '400', fontStyle: 'italic', color: '#A1824A', margin: '0 0 16px 0', lineHeight: '1' }}>0{idx + 1}</h2>
+                  
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', fontWeight: '600', textTransform: 'uppercase', color: 'var(--text-color)', marginBottom: '8px' }}>
+                      {badgeTitle?.trim()}
+                    </div>
+                    {badgeSubtitle && (
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'gray', fontWeight: '400' }}>
+                        {badgeSubtitle.trim()}
+                      </div>
+                    )}
                   </div>
+                  
+                  <div style={{ width: '100%', height: '1px', backgroundColor: 'rgba(0,0,0,0.05)', marginBottom: '24px' }}></div>
+
                   {service.output && (
-                    <div className="package-meta-block" style={{ marginTop: 16 }}>
-                      <span className="package-meta-label">OUTPUT</span>
-                      <span className="package-meta-value">{typeof service.output === 'string' ? service.output.replace('OUTPUT: ', '').replace('Output: ', '') : service.output[lang].replace('OUTPUT: ', '').replace('SAÍDA: ', '')}</span>
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'gray', marginBottom: '4px' }}>OUTPUT</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'var(--text-color)', fontWeight: '400' }}>
+                        {typeof service.output === 'string' ? service.output.replace('OUTPUT: ', '').replace('Output: ', '') : service.output[lang].replace('OUTPUT: ', '').replace('SAÍDA: ', '')}
+                      </div>
                     </div>
                   )}
                   {service.tools && (
-                    <div className="package-meta-block" style={{ marginTop: 16 }}>
-                      <span className="package-meta-label">COMPATIBLE</span>
-                      <span className="package-meta-value">{service.tools}</span>
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'gray', marginBottom: '4px' }}>COMPATIBLE</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'var(--text-color)', fontWeight: '400' }}>{service.tools}</div>
                     </div>
                   )}
                   {service.deliverables && (
-                    <div className="package-meta-block" style={{ marginTop: 16 }}>
-                      <span className="package-meta-label">DELIVERABLES</span>
-                      <span className="package-meta-value">{service.deliverables[lang]}</span>
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'gray', marginBottom: '4px' }}>DELIVERABLES</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#A1824A', fontWeight: '400' }}>{service.deliverables[lang]}</div>
                     </div>
                   )}
                 </div>
-                <div className="core-package-right">
-                  <h3 className="package-title-large">{service.title[lang]}</h3>
-                  <p className="package-desc-large">{service.desc[lang]}</p>
+                <div className="core-package-right" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '42px', fontWeight: '400', color: 'var(--text-color)', margin: '0 0 24px 0', lineHeight: '1.2' }}>{service.title[lang]}</h3>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', fontWeight: '300', color: 'var(--text-color)', lineHeight: '1.8', maxWidth: '650px', margin: '0 0 40px 0' }}>{service.desc[lang]}</p>
 
                   {service.bentoExtras ? (
                     <>
-                      <p style={{ fontSize: 10, letterSpacing: '.15em', color: "#000000", marginTop: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
-                        {lang === "EN" ? "DESIGN EXTRAS — CUSTOMIZABLE PER PROJECT" : "COMPLEMENTOS DE PROJETO — PERSONALIZÁVEIS POR OBRA"}
-                      </p>
-                      <div className="package-extras-grid">
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', color: "gray", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '600' }}>
+                        {lang === "EN" ? "DESIGN EXTRAS, CUSTOMIZABLE PER PROJECT" : "COMPLEMENTOS DE PROJETO, PERSONALIZÁVEIS POR OBRA"}
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', border: '1px solid rgba(0,0,0,0.05)', borderBottom: 'none' }}>
                         {(service.bentoExtras?.[lang] || []).map((bento, i) => (
-                          <div key={i} className="package-extra-card">
-                            <h4 className="package-extra-title">{bento.title}</h4>
-                            <p className="package-extra-desc">{bento.desc}</p>
+                          <div key={i} style={{ padding: '24px', borderBottom: '1px solid rgba(0,0,0,0.05)', borderRight: i % 2 === 0 ? '1px solid rgba(0,0,0,0.05)' : 'none' }}>
+                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: '600', color: 'var(--text-color)', marginBottom: '8px' }}>{bento.title}</div>
+                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: '400', color: 'gray', lineHeight: '1.6' }}>{bento.desc}</div>
                           </div>
                         ))}
                       </div>
                     </>
                   ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginTop: 16 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
                       <div>
-                        <p style={{ fontSize: 10, letterSpacing: '.15em', color: "#000000", marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', color: "gray", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '600' }}>
                           {lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}
-                        </p>
+                        </div>
                         {(service.list?.[lang] || []).map((item, i) => (
-                          <div key={i} className="support-list-item">
-                            <span className="support-list-bullet">▪</span>
-                            <span className="support-list-text">
+                          <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '12px', fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'gray', lineHeight: '1.6' }}>
+                            <span>▪</span>
+                            <span>
                               {typeof item === 'string' ? item : (
-                                <><strong style={{ color: 'var(--text-color)' }}>{item.label}</strong> {item.desc}</>
+                                <><strong style={{ color: 'var(--text-color)', fontWeight: '600' }}>{item.label}</strong> {item.desc}</>
                               )}
                             </span>
                           </div>
@@ -383,13 +398,13 @@ export default function Services() {
                       </div>
                       {service.notIncluded && (
                         <div>
-                          <p style={{ fontSize: 10, letterSpacing: '.15em', color: "#000000", marginBottom: 16, textTransform: 'uppercase', fontFamily: "'Century Gothic', monospace" }}>
+                          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', color: "gray", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '600' }}>
                             {lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}
-                          </p>
+                          </div>
                           {(service.notIncluded?.[lang] || []).map((item, i) => (
-                            <div key={i} className="support-list-item" style={{ color: "#000000" }}>
-                              <span className="support-list-bullet" style={{ color: 'var(--text-color)' }}>—</span>
-                              <span className="support-list-text">{item}</span>
+                            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '12px', fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'gray', lineHeight: '1.6' }}>
+                              <span>—</span>
+                              <span>{item}</span>
                             </div>
                           ))}
                         </div>
@@ -398,13 +413,13 @@ export default function Services() {
                   )}
 
                   {service.disclaimer && (
-                    <div className="package-disclaimer">
+                    <div style={{ marginTop: '32px', backgroundColor: 'rgba(0,0,0,0.03)', borderLeft: '2px solid #A1824A', padding: '16px 24px', fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'gray', fontStyle: 'italic' }}>
                       {service.disclaimer[lang]}
                     </div>
                   )}
                 </div>
               </div>
-            ))}
+            )})}
           </section>
 
           {/* Additional Support Divider */}
