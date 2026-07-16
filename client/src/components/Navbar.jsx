@@ -44,8 +44,20 @@ export default function Navbar() {
 
   return (
     <header className="header-nav">
-      <Link to="/" className="header-logo">
-        <DaraLogo size={42} variant="horizontal" />
+      <Link to="/" className="header-logo" style={{ display: 'flex', alignItems: 'center', gap: '16px', textDecoration: 'none' }}>
+        <DaraLogo size={36} variant="horizontal" />
+        <span style={{ 
+          fontSize: '10px', 
+          fontFamily: 'var(--font-sans)', 
+          fontWeight: 600, 
+          letterSpacing: '0.02em', 
+          lineHeight: 1.4, 
+          color: 'var(--text-color)',
+          borderLeft: '1px solid rgba(161, 130, 74, 0.3)',
+          paddingLeft: '16px',
+        }}>
+          Drafting Support & Permit-Ready<br />Plans for Builders
+        </span>
       </Link>
 
       {/* Menu centralizado — Glass Nav Links */}
