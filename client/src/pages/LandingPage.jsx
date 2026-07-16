@@ -297,7 +297,7 @@ export default function LandingPage() {
               <span className="badge-text">{T.howItWorksTitle}</span>
             </div>
             <div className="preview-line"></div>
-            <span className="preview-title view-all-link" onClick={() => navigate("/how-we-work")}>{T.howItWorksSubtitle}</span>
+            <span style={{ color: '#A1824A', fontSize: '10px', cursor: 'pointer', fontFamily: 'var(--font-sans)', letterSpacing: '0.05em' }} onClick={() => navigate("/how-we-work")}>{T.howItWorksSubtitle}</span>
           </div>
           <div className="how-it-works-grid">
             {T.howItWorksSteps.map((step, idx) => (
