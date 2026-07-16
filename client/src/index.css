@@ -4394,3 +4394,4 @@ a {
   background: rgba(161, 130, 74, 0.08) !important;
   background-color: rgba(161, 130, 74, 0.08) !important;
 }
+\n.home-cta-subtitle {\n  font-family: var(--font-sans);\n  font-size: 11px;\n  color: #A1824A !important;\n  letter-spacing: 0.1em;\n  text-transform: uppercase;\n}\n.home-bottom-cta {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background-color: transparent;\n  width: 100%;\n  max-width: 1200px;\n  padding: 80px 48px;\n  margin: 0 auto 40px;\n  box-sizing: border-box;\n  border-top: 1px solid var(--glass-border);\n  border-bottom: 1px solid var(--glass-border);\n}\n.home-cta-btn:hover {\n  background-color: transparent;\n  color: var(--text-color);\n}
