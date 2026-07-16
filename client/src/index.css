@@ -2281,7 +2281,7 @@ a {
   color: #A1824A !important;
 }
 
-.independent-page {\n  max-width: 1200px;
+.independent-page {
   padding-top: 0px;
   padding-bottom: 60px;
   min-height: 100vh;
