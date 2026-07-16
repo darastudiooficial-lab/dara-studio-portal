@@ -2281,7 +2281,7 @@ a {
   color: #A1824A !important;
 }
 
-.independent-page {
+.independent-page {\n  max-width: 1200px;
   padding-top: 0px;
   padding-bottom: 60px;
   min-height: 100vh;
@@ -4446,4 +4446,4 @@ a {
   letter-spacing: 0.05em;
   text-decoration: underline;
   text-underline-offset: 2px;
-}
+}\n\n.services-page-root .independent-page {\n  max-width: 1440px !important;\n  padding: 0 5%;\n}\n\n\n.services-page-root .core-packages-list {\n  max-width: 100% !important;\n  padding: 0 !important;\n}\n

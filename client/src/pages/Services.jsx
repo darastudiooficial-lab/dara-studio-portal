@@ -281,7 +281,7 @@ export default function Services() {
         <Navbar />
 
         <main className="independent-page">
-          <header className="editorial-header animate-float-up" style={{ padding: '0 48px', maxWidth: '1200px', margin: '80px auto 40px' }}>
+          <header className="editorial-header animate-float-up" style={{ padding: '0', maxWidth: '100%', margin: '80px auto 40px' }}>
             {/* Top Divider */}
             <div className="preview-header">
               <div className="badge" style={{ gap: '24px' }}>
@@ -298,7 +298,7 @@ export default function Services() {
               <h1 className="capabilities-main-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '72px', fontWeight: '400', color: 'var(--text-color)', margin: 0, lineHeight: '1', whiteSpace: 'nowrap' }}>
                 {lang === "EN" ? "What we do" : "O que fazemos"}
               </h1>
-              <p className="capabilities-desc" style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: '400', lineHeight: '1.8', color: 'var(--text-color)', maxWidth: '580px', margin: 0 }}>
+              <p className="capabilities-desc" style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: '300', lineHeight: '1.8', color: '#555555', maxWidth: '650px', margin: 0 }}>
                 {lang === "EN"
                   ? `DARA Studio operates as a seamless technical extension for U.S. builders, developers and architects. We transform complex project demands into precise, permit-ready documentation, so you scale your operation without the overhead.`
                   : `O DARA Studio atua como uma extensão técnica integrada para construtores, incorporadores e arquitetos. Transformamos demandas complexas de projetos em documentação precisa e pronta para aprovação, para que você dimensione sua operação sem custos fixos.`}
@@ -323,16 +323,16 @@ export default function Services() {
               const [badgeTitle, badgeSubtitle] = service.badge[lang].split('|');
               
               return (
-              <div key={service.id} className="core-package-row animate-float-up" style={{ display: 'grid', gridTemplateColumns: '1.2fr 3fr', gap: '80px', marginBottom: '80px', animationDelay: `${(idx + 1) * 100}ms` }}>
-                <div className="core-package-left" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '80px', fontWeight: '400', fontStyle: 'italic', color: '#A1824A', margin: '0 0 16px 0', lineHeight: '1' }}>0{idx + 1}</h2>
+              <div key={service.id} className="core-package-row animate-float-up" style={{ display: 'grid', gridTemplateColumns: '25% 1fr', gap: '100px', paddingBottom: '100px', borderBottom: '1px solid rgba(0,0,0,0.05)', animationDelay: `${(idx + 1) * 100}ms` }}>
+                <div className="core-package-left" style={{ display: 'flex', flexDirection: 'column', paddingTop: '10px' }}>
+                  <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '64px', fontWeight: '400', fontStyle: 'italic', color: '#A1824A', margin: '0 0 20px 0', lineHeight: '1' }}>0{idx + 1}</h2>
                   
                   <div style={{ marginBottom: '24px' }}>
-                    <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', fontWeight: '600', textTransform: 'uppercase', color: 'var(--text-color)', marginBottom: '8px' }}>
+                    <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', fontWeight: '600', textTransform: 'uppercase', color: 'var(--text-color)', marginBottom: '8px' }}>
                       {badgeTitle?.trim()}
                     </div>
                     {badgeSubtitle && (
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'gray', fontWeight: '400' }}>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', color: 'gray', fontWeight: '300' }}>
                         {badgeSubtitle.trim()}
                       </div>
                     )}
@@ -342,39 +342,39 @@ export default function Services() {
 
                   {service.output && (
                     <div style={{ marginBottom: '16px' }}>
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'gray', marginBottom: '4px' }}>OUTPUT</div>
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'var(--text-color)', fontWeight: '400' }}>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#888', marginBottom: '4px' }}>OUTPUT</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#333', fontWeight: '400' }}>
                         {typeof service.output === 'string' ? service.output.replace('OUTPUT: ', '').replace('Output: ', '') : service.output[lang].replace('OUTPUT: ', '').replace('SAÍDA: ', '')}
                       </div>
                     </div>
                   )}
                   {service.tools && (
                     <div style={{ marginBottom: '16px' }}>
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'gray', marginBottom: '4px' }}>COMPATIBLE</div>
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'var(--text-color)', fontWeight: '400' }}>{service.tools}</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#888', marginBottom: '4px' }}>COMPATIBLE</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#333', fontWeight: '400' }}>{service.tools}</div>
                     </div>
                   )}
                   {service.deliverables && (
                     <div style={{ marginBottom: '16px' }}>
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'gray', marginBottom: '4px' }}>DELIVERABLES</div>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#888', marginBottom: '4px' }}>DELIVERABLES</div>
                       <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#A1824A', fontWeight: '400' }}>{service.deliverables[lang]}</div>
                     </div>
                   )}
                 </div>
                 <div className="core-package-right" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '42px', fontWeight: '400', color: 'var(--text-color)', margin: '0 0 24px 0', lineHeight: '1.2' }}>{service.title[lang]}</h3>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', fontWeight: '300', color: 'var(--text-color)', lineHeight: '1.8', maxWidth: '650px', margin: '0 0 40px 0' }}>{service.desc[lang]}</p>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '46px', fontWeight: '400', color: 'var(--text-color)', margin: '0 0 20px 0', lineHeight: '1.2' }}>{service.title[lang]}</h3>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', fontWeight: '300', color: '#555555', lineHeight: '1.7', maxWidth: '750px', margin: '0 0 40px 0' }}>{service.desc[lang]}</p>
 
                   {service.bentoExtras ? (
                     <>
-                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', color: "gray", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '600' }}>
+                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', color: "#888", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '500' }}>
                         {lang === "EN" ? "DESIGN EXTRAS, CUSTOMIZABLE PER PROJECT" : "COMPLEMENTOS DE PROJETO, PERSONALIZÁVEIS POR OBRA"}
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', border: '1px solid rgba(0,0,0,0.05)', borderBottom: 'none' }}>
                         {(service.bentoExtras?.[lang] || []).map((bento, i) => (
-                          <div key={i} style={{ padding: '24px', borderBottom: '1px solid rgba(0,0,0,0.05)', borderRight: i % 2 === 0 ? '1px solid rgba(0,0,0,0.05)' : 'none' }}>
-                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: '600', color: 'var(--text-color)', marginBottom: '8px' }}>{bento.title}</div>
-                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: '400', color: 'gray', lineHeight: '1.6' }}>{bento.desc}</div>
+                          <div key={i} style={{ padding: '20px', borderBottom: '1px solid rgba(0,0,0,0.05)', borderRight: i % 2 === 0 ? '1px solid rgba(0,0,0,0.05)' : 'none' }}>
+                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '600', color: 'var(--text-color)', marginBottom: '8px' }}>{bento.title}</div>
+                            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: '300', color: '#555555', lineHeight: '1.6' }}>{bento.desc}</div>
                           </div>
                         ))}
                       </div>
@@ -382,12 +382,12 @@ export default function Services() {
                   ) : (
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
                       <div>
-                        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', color: "gray", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '600' }}>
+                        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', color: "#888", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '500' }}>
                           {lang === "EN" ? "WHAT'S INCLUDED" : "O QUE ESTÁ INCLUSO"}
                         </div>
                         {(service.list?.[lang] || []).map((item, i) => (
-                          <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '12px', fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'gray', lineHeight: '1.6' }}>
-                            <span>▪</span>
+                          <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '12px', fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#555555', lineHeight: '1.6' }}>
+                            <span style={{ fontSize: '9px' }}>▪</span>
                             <span>
                               {typeof item === 'string' ? item : (
                                 <><strong style={{ color: 'var(--text-color)', fontWeight: '600' }}>{item.label}</strong> {item.desc}</>
@@ -398,11 +398,11 @@ export default function Services() {
                       </div>
                       {service.notIncluded && (
                         <div>
-                          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.15em', color: "gray", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '600' }}>
+                          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', color: "#888", marginBottom: '16px', textTransform: 'uppercase', fontWeight: '500' }}>
                             {lang === "EN" ? "NOT INCLUDED" : "NÃO INCLUSO"}
                           </div>
                           {(service.notIncluded?.[lang] || []).map((item, i) => (
-                            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '12px', fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'gray', lineHeight: '1.6' }}>
+                            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '12px', fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#555555', lineHeight: '1.6' }}>
                               <span>—</span>
                               <span>{item}</span>
                             </div>
@@ -413,7 +413,7 @@ export default function Services() {
                   )}
 
                   {service.disclaimer && (
-                    <div style={{ marginTop: '32px', backgroundColor: 'rgba(0,0,0,0.03)', borderLeft: '2px solid #A1824A', padding: '16px 24px', fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'gray', fontStyle: 'italic' }}>
+                    <div style={{ marginTop: '24px', backgroundColor: 'rgba(0,0,0,0.03)', borderLeft: '2px solid #A1824A', padding: '16px 20px', fontFamily: 'var(--font-sans)', fontSize: '11px', color: '#555', fontStyle: 'italic', maxWidth: '80%' }}>
                       {service.disclaimer[lang]}
                     </div>
                   )}
