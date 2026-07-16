@@ -285,7 +285,8 @@ export default function Services() {
           <header className="editorial-header animate-float-up">
             {/* Top Divider */}
             <div className="preview-header">
-              <h2 className="preview-title">{lang === "EN" ? "(01) CAPABILITIES" : "(01) CAPACIDADES"}</h2>
+              <span className="badge-index">(01)</span>
+              <h2 className="preview-title" style={{ margin: 0 }}>{lang === "EN" ? "CAPABILITIES" : "CAPACIDADES"}</h2>
               <div className="preview-line"></div>
             </div>
 
@@ -313,7 +314,8 @@ export default function Services() {
 
             {/* Bottom Divider */}
             <div className="preview-header">
-              <h2 className="preview-title">{lang === "EN" ? "(A) CORE PACKAGES" : "(A) PACOTES PRINCIPAIS"}</h2>
+              <span className="badge-index">(A)</span>
+              <h2 className="preview-title" style={{ margin: 0 }}>{lang === "EN" ? "CORE PACKAGES" : "PACOTES PRINCIPAIS"}</h2>
               <div className="preview-line"></div>
             </div>
           </header>
@@ -410,8 +412,9 @@ export default function Services() {
 
           {/* Additional Support Divider */}
           <header className="editorial-header" style={{ paddingBottom: 0, paddingTop: 40, marginBottom: 40 }}>
-            <div className="preview-header">
-              <h2 className="preview-title">{lang === "EN" ? "(B) ADDITIONAL SUPPORT" : "(B) SUPORTE ADICIONAL"}</h2>
+            <div className="preview-header" style={{ marginTop: '60px' }}>
+              <span className="badge-index">(B)</span>
+              <h2 className="preview-title" style={{ margin: 0 }}>{lang === "EN" ? "ADDITIONAL SUPPORT" : "SUPORTE ADICIONAL"}</h2>
               <div className="preview-line"></div>
             </div>
           </header>

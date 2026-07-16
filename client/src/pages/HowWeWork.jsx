@@ -759,9 +759,10 @@ export default function HowWeWork() {
           <header className="editorial-header animate-float-up">
             {/* Top Divider */}
             <div className="preview-header">
-              <h2 className="preview-title">(03) METHOD</h2>
+              <span className="badge-index">(03)</span>
+              <h2 className="preview-title" style={{ margin: 0 }}>METHOD</h2>
               <div className="preview-line"></div>
-              <h2 className="preview-title">8-16 DAY CYCLES</h2>
+              <h2 className="preview-title" style={{ margin: 0 }}>8-16 DAY CYCLES</h2>
             </div>
 
             {/* Main Content */}
@@ -800,8 +801,8 @@ export default function HowWeWork() {
 
             {/* Bottom Divider */}
             <div className="preview-header">
-              <h2 className="preview-title">
-                <span style={{  marginRight: '8px' }}>(A)</span>
+              <span className="badge-index">(A)</span>
+              <h2 className="preview-title" style={{ margin: 0 }}>
                 {lang === 'EN' ? 'THE ENGAGEMENT FLOW' : 'O FLUXO DE ENGAJAMENTO'}
               </h2>
               <div className="preview-line"></div>
@@ -1008,9 +1009,9 @@ export default function HowWeWork() {
 
           {/* Timeline & Operational Flow */}
           <div className="preview-header" style={{ marginTop: '80px', marginBottom: '24px' }}>
-            <h2 className="preview-title" style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{  marginRight: '16px' }}>(B)</span>
-              <span style={{ letterSpacing: '0.15em', textTransform: 'uppercase' }}>{lang === "EN" ? "PROJECT TIMELINE & OPERATIONAL FLOW" : "CRONOGRAMA DO PROJETO & FLUXO OPERACIONAL"}</span>
+            <span className="badge-index">(B)</span>
+            <h2 className="preview-title" style={{ margin: 0, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              {lang === "EN" ? "PROJECT TIMELINE & OPERATIONAL FLOW" : "CRONOGRAMA DO PROJETO & FLUXO OPERACIONAL"}
             </h2>
             <div className="preview-line" style={{ margin: '0 0 0 16px' }}></div>
           </div>
